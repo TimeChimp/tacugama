@@ -30,8 +30,11 @@
       "pre-commit": "tsdx lint"
     }
   },
-  "name": "tacugama",
-  "author": "wouterbaltus",
+  "name": "@timechimp/tacugama",
+  "author": "TimeChimp",
+  "publishConfig": {
+    "access": "public"
+  },
   "module": "dist/tacugama.esm.js",
   "size-limit": [
     {
