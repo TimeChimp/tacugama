@@ -5,6 +5,11 @@ import { Client as Styletron } from 'styletron-engine-atomic';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
+  options: {
+    storySort: {
+      order: ['Welcome', 'Components'],
+    },
+  },
 };
 
 const styletron = new Styletron();
@@ -19,3 +24,5 @@ export const decorators = [
     </StyletronProvider>
   ),
 ];
+
+// .storybook/preview.js
