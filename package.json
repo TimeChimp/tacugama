@@ -54,6 +54,7 @@
     "@storybook/addon-links": "^6.0.26",
     "@storybook/addons": "^6.0.26",
     "@storybook/react": "^6.0.26",
+    "@storybook/theming": "^6.0.21",
     "@types/react": "^16.9.52",
     "@types/react-dom": "^16.9.8",
     "babel-loader": "^8.1.0",
@@ -72,5 +73,10 @@
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^2.1.2"
+  },
+  "dependencies": {
+    "baseui": "^9.102.0",
+    "styletron-engine-atomic": "^1.4.6",
+    "styletron-react": "^5.2.7"
   }
 }
