@@ -1,5 +1,5 @@
 import { Theme } from 'baseui/theme';
-import { DeepPartial } from 'utils';
+import { DeepPartial } from '../utils';
 
 export const lightColors: DeepPartial<Theme['colors']> = {
   contentPrimary: '#0F1020',

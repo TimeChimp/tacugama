@@ -1,5 +1,5 @@
 import { Theme } from 'baseui/theme';
-import { DeepPartial } from 'utils';
+import { DeepPartial } from '../utils';
 
 export const typography: DeepPartial<Theme['typography']> = {
   /* Heading */

@@ -1,5 +1,5 @@
 import { Theme } from 'baseui/theme';
-import { DeepPartial } from 'utils';
+import { DeepPartial } from '../utils';
 
 export interface CustomColors {
   purple700: string;
