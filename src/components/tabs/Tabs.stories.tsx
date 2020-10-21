@@ -8,22 +8,20 @@ export default {
   component: Tabs,
 } as Meta;
 
-const Template: Story<TabsProps> = () => {
-  let key: React.ReactText = '0';
+let key: React.ReactText = '0';
 
-  return (
-    <Tabs
-      activeKey={key}
-      onChange={({ activeKey }) => {
-        key = activeKey;
-      }}
-    >
-      <Tab title="First">Content 1</Tab>
-      <Tab title="Second">Content 2</Tab>
-      <Tab title="Third">Content 3</Tab>
-    </Tabs>
-  );
-};
+const Template: Story<TabsProps> = (args) => (
+  <Tabs {...args}>
+    <Tab title="First">Content 1</Tab>
+    <Tab title="Second">Content 2</Tab>
+    <Tab title="Third">Content 3</Tab>
+  </Tabs>
+);
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  activeKey: key,
+  onChange: ({ activeKey }) => {
+    key = activeKey;
+  },
+};
