@@ -21,10 +21,10 @@ Default.args = {};
 
 export const Error = ErrorTemplate.bind({});
 Error.args = {
-  message: 'Oops'
+  message: 'Oops',
 };
 
 export const Success = SuccessTemplate.bind({});
 Success.args = {
-  message: 'Ooh yeaa!'
+  message: 'Ooh yeaa!',
 };
