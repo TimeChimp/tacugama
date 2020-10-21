@@ -29,7 +29,7 @@ export const Default = Template.bind({});
 Default.args = {
   onClose: () => (isOpen = false),
   closeable: true,
-  isOpen: true,
+  isOpen,
   animate: true,
   autoFocus: true,
   size: 'default',

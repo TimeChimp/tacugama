@@ -26,3 +26,4 @@ export * from './tabs';
 export * from './skeleton';
 export * from './dropdown';
 export * from './snackbar';
+export * from './page-layout';
