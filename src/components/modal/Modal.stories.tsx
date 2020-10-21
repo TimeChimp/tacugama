@@ -9,7 +9,7 @@ export default {
   component: Modal,
 } as Meta;
 
-let isOpen = false;
+let isOpen = true;
 
 const Template: Story<ModalProps> = (args) => (
   <Modal {...args}>
@@ -29,7 +29,7 @@ export const Default = Template.bind({});
 Default.args = {
   onClose: () => (isOpen = false),
   closeable: true,
-  isOpen: isOpen,
+  isOpen: true,
   animate: true,
   autoFocus: true,
   size: 'default',
