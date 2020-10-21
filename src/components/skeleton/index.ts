@@ -1,1 +1,1 @@
-export { Skeleton } from 'baseui/skeleton';
+export { Skeleton, SkeletonPropsT } from 'baseui/skeleton';
