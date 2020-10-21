@@ -1,1 +1,1 @@
-export * from 'baseui/textarea';
+export { Textarea, TextareaProps } from 'baseui/textarea';

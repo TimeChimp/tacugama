@@ -1,2 +1,1 @@
-export { Avatar } from 'baseui/avatar';
-export type { AvatarProps } from 'baseui/avatar';
+export { Avatar, AvatarProps } from 'baseui/avatar';
