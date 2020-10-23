@@ -1,4 +1,3 @@
-export * from './page/Page';
 export * from './button';
 export * from './checkbox';
 export * from './button-group';

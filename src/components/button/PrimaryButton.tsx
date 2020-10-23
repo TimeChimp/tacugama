@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactNode } from 'react';
 import { useTheme } from '../../providers';
 import { borderBottom, borderLeft, borderRadius, borderRight, borderTop } from '../../utils';
-import { Button, ButtonProps } from '..';
+import { Button, ButtonProps } from 'components';
 
 export interface PrimaryButtonProps extends ButtonProps {
   children?: ReactNode;
