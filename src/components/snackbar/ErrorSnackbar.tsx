@@ -1,7 +1,7 @@
 import React from 'react';
 import { Snackbar, SnackbarProps } from '.';
 import { useTheme } from '../../providers';
-import { Warning } from 'components/icons';
+import { Warning } from '../icons';
 
 export interface ErrorSnackbarProps extends SnackbarProps {}
 

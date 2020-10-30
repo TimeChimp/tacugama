@@ -10,7 +10,7 @@ import {
   margin,
   padding,
 } from '../../utils';
-import { BottomArrow } from 'components/icons';
+import { BottomArrow } from '../icons';
 import { Skeleton } from '../skeleton';
 
 export type SelectOptionProps = BaseOptionProps;
