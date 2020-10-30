@@ -17,7 +17,7 @@ export * from './block';
 export * from './popover';
 export * from './spinner';
 export * from './list';
-// export * from './datepicker';
+export * from './datepicker';
 export * from './click-outside';
 export * from './error-pages';
 export * from './page';
