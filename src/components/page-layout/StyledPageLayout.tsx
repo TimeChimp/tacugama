@@ -1,5 +1,5 @@
 import { themedStyled } from '../../theme';
-import { margin, padding } from 'utils';
+import { margin, padding } from '../../utils';
 
 export const StyledPageLayout = themedStyled('div', ({ $theme }) => ({
   ...padding($theme.sizing.scale300, $theme.sizing.scale1600, $theme.sizing.scale1600, $theme.sizing.scale1600),
