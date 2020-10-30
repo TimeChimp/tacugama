@@ -1,5 +1,5 @@
 import React from 'react';
-import { Snackbar, SnackbarProps } from '.';
+import { Snackbar, SnackbarProps } from './Snackbar';
 import { useTheme } from '../../providers';
 import { Warning } from '../icons';
 

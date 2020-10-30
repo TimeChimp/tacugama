@@ -1,8 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { StatefulPopover, StatefulPopoverProps } from '.';
-import { Block, Button, Input } from '..';
+import { StatefulPopover, StatefulPopoverProps } from './';
+import { Block } from '../block';
+import { Button } from '../button';
+import { Input } from '../input';
 
 export default {
   title: 'Components/Popover',

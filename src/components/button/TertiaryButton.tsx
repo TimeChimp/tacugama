@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { Button, ButtonProps } from '..';
+import { Button, ButtonProps } from './Button';
 
 export interface TertiaryButtonProps extends ButtonProps {
   children?: React.ReactNode;

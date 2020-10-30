@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Tabs, Tab, TabsProps } from '.';
+import { Tabs, Tab, TabsProps } from './';
 
 export default {
   title: 'Components/Tabs',

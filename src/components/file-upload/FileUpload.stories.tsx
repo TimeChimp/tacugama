@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { FileUpload, FileUploadProps } from '.';
+import { FileUpload, FileUploadProps } from './';
 
 export default {
   title: 'Components/File Upload',

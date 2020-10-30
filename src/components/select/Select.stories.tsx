@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Select, SelectProps } from '.';
+import { Select, SelectProps } from './';
 
 export default {
   title: 'Components/Select',

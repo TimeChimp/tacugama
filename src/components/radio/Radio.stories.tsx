@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { RadioGroup, RadioItem, RadioProps } from '.';
+import { RadioGroup, RadioItem, RadioProps } from './';
 
 export default {
   title: 'Components/Radio',

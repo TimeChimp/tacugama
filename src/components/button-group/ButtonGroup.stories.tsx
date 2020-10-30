@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { ButtonGroup } from '.';
+import { ButtonGroup } from './';
 import { ButtonGroupProps } from './ButtonGroup';
 import { Button } from 'components';
 
