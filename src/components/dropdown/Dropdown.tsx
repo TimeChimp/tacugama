@@ -11,9 +11,20 @@ export interface DropdownProps {
   placement?: TetherPlacement[keyof TetherPlacement];
   onClose?: () => any;
   onOpen?: () => any;
+  propOverrides?: {
+    listProps: () => {};
+    optionProps: () => {};
+  };
 }
 
-export const Dropdown = ({ children, items, placement = 'bottomRight', onOpen, onClose }: DropdownProps) => {
+export const Dropdown = ({
+  children,
+  items,
+  placement = 'bottomRight',
+  onOpen,
+  onClose,
+  propOverrides,
+}: DropdownProps) => {
   return (
     <StatefulPopover
       focusLock
@@ -28,6 +39,9 @@ export const Dropdown = ({ children, items, placement = 'bottomRight', onOpen, o
               style: {
                 ...padding(),
               },
+              props: {
+                ...propOverrides?.listProps(),
+              },
             },
             Option: {
               component: DropdownOption,
@@ -38,6 +52,12 @@ export const Dropdown = ({ children, items, placement = 'bottomRight', onOpen, o
                   }
                   close();
                 },
+                ...propOverrides?.optionProps(),
+              },
+            },
+            ListItem: {
+              props: {
+                ...propOverrides?.optionProps(),
               },
             },
           }}
