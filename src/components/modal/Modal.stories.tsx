@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Modal, ModalHeader, ModalBody, ModalFooter, ModalProps } from '.';
+import { Modal, ModalHeader, ModalBody, ModalFooter, ModalProps } from './';
 import { Button, SecondaryButton } from 'components';
 
 export default {

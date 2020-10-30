@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { Button, ButtonProps } from 'components';
+import { Button, ButtonProps } from './Button';
 import { border } from '../../utils';
 
 export interface SecondaryButtonProps extends ButtonProps {

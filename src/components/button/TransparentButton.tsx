@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { Button, ButtonProps } from 'components';
+import { Button, ButtonProps } from './Button';
 import { padding } from '../../utils';
 
 export interface TransparentButtonProps extends ButtonProps {

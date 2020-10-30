@@ -10,16 +10,20 @@ import {
   margin,
   padding,
 } from '../../utils';
-import { BottomArrow } from 'components/icons';
+import { BottomArrow } from '../icons';
 import { Skeleton } from '../skeleton';
 
 export type SelectOptionProps = BaseOptionProps;
 
 export interface SelectProps extends BaseSelectProps {
   options: SelectOptionProps[];
+  propOverrides?: {
+    dropdownListItemProps?: () => {};
+    rootProps?: () => {};
+  };
 }
 
-export const Select = ({ size = 'compact', isLoading, ...rest }: SelectProps) => {
+export const Select = ({ size = 'compact', isLoading, propOverrides, ...rest }: SelectProps) => {
   const {
     theme: {
       current: {
@@ -57,6 +61,9 @@ export const Select = ({ size = 'compact', isLoading, ...rest }: SelectProps) =>
                   borderColor: getInputBorderColor($error, $isFocused, colors, borders),
                 }),
               }),
+              props: {
+                ...propOverrides?.rootProps?.apply(propOverrides),
+              },
             },
             Placeholder: {
               style: ({ $disabled, $isFocused }) => ({
@@ -92,6 +99,9 @@ export const Select = ({ size = 'compact', isLoading, ...rest }: SelectProps) =>
                 ':hover': {
                   backgroundColor: primary100,
                 },
+              },
+              props: {
+                ...propOverrides?.dropdownListItemProps?.apply(propOverrides),
               },
             },
             SelectArrow: {

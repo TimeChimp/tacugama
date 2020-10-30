@@ -6,7 +6,7 @@ import {
   StyledPageTitleContainer,
   StyledPageMenuContainer,
 } from './StyledPageLayout';
-import { HeadingSmall } from 'components';
+import { HeadingSmall } from '../typography';
 
 export interface PageLayoutProps {
   pageTitle: JSX.Element;

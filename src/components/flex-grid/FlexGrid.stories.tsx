@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { FlexGrid, FlexGridItem, FlexGridProps } from '.';
+import { FlexGrid, FlexGridItem, FlexGridProps } from './';
 
 export default {
   title: 'Components/Flex Grid',

@@ -1,4 +1,4 @@
-import { HeadingSmall } from 'components';
+import { HeadingSmall } from '../typography';
 import React from 'react';
 
 export const Forbidden = () => {

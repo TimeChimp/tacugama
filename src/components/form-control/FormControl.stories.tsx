@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { FormControl, FormControlProps } from '.';
+import { FormControl, FormControlProps } from './';
 import { Input } from 'components';
 
 export default {

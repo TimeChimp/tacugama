@@ -10,7 +10,7 @@ import {
   LabelMedium,
   HeadingXSmall,
   HeadingSmall,
-} from '.';
+} from './';
 
 export default {
   title: 'Components/Typography',

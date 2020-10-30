@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Box } from '.';
+import { Box } from './Box';
 import { BoxHeader } from './BoxHeader';
 import { BoxBody } from './BoxBody';
 import { BoxFooter } from './BoxFooter';

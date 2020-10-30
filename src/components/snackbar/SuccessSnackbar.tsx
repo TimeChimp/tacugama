@@ -1,7 +1,7 @@
 import React from 'react';
-import { Snackbar, SnackbarProps } from 'components';
+import { Snackbar, SnackbarProps } from './Snackbar';
 import { useTheme } from '../../providers';
-import { Check } from 'components/icons';
+import { Check } from '../icons';
 
 export interface SuccessSnackbarProps extends SnackbarProps {}
 
