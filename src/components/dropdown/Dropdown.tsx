@@ -1,5 +1,6 @@
 import React from 'react';
-import { StatefulMenu, StatefulPopover } from 'components';
+import { StatefulMenu } from '../menu';
+import { StatefulPopover } from '../popover';
 import { DropdownItem, DropdownOption } from './DropdownOption';
 import { TetherPlacement } from 'baseui/layer';
 import { padding } from '../../utils';
