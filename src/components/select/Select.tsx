@@ -14,6 +14,7 @@ import { BottomArrow } from '../icons';
 import { Skeleton } from '../skeleton';
 
 export type SelectOptionProps = BaseOptionProps;
+export { Option, Value } from 'baseui/select';
 
 export interface SelectProps extends BaseSelectProps {
   options: SelectOptionProps[];
