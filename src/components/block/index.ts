@@ -1,1 +1,1 @@
-export * from 'baseui/block';
+export { Block, BlockProps, AlignContent } from 'baseui/block';
