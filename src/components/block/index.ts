@@ -1,2 +1,1 @@
-export { Block } from 'baseui/block';
-export type { BlockProps } from 'baseui/block';
+export * from 'baseui/block';
