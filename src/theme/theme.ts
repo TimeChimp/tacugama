@@ -95,5 +95,6 @@ export const getTheme = (options: ThemeOptionsProps = defaultTheme): Theme => {
 export const themedStyled = createThemedStyled<CustomThemeType>();
 export const themedWithStyle = createThemedWithStyle<CustomThemeType>();
 export const themedUseStyletron = createThemedUseStyletron<CustomThemeType>();
+export { withStyle, WithStyleFn } from 'baseui';
 
 export default getTheme;
