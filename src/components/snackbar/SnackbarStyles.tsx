@@ -1,5 +1,5 @@
 import { themedStyled } from '../../theme';
-import { borderRadius, margin } from '../../utils';
+import { borderRadius, margin, padding } from '../../utils';
 
 export interface StyledSnackbarProps {
   $color?: string;
@@ -12,18 +12,18 @@ export const StyledSnackbar = themedStyled<'div', StyledSnackbarProps>('div', ({
   backgroundColor: $color,
   ...borderRadius($theme.sizing.scale0),
   ...margin($theme.sizing.scale600, '0', '0', $theme.sizing.scale600),
-  height: '44px', // NOTE: Value does not exist in theme
+  ...padding($theme.sizing.scale550),
   width: '301px', // NOTE: Value does not exist in theme
   boxShadow: $theme.lighting.shadow500,
 }));
 
 export const StyledSpan = themedStyled('span', ({ $theme }) => ({
-  ...margin('0', $theme.sizing.scale550, '0', $theme.sizing.scale550),
+  ...margin('0', $theme.sizing.scale550, '0', '0'),
   display: 'flex',
-  alignItems: 'flex-inline',
+  alignItems: 'flex-end',
 }));
 
 export const StyledDiv = themedStyled('div', {
   display: 'flex',
-  alignItems: 'flex-inline',
+  alignItems: 'center',
 });
