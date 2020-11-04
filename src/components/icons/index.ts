@@ -17,3 +17,4 @@ export * from './Trash';
 export * from './Pencil';
 export * from './Warning';
 export * from './Check';
+export * from './Location';
