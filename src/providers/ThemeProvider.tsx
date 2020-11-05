@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { BaseProvider } from 'baseui';
 import { ThemeOptionsProps, getTheme, Theme } from '../theme';
-import { debug, styletron, StyletronProvider } from './styletron';
+import { debug, styletron, StyletronProvider } from './StyletronProvider';
 
 export interface ThemeContextProps {
   theme: Theme;
