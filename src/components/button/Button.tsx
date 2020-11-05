@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import { Button as BaseButton, ButtonProps as BaseButtonProps } from 'baseui/button';
+export { SHAPE } from 'baseui/button';
 
 export interface ButtonProps extends BaseButtonProps {
   children?: React.ReactNode;
