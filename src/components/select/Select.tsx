@@ -92,7 +92,7 @@ export const Select = ({ size = 'compact', isLoading, propOverrides, ...rest }: 
             },
             Dropdown: {
               style: {
-                ...padding(),
+                ...padding('0'),
               },
             },
             DropdownListItem: {
