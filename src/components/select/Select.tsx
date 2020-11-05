@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Select as BaseSelect,
-  SelectProps as BaseSelectProps,
-  Option as BaseOptionProps,
-  Value as BaseValue,
-} from 'baseui/select';
+import { Select as BaseSelect, SelectProps as BaseSelectProps, Option, Value, OnChangeParams } from 'baseui/select';
 import { useTheme } from '../../providers';
 import {
   border,
@@ -17,9 +12,6 @@ import {
 } from '../../utils';
 import { BottomArrow } from '../icons';
 import { Skeleton } from '../skeleton';
-
-export interface Option extends BaseOptionProps {}
-export type Value = BaseValue;
 
 export interface SelectProps extends BaseSelectProps {
   options: Option[];
@@ -126,3 +118,5 @@ export const Select = ({ size = 'compact', isLoading, propOverrides, ...rest }: 
     </>
   );
 };
+
+export { Option, Value, OnChangeParams };

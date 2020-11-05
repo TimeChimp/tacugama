@@ -1,5 +1,5 @@
 import React from 'react';
-import { Option as BaseOptionProps } from 'baseui/select';
+import { Option as BaseOptionProps } from './Select';
 
 import { StyledOption, StyledColorSwatch } from './ColorSelectStyles';
 

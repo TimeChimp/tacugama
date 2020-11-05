@@ -1,2 +1,2 @@
-export * from './Select';
-export * from './ColorSelect';
+export { Select, SelectProps, Option, Value, OnChangeParams } from './Select';
+export { ColorSelect, ColorOptionProps } from './ColorSelect';

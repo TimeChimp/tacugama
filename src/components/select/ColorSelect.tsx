@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select as BaseSelect, SelectProps as BaseSelectProps, OnChangeParams } from 'baseui/select';
+import { Select as BaseSelect, SelectProps as BaseSelectProps, OnChangeParams } from './Select';
 
 import { ColorOption } from './ColorOption';
 

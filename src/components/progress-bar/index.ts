@@ -1,1 +1,1 @@
-export * from 'baseui/progress-bar';
+export { ProgressBar, ProgressBarProps } from 'baseui/progress-bar';
