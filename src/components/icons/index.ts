@@ -1,4 +1,4 @@
-export { ChevronDown, ChevronUp, ChevronRight, Delete, Menu, Plus, Search } from 'baseui/icon';
+export { ChevronDown, ChevronUp, ChevronRight, Delete, Menu, Plus, Search, Upload } from 'baseui/icon';
 export * from './Calendar';
 export * from './SwapHorizontal';
 export * from './LeftArrow';
