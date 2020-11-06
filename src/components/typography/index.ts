@@ -8,3 +8,6 @@ export { LabelMedium } from './LabelMedium';
 
 export { HeadingSmall } from './HeadingSmall';
 export { HeadingXSmall } from './HeadingXSmall';
+export { HeadingMedium } from './HeadingMedium';
+export { HeadingLarge } from './HeadingLarge';
+export { HeadingXLarge } from './HeadingXLarge';
