@@ -1,6 +1,6 @@
 import React from 'react';
 import { ButtonProps } from 'baseui/button';
-import { border } from '../../utils';
+import { border, borderRadius } from '../../utils';
 import { ModalButton } from 'baseui/modal';
 
 export const SecondaryModalButton = ({ children, size = 'compact', ...rest }: ButtonProps) => (
@@ -13,6 +13,7 @@ export const SecondaryModalButton = ({ children, size = 'compact', ...rest }: Bu
         style: ({ $theme }) => {
           return {
             ...border($theme.borders.border300),
+            ...borderRadius($theme.borders.radius200),
             boxSizing: 'border-box',
           };
         },
