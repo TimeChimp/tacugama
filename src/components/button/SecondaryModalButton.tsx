@@ -13,7 +13,7 @@ export const SecondaryModalButton = ({ children, size = 'compact', ...rest }: Bu
         style: ({ $theme }) => {
           return {
             ...border($theme.borders.border300),
-            ...borderRadius($theme.borders.radius200),
+            ...borderRadius($theme.borders.radius100),
             boxSizing: 'border-box',
           };
         },

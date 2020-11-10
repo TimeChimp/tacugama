@@ -8,7 +8,7 @@ export const ModalButton = ({ children, size = 'compact', ...rest }: BaseButtonP
   const {
     theme: {
       current: {
-        borders: { radius200 },
+        borders: { radius100 },
       },
     },
   } = useTheme();
@@ -19,7 +19,7 @@ export const ModalButton = ({ children, size = 'compact', ...rest }: BaseButtonP
       overrides={{
         BaseButton: {
           style: {
-            ...borderRadius(radius200),
+            ...borderRadius(radius100),
           },
         },
       }}

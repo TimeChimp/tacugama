@@ -6,7 +6,7 @@ import { border, borderRadius, MountStateNotifier, MountStates } from '../../uti
 const modalOverride = (name?: string): ModalOverrides => ({
   Dialog: {
     style: ({ $theme }) => ({
-      ...border($theme.borders.border300),
+      ...border($theme.borders.border100),
       ...borderRadius($theme.borders.radius100),
     }),
     props: {
