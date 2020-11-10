@@ -1,11 +1,12 @@
 import React from 'react';
 import { Modal as BaseModal, ModalProps as BaseModelProps, ModalOverrides } from 'baseui/modal';
 
-import { borderRadius, MountStateNotifier, MountStates } from '../../utils';
+import { border, borderRadius, MountStateNotifier, MountStates } from '../../utils';
 
 const modalOverride = (name?: string): ModalOverrides => ({
   Dialog: {
     style: ({ $theme }) => ({
+      ...border($theme.borders.border100),
       ...borderRadius($theme.borders.radius100),
     }),
     props: {

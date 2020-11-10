@@ -33,7 +33,7 @@ export const Select = ({ size = 'compact', isLoading, propOverrides, ...rest }: 
       },
     },
   } = useTheme();
-  const { border300 } = borders;
+  const { border300, radius100 } = borders;
   const { primaryB, primary100 } = colors;
   return (
     <>
@@ -90,6 +90,7 @@ export const Select = ({ size = 'compact', isLoading, propOverrides, ...rest }: 
             Dropdown: {
               style: {
                 ...padding('0'),
+                ...borderRadius(radius100),
               },
             },
             DropdownListItem: {

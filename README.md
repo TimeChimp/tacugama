@@ -1,4 +1,4 @@
-# Tucagama
+# Tacugama
 
 React components for a seamless integration with the TimeChimp UI
 
