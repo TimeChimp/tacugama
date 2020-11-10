@@ -73,6 +73,7 @@ export const Select = ({ size = 'compact', isLoading, propOverrides, ...rest }: 
             },
             DropdownContainer: {
               style: {
+                ...borderRadius(scale0),
                 ...border(border300),
               },
             },
