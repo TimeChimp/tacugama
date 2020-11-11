@@ -14,6 +14,7 @@ export * from './CalendarDayActive';
 export * from './ActionMenu';
 export * from './ActionMenuActive';
 export * from './Trash';
+export * from './TrashFull';
 export * from './Pencil';
 export * from './Warning';
 export * from './Check';
