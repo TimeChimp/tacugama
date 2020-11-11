@@ -19,7 +19,6 @@ const radioOverrides = ({ icon, colored }: Pick<RadioProps, 'icon' | 'colored'>)
       ...margin('0'),
       ...padding('8px', '24px'),
       ...(colored && {
-        backgroundColor: $checked ? $theme.colors.primary100 : undefined,
         ':hover': {
           backgroundColor: $checked ? undefined : $theme.colors.primary50,
         },
