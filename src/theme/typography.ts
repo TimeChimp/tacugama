@@ -3,6 +3,11 @@ import { DeepPartial } from '../utils';
 
 export const typography: DeepPartial<Theme['typography']> = {
   /* Heading */
+  HeadingXXLarge: {
+    fontSize: '40px',
+    lineHeight: '52px',
+    fontWeight: 700,
+  },
   HeadingSmall: {
     fontSize: '24px',
     lineHeight: '32px',

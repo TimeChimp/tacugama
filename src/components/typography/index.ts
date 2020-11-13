@@ -11,3 +11,4 @@ export { HeadingXSmall } from './HeadingXSmall';
 export { HeadingMedium } from './HeadingMedium';
 export { HeadingLarge } from './HeadingLarge';
 export { HeadingXLarge } from './HeadingXLarge';
+export { HeadingXXLarge } from './HeadingXXLarge';

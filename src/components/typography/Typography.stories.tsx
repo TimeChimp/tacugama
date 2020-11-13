@@ -13,6 +13,7 @@ import {
   HeadingMedium,
   HeadingLarge,
   HeadingXLarge,
+  HeadingXXLarge,
 } from './';
 
 export default {
@@ -22,6 +23,7 @@ export default {
 
 const Template: Story = () => (
   <>
+    <HeadingXXLarge>HeadingXXLarge</HeadingXXLarge>
     <HeadingXLarge>HeadingXLarge</HeadingXLarge>
     <HeadingLarge>HeadingLarge</HeadingLarge>
     <HeadingMedium>HeadingMedium</HeadingMedium>
