@@ -23,3 +23,4 @@ export * from './Settings';
 export * from './Logout';
 export * from './Undo';
 export * from './Camera';
+export * from './ReturnArrow';
