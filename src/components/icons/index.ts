@@ -24,3 +24,4 @@ export * from './Logout';
 export * from './Undo';
 export * from './Camera';
 export * from './ReturnArrow';
+export * from './TcClock';
