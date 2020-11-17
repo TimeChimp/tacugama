@@ -1,6 +1,6 @@
 // @ts-nocheck - Types not set up properly for animations
 import React from 'react';
-import { themedStyled } from 'theme';
+import { themedStyled } from '../../theme';
 import { Icon, SVGProps, defaultIconProps } from './Icon';
 
 const StyledSvg = themedStyled('svg', {
