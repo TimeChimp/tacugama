@@ -84,6 +84,7 @@
   },
   "dependencies": {
     "baseui": "^9.102.0",
+    "deepmerge": "^4.2.2",
     "styletron-engine-atomic": "^1.4.6",
     "styletron-react": "^5.2.7"
   }
