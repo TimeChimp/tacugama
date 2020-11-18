@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal as BaseModal, ModalProps as BaseModelProps } from 'baseui/modal';
+import { Modal as BaseModal, ModalOverrides, ModalProps as BaseModelProps } from 'baseui/modal';
 import { useTheme } from '../../providers/ThemeProvider';
 import merge from 'deepmerge';
 
@@ -11,14 +11,14 @@ export interface ModalProps extends BaseModelProps {
   name?: string;
 }
 
-export const Modal = ({ children, onStateChange, name, overrides, ...rest }: ModalProps) => {
+export const Modal = ({ children, onStateChange, name, overrides = {}, ...rest }: ModalProps) => {
   // By utilizing the `MountStateNotifier` inside of `BaseModal` it will know the mountstate for when
   // the modal is closed. The base modal is unmounted, but this component `Modal` is still mounted.
   // Hence using a component to check the current state so the modal can use animations for mount states.
 
   const { theme } = useTheme();
 
-  const defaultOverrides = {
+  const mergedOverrides: ModalOverrides = merge(overrides, {
     Dialog: {
       style: {
         ...border(theme.current.borders.border100),
@@ -32,13 +32,13 @@ export const Modal = ({ children, onStateChange, name, overrides, ...rest }: Mod
         top: theme.current.sizing.scale700,
       },
     },
-  };
+  });
 
   return (
     <BaseModal
       autoFocus={false}
       unstable_ModalBackdropScroll={true} // prop will be removed in the next major version but implemented as the default behavior
-      overrides={merge(overrides || {}, defaultOverrides)}
+      overrides={mergedOverrides}
       {...rest}
     >
       {onStateChange && <MountStateNotifier onStateChange={onStateChange} />}
