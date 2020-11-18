@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal as BaseModal, ModalProps as BaseModelProps } from 'baseui/modal';
-import { useTheme } from 'providers/ThemeProvider';
+import { useTheme } from '../../providers/ThemeProvider';
 import merge from 'deepmerge';
 
 import { border, borderRadius, MountStateNotifier, MountStates } from '../../utils';
@@ -23,9 +23,6 @@ export const Modal = ({ children, onStateChange, name, overrides, ...rest }: Mod
       style: {
         ...border(theme.current.borders.border100),
         ...borderRadius(theme.current.borders.radius100),
-      },
-      props: {
-        'data-testid': `${name ? name + '-' : ''}modal`,
       },
     },
     Close: {
