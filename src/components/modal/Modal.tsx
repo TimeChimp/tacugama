@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal as BaseModal, ModalProps as BaseModelProps } from 'baseui/modal';
-import { useTheme } from 'hooks';
+import { useTheme } from 'providers/ThemeProvider';
 import merge from 'deepmerge';
 
 import { border, borderRadius, MountStateNotifier, MountStates } from '../../utils';
