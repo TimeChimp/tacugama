@@ -1,8 +1,8 @@
+import React from 'react';
 import { useTheme } from '../../providers';
 import { Textarea as BaseTextArea, TextareaProps as BaseTextareaProps } from 'baseui/textarea';
-import React from 'react';
-import { border, borderRadius, getInputBorderColor, getInputContainerColors } from 'utils';
-import { DATA_TEST_ID } from 'models';
+import { border, borderRadius, getInputBorderColor, getInputContainerColors } from '../../utils';
+import { DATA_TEST_ID } from '../../models';
 
 export interface TextareaProps extends BaseTextareaProps {
   resizeable?: boolean;
