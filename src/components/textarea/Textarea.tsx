@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { useTheme } from '../../providers';
 import { Textarea as BaseTextArea, TextareaProps as BaseTextareaProps } from 'baseui/textarea';
@@ -48,6 +49,11 @@ export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps)
               boxShadow: shadow400,
               ...borderRadius(radius100),
             };
+          },
+          Root: {
+            style: {
+              border: 'none',
+            },
           },
           props: {
             [DATA_TEST_ID]: testId,
