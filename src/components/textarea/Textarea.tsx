@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-nocheck - Need to override textarea root property but type is missing
 import React from 'react';
 import { useTheme } from '../../providers';
 import { Textarea as BaseTextArea, TextareaProps as BaseTextareaProps } from 'baseui/textarea';
@@ -50,13 +50,13 @@ export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps)
               ...borderRadius(radius100),
             };
           },
-          Root: {
-            style: {
-              border: 'none',
-            },
-          },
           props: {
             [DATA_TEST_ID]: testId,
+          },
+        },
+        Root: {
+          style: {
+            border: 'none',
           },
         },
       }}
