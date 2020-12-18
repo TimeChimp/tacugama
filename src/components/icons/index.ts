@@ -25,3 +25,4 @@ export * from './Undo';
 export * from './Camera';
 export * from './ReturnArrow';
 export * from './TcClock';
+export * from './Deselect';
