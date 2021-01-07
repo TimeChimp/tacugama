@@ -4,7 +4,7 @@ export * from './button-group';
 export * from './modal';
 export * from './typography';
 export * from './radio';
-export * from './input';
+export * from './input/Input';
 export * from './textarea';
 export * from './file-upload';
 export * from './form-control';
