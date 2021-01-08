@@ -59,6 +59,11 @@ export const Input = ({ ...rest }: InputProps) => {
             ...margin(scale0),
           }),
         },
+        StartEnhancer: {
+          style: {
+            backgroundColor: primaryB,
+          },
+        },
         EndEnhancer: {
           style: {
             backgroundColor: primaryB,
