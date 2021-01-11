@@ -1,25 +1,50 @@
 import React from 'react';
 import { ModalButton as BaseModalButton } from 'baseui/modal';
 import { ButtonProps as BaseButtonProps } from 'baseui/button';
-import { borderBottom, borderLeft, borderRadius, borderRight, borderTop } from '../../utils';
+import {
+  borderBottom,
+  borderLeft,
+  borderRadius,
+  borderRight,
+  borderTop,
+  getButtonBackgroundColor,
+  getButtonBackgroundHoverColor,
+} from '../../utils';
 import useTheme from '../../providers/ThemeProvider';
+import { CustomThemeType } from '../../models';
+import { ButtonType } from '.';
 
-export const ModalButton = ({ children, size = 'compact', ...rest }: BaseButtonProps) => {
+export interface ModalButtonProps extends BaseButtonProps {
+  buttonType?: ButtonType;
+}
+
+export const ModalButton = ({
+  children,
+  size = 'compact',
+  buttonType = ButtonType.default,
+  ...rest
+}: ModalButtonProps) => {
   const {
     theme: {
       current: {
         sizing: { scale0, scale600 },
-        colors: { primaryB, borderTransparent },
+        colors,
       },
     },
   } = useTheme();
+  const { primaryB, borderTransparent } = colors;
+
   return (
     <BaseModalButton
       size={size}
       overrides={{
         BaseButton: {
-          style: ({ $theme }) => ({
+          style: ({ $theme }: { $theme: CustomThemeType }) => ({
             ...borderRadius($theme.borders.radius100),
+            backgroundColor: getButtonBackgroundColor(buttonType, colors),
+            ':hover': {
+              backgroundColor: getButtonBackgroundHoverColor(buttonType),
+            },
           }),
         },
         LoadingSpinner: {

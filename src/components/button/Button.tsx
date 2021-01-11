@@ -1,6 +1,14 @@
 import React, { forwardRef } from 'react';
 import { useTheme } from '../../providers';
-import { borderBottom, borderLeft, borderRadius, borderRight, borderTop } from '../../utils';
+import {
+  borderBottom,
+  borderLeft,
+  borderRadius,
+  borderRight,
+  borderTop,
+  getButtonBackgroundColor,
+  getButtonBackgroundHoverColor,
+} from '../../utils';
 import { Button as BaseButton, ButtonProps as BaseButtonProps, KIND } from 'baseui/button';
 
 export enum ButtonType {
@@ -22,30 +30,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       theme: {
         current: {
           sizing: { scale0, scale600 },
-          colors: { primaryB, primary300, primary400, borderTransparent, backgroundPositive },
+          colors,
         },
       },
     } = useTheme();
-
-    const getBackgroundColor = (type: ButtonType) => {
-      const colors = {
-        default: primary400,
-        success: backgroundPositive,
-        error: '#FF5C5C',
-      };
-
-      return colors[type];
-    };
-
-    const getBackgroundHoverColor = (type: ButtonType) => {
-      const colors = {
-        default: '#5147A8',
-        success: '#06C270',
-        error: '#FF3B3B',
-      };
-
-      return colors[type];
-    };
+    const { primaryB, primary300, borderTransparent } = colors;
 
     return (
       <BaseButton
@@ -57,9 +46,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           Root: {
             style: {
               ...borderRadius(scale0),
-              backgroundColor: getBackgroundColor(buttonType),
+              backgroundColor: getButtonBackgroundColor(buttonType, colors),
               ':hover': {
-                backgroundColor: getBackgroundHoverColor(buttonType),
+                backgroundColor: getButtonBackgroundHoverColor(buttonType),
               },
               ':disabled': {
                 backgroundColor: primary300,

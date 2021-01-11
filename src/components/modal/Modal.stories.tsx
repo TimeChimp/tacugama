@@ -2,7 +2,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Modal, ModalHeader, ModalBody, ModalFooter, ModalProps } from './';
-import { ModalButton, SecondaryModalButton } from 'components';
+import { ModalButton, SecondaryModalButton, ButtonType } from 'components';
 
 export default {
   title: 'Components/Modal',
@@ -20,7 +20,7 @@ const Template: Story<ModalProps> = (args) => (
     </ModalBody>
     <ModalFooter>
       <SecondaryModalButton>Cancel</SecondaryModalButton>
-      <ModalButton>Okay</ModalButton>
+      <ModalButton buttonType={ButtonType.error}>Okay</ModalButton>
     </ModalFooter>
   </Modal>
 );

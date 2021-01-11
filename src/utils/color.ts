@@ -1,4 +1,5 @@
 import { Borders, Colors } from 'baseui/theme';
+import { ButtonType } from 'components/button';
 
 const padZeroRight = (input: string, length: number) => input + '0'.repeat(length - input.length);
 const padZeroLeft = (input: string, length: number) => ('0'.repeat(length) + input).slice(-length);
@@ -131,4 +132,24 @@ export const getInputPlaceholderTextColor = (
   }
 
   return contentTertiary;
+};
+
+export const getButtonBackgroundColor = (type: ButtonType, { primary400, backgroundPositive }: Colors) => {
+  const colors = {
+    default: primary400,
+    success: backgroundPositive,
+    error: '#FF5C5C',
+  };
+
+  return colors[type];
+};
+
+export const getButtonBackgroundHoverColor = (type: ButtonType) => {
+  const colors = {
+    default: '#5147A8',
+    success: '#06C270',
+    error: '#FF3B3B',
+  };
+
+  return colors[type];
 };

@@ -1,4 +1,7 @@
+import { ButtonType } from '../../components';
 import {
+  getButtonBackgroundColor,
+  getButtonBackgroundHoverColor,
   getInputBorderColor,
   getInputContainerColors,
   getInputPlaceholderTextColor,
@@ -90,6 +93,51 @@ describe('utils/colors', () => {
       const inputBorderColor = getInputPlaceholderTextColor(true, false, colors as any);
 
       expect(inputBorderColor).toBe(colors.contentStateDisabled);
+    });
+  });
+
+  describe('getButtonBackgroundColor', () => {
+    const colors = {
+      primary400: 'primary400',
+      backgroundPositive: 'backgroundPositive',
+    };
+
+    it('should get a default color', () => {
+      const buttonBackgroundColor = getButtonBackgroundColor(ButtonType.default, colors as any);
+
+      expect(buttonBackgroundColor).toBe(colors.primary400);
+    });
+
+    it('should get a success color', () => {
+      const buttonBackgroundColor = getButtonBackgroundColor(ButtonType.success, colors as any);
+
+      expect(buttonBackgroundColor).toBe(colors.backgroundPositive);
+    });
+
+    it('should get an error color', () => {
+      const buttonBackgroundColor = getButtonBackgroundColor(ButtonType.error, colors as any);
+
+      expect(buttonBackgroundColor).toBe('#FF5C5C');
+    });
+  });
+
+  describe('getButtonBackgroundHoverColor', () => {
+    it('should get a default color', () => {
+      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.default);
+
+      expect(buttonBackgroundColor).toBe('#5147A8');
+    });
+
+    it('should get a success color', () => {
+      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.success);
+
+      expect(buttonBackgroundColor).toBe('#06C270');
+    });
+
+    it('should get an error color', () => {
+      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.error);
+
+      expect(buttonBackgroundColor).toBe('#FF3B3B');
     });
   });
 });
