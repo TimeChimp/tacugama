@@ -12,7 +12,7 @@ import {
 } from '../../utils';
 import useTheme from '../../providers/ThemeProvider';
 import { CustomThemeType } from '../../models';
-import { ButtonType } from '.';
+import { ButtonType } from '../button';
 
 export interface ModalButtonProps extends BaseButtonProps {
   buttonType?: ButtonType;
