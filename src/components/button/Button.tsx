@@ -10,12 +10,8 @@ import {
   getButtonBackgroundHoverColor,
 } from '../../utils';
 import { Button as BaseButton, ButtonProps as BaseButtonProps, KIND } from 'baseui/button';
+import { ButtonType } from '../../models';
 
-export enum ButtonType {
-  default = 'default',
-  success = 'success',
-  error = 'error',
-}
 export interface ButtonProps extends BaseButtonProps {
   buttonType?: ButtonType;
   kind?: KIND[keyof KIND];

@@ -1,4 +1,4 @@
-import { ButtonType } from '../../components';
+import { ButtonType } from '../../models';
 import {
   getButtonBackgroundColor,
   getButtonBackgroundHoverColor,
