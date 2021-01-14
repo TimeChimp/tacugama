@@ -55,7 +55,7 @@ export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps)
         },
         Root: {
           style: {
-            border: 'none',
+            ...border('none'),
           },
         },
       }}
