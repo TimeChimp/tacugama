@@ -4,12 +4,10 @@ import { ModalHeader } from '../modal/ModalHeader';
 import { SecondaryModalButton } from '../button/SecondaryModalButton';
 import { ModalFooter } from '../modal/ModalFooter';
 import { ModalBody } from '../modal/ModalBody';
-import { ButtonType } from '../../models/ButtonType';
 import { HeadingSmall } from '../typography/HeadingSmall';
 import { ParagraphSmall } from '../typography/ParagraphSmall';
 import { ModalButton } from '../button/ModalButton';
-
-export type ConfirmationModalType = 'default' | 'danger' | 'success';
+import { ButtonType, ConfirmationModalType } from '../../models';
 
 export interface ConfirmationModalProps {
   title: string;
@@ -26,7 +24,7 @@ export interface ConfirmationModalProps {
 export const ConfirmationModal = ({
   title,
   description,
-  type = 'default',
+  type = ConfirmationModalType.default,
   isOpen,
   setIsOpen,
   submitLabel,
@@ -54,11 +52,11 @@ export const ConfirmationModal = ({
 
   const getButtonType = () => {
     switch (type) {
-      case 'default':
+      case ConfirmationModalType.default:
         return ButtonType.default;
-      case 'danger':
+      case ConfirmationModalType.danger:
         return ButtonType.error;
-      case 'success':
+      case ConfirmationModalType.success:
         return ButtonType.success;
     }
   };
