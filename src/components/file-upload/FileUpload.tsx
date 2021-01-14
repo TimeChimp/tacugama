@@ -7,7 +7,7 @@ import {
 } from 'baseui/file-uploader';
 import FileUploadInstruction from './FileUploadInstruction';
 import FileUploadPreview from './FileUploadPreview';
-import { padding } from 'utils';
+import { padding } from '../../utils';
 
 const fileUploaderOverrides = (
   instructionMessage: string,
