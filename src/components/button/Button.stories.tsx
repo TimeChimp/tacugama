@@ -2,7 +2,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Button, ButtonProps } from './';
-import { ButtonType } from './Button';
+import { ButtonType } from 'models';
 
 export default {
   title: 'Components/Button',
