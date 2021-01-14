@@ -44,6 +44,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <BaseButton
         ref={ref}
         kind={kind}
+        size={size}
         isLoading={isLoading}
         disabled={disabled || isLoading}
         overrides={{
