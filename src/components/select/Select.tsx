@@ -29,7 +29,6 @@ export const Select = ({ size = 'compact', isLoading, propOverrides, ...rest }: 
         borders,
         sizing: { scale0, scale200, scale900 },
         typography: { ParagraphSmall, LabelSmall },
-        lighting: { shadow400 },
       },
     },
   } = useTheme();
@@ -54,7 +53,6 @@ export const Select = ({ size = 'compact', isLoading, propOverrides, ...rest }: 
             Root: {
               style: ({ $error, $isFocused }) => ({
                 backgroundColor: primaryB,
-                boxShadow: shadow400,
                 ...borderRadius(scale0),
                 ...border({
                   ...border300,

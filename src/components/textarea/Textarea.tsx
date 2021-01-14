@@ -14,8 +14,7 @@ export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps)
   const {
     theme: {
       current: {
-        sizing: { scale550, scale3200 },
-        lighting: { shadow400 },
+        sizing: { scale550, scale2400 },
         borders,
         colors,
       },
@@ -33,8 +32,9 @@ export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps)
           style: ({ $theme, $error, $isFocused }) => {
             const { color, backgroundColor } = getInputContainerColors($error, $theme.colors);
             return {
-              minHeight: scale3200,
-              width: '100vw',
+              minHeight: scale2400,
+              height: scale2400,
+              width: '100%',
               resize: resizeable ? 'vertical' : 'none',
               color,
               backgroundColor,
@@ -46,7 +46,6 @@ export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps)
                 ...border300,
                 borderColor: getInputBorderColor($error, $isFocused, colors, borders),
               }),
-              boxShadow: shadow400,
               ...borderRadius(radius100),
             };
           },

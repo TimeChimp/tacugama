@@ -7,6 +7,7 @@ import {
 } from 'baseui/file-uploader';
 import FileUploadInstruction from './FileUploadInstruction';
 import FileUploadPreview from './FileUploadPreview';
+import { padding } from 'utils';
 
 const fileUploaderOverrides = (
   instructionMessage: string,
@@ -15,7 +16,7 @@ const fileUploaderOverrides = (
   FileDragAndDrop: {
     style: {
       margin: '0',
-      padding: '0',
+      ...padding('0'),
       display: 'flex',
       alignContent: 'center',
       justifyContent: 'center',

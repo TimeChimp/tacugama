@@ -9,7 +9,7 @@ import {
   getButtonBackgroundColor,
   getButtonBackgroundHoverColor,
 } from '../../utils';
-import { Button as BaseButton, ButtonProps as BaseButtonProps, KIND } from 'baseui/button';
+import { Button as BaseButton, ButtonProps as BaseButtonProps, KIND, SIZE } from 'baseui/button';
 import { ButtonType } from '../../models';
 
 export interface ButtonProps extends BaseButtonProps {
@@ -19,7 +19,15 @@ export interface ButtonProps extends BaseButtonProps {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { children, isLoading, disabled, buttonType = ButtonType.default, kind = KIND.primary, ...rest }: ButtonProps,
+    {
+      children,
+      isLoading,
+      disabled,
+      buttonType = ButtonType.default,
+      kind = KIND.primary,
+      size = SIZE.compact,
+      ...rest
+    }: ButtonProps,
     ref,
   ) => {
     const {

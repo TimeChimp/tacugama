@@ -83,7 +83,7 @@
     "typescript": "^4.0.3"
   },
   "dependencies": {
-    "baseui": "^9.106.0",
+    "baseui": "^9.107.0",
     "deepmerge": "^4.2.2",
     "styletron-engine-atomic": "^1.4.6",
     "styletron-react": "^5.2.7"
