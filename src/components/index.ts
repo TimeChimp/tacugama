@@ -1,6 +1,7 @@
 export * from './button';
 export * from './checkbox';
 export * from './button-group';
+export * from './confirmation-modal';
 export * from './modal';
 export * from './typography';
 export * from './radio';
