@@ -5,7 +5,6 @@ import {
   getInputBorderColor,
   getInputContainerColors,
   getInputPlaceholderTextColor,
-  getInputTextColor,
 } from '../color';
 
 describe('utils/colors', () => {
@@ -14,20 +13,28 @@ describe('utils/colors', () => {
       contentPrimary: 'contentPrimary',
       backgroundPrimary: 'backgroundPrimary',
       inputFillError: 'inputFillError',
+      contentStateDisabled: 'contentStateDisabled',
     };
 
     it('should get normal colors', () => {
-      const inputColors = getInputContainerColors(false, colors as any);
+      const inputColors = getInputContainerColors(colors as any);
 
       expect(inputColors.backgroundColor).toBe(colors.backgroundPrimary);
       expect(inputColors.color).toBe(colors.contentPrimary);
     });
 
     it('should get error colors', () => {
-      const inputColors = getInputContainerColors(true, colors as any);
+      const inputColors = getInputContainerColors(colors as any, true, true);
 
       expect(inputColors.backgroundColor).toBe(colors.inputFillError);
       expect(inputColors.color).toBe(colors.contentPrimary);
+    });
+
+    it('should get disabled colors', () => {
+      const inputColors = getInputContainerColors(colors as any, false, true);
+
+      expect(inputColors.backgroundColor).toBe(colors.backgroundPrimary);
+      expect(inputColors.color).toBe(colors.contentStateDisabled);
     });
   });
 
@@ -51,22 +58,6 @@ describe('utils/colors', () => {
       const inputBorderColor = getInputBorderColor(true, true, colors as any, borders as any);
 
       expect(inputBorderColor).toBe(colors.borderError);
-    });
-  });
-
-  describe('getInputTextColor', () => {
-    const colors = { contentPrimary: 'contentPrimary', contentStateDisabled: 'contentStateDisabled' };
-
-    it('should get a normal color', () => {
-      const inputBorderColor = getInputTextColor(false, colors as any);
-
-      expect(inputBorderColor).toBe(colors.contentPrimary);
-    });
-
-    it('should get a disabled color', () => {
-      const inputBorderColor = getInputTextColor(true, colors as any);
-
-      expect(inputBorderColor).toBe(colors.contentStateDisabled);
     });
   });
 

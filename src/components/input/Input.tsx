@@ -5,8 +5,8 @@ import {
   border,
   borderRadius,
   getInputBorderColor,
+  getInputContainerColors,
   getInputPlaceholderTextColor,
-  getInputTextColor,
   margin,
   padding,
 } from '../../utils';
@@ -30,16 +30,19 @@ export const Input = ({ ...rest }: InputProps) => {
     <BaseInput
       overrides={{
         Input: {
-          style: ({ $disabled, $isFocused, $theme }) => ({
-            backgroundColor: primaryB,
-            ...border(),
-            ...padding('0', scale500),
-            color: getInputTextColor($disabled, colors),
-            '::placeholder': {
-              color: getInputPlaceholderTextColor($disabled, $isFocused, colors),
-            },
-            fontSize: $theme.typography.LabelSmall.fontSize,
-          }),
+          style: ({ $disabled, $isFocused, $error, $theme }) => {
+            const { color, backgroundColor } = getInputContainerColors($theme.colors, $error, $disabled);
+            return {
+              backgroundColor,
+              ...border(),
+              ...padding('0', scale500),
+              color,
+              '::placeholder': {
+                color: getInputPlaceholderTextColor($disabled, $isFocused, colors),
+              },
+              fontSize: $theme.typography.LabelSmall.fontSize,
+            };
+          },
         },
         InputContainer: {
           style: {
@@ -53,6 +56,7 @@ export const Input = ({ ...rest }: InputProps) => {
             ...border({
               ...border300,
               borderColor: getInputBorderColor($error, $isFocused, colors, borders),
+              borderWidth: $error ? scale0 : border300.borderWidth,
             }),
             ...borderRadius(scale0),
             backgroundColor: primaryB,
