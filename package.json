@@ -44,15 +44,15 @@
   "size-limit": [
     {
       "path": "dist/tacugama.cjs.production.min.js",
-      "limit": "10 KB"
+      "limit": "200 KB"
     },
     {
       "path": "dist/tacugama.esm.js",
-      "limit": "10 KB"
+      "limit": "200 KB"
     }
   ],
   "devDependencies": {
-    "@babel/core": "^7.12.1",
+    "@babel/core": "^7.12.10",
     "@size-limit/preset-small-lib": "^4.6.0",
     "@storybook/addon-docs": "^6.1.14",
     "@storybook/addon-essentials": "^6.1.14",
