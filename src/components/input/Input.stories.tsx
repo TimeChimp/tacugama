@@ -21,3 +21,9 @@ StartEnhancer.args = {
   placeholder: 'placeholder',
   startEnhancer: <Search size="18px" />,
 };
+
+export const ErrorState = Template.bind({});
+ErrorState.args = {
+  placeholder: 'Error!',
+  error: true,
+};

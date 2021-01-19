@@ -77,7 +77,7 @@ export const invertHexColor = (hex: string, options?: HexColorInverseOptions) =>
   return newHex;
 };
 
-export function getInputContainerColors($error: boolean, colors: Colors) {
+export function getInputContainerColors(colors: Colors, $error: boolean = false, $disabled: boolean = false) {
   /**
    * This helper is based on BaseWeb's internal helper, which can be used more dynamically.
    * Source: https://github.com/uber/baseweb/blob/eebaf24fecc2d0b54133af41d31604fc54b6b3e3/src/input/styled-components.js#L329
@@ -87,6 +87,13 @@ export function getInputContainerColors($error: boolean, colors: Colors) {
     return {
       color: colors.contentPrimary,
       backgroundColor: colors.inputFillError,
+    };
+  }
+
+  if ($disabled) {
+    return {
+      color: colors.contentStateDisabled,
+      backgroundColor: colors.backgroundPrimary,
     };
   }
 
@@ -109,13 +116,6 @@ export const getInputBorderColor = (
     return primary;
   }
   return borderColor;
-};
-
-export const getInputTextColor = (disabled: boolean, { contentPrimary, contentStateDisabled }: Colors) => {
-  if (disabled) {
-    return contentStateDisabled;
-  }
-  return contentPrimary;
 };
 
 export const getInputPlaceholderTextColor = (

@@ -1,5 +1,5 @@
 {
-  "version": "0.4.28",
+  "version": "0.4.29",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -44,11 +44,11 @@
   "size-limit": [
     {
       "path": "dist/tacugama.cjs.production.min.js",
-      "limit": "10 KB"
+      "limit": "200 KB"
     },
     {
       "path": "dist/tacugama.esm.js",
-      "limit": "10 KB"
+      "limit": "200 KB"
     }
   ],
   "devDependencies": {
@@ -68,7 +68,7 @@
     "@typescript-eslint/parser": "^4.5.0",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "babel-loader": "^8.1.0",
-    "eslint": "^7.11.0",
+    "eslint": "^7.18.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.3.0",
@@ -80,7 +80,7 @@
     "size-limit": "^4.6.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.0.3",
-    "typescript": "^4.0.3"
+    "typescript": "^4.1.3"
   },
   "dependencies": {
     "baseui": "^9.107.0",
