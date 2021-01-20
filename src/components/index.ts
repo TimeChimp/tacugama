@@ -30,3 +30,4 @@ export * from './page-layout';
 export * from './icons';
 export * from './portal';
 export * from './progress-bar';
+export * from './char-counter';

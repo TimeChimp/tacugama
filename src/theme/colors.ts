@@ -1,5 +1,15 @@
 import { Theme } from 'baseui/theme';
+import { CustomColors } from 'models';
 import { DeepPartial } from '../utils';
+
+export const customColors: CustomColors = {
+  // Red
+  red0: '#E53535',
+  red1: '#FF3B3B',
+  red2: '#FF5C5C',
+  red3: '#FF8080',
+  red4: '#FFE5E5',
+};
 
 export const lightColors: DeepPartial<Theme['colors']> = {
   contentPrimary: '#0F1020',
@@ -10,6 +20,9 @@ export const lightColors: DeepPartial<Theme['colors']> = {
   buttonSecondaryText: '#0F1020',
   backgroundNegative: '#FF0035',
   backgroundPositive: '#21A453',
+
+  borderError: customColors.red3,
+  inputFillError: customColors.red4,
 };
 
 export const darkColors: DeepPartial<Theme['colors']> = {

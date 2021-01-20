@@ -61,17 +61,20 @@ export const Input = ({ ...rest }: InputProps) => {
             ...borderRadius(scale0),
             backgroundColor: primaryB,
             ...margin(scale0),
+            ...padding(),
           }),
         },
         StartEnhancer: {
-          style: {
-            backgroundColor: primaryB,
-          },
+          style: ({ $disabled, $error, $theme }) => ({
+            backgroundColor: getInputContainerColors(colors, $error, $disabled).backgroundColor,
+            ...padding('0', $theme.sizing.scale0, '0', '14px'),
+          }),
         },
         EndEnhancer: {
-          style: {
-            backgroundColor: primaryB,
-          },
+          style: ({ $disabled, $error, $theme }) => ({
+            backgroundColor: getInputContainerColors(colors, $error, $disabled).backgroundColor,
+            ...padding('0', '14px', '0', $theme.sizing.scale0),
+          }),
         },
         MaskToggleButton: {
           style: {
