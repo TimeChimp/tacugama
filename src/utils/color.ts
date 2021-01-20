@@ -1,5 +1,5 @@
 import { Borders, Colors } from 'baseui/theme';
-import { ButtonType } from '../models';
+import { ButtonType, CustomColors } from '../models';
 
 const padZeroRight = (input: string, length: number) => input + '0'.repeat(length - input.length);
 const padZeroLeft = (input: string, length: number) => ('0'.repeat(length) + input).slice(-length);
