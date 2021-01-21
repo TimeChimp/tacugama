@@ -2,36 +2,12 @@ import { Theme } from 'baseui/theme';
 import { DeepPartial } from '../utils';
 
 export interface CustomColors {
-  purple700: string;
-  purple600: string;
-  purple500: string;
-  purple400: string;
-  purple300: string;
-  purple200: string;
-  purple100: string;
-  purple50: string;
-
-  green400: string;
-
-  blue400: string;
-  blue50: string;
-
-  yellow400: string;
-
-  red400: string;
-
-  black: string;
-  gray900: string;
-  gray800: string;
-  gray700: string;
-  gray600: string;
-  gray500: string;
-  gray400: string;
-  gray300: string;
-  gray200: string;
-  gray100: string;
-  gray50: string;
-  white: string;
+  // Red
+  red0: string;
+  red1: string;
+  red2: string;
+  red3: string;
+  red4: string;
 }
 
 interface App {
@@ -56,6 +32,7 @@ interface Components {
 export interface CustomOverridesProps {
   app: App;
   components: Components;
+  customColors: CustomColors;
 }
 
 export type CustomOverrideType = DeepPartial<Theme> & CustomOverridesProps;
