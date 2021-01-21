@@ -21,7 +21,15 @@ export interface SelectProps extends BaseSelectProps {
   };
 }
 
-export const Select = ({ size = 'compact', isLoading, propOverrides, ...rest }: SelectProps) => {
+export const Select = ({
+  size = 'compact',
+  valueKey = 'name',
+  getOptionLabel,
+  getValueLabel,
+  isLoading,
+  propOverrides,
+  ...rest
+}: SelectProps) => {
   const {
     theme: {
       current: {
@@ -34,6 +42,9 @@ export const Select = ({ size = 'compact', isLoading, propOverrides, ...rest }: 
   } = useTheme();
   const { border300, radius100 } = borders;
   const { primaryB, primary100 } = colors;
+
+  const getLabel = ({ option }: { option?: Option }): string => option && option.name;
+
   return (
     <>
       {isLoading ? (
@@ -41,6 +52,9 @@ export const Select = ({ size = 'compact', isLoading, propOverrides, ...rest }: 
       ) : (
         <BaseSelect
           size={size}
+          getOptionLabel={getOptionLabel || getLabel}
+          getValueLabel={getValueLabel || getLabel}
+          valueKey={valueKey}
           {...rest}
           overrides={{
             ControlContainer: {
