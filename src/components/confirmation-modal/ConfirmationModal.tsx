@@ -19,6 +19,7 @@ export interface ConfirmationModalProps {
   submitOnClick?: () => Promise<void>;
   cancelLabel: string;
   cancelOnClick?: () => Promise<void>;
+  submitButtonTestId?: string;
 }
 
 export const ConfirmationModal = ({
@@ -31,6 +32,7 @@ export const ConfirmationModal = ({
   submitOnClick,
   cancelLabel,
   cancelOnClick,
+  submitButtonTestId,
 }: ConfirmationModalProps) => {
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -71,7 +73,12 @@ export const ConfirmationModal = ({
       </ModalBody>
       <ModalFooter>
         <SecondaryModalButton onClick={handleCancel}>{cancelLabel}</SecondaryModalButton>
-        <ModalButton buttonType={getButtonType()} isLoading={loading} onClick={handleSubmit}>
+        <ModalButton
+          buttonType={getButtonType()}
+          isLoading={loading}
+          onClick={handleSubmit}
+          testId={submitButtonTestId}
+        >
           {submitLabel}
         </ModalButton>
       </ModalFooter>
