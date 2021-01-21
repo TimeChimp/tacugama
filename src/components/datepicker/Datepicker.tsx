@@ -2,7 +2,7 @@ import React from 'react';
 import { Popover } from '../popover';
 import { TetherPlacement } from 'baseui/layer';
 import { borderBottom } from '../../utils';
-import { useTheme } from 'providers';
+import { useTheme } from '../../providers/ThemeProvider';
 import { ClickOutside } from '../click-outside/ClickOutside';
 import { StatefulCalendar } from 'baseui/datepicker';
 
