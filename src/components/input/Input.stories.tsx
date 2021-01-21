@@ -22,6 +22,7 @@ const WithCharCount: Story<InputProps> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   placeholder: 'placeholder',
+  testId: 'test-input'
 };
 
 export const StartEnhancer = Template.bind({});

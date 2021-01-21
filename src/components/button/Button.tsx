@@ -15,6 +15,7 @@ import { ButtonType } from '../../models';
 export interface ButtonProps extends BaseButtonProps {
   buttonType?: ButtonType;
   kind?: KIND[keyof KIND];
+  testId?: string;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -26,6 +27,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       buttonType = ButtonType.default,
       kind = KIND.primary,
       size = SIZE.compact,
+      testId,
       ...rest
     }: ButtonProps,
     ref,
@@ -45,6 +47,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         kind={kind}
         size={size}
+        data-test-id={testId}
         isLoading={isLoading}
         disabled={disabled || isLoading}
         overrides={{

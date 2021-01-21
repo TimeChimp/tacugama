@@ -15,12 +15,14 @@ import { ButtonType, CustomThemeType } from '../../models';
 
 export interface ModalButtonProps extends BaseButtonProps {
   buttonType?: ButtonType;
+  testId?: string;
 }
 
 export const ModalButton = ({
   children,
   size = 'compact',
   buttonType = ButtonType.default,
+  testId,
   ...rest
 }: ModalButtonProps) => {
   const {
@@ -36,6 +38,7 @@ export const ModalButton = ({
   return (
     <BaseModalButton
       size={size}
+      data-test-id={testId}
       overrides={{
         BaseButton: {
           style: ({ $theme }: { $theme: CustomThemeType }) => ({
