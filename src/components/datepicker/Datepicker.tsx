@@ -11,10 +11,10 @@ export interface DatepickerProps {
   placement?: TetherPlacement[keyof TetherPlacement];
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => any;
-  onChange?: (date: Date) => any;
+  onChange?: (args: { date: Date | Date[] }) => any;
 }
 
-export const Datepicker = ({ date, placement = 'bottomLeft', setIsOpen, isOpen }: DatepickerProps) => {
+export const Datepicker = ({ date, placement = 'bottomLeft', setIsOpen, isOpen, onChange }: DatepickerProps) => {
   const {
     theme: {
       current: {
@@ -32,6 +32,7 @@ export const Datepicker = ({ date, placement = 'bottomLeft', setIsOpen, isOpen }
         <ClickOutside onClickOutside={() => isOpen && setIsOpen(false)}>
           <StatefulCalendar
             value={date}
+            onChange={onChange}
             overrides={{
               CalendarHeader: {
                 style: {
