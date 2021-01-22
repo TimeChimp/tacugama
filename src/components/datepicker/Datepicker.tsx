@@ -38,22 +38,19 @@ export const Datepicker = ({
   } = useTheme();
 
   useEffect(() => {
-    let localeObj: Locale = {};
-    switch (locale) {
-      case 'nl':
-        localeObj = nl;
-        break;
-      case 'en':
-      default:
-        localeObj = en;
-        break;
-    }
+    if (locale) {
+      const locales = {
+        en,
+        nl,
+      };
+      const localeObj = locales[locale];
 
-    if (weekStartDay && localeObj.options) {
-      localeObj.options.weekStartsOn = weekStartDay;
-    }
+      if (weekStartDay && localeObj.options) {
+        localeObj.options.weekStartsOn = weekStartDay;
+      }
 
-    setLocaleObj(localeObj);
+      setLocaleObj(localeObj);
+    }
   }, [locale, weekStartDay]);
 
   return (
