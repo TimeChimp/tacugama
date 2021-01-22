@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Popover } from '../popover';
 import { TetherPlacement } from 'baseui/layer';
 import { borderBottom } from '../../utils';
 import { useTheme } from '../../providers/ThemeProvider';
 import { ClickOutside } from '../click-outside/ClickOutside';
 import { StatefulCalendar } from 'baseui/datepicker';
+import en from 'date-fns/locale/en-US';
+import nl from 'date-fns/locale/nl';
 
 export interface DatepickerProps {
   date: Date;
@@ -12,9 +14,20 @@ export interface DatepickerProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => any;
   onChange?: (args: { date: Date | Date[] }) => any;
+  locale?: 'nl' | 'en';
+  weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
 }
 
-export const Datepicker = ({ date, placement = 'bottomLeft', setIsOpen, isOpen, onChange }: DatepickerProps) => {
+export const Datepicker = ({
+  date,
+  placement = 'bottomLeft',
+  setIsOpen,
+  isOpen,
+  onChange,
+  locale,
+  weekStartDay,
+}: DatepickerProps) => {
+  const [localeObj, setLocaleObj] = useState<Locale>();
   const {
     theme: {
       current: {
@@ -24,6 +37,25 @@ export const Datepicker = ({ date, placement = 'bottomLeft', setIsOpen, isOpen, 
     },
   } = useTheme();
 
+  useEffect(() => {
+    let localeObj: Locale = {};
+    switch (locale) {
+      case 'nl':
+        localeObj = nl;
+        break;
+      case 'en':
+      default:
+        localeObj = en;
+        break;
+    }
+
+    if (weekStartDay && localeObj.options) {
+      localeObj.options.weekStartsOn = weekStartDay;
+    }
+
+    setLocaleObj(localeObj);
+  }, [locale, weekStartDay]);
+
   return (
     <Popover
       isOpen={isOpen}
@@ -31,6 +63,7 @@ export const Datepicker = ({ date, placement = 'bottomLeft', setIsOpen, isOpen, 
       content={() => (
         <ClickOutside onClickOutside={() => isOpen && setIsOpen(false)}>
           <StatefulCalendar
+            locale={localeObj}
             value={date}
             onChange={onChange}
             overrides={{
