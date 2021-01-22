@@ -5,8 +5,8 @@ import { borderBottom } from '../../utils';
 import { useTheme } from '../../providers/ThemeProvider';
 import { ClickOutside } from '../click-outside/ClickOutside';
 import { StatefulCalendar } from 'baseui/datepicker';
-import en from 'date-fns/locale/en-US';
-import nl from 'date-fns/locale/nl';
+import { SupportedLocale } from '../../types/SupportedLocale';
+import { getDateLocale } from '../../utils/get-date-locale';
 
 export interface DatepickerProps {
   date: Date;
@@ -14,7 +14,7 @@ export interface DatepickerProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => any;
   onChange?: (args: { date: Date | Date[] }) => any;
-  locale?: 'nl' | 'en';
+  locale?: SupportedLocale;
   weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
 }
 
@@ -39,11 +39,7 @@ export const Datepicker = ({
 
   useEffect(() => {
     if (locale) {
-      const locales = {
-        en,
-        nl,
-      };
-      const localeObj = locales[locale];
+      const localeObj = getDateLocale(locale);
 
       if (weekStartDay && localeObj.options) {
         localeObj.options.weekStartsOn = weekStartDay;
