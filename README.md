@@ -110,3 +110,7 @@ export default MyDocument;
 ```
 
 For all available components check out the [Tacugama Storybook](https://tacugama.netlify.app)
+
+## Releasing
+
+Releases are handled by the CI/CD pipeline. All you need to do is bump the version number in `package.json` and the pipeline will take care of releasing it to the NPM registry.
