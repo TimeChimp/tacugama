@@ -12,7 +12,14 @@ const Template: Story<CharCounterProps> = (args) => <CharCounter {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  visible: true,
+  error: false,
+  charCount: 66,
+  title: 'Max 50 characters',
+};
+
+export const Error = Template.bind({});
+Error.args = {
+  error: true,
   charCount: 66,
   title: 'Max 50 characters',
 };
