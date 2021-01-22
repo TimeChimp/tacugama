@@ -22,15 +22,17 @@ export const CharCounterWrapper = themedStyled('div', ({ $theme }) => ({
 
 export const CharCounter = ({ charCount, title, error = false }: CharCounterProps) => (
   <CharCounterWrapper>
-      <ParagraphXSmall
-        overrides={{
-          Block: {
-            style: ({ $theme }: { $theme: CustomThemeType }) => ({
-              color: error ? $theme.customColors.red2 : $theme.customColors.dark4,
-              lineHeight: $theme.sizing.scale600,
-            }),
-          },
-        }}
-      >{error ? `${title} (${charCount})` : title}</ParagraphXSmall>
+    <ParagraphXSmall
+      overrides={{
+        Block: {
+          style: ({ $theme }: { $theme: CustomThemeType }) => ({
+            color: error ? $theme.customColors.red2 : $theme.customColors.dark4,
+            lineHeight: $theme.sizing.scale600,
+          }),
+        },
+      }}
+    >
+      {error ? `${title} (${charCount})` : title}
+    </ParagraphXSmall>
   </CharCounterWrapper>
 );
