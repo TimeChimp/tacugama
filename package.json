@@ -84,7 +84,7 @@
   },
   "dependencies": {
     "baseui": "^9.107.0",
-    "date-fns": "^2.0.0-beta.5",
+    "date-fns": "^2.16.1",
     "deepmerge": "^4.2.2",
     "styletron-engine-atomic": "^1.4.6",
     "styletron-react": "^5.2.7"
