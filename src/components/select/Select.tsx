@@ -23,9 +23,8 @@ export interface SelectProps extends BaseSelectProps {
 
 export const Select = ({
   size = 'compact',
-  valueKey = 'name',
-  getOptionLabel,
-  getValueLabel,
+  valueKey = 'id',
+  labelKey = 'name',
   isLoading,
   propOverrides,
   ...rest
@@ -43,8 +42,6 @@ export const Select = ({
   const { border300, radius100 } = borders;
   const { primaryB, primary100 } = colors;
 
-  const getLabel = ({ option }: { option?: Option }): string => option && option.name;
-
   return (
     <>
       {isLoading ? (
@@ -52,9 +49,8 @@ export const Select = ({
       ) : (
         <BaseSelect
           size={size}
-          getOptionLabel={getOptionLabel || getLabel}
-          getValueLabel={getValueLabel || getLabel}
           valueKey={valueKey}
+          labelKey={labelKey}
           {...rest}
           overrides={{
             ControlContainer: {
