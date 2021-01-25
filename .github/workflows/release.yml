@@ -28,8 +28,20 @@ jobs:
     - name: Build
       run: npm run build
     - name: Publish
+      id: publish
       uses: JS-DevTools/npm-publish@v1
       with:
         token: ${{ secrets.NPM_TOKEN }}
+
+    - if: steps.publish.outputs.type != 'none'
+      name: Create release
+      uses: release-drafter/release-drafter@v5.3.1
+      with: 
+        publish: true
+        version: ${{ steps.publish.outputs.version }}
+        tag: ${{ steps.publish.outputs.version }}
+
       env:
         CI: true
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
