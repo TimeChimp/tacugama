@@ -15,7 +15,7 @@ const Template: Story<InputProps> = (args) => <Input {...args} />;
 const WithCharCount: Story<InputProps> = (args) => (
   <>
     <Input {...args} />
-    <CharCounter visible charCount={66} title="Max 50 characters" />
+    <CharCounter error charCount={66} title="Max 50 characters" />
   </>
 );
 
