@@ -2,6 +2,13 @@ import { Theme } from 'baseui/theme';
 import { DeepPartial } from '../utils';
 
 export interface CustomColors {
+  // Dark
+  dark0: string;
+  dark1: string;
+  dark2: string;
+  dark3: string;
+  dark4: string;
+
   // Red
   red0: string;
   red1: string;

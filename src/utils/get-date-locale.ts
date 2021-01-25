@@ -1,11 +1,12 @@
 import { SupportedLocale } from '../types/SupportedLocale';
-import { enUS, nl } from 'date-fns/locale';
+import nl from 'date-fns/locale/nl';
+import enUS from 'date-fns/locale/en-US';
 
 export const getDateLocale = (locale: SupportedLocale) => {
-  switch (locale) {
-    case 'nl-NL':
-      return nl;
-    case 'en-US':
-      return enUS;
-  }
+  const locales = {
+    'nl-NL': nl,
+    'en-US': enUS,
+  };
+
+  return locales[locale];
 };
