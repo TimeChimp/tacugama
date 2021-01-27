@@ -1,5 +1,5 @@
 import { ParagraphMedium } from '../typography/ParagraphMedium';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTheme } from '../../providers';
 import {
   StyledSideNav,
@@ -17,10 +17,11 @@ export interface SideNavItem {
 }
 export interface SideNavProps {
   items: SideNavItem[];
+  activeItemId: string;
+  onChange: (item: SideNavItem) => any;
 }
 
-export const SideNav = ({ items }: SideNavProps) => {
-  const [activeitemId, setActiveItemId] = useState<string>();
+export const SideNav = ({ items, activeItemId, onChange }: SideNavProps) => {
   const {
     theme: {
       current: {
@@ -30,7 +31,7 @@ export const SideNav = ({ items }: SideNavProps) => {
   } = useTheme();
 
   const isActive = (item: SideNavItem) => {
-    return item.id === activeitemId;
+    return item.id === activeItemId;
   };
 
   const getColor = (item: SideNavItem) => {
@@ -41,15 +42,11 @@ export const SideNav = ({ items }: SideNavProps) => {
     return isActive(item) ? primary200 : 'transparent';
   };
 
-  const handleOnClick = (item: SideNavItem) => {
-    setActiveItemId(item.id);
-  };
-
   return (
     <StyledSideNav>
       {items.map((item) => (
-        <StyledSideNavItem>
-          <StyledSideNavLink onClick={() => handleOnClick(item)} style={{ backgroundColor: getBackgroundColor(item) }}>
+        <StyledSideNavItem key={item.id}>
+          <StyledSideNavLink onClick={() => onChange(item)} style={{ backgroundColor: getBackgroundColor(item) }}>
             <StyledSideNavItemIcon>{item.icon}</StyledSideNavItemIcon>
             <StyledSideNavItemTitle>
               <ParagraphMedium color={getColor(item)}>{item.title}</ParagraphMedium>
