@@ -9,12 +9,56 @@ export interface CustomColors {
   dark3: string;
   dark4: string;
 
+  // Light
+  light0: string;
+  light1: string;
+  light2: string;
+  light3: string;
+  light4: string;
+
   // Red
   red0: string;
   red1: string;
   red2: string;
   red3: string;
   red4: string;
+
+  // Green
+  green0: string;
+  green1: string;
+  green2: string;
+  green3: string;
+  green4: string;
+
+  // Blue
+  blue0: string;
+  blue1: string;
+  blue2: string;
+  blue3: string;
+  blue4: string;
+
+  // Yelow
+  yellow0: string;
+  yellow1: string;
+  yellow2: string;
+  yellow3: string;
+  yellow4: string;
+
+  // Purple
+  purple0: string;
+  purple1: string;
+  purple2: string;
+  purple3: string;
+  purple4: string;
+
+  // Outlines
+  darkOutline: string;
+  lightOutline: string;
+  redOutline: string;
+  greenOutline: string;
+  blueOutline: string;
+  yellowOutline: string;
+  purpleOutline: string;
 }
 
 interface App {
