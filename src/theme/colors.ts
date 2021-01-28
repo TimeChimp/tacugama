@@ -74,8 +74,15 @@ export const lightColors: DeepPartial<Theme['colors']> = {
 
   borderError: customColors.red3,
   inputFillError: customColors.red4,
+
+  accent: 'none',
 };
 
 export const darkColors: DeepPartial<Theme['colors']> = {
   buttonPrimaryText: '#e2e2e2',
+
+  borderError: customColors.red3,
+  inputFillError: customColors.red4,
+
+  accent: 'none',
 };
