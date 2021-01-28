@@ -15,13 +15,14 @@ const Template: Story<InputProps> = (args) => <Input {...args} />;
 const WithCharCount: Story<InputProps> = (args) => (
   <>
     <Input {...args} />
-    <CharCounter visible charCount={66} title="Max 50 characters" />
+    <CharCounter error charCount={66} title="Max 50 characters" />
   </>
 );
 
 export const Default = Template.bind({});
 Default.args = {
   placeholder: 'placeholder',
+  testId: 'test-input',
 };
 
 export const StartEnhancer = Template.bind({});

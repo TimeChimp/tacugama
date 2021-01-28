@@ -10,10 +10,13 @@ import {
   margin,
   padding,
 } from '../../utils';
+import { DATA_TEST_ID } from '../../models';
 
-export interface InputProps extends BaseInputProps {}
+export interface InputProps extends BaseInputProps {
+  testId?: string;
+}
 
-export const Input = ({ ...rest }: InputProps) => {
+export const Input = ({ testId, ...rest }: InputProps) => {
   const {
     theme: {
       current: {
@@ -42,6 +45,9 @@ export const Input = ({ ...rest }: InputProps) => {
               },
               fontSize: $theme.typography.LabelSmall.fontSize,
             };
+          },
+          props: {
+            [DATA_TEST_ID]: testId,
           },
         },
         InputContainer: {

@@ -3,6 +3,12 @@ import { CustomColors } from 'models';
 import { DeepPartial } from '../utils';
 
 export const customColors: CustomColors = {
+  // Dark
+  dark0: '#0F1020',
+  dark1: '#1B1C2B',
+  dark2: '#3F404D',
+  dark3: '#575863',
+  dark4: '#87878F',
   // Red
   red0: '#E53535',
   red1: '#FF3B3B',
