@@ -1,11 +1,11 @@
 import { padding } from './../../utils/css';
 import { themedStyled } from '../../theme/theme';
 
-export const StyledSideNav = themedStyled('ul', ({ $theme }) => ({
+export const StyledSideNav = themedStyled('ul', () => ({
   listStyleType: 'none',
 }));
 
-export const StyledSideNavItem = themedStyled('li', ({ $theme }) => ({}));
+export const StyledSideNavItem = themedStyled('li', () => ({}));
 
 export const StyledSideNavLink = themedStyled('a', ({ $theme }) => ({
   ...padding($theme.sizing.scale400, $theme.sizing.scale400),
