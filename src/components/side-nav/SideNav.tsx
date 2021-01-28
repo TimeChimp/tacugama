@@ -1,5 +1,5 @@
 import { ParagraphMedium } from '../typography/ParagraphMedium';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTheme } from '../../providers';
 import {
   StyledSideNav,
