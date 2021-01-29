@@ -83,7 +83,7 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "baseui": "^9.108.0",
+    "baseui": "^9.109.0",
     "date-fns": "^2.16.1",
     "deepmerge": "^4.2.2",
     "styletron-engine-atomic": "^1.4.6",
