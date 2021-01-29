@@ -1,15 +1,4 @@
-export {
-  ChevronDown,
-  ChevronUp,
-  ChevronRight,
-  Delete,
-  Menu,
-  Plus,
-  Search,
-  Upload,
-  TriangleDown,
-  TriangleUp,
-} from 'baseui/icon';
+export { ChevronDown, ChevronUp, ChevronRight, Delete, Menu, Plus, Search, Upload } from 'baseui/icon';
 export * from './Calendar';
 export * from './SwapHorizontal';
 export * from './LeftArrow';
@@ -37,3 +26,5 @@ export * from './Camera';
 export * from './ReturnArrow';
 export * from './TcClock';
 export * from './Deselect';
+export * from './TriangleDown';
+export * from './TriangleUp';
