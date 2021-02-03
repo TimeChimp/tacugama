@@ -22,11 +22,7 @@ export const StatusBarRowCount = ({ api: gridApi, rowCountText }: StatusBarRowCo
 
   return (
     <StyledStatusBarRowCount>
-      <LabelSmall color={contentTertiary}>
-        {
-          rowCountText ? rowCountText(count) : `Showing ${count} results`
-        }
-      </LabelSmall>
+      <LabelSmall color={contentTertiary}>{rowCountText ? rowCountText(count) : `Showing ${count} results`}</LabelSmall>
     </StyledStatusBarRowCount>
   );
 };
