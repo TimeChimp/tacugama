@@ -32,3 +32,4 @@ export * from './portal';
 export * from './progress-bar';
 export * from './char-counter';
 export * from './side-nav';
+export * from './data-grid';
