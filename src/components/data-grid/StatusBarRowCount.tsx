@@ -4,6 +4,8 @@ import { StyledStatusBarRowCount } from './StyledDataGrid';
 import { useTheme } from '../../providers';
 import { LabelSmall } from '../typography';
 
+const EVENT_LISTENER = 'modelUpdated'
+
 export const StatusBarRowCount = ({ api: gridApi, rowCountText }: StatusBarRowCountProps) => {
   const [count, setCount] = useState(Number);
   const {
@@ -15,9 +17,15 @@ export const StatusBarRowCount = ({ api: gridApi, rowCountText }: StatusBarRowCo
   } = useTheme();
 
   useEffect(() => {
-    gridApi.addEventListener('modelUpdated', () => {
-      setCount(gridApi.getDisplayedRowCount());
-    });
+    const onModelUpdated = () => {
+      setCount(gridApi?.getDisplayedRowCount());
+    };
+    
+    gridApi?.addEventListener(EVENT_LISTENER, onModelUpdated);
+
+    return () => {
+      gridApi?.removeEventListener(EVENT_LISTENER, onModelUpdated);
+    }
   }, [gridApi]);
 
   return (

@@ -55,7 +55,6 @@ export const DataGrid = ({
   noRowsTitle,
   noRowsSubtext,
   groupByLabel,
-  rowCountText,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
@@ -253,7 +252,7 @@ export const DataGrid = ({
           blockLoadDebounceMillis={100}
           frameworkComponents={{
             moreActionsCell: RowActionsCell,
-            statusBarRowCount: () => <StatusBarRowCount api={gridApi} rowCountText={rowCountText} />,
+            statusBarRowCount: StatusBarRowCount,
             noRowsTemplate: () => <NoRowsTemplate noRowsTitle={noRowsTitle} noRowsSubtext={noRowsSubtext} />,
             headerCheckbox: HeaderCheckbox,
           }}
