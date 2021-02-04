@@ -1,7 +1,3 @@
-import '@ag-grid-community/core/dist/styles/ag-grid.css';
-import '@ag-grid-community/core/dist/styles/ag-theme-alpine.css';
-import '@ag-grid-community/core/dist/styles/ag-theme-alpine-dark.css';
-
 import React, { useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StyledDataGrid, getGridThemeOverrides } from './StyledDataGrid';
