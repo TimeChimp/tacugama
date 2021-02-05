@@ -5,15 +5,18 @@ import {
   border,
   borderRadius,
   getInputBorderColor,
+  getInputContainerColors,
   getInputPlaceholderTextColor,
-  getInputTextColor,
   margin,
   padding,
 } from '../../utils';
+import { DATA_TEST_ID } from '../../models';
 
-export interface InputProps extends BaseInputProps {}
+export interface InputProps extends BaseInputProps {
+  testId?: string;
+}
 
-export const Input = ({ ...rest }: InputProps) => {
+export const Input = ({ testId, ...rest }: InputProps) => {
   const {
     theme: {
       current: {
@@ -30,16 +33,22 @@ export const Input = ({ ...rest }: InputProps) => {
     <BaseInput
       overrides={{
         Input: {
-          style: ({ $disabled, $isFocused, $theme }) => ({
-            backgroundColor: primaryB,
-            ...border(),
-            ...padding('0', scale500),
-            color: getInputTextColor($disabled, colors),
-            '::placeholder': {
-              color: getInputPlaceholderTextColor($disabled, $isFocused, colors),
-            },
-            fontSize: $theme.typography.LabelSmall.fontSize,
-          }),
+          style: ({ $disabled, $isFocused, $error, $theme }) => {
+            const { color, backgroundColor } = getInputContainerColors($theme.colors, $error, $disabled);
+            return {
+              backgroundColor,
+              ...border(),
+              ...padding('0', scale500),
+              color,
+              '::placeholder': {
+                color: getInputPlaceholderTextColor($disabled, $isFocused, colors),
+              },
+              fontSize: $theme.typography.LabelSmall.fontSize,
+            };
+          },
+          props: {
+            [DATA_TEST_ID]: testId,
+          },
         },
         InputContainer: {
           style: {
@@ -53,21 +62,25 @@ export const Input = ({ ...rest }: InputProps) => {
             ...border({
               ...border300,
               borderColor: getInputBorderColor($error, $isFocused, colors, borders),
+              borderWidth: $error ? scale0 : border300.borderWidth,
             }),
             ...borderRadius(scale0),
             backgroundColor: primaryB,
             ...margin(scale0),
+            ...padding(),
           }),
         },
         StartEnhancer: {
-          style: {
-            backgroundColor: primaryB,
-          },
+          style: ({ $disabled, $error, $theme }) => ({
+            backgroundColor: getInputContainerColors(colors, $error, $disabled).backgroundColor,
+            ...padding('0', $theme.sizing.scale0, '0', '14px'),
+          }),
         },
         EndEnhancer: {
-          style: {
-            backgroundColor: primaryB,
-          },
+          style: ({ $disabled, $error, $theme }) => ({
+            backgroundColor: getInputContainerColors(colors, $error, $disabled).backgroundColor,
+            ...padding('0', '14px', '0', $theme.sizing.scale0),
+          }),
         },
         MaskToggleButton: {
           style: {

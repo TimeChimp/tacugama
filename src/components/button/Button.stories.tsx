@@ -16,6 +16,7 @@ Primary.args = {
   buttonType: ButtonType.default,
   kind: 'primary',
   children: 'Button',
+  testId: 'test-button  ',
 };
 
 export const Success = Template.bind({});
