@@ -33,3 +33,4 @@ export * from './progress-bar';
 export * from './char-counter';
 export * from './side-nav';
 export * from './data-grid';
+export * from './flex-item';
