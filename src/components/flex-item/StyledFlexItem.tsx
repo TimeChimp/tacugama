@@ -1,4 +1,3 @@
-
 import { themedStyled } from '../../theme';
 import { margin } from '../../utils';
 import { TextAlignProperty } from '../../models';
