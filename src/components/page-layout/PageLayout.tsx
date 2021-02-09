@@ -9,7 +9,7 @@ import {
 import { HeadingSmall } from '../typography';
 
 export interface PageLayoutProps {
-  pageTitle: JSX.Element;
+  pageTitle?: JSX.Element | string;
   pageMenu?: JSX.Element;
   children: ReactNode;
 }
@@ -20,12 +20,14 @@ export const PageLayout: FunctionComponent<PageLayoutProps> = ({
   children,
 }: PageLayoutProps) => (
   <StyledPageLayout>
-    <StyledPageLayoutHeader>
-      <StyledPageTitleContainer>
-        {typeof PageTitle === 'string' ? <HeadingSmall>{PageTitle}</HeadingSmall> : PageTitle}
-      </StyledPageTitleContainer>
-      <StyledPageMenuContainer>{PageMenu}</StyledPageMenuContainer>
-    </StyledPageLayoutHeader>
+    {PageTitle && (
+      <StyledPageLayoutHeader>
+        <StyledPageTitleContainer>
+          {typeof PageTitle === 'string' ? <HeadingSmall>{PageTitle}</HeadingSmall> : PageTitle}
+        </StyledPageTitleContainer>
+        <StyledPageMenuContainer>{PageMenu}</StyledPageMenuContainer>
+      </StyledPageLayoutHeader>
+    )}
     <StyledPageLayoutMain role="main">{children}</StyledPageLayoutMain>
   </StyledPageLayout>
 );
