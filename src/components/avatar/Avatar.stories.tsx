@@ -14,5 +14,5 @@ export const Default = Template.bind({});
 Default.args = {
   name: 'John Doe',
   size: 'scale1200',
-  src: 'https://api.adorable.io/avatars/285/10@adorable.io.png',
+  src: 'https://st.depositphotos.com/3244893/5106/v/950/depositphotos_51060005-stock-illustration-cute-little-panda-icon.jpg',
 };
