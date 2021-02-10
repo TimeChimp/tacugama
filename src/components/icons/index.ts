@@ -28,3 +28,6 @@ export * from './TcClock';
 export * from './Deselect';
 export * from './TriangleDown';
 export * from './TriangleUp';
+export * from './Account';
+export * from './Lock';
+export * from './Flag';
