@@ -1,5 +1,5 @@
 {
-  "version": "0.7.0",
+  "version": "0.7.1",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -91,6 +91,7 @@
     "baseui": "^9.110.0",
     "date-fns": "^2.16.1",
     "deepmerge": "^4.2.2",
+    "isomorphic-unfetch": "^3.1.0",
     "styletron-engine-atomic": "^1.4.6",
     "styletron-react": "^5.2.7"
   }
