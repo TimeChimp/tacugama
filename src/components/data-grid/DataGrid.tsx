@@ -130,30 +130,29 @@ export const DataGrid = ({
   const createServerSideDatasource = (): IServerSideDatasource => {
     return {
       getRows: async function (params: IServerSideGetRowsParams) {
-        let rowData;
-        let rowCount;
         try {
           const response = await fetch(dataUrl, {
             method: 'POST',
             headers: {
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${accessToken}`,
             },
             body: JSON.stringify(params.request),
           });
 
           const data = (await response.json()) as DataGridResponse;
-          ({ rowData, rowCount } = data);
+          const { rowData, rowCount } = data;
+
+          if (!rowData || rowData.length === 0) {
+            return params.api.showNoRowsOverlay();
+          } else {
+            params.api.hideOverlay();
+          }
+
+          return params.success({ rowData, rowCount });
         } catch (error) {
-          params.fail();
+          return params.fail();
         }
-
-        if (!rowData || rowData.length === 0) {
-          return params.api.showNoRowsOverlay();
-        } else {
-          params.api.hideOverlay();
-        }
-
-        return params.success({ rowData, rowCount });
       },
     };
   };
