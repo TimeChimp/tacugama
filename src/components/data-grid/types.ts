@@ -67,6 +67,7 @@ export interface DataGridProps {
   rowActionItems?: DropdownItem[];
   state?: string;
   dataUrl: string;
+  accessToken: string;
   sortableColumns?: boolean;
   resizeableColumns?: boolean;
   formatSettings?: FormatSettings;
