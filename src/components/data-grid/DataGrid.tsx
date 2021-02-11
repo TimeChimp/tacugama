@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
+import fetch from 'isomorphic-unfetch';
 import { StyledDataGrid, getGridThemeOverrides } from './StyledDataGrid';
 import { RowActionsCell } from './RowActionsCell';
 import { StatusBarRowCount } from './StatusBarRowCount';
@@ -46,6 +47,7 @@ export const DataGrid = ({
   rowActionItems,
   state,
   dataUrl,
+  accessToken,
   sortableColumns,
   resizeableColumns,
   formatSettings = defaultFormatSettings,
@@ -133,17 +135,20 @@ export const DataGrid = ({
         try {
           const response = await fetch(dataUrl, {
             method: 'POST',
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
             body: JSON.stringify(params.request),
           });
 
           const data = (await response.json()) as DataGridResponse;
           ({ rowData, rowCount } = data);
         } catch (error) {
-          return params.fail();
+          params.fail();
         }
 
         if (!rowData || rowData.length === 0) {
-          params.api.showNoRowsOverlay();
+          return params.api.showNoRowsOverlay();
         } else {
           params.api.hideOverlay();
         }
