@@ -144,11 +144,11 @@ export const DataGrid = ({
           const { rowData, rowCount } = data;
 
           if (!rowData || rowData.length === 0) {
-            params.fail();
-            return params.api.showNoRowsOverlay();
+            params.api.showNoRowsOverlay();
+          } else {
+            params.api.hideOverlay();
           }
 
-          params.api.hideOverlay();
           return params.success({ rowData, rowCount });
         } catch (error) {
           return params.fail();
