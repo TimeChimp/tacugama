@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StyledDataGrid, getGridThemeOverrides } from './StyledDataGrid';
-import RowActionsCell from './RowActionsCell';
-import StatusBarRowCount from './StatusBarRowCount';
-import NoRowsTemplate from './NoRowsTemplate';
-import HeaderCheckbox from './HeaderCheckbox';
+import { RowActionsCell } from './RowActionsCell';
+import { StatusBarRowCount } from './StatusBarRowCount';
+import { NoRowsTemplate } from './NoRowsTemplate';
+import { HeaderCheckbox } from './HeaderCheckbox';
+import { LoadingCellTemplate } from './LoadingCellTemplate';
 import { Filters } from './Filters';
 import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 import { StatusBarModule } from '@ag-grid-enterprise/status-bar';
@@ -229,6 +230,7 @@ export const DataGrid = ({
           rowModelType="serverSide"
           serverSideStoreType={ServerSideStoreType.Partial}
           noRowsOverlayComponent="noRowsTemplate"
+          loadingCellRenderer="loadingCellTemplate"
           animateRows
           suppressAggFuncInHeader
           autoGroupColumnDef={{
@@ -251,6 +253,7 @@ export const DataGrid = ({
             statusBarRowCount: StatusBarRowCount,
             noRowsTemplate: () => <NoRowsTemplate noRowsTitle={noRowsTitle} noRowsSubtext={noRowsSubtext} />,
             headerCheckbox: HeaderCheckbox,
+            loadingCellTemplate: LoadingCellTemplate,
           }}
           icons={{
             sortAscending: () =>

@@ -1,5 +1,5 @@
 {
-  "version": "0.6.3",
+  "version": "0.7.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -51,7 +51,7 @@
     }
   ],
   "devDependencies": {
-    "@babel/core": "^7.12.10",
+    "@babel/core": "^7.12.13",
     "@size-limit/preset-small-lib": "^4.6.0",
     "@storybook/addon-docs": "^6.1.17",
     "@storybook/addon-essentials": "^6.1.17",
@@ -88,7 +88,7 @@
     "@ag-grid-enterprise/server-side-row-model": "^25.0.1",
     "@ag-grid-enterprise/status-bar": "^25.0.1",
     "@timechimp/timechimp-typescript-helpers": "^0.2.25",
-    "baseui": "^9.109.0",
+    "baseui": "^9.110.0",
     "date-fns": "^2.16.1",
     "deepmerge": "^4.2.2",
     "styletron-engine-atomic": "^1.4.6",
