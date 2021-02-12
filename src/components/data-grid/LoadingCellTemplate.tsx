@@ -19,7 +19,7 @@ export const LoadingCellTemplate = () => {
             position: 'absolute',
             top: 0,
             left: 0,
-            width: '100%',
+            width: 'fill-available',
             height: scale800,
             ...margin(scale300, scale600),
           },
