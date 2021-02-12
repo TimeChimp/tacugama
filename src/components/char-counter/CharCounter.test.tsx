@@ -10,11 +10,11 @@ const LABEL_TEXT = `${TITLE} (${CHAR_COUNT})`;
 test('it shows number of characters when error', () => {
   render(<CharCounter error charCount={CHAR_COUNT} title={TITLE} />);
 
-  expect(screen.getAllByText(LABEL_TEXT)).toBeInTheDocument();
+  expect(screen.getByText(LABEL_TEXT)).toBeInTheDocument();
 });
 
 test('it shows no characters when no error', () => {
   render(<CharCounter error={false} charCount={CHAR_COUNT} title={TITLE} />);
 
-  expect(screen.queryAllByText(LABEL_TEXT)).not.toBeInTheDocument();
+  expect(screen.queryByText(LABEL_TEXT)).not.toBeInTheDocument();
 });
