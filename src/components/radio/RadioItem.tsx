@@ -3,7 +3,7 @@ import { Radio as BaseRadio, RadioOverrides, RadioProps as BaseRadioProps } from
 import { IconProps } from 'baseui/icon';
 import { RadioIcon } from './RadioIcon';
 import { CustomThemeType } from 'models';
-import { margin, padding } from '../../utils';
+import { border, margin, padding } from '../../utils';
 
 export interface RadioProps extends BaseRadioProps {
   value: string;
@@ -15,26 +15,42 @@ const radioOverrides = ({ icon, colored }: Pick<RadioProps, 'icon' | 'colored'>)
   Root: {
     style: ({ $theme, $checked }: { $theme: CustomThemeType; $checked: boolean }) => ({
       width: '100%',
-      borderRadius: '2px',
-      ...margin('0'),
-      ...padding('8px', '24px'),
+      backgroundColor: $checked ? $theme.colors.primary100 : $theme.colors.primary50,
+      borderRadius: $theme.borders.radius100,
+      ...margin($theme.sizing.scale100, '0'),
+      ...padding($theme.sizing.scale300, $theme.sizing.scale400),
       ...(colored && {
         ':hover': {
-          backgroundColor: $checked ? undefined : $theme.colors.primary50,
+          backgroundColor: $checked ? undefined : $theme.colors.primary100,
         },
       }),
     }),
   },
   Label: {
-    style: () => ({
-      ...padding('0', '24px'),
+    style: ({ $theme }) => ({
+      ...padding('0', $theme.sizing.scale400),
     }),
   },
   RadioMarkOuter: {
     component: icon && RadioIcon(icon),
+    style: ({ $theme, $checked }: { $theme: CustomThemeType; $checked: boolean }) => ({
+      width: $theme.sizing.scale650,
+      height: $theme.sizing.scale650,
+      backgroundColor: 'transparent',
+      ...border({
+        borderColor: $checked ? $theme.customColors.primaryMain : $theme.customColors.dark4,
+        borderStyle: 'solid',
+        borderWidth: $theme.borders.radius100,
+      }),
+    }),
   },
   RadioMarkInner: {
     component: icon ? () => null : undefined,
+    style: ({ $theme, $checked }: { $theme: CustomThemeType; $checked: boolean }) => ({
+      width: $theme.sizing.scale400,
+      height: $theme.sizing.scale400,
+      backgroundColor: $checked ? $theme.customColors.primaryMain : 'transparent',
+    }),
   },
 });
 

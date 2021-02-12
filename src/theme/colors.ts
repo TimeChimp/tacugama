@@ -3,6 +3,12 @@ import { CustomColors } from 'models';
 import { DeepPartial } from '../utils';
 
 export const customColors: CustomColors = {
+  // Primary
+  primaryDarker: '#473E93',
+  primaryMain: '#6559D2',
+  primaryLighter: '#BAB4EA',
+  primarySubtle: '#F7F7FD',
+
   // Dark
   dark0: '#0F1020',
   dark1: '#1B1C2B',
@@ -38,7 +44,7 @@ export const customColors: CustomColors = {
   blue3: '9DBFF9',
   blue4: 'E5F0FF',
 
-  // Yelow
+  // Yellow
   yellow0: '#E5B800',
   yellow1: '#FFCC00',
   yellow2: '#FDDD48',
@@ -63,14 +69,15 @@ export const customColors: CustomColors = {
 };
 
 export const lightColors: DeepPartial<Theme['colors']> = {
-  contentPrimary: '#0F1020',
-  contentSecondary: '#575863',
+  contentPrimary: customColors.dark0,
+  contentSecondary: customColors.dark3,
   contentTertiary: '#9F9FA6',
-  contentStateDisabled: '#CFCFD2',
-  buttonSecondaryFill: '#FFF',
-  buttonSecondaryText: '#0F1020',
-  backgroundNegative: '#FF0035',
-  backgroundPositive: '#21A453',
+  contentStateDisabled: customColors.light0,
+  contentAccent: customColors.purple2,
+  buttonSecondaryFill: customColors.light4,
+  buttonSecondaryText: customColors.dark0,
+  backgroundNegative: customColors.red1,
+  backgroundPositive: customColors.green1,
 
   borderError: customColors.red3,
   inputFillError: customColors.red4,

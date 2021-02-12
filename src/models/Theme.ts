@@ -2,6 +2,12 @@ import { Theme } from 'baseui/theme';
 import { DeepPartial } from '../utils';
 
 export interface CustomColors {
+  // Primary
+  primaryDarker: string;
+  primaryMain: string;
+  primaryLighter: string;
+  primarySubtle: string;
+
   // Dark
   dark0: string;
   dark1: string;
@@ -37,7 +43,7 @@ export interface CustomColors {
   blue3: string;
   blue4: string;
 
-  // Yelow
+  // Yellow
   yellow0: string;
   yellow1: string;
   yellow2: string;
