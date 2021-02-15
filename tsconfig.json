@@ -31,6 +31,9 @@
     "forceConsistentCasingInFileNames": true,
     // `tsdx build` ignores this option, but it is commonly used when type-checking separately with `tsc`
     "noEmit": true,
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "test-utils": ["./src/test-utils"]
+    }
   }
 }
