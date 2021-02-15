@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import * as React from 'react';
-import { rest } from 'msw'
-import { setupServer } from 'msw/node'
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
 import { configure, render, screen, waitFor } from '../../utils/test-utils';
 import { DataGrid } from './';
 import { DataGridColumn, DataGridRequest, DataGridResponse } from './types';
@@ -24,10 +24,12 @@ const tasks = [
 
 const DATA_URL = '/tasks';
 const ACCESS_TOKEN = '';
-const COLUMNS: DataGridColumn[] = [{
+const COLUMNS: DataGridColumn[] = [
+  {
     field: 'name',
-    label: 'Name'
-}]
+    label: 'Name',
+  },
+];
 const SEARCH_INPUT_TEST_ID = 'data-grid-search';
 const CHECKBOX_TEST_ID = 'data-grid-select-all';
 const LOADER_TEST_ID = 'loader';
@@ -55,18 +57,17 @@ const getTasksQueryMock = rest.post(DATA_URL, async (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(result));
 });
 
-const server = setupServer(getTasksQueryMock)
+const server = setupServer(getTasksQueryMock);
 
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
 test('it shows no search bar by default', () => {
-    render(<DataGrid dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} />);
-  
-    expect(screen.queryByTestId(SEARCH_INPUT_TEST_ID)).not.toBeInTheDocument();
-  });
+  render(<DataGrid dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} />);
 
+  expect(screen.queryByTestId(SEARCH_INPUT_TEST_ID)).not.toBeInTheDocument();
+});
 
 test('it shows a search bar when filtering is enabled', () => {
   render(<DataGrid filtering dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} />);
@@ -85,28 +86,27 @@ test('it shows select all when selection is enabled', async () => {
 
   await waitFor(() => {
     expect(screen.getByTestId(CHECKBOX_TEST_ID)).toBeInTheDocument();
-  })
+  });
 });
 
 test('it shows a loading indicator', async () => {
   render(<DataGrid selection dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} />);
-  
+
   // baseweb has set the loader test id in the following format: `testid`
-  configure({testIdAttribute: 'testid'})
+  configure({ testIdAttribute: 'testid' });
 
   await waitFor(() => {
-    expect(screen.getByTestId(LOADER_TEST_ID)).toBeInTheDocument()
-  })
+    expect(screen.getByTestId(LOADER_TEST_ID)).toBeInTheDocument();
+  });
 });
 
 test('it does not show a loader once results have loaded', async () => {
   render(<DataGrid selection dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} />);
 
   // baseweb has set the loader test id in the following format: `testid`
-  configure({testIdAttribute: 'testid'})
+  configure({ testIdAttribute: 'testid' });
 
   await waitFor(() => {
-    expect(screen.queryByTestId(LOADER_TEST_ID)).not.toBeInTheDocument()
-  })
+    expect(screen.queryByTestId(LOADER_TEST_ID)).not.toBeInTheDocument();
+  });
 });
-

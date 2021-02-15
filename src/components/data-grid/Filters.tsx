@@ -54,7 +54,13 @@ export const Filters = ({
     <StyledDataGridFilters>
       {filtering && (
         <StyledDataGridSearch>
-          <Input testId={SEARCH_INPUT_TEST_ID} size="mini" startEnhancer={<Search size="18px" />} placeholder="Search" onChange={handleSearch} />
+          <Input
+            testId={SEARCH_INPUT_TEST_ID}
+            size="mini"
+            startEnhancer={<Search size="18px" />}
+            placeholder="Search"
+            onChange={handleSearch}
+          />
         </StyledDataGridSearch>
       )}
       {grouping && (
