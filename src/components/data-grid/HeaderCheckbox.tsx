@@ -3,6 +3,8 @@ import { HeaderCheckboxProps } from '.';
 import { StyledHeaderCheckbox, StyledHeaderCheckboxValue } from './StyledDataGrid';
 import { Checkbox } from '../checkbox';
 
+const CHECKBOX_TEST_ID = 'data-grid-select-all';
+
 export const HeaderCheckbox = ({ api: gridApi, displayName }: HeaderCheckboxProps) => {
   const [checked, setChecked] = useState(false);
   const [totalRowCount, setTotalRowCount] = useState<number>();
@@ -40,7 +42,7 @@ export const HeaderCheckbox = ({ api: gridApi, displayName }: HeaderCheckboxProp
 
   return (
     <StyledHeaderCheckbox>
-      <Checkbox checked={checked} onChange={onChange} />
+      <Checkbox testId={CHECKBOX_TEST_ID} checked={checked} onChange={onChange} />
       <StyledHeaderCheckboxValue className="ag-cell-value">{displayName}</StyledHeaderCheckboxValue>
     </StyledHeaderCheckbox>
   );

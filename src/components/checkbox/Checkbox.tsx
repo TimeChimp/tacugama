@@ -2,10 +2,13 @@ import React from 'react';
 import { Checkbox as BaseCheckbox, CheckboxProps as BaseCheckboxProps } from 'baseui/checkbox';
 import { useTheme } from '../../providers/ThemeProvider';
 import { border, borderRadius } from '../../utils';
+import { DATA_TEST_ID } from '../../models';
 
-export interface CheckboxProps extends BaseCheckboxProps {}
+export interface CheckboxProps extends BaseCheckboxProps {
+  testId?: string;
+}
 
-export const Checkbox = ({ checked, children, ...rest }: CheckboxProps) => {
+export const Checkbox = ({ checked, children, testId, ...rest }: CheckboxProps) => {
   const {
     theme: {
       current: {
@@ -22,6 +25,11 @@ export const Checkbox = ({ checked, children, ...rest }: CheckboxProps) => {
     <BaseCheckbox
       checked={checked}
       overrides={{
+        Root: {
+          props: {
+            [DATA_TEST_ID]: testId,
+          },
+        },
         Label: {
           style: {
             ...LabelSmall,
