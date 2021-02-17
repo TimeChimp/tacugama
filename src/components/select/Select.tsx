@@ -12,8 +12,10 @@ import {
 } from '../../utils';
 import { BottomArrow } from '../icons';
 import { Skeleton } from '../skeleton';
+import { FlexItem } from '../flex-item';
 
 export interface SelectProps extends BaseSelectProps {
+  showSkeleton?: boolean;
   options: Option[];
   propOverrides?: {
     dropdownListItemProps?: () => {};
@@ -25,7 +27,7 @@ export const Select = ({
   size = 'compact',
   valueKey = 'id',
   labelKey = 'name',
-  isLoading,
+  showSkeleton = false,
   propOverrides,
   ...rest
 }: SelectProps) => {
@@ -34,7 +36,7 @@ export const Select = ({
       current: {
         colors,
         borders,
-        sizing: { scale0, scale200, scale900 },
+        sizing: { scale0, scale100, scale200, scale700, scale900 },
         typography: { ParagraphSmall, LabelSmall },
       },
     },
@@ -44,7 +46,7 @@ export const Select = ({
 
   return (
     <>
-      {isLoading ? (
+      {showSkeleton ? (
         <Skeleton width="100%" height={scale900} animation />
       ) : (
         <BaseSelect
@@ -114,13 +116,25 @@ export const Select = ({
               },
             },
             SelectArrow: {
-              component: () => <BottomArrow />,
+              component: () => <FlexItem marg1="0" marg2="0" marg3="0" marg4={scale100}><BottomArrow /></FlexItem>,
             },
             ClearIcon: {
               style: {
                 ...margin('0', scale200),
               },
             },
+            LoadingIndicator: {
+              props: {
+                overrides: {
+                  Svg: {
+                    style: {
+                      width: scale700,
+                      height: scale700,
+                    }
+                  }
+                }
+              }
+            }
           }}
         />
       )}
