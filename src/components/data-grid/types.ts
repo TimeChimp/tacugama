@@ -46,7 +46,7 @@ export interface DataGridState {
 }
 
 export type NumberFormat = 'space' | 'dot' | 'comma' | 'apostrophe' | undefined;
-export type Language = 'nl-NL' | 'en-US' | undefined;
+export type Language = 'nl-NL' | 'en-US' | 'en-GB' | undefined;
 export type DurationFormat = 'HH:mm:ss' | 'HH:mm' | 'decimal' | undefined;
 
 export interface FormatSettings {
