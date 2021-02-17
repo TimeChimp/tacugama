@@ -116,7 +116,11 @@ export const Select = ({
               },
             },
             SelectArrow: {
-              component: () => <FlexItem marg1="0" marg2="0" marg3="0" marg4={scale100}><BottomArrow /></FlexItem>,
+              component: () => (
+                <FlexItem marg1="0" marg2="0" marg3="0" marg4={scale100}>
+                  <BottomArrow />
+                </FlexItem>
+              ),
             },
             ClearIcon: {
               style: {
@@ -130,11 +134,11 @@ export const Select = ({
                     style: {
                       width: scale700,
                       height: scale700,
-                    }
-                  }
-                }
-              }
-            }
+                    },
+                  },
+                },
+              },
+            },
           }}
         />
       )}

@@ -36,4 +36,3 @@ Loading.args = {
   placeholder: 'Select color',
   isLoading: true,
 };
-
