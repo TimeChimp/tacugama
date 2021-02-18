@@ -6,14 +6,14 @@ import { BoxHeader } from './BoxHeader';
 import { BoxBody } from './BoxBody';
 import { BoxFooter } from './BoxFooter';
 
-import { Button, BlockProps, HeadingSmall, Input } from 'components';
+import { Button, BoxProps, HeadingSmall, Input } from 'components';
 
 export default {
   title: 'Components/Box',
   component: Box,
 } as Meta;
 
-const Template: Story<BlockProps> = (args) => (
+const Template: Story<BoxProps> = (args) => (
   <Box {...args}>
     <BoxHeader>
       <HeadingSmall>Title</HeadingSmall>
@@ -30,4 +30,10 @@ const Template: Story<BlockProps> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   width: '200px',
+};
+
+export const NoBorder = Template.bind({});
+NoBorder.args = {
+  width: '200px',
+  noBorder: true,
 };
