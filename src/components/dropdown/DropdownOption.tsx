@@ -31,7 +31,7 @@ export const DropdownOption = forwardRef<any, DropdownOptionProps>(
 
     return (
       <StyledDropdownOption ref={ref} onClick={() => onItemSelect(item)}>
-        {item.checkbox &&  <Checkbox testId="dropdown-option-checkbox" checked={item.isChecked} />}
+        {item.checkbox && <Checkbox testId="dropdown-option-checkbox" checked={item.isChecked} />}
         {item.icon && <StyledDropdownOptionIcon>{item.icon}</StyledDropdownOptionIcon>}
         <StyledDropdownOptionLabel>
           <ParagraphSmall color={item.color || theme.current.colors.contentPrimary}>{item.label}</ParagraphSmall>

@@ -11,7 +11,7 @@ export interface DropdownProps {
   children?: React.ReactNode;
   items: DropdownItem[];
   placement?: TetherPlacement[keyof TetherPlacement];
-  showSearch?: boolean,
+  showSearch?: boolean;
   onClose?: () => any;
   onOpen?: () => any;
   selection?: boolean;
@@ -37,15 +37,16 @@ export const Dropdown = ({
   const [searchTerm, setSearchTerm] = useState<string>();
 
   useEffect(() => {
-    const dropDownItems = items.filter(x => !searchTerm || x.label.toLowerCase().includes(searchTerm.toLowerCase()))
-                                .map((x) => ({
-                                  ...x,
-                                  checkbox: selection,
-                                  isChecked: selectedIds && x.id ? selectedIds.includes(x.id) : false,
-                                }));
-                                
+    const dropDownItems = items
+      .filter((x) => !searchTerm || x.label.toLowerCase().includes(searchTerm.toLowerCase()))
+      .map((x) => ({
+        ...x,
+        checkbox: selection,
+        isChecked: selectedIds && x.id ? selectedIds.includes(x.id) : false,
+      }));
+
     setDropdownItems(dropDownItems);
-  }, [items, selection, selectedIds, searchTerm])
+  }, [items, selection, selectedIds, searchTerm]);
 
   return (
     <StatefulPopover
@@ -55,13 +56,11 @@ export const Dropdown = ({
       onClose={onClose}
       content={({ close }) => (
         <>
-          {showSearch && 
+          {showSearch && (
             <StyledDropdownSearch>
-                <Input 
-                  placeholder="Search" 
-                  onChange={(event) => setSearchTerm(event.currentTarget.value)}
-                />
-            </StyledDropdownSearch>}
+              <Input placeholder="Search" onChange={(event) => setSearchTerm(event.currentTarget.value)} />
+            </StyledDropdownSearch>
+          )}
           <StatefulMenu
             items={dropdownItems}
             overrides={{
