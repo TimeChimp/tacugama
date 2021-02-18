@@ -63,6 +63,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
         onOpen={() => setActive(true)}
         onClose={() => setActive(false)}
         showSearch
+        searchPlaceholder={'Search'} // TODO
         items={dropdownItems}
         selection
         selectedIds={visibleColumnIds}

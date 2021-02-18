@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input, InputProps } from './Input';
-import { border } from '../../utils/css';
 import { DATA_TEST_ID } from '../../models/constants';
 import { Search } from '../icons';
 import useTheme from '../../providers/ThemeProvider';
@@ -35,14 +34,8 @@ export const SearchInput = ({ testId, ...rest }: SearchInputProps) => {
               [DATA_TEST_ID]: testId,
             },
           },
-          InputContainer: {
-            style: {
-              ...border(),
-            },
-          },
           Root: {
             style: {
-              ...border(),
               backgroundColor: primaryB,
             },
           },

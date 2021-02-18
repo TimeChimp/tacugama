@@ -4,15 +4,17 @@ import { StatefulPopover } from '../popover';
 import { DropdownItem, DropdownOption } from './DropdownOption';
 import { TetherPlacement } from 'baseui/layer';
 import { padding } from '../../utils';
-import { Input } from '../input/Input';
 import { StyledDropdownSearch } from './StyledDropdownOption';
 import { SearchInput } from '../input/SearchInput';
+import useTheme from '../../providers/ThemeProvider';
+import { SIZE } from 'baseui/button';
 
 export interface DropdownProps {
   children?: React.ReactNode;
   items: DropdownItem[];
   placement?: TetherPlacement[keyof TetherPlacement];
   showSearch?: boolean;
+  searchPlaceholder?: string;
   onClose?: () => any;
   onOpen?: () => any;
   selection?: boolean;
@@ -28,6 +30,7 @@ export const Dropdown = ({
   items,
   placement = 'bottomRight',
   showSearch,
+  searchPlaceholder,
   onOpen,
   onClose,
   selection,
@@ -36,6 +39,8 @@ export const Dropdown = ({
 }: DropdownProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>();
+
+  const { theme } = useTheme();
 
   useEffect(() => {
     const dropDownItems = items
@@ -55,11 +60,18 @@ export const Dropdown = ({
       placement={placement}
       onOpen={onOpen}
       onClose={onClose}
+      overrides={{
+        Body: {
+          style: {
+            boxShadow: theme.current.lighting.shadow600
+          }
+        }
+      }}
       content={({ close }) => (
         <>
           {showSearch && (
             <StyledDropdownSearch>
-              <SearchInput placeholder="Search" onChange={(event) => setSearchTerm(event.currentTarget.value)} />
+              <SearchInput size={SIZE.compact} placeholder={searchPlaceholder} onChange={(event) => setSearchTerm(event.currentTarget.value)} />
             </StyledDropdownSearch>
           )}
           <StatefulMenu
@@ -68,6 +80,8 @@ export const Dropdown = ({
               List: {
                 style: {
                   ...padding(),
+                  paddingInlineStart: '0',
+                  boxShadow: 'none'
                 },
                 props: {
                   ...propOverrides?.listProps(),
@@ -80,7 +94,9 @@ export const Dropdown = ({
                     if (item.action) {
                       item.action();
                     }
-                    close();
+                    if (!selection) {
+                      close();
+                    }
                   },
                   ...propOverrides?.optionProps(),
                 },
