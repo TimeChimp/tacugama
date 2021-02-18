@@ -7,6 +7,7 @@ import { useTheme } from '../../providers/ThemeProvider';
 import { HeaderColumnToggleProps } from '.';
 import { DropdownItem } from '../dropdown/DropdownOption';
 import { Column } from '@ag-grid-community/core';
+import { DATA_TEST_ID } from '../../models';
 
 export const HeaderColumnToggle = ({ api: gridApi, columnApi, searchPlaceholder }: HeaderColumnToggleProps) => {
   const [active, setActive] = useState(false);
@@ -68,8 +69,8 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi, searchPlaceholder 
         selection
         selectedIds={visibleColumnIds}
         propOverrides={{
-          listProps: () => ({ 'data-test-id': 'data-grid-column-toggle-options' }),
-          optionProps: () => ({ 'data-test-id': 'data-grid-column-toggle-option' }),
+          listProps: () => ({ [DATA_TEST_ID]: 'data-grid-column-toggle-options' }),
+          optionProps: () => ({ [DATA_TEST_ID]: 'data-grid-column-toggle-option' }),
         }}
       >
         <TertiaryButton>
