@@ -68,6 +68,11 @@ export const StyledHeaderCheckbox = themedStyled('div', {
   ...margin('0', '0', '0', '-2px'),
 });
 
+export const StyledHeaderColumnToggle = themedStyled('div', {
+  display: 'flex',
+  alignItems: 'flex-end',
+});
+
 export const StyledHeaderCheckboxValue = themedStyled('div', ({ $theme }) => ({
   ...padding('0', '0', '0', $theme.sizing.scale0),
 }));

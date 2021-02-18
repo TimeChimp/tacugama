@@ -19,10 +19,23 @@ const columns: DataGridColumn[] = [
     field: 'name',
     label: 'Name',
   },
+  {
+    field: 'description',
+    label: 'Description',
+  },
+  {
+    field: 'client',
+    label: 'Client',
+  },
+  {
+    field: 'project',
+    label: 'Project',
+  },
 ];
 
 export const Default = Template.bind({});
 Default.args = {
   columns,
+  columnToggling: true,
   dataUrl: '',
 };

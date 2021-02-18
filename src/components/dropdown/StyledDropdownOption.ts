@@ -18,6 +18,10 @@ export const StyledDropdownOptionIcon = themedStyled('div', ({ $theme }) => ({
   alignItems: 'center',
 }));
 
+export const StyledDropdownSearch = themedStyled('div', ({ $theme }) => ({
+  ...padding($theme.sizing.scale600),
+}));
+
 export const StyledDropdownOptionIconEnd = themedStyled('div', {
   display: 'flex',
   alignItems: 'center',
