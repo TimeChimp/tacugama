@@ -8,7 +8,7 @@ import '@ag-grid-community/core/dist/styles/ag-theme-alpine-dark.css';
 import { DataGrid, DataGridProps, DataGridColumn } from '.';
 
 export default {
-  title: 'Components/DataGrid',
+  title: 'Components/Data Grid',
   component: DataGrid,
 } as Meta;
 

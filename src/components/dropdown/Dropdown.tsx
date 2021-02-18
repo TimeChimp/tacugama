@@ -6,6 +6,7 @@ import { TetherPlacement } from 'baseui/layer';
 import { padding } from '../../utils';
 import { Input } from '../input/Input';
 import { StyledDropdownSearch } from './StyledDropdownOption';
+import { SearchInput } from '../input/SearchInput';
 
 export interface DropdownProps {
   children?: React.ReactNode;
@@ -58,7 +59,7 @@ export const Dropdown = ({
         <>
           {showSearch && (
             <StyledDropdownSearch>
-              <Input placeholder="Search" onChange={(event) => setSearchTerm(event.currentTarget.value)} />
+              <SearchInput placeholder="Search" onChange={(event) => setSearchTerm(event.currentTarget.value)} />
             </StyledDropdownSearch>
           )}
           <StatefulMenu
