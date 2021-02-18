@@ -63,15 +63,19 @@ export const Dropdown = ({
       overrides={{
         Body: {
           style: {
-            boxShadow: theme.current.lighting.shadow600
-          }
-        }
+            boxShadow: theme.current.lighting.shadow600,
+          },
+        },
       }}
       content={({ close }) => (
         <>
           {showSearch && (
             <StyledDropdownSearch>
-              <SearchInput size={SIZE.compact} placeholder={searchPlaceholder} onChange={(event) => setSearchTerm(event.currentTarget.value)} />
+              <SearchInput
+                size={SIZE.compact}
+                placeholder={searchPlaceholder}
+                onChange={(event) => setSearchTerm(event.currentTarget.value)}
+              />
             </StyledDropdownSearch>
           )}
           <StatefulMenu
@@ -81,7 +85,7 @@ export const Dropdown = ({
                 style: {
                   ...padding(),
                   paddingInlineStart: '0',
-                  boxShadow: 'none'
+                  boxShadow: 'none',
                 },
                 props: {
                   ...propOverrides?.listProps(),

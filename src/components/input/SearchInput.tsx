@@ -19,28 +19,28 @@ export const SearchInput = ({ testId, ...rest }: SearchInputProps) => {
 
   return (
     <Input
-        startEnhancer={<Search size="18px" />}
-        overrides={{
-          StartEnhancer: {
-            style: {
-              backgroundColor: primaryB,
-            },
+      startEnhancer={<Search size="18px" />}
+      overrides={{
+        StartEnhancer: {
+          style: {
+            backgroundColor: primaryB,
           },
-          Input: {
-            style: {
-              backgroundColor: primaryB,
-            },
-            props: {
-              [DATA_TEST_ID]: testId,
-            },
+        },
+        Input: {
+          style: {
+            backgroundColor: primaryB,
           },
-          Root: {
-            style: {
-              backgroundColor: primaryB,
-            },
+          props: {
+            [DATA_TEST_ID]: testId,
           },
-        }}
-        {...rest}
-      />
+        },
+        Root: {
+          style: {
+            backgroundColor: primaryB,
+          },
+        },
+      }}
+      {...rest}
+    />
   );
 };

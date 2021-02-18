@@ -22,7 +22,7 @@ export const StyledDropdownOptionIcon = themedStyled('div', ({ $theme }) => ({
 export const StyledDropdownSearch = themedStyled('div', ({ $theme }) => ({
   ...padding($theme.sizing.scale600),
   backgroundColor: $theme.colors.primaryB,
-  ...borderBottom($theme.borders.border300)
+  ...borderBottom($theme.borders.border300),
 }));
 
 export const StyledDropdownOptionIconEnd = themedStyled('div', {

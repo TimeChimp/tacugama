@@ -310,7 +310,7 @@ export const DataGrid = ({
             field={''}
             headerComponent={columnToggling ? 'headerColumnToggle' : ''}
             headerComponentParams={{
-                searchPlaceholder
+              searchPlaceholder,
             }}
             cellRenderer={rowActionItems ? 'moreActionsCell' : ''}
             cellRendererParams={{ items: rowActionItems }}
