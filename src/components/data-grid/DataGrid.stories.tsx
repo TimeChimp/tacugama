@@ -38,4 +38,5 @@ Default.args = {
   columns,
   columnToggling: true,
   dataUrl: '',
+  searchPlaceholder: 'Search'
 };

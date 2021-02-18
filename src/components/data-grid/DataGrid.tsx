@@ -55,6 +55,7 @@ export const DataGrid = ({
   formatSettings = defaultFormatSettings,
   noRowsTitle,
   noRowsSubtext,
+  searchPlaceholder,
   groupByLabel,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -308,6 +309,9 @@ export const DataGrid = ({
             headerName={''}
             field={''}
             headerComponent={columnToggling ? 'headerColumnToggle' : ''}
+            headerComponentParams={{
+                searchPlaceholder
+            }}
             cellRenderer={rowActionItems ? 'moreActionsCell' : ''}
             cellRendererParams={{ items: rowActionItems }}
             type="rightAligned"
