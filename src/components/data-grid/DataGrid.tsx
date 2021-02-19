@@ -6,6 +6,7 @@ import { RowActionsCell } from './RowActionsCell';
 import { StatusBarRowCount } from './StatusBarRowCount';
 import { NoRowsTemplate } from './NoRowsTemplate';
 import { HeaderCheckbox } from './HeaderCheckbox';
+import { HeaderColumnToggle } from './HeaderColumnToggle';
 import { LoadingCellTemplate } from './LoadingCellTemplate';
 import { Filters } from './Filters';
 import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
@@ -43,6 +44,7 @@ export const DataGrid = ({
   selection,
   filtering,
   grouping,
+  columnToggling,
   onReady,
   rowActionItems,
   state,
@@ -53,6 +55,7 @@ export const DataGrid = ({
   formatSettings = defaultFormatSettings,
   noRowsTitle,
   noRowsSubtext,
+  searchPlaceholder,
   groupByLabel,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -257,6 +260,7 @@ export const DataGrid = ({
             statusBarRowCount: StatusBarRowCount,
             noRowsTemplate: () => <NoRowsTemplate noRowsTitle={noRowsTitle} noRowsSubtext={noRowsSubtext} />,
             headerCheckbox: HeaderCheckbox,
+            headerColumnToggle: HeaderColumnToggle,
             loadingCellTemplate: LoadingCellTemplate,
           }}
           icons={{
@@ -302,10 +306,13 @@ export const DataGrid = ({
             />
           ))}
           <AgGridColumn
-            hide={!rowActionItems}
             headerName={''}
             field={''}
-            cellRenderer="moreActionsCell"
+            headerComponent={columnToggling ? 'headerColumnToggle' : ''}
+            headerComponentParams={{
+              searchPlaceholder,
+            }}
+            cellRenderer={rowActionItems ? 'moreActionsCell' : ''}
             cellRendererParams={{ items: rowActionItems }}
             type="rightAligned"
             minWidth={60}
