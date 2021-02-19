@@ -13,13 +13,14 @@ export const SearchInput = ({ testId, ...rest }: SearchInputProps) => {
     theme: {
       current: {
         colors: { primaryB },
+        sizing: { scale650 },
       },
     },
   } = useTheme();
 
   return (
     <Input
-      startEnhancer={<Search size="18px" />}
+      startEnhancer={<Search size={scale650} />}
       overrides={{
         StartEnhancer: {
           style: {

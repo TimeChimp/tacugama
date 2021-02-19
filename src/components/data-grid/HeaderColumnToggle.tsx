@@ -26,8 +26,8 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi, searchPlaceholder 
   const setVisibleColumns = useCallback(() => {
     const visibleColumnIds = columnApi
       .getAllColumns()
-      ?.filter((x) => x.isVisible())
-      .map((x) => x.getColId());
+      ?.filter((column) => column.isVisible())
+      .map((column) => column.getColId());
     setVisibleColumnIds(visibleColumnIds || []);
   }, [columnApi]);
 
@@ -45,19 +45,19 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi, searchPlaceholder 
   );
 
   useEffect(() => {
-    const items = columnApi
+    const dropdownItems = columnApi
       .getAllColumns()
-      ?.filter((c) => c.getColDef().headerName)
+      ?.filter((column) => column.getColDef().headerName)
       .map(
-        (c) =>
+        (column) =>
           ({
-            id: c.getColId(),
-            label: c.getColDef().headerName,
-            action: () => toggleColumn(c),
+            id: column.getColId(),
+            label: column.getColDef().headerName,
+            action: () => toggleColumn(column),
           } as DropdownItem),
       );
 
-    setDropdownItems(items || []);
+    setDropdownItems(dropdownItems || []);
     setVisibleColumns();
   }, [gridApi, columnApi, setVisibleColumns, toggleColumn]);
 
