@@ -34,3 +34,4 @@ export * from './char-counter';
 export * from './side-nav';
 export * from './data-grid';
 export * from './flex-item';
+export * from './separator';
