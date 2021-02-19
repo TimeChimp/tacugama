@@ -73,6 +73,8 @@
     "eslint": "^7.20.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-baseui": "^9.106.3",
+    "eslint-plugin-react": "^7.22.0",
     "husky": "^5.0.9",
     "msw": "^0.26.2",
     "prettier": "^2.2.1",
