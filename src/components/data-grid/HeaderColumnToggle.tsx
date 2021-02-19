@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { StyledHeaderColumnToggle } from './StyledDataGrid';
 import { Cog } from '../icons/Cog';
 import { Dropdown } from '../dropdown/Dropdown';
@@ -23,23 +23,26 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi, searchPlaceholder 
     },
   } = useTheme();
 
-  const setVisibleColumns = () => {
+  const setVisibleColumns = useCallback(() => {
     const visibleColumnIds = columnApi
       .getAllColumns()
       ?.filter((x) => x.isVisible())
       .map((x) => x.getColId());
     setVisibleColumnIds(visibleColumnIds || []);
-  };
+  }, [columnApi]);
 
-  const toggleColumn = (column: Column) => {
-    const colId = column.getColId();
-    const isVisible = !column?.isVisible() || false;
+  const toggleColumn = useCallback(
+    (column: Column) => {
+      const colId = column.getColId();
+      const isVisible = !column?.isVisible() || false;
 
-    columnApi.setColumnVisible(colId, isVisible);
+      columnApi.setColumnVisible(colId, isVisible);
 
-    setVisibleColumns();
-    gridApi.sizeColumnsToFit();
-  };
+      setVisibleColumns();
+      gridApi.sizeColumnsToFit();
+    },
+    [columnApi, gridApi, setVisibleColumns],
+  );
 
   useEffect(() => {
     const items = columnApi
@@ -56,7 +59,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi, searchPlaceholder 
 
     setDropdownItems(items || []);
     setVisibleColumns();
-  }, [gridApi, columnApi]);
+  }, [gridApi, columnApi, setVisibleColumns, toggleColumn]);
 
   return (
     <StyledHeaderColumnToggle>
