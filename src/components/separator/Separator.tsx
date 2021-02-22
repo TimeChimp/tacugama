@@ -1,8 +1,4 @@
-import { themedStyled } from '../../theme';
-import { border } from '../../utils';
+import React from 'react';
+import { Seperator as SeparatorComponent } from './styles';
 
-export const Seperator = themedStyled('hr', ({ $theme }) => ({
-  backgroundColor: $theme.customColors.light2,
-  ...border(),
-  height: '1px',
-}));
+export const Separator = () => <SeparatorComponent />

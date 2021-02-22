@@ -1,14 +1,14 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Seperator } from '.';
+import { Separator } from '.';
 
 export default {
   title: 'Components/Separator',
-  component: Seperator,
+  component: Separator,
 } as Meta;
 
-const Template: Story = () => <Seperator />;
+const Template: Story = () => <Separator />;
 
 export const Default = Template.bind({});
 Default.args = {};
