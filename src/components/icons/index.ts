@@ -32,3 +32,4 @@ export * from './Account';
 export * from './Lock';
 export * from './Flag';
 export * from './Cog';
+export * from './ImagePlaceholder';
