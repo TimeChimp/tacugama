@@ -1,4 +1,5 @@
 import {
+  ColumnApi,
   ColumnState,
   DateFilterModel,
   GridApi,
@@ -63,6 +64,7 @@ export interface DataGridProps {
   selection?: boolean;
   filtering?: boolean;
   grouping?: boolean;
+  columnToggling?: boolean;
   onReady?: (dataGridApi: DataGridApi) => void;
   rowActionItems?: DropdownItem[];
   state?: string;
@@ -75,6 +77,7 @@ export interface DataGridProps {
   noRowsSubtext?: string;
   groupByLabel?: string;
   rowCountText?: (count: number) => JSX.Element;
+  searchPlaceholder?: string;
 }
 
 export interface FiltersProps {
@@ -99,6 +102,12 @@ export interface RowActionsCellProps {
 export interface HeaderCheckboxProps {
   api: GridApi;
   displayName: string;
+}
+
+export interface HeaderColumnToggleProps {
+  api: GridApi;
+  columnApi: ColumnApi;
+  searchPlaceholder?: string;
 }
 
 export interface DataGridRequest {

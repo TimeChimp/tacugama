@@ -146,4 +146,4 @@ export const Select = ({
   );
 };
 
-export { Option, Value, OnChangeParams };
+export type { Option, Value, OnChangeParams };

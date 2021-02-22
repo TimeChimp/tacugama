@@ -1,6 +1,7 @@
 import { ParagraphSmall } from '../typography';
 import { useTheme } from '../../providers';
 import React, { forwardRef } from 'react';
+import { Checkbox } from '../checkbox/Checkbox';
 import {
   StyledDropdownOption,
   StyledDropdownOptionIcon,
@@ -15,6 +16,8 @@ export interface DropdownItem {
   iconEnd?: JSX.Element;
   action?: () => void;
   color?: string;
+  checkbox?: boolean;
+  isChecked?: boolean;
 }
 
 export interface DropdownOptionProps {
@@ -28,6 +31,7 @@ export const DropdownOption = forwardRef<any, DropdownOptionProps>(
 
     return (
       <StyledDropdownOption ref={ref} onClick={() => onItemSelect(item)}>
+        {item.checkbox && <Checkbox testId="dropdown-option-checkbox" checked={item.isChecked} />}
         {item.icon && <StyledDropdownOptionIcon>{item.icon}</StyledDropdownOptionIcon>}
         <StyledDropdownOptionLabel>
           <ParagraphSmall color={item.color || theme.current.colors.contentPrimary}>{item.label}</ParagraphSmall>
