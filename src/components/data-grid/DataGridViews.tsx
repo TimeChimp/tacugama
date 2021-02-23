@@ -78,8 +78,8 @@ export const DataGridViews = ({ translations }: DataGridHeaderProps) => {
                   {...props}
                 >
                   <ListItemLabel>
-                    <TertiaryButton>
-                      <Drag size={scale400} data-movable-handle />
+                    <TertiaryButton data-movable-handle>
+                      <Drag size={scale400} />
                       {/* https://github.com/tajo/react-movable/blob/master/examples/Handle.tsx */}
                     </TertiaryButton>
                     {value}
