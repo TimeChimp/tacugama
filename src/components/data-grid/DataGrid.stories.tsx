@@ -5,7 +5,7 @@ import '@ag-grid-community/core/dist/styles/ag-grid.css';
 import '@ag-grid-community/core/dist/styles/ag-theme-alpine.css';
 import '@ag-grid-community/core/dist/styles/ag-theme-alpine-dark.css';
 
-import { DataGrid, DataGridProps, DataGridColumn } from '.';
+import { DataGrid, DataGridProps, DataGridColumn, Translations } from '.';
 
 export default {
   title: 'Components/Data Grid',
@@ -38,5 +38,4 @@ Default.args = {
   columns,
   columnToggling: true,
   dataUrl: '',
-  searchPlaceholder: 'Search',
 };

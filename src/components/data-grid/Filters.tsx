@@ -17,7 +17,7 @@ export const Filters = ({
   onGrouping,
   onFiltering,
   filterModel,
-  groupByLabel = 'Group by',
+  translations,
 }: FiltersProps) => {
   const handleGrouping = (field: string) => {
     let groups = columns.filter((x) => x.rowGroup).map((x) => x.field);
@@ -58,7 +58,7 @@ export const Filters = ({
             testId={SEARCH_INPUT_TEST_ID}
             size="mini"
             startEnhancer={<Search size="18px" />}
-            placeholder="Search"
+            placeholder={translations.search}
             onChange={handleSearch}
           />
         </StyledDataGridSearch>
@@ -68,7 +68,7 @@ export const Filters = ({
           <Dropdown items={options}>
             <TertiaryButton size="mini">
               <ParagraphXSmall display="inline-flex" alignItems="center" $style={{ cursor: 'pointer' }}>
-                {groupByLabel}
+                {translations.groupBy}
               </ParagraphXSmall>
             </TertiaryButton>
           </Dropdown>

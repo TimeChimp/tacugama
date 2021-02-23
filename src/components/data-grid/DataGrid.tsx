@@ -38,6 +38,7 @@ import {
 import { useTheme } from '../../providers';
 import { TriangleDown, TriangleUp } from '../icons';
 import { defaultFormatSettings } from './defaultFormatSettings';
+import { defaultTranslations } from './defaultTranslations';
 import DataGridHeader from './DataGridHeader';
 
 export const DataGrid = ({
@@ -54,10 +55,7 @@ export const DataGrid = ({
   sortableColumns,
   resizeableColumns,
   formatSettings = defaultFormatSettings,
-  noRowsTitle,
-  noRowsSubtext,
-  searchPlaceholder,
-  groupByLabel,
+  translations = defaultTranslations,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
@@ -229,10 +227,10 @@ export const DataGrid = ({
         onGrouping={onGrouping}
         onFiltering={onFiltering}
         filterModel={filterModel}
-        groupByLabel={groupByLabel}
+        translations={translations}
       />
       <StyledDataGrid className={getGridThemeClassName()}>
-        <DataGridHeader />
+        <DataGridHeader translations={translations} />
         <style>{getGridThemeOverrides(theme.current)}</style>
         <AgGridReact
           rowSelection="multiple"
@@ -262,7 +260,7 @@ export const DataGrid = ({
           frameworkComponents={{
             moreActionsCell: RowActionsCell,
             statusBarRowCount: StatusBarRowCount,
-            noRowsTemplate: () => <NoRowsTemplate noRowsTitle={noRowsTitle} noRowsSubtext={noRowsSubtext} />,
+            noRowsTemplate: () => <NoRowsTemplate translations={translations} />,
             headerCheckbox: HeaderCheckbox,
             headerColumnToggle: HeaderColumnToggle,
             loadingCellTemplate: LoadingCellTemplate,
@@ -278,6 +276,9 @@ export const DataGrid = ({
             statusPanels: [
               {
                 statusPanel: 'statusBarRowCount',
+                statusPanelParams: {
+                  translations,
+                },
                 align: 'left',
               },
             ],
@@ -314,7 +315,7 @@ export const DataGrid = ({
             field={''}
             headerComponent={columnToggling ? 'headerColumnToggle' : ''}
             headerComponentParams={{
-              searchPlaceholder,
+              translations,
             }}
             cellRenderer={rowActionItems ? 'moreActionsCell' : ''}
             cellRendererParams={{ items: rowActionItems }}

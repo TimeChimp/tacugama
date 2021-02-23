@@ -59,6 +59,28 @@ export interface FormatSettings {
   timeFormat: string;
 }
 
+export interface Translations {
+  rowCountText?: (count: number) => JSX.Element;
+  noRowsTitle?: string;
+  noRowsSubtext?: string;
+  groupBy?: string;
+  search?: string;
+  defaultView?: string;
+  viewOptions?: string;
+  addView?: string;
+  viewName?: string;
+  saveColumn?: string;
+  saveGrouping?: string;
+  saveFilters?: string;
+  saveView?: string;
+  cancel?: string;
+  unpinView?: string;
+  renameView?: string;
+  updateView?: string;
+  deleteView?: string;
+  deleteViewConfirmation?: string;
+}
+
 export interface DataGridProps {
   columns: DataGridColumn[];
   selection?: boolean;
@@ -73,11 +95,7 @@ export interface DataGridProps {
   sortableColumns?: boolean;
   resizeableColumns?: boolean;
   formatSettings?: FormatSettings;
-  noRowsTitle?: string;
-  noRowsSubtext?: string;
-  groupByLabel?: string;
-  rowCountText?: (count: number) => JSX.Element;
-  searchPlaceholder?: string;
+  translations?: Translations;
 }
 
 export interface FiltersProps {
@@ -87,11 +105,11 @@ export interface FiltersProps {
   onGrouping: (rowGroups: string[]) => void;
   onFiltering: (filters: FilterModel) => void;
   filterModel: FilterModel;
-  groupByLabel?: string;
+  translations: Translations;
 }
 export interface StatusBarRowCountProps {
   api: GridApi;
-  rowCountText?: (count: number) => JSX.Element;
+  translations: Translations;
 }
 
 export interface RowActionsCellProps {
@@ -135,6 +153,9 @@ export interface DataGridResponse {
 }
 
 export interface NoRowsTemplateProps {
-  noRowsTitle?: string;
-  noRowsSubtext?: string;
+  translations: Translations;
+}
+
+export interface DataGridHeaderProps {
+  translations: Translations;
 }

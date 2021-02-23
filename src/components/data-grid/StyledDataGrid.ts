@@ -80,9 +80,9 @@ export const StyledHeaderCheckboxValue = themedStyled('div', ({ $theme }) => ({
 
 export const StyledDataGridHeader = themedStyled('div', ({ $theme }) => ({
   ...padding($theme.sizing.scale200, $theme.sizing.scale300),
-    display: 'flex',
-    justifyContent: 'space-between',
-    ...borderTop($theme.borders.border300),
-    ...borderLeft($theme.borders.border300),
-    ...borderRight($theme.borders.border300),
+  display: 'flex',
+  justifyContent: 'space-between',
+  ...borderTop($theme.borders.border300),
+  ...borderLeft($theme.borders.border300),
+  ...borderRight($theme.borders.border300),
 }));
