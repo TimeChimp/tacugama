@@ -33,3 +33,7 @@ export * from './Lock';
 export * from './Flag';
 export * from './Cog';
 export * from './ImagePlaceholder';
+export * from './Download';
+export * from './Drag';
+export * from './View';
+export * from './Views';

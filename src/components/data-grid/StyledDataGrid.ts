@@ -1,6 +1,7 @@
 import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
 import { margin, padding } from '../../utils';
+import { borderTop, borderRight, borderLeft } from '../../utils/css';
 
 export const getGridThemeOverrides = (theme: CustomThemeType) => {
   return `
@@ -75,4 +76,13 @@ export const StyledHeaderColumnToggle = themedStyled('div', {
 
 export const StyledHeaderCheckboxValue = themedStyled('div', ({ $theme }) => ({
   ...padding('0', '0', '0', $theme.sizing.scale0),
+}));
+
+export const StyledDataGridHeader = themedStyled('div', ({ $theme }) => ({
+  ...padding($theme.sizing.scale200, $theme.sizing.scale300),
+    display: 'flex',
+    justifyContent: 'space-between',
+    ...borderTop($theme.borders.border300),
+    ...borderLeft($theme.borders.border300),
+    ...borderRight($theme.borders.border300),
 }));

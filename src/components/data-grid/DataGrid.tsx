@@ -38,6 +38,7 @@ import {
 import { useTheme } from '../../providers';
 import { TriangleDown, TriangleUp } from '../icons';
 import { defaultFormatSettings } from './defaultFormatSettings';
+import DataGridHeader from './DataGridHeader';
 
 export const DataGrid = ({
   columns,
@@ -231,6 +232,7 @@ export const DataGrid = ({
         groupByLabel={groupByLabel}
       />
       <StyledDataGrid className={getGridThemeClassName()}>
+        <DataGridHeader />
         <style>{getGridThemeOverrides(theme.current)}</style>
         <AgGridReact
           rowSelection="multiple"
@@ -255,6 +257,8 @@ export const DataGrid = ({
           cacheBlockSize={1000}
           maxBlocksInCache={10}
           blockLoadDebounceMillis={100}
+          headerHeight={36}
+          rowHeight={52}
           frameworkComponents={{
             moreActionsCell: RowActionsCell,
             statusBarRowCount: StatusBarRowCount,
