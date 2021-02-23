@@ -4,7 +4,7 @@ import { StatefulPopover } from '../popover';
 import { DropdownItem, DropdownOption } from './DropdownOption';
 import { TetherPlacement } from 'baseui/layer';
 import { padding } from '../../utils';
-import { StyledDropdownSearch } from './StyledDropdownOption';
+import { StyledDropdownSearch, StyledDropdownFooter } from './StyledDropdownOption';
 import { SearchInput } from '../input/SearchInput';
 import useTheme from '../../providers/ThemeProvider';
 import { SIZE } from 'baseui/button';
@@ -19,6 +19,7 @@ export interface DropdownProps {
   onOpen?: () => any;
   selection?: boolean;
   selectedIds?: Array<string>;
+  footer?: React.ReactElement;
   propOverrides?: {
     listProps: () => {};
     optionProps: () => {};
@@ -35,6 +36,7 @@ export const Dropdown = ({
   onClose,
   selection,
   selectedIds,
+  footer,
   propOverrides,
 }: DropdownProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
@@ -112,6 +114,7 @@ export const Dropdown = ({
               },
             }}
           />
+          {footer && <StyledDropdownFooter>{footer}</StyledDropdownFooter>}
         </>
       )}
     >

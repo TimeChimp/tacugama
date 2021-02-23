@@ -86,3 +86,13 @@ export const StyledDataGridHeader = themedStyled('div', ({ $theme }) => ({
   ...borderLeft($theme.borders.border300),
   ...borderRight($theme.borders.border300),
 }));
+
+export const StyledDataGridActions = themedStyled('div', ({ $theme }) => ({}));
+
+export const StyledDataGridViews = themedStyled('div', ({ $theme }) => ({}));
+
+export const StyledDataGridViewList = themedStyled('ul', ({ $theme }) => ({
+  width: $theme.sizing.scale4800,
+  paddingLeft: 0,
+  paddingRight: 0,
+}));

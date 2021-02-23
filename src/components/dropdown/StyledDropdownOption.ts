@@ -1,6 +1,6 @@
 import { themedStyled } from '../../theme';
 import { margin, padding } from '../../utils';
-import { borderBottom } from '../../utils/css';
+import { borderBottom, borderTop } from '../../utils/css';
 
 export const StyledDropdownOption = themedStyled('div', ({ $theme }) => ({
   display: 'flex',
@@ -36,3 +36,7 @@ export const StyledDropdownOptionLabel = themedStyled('div', {
   alignItems: 'center',
   justifyContent: 'space-between',
 });
+
+export const StyledDropdownFooter = themedStyled('div', ({ $theme }) => ({
+  ...borderTop($theme.borders.border300),
+}));

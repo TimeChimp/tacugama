@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import fetch from 'isomorphic-unfetch';
-import { StyledDataGrid, getGridThemeOverrides } from './StyledDataGrid';
+import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader } from './StyledDataGrid';
 import { RowActionsCell } from './RowActionsCell';
 import { StatusBarRowCount } from './StatusBarRowCount';
 import { NoRowsTemplate } from './NoRowsTemplate';
@@ -39,7 +39,8 @@ import { useTheme } from '../../providers';
 import { TriangleDown, TriangleUp } from '../icons';
 import { defaultFormatSettings } from './defaultFormatSettings';
 import { defaultTranslations } from './defaultTranslations';
-import DataGridHeader from './DataGridHeader';
+import DataGridViews from './DataGridViews';
+import DataGridActions from './DataGridActions';
 
 export const DataGrid = ({
   columns,
@@ -230,7 +231,10 @@ export const DataGrid = ({
         translations={translations}
       />
       <StyledDataGrid className={getGridThemeClassName()}>
-        <DataGridHeader translations={translations} />
+        <StyledDataGridHeader>
+          <DataGridViews translations={translations} />
+          {/* <DataGridActions translations={translations} /> TODO include when in sprint */}
+        </StyledDataGridHeader>
         <style>{getGridThemeOverrides(theme.current)}</style>
         <AgGridReact
           rowSelection="multiple"

@@ -37,3 +37,4 @@ export * from './Download';
 export * from './Drag';
 export * from './View';
 export * from './Views';
+export * from './Plus';
