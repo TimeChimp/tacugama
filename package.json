@@ -68,7 +68,7 @@
     "@types/styletron-engine-atomic": "^1.1.0",
     "@types/styletron-react": "^5.0.2",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
-    "@typescript-eslint/parser": "^4.15.1",
+    "@typescript-eslint/parser": "^4.15.2",
     "babel-loader": "^8.2.2",
     "eslint": "^7.20.0",
     "eslint-config-prettier": "^8.0.0",
