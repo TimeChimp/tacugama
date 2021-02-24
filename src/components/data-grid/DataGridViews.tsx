@@ -78,6 +78,7 @@ export const DataGridViews = ({ translations }: DataGridHeaderProps) => {
         content={() => (
           <>
             <MovableList
+              lockVertically
               values={views}
               onChange={({ oldIndex, newIndex }) => setViews(arrayMove(views, oldIndex, newIndex))}
               renderList={({ children, props }) => (

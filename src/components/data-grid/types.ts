@@ -97,6 +97,18 @@ export interface DataGridProps {
   resizeableColumns?: boolean;
   formatSettings?: FormatSettings;
   translations?: Translations;
+  views?: DataGridView[];
+  onCreateView?: (view: DataGridView) => any;
+  onDeleteView?: (view: DataGridView) => any;
+  onUpdateView?: (view: DataGridView) => any;
+}
+
+export interface DataGridView {
+  id: string;
+  name: string;
+  pinned: boolean;
+  order: number;
+  state: DataGridState;
 }
 
 export interface FiltersProps {
