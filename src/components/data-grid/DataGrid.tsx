@@ -40,7 +40,6 @@ import { TriangleDown, TriangleUp } from '../icons';
 import { defaultFormatSettings } from './defaultFormatSettings';
 import { defaultTranslations } from './defaultTranslations';
 import DataGridViews from './DataGridViews';
-import DataGridActions from './DataGridActions';
 
 export const DataGrid = ({
   columns,
@@ -48,6 +47,7 @@ export const DataGrid = ({
   filtering,
   grouping,
   columnToggling,
+  viewing,
   onReady,
   rowActionItems,
   state,
@@ -231,10 +231,12 @@ export const DataGrid = ({
         translations={translations}
       />
       <StyledDataGrid className={getGridThemeClassName()}>
-        <StyledDataGridHeader>
-          <DataGridViews translations={translations} />
-          {/* <DataGridActions translations={translations} /> TODO include when in sprint */}
-        </StyledDataGridHeader>
+        {viewing && (
+          <StyledDataGridHeader>
+            <DataGridViews translations={translations} />
+            {/* <DataGridActions translations={translations} /> TODO include when in sprint */}
+          </StyledDataGridHeader>
+        )}
         <style>{getGridThemeOverrides(theme.current)}</style>
         <AgGridReact
           rowSelection="multiple"

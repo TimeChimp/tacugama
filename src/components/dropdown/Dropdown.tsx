@@ -19,7 +19,8 @@ export interface DropdownProps {
   onOpen?: () => any;
   selection?: boolean;
   selectedIds?: Array<string>;
-  footer?: React.ReactElement;
+  footer?: JSX.Element;
+  customOption?: React.ForwardRefExoticComponent<any & React.RefAttributes<any>>;
   propOverrides?: {
     listProps: () => {};
     optionProps: () => {};
@@ -38,6 +39,7 @@ export const Dropdown = ({
   selectedIds,
   footer,
   propOverrides,
+  customOption,
 }: DropdownProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>();
@@ -94,7 +96,7 @@ export const Dropdown = ({
                 },
               },
               Option: {
-                component: DropdownOption,
+                component: customOption || DropdownOption,
                 props: {
                   onItemSelect: (item: DropdownItem) => {
                     if (item.action) {

@@ -89,10 +89,24 @@ export const StyledDataGridHeader = themedStyled('div', ({ $theme }) => ({
 
 export const StyledDataGridActions = themedStyled('div', ({ $theme }) => ({}));
 
-export const StyledDataGridViews = themedStyled('div', ({ $theme }) => ({}));
+export const StyledDataGridViews = themedStyled('div', ({ $theme }) => ({
+  display: 'flex',
+  ...padding('0', $theme.sizing.scale300),
+}));
 
 export const StyledDataGridViewList = themedStyled('ul', ({ $theme }) => ({
   width: $theme.sizing.scale4800,
-  paddingLeft: 0,
-  paddingRight: 0,
+  ...padding('0'),
+  ...margin('0'),
+}));
+
+export const StyledDataGridViewsDivider = themedStyled('div', ({ $theme }) => ({
+  height: $theme.sizing.scale750,
+  ...margin($theme.sizing.scale200, $theme.sizing.scale600),
+  ...borderRight($theme.borders.border600),
+}));
+
+export const StyledViewOptionsFooter = themedStyled('div', ({ $theme }) => ({
+  backgroundColor: $theme.colors.primaryB,
+  ...padding($theme.sizing.scale200, $theme.sizing.scale300),
 }));

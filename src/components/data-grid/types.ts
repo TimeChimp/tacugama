@@ -86,6 +86,7 @@ export interface DataGridProps {
   selection?: boolean;
   filtering?: boolean;
   grouping?: boolean;
+  viewing?: boolean;
   columnToggling?: boolean;
   onReady?: (dataGridApi: DataGridApi) => void;
   rowActionItems?: DropdownItem[];
