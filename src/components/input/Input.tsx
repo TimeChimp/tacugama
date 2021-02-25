@@ -1,5 +1,6 @@
 import React from 'react';
-import { Input as BaseInput, InputProps as BaseInputProps } from 'baseui/input';
+import { Input as BaseInput, InputOverrides, InputProps as BaseInputProps } from 'baseui/input';
+import merge from 'deepmerge';
 import { useTheme } from '../../providers/ThemeProvider';
 import {
   border,
@@ -16,7 +17,7 @@ export interface InputProps extends BaseInputProps {
   testId?: string;
 }
 
-export const Input = ({ testId, ...rest }: InputProps) => {
+export const Input = ({ testId, overrides, ...rest }: InputProps) => {
   const {
     theme: {
       current: {
@@ -29,65 +30,67 @@ export const Input = ({ testId, ...rest }: InputProps) => {
   const { border300 } = borders;
   const { primaryB } = colors;
 
+  const baseOverrides: InputOverrides = {
+    Input: {
+      style: ({ $disabled, $isFocused, $error, $theme }) => {
+        const { color, backgroundColor } = getInputContainerColors($theme.colors, $error, $disabled);
+        return {
+          backgroundColor,
+          ...border(),
+          ...padding('0', scale500),
+          color,
+          '::placeholder': {
+            color: getInputPlaceholderTextColor($disabled, $isFocused, colors),
+          },
+          fontSize: $theme.typography.LabelSmall.fontSize,
+        };
+      },
+      props: {
+        [DATA_TEST_ID]: testId,
+      },
+    },
+    InputContainer: {
+      style: {
+        ...border(),
+        backgroundColor: primaryB,
+      },
+    },
+    Root: {
+      style: ({ $error, $isFocused }) => ({
+        height: scale1000,
+        ...border({
+          ...border300,
+          borderColor: getInputBorderColor($error, $isFocused, colors, borders),
+          borderWidth: $error ? scale0 : border300.borderWidth,
+        }),
+        ...borderRadius(scale0),
+        backgroundColor: primaryB,
+        ...margin(scale0),
+        ...padding(),
+      }),
+    },
+    StartEnhancer: {
+      style: ({ $disabled, $error, $theme }) => ({
+        backgroundColor: getInputContainerColors(colors, $error, $disabled).backgroundColor,
+        ...padding('0', $theme.sizing.scale0, '0', '14px'),
+      }),
+    },
+    EndEnhancer: {
+      style: ({ $disabled, $error, $theme }) => ({
+        backgroundColor: getInputContainerColors(colors, $error, $disabled).backgroundColor,
+        ...padding('0', '14px', '0', $theme.sizing.scale0),
+      }),
+    },
+    MaskToggleButton: {
+      style: {
+        ...padding('0', '0', '0', '14px'),
+      },
+    },
+  }
+
   return (
     <BaseInput
-      overrides={{
-        Input: {
-          style: ({ $disabled, $isFocused, $error, $theme }) => {
-            const { color, backgroundColor } = getInputContainerColors($theme.colors, $error, $disabled);
-            return {
-              backgroundColor,
-              ...border(),
-              ...padding('0', scale500),
-              color,
-              '::placeholder': {
-                color: getInputPlaceholderTextColor($disabled, $isFocused, colors),
-              },
-              fontSize: $theme.typography.LabelSmall.fontSize,
-            };
-          },
-          props: {
-            [DATA_TEST_ID]: testId,
-          },
-        },
-        InputContainer: {
-          style: {
-            ...border(),
-            backgroundColor: primaryB,
-          },
-        },
-        Root: {
-          style: ({ $error, $isFocused }) => ({
-            height: scale1000,
-            ...border({
-              ...border300,
-              borderColor: getInputBorderColor($error, $isFocused, colors, borders),
-              borderWidth: $error ? scale0 : border300.borderWidth,
-            }),
-            ...borderRadius(scale0),
-            backgroundColor: primaryB,
-            ...margin(scale0),
-            ...padding(),
-          }),
-        },
-        StartEnhancer: {
-          style: ({ $disabled, $error, $theme }) => ({
-            backgroundColor: getInputContainerColors(colors, $error, $disabled).backgroundColor,
-            ...padding('0', $theme.sizing.scale0, '0', '14px'),
-          }),
-        },
-        EndEnhancer: {
-          style: ({ $disabled, $error, $theme }) => ({
-            backgroundColor: getInputContainerColors(colors, $error, $disabled).backgroundColor,
-            ...padding('0', '14px', '0', $theme.sizing.scale0),
-          }),
-        },
-        MaskToggleButton: {
-          style: {
-            ...padding('0', '0', '0', '14px'),
-          },
-        },
-      }}
+      overrides={overrides ? merge(overrides, baseOverrides) : baseOverrides}
       {...rest}
     />
   );
