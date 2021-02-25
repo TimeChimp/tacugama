@@ -6,6 +6,7 @@ import '@ag-grid-community/core/dist/styles/ag-theme-alpine.css';
 import '@ag-grid-community/core/dist/styles/ag-theme-alpine-dark.css';
 
 import { DataGrid, DataGridProps, DataGridColumn } from '.';
+import { getTimeEntriesQueryMock, DATA_URL } from './mockServer';
 
 export default {
   title: 'Components/Data Grid',
@@ -37,6 +38,9 @@ export const Default = Template.bind({});
 Default.args = {
   columns,
   columnToggling: true,
-  dataUrl: '',
+  dataUrl: DATA_URL,
   searchPlaceholder: 'Search',
 };
+Default.parameters = {
+  msw: [getTimeEntriesQueryMock]
+}
