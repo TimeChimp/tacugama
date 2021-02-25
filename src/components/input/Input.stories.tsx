@@ -2,7 +2,8 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Input, InputProps } from './Input';
-import { Search } from '../icons';
+import { SearchInput, SearchInputProps } from './SearchInput';
+import { Search as SearchIcon } from '../icons';
 import { CharCounter } from '../char-counter';
 
 export default {
@@ -11,6 +12,8 @@ export default {
 } as Meta;
 
 const Template: Story<InputProps> = (args) => <Input {...args} />;
+
+const SearchTemplate: Story<SearchInputProps> = (args) => <SearchInput {...args} />;
 
 const WithCharCount: Story<InputProps> = (args) => (
   <>
@@ -28,24 +31,29 @@ Default.args = {
 export const StartEnhancer = Template.bind({});
 StartEnhancer.args = {
   placeholder: 'placeholder',
-  startEnhancer: <Search size="18px" />,
+  startEnhancer: <SearchIcon size="18px" />,
 };
 
 export const EndEnhancer = Template.bind({});
 EndEnhancer.args = {
   placeholder: 'placeholder',
-  endEnhancer: <Search size="18px" />,
+  endEnhancer: <SearchIcon size="18px" />,
 };
 
 export const ErrorState = Template.bind({});
 ErrorState.args = {
   placeholder: 'Error!',
   error: true,
-  startEnhancer: <Search size="18px" />,
+  startEnhancer: <SearchIcon size="18px" />,
 };
 
 export const CharCount = WithCharCount.bind({});
 CharCount.args = {
   placeholder: 'Error!',
   error: true,
+};
+
+export const Search = SearchTemplate.bind({});
+Search.args = {
+  placeholder: 'Lets go search'
 };
