@@ -99,7 +99,6 @@
     "deepmerge": "^4.2.2",
     "isomorphic-unfetch": "^3.1.0",
     "styletron-engine-atomic": "^1.4.7",
-    "styletron-react": "^5.2.7",
-    "react-movable": "^2.4.0"
+    "styletron-react": "^5.2.7"
   }
 }

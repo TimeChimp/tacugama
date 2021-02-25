@@ -3,10 +3,9 @@ import TertiaryButton from '../button/TertiaryButton';
 import { Trash } from '../icons/Trash';
 import { Download } from '../icons/Download';
 import useTheme from '../../providers/ThemeProvider';
-import { DataGridHeaderProps } from './types';
 import { StyledDataGridActions } from './StyledDataGrid';
 
-export const DataGridActions = ({ translations }: DataGridHeaderProps) => {
+export const DataGridActions = () => {
   const {
     theme: {
       current: {

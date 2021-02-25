@@ -98,9 +98,9 @@ export interface DataGridProps {
   formatSettings?: FormatSettings;
   translations?: Translations;
   views?: DataGridView[];
-  onCreateView?: (view: DataGridView) => any;
-  onDeleteView?: (view: DataGridView) => any;
-  onUpdateView?: (view: DataGridView) => any;
+  onCreateView?: (view: DataGridView) => void;
+  onDeleteView?: (view: DataGridView) => void;
+  onUpdateView?: (view: DataGridView) => void;
 }
 
 export interface DataGridView {
@@ -108,7 +108,7 @@ export interface DataGridView {
   name: string;
   pinned: boolean;
   order: number;
-  state: DataGridState;
+  payload: string;
 }
 
 export interface FiltersProps {
@@ -169,6 +169,10 @@ export interface NoRowsTemplateProps {
   translations: Translations;
 }
 
-export interface DataGridHeaderProps {
+export interface DataGridViewsProps {
   translations: Translations;
+  views?: DataGridView[];
+  onCreateView?: (view: DataGridView) => void;
+  onDeleteView?: (view: DataGridView) => void;
+  onUpdateView?: (view: DataGridView) => void;
 }

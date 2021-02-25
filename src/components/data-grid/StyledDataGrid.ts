@@ -100,6 +100,19 @@ export const StyledDataGridViewList = themedStyled('ul', ({ $theme }) => ({
   ...margin('0'),
 }));
 
+export const StyledDataGridViewListItem = themedStyled('li', ({ $theme }) => ({
+  ...padding($theme.sizing.scale300, $theme.sizing.scale300),
+  backgroundColor: $theme.colors.primaryB,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+}));
+
+export const StyledDataGridViewListItemLabel = themedStyled('div', ({ $theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+}));
+
 export const StyledDataGridViewsDivider = themedStyled('div', ({ $theme }) => ({
   height: $theme.sizing.scale750,
   ...margin($theme.sizing.scale200, $theme.sizing.scale600),
@@ -109,4 +122,5 @@ export const StyledDataGridViewsDivider = themedStyled('div', ({ $theme }) => ({
 export const StyledViewOptionsFooter = themedStyled('div', ({ $theme }) => ({
   backgroundColor: $theme.colors.primaryB,
   ...padding($theme.sizing.scale200, $theme.sizing.scale300),
+  ...borderTop($theme.borders.border200),
 }));

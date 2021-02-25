@@ -39,7 +39,7 @@ import { useTheme } from '../../providers';
 import { TriangleDown, TriangleUp } from '../icons';
 import { defaultFormatSettings } from './defaultFormatSettings';
 import { defaultTranslations } from './defaultTranslations';
-import DataGridViews from './DataGridViews';
+import DataGridViews from './views/DataGridViews';
 
 export const DataGrid = ({
   columns,
@@ -55,6 +55,10 @@ export const DataGrid = ({
   accessToken,
   sortableColumns,
   resizeableColumns,
+  views,
+  onCreateView,
+  onDeleteView,
+  onUpdateView,
   formatSettings = defaultFormatSettings,
   translations = defaultTranslations,
 }: DataGridProps) => {
@@ -233,7 +237,13 @@ export const DataGrid = ({
       <StyledDataGrid className={getGridThemeClassName()}>
         {viewing && (
           <StyledDataGridHeader>
-            <DataGridViews translations={translations} />
+            <DataGridViews
+              views={views}
+              onCreateView={onCreateView}
+              onDeleteView={onDeleteView}
+              onUpdateView={onUpdateView}
+              translations={translations}
+            />
             {/* <DataGridActions translations={translations} /> TODO include when in sprint */}
           </StyledDataGridHeader>
         )}
