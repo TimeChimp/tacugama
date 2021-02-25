@@ -17,13 +17,6 @@ export const SearchInput = ({ ...rest }: SearchInputProps) => {
   return (
     <Input
       startEnhancer={<Search size={scale650} />}
-      overrides={{
-        Root: {
-          style: {
-            backgroundColor: 'pink',
-          }
-        }
-      }}
       {...rest}
     />
   );
