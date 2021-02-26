@@ -1,28 +1,12 @@
 import '@testing-library/jest-dom';
-import * as React from 'react';
-import { rest } from 'msw';
 import { setupServer } from 'msw/node';
+import * as React from 'react';
 import { configure, render, screen, waitFor } from '../../utils/test-utils';
 import { DataGrid } from './';
-import { DataGridColumn, DataGridRequest, DataGridResponse } from './types';
-import { delay } from '@timechimp/timechimp-typescript-helpers';
+import { getTimeEntriesQueryMock, DATA_URL } from './mockServer';
+import { DataGridColumn } from './types';
 
-const tasks = [
-  {
-    id: 'ACC-BBB-CCC-DDD-EEE',
-    name: 'Analysis',
-  },
-  {
-    id: 'ACC-BBB-CCC-DDD-EE2',
-    name: 'Design',
-  },
-  {
-    id: 'ACC-BBB-CCC-DDD-EE3',
-    name: 'Development',
-  },
-];
 
-const DATA_URL = '/tasks';
 const ACCESS_TOKEN = '';
 const COLUMNS: DataGridColumn[] = [
   {
@@ -34,30 +18,7 @@ const SEARCH_INPUT_TEST_ID = 'data-grid-search';
 const CHECKBOX_TEST_ID = 'data-grid-select-all';
 const LOADER_TEST_ID = 'loader';
 
-const getLastRowIndex = (startRow: number, endRow: number, results: any): number => {
-  if (!results) {
-    return 0;
-  }
-  const currentLastRow = startRow + results.length;
-  return currentLastRow < endRow ? currentLastRow : 0;
-};
-
-const getTasksQueryMock = rest.post(DATA_URL, async (req, res, ctx) => {
-  const { startRow, endRow } = req.body as DataGridRequest;
-
-  const rowsForBlock = tasks.slice(startRow, endRow);
-  const lastRow = getLastRowIndex(startRow, endRow, rowsForBlock);
-
-  const result: DataGridResponse = {
-    rowData: rowsForBlock,
-    rowCount: lastRow,
-  };
-
-  await delay(500);
-  return res(ctx.status(200), ctx.json(result));
-});
-
-const server = setupServer(getTasksQueryMock);
+export const server = setupServer(getTimeEntriesQueryMock);
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());

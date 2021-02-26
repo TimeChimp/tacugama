@@ -7,6 +7,7 @@ import '@ag-grid-community/core/dist/styles/ag-theme-alpine-dark.css';
 
 import { DataGrid, DataGridProps, DataGridColumn } from '.';
 import { DataGridView } from './types';
+import { getTimeEntriesQueryMock, DATA_URL } from './mockServer';
 
 export default {
   title: 'Components/Data Grid',
@@ -70,5 +71,8 @@ Default.args = {
   onDeleteView: (view: DataGridView) => (views = views.filter((x) => x.id !== view.id)),
   onUpdateView: (view: DataGridView) => (views = [...views.filter((x) => x.id !== view.id), view]),
   onCreateView: (view: DataGridView) => views.push(view),
-  dataUrl: '',
+  dataUrl: DATA_URL,
 };
+Default.parameters = {
+  msw: [getTimeEntriesQueryMock]
+}

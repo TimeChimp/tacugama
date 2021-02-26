@@ -3,8 +3,8 @@ import { FiltersProps } from './types';
 import { StyledDataGridFilters, StyledDataGridSearch } from './StyledDataGrid';
 import { TextFilterModel } from '@ag-grid-community/core';
 import { Dropdown, DropdownItem } from '../dropdown';
-import { Pencil, Search } from '../icons';
-import { Input } from '../input';
+import { Pencil } from '../icons';
+import { SearchInput } from '../input';
 import { TertiaryButton } from '../button';
 import { ParagraphXSmall } from '../typography';
 
@@ -54,10 +54,9 @@ export const Filters = ({
     <StyledDataGridFilters>
       {filtering && (
         <StyledDataGridSearch>
-          <Input
+          <SearchInput
             testId={SEARCH_INPUT_TEST_ID}
             size="mini"
-            startEnhancer={<Search size="18px" />}
             placeholder={translations.search}
             onChange={handleSearch}
           />

@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { Button, ButtonProps } from './Button';
-import { padding } from '../../utils';
+import { borderRadius, padding } from '../../utils';
 
 export interface RoundButtonProps extends ButtonProps {
   children?: React.ReactNode;
@@ -14,7 +14,7 @@ export const RoundButton = forwardRef<HTMLButtonElement, RoundButtonProps>(
       overrides={{
         BaseButton: {
           style: ({ $theme }) => ({
-            borderRadius: '50%',
+            ...borderRadius('50%'),
             ...padding($theme.sizing.scale200),
             backgroundColor: $theme.colors.primaryB,
             ':hover': {

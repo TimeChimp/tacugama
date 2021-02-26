@@ -3,7 +3,7 @@ import { RoundButton, TransparentButton } from '../button';
 import { ImagePlaceholder, TrashFull } from '../icons';
 import { useTheme } from '../../providers';
 import { AvatarContainer, ButtonContainer, ButtonsContainer } from './styles';
-import { Avatar, AvatarProps } from '.';
+import { Avatar, AvatarProps } from './Avatar';
 
 const DEFAULT_SIZE = '60px';
 const UPLOAD_BUTTON_TEST_ID = 'avatar-upload-button';

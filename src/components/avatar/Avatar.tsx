@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar as BaseAvatar, AvatarProps } from 'baseui/avatar';
 
 export type { AvatarProps } from 'baseui/avatar';
@@ -23,11 +23,18 @@ const colors = [
 ];
 
 export const Avatar = ({ ...rest }: AvatarProps) => {
+  const [backgroundColor, setBackgroundColor] = useState<string>();
+
   const getRandomBackgroundColor = () => {
     const { length } = colors;
     const randomNumber = Math.floor(Math.random() * (length + 1));
     return colors[randomNumber];
   };
+
+  useEffect(() => {
+    const color = getRandomBackgroundColor();
+    setBackgroundColor(color);
+  }, []);
 
   return (
     <BaseAvatar
@@ -35,7 +42,7 @@ export const Avatar = ({ ...rest }: AvatarProps) => {
         Root: {
           style: ({ $theme }) => ({
             fontSize: $theme.sizing.scale800,
-            backgroundColor: getRandomBackgroundColor(),
+            backgroundColor,
           }),
         },
         Initials: {
