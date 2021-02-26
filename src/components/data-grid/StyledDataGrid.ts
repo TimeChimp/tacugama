@@ -115,7 +115,7 @@ export const StyledDataGridViewListItemLabel = themedStyled('div', ({ $theme }) 
 
 export const StyledDataGridViewsDivider = themedStyled('div', ({ $theme }) => ({
   height: $theme.sizing.scale750,
-  ...margin($theme.sizing.scale200, $theme.sizing.scale600),
+  ...margin($theme.sizing.scale200, $theme.sizing.scale600, $theme.sizing.scale200, $theme.sizing.scale200),
   ...borderRight($theme.borders.border600),
 }));
 

@@ -104,11 +104,11 @@ export interface DataGridProps {
 }
 
 export interface DataGridView {
-  id: string;
+  id?: string;
   name: string;
   pinned: boolean;
   order: number;
-  payload: string;
+  viewState: string;
 }
 
 export interface FiltersProps {

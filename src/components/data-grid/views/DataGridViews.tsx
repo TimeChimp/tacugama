@@ -28,6 +28,8 @@ import { border, margin } from '../../../utils/css';
 import LabelXSmall from '../../typography/LabelXSmall';
 import ConfirmationModal from '../../confirmation-modal/ConfirmationModal';
 import { ConfirmationModalType } from '../../../models/ConfirmationModalType';
+import { CreateViewModal } from './CreateViewModal';
+import { FlexItem } from '../../flex-item/FlexItem';
 
 export const DataGridViews = ({
   translations,
@@ -37,6 +39,7 @@ export const DataGridViews = ({
   onUpdateView,
 }: DataGridViewsProps) => {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
+  const [createModalIsOpen, setCreateModalIsOpen] = useState<boolean>(false);
   const [selectedView, setSelectedView] = useState<DataGridView>();
 
   const {
@@ -49,8 +52,11 @@ export const DataGridViews = ({
     },
   } = useTheme();
 
-  const addView = () => {
-    alert('Add view');
+  const handleCreateView = async (view: DataGridView) => {
+    setCreateModalIsOpen(false);
+    if (onCreateView) {
+      onCreateView(view);
+    }
   };
 
   const handleViewDelete = async () => {
@@ -99,14 +105,11 @@ export const DataGridViews = ({
         {views
           ?.filter((view) => view.pinned)
           .map((view) => (
-            <SecondaryButton
-              key={view.id}
-              $style={{ ...margin('0', scale600, '0', '0') }} // TODO not working
-              size={SIZE.mini}
-              startEnhancer={() => <View size={scale600} />}
-            >
-              {view.name}
-            </SecondaryButton>
+            <FlexItem marg1="0" marg2="10px" marg3="0" marg4="0" width="fit-content">
+              <SecondaryButton key={view.id} size={SIZE.mini} startEnhancer={() => <View size={scale600} />}>
+                {view.name}
+              </SecondaryButton>
+            </FlexItem>
           ))}
         <StyledDataGridViewsDivider />
         <StatefulPopover
@@ -133,7 +136,10 @@ export const DataGridViews = ({
                 ))}
               </StyledDataGridViewList>
               <StyledViewOptionsFooter>
-                <TertiaryButton onClick={addView} startEnhancer={() => <Plus size={scale400} color={primary} />}>
+                <TertiaryButton
+                  onClick={() => setCreateModalIsOpen(true)}
+                  startEnhancer={() => <Plus size={scale400} color={primary} />}
+                >
                   {translations.addView}
                 </TertiaryButton>
               </StyledViewOptionsFooter>
@@ -149,6 +155,7 @@ export const DataGridViews = ({
                     borderStyle: 'dashed',
                     borderWidth: border300.borderWidth,
                   }),
+
                   boxSizing: 'border-box',
                 },
               },
@@ -170,6 +177,11 @@ export const DataGridViews = ({
         submitOnClick={handleViewDelete}
         cancelLabel={translations.cancel!}
         submitButtonTestId="view-delete-modal"
+      />
+      <CreateViewModal
+        isOpen={createModalIsOpen}
+        setIsOpen={setCreateModalIsOpen}
+        handleCreateView={handleCreateView}
       />
     </>
   );
