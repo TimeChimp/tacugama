@@ -3,7 +3,7 @@ import TertiaryButton from '../../button/TertiaryButton';
 import { View } from '../../icons/View';
 import { Views } from '../../icons/Views';
 import useTheme from '../../../providers/ThemeProvider';
-import { DataGridViewsProps, DataGridView } from '../types';
+import { DataGridViewsProps, DataGridView, DataGridState } from '../types';
 import { DropdownItem } from '../../dropdown/DropdownOption';
 import { Plus } from '../../icons/Plus';
 import {
@@ -24,22 +24,31 @@ import { PLACEMENT } from 'baseui/popover';
 import { ActionMenu } from '../../icons/ActionMenu';
 import SecondaryButton from '../../button/SecondaryButton';
 import { SIZE } from 'baseui/button';
-import { border, margin } from '../../../utils/css';
+import { border } from '../../../utils/css';
 import LabelXSmall from '../../typography/LabelXSmall';
 import ConfirmationModal from '../../confirmation-modal/ConfirmationModal';
 import { ConfirmationModalType } from '../../../models/ConfirmationModalType';
 import { CreateViewModal } from './CreateViewModal';
 import { FlexItem } from '../../flex-item/FlexItem';
+import { SaveViewModal } from './SaveViewModal';
+import { RenameViewModal } from './RenameViewModal';
 
 export const DataGridViews = ({
   translations,
   views,
   onCreateView,
   onDeleteView,
-  onUpdateView,
+  onRenameView,
+  onPinView,
+  onUnpinView,
+  onSaveViewState,
+  gridApi,
+  gridColumnApi,
 }: DataGridViewsProps) => {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
   const [createModalIsOpen, setCreateModalIsOpen] = useState<boolean>(false);
+  const [saveModalIsOpen, setSaveModalIsOpen] = useState<boolean>(false);
+  const [renameModalIsOpen, setRenameModalIsOpen] = useState<boolean>(false);
   const [selectedView, setSelectedView] = useState<DataGridView>();
 
   const {
@@ -60,8 +69,8 @@ export const DataGridViews = ({
   };
 
   const handleViewDelete = async () => {
-    if (selectedView && onDeleteView) {
-      onDeleteView(selectedView);
+    if (onDeleteView) {
+      onDeleteView(selectedView?.id!);
     }
   };
 
@@ -69,23 +78,29 @@ export const DataGridViews = ({
     return [
       {
         icon: <Pin color={contentStateDisabled} size={scale600} />,
-        label: translations.unpinView,
+        label: view.pinned ? translations.unpinView : translations.pinView,
         action: () => {
-          if (onUpdateView) {
-            onUpdateView({ ...view, pinned: !view.pinned });
+          if (view.pinned && onUnpinView) {
+            onUnpinView(view.id!);
+          } else if (!view.pinned && onPinView) {
+            onPinView(view.id!);
           }
         },
       },
       {
         icon: <Text color={contentStateDisabled} size={scale600} />,
         label: translations.renameView,
+        action: () => {
+          setSelectedView(view);
+          setRenameModalIsOpen(true);
+        },
       },
       {
         icon: <Views color={contentStateDisabled} size={scale600} />,
-        label: translations.updateView,
+        label: translations.saveView,
         action: () => {
           setSelectedView(view);
-          setDeleteModalIsOpen(true);
+          setSaveModalIsOpen(true);
         },
       },
       {
@@ -182,7 +197,30 @@ export const DataGridViews = ({
         isOpen={createModalIsOpen}
         setIsOpen={setCreateModalIsOpen}
         handleCreateView={handleCreateView}
+        translations={translations}
+        gridApi={gridApi}
+        gridColumnApi={gridColumnApi}
       />
+      {selectedView && (
+        <SaveViewModal
+          view={selectedView}
+          isOpen={saveModalIsOpen}
+          setIsOpen={setSaveModalIsOpen}
+          handleSaveView={onSaveViewState!}
+          translations={translations}
+          gridApi={gridApi}
+          gridColumnApi={gridColumnApi}
+        />
+      )}
+      {selectedView && (
+        <RenameViewModal
+          view={selectedView}
+          isOpen={renameModalIsOpen}
+          setIsOpen={setRenameModalIsOpen}
+          handleRenameView={onRenameView!}
+          translations={translations}
+        />
+      )}
     </>
   );
 };

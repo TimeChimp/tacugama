@@ -14,7 +14,6 @@ export interface DataGridApi {
   getSelectedRow: () => any;
   exportAsCsv: () => void;
   exportAsExcel: () => void;
-  getState: () => string;
   refreshStore: () => void;
 }
 
@@ -69,12 +68,13 @@ export interface Translations {
   viewOptions?: string;
   addView?: string;
   viewName?: string;
-  saveColumn?: string;
+  saveColumns?: string;
   saveGrouping?: string;
   saveFilters?: string;
   saveView?: string;
   cancel?: string;
   unpinView?: string;
+  pinView?: string;
   renameView?: string;
   updateView?: string;
   deleteView?: string;
@@ -99,15 +99,17 @@ export interface DataGridProps {
   translations?: Translations;
   views?: DataGridView[];
   onCreateView?: (view: DataGridView) => void;
-  onDeleteView?: (view: DataGridView) => void;
-  onUpdateView?: (view: DataGridView) => void;
+  onDeleteView?: (id: string) => void;
+  onPinView?: (id: string) => void;
+  onUnpinView?: (id: string) => void;
+  onRenameView?: (id: string, name: string) => void;
+  onSaveViewState?: (id: string, state: string) => void;
 }
 
 export interface DataGridView {
   id?: string;
   name: string;
   pinned: boolean;
-  order: number;
   viewState: string;
 }
 
@@ -172,7 +174,39 @@ export interface NoRowsTemplateProps {
 export interface DataGridViewsProps {
   translations: Translations;
   views?: DataGridView[];
-  onCreateView?: (view: DataGridView) => void;
-  onDeleteView?: (view: DataGridView) => void;
-  onUpdateView?: (view: DataGridView) => void;
+  onCreateView?: (view: DataGridView) => any;
+  onDeleteView?: (id: string) => any;
+  onPinView?: (id: string) => any;
+  onUnpinView?: (id: string) => any;
+  onRenameView?: (id: string, name: string) => any;
+  onSaveViewState?: (id: string, state: string) => any;
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
+}
+
+export interface CreateViewModalProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+  handleCreateView: (view: DataGridView) => Promise<void>;
+  translations: Translations;
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
+}
+
+export interface SaveViewModalProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+  handleSaveView: (id: string, viewState: string) => Promise<void>;
+  translations: Translations;
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
+  view: DataGridView;
+}
+
+export interface RenameViewModalProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+  handleRenameView: (id: string, name: string) => Promise<void>;
+  translations: Translations;
+  view: DataGridView;
 }

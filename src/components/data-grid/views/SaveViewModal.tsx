@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { MAX_NAME_INPUT_LENGTH } from '../../../models/MaxInputLength';
 import { ModalFooter } from '../../modal/ModalFooter';
 import { ModalBody } from '../../modal/ModalBody';
 import { Modal } from '../../modal/Modal';
@@ -9,25 +7,18 @@ import { SecondaryModalButton } from '../../button/SecondaryModalButton';
 import { ModalHeader } from '../../modal/ModalHeader';
 import { HeadingSmall } from '../../typography/HeadingSmall';
 import { FormControl } from '../../form-control/FormControl';
-import { Input } from '../../input/Input';
-import { CreateViewModalProps, DataGridState } from '../types';
+import { SaveViewModalProps, DataGridState } from '../types';
 import { Checkbox } from '../../checkbox/Checkbox';
 
-interface FormInput {
-  name: string;
-}
-
-export const CreateViewModal = ({
+export const SaveViewModal = ({
   isOpen,
   setIsOpen,
-  handleCreateView,
+  handleSaveView,
   translations,
   gridApi,
   gridColumnApi,
-}: CreateViewModalProps) => {
-  const { errors, handleSubmit, register, setValue, reset } = useForm<FormInput>({
-    mode: 'onChange',
-  });
+  view,
+}: SaveViewModalProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [saveColumns, setSaveColumns] = useState<boolean>(true);
   const [saveGrouping, setSaveGrouping] = useState<boolean>(true);
@@ -35,12 +26,11 @@ export const CreateViewModal = ({
 
   useEffect(() => {
     if (isOpen) {
-      reset({ name: '' });
       setSaveColumns(true);
       setSaveGrouping(true);
       setSaveFilters(true);
     }
-  }, [setValue, isOpen, reset, gridColumnApi]);
+  }, [isOpen, gridColumnApi]);
 
   const getState = () => {
     const state: DataGridState = {
@@ -51,38 +41,20 @@ export const CreateViewModal = ({
     return JSON.stringify(state);
   };
 
-  const onSubmit = async ({ name }: FormInput) => {
+  const onSubmit = async () => {
     setLoading(true);
     const viewState = getState();
-    await handleCreateView({
-      name,
-      pinned: true,
-      viewState,
-    });
+    await handleSaveView(view.id!, viewState);
     setLoading(false);
   };
 
   return (
-    <Modal name="create-view" isOpen={isOpen} onClose={() => setIsOpen(false)}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <Modal name="save-view" isOpen={isOpen} onClose={() => setIsOpen(false)}>
+      <form onSubmit={onSubmit}>
         <ModalHeader>
-          <HeadingSmall>{translations.addView}</HeadingSmall>
+          <HeadingSmall>{translations.saveView}</HeadingSmall>
         </ModalHeader>
         <ModalBody>
-          <FormControl label={translations.viewName}>
-            <Input
-              inputRef={register({
-                required: true,
-                maxLength: MAX_NAME_INPUT_LENGTH,
-              })}
-              testId="view-name-input"
-              name="name"
-              size="compact"
-              error={!!errors.name}
-              autoComplete="off"
-              placeholder={translations.viewName}
-            />
-          </FormControl>
           <FormControl>
             <Checkbox checked={saveColumns} onChange={() => setSaveColumns(!saveColumns)}>
               {translations.saveColumns}
@@ -103,8 +75,8 @@ export const CreateViewModal = ({
           <SecondaryModalButton type="button" onClick={() => setIsOpen(false)}>
             {translations.cancel}
           </SecondaryModalButton>
-          <ModalButton testId="create-view-modal-submit" isLoading={loading} type="submit">
-            {translations.addView}
+          <ModalButton testId="save-view-modal-submit" isLoading={loading} type="submit">
+            {translations.saveView}
           </ModalButton>
         </ModalFooter>
       </form>

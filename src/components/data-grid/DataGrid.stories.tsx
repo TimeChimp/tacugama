@@ -20,21 +20,18 @@ const Template: Story<DataGridProps> = (args) => {
       id: '1',
       name: 'Test view 1',
       pinned: true,
-      order: 1,
       viewState: '',
     },
     {
       id: '2',
       name: 'Test view 2',
       pinned: false,
-      order: 2,
       viewState: '',
     },
     {
       id: '3',
       name: 'Test view 3',
       pinned: true,
-      order: 3,
       viewState: '',
     },
   ]);
@@ -51,18 +48,45 @@ const Template: Story<DataGridProps> = (args) => {
     {
       field: 'client',
       label: 'Client',
+      groupable: true,
     },
     {
       field: 'project',
       label: 'Project',
+      groupable: true,
     },
   ];
+
+  //   onCreateView?: (view: DataGridView) => void;
+  // onDeleteView?: (id: string) => void;
+  // onPinView?: (id: string) => void;
+  // onUnpinView?: (id: string) => void;
+  // onRenameView?: (id: string, name: string) => void;
+  // onSaveViewState?: (id: string, state: string) => void;
+
+  const handlePin = (id: string, pinned: boolean) => {
+    const view = views.find((x) => x.id === id);
+    if (view) {
+      view.pinned = pinned;
+      setView([...views.filter((x) => x.id !== id), view]);
+    }
+  };
+
+  const handleRename = (id: string, name: string) => {
+    const view = views.find((x) => x.id === id);
+    if (view) {
+      view.name = name;
+      setView([...views.filter((x) => x.id !== id), view]);
+    }
+  };
 
   return (
     <DataGrid
       views={views}
-      onDeleteView={(view: DataGridView) => setView(views.filter((x) => x.id !== view.id))}
-      onUpdateView={(view: DataGridView) => setView([...views.filter((x) => x.id !== view.id), view])}
+      onDeleteView={(id: string) => setView(views.filter((x) => x.id !== id))}
+      onPinView={(id: string) => handlePin(id, true)}
+      onUnpinView={(id: string) => handlePin(id, false)}
+      onRenameView={(id: string, name: string) => handleRename(id, name)}
       onCreateView={(view: DataGridView) => setView([...views, view])}
       columns={columns}
       columnToggling

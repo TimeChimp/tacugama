@@ -50,7 +50,6 @@ export const DataGrid = ({
   viewing,
   onReady,
   rowActionItems,
-  state,
   dataUrl,
   accessToken,
   sortableColumns,
@@ -58,7 +57,10 @@ export const DataGrid = ({
   views,
   onCreateView,
   onDeleteView,
-  onUpdateView,
+  onRenameView,
+  onPinView,
+  onUnpinView,
+  onSaveViewState,
   formatSettings = defaultFormatSettings,
   translations = defaultTranslations,
 }: DataGridProps) => {
@@ -102,32 +104,24 @@ export const DataGrid = ({
     return api.refreshServerSideStore({ purge: rowCount === 0 });
   };
 
-  const getState = (api: GridApi, columnApi: ColumnApi) => {
-    const state: DataGridState = {
-      columnState: columnApi?.getColumnState(),
-      columnGroupState: columnApi?.getColumnGroupState(),
-      filterModel: api?.getFilterModel(),
-    };
-    return JSON.stringify(state);
-  };
-
   const onGridSizeChanged = () => {
     gridApi.sizeColumnsToFit();
   };
 
   const onFirstDataRendered = () => {
+    const state = null; // TODO get state from selected view
+
     if (!state) {
       return;
     }
-    const gridState: DataGridState = JSON.parse(state);
 
+    const gridState: DataGridState = JSON.parse(state);
     if (gridState.columnState) {
       gridColumnApi.setColumnState(gridState.columnState);
     }
     if (gridState.columnGroupState) {
       gridColumnApi.setColumnGroupState(gridState.columnGroupState);
     }
-
     if (gridState.filterModel) {
       gridApi.setFilterModel(gridState.filterModel);
       setFilterModel(gridState.filterModel);
@@ -171,7 +165,6 @@ export const DataGrid = ({
         getSelectedRow: () => getSelectedRow(api),
         exportAsCsv: () => exportAsCsv(api),
         exportAsExcel: () => exportAsExcel(api),
-        getState: () => getState(api, columnApi),
         refreshStore: () => refreshStore(api),
       };
       onReady(dataGridApi);
@@ -241,8 +234,13 @@ export const DataGrid = ({
               views={views}
               onCreateView={onCreateView}
               onDeleteView={onDeleteView}
-              onUpdateView={onUpdateView}
+              onRenameView={onRenameView}
+              onPinView={onPinView}
+              onUnpinView={onUnpinView}
+              onSaveViewState={onSaveViewState}
               translations={translations}
+              gridApi={gridApi}
+              gridColumnApi={gridColumnApi}
             />
             {/* <DataGridActions translations={translations} /> TODO include when in sprint */}
           </StyledDataGridHeader>
