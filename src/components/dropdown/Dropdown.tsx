@@ -90,6 +90,7 @@ export const Dropdown = ({
                   ...padding(),
                   paddingInlineStart: '0',
                   boxShadow: 'none',
+                  outline: 'none',
                 },
                 props: {
                   ...propOverrides?.listProps(),
