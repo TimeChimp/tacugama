@@ -38,7 +38,7 @@ const Template: Story<DataGridProps> = (args) => {
     },
   ];
 
-  const handlePin = (id: string, pinned: boolean) => {
+  const handlePin = async (id: string, pinned: boolean) => {
     const view = views.find((x) => x.id === id);
     if (view) {
       view.pinned = pinned;
@@ -46,7 +46,7 @@ const Template: Story<DataGridProps> = (args) => {
     }
   };
 
-  const handleRename = (id: string, name: string) => {
+  const handleRename = async (id: string, name: string) => {
     const view = views.find((x) => x.id === id);
     if (view) {
       view.name = name;
@@ -54,15 +54,19 @@ const Template: Story<DataGridProps> = (args) => {
     }
   };
 
-  const handleCreateView = (view: DataGridView) => {
+  const handleCreateView = async (view: DataGridView) => {
     view.id = Math.random().toString(16);
     setView([...views, view]);
+  };
+
+  const onDeleteView = async (id: string) => {
+    setView(views.filter((x) => x.id !== id));
   };
 
   return (
     <DataGrid
       views={views}
-      onDeleteView={(id: string) => setView(views.filter((x) => x.id !== id))}
+      onDeleteView={(id: string) => onDeleteView(id)}
       onPinView={(id: string) => handlePin(id, true)}
       onUnpinView={(id: string) => handlePin(id, false)}
       onRenameView={(id: string, name: string) => handleRename(id, name)}
