@@ -38,7 +38,7 @@ export const DataGridViews = ({
   const {
     theme: {
       current: {
-        sizing: { scale400, scale600 },
+        sizing: { scale200, scale400, scale600 },
       },
     },
   } = useTheme();
@@ -85,7 +85,7 @@ export const DataGridViews = ({
   return (
     <>
       <StyledDataGridViews>
-        <FlexItem marg1="0" marg2={scale400} marg3="0" marg4="0" width="fit-content">
+        <FlexItem marg1={scale200} marg2={scale400} marg3={scale200} marg4={scale400} width="fit-content">
           <SecondaryButton
             onClick={handleDefaultSelectView}
             size={SIZE.mini}
@@ -97,7 +97,7 @@ export const DataGridViews = ({
         {views
           ?.filter((view) => view.pinned)
           .map((view) => (
-            <FlexItem marg1="0" marg2={scale400} marg3="0" marg4="0" width="fit-content">
+            <FlexItem marg1={scale200} marg2={scale400} marg3={scale200} marg4={scale400} width="fit-content">
               <SecondaryButton
                 onClick={() => handleSelectView(view)}
                 key={view.id}

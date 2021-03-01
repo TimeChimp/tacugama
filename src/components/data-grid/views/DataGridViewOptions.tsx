@@ -17,9 +17,10 @@ import { SearchInput } from '../../input';
 import { StyledDropdownSearch } from '../../dropdown/StyledDropdownOption';
 
 import { useTheme } from '../../../providers';
-import { border, padding } from '../../../utils';
+import { border, margin, padding } from '../../../utils';
 import { StyledList } from 'baseui/menu';
 import { StatefulTooltip } from '../../tooltip';
+import { FlexItem } from '../../flex-item/FlexItem';
 
 export const DataGridViewOptions = ({
   translations,
@@ -38,7 +39,7 @@ export const DataGridViewOptions = ({
     theme: {
       current: {
         colors: { primary, primaryB, contentStateDisabled },
-        sizing: { scale400, scale600 },
+        sizing: { scale200, scale400, scale600 },
         borders: { border300 },
       },
     },
@@ -177,7 +178,7 @@ export const DataGridViewOptions = ({
                 borderStyle: 'dashed',
                 borderWidth: border300.borderWidth,
               }),
-
+              ...margin(scale200, scale400),
               boxSizing: 'border-box',
               ':hover': {
                 backgroundColor: primaryB,
