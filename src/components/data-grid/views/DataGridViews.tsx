@@ -68,6 +68,20 @@ export const DataGridViews = ({
     }
   };
 
+  const handleSaveViewState = async (id: string, viewState: string) => {
+    setSaveModalIsOpen(false);
+    if (onSaveViewState) {
+      onSaveViewState(id, viewState);
+    }
+  };
+
+  const handleRenameView = async (id: string, name: string) => {
+    setRenameModalIsOpen(false);
+    if (onRenameView) {
+      onRenameView(id, name);
+    }
+  };
+
   const handleViewDelete = async () => {
     if (onDeleteView) {
       onDeleteView(selectedView?.id!);
@@ -206,7 +220,7 @@ export const DataGridViews = ({
           view={selectedView}
           isOpen={saveModalIsOpen}
           setIsOpen={setSaveModalIsOpen}
-          handleSaveView={onSaveViewState!}
+          handleSaveView={handleSaveViewState}
           translations={translations}
           gridApi={gridApi}
           gridColumnApi={gridColumnApi}
@@ -217,7 +231,7 @@ export const DataGridViews = ({
           view={selectedView}
           isOpen={renameModalIsOpen}
           setIsOpen={setRenameModalIsOpen}
-          handleRenameView={onRenameView!}
+          handleRenameView={handleRenameView}
           translations={translations}
         />
       )}

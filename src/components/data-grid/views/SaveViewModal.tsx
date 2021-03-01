@@ -50,36 +50,34 @@ export const SaveViewModal = ({
 
   return (
     <Modal name="save-view" isOpen={isOpen} onClose={() => setIsOpen(false)}>
-      <form onSubmit={onSubmit}>
-        <ModalHeader>
-          <HeadingSmall>{translations.saveView}</HeadingSmall>
-        </ModalHeader>
-        <ModalBody>
-          <FormControl>
-            <Checkbox checked={saveColumns} onChange={() => setSaveColumns(!saveColumns)}>
-              {translations.saveColumns}
-            </Checkbox>
-          </FormControl>
-          <FormControl>
-            <Checkbox checked={saveGrouping} onChange={() => setSaveGrouping(!saveGrouping)}>
-              {translations.saveGrouping}
-            </Checkbox>
-          </FormControl>
-          <FormControl>
-            <Checkbox checked={saveFilters} onChange={() => setSaveFilters(!saveFilters)}>
-              {translations.saveFilters}
-            </Checkbox>
-          </FormControl>
-        </ModalBody>
-        <ModalFooter>
-          <SecondaryModalButton type="button" onClick={() => setIsOpen(false)}>
-            {translations.cancel}
-          </SecondaryModalButton>
-          <ModalButton testId="save-view-modal-submit" isLoading={loading} type="submit">
-            {translations.saveView}
-          </ModalButton>
-        </ModalFooter>
-      </form>
+      <ModalHeader>
+        <HeadingSmall>{translations.saveView}</HeadingSmall>
+      </ModalHeader>
+      <ModalBody>
+        <FormControl>
+          <Checkbox checked={saveColumns} onChange={() => setSaveColumns(!saveColumns)}>
+            {translations.saveColumns}
+          </Checkbox>
+        </FormControl>
+        <FormControl>
+          <Checkbox checked={saveGrouping} onChange={() => setSaveGrouping(!saveGrouping)}>
+            {translations.saveGrouping}
+          </Checkbox>
+        </FormControl>
+        <FormControl>
+          <Checkbox checked={saveFilters} onChange={() => setSaveFilters(!saveFilters)}>
+            {translations.saveFilters}
+          </Checkbox>
+        </FormControl>
+      </ModalBody>
+      <ModalFooter>
+        <SecondaryModalButton type="button" onClick={() => setIsOpen(false)}>
+          {translations.cancel}
+        </SecondaryModalButton>
+        <ModalButton onClick={onSubmit} testId="save-view-modal-submit" isLoading={loading}>
+          {translations.saveView}
+        </ModalButton>
+      </ModalFooter>
     </Modal>
   );
 };
