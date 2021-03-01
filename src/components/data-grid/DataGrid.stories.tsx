@@ -15,26 +15,7 @@ export default {
 } as Meta;
 
 const Template: Story<DataGridProps> = (args) => {
-  const [views, setView] = useState<DataGridView[]>([
-    {
-      id: '1',
-      name: 'Test view 1',
-      pinned: true,
-      viewState: '',
-    },
-    {
-      id: '2',
-      name: 'Test view 2',
-      pinned: false,
-      viewState: '',
-    },
-    {
-      id: '3',
-      name: 'Test view 3',
-      pinned: true,
-      viewState: '',
-    },
-  ]);
+  const [views, setView] = useState<DataGridView[]>([]);
 
   const columns: DataGridColumn[] = [
     {
@@ -57,13 +38,6 @@ const Template: Story<DataGridProps> = (args) => {
     },
   ];
 
-  //   onCreateView?: (view: DataGridView) => void;
-  // onDeleteView?: (id: string) => void;
-  // onPinView?: (id: string) => void;
-  // onUnpinView?: (id: string) => void;
-  // onRenameView?: (id: string, name: string) => void;
-  // onSaveViewState?: (id: string, state: string) => void;
-
   const handlePin = (id: string, pinned: boolean) => {
     const view = views.find((x) => x.id === id);
     if (view) {
@@ -80,6 +54,11 @@ const Template: Story<DataGridProps> = (args) => {
     }
   };
 
+  const handleCreateView = (view: DataGridView) => {
+    view.id = Math.random().toString(16);
+    setView([...views, view]);
+  };
+
   return (
     <DataGrid
       views={views}
@@ -87,7 +66,7 @@ const Template: Story<DataGridProps> = (args) => {
       onPinView={(id: string) => handlePin(id, true)}
       onUnpinView={(id: string) => handlePin(id, false)}
       onRenameView={(id: string, name: string) => handleRename(id, name)}
-      onCreateView={(view: DataGridView) => setView([...views, view])}
+      onCreateView={(view: DataGridView) => handleCreateView(view)}
       columns={columns}
       columnToggling
       selection

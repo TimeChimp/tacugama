@@ -18,12 +18,14 @@ const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
 export const DataGridViews = ({
   translations,
   views,
+  selectedView,
   onCreateView,
   onDeleteView,
   onRenameView,
   onPinView,
   onUnpinView,
   onSaveViewState,
+  onSelectView,
   gridApi,
   gridColumnApi,
 }: DataGridViewsProps) => {
@@ -31,7 +33,7 @@ export const DataGridViews = ({
   const [createModalIsOpen, setCreateModalIsOpen] = useState<boolean>(false);
   const [saveModalIsOpen, setSaveModalIsOpen] = useState<boolean>(false);
   const [renameModalIsOpen, setRenameModalIsOpen] = useState<boolean>(false);
-  const [selectedView, setSelectedView] = useState<DataGridView>();
+  const [editView, setEditView] = useState<DataGridView>();
 
   const {
     theme: {
@@ -64,18 +66,44 @@ export const DataGridViews = ({
 
   const handleViewDelete = async () => {
     if (onDeleteView) {
-      onDeleteView(selectedView?.id!);
+      onDeleteView(editView?.id!);
+    }
+  };
+
+  const handleSelectView = (view: DataGridView) => {
+    if (onSelectView) {
+      onSelectView(view);
+    }
+  };
+
+  const handleDefaultSelectView = () => {
+    if (onSelectView) {
+      onSelectView(null);
     }
   };
 
   return (
     <>
       <StyledDataGridViews>
+        <FlexItem marg1="0" marg2={scale400} marg3="0" marg4="0" width="fit-content">
+          <SecondaryButton
+            onClick={handleDefaultSelectView}
+            size={SIZE.mini}
+            startEnhancer={() => (!selectedView ? <View size={scale600} /> : '')}
+          >
+            {translations.defaultView}
+          </SecondaryButton>
+        </FlexItem>
         {views
           ?.filter((view) => view.pinned)
           .map((view) => (
             <FlexItem marg1="0" marg2={scale400} marg3="0" marg4="0" width="fit-content">
-              <SecondaryButton key={view.id} size={SIZE.mini} startEnhancer={() => <View size={scale600} />}>
+              <SecondaryButton
+                onClick={() => handleSelectView(view)}
+                key={view.id}
+                size={SIZE.mini}
+                startEnhancer={() => (selectedView?.id === view.id ? <View size={scale600} /> : '')}
+              >
                 {view.name}
               </SecondaryButton>
             </FlexItem>
@@ -84,7 +112,7 @@ export const DataGridViews = ({
         <DataGridViewOptions
           translations={translations}
           views={views}
-          setSelectedView={setSelectedView}
+          setEditView={setEditView}
           setDeleteModalIsOpen={setDeleteModalIsOpen}
           setCreateModalIsOpen={setCreateModalIsOpen}
           setRenameModalIsOpen={setRenameModalIsOpen}
@@ -112,9 +140,9 @@ export const DataGridViews = ({
         gridApi={gridApi}
         gridColumnApi={gridColumnApi}
       />
-      {selectedView && (
+      {editView && (
         <SaveViewModal
-          view={selectedView}
+          view={editView}
           isOpen={saveModalIsOpen}
           setIsOpen={setSaveModalIsOpen}
           handleSaveView={handleSaveViewState}
@@ -123,9 +151,9 @@ export const DataGridViews = ({
           gridColumnApi={gridColumnApi}
         />
       )}
-      {selectedView && (
+      {editView && (
         <RenameViewModal
-          view={selectedView}
+          view={editView}
           isOpen={renameModalIsOpen}
           setIsOpen={setRenameModalIsOpen}
           handleRenameView={handleRenameView}

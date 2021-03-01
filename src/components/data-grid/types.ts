@@ -175,12 +175,14 @@ export interface NoRowsTemplateProps {
 export interface DataGridViewsProps {
   translations: Translations;
   views?: DataGridView[];
+  selectedView?: DataGridView;
   onCreateView?: (view: DataGridView) => void;
   onDeleteView?: (id: string) => void;
   onPinView?: (id: string) => void;
   onUnpinView?: (id: string) => void;
   onRenameView?: (id: string, name: string) => void;
   onSaveViewState?: (id: string, state: string) => void;
+  onSelectView?: (view: DataGridView | null) => void;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
 }
@@ -215,7 +217,7 @@ export interface RenameViewModalProps {
 export interface DataGridViewOptionsProps {
   translations: Translations;
   views?: DataGridView[];
-  setSelectedView: Dispatch<SetStateAction<DataGridView | undefined>>;
+  setEditView: Dispatch<SetStateAction<DataGridView | undefined>>;
   setDeleteModalIsOpen: Dispatch<SetStateAction<boolean>>;
   setCreateModalIsOpen: Dispatch<SetStateAction<boolean>>;
   setRenameModalIsOpen: Dispatch<SetStateAction<boolean>>;

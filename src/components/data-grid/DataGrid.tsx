@@ -34,6 +34,7 @@ import {
   DataGridColumnType,
   FilterModel,
   DataGridResponse,
+  DataGridView,
 } from './types';
 import { useTheme } from '../../providers';
 import { TriangleDown, TriangleUp } from '../icons';
@@ -68,6 +69,7 @@ export const DataGrid = ({
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
   const [filterModel, setFilterModel] = useState<FilterModel>({});
+  const [selectedView, setSelectedView] = useState<DataGridView | null>();
 
   const { theme } = useTheme();
 
@@ -108,24 +110,39 @@ export const DataGrid = ({
     gridApi.sizeColumnsToFit();
   };
 
-  const onFirstDataRendered = () => {
-    const state = null; // TODO get state from selected view
+  const setViewState = (state: string | null) => {
+    if (state) {
+      const gridState: DataGridState = JSON.parse(state);
 
-    if (!state) {
-      return;
-    }
-
-    const gridState: DataGridState = JSON.parse(state);
-    if (gridState.columnState) {
       gridColumnApi.setColumnState(gridState.columnState);
-    }
-    if (gridState.columnGroupState) {
       gridColumnApi.setColumnGroupState(gridState.columnGroupState);
-    }
-    if (gridState.filterModel) {
       gridApi.setFilterModel(gridState.filterModel);
       setFilterModel(gridState.filterModel);
+    } else {
+      gridColumnApi.resetColumnState();
+      gridColumnApi.resetColumnGroupState();
+      gridApi.setFilterModel({});
+      setFilterModel({});
     }
+
+    gridApi.sizeColumnsToFit();
+  };
+
+  const onSelectView = (view: DataGridView | null) => {
+    setSelectedView(view);
+    setViewState(view?.viewState!);
+  };
+
+  const handleCreateView = (view: DataGridView) => {
+    onSelectView(view);
+    if (onCreateView) {
+      onCreateView(view);
+    }
+  };
+
+  const onFirstDataRendered = () => {
+    // const view = null; // TODO get selected view from user
+    // onSelectView
   };
 
   const createServerSideDatasource = (): IServerSideDatasource => {
@@ -232,12 +249,14 @@ export const DataGrid = ({
           <StyledDataGridHeader>
             <DataGridViews
               views={views}
-              onCreateView={onCreateView}
+              selectedView={selectedView!}
+              onCreateView={handleCreateView}
               onDeleteView={onDeleteView}
               onRenameView={onRenameView}
               onPinView={onPinView}
               onUnpinView={onUnpinView}
               onSaveViewState={onSaveViewState}
+              onSelectView={onSelectView}
               translations={translations}
               gridApi={gridApi}
               gridColumnApi={gridColumnApi}

@@ -22,7 +22,7 @@ import { border, padding } from '../../../utils';
 export const DataGridViewOptions = ({
   translations,
   views,
-  setSelectedView,
+  setEditView,
   setDeleteModalIsOpen,
   setCreateModalIsOpen,
   onPinView,
@@ -65,7 +65,7 @@ export const DataGridViewOptions = ({
           icon: <Text color={contentStateDisabled} size={scale600} />,
           label: translations.renameView,
           action: () => {
-            setSelectedView(view);
+            setEditView(view);
             setRenameModalIsOpen(true);
           },
         },
@@ -73,7 +73,7 @@ export const DataGridViewOptions = ({
           icon: <Views color={contentStateDisabled} size={scale600} />,
           label: translations.saveView,
           action: () => {
-            setSelectedView(view);
+            setEditView(view);
             setSaveModalIsOpen(true);
           },
         },
@@ -81,7 +81,7 @@ export const DataGridViewOptions = ({
           icon: <Trash color={contentStateDisabled} size={scale600} />,
           label: translations.deleteView,
           action: () => {
-            setSelectedView(view);
+            setEditView(view);
             setDeleteModalIsOpen(true);
           },
         },
