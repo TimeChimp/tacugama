@@ -10,8 +10,8 @@ import { CreateViewModal } from './CreateViewModal';
 import { FlexItem } from '../../flex-item/FlexItem';
 import { SaveViewModal } from './SaveViewModal';
 import { RenameViewModal } from './RenameViewModal';
-import { ConfirmationModalType } from 'models';
-import { DataGridViewOptions } from '.';
+import { ConfirmationModalType } from '../../../models';
+import { DataGridViewOptions } from './DataGridViewOptions';
 
 const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
 
