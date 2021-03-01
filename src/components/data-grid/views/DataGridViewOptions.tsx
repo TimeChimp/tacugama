@@ -47,11 +47,7 @@ export const DataGridViewOptions = ({
   } = useTheme();
 
   useEffect(() => {
-    let viewItems = views
-      ? views
-          ?.filter((x) => !viewSearchTerm || x.name.toLowerCase().includes(viewSearchTerm.toLowerCase()))
-          .map(({ id, name }) => ({ id, label: name }))
-      : [];
+    let viewItems = views ? views.map(({ id, name }) => ({ id, label: name })) : [];
 
     viewItems = sortBy<any>(viewItems, ['label']);
 
@@ -59,6 +55,10 @@ export const DataGridViewOptions = ({
       id: undefined,
       label: translations.defaultView,
     });
+
+    viewItems = viewItems.filter(
+      (x) => !viewSearchTerm || x.label.toLowerCase().includes(viewSearchTerm.toLowerCase()),
+    );
 
     setViewItems(viewItems);
   }, [views, viewSearchTerm, translations]);
