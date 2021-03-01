@@ -223,4 +223,3 @@ export interface DataGridViewOptionsProps {
   onPinView?: (id: string) => void;
   onUnpinView?: (id: string) => void;
 }
-k;
