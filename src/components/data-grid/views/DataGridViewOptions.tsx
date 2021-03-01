@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PLACEMENT } from 'baseui/popover';
 import { SIZE } from 'baseui/button';
 import { SecondaryButton, TertiaryButton } from '../../button';
-import { DataGridViewOptionsProps } from '../types';
+import { DataGridViewOptionsProps, DataGridView } from '../types';
 import {
   StyledViewOptionsFooter,
   StyledDataGridViewListItemLabel,
@@ -18,9 +18,9 @@ import { StyledDropdownSearch } from '../../dropdown/StyledDropdownOption';
 
 import { useTheme } from '../../../providers';
 import { border, margin, padding } from '../../../utils';
-import { StyledList } from 'baseui/menu';
+import { ItemsT } from 'baseui/menu';
 import { StatefulTooltip } from '../../tooltip';
-import { FlexItem } from '../../flex-item/FlexItem';
+import { nameOf, sortBy } from '@timechimp/timechimp-typescript-helpers';
 
 export const DataGridViewOptions = ({
   translations,
@@ -34,6 +34,7 @@ export const DataGridViewOptions = ({
   setRenameModalIsOpen,
 }: DataGridViewOptionsProps) => {
   const [viewSearchTerm, setViewSearchTerm] = useState<string>();
+  const [viewItems, setViewItems] = useState<any[]>([]);
 
   const {
     theme: {
@@ -44,6 +45,23 @@ export const DataGridViewOptions = ({
       },
     },
   } = useTheme();
+
+  useEffect(() => {
+    let viewItems = views
+      ? views
+          ?.filter((x) => !viewSearchTerm || x.name.toLowerCase().includes(viewSearchTerm.toLowerCase()))
+          .map(({ id, name }) => ({ id, label: name }))
+      : [];
+
+    viewItems = sortBy<any>(viewItems, ['label']);
+
+    viewItems.unshift({
+      id: undefined,
+      label: translations.defaultView,
+    });
+
+    setViewItems(viewItems);
+  }, [views, viewSearchTerm, translations]);
 
   const getViewById = (id: string) => views?.find((view) => view.id === id);
 
@@ -107,31 +125,8 @@ export const DataGridViewOptions = ({
               onChange={(event) => setViewSearchTerm(event.currentTarget.value)}
             />
           </StyledDropdownSearch>
-          <StyledList>
-            <StyledDataGridViewListItem>
-              <StyledDataGridViewListItemLabel>
-                <Views color={contentStateDisabled} size={scale600} />
-                <LabelXSmall margin={[0, scale400]}>{translations.defaultView}</LabelXSmall>
-              </StyledDataGridViewListItemLabel>
-              <StatefulTooltip
-                accessibilityType={'tooltip'}
-                content={translations.defaultViewTooltip}
-                placement={PLACEMENT.right}
-              >
-                <TertiaryButton>
-                  <ActionMenu size={scale400} color={primary} />
-                </TertiaryButton>
-              </StatefulTooltip>
-            </StyledDataGridViewListItem>
-          </StyledList>
           <StatefulMenu
-            items={
-              views
-                ? views
-                    ?.filter((x) => !viewSearchTerm || x.name.toLowerCase().includes(viewSearchTerm.toLowerCase()))
-                    .map(({ id, name }) => ({ id, label: name }))
-                : []
-            }
+            items={viewItems}
             overrides={{
               List: {
                 style: {
@@ -149,9 +144,21 @@ export const DataGridViewOptions = ({
                       <LabelXSmall margin={[0, scale400]}>{label}</LabelXSmall>
                     </StyledDataGridViewListItemLabel>
                     <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
-                      <TertiaryButton>
-                        <ActionMenu size={scale400} color={primary} />
-                      </TertiaryButton>
+                      {id ? (
+                        <TertiaryButton>
+                          <ActionMenu size={scale400} color={primary} />
+                        </TertiaryButton>
+                      ) : (
+                        <StatefulTooltip
+                          accessibilityType={'tooltip'}
+                          content={translations.defaultViewTooltip}
+                          placement={PLACEMENT.right}
+                        >
+                          <TertiaryButton>
+                            <ActionMenu size={scale400} color={primary} />
+                          </TertiaryButton>
+                        </StatefulTooltip>
+                      )}
                     </Dropdown>
                   </StyledDataGridViewListItem>
                 ),
