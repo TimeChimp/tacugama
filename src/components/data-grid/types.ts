@@ -80,6 +80,7 @@ export interface Translations {
   updateView: string;
   deleteView: string;
   deleteViewConfirmation: string;
+  defaultViewTooltip: string;
 }
 
 export interface DataGridProps {

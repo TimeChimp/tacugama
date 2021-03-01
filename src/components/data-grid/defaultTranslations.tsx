@@ -22,4 +22,5 @@ export const defaultTranslations: Translations = {
   updateView: 'Update view',
   deleteView: 'Delete view',
   deleteViewConfirmation: 'Are you sure you want to delete this view?',
+  defaultViewTooltip: 'Default view cannot be edited.',
 };

@@ -18,6 +18,8 @@ import { StyledDropdownSearch } from '../../dropdown/StyledDropdownOption';
 
 import { useTheme } from '../../../providers';
 import { border, padding } from '../../../utils';
+import { StyledList } from 'baseui/menu';
+import { StatefulTooltip } from '../../tooltip';
 
 export const DataGridViewOptions = ({
   translations,
@@ -104,6 +106,23 @@ export const DataGridViewOptions = ({
               onChange={(event) => setViewSearchTerm(event.currentTarget.value)}
             />
           </StyledDropdownSearch>
+          <StyledList>
+            <StyledDataGridViewListItem>
+              <StyledDataGridViewListItemLabel>
+                <Views color={contentStateDisabled} size={scale600} />
+                <LabelXSmall margin={[0, scale400]}>{translations.defaultView}</LabelXSmall>
+              </StyledDataGridViewListItemLabel>
+              <StatefulTooltip
+                accessibilityType={'tooltip'}
+                content={translations.defaultViewTooltip}
+                placement={PLACEMENT.right}
+              >
+                <TertiaryButton>
+                  <ActionMenu size={scale400} color={primary} />
+                </TertiaryButton>
+              </StatefulTooltip>
+            </StyledDataGridViewListItem>
+          </StyledList>
           <StatefulMenu
             items={
               views
