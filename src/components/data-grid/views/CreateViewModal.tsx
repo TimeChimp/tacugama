@@ -60,6 +60,7 @@ export const CreateViewModal = ({
       viewState,
     });
     setLoading(false);
+    setIsOpen(false);
   };
 
   return (

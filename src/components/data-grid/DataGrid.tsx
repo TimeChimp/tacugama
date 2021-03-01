@@ -133,11 +133,12 @@ export const DataGrid = ({
     setViewState(view?.viewState!);
   };
 
-  const handleCreateView = (view: DataGridView) => {
+  const handleCreateView = async (view: DataGridView) => {
     onSelectView(view);
     if (onCreateView) {
-      onCreateView(view);
+      await onCreateView(view);
     }
+    return;
   };
 
   const onFirstDataRendered = () => {

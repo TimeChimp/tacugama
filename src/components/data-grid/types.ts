@@ -100,12 +100,12 @@ export interface DataGridProps {
   formatSettings?: FormatSettings;
   translations?: Translations;
   views?: DataGridView[];
-  onCreateView?: (view: DataGridView) => void;
-  onDeleteView?: (id: string) => void;
-  onPinView?: (id: string) => void;
-  onUnpinView?: (id: string) => void;
-  onRenameView?: (id: string, name: string) => void;
-  onSaveViewState?: (id: string, state: string) => void;
+  onCreateView?: (view: DataGridView) => Promise<void>;
+  onDeleteView?: (id: string) => Promise<void>;
+  onPinView?: (id: string) => Promise<void>;
+  onUnpinView?: (id: string) => Promise<void>;
+  onRenameView?: (id: string, name: string) => Promise<void>;
+  onSaveViewState?: (id: string, state: string) => Promise<void>;
 }
 
 export interface DataGridView {
@@ -177,12 +177,12 @@ export interface DataGridViewsProps {
   translations: Translations;
   views?: DataGridView[];
   selectedView?: DataGridView;
-  onCreateView?: (view: DataGridView) => void;
-  onDeleteView?: (id: string) => void;
-  onPinView?: (id: string) => void;
-  onUnpinView?: (id: string) => void;
-  onRenameView?: (id: string, name: string) => void;
-  onSaveViewState?: (id: string, state: string) => void;
+  onCreateView?: (view: DataGridView) => Promise<void>;
+  onDeleteView?: (id: string) => Promise<void>;
+  onPinView?: (id: string) => Promise<void>;
+  onUnpinView?: (id: string) => Promise<void>;
+  onRenameView?: (id: string, name: string) => Promise<void>;
+  onSaveViewState?: (id: string, state: string) => Promise<void>;
   onSelectView?: (view: DataGridView | null) => void;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
@@ -223,6 +223,6 @@ export interface DataGridViewOptionsProps {
   setCreateModalIsOpen: Dispatch<SetStateAction<boolean>>;
   setRenameModalIsOpen: Dispatch<SetStateAction<boolean>>;
   setSaveModalIsOpen: Dispatch<SetStateAction<boolean>>;
-  onPinView?: (id: string) => void;
-  onUnpinView?: (id: string) => void;
+  onPinView?: (id: string) => Promise<void>;
+  onUnpinView?: (id: string) => Promise<void>;
 }

@@ -32,6 +32,7 @@ export const RenameViewModal = ({ isOpen, setIsOpen, handleRenameView, translati
     setLoading(true);
     await handleRenameView(view.id!, name);
     setLoading(false);
+    setIsOpen(false);
   };
 
   return (

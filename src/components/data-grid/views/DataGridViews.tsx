@@ -44,30 +44,31 @@ export const DataGridViews = ({
   } = useTheme();
 
   const handleCreateView = async (view: DataGridView) => {
-    setCreateModalIsOpen(false);
     if (onCreateView) {
-      onCreateView(view);
+      await onCreateView(view);
     }
+    return;
   };
 
   const handleSaveViewState = async (id: string, viewState: string) => {
-    setSaveModalIsOpen(false);
     if (onSaveViewState) {
-      onSaveViewState(id, viewState);
+      await onSaveViewState(id, viewState);
     }
+    return;
   };
 
   const handleRenameView = async (id: string, name: string) => {
-    setRenameModalIsOpen(false);
     if (onRenameView) {
-      onRenameView(id, name);
+      await onRenameView(id, name);
     }
+    return;
   };
 
   const handleViewDelete = async () => {
     if (onDeleteView) {
-      onDeleteView(editView?.id!);
+      await onDeleteView(editView?.id!);
     }
+    return;
   };
 
   const handleSelectView = (view: DataGridView) => {
