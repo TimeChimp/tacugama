@@ -9,7 +9,7 @@ import {
   StyledDataGridViewListItem,
 } from '../StyledDataGrid';
 import { StatefulPopover } from '../../popover';
-import { Trash, Pin, Text, ActionMenu, Views, Plus } from '../../icons';
+import { Trash, Pin, Text, ActionMenuHorizontal, Views, Plus } from '../../icons';
 import { Dropdown, DropdownItem } from '../../dropdown';
 import { StatefulMenu } from '../../menu';
 import LabelXSmall from '../../typography/LabelXSmall';
@@ -23,6 +23,7 @@ import { StatefulTooltip } from '../../tooltip';
 export const DataGridViewOptions = ({
   translations,
   views,
+  selectedView,
   setEditView,
   setDeleteModalIsOpen,
   setCreateModalIsOpen,
@@ -126,13 +127,13 @@ export const DataGridViewOptions = ({
                 component: ({ item: { id, label } }: { item: DropdownItem }) => (
                   <StyledDataGridViewListItem>
                     <StyledDataGridViewListItemLabel>
-                      <Views color={contentStateDisabled} size={scale600} />
+                      <Views color={id === selectedView?.id ? primary : contentStateDisabled} size={scale600} />
                       <LabelXSmall margin={[0, scale400]}>{label}</LabelXSmall>
                     </StyledDataGridViewListItemLabel>
                     <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
                       {id ? (
                         <TertiaryButton>
-                          <ActionMenu size={scale400} color={primary} />
+                          <ActionMenuHorizontal size={scale400} color={primary} />
                         </TertiaryButton>
                       ) : (
                         <StatefulTooltip
@@ -141,7 +142,7 @@ export const DataGridViewOptions = ({
                           placement={PLACEMENT.right}
                         >
                           <TertiaryButton>
-                            <ActionMenu size={scale400} color={primary} />
+                            <ActionMenuHorizontal size={scale400} color={primary} />
                           </TertiaryButton>
                         </StatefulTooltip>
                       )}

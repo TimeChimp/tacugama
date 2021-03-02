@@ -95,7 +95,7 @@ export const StyledDataGridViews = themedStyled('div', ({ $theme }) => ({
 }));
 
 export const StyledDataGridViewListItem = themedStyled('li', ({ $theme }) => ({
-  ...padding($theme.sizing.scale300, $theme.sizing.scale300),
+  ...padding($theme.sizing.scale300, $theme.sizing.scale300, $theme.sizing.scale300, $theme.sizing.scale650),
   backgroundColor: $theme.colors.primaryB,
   display: 'flex',
   alignItems: 'center',

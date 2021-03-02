@@ -94,7 +94,7 @@ export const DataGridViews = ({
     } as DataGridView);
 
     setAllViews(allViews);
-  }, [views, translations, allViews]);
+  }, [views, translations]);
 
   return (
     <>
@@ -125,6 +125,7 @@ export const DataGridViews = ({
         <DataGridViewOptions
           translations={translations}
           views={allViews}
+          selectedView={selectedView}
           setEditView={setEditView}
           setDeleteModalIsOpen={setDeleteModalIsOpen}
           setCreateModalIsOpen={setCreateModalIsOpen}

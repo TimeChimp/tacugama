@@ -218,6 +218,7 @@ export interface RenameViewModalProps {
 export interface DataGridViewOptionsProps {
   translations: Translations;
   views?: DataGridView[];
+  selectedView: DataGridView | undefined;
   setEditView: Dispatch<SetStateAction<DataGridView | undefined>>;
   setDeleteModalIsOpen: Dispatch<SetStateAction<boolean>>;
   setCreateModalIsOpen: Dispatch<SetStateAction<boolean>>;
