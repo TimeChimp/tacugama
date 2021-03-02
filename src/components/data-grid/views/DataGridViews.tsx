@@ -13,6 +13,7 @@ import { RenameViewModal } from './RenameViewModal';
 import { ConfirmationModalType } from '../../../models';
 import { DataGridViewOptions } from './DataGridViewOptions';
 import { sortBy, nameOf } from '@timechimp/timechimp-typescript-helpers';
+import ActiveButton from '../../button/ActiveButton';
 
 const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
 
@@ -41,7 +42,7 @@ export const DataGridViews = ({
     theme: {
       current: {
         sizing: { scale200, scale400, scale600 },
-        colors: { primary, primary100, primaryB, contentPrimary },
+        colors: { primary },
       },
     },
   } = useTheme();
@@ -101,37 +102,23 @@ export const DataGridViews = ({
         {allViews
           ?.filter((view) => view.pinned)
           .map((view) => (
-            <FlexItem marg1={scale200} marg2={scale400} marg3={scale200} marg4={scale400} width="fit-content">
-              <SecondaryButton
-                onClick={() => handleSelectView(view)}
-                key={view.id}
-                size={SIZE.mini}
-                startEnhancer={() =>
-                  isSelectedView(view.id) ? (
-                    <View color={isSelectedView(view.id) ? primary : contentPrimary} size={scale600} />
-                  ) : (
-                    ''
-                  )
-                }
-                overrides={{
-                  BaseButton: {
-                    style: {
-                      backgroundColor: isSelectedView(view.id) ? primary100 : primaryB,
-                      color: isSelectedView(view.id) ? primary : contentPrimary,
-                      borderColor: isSelectedView(view.id) ? primary : contentPrimary,
-                      borderWidth: '1px',
-                      ':hover': {
-                        backgroundColor: primaryB,
-                      },
-                      ':active': {
-                        backgroundColor: primaryB,
-                      },
-                    },
-                  },
-                }}
-              >
-                {view.name}
-              </SecondaryButton>
+            <FlexItem
+              key={view.id}
+              marg1={scale200}
+              marg2={scale400}
+              marg3={scale200}
+              marg4={scale400}
+              width="fit-content"
+            >
+              {isSelectedView(view.id) ? (
+                <ActiveButton size={SIZE.mini} startEnhancer={() => <View color={primary} size={scale600} />}>
+                  {view.name}
+                </ActiveButton>
+              ) : (
+                <SecondaryButton onClick={() => handleSelectView(view)} size={SIZE.mini}>
+                  {view.name}
+                </SecondaryButton>
+              )}
             </FlexItem>
           ))}
         <StyledDataGridViewsDivider />
