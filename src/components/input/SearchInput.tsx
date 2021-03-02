@@ -14,10 +14,5 @@ export const SearchInput = ({ ...rest }: SearchInputProps) => {
     },
   } = useTheme();
 
-  return (
-    <Input
-      startEnhancer={<Search size={scale650} />}
-      {...rest}
-    />
-  );
+  return <Input startEnhancer={<Search size={scale650} />} {...rest} />;
 };

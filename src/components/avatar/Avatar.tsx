@@ -1,57 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { Avatar as BaseAvatar, AvatarProps } from 'baseui/avatar';
+import React from 'react';
+import { Avatar as BaseAvatar, AvatarProps as BaseAvatarProps } from 'baseui/avatar';
+import { DATA_TEST_ID } from '../../models';
 
-export type { AvatarProps } from 'baseui/avatar';
+export interface AvatarProps extends BaseAvatarProps {
+  testId?: string;
+}
 
-const colors = [
-  '#eccc68',
-  '#ffa502',
-  '#7bed9f',
-  '#2ed573',
-  '#ff7f50',
-  '#ff6348',
-  '#70a1ff',
-  '#1e90ff',
-  '#ff6b81',
-  '#ff4757',
-  '#5352ed',
-  '#3742fa',
-  '#57606f',
-  '#2f3542',
-  '#a4b0be',
-  '#747d8c',
-];
-
-export const Avatar = ({ ...rest }: AvatarProps) => {
-  const [backgroundColor, setBackgroundColor] = useState<string>();
-
-  const getRandomBackgroundColor = () => {
-    const { length } = colors;
-    const randomNumber = Math.floor(Math.random() * (length + 1));
-    return colors[randomNumber];
-  };
-
-  useEffect(() => {
-    const color = getRandomBackgroundColor();
-    setBackgroundColor(color);
-  }, []);
-
-  return (
-    <BaseAvatar
-      overrides={{
-        Root: {
-          style: ({ $theme }) => ({
-            fontSize: $theme.sizing.scale800,
-            backgroundColor,
-          }),
+export const Avatar = ({ testId, ...rest }: AvatarProps) => (
+  <BaseAvatar
+    overrides={{
+      Root: {
+        style: ({ $theme }) => ({
+          fontSize: $theme.sizing.scale800,
+          backgroundColor: '#F6C824',
+        }),
+        props: {
+          [DATA_TEST_ID]: testId,
         },
-        Initials: {
-          style: ({ $theme }) => ({
-            color: $theme.colors.primaryA,
-          }),
-        },
-      }}
-      {...rest}
-    />
-  );
-};
+      },
+      Initials: {
+        style: ({ $theme }) => ({
+          color: $theme.colors.primaryA,
+        }),
+      },
+    }}
+    {...rest}
+  />
+);

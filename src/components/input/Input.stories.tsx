@@ -55,5 +55,5 @@ CharCount.args = {
 
 export const Search = SearchTemplate.bind({});
 Search.args = {
-  placeholder: 'Lets go search'
+  placeholder: 'Lets go search',
 };
