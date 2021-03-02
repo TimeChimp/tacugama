@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import fetch from 'isomorphic-unfetch';
-import { StyledDataGrid, getGridThemeOverrides } from './StyledDataGrid';
+import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader } from './StyledDataGrid';
 import { RowActionsCell } from './RowActionsCell';
 import { StatusBarRowCount } from './StatusBarRowCount';
 import { NoRowsTemplate } from './NoRowsTemplate';
@@ -34,10 +34,13 @@ import {
   DataGridColumnType,
   FilterModel,
   DataGridResponse,
+  DataGridView,
 } from './types';
 import { useTheme } from '../../providers';
 import { TriangleDown, TriangleUp } from '../icons';
 import { defaultFormatSettings } from './defaultFormatSettings';
+import { defaultTranslations } from './defaultTranslations';
+import DataGridViews from './views/DataGridViews';
 
 export const DataGrid = ({
   columns,
@@ -45,23 +48,28 @@ export const DataGrid = ({
   filtering,
   grouping,
   columnToggling,
+  viewing,
   onReady,
   rowActionItems,
-  state,
   dataUrl,
   accessToken,
   sortableColumns,
   resizeableColumns,
+  views,
+  onCreateView,
+  onDeleteView,
+  onRenameView,
+  onPinView,
+  onUnpinView,
+  onSaveViewState,
   formatSettings = defaultFormatSettings,
-  noRowsTitle,
-  noRowsSubtext,
-  searchPlaceholder,
-  groupByLabel,
+  translations = defaultTranslations,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
   const [filterModel, setFilterModel] = useState<FilterModel>({});
+  const [selectedView, setSelectedView] = useState<DataGridView | null>();
 
   const { theme } = useTheme();
 
@@ -98,36 +106,44 @@ export const DataGrid = ({
     return api.refreshServerSideStore({ purge: rowCount === 0 });
   };
 
-  const getState = (api: GridApi, columnApi: ColumnApi) => {
-    const state: DataGridState = {
-      columnState: columnApi?.getColumnState(),
-      columnGroupState: columnApi?.getColumnGroupState(),
-      filterModel: api?.getFilterModel(),
-    };
-    return JSON.stringify(state);
-  };
-
   const onGridSizeChanged = () => {
     gridApi.sizeColumnsToFit();
   };
 
-  const onFirstDataRendered = () => {
-    if (!state) {
-      return;
-    }
-    const gridState: DataGridState = JSON.parse(state);
+  const setViewState = (state: string | null) => {
+    if (state) {
+      const gridState: DataGridState = JSON.parse(state);
 
-    if (gridState.columnState) {
       gridColumnApi.setColumnState(gridState.columnState);
-    }
-    if (gridState.columnGroupState) {
       gridColumnApi.setColumnGroupState(gridState.columnGroupState);
-    }
-
-    if (gridState.filterModel) {
       gridApi.setFilterModel(gridState.filterModel);
       setFilterModel(gridState.filterModel);
+    } else {
+      gridColumnApi.resetColumnState();
+      gridColumnApi.resetColumnGroupState();
+      gridApi.setFilterModel({});
+      setFilterModel({});
     }
+
+    gridApi.sizeColumnsToFit();
+  };
+
+  const onSelectView = (view: DataGridView | null) => {
+    setSelectedView(view);
+    setViewState(view?.viewState!);
+  };
+
+  const handleCreateView = async (view: DataGridView) => {
+    onSelectView(view);
+    if (onCreateView) {
+      await onCreateView(view);
+    }
+    return;
+  };
+
+  const onFirstDataRendered = () => {
+    // const view = null; // TODO get selected view from user
+    // onSelectView
   };
 
   const createServerSideDatasource = (): IServerSideDatasource => {
@@ -167,7 +183,6 @@ export const DataGrid = ({
         getSelectedRow: () => getSelectedRow(api),
         exportAsCsv: () => exportAsCsv(api),
         exportAsExcel: () => exportAsExcel(api),
-        getState: () => getState(api, columnApi),
         refreshStore: () => refreshStore(api),
       };
       onReady(dataGridApi);
@@ -228,9 +243,28 @@ export const DataGrid = ({
         onGrouping={onGrouping}
         onFiltering={onFiltering}
         filterModel={filterModel}
-        groupByLabel={groupByLabel}
+        translations={translations}
       />
       <StyledDataGrid className={getGridThemeClassName()}>
+        {viewing && (
+          <StyledDataGridHeader>
+            <DataGridViews
+              views={views}
+              selectedView={selectedView!}
+              onCreateView={handleCreateView}
+              onDeleteView={onDeleteView}
+              onRenameView={onRenameView}
+              onPinView={onPinView}
+              onUnpinView={onUnpinView}
+              onSaveViewState={onSaveViewState}
+              onSelectView={onSelectView}
+              translations={translations}
+              gridApi={gridApi}
+              gridColumnApi={gridColumnApi}
+            />
+            {/* <DataGridActions translations={translations} /> TODO include when in sprint */}
+          </StyledDataGridHeader>
+        )}
         <style>{getGridThemeOverrides(theme.current)}</style>
         <AgGridReact
           rowSelection="multiple"
@@ -255,10 +289,12 @@ export const DataGrid = ({
           cacheBlockSize={1000}
           maxBlocksInCache={10}
           blockLoadDebounceMillis={100}
+          headerHeight={36}
+          rowHeight={52}
           frameworkComponents={{
             moreActionsCell: RowActionsCell,
             statusBarRowCount: StatusBarRowCount,
-            noRowsTemplate: () => <NoRowsTemplate noRowsTitle={noRowsTitle} noRowsSubtext={noRowsSubtext} />,
+            noRowsTemplate: () => <NoRowsTemplate translations={translations} />,
             headerCheckbox: HeaderCheckbox,
             headerColumnToggle: HeaderColumnToggle,
             loadingCellTemplate: LoadingCellTemplate,
@@ -274,6 +310,9 @@ export const DataGrid = ({
             statusPanels: [
               {
                 statusPanel: 'statusBarRowCount',
+                statusPanelParams: {
+                  translations,
+                },
                 align: 'left',
               },
             ],
@@ -310,7 +349,7 @@ export const DataGrid = ({
             field={''}
             headerComponent={columnToggling ? 'headerColumnToggle' : ''}
             headerComponentParams={{
-              searchPlaceholder,
+              translations,
             }}
             cellRenderer={rowActionItems ? 'moreActionsCell' : ''}
             cellRendererParams={{ items: rowActionItems }}

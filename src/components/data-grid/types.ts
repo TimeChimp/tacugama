@@ -7,6 +7,7 @@ import {
   NumberFilterModel,
   TextFilterModel,
 } from '@ag-grid-community/core';
+import { Dispatch, SetStateAction } from 'react';
 import { DropdownItem } from '../dropdown';
 
 export interface DataGridApi {
@@ -14,7 +15,6 @@ export interface DataGridApi {
   getSelectedRow: () => any;
   exportAsCsv: () => void;
   exportAsExcel: () => void;
-  getState: () => string;
   refreshStore: () => void;
 }
 
@@ -59,11 +59,36 @@ export interface FormatSettings {
   timeFormat: string;
 }
 
+export interface Translations {
+  rowCountText: (count: number) => JSX.Element;
+  noRowsTitle: string;
+  noRowsSubtext: string;
+  groupBy: string;
+  search: string;
+  defaultView: string;
+  viewOptions: string;
+  addView: string;
+  viewName: string;
+  saveColumns: string;
+  saveGrouping: string;
+  saveFilters: string;
+  saveView: string;
+  cancel: string;
+  unpinView: string;
+  pinView: string;
+  renameView: string;
+  updateView: string;
+  deleteView: string;
+  deleteViewConfirmation: string;
+  defaultViewTooltip: string;
+}
+
 export interface DataGridProps {
   columns: DataGridColumn[];
   selection?: boolean;
   filtering?: boolean;
   grouping?: boolean;
+  viewing?: boolean;
   columnToggling?: boolean;
   onReady?: (dataGridApi: DataGridApi) => void;
   rowActionItems?: DropdownItem[];
@@ -73,11 +98,21 @@ export interface DataGridProps {
   sortableColumns?: boolean;
   resizeableColumns?: boolean;
   formatSettings?: FormatSettings;
-  noRowsTitle?: string;
-  noRowsSubtext?: string;
-  groupByLabel?: string;
-  rowCountText?: (count: number) => JSX.Element;
-  searchPlaceholder?: string;
+  translations?: Translations;
+  views?: DataGridView[];
+  onCreateView?: (view: DataGridView) => Promise<void>;
+  onDeleteView?: (id: string) => Promise<void>;
+  onPinView?: (id: string) => Promise<void>;
+  onUnpinView?: (id: string) => Promise<void>;
+  onRenameView?: (id: string, name: string) => Promise<void>;
+  onSaveViewState?: (id: string, state: string) => Promise<void>;
+}
+
+export interface DataGridView {
+  id?: string;
+  name: string;
+  pinned: boolean;
+  viewState: string;
 }
 
 export interface FiltersProps {
@@ -87,11 +122,11 @@ export interface FiltersProps {
   onGrouping: (rowGroups: string[]) => void;
   onFiltering: (filters: FilterModel) => void;
   filterModel: FilterModel;
-  groupByLabel?: string;
+  translations: Translations;
 }
 export interface StatusBarRowCountProps {
   api: GridApi;
-  rowCountText?: (count: number) => JSX.Element;
+  translations: Translations;
 }
 
 export interface RowActionsCellProps {
@@ -135,6 +170,59 @@ export interface DataGridResponse {
 }
 
 export interface NoRowsTemplateProps {
-  noRowsTitle?: string;
-  noRowsSubtext?: string;
+  translations: Translations;
+}
+
+export interface DataGridViewsProps {
+  translations: Translations;
+  views?: DataGridView[];
+  selectedView?: DataGridView;
+  onCreateView?: (view: DataGridView) => Promise<void>;
+  onDeleteView?: (id: string) => Promise<void>;
+  onPinView?: (id: string) => Promise<void>;
+  onUnpinView?: (id: string) => Promise<void>;
+  onRenameView?: (id: string, name: string) => Promise<void>;
+  onSaveViewState?: (id: string, state: string) => Promise<void>;
+  onSelectView?: (view: DataGridView | null) => void;
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
+}
+
+export interface CreateViewModalProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+  handleCreateView: (view: DataGridView) => Promise<void>;
+  translations: Translations;
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
+}
+
+export interface SaveViewModalProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+  handleSaveView: (id: string, viewState: string) => Promise<void>;
+  translations: Translations;
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
+  view: DataGridView;
+}
+
+export interface RenameViewModalProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+  handleRenameView: (id: string, name: string) => Promise<void>;
+  translations: Translations;
+  view: DataGridView;
+}
+
+export interface DataGridViewOptionsProps {
+  translations: Translations;
+  views?: DataGridView[];
+  setEditView: Dispatch<SetStateAction<DataGridView | undefined>>;
+  setDeleteModalIsOpen: Dispatch<SetStateAction<boolean>>;
+  setCreateModalIsOpen: Dispatch<SetStateAction<boolean>>;
+  setRenameModalIsOpen: Dispatch<SetStateAction<boolean>>;
+  setSaveModalIsOpen: Dispatch<SetStateAction<boolean>>;
+  onPinView?: (id: string) => Promise<void>;
+  onUnpinView?: (id: string) => Promise<void>;
 }

@@ -86,12 +86,7 @@ export const Input = ({ testId, overrides, ...rest }: InputProps) => {
         ...padding('0', '0', '0', '14px'),
       },
     },
-  }
+  };
 
-  return (
-    <BaseInput
-      overrides={overrides ? merge(overrides, baseOverrides) : baseOverrides}
-      {...rest}
-    />
-  );
+  return <BaseInput overrides={overrides ? merge(overrides, baseOverrides) : baseOverrides} {...rest} />;
 };
