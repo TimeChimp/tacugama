@@ -10,11 +10,10 @@ export default {
   component: StatefulTooltip,
 } as Meta;
 
-let key: React.ReactText = '0';
-
 const Template: Story<TooltipProps> = (args) => (
   <StatefulTooltip
     content={() => (
+      // eslint-disable-next-line jsx-a11y/accessible-emoji
       <Block padding={'20px'}>
         Hello, there! 👋
         <Input placeholder="Focusable Element" />

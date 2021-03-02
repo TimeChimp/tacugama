@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PLACEMENT } from 'baseui/popover';
 import { SIZE } from 'baseui/button';
 import { SecondaryButton, TertiaryButton } from '../../button';
-import { DataGridViewOptionsProps, DataGridView } from '../types';
+import { DataGridViewOptionsProps } from '../types';
 import {
   StyledViewOptionsFooter,
   StyledDataGridViewListItemLabel,
@@ -18,9 +18,8 @@ import { StyledDropdownSearch } from '../../dropdown/StyledDropdownOption';
 
 import { useTheme } from '../../../providers';
 import { border, margin, padding } from '../../../utils';
-import { ItemsT } from 'baseui/menu';
 import { StatefulTooltip } from '../../tooltip';
-import { nameOf, sortBy } from '@timechimp/timechimp-typescript-helpers';
+import { sortBy } from '@timechimp/timechimp-typescript-helpers';
 
 export const DataGridViewOptions = ({
   translations,
