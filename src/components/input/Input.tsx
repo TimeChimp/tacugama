@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input as BaseInput, InputOverrides, InputProps as BaseInputProps } from 'baseui/input';
-import merge from 'deepmerge';
 import { useTheme } from '../../providers/ThemeProvider';
 import {
   border,
@@ -17,7 +16,7 @@ export interface InputProps extends BaseInputProps {
   testId?: string;
 }
 
-export const Input = ({ testId, overrides, ...rest }: InputProps) => {
+export const Input = ({ testId, ...rest }: InputProps) => {
   const {
     theme: {
       current: {
@@ -86,12 +85,7 @@ export const Input = ({ testId, overrides, ...rest }: InputProps) => {
         ...padding('0', '0', '0', '14px'),
       },
     },
-  }
+  };
 
-  return (
-    <BaseInput
-      overrides={overrides ? merge(overrides, baseOverrides) : baseOverrides}
-      {...rest}
-    />
-  );
+  return <BaseInput overrides={baseOverrides} {...rest} />;
 };

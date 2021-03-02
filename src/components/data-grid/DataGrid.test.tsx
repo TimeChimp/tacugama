@@ -6,7 +6,6 @@ import { DataGrid } from './';
 import { getTimeEntriesQueryMock, DATA_URL } from './mockServer';
 import { DataGridColumn } from './types';
 
-
 const ACCESS_TOKEN = '';
 const COLUMNS: DataGridColumn[] = [
   {

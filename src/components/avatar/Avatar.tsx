@@ -1,9 +1,12 @@
 import React from 'react';
-import { Avatar as BaseAvatar, AvatarProps } from 'baseui/avatar';
+import { Avatar as BaseAvatar, AvatarProps as BaseAvatarProps } from 'baseui/avatar';
+import { DATA_TEST_ID } from '../../models';
 
-export type { AvatarProps } from 'baseui/avatar';
+export interface AvatarProps extends BaseAvatarProps {
+  testId?: string;
+}
 
-export const Avatar = ({ ...rest }: AvatarProps) => (
+export const Avatar = ({ testId, ...rest }: AvatarProps) => (
   <BaseAvatar
     overrides={{
       Root: {
@@ -11,6 +14,9 @@ export const Avatar = ({ ...rest }: AvatarProps) => (
           fontSize: $theme.sizing.scale800,
           backgroundColor: '#F6C824',
         }),
+        props: {
+          [DATA_TEST_ID]: testId,
+        },
       },
       Initials: {
         style: ({ $theme }) => ({

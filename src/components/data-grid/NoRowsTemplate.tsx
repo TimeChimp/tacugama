@@ -4,13 +4,7 @@ import { StyledNoRowsTemplate, StyledNoRowsTemplateContainer } from './StyledDat
 import { HeadingSmall, ParagraphMedium } from '../typography';
 import { NoRowsTemplateProps } from './types';
 
-const DEFAULT_TITLE = `It's a bit lonely in here`;
-const DEFAULT_SUBTEXT = 'Quick, add some items!';
-
-export const NoRowsTemplate = ({
-  noRowsTitle = DEFAULT_TITLE,
-  noRowsSubtext = DEFAULT_SUBTEXT,
-}: NoRowsTemplateProps) => {
+export const NoRowsTemplate = ({ translations }: NoRowsTemplateProps) => {
   const {
     theme: {
       current: {
@@ -229,9 +223,9 @@ export const NoRowsTemplate = ({
         </svg>
 
         <HeadingSmall color={primary} margin={[scale900, 0, 0, 0]}>
-          {noRowsTitle}
+          {translations.noRowsTitle}
         </HeadingSmall>
-        <ParagraphMedium margin={[scale900, 0, scale900, 0]}>{noRowsSubtext}</ParagraphMedium>
+        <ParagraphMedium margin={[scale900, 0, scale900, 0]}>{translations.noRowsSubtext}</ParagraphMedium>
       </StyledNoRowsTemplateContainer>
     </StyledNoRowsTemplate>
   );

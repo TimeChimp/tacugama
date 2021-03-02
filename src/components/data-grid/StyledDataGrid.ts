@@ -1,6 +1,7 @@
 import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
 import { margin, padding } from '../../utils';
+import { borderTop, borderRight, borderLeft } from '../../utils/css';
 
 export const getGridThemeOverrides = (theme: CustomThemeType) => {
   return `
@@ -75,4 +76,46 @@ export const StyledHeaderColumnToggle = themedStyled('div', {
 
 export const StyledHeaderCheckboxValue = themedStyled('div', ({ $theme }) => ({
   ...padding('0', '0', '0', $theme.sizing.scale0),
+}));
+
+export const StyledDataGridHeader = themedStyled('div', ({ $theme }) => ({
+  ...padding($theme.sizing.scale100, $theme.sizing.scale300),
+  display: 'flex',
+  justifyContent: 'space-between',
+  ...borderTop($theme.borders.border300),
+  ...borderLeft($theme.borders.border300),
+  ...borderRight($theme.borders.border300),
+  background: $theme.colors.primaryB,
+}));
+
+export const StyledDataGridActions = themedStyled('div', ({ $theme }) => ({}));
+
+export const StyledDataGridViews = themedStyled('div', ({ $theme }) => ({
+  display: 'flex',
+  flexWrap: 'wrap',
+  background: $theme.colors.primaryB,
+}));
+
+export const StyledDataGridViewListItem = themedStyled('li', ({ $theme }) => ({
+  ...padding($theme.sizing.scale300, $theme.sizing.scale300, $theme.sizing.scale300, $theme.sizing.scale650),
+  backgroundColor: $theme.colors.primaryB,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+}));
+export const StyledDataGridViewListItemLabel = themedStyled('div', ({ $theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+}));
+
+export const StyledDataGridViewsDivider = themedStyled('div', ({ $theme }) => ({
+  height: $theme.sizing.scale750,
+  ...margin($theme.sizing.scale500, $theme.sizing.scale200),
+  ...borderRight($theme.borders.border600),
+}));
+
+export const StyledViewOptionsFooter = themedStyled('div', ({ $theme }) => ({
+  backgroundColor: $theme.colors.primaryB,
+  ...padding($theme.sizing.scale200, $theme.sizing.scale300),
+  ...borderTop($theme.borders.border200),
 }));

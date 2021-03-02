@@ -6,7 +6,7 @@ import { LabelSmall } from '../typography';
 
 const EVENT_LISTENER = 'modelUpdated';
 
-export const StatusBarRowCount = ({ api: gridApi, rowCountText }: StatusBarRowCountProps) => {
+export const StatusBarRowCount = ({ api: gridApi, translations }: StatusBarRowCountProps) => {
   const [count, setCount] = useState(Number);
   const {
     theme: {
@@ -30,7 +30,7 @@ export const StatusBarRowCount = ({ api: gridApi, rowCountText }: StatusBarRowCo
 
   return (
     <StyledStatusBarRowCount>
-      <LabelSmall color={contentTertiary}>{rowCountText ? rowCountText(count) : `Showing ${count} results`}</LabelSmall>
+      <LabelSmall color={contentTertiary}>{translations.rowCountText && translations.rowCountText(count)}</LabelSmall>
     </StyledStatusBarRowCount>
   );
 };

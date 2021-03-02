@@ -39,12 +39,6 @@ Secondary.args = {
   children: 'Button',
 };
 
-export const Minimal = Template.bind({});
-Minimal.args = {
-  kind: 'minimal',
-  children: 'Button',
-};
-
 export const Tertiary = Template.bind({});
 Tertiary.args = {
   kind: 'tertiary',
