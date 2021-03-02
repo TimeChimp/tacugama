@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from '../../icons/View';
 import useTheme from '../../../providers/ThemeProvider';
 import { DataGridViewsProps, DataGridView } from '../types';
@@ -12,6 +12,7 @@ import { SaveViewModal } from './SaveViewModal';
 import { RenameViewModal } from './RenameViewModal';
 import { ConfirmationModalType } from '../../../models';
 import { DataGridViewOptions } from './DataGridViewOptions';
+import { sortBy, nameOf } from '@timechimp/timechimp-typescript-helpers';
 
 const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
 
@@ -34,11 +35,13 @@ export const DataGridViews = ({
   const [saveModalIsOpen, setSaveModalIsOpen] = useState<boolean>(false);
   const [renameModalIsOpen, setRenameModalIsOpen] = useState<boolean>(false);
   const [editView, setEditView] = useState<DataGridView>();
+  const [allViews, setAllViews] = useState<DataGridView[]>([]);
 
   const {
     theme: {
       current: {
         sizing: { scale200, scale400, scale600 },
+        colors: { primary, primary100, primaryB, contentPrimary },
       },
     },
   } = useTheme();
@@ -77,25 +80,25 @@ export const DataGridViews = ({
     }
   };
 
-  const handleDefaultSelectView = () => {
-    if (onSelectView) {
-      onSelectView(null);
-    }
+  const isSelectedView = (id: string | undefined) => {
+    return selectedView?.id === id;
   };
+
+  useEffect(() => {
+    const allViews = views ? sortBy<DataGridView>(views, [nameOf<DataGridView>('name')]) : [];
+
+    allViews.unshift({
+      name: translations.defaultView,
+      pinned: true,
+    } as DataGridView);
+
+    setAllViews(allViews);
+  }, [views, translations, allViews]);
 
   return (
     <>
       <StyledDataGridViews>
-        <FlexItem marg1={scale200} marg2={scale400} marg3={scale200} marg4={scale400} width="fit-content">
-          <SecondaryButton
-            onClick={handleDefaultSelectView}
-            size={SIZE.mini}
-            startEnhancer={() => (!selectedView ? <View size={scale600} /> : '')}
-          >
-            {translations.defaultView}
-          </SecondaryButton>
-        </FlexItem>
-        {views
+        {allViews
           ?.filter((view) => view.pinned)
           .map((view) => (
             <FlexItem marg1={scale200} marg2={scale400} marg3={scale200} marg4={scale400} width="fit-content">
@@ -103,7 +106,29 @@ export const DataGridViews = ({
                 onClick={() => handleSelectView(view)}
                 key={view.id}
                 size={SIZE.mini}
-                startEnhancer={() => (selectedView?.id === view.id ? <View size={scale600} /> : '')}
+                startEnhancer={() =>
+                  isSelectedView(view.id) ? (
+                    <View color={isSelectedView(view.id) ? primary : contentPrimary} size={scale600} />
+                  ) : (
+                    ''
+                  )
+                }
+                overrides={{
+                  BaseButton: {
+                    style: {
+                      backgroundColor: isSelectedView(view.id) ? primary100 : primaryB,
+                      color: isSelectedView(view.id) ? primary : contentPrimary,
+                      borderColor: isSelectedView(view.id) ? primary : contentPrimary,
+                      borderWidth: '1px',
+                      ':hover': {
+                        backgroundColor: primaryB,
+                      },
+                      ':active': {
+                        backgroundColor: primaryB,
+                      },
+                    },
+                  },
+                }}
               >
                 {view.name}
               </SecondaryButton>
@@ -112,7 +137,7 @@ export const DataGridViews = ({
         <StyledDataGridViewsDivider />
         <DataGridViewOptions
           translations={translations}
-          views={views}
+          views={allViews}
           setEditView={setEditView}
           setDeleteModalIsOpen={setDeleteModalIsOpen}
           setCreateModalIsOpen={setCreateModalIsOpen}

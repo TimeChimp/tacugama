@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { PLACEMENT } from 'baseui/popover';
 import { SIZE } from 'baseui/button';
 import { SecondaryButton, TertiaryButton } from '../../button';
-import { DataGridViewOptionsProps, DataGridView } from '../types';
+import { DataGridViewOptionsProps } from '../types';
 import {
   StyledViewOptionsFooter,
   StyledDataGridViewListItemLabel,
@@ -18,9 +18,7 @@ import { StyledDropdownSearch } from '../../dropdown/StyledDropdownOption';
 
 import { useTheme } from '../../../providers';
 import { border, margin, padding } from '../../../utils';
-import { ItemsT } from 'baseui/menu';
 import { StatefulTooltip } from '../../tooltip';
-import { nameOf, sortBy } from '@timechimp/timechimp-typescript-helpers';
 
 export const DataGridViewOptions = ({
   translations,
@@ -34,7 +32,6 @@ export const DataGridViewOptions = ({
   setRenameModalIsOpen,
 }: DataGridViewOptionsProps) => {
   const [viewSearchTerm, setViewSearchTerm] = useState<string>();
-  const [viewItems, setViewItems] = useState<any[]>([]);
 
   const {
     theme: {
@@ -45,23 +42,6 @@ export const DataGridViewOptions = ({
       },
     },
   } = useTheme();
-
-  useEffect(() => {
-    let viewItems = views ? views.map(({ id, name }) => ({ id, label: name })) : [];
-
-    viewItems = sortBy<any>(viewItems, ['label']);
-
-    viewItems.unshift({
-      id: undefined,
-      label: translations.defaultView,
-    });
-
-    viewItems = viewItems.filter(
-      (x) => !viewSearchTerm || x.label.toLowerCase().includes(viewSearchTerm.toLowerCase()),
-    );
-
-    setViewItems(viewItems);
-  }, [views, viewSearchTerm, translations]);
 
   const getViewById = (id: string) => views?.find((view) => view.id === id);
 
@@ -126,7 +106,13 @@ export const DataGridViewOptions = ({
             />
           </StyledDropdownSearch>
           <StatefulMenu
-            items={viewItems}
+            items={
+              views
+                ? views
+                    .map(({ id, name }) => ({ id, label: name }))
+                    .filter((x) => !viewSearchTerm || x.label.toLowerCase().includes(viewSearchTerm.toLowerCase()))
+                : []
+            }
             overrides={{
               List: {
                 style: {
