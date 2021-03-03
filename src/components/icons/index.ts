@@ -12,6 +12,7 @@ export * from './CalendarWeekActive';
 export * from './CalendarDay';
 export * from './CalendarDayActive';
 export * from './ActionMenu';
+export * from './ActionMenuHorizontal';
 export * from './ActionMenuActive';
 export * from './Trash';
 export * from './TrashFull';
