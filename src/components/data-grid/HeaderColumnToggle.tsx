@@ -22,7 +22,7 @@ export const HeaderColumnToggle = ({
     theme: {
       current: {
         sizing: { scale600 },
-        colors: { primary, contentPrimary },
+        colors: { primary },
       },
     },
   } = useTheme();
