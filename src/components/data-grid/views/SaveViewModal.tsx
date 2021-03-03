@@ -44,7 +44,7 @@ export const SaveViewModal = ({
   const onSubmit = async () => {
     setLoading(true);
     const viewState = getState();
-    await handleSaveView(view.id!, viewState);
+    await handleSaveView(view.id, viewState);
     setLoading(false);
     setIsOpen(false);
   };

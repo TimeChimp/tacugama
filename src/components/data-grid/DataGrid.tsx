@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import fetch from 'isomorphic-unfetch';
 import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader } from './StyledDataGrid';
@@ -24,7 +24,14 @@ import {
   ServerSideStoreType,
   GridReadyEvent,
 } from '@ag-grid-community/core';
-import { formatCurrency, formatNumber, formatDuration, TcDate } from '@timechimp/timechimp-typescript-helpers';
+import {
+  formatCurrency,
+  formatNumber,
+  formatDuration,
+  TcDate,
+  sortBy,
+  nameOf,
+} from '@timechimp/timechimp-typescript-helpers';
 
 import {
   DataGridApi,
@@ -35,6 +42,7 @@ import {
   FilterModel,
   DataGridResponse,
   DataGridView,
+  CreateViewInput,
 } from './types';
 import { useTheme } from '../../providers';
 import { TriangleDown, TriangleUp } from '../icons';
@@ -43,6 +51,7 @@ import { defaultTranslations } from './defaultTranslations';
 import DataGridViews from './views/DataGridViews';
 
 export const DataGrid = ({
+  id,
   columns,
   selection,
   filtering,
@@ -56,6 +65,9 @@ export const DataGrid = ({
   sortableColumns,
   resizeableColumns,
   views,
+  height,
+  onDeactivateView,
+  onActivateView,
   onCreateView,
   onDeleteView,
   onRenameView,
@@ -69,9 +81,23 @@ export const DataGrid = ({
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
   const [filterModel, setFilterModel] = useState<FilterModel>({});
-  const [selectedView, setSelectedView] = useState<DataGridView | null>();
+  const [allViews, setAllViews] = useState<DataGridView[]>([]);
 
   const { theme } = useTheme();
+
+  useEffect(() => {
+    const allViews = views ? sortBy<DataGridView>(views, [nameOf<DataGridView>('name')]) : [];
+    const hasActiveView = allViews.some((view) => view.active);
+
+    allViews.unshift({
+      id: 'default',
+      name: translations.defaultView,
+      pinned: true,
+      active: !hasActiveView,
+    } as DataGridView);
+
+    setAllViews(allViews);
+  }, [views, translations]);
 
   const getGridThemeClassName = () => {
     return theme.current === theme.dark ? 'ag-theme-alpine-dark' : 'ag-theme-alpine';
@@ -128,22 +154,39 @@ export const DataGrid = ({
     gridApi.sizeColumnsToFit();
   };
 
-  const onSelectView = (view: DataGridView | null) => {
-    setSelectedView(view);
-    setViewState(view?.viewState!);
+  const handleActivateView = async (id: string) => {
+    const view = allViews?.find((view) => view.id === id);
+    if (view) {
+      setViewState(view?.viewState!);
+
+      if (view.id && onActivateView) {
+        await onActivateView(view.id);
+      } else if (onDeactivateView) {
+        const activeView = allViews.find((view) => view.active);
+        if (activeView) {
+          await onDeactivateView(activeView.id);
+        }
+
+        view.active = true;
+        setAllViews([...allViews.filter((x) => x.id !== id), view]);
+      }
+    }
   };
 
-  const handleCreateView = async (view: DataGridView) => {
-    onSelectView(view);
-    if (onCreateView) {
-      await onCreateView(view);
+  const handleCreateView = async (input: CreateViewInput) => {
+    if (onCreateView && onPinView && onActivateView) {
+      const id = await onCreateView(input);
+      onPinView(id);
+      onActivateView(id);
     }
     return;
   };
 
   const onFirstDataRendered = () => {
-    // const view = null; // TODO get selected view from user
-    // onSelectView
+    const activeView = allViews?.find((view) => view.active);
+    if (activeView) {
+      setViewState(activeView.viewState!);
+    }
   };
 
   const createServerSideDatasource = (): IServerSideDatasource => {
@@ -245,19 +288,19 @@ export const DataGrid = ({
         filterModel={filterModel}
         translations={translations}
       />
-      <StyledDataGrid className={getGridThemeClassName()}>
+      <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {viewing && (
           <StyledDataGridHeader>
             <DataGridViews
-              views={views}
-              selectedView={selectedView!}
+              dataGridId={id}
+              views={allViews}
               onCreateView={handleCreateView}
               onDeleteView={onDeleteView}
               onRenameView={onRenameView}
               onPinView={onPinView}
               onUnpinView={onUnpinView}
               onSaveViewState={onSaveViewState}
-              onSelectView={onSelectView}
+              onActivateView={handleActivateView}
               translations={translations}
               gridApi={gridApi}
               gridColumnApi={gridColumnApi}
