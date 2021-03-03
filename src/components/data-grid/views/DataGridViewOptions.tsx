@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { PLACEMENT } from 'baseui/popover';
 import { SIZE } from 'baseui/button';
 import { SecondaryButton, TertiaryButton } from '../../button';
@@ -9,7 +9,7 @@ import {
   StyledDataGridViewListItem,
 } from '../StyledDataGrid';
 import { StatefulPopover } from '../../popover';
-import { Trash, Pin, Text, ActionMenu, Views, Plus } from '../../icons';
+import { Trash, Pin, Text, ActionMenuHorizontal, Views, Plus } from '../../icons';
 import { Dropdown, DropdownItem } from '../../dropdown';
 import { StatefulMenu } from '../../menu';
 import LabelXSmall from '../../typography/LabelXSmall';
@@ -19,11 +19,11 @@ import { StyledDropdownSearch } from '../../dropdown/StyledDropdownOption';
 import { useTheme } from '../../../providers';
 import { border, margin, padding } from '../../../utils';
 import { StatefulTooltip } from '../../tooltip';
-import { sortBy } from '@timechimp/timechimp-typescript-helpers';
 
 export const DataGridViewOptions = ({
   translations,
   views,
+  selectedView,
   setEditView,
   setDeleteModalIsOpen,
   setCreateModalIsOpen,
@@ -33,7 +33,6 @@ export const DataGridViewOptions = ({
   setRenameModalIsOpen,
 }: DataGridViewOptionsProps) => {
   const [viewSearchTerm, setViewSearchTerm] = useState<string>();
-  const [viewItems, setViewItems] = useState<any[]>([]);
 
   const {
     theme: {
@@ -44,23 +43,6 @@ export const DataGridViewOptions = ({
       },
     },
   } = useTheme();
-
-  useEffect(() => {
-    let viewItems = views ? views.map(({ id, name }) => ({ id, label: name })) : [];
-
-    viewItems = sortBy<any>(viewItems, ['label']);
-
-    viewItems.unshift({
-      id: undefined,
-      label: translations.defaultView,
-    });
-
-    viewItems = viewItems.filter(
-      (x) => !viewSearchTerm || x.label.toLowerCase().includes(viewSearchTerm.toLowerCase()),
-    );
-
-    setViewItems(viewItems);
-  }, [views, viewSearchTerm, translations]);
 
   const getViewById = (id: string) => views?.find((view) => view.id === id);
 
@@ -125,7 +107,13 @@ export const DataGridViewOptions = ({
             />
           </StyledDropdownSearch>
           <StatefulMenu
-            items={viewItems}
+            items={
+              views
+                ? views
+                    .map(({ id, name }) => ({ id, label: name }))
+                    .filter((x) => !viewSearchTerm || x.label.toLowerCase().includes(viewSearchTerm.toLowerCase()))
+                : []
+            }
             overrides={{
               List: {
                 style: {
@@ -139,13 +127,13 @@ export const DataGridViewOptions = ({
                 component: ({ item: { id, label } }: { item: DropdownItem }) => (
                   <StyledDataGridViewListItem>
                     <StyledDataGridViewListItemLabel>
-                      <Views color={contentStateDisabled} size={scale600} />
+                      <Views color={id === selectedView?.id ? primary : contentStateDisabled} size={scale600} />
                       <LabelXSmall margin={[0, scale400]}>{label}</LabelXSmall>
                     </StyledDataGridViewListItemLabel>
                     <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
                       {id ? (
                         <TertiaryButton>
-                          <ActionMenu size={scale400} color={primary} />
+                          <ActionMenuHorizontal size={scale400} color={primary} />
                         </TertiaryButton>
                       ) : (
                         <StatefulTooltip
@@ -154,7 +142,7 @@ export const DataGridViewOptions = ({
                           placement={PLACEMENT.right}
                         >
                           <TertiaryButton>
-                            <ActionMenu size={scale400} color={primary} />
+                            <ActionMenuHorizontal size={scale400} color={primary} />
                           </TertiaryButton>
                         </StatefulTooltip>
                       )}

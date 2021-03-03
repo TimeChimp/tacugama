@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from '../../icons/View';
 import useTheme from '../../../providers/ThemeProvider';
 import { DataGridViewsProps, DataGridView } from '../types';
@@ -12,6 +12,8 @@ import { SaveViewModal } from './SaveViewModal';
 import { RenameViewModal } from './RenameViewModal';
 import { ConfirmationModalType } from '../../../models';
 import { DataGridViewOptions } from './DataGridViewOptions';
+import { sortBy, nameOf } from '@timechimp/timechimp-typescript-helpers';
+import ActiveButton from '../../button/ActiveButton';
 
 const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
 
@@ -34,11 +36,13 @@ export const DataGridViews = ({
   const [saveModalIsOpen, setSaveModalIsOpen] = useState<boolean>(false);
   const [renameModalIsOpen, setRenameModalIsOpen] = useState<boolean>(false);
   const [editView, setEditView] = useState<DataGridView>();
+  const [allViews, setAllViews] = useState<DataGridView[]>([]);
 
   const {
     theme: {
       current: {
         sizing: { scale200, scale400, scale600 },
+        colors: { primary },
       },
     },
   } = useTheme();
@@ -77,42 +81,51 @@ export const DataGridViews = ({
     }
   };
 
-  const handleDefaultSelectView = () => {
-    if (onSelectView) {
-      onSelectView(null);
-    }
+  const isSelectedView = (id: string | undefined) => {
+    return selectedView?.id === id;
   };
+
+  useEffect(() => {
+    const allViews = views ? sortBy<DataGridView>(views, [nameOf<DataGridView>('name')]) : [];
+
+    allViews.unshift({
+      name: translations.defaultView,
+      pinned: true,
+    } as DataGridView);
+
+    setAllViews(allViews);
+  }, [views, translations]);
 
   return (
     <>
       <StyledDataGridViews>
-        <FlexItem marg1={scale200} marg2={scale400} marg3={scale200} marg4={scale400} width="fit-content">
-          <SecondaryButton
-            onClick={handleDefaultSelectView}
-            size={SIZE.mini}
-            startEnhancer={() => (!selectedView ? <View size={scale600} /> : '')}
-          >
-            {translations.defaultView}
-          </SecondaryButton>
-        </FlexItem>
-        {views
+        {allViews
           ?.filter((view) => view.pinned)
           .map((view) => (
-            <FlexItem marg1={scale200} marg2={scale400} marg3={scale200} marg4={scale400} width="fit-content">
-              <SecondaryButton
-                onClick={() => handleSelectView(view)}
-                key={view.id}
-                size={SIZE.mini}
-                startEnhancer={() => (selectedView?.id === view.id ? <View size={scale600} /> : '')}
-              >
-                {view.name}
-              </SecondaryButton>
+            <FlexItem
+              key={view.id}
+              marg1={scale200}
+              marg2={scale400}
+              marg3={scale200}
+              marg4={scale400}
+              width="fit-content"
+            >
+              {isSelectedView(view.id) ? (
+                <ActiveButton size={SIZE.mini} startEnhancer={() => <View color={primary} size={scale600} />}>
+                  {view.name}
+                </ActiveButton>
+              ) : (
+                <SecondaryButton onClick={() => handleSelectView(view)} size={SIZE.mini}>
+                  {view.name}
+                </SecondaryButton>
+              )}
             </FlexItem>
           ))}
         <StyledDataGridViewsDivider />
         <DataGridViewOptions
           translations={translations}
-          views={views}
+          views={allViews}
+          selectedView={selectedView}
           setEditView={setEditView}
           setDeleteModalIsOpen={setDeleteModalIsOpen}
           setCreateModalIsOpen={setCreateModalIsOpen}

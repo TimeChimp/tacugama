@@ -290,7 +290,6 @@ export const DataGrid = ({
           maxBlocksInCache={10}
           blockLoadDebounceMillis={100}
           headerHeight={36}
-          rowHeight={52}
           frameworkComponents={{
             moreActionsCell: RowActionsCell,
             statusBarRowCount: StatusBarRowCount,
