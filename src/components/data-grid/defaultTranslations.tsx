@@ -15,6 +15,7 @@ export const defaultTranslations: Translations = {
   saveGrouping: 'Save grouping',
   saveFilters: 'Save filters',
   saveView: 'Save view',
+  searchColumns: 'Search columns',
   cancel: 'Cancel',
   unpinView: 'Unpin',
   pinView: 'Pin',
