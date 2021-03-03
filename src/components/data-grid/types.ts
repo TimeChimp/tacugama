@@ -70,6 +70,7 @@ export interface Translations {
   addView: string;
   viewName: string;
   saveColumns: string;
+  searchColumns: string;
   saveGrouping: string;
   saveFilters: string;
   saveView: string;
@@ -142,7 +143,7 @@ export interface HeaderCheckboxProps {
 export interface HeaderColumnToggleProps {
   api: GridApi;
   columnApi: ColumnApi;
-  searchPlaceholder?: string;
+  translations: Translations;
 }
 
 export interface DataGridRequest {
