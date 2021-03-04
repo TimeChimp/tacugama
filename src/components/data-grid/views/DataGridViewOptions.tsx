@@ -133,15 +133,17 @@ export const DataGridViewOptions = ({
                     </StyledDataGridViewListItemLabel>
                     <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
                       {id === 'default' ? (
-                        <StatefulTooltip
-                          accessibilityType={'tooltip'}
-                          content={translations.defaultViewTooltip}
-                          placement={PLACEMENT.right}
-                        >
-                          <TertiaryButton>
-                            <ActionMenuHorizontal size={scale400} color={primary} />
-                          </TertiaryButton>
-                        </StatefulTooltip>
+                        <>
+                          <StatefulTooltip
+                            accessibilityType={'tooltip'}
+                            content={translations.defaultViewTooltip}
+                            placement={PLACEMENT.right}
+                          >
+                            <TertiaryButton>
+                              <ActionMenuHorizontal size={scale400} color={primary} />
+                            </TertiaryButton>
+                          </StatefulTooltip>
+                        </>
                       ) : (
                         <TertiaryButton>
                           <ActionMenuHorizontal size={scale400} color={primary} />
