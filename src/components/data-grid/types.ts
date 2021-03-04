@@ -105,7 +105,7 @@ export interface DataGridProps {
   height?: string;
   onDeactivateView?: (id: string) => Promise<void>;
   onActivateView?: (id: string) => Promise<void>;
-  onCreateView?: (view: CreateViewInput) => Promise<string>;
+  onCreateView?: (view: CreateViewInput) => Promise<void>;
   onDeleteView?: (id: string) => Promise<void>;
   onPinView?: (id: string) => Promise<void>;
   onUnpinView?: (id: string) => Promise<void>;

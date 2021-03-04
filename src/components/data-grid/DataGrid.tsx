@@ -175,9 +175,7 @@ export const DataGrid = ({
 
   const handleCreateView = async (input: CreateViewInput) => {
     if (onCreateView && onPinView && onActivateView) {
-      const id = await onCreateView(input);
-      onPinView(id);
-      onActivateView(id);
+      await onCreateView(input);
     }
     return;
   };
