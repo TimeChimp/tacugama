@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View } from '../../icons/View';
 import useTheme from '../../../providers/ThemeProvider';
-import { DataGridViewsProps, DataGridView } from '../types';
+import { DataGridViewsProps, DataGridView, CreateViewInput } from '../types';
 import { StyledDataGridViews, StyledDataGridViewsDivider } from '../StyledDataGrid';
 import SecondaryButton from '../../button/SecondaryButton';
 import { SIZE } from 'baseui/button';
@@ -12,22 +12,21 @@ import { SaveViewModal } from './SaveViewModal';
 import { RenameViewModal } from './RenameViewModal';
 import { ConfirmationModalType } from '../../../models';
 import { DataGridViewOptions } from './DataGridViewOptions';
-import { sortBy, nameOf } from '@timechimp/timechimp-typescript-helpers';
 import ActiveButton from '../../button/ActiveButton';
 
 const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
 
 export const DataGridViews = ({
+  dataGridId,
   translations,
   views,
-  selectedView,
   onCreateView,
   onDeleteView,
   onRenameView,
   onPinView,
   onUnpinView,
   onSaveViewState,
-  onSelectView,
+  onActivateView,
   gridApi,
   gridColumnApi,
 }: DataGridViewsProps) => {
@@ -36,7 +35,6 @@ export const DataGridViews = ({
   const [saveModalIsOpen, setSaveModalIsOpen] = useState<boolean>(false);
   const [renameModalIsOpen, setRenameModalIsOpen] = useState<boolean>(false);
   const [editView, setEditView] = useState<DataGridView>();
-  const [allViews, setAllViews] = useState<DataGridView[]>([]);
 
   const {
     theme: {
@@ -47,9 +45,9 @@ export const DataGridViews = ({
     },
   } = useTheme();
 
-  const handleCreateView = async (view: DataGridView) => {
+  const handleCreateView = async (input: CreateViewInput) => {
     if (onCreateView) {
-      await onCreateView(view);
+      await onCreateView(input);
     }
     return;
   };
@@ -69,37 +67,22 @@ export const DataGridViews = ({
   };
 
   const handleViewDelete = async () => {
-    if (onDeleteView) {
-      await onDeleteView(editView?.id!);
+    if (editView && onDeleteView) {
+      await onDeleteView(editView.id);
     }
     return;
   };
 
-  const handleSelectView = (view: DataGridView) => {
-    if (onSelectView) {
-      onSelectView(view);
+  const handleActivateView = async (id: string) => {
+    if (onActivateView) {
+      await onActivateView(id);
     }
   };
-
-  const isSelectedView = (id: string | undefined) => {
-    return selectedView?.id === id;
-  };
-
-  useEffect(() => {
-    const allViews = views ? sortBy<DataGridView>(views, [nameOf<DataGridView>('name')]) : [];
-
-    allViews.unshift({
-      name: translations.defaultView,
-      pinned: true,
-    } as DataGridView);
-
-    setAllViews(allViews);
-  }, [views, translations]);
 
   return (
     <>
       <StyledDataGridViews>
-        {allViews
+        {views
           ?.filter((view) => view.pinned)
           .map((view) => (
             <FlexItem
@@ -110,12 +93,12 @@ export const DataGridViews = ({
               marg4={scale400}
               width="fit-content"
             >
-              {isSelectedView(view.id) ? (
+              {view.active ? (
                 <ActiveButton size={SIZE.mini} startEnhancer={() => <View color={primary} size={scale600} />}>
                   {view.name}
                 </ActiveButton>
               ) : (
-                <SecondaryButton onClick={() => handleSelectView(view)} size={SIZE.mini}>
+                <SecondaryButton onClick={() => handleActivateView(view.id)} size={SIZE.mini}>
                   {view.name}
                 </SecondaryButton>
               )}
@@ -124,8 +107,7 @@ export const DataGridViews = ({
         <StyledDataGridViewsDivider />
         <DataGridViewOptions
           translations={translations}
-          views={allViews}
-          selectedView={selectedView}
+          views={views}
           setEditView={setEditView}
           setDeleteModalIsOpen={setDeleteModalIsOpen}
           setCreateModalIsOpen={setCreateModalIsOpen}
@@ -147,6 +129,7 @@ export const DataGridViews = ({
         submitButtonTestId={DELETE_VIEW_SUBMIT_BUTTON_TEST_ID}
       />
       <CreateViewModal
+        dataGridId={dataGridId}
         isOpen={createModalIsOpen}
         setIsOpen={setCreateModalIsOpen}
         handleCreateView={handleCreateView}

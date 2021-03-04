@@ -18,6 +18,7 @@ interface FormInput {
 }
 
 export const CreateViewModal = ({
+  dataGridId,
   isOpen,
   setIsOpen,
   handleCreateView,
@@ -56,7 +57,7 @@ export const CreateViewModal = ({
     const viewState = getState();
     await handleCreateView({
       name,
-      pinned: true,
+      viewType: dataGridId,
       viewState,
     });
     setLoading(false);

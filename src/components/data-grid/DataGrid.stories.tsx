@@ -6,7 +6,7 @@ import '@ag-grid-community/core/dist/styles/ag-theme-alpine.css';
 import '@ag-grid-community/core/dist/styles/ag-theme-alpine-dark.css';
 
 import { DataGrid, DataGridProps, DataGridColumn } from '.';
-import { DataGridView } from './types';
+import { DataGridView, CreateViewInput } from './types';
 import { getTimeEntriesQueryMock, DATA_URL } from './mockServer';
 
 export default {
@@ -15,7 +15,7 @@ export default {
 } as Meta;
 
 const Template: Story<DataGridProps> = (args) => {
-  const [views, setView] = useState<DataGridView[]>([]);
+  const [views, setViews] = useState<DataGridView[]>([]);
 
   const columns: DataGridColumn[] = [
     {
@@ -42,7 +42,7 @@ const Template: Story<DataGridProps> = (args) => {
     const view = views.find((x) => x.id === id);
     if (view) {
       view.pinned = pinned;
-      setView([...views.filter((x) => x.id !== id), view]);
+      setViews([...views.filter((x) => x.id !== id), view]);
     }
   };
 
@@ -50,27 +50,73 @@ const Template: Story<DataGridProps> = (args) => {
     const view = views.find((x) => x.id === id);
     if (view) {
       view.name = name;
-      setView([...views.filter((x) => x.id !== id), view]);
+      setViews([...views.filter((x) => x.id !== id), view]);
     }
   };
 
-  const handleCreateView = async (view: DataGridView) => {
-    view.id = Math.random().toString(16);
-    setView([...views, view]);
+  const handleSaveView = async (id: string, viewState: string) => {
+    const view = views.find((x) => x.id === id);
+    if (view) {
+      view.viewState = viewState;
+      setViews([...views.filter((x) => x.id !== id), view]);
+    }
+  };
+
+  const handleCreateView = async (input: CreateViewInput) => {
+    const activeView = views.find((x) => x.active);
+    if (activeView) {
+      activeView.active = false;
+      setViews([...views.filter((x) => x.id !== activeView.id), activeView]);
+    }
+
+    const view: DataGridView = {
+      id: Math.random().toString(16),
+      name: input.name,
+      viewState: input.viewState,
+      viewType: input.viewType,
+      pinned: true,
+      active: true,
+    };
+    setViews([...views, view]);
   };
 
   const onDeleteView = async (id: string) => {
-    setView(views.filter((x) => x.id !== id));
+    setViews(views.filter((x) => x.id !== id));
+  };
+
+  const onDeactivateView = async (id: string) => {
+    const view = views.find((x) => x.id === id);
+    if (view) {
+      view.active = false;
+      setViews([...views.filter((x) => x.id !== id), view]);
+    }
+  };
+
+  const onActivateView = async (id: string) => {
+    const activeView = views.find((x) => x.active);
+    if (activeView) {
+      await onDeactivateView(activeView.id);
+    }
+
+    const view = views.find((x) => x.id === id);
+    if (view) {
+      view.active = true;
+      setViews([...views.filter((x) => x.id !== id), view]);
+    }
   };
 
   return (
     <DataGrid
+      id={'test-grid'}
       views={views}
+      onActivateView={(id: string) => onActivateView(id)}
+      onDeactivateView={(id: string) => onDeactivateView(id)}
       onDeleteView={(id: string) => onDeleteView(id)}
       onPinView={(id: string) => handlePin(id, true)}
       onUnpinView={(id: string) => handlePin(id, false)}
       onRenameView={(id: string, name: string) => handleRename(id, name)}
-      onCreateView={(view: DataGridView) => handleCreateView(view)}
+      onCreateView={(input: CreateViewInput) => handleCreateView(input)}
+      onSaveViewState={(id: string, viewState: string) => handleSaveView(id, viewState)}
       columns={columns}
       columnToggling
       selection
@@ -79,6 +125,7 @@ const Template: Story<DataGridProps> = (args) => {
       viewing
       dataUrl={DATA_URL}
       accessToken={''}
+      height={'calc(100vh - 200px)'}
     />
   );
 };

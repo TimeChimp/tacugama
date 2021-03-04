@@ -34,10 +34,13 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
   `;
 };
 
-export const StyledDataGrid = themedStyled('div', {
-  height: 'calc(100vh - 325px)',
+export interface StyledDataGridProps {
+  $height?: string;
+}
+export const StyledDataGrid = themedStyled<'div', StyledDataGridProps>('div', ({ $height = '100%' }) => ({
+  height: $height,
   width: '100%',
-});
+}));
 
 export const StyledDataGridFilters = themedStyled('div', ({ $theme }) => ({
   ...margin($theme.sizing.scale400, '0'),

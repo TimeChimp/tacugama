@@ -85,6 +85,7 @@ export interface Translations {
 }
 
 export interface DataGridProps {
+  id: string;
   columns: DataGridColumn[];
   selection?: boolean;
   filtering?: boolean;
@@ -101,7 +102,10 @@ export interface DataGridProps {
   formatSettings?: FormatSettings;
   translations?: Translations;
   views?: DataGridView[];
-  onCreateView?: (view: DataGridView) => Promise<void>;
+  height?: string;
+  onDeactivateView?: (id: string) => Promise<void>;
+  onActivateView?: (id: string) => Promise<void>;
+  onCreateView?: (view: CreateViewInput) => Promise<void>;
   onDeleteView?: (id: string) => Promise<void>;
   onPinView?: (id: string) => Promise<void>;
   onUnpinView?: (id: string) => Promise<void>;
@@ -110,10 +114,18 @@ export interface DataGridProps {
 }
 
 export interface DataGridView {
-  id?: string;
+  id: string;
   name: string;
   pinned: boolean;
   viewState: string;
+  viewType: string;
+  active: boolean;
+}
+
+export interface CreateViewInput {
+  name: string;
+  viewState: string;
+  viewType: string;
 }
 
 export interface FiltersProps {
@@ -175,24 +187,25 @@ export interface NoRowsTemplateProps {
 }
 
 export interface DataGridViewsProps {
+  dataGridId: string;
   translations: Translations;
   views?: DataGridView[];
-  selectedView?: DataGridView;
-  onCreateView?: (view: DataGridView) => Promise<void>;
+  onCreateView?: (input: CreateViewInput) => Promise<void>;
   onDeleteView?: (id: string) => Promise<void>;
   onPinView?: (id: string) => Promise<void>;
   onUnpinView?: (id: string) => Promise<void>;
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
-  onSelectView?: (view: DataGridView | null) => void;
+  onActivateView?: (id: string) => void;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
 }
 
 export interface CreateViewModalProps {
+  dataGridId: string;
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
-  handleCreateView: (view: DataGridView) => Promise<void>;
+  handleCreateView: (input: CreateViewInput) => Promise<void>;
   translations: Translations;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
@@ -219,7 +232,6 @@ export interface RenameViewModalProps {
 export interface DataGridViewOptionsProps {
   translations: Translations;
   views?: DataGridView[];
-  selectedView: DataGridView | undefined;
   setEditView: Dispatch<SetStateAction<DataGridView | undefined>>;
   setDeleteModalIsOpen: Dispatch<SetStateAction<boolean>>;
   setCreateModalIsOpen: Dispatch<SetStateAction<boolean>>;

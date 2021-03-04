@@ -23,7 +23,6 @@ import { StatefulTooltip } from '../../tooltip';
 export const DataGridViewOptions = ({
   translations,
   views,
-  selectedView,
   setEditView,
   setDeleteModalIsOpen,
   setCreateModalIsOpen,
@@ -46,6 +45,8 @@ export const DataGridViewOptions = ({
 
   const getViewById = (id: string) => views?.find((view) => view.id === id);
 
+  const isActiveView = (id: string) => getViewById(id)?.active;
+
   const getViewMenuItems = (id: string) => {
     let items: DropdownItem[] = [];
     const view = getViewById(id);
@@ -57,9 +58,9 @@ export const DataGridViewOptions = ({
           label: view.pinned ? translations.unpinView : translations.pinView,
           action: () => {
             if (view.pinned && onUnpinView) {
-              onUnpinView(view.id!);
+              onUnpinView(view.id);
             } else if (!view.pinned && onPinView) {
-              onPinView(view.id!);
+              onPinView(view.id);
             }
           },
         },
@@ -127,24 +128,26 @@ export const DataGridViewOptions = ({
                 component: ({ item: { id, label } }: { item: DropdownItem }) => (
                   <StyledDataGridViewListItem>
                     <StyledDataGridViewListItemLabel>
-                      <Views color={id === selectedView?.id ? primary : contentStateDisabled} size={scale600} />
+                      <Views color={isActiveView(id!) ? primary : contentStateDisabled} size={scale600} />
                       <LabelXSmall margin={[0, scale400]}>{label}</LabelXSmall>
                     </StyledDataGridViewListItemLabel>
                     <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
-                      {id ? (
+                      {id === 'default' ? (
+                        <>
+                          <StatefulTooltip
+                            accessibilityType={'tooltip'}
+                            content={translations.defaultViewTooltip}
+                            placement={PLACEMENT.right}
+                          >
+                            <TertiaryButton>
+                              <ActionMenuHorizontal size={scale400} color={primary} />
+                            </TertiaryButton>
+                          </StatefulTooltip>
+                        </>
+                      ) : (
                         <TertiaryButton>
                           <ActionMenuHorizontal size={scale400} color={primary} />
                         </TertiaryButton>
-                      ) : (
-                        <StatefulTooltip
-                          accessibilityType={'tooltip'}
-                          content={translations.defaultViewTooltip}
-                          placement={PLACEMENT.right}
-                        >
-                          <TertiaryButton>
-                            <ActionMenuHorizontal size={scale400} color={primary} />
-                          </TertiaryButton>
-                        </StatefulTooltip>
                       )}
                     </Dropdown>
                   </StyledDataGridViewListItem>

@@ -30,7 +30,7 @@ export const RenameViewModal = ({ isOpen, setIsOpen, handleRenameView, translati
 
   const onSubmit = async ({ name }: FormInput) => {
     setLoading(true);
-    await handleRenameView(view.id!, name);
+    await handleRenameView(view.id, name);
     setLoading(false);
     setIsOpen(false);
   };
