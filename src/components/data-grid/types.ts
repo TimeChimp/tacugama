@@ -85,7 +85,6 @@ export interface Translations {
 }
 
 export interface DataGridProps {
-  id: string;
   columns: DataGridColumn[];
   selection?: boolean;
   filtering?: boolean;
@@ -125,7 +124,6 @@ export interface DataGridView {
 export interface CreateViewInput {
   name: string;
   viewState: string;
-  viewType: string;
 }
 
 export interface FiltersProps {
@@ -187,7 +185,6 @@ export interface NoRowsTemplateProps {
 }
 
 export interface DataGridViewsProps {
-  dataGridId: string;
   translations: Translations;
   views?: DataGridView[];
   onCreateView?: (input: CreateViewInput) => Promise<void>;
@@ -202,7 +199,6 @@ export interface DataGridViewsProps {
 }
 
 export interface CreateViewModalProps {
-  dataGridId: string;
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
   handleCreateView: (input: CreateViewInput) => Promise<void>;
