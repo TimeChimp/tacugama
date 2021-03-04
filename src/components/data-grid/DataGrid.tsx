@@ -157,8 +157,6 @@ export const DataGrid = ({
   const handleActivateView = async (id: string) => {
     const view = allViews?.find((view) => view.id === id);
     if (view) {
-      setViewState(view?.viewState!);
-
       if (view.id && onActivateView) {
         await onActivateView(view.id);
       } else if (onDeactivateView) {
@@ -170,11 +168,13 @@ export const DataGrid = ({
         view.active = true;
         setAllViews([...allViews.filter((x) => x.id !== id), view]);
       }
+
+      setViewState(view.viewState!);
     }
   };
 
   const handleCreateView = async (input: CreateViewInput) => {
-    if (onCreateView && onPinView && onActivateView) {
+    if (onCreateView) {
       await onCreateView(input);
     }
     return;

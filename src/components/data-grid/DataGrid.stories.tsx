@@ -54,6 +54,14 @@ const Template: Story<DataGridProps> = (args) => {
     }
   };
 
+  const handleSaveView = async (id: string, viewState: string) => {
+    const view = views.find((x) => x.id === id);
+    if (view) {
+      view.viewState = viewState;
+      setViews([...views.filter((x) => x.id !== id), view]);
+    }
+  };
+
   const handleCreateView = async (input: CreateViewInput) => {
     const activeView = views.find((x) => x.active);
     if (activeView) {
@@ -108,6 +116,7 @@ const Template: Story<DataGridProps> = (args) => {
       onUnpinView={(id: string) => handlePin(id, false)}
       onRenameView={(id: string, name: string) => handleRename(id, name)}
       onCreateView={(input: CreateViewInput) => handleCreateView(input)}
+      onSaveViewState={(id: string, viewState: string) => handleSaveView(id, viewState)}
       columns={columns}
       columnToggling
       selection
