@@ -17,7 +17,6 @@ import ActiveButton from '../../button/ActiveButton';
 const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
 
 export const DataGridViews = ({
-  dataGridId,
   translations,
   views,
   onCreateView,
@@ -129,7 +128,6 @@ export const DataGridViews = ({
         submitButtonTestId={DELETE_VIEW_SUBMIT_BUTTON_TEST_ID}
       />
       <CreateViewModal
-        dataGridId={dataGridId}
         isOpen={createModalIsOpen}
         setIsOpen={setCreateModalIsOpen}
         handleCreateView={handleCreateView}

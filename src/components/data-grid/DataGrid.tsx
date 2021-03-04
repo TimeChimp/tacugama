@@ -51,7 +51,6 @@ import { defaultTranslations } from './defaultTranslations';
 import DataGridViews from './views/DataGridViews';
 
 export const DataGrid = ({
-  id,
   columns,
   selection,
   filtering,
@@ -291,7 +290,6 @@ export const DataGrid = ({
         {viewing && (
           <StyledDataGridHeader>
             <DataGridViews
-              dataGridId={id}
               views={allViews}
               onCreateView={handleCreateView}
               onDeleteView={onDeleteView}

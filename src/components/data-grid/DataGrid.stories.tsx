@@ -73,7 +73,7 @@ const Template: Story<DataGridProps> = (args) => {
       id: Math.random().toString(16),
       name: input.name,
       viewState: input.viewState,
-      viewType: input.viewType,
+      viewType: 'test',
       pinned: true,
       active: true,
     };
@@ -107,7 +107,6 @@ const Template: Story<DataGridProps> = (args) => {
 
   return (
     <DataGrid
-      id={'test-grid'}
       views={views}
       onActivateView={(id: string) => onActivateView(id)}
       onDeactivateView={(id: string) => onDeactivateView(id)}
