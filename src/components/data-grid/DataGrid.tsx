@@ -160,6 +160,7 @@ export const DataGrid = ({
       if (view.id && onActivateView) {
         await onActivateView(view.id);
       } else if (onDeactivateView) {
+        // Deactive current view when selecting the default view
         const activeView = allViews.find((view) => view.active);
         if (activeView) {
           await onDeactivateView(activeView.id);
