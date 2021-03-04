@@ -41,3 +41,4 @@ export * from './Views';
 export * from './Plus';
 export * from './Pin';
 export * from './Text';
+export * from './TableSettings';
