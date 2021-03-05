@@ -260,15 +260,17 @@ export const DataGrid = ({
 
   const getValueFormatter = (params: ValueFormatterParams, type?: DataGridColumnType) => {
     const { currency, numberFormat, dateFormat, language, timeFormat, durationFormat } = formatSettings;
+    const defaultDateFormat = defaultFormatSettings.dateFormat as string;
+
     switch (type) {
       case 'currency':
         return formatCurrency(params.value, currency, numberFormat);
       case 'number':
         return formatNumber(params.value, 2, numberFormat);
       case 'date':
-        return new TcDate(params.value).format(dateFormat, language);
+        return new TcDate(params.value).format(dateFormat ?? defaultDateFormat, language);
       case 'time':
-        return new TcDate(params.value).format(timeFormat, language);
+        return new TcDate(params.value).format(timeFormat ?? defaultDateFormat, language);
       case 'duration':
         return formatDuration(params.value, durationFormat, numberFormat);
     }
