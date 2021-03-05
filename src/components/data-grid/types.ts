@@ -51,12 +51,12 @@ export type Language = 'nl-NL' | 'en-US' | 'en-GB' | undefined;
 export type DurationFormat = 'HH:mm:ss' | 'HH:mm' | 'decimal' | undefined;
 
 export interface FormatSettings {
-  durationFormat: DurationFormat;
-  dateFormat: string;
-  numberFormat: NumberFormat;
-  currency: string;
-  language: Language;
-  timeFormat: string;
+  durationFormat?: DurationFormat;
+  dateFormat?: string;
+  numberFormat?: NumberFormat;
+  currency?: string;
+  language?: Language;
+  timeFormat?: string;
 }
 
 export interface Translations {
