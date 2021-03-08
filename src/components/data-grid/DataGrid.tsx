@@ -156,19 +156,18 @@ export const DataGrid = ({
   const handleActivateView = async (id: string) => {
     const view = allViews?.find((view) => view.id === id);
     if (view) {
-      if (view.id && onActivateView) {
-        await onActivateView(view.id);
-      } else if (onDeactivateView) {
-        // Deactive current view when selecting the default view
+      if (view.id === 'default' && onDeactivateView) {
+        // Deactivate current view when selecting the default view
         const activeView = allViews.find((view) => view.active);
         if (activeView) {
           await onDeactivateView(activeView.id);
         }
-
-        view.active = true;
-        setAllViews([...allViews.filter((x) => x.id !== id), view]);
+      } else if (onActivateView) {
+        await onActivateView(view.id);
       }
 
+      view.active = true;
+      setAllViews([...allViews.filter((x) => x.id !== id), view]);
       setViewState(view.viewState!);
     }
   };
