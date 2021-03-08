@@ -162,12 +162,13 @@ export const DataGrid = ({
         if (activeView) {
           await onDeactivateView(activeView.id);
         }
+
+        view.active = true;
+        setAllViews([...allViews.filter((x) => x.id !== id), view]);
       } else if (onActivateView) {
         await onActivateView(view.id);
       }
 
-      view.active = true;
-      setAllViews([...allViews.filter((x) => x.id !== id), view]);
       setViewState(view.viewState!);
     }
   };
