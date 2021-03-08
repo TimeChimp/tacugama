@@ -7,6 +7,7 @@ import {
   NumberFilterModel,
   TextFilterModel,
 } from '@ag-grid-community/core';
+import { DurationFormat, NumberFormat, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 import { Dispatch, SetStateAction } from 'react';
 import { DropdownItem } from '../dropdown';
 
@@ -46,16 +47,12 @@ export interface DataGridState {
   filterModel: FilterModel;
 }
 
-export type NumberFormat = 'space' | 'dot' | 'comma' | 'apostrophe' | undefined;
-export type Language = 'nl-NL' | 'en-US' | 'en-GB' | undefined;
-export type DurationFormat = 'HH:mm:ss' | 'HH:mm' | 'decimal' | undefined;
-
 export interface FormatSettings {
   durationFormat?: DurationFormat;
   dateFormat?: string;
   numberFormat?: NumberFormat;
   currency?: string;
-  language?: Language;
+  language?: SupportedLocale;
   timeFormat?: string;
 }
 
