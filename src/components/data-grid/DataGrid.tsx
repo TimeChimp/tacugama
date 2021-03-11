@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import fetch from 'isomorphic-unfetch';
 import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader } from './StyledDataGrid';
@@ -217,17 +217,24 @@ export const DataGrid = ({
     };
   };
 
+  const creatDataGridApi = useCallback(
+    (api: GridApi) => {
+      if (onReady) {
+        const dataGridApi: DataGridApi = {
+          getSelectedRows: () => getSelectedRows(api),
+          getSelectedRow: () => getSelectedRow(api),
+          exportAsCsv: () => exportAsCsv(api),
+          exportAsExcel: () => exportAsExcel(api),
+          refreshStore: () => refreshStore(api),
+        };
+        onReady(dataGridApi);
+      }
+    },
+    [onReady],
+  );
+
   const onGridReady = async ({ api, columnApi }: GridReadyEvent) => {
-    if (onReady) {
-      const dataGridApi: DataGridApi = {
-        getSelectedRows: () => getSelectedRows(api),
-        getSelectedRow: () => getSelectedRow(api),
-        exportAsCsv: () => exportAsCsv(api),
-        exportAsExcel: () => exportAsExcel(api),
-        refreshStore: () => refreshStore(api),
-      };
-      onReady(dataGridApi);
-    }
+    creatDataGridApi(api);
 
     setGridApi(api);
     setGridColumnApi(columnApi);
@@ -239,6 +246,13 @@ export const DataGrid = ({
 
     setFilterModel(api.getFilterModel());
   };
+
+  // create DataGridApi within useEffect also for next ssr rendering
+  useEffect(() => {
+    if (gridApi) {
+      creatDataGridApi(gridApi);
+    }
+  }, [gridApi, creatDataGridApi]);
 
   const getRowNodeId = (data: any) => {
     return data.id;
