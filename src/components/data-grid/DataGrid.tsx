@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import fetch from 'isomorphic-unfetch';
-import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader } from './StyledDataGrid';
+import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader } from './styles';
 import { RowActionsCell } from './RowActionsCell';
 import { StatusBarRowCount } from './StatusBarRowCount';
 import { NoRowsTemplate } from './NoRowsTemplate';
@@ -12,6 +12,7 @@ import { Filters } from './Filters';
 import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 import { StatusBarModule } from '@ag-grid-enterprise/status-bar';
 import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
+import { SetFilterModule } from '@ag-grid-enterprise/set-filter';
 import { AgGridColumn, AgGridReact } from '@ag-grid-community/react';
 import { CsvExportModule } from '@ag-grid-community/csv-export';
 import { ExcelExportModule } from '@ag-grid-enterprise/excel-export';
@@ -50,10 +51,14 @@ import { defaultFormatSettings } from './defaultFormatSettings';
 import { defaultTranslations } from './defaultTranslations';
 import DataGridViews from './views/DataGridViews';
 
+const DEFAULT_SEARCH_COLUMNS = ['name'];
+const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
+
 export const DataGrid = ({
   columns,
   selection,
   filtering,
+  filters,
   grouping,
   columnToggling,
   viewing,
@@ -64,7 +69,6 @@ export const DataGrid = ({
   sortableColumns,
   resizeableColumns,
   views,
-  height,
   onDeactivateView,
   onActivateView,
   onCreateView,
@@ -73,8 +77,10 @@ export const DataGrid = ({
   onPinView,
   onUnpinView,
   onSaveViewState,
+  searchColumns = DEFAULT_SEARCH_COLUMNS,
   formatSettings = defaultFormatSettings,
   translations = defaultTranslations,
+  height = DEFAULT_HEIGHT,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
@@ -258,6 +264,27 @@ export const DataGrid = ({
     gridApi.onFilterChanged();
   };
 
+  const getSetValues = (value: string, values?: string[]) => {
+    if (!values) {
+      return [value];
+    }
+
+    if (values?.includes(value)) {
+      return values.filter((x) => x !== value);
+    }
+    return [...values, value];
+  };
+
+  const onSetFiltering = (column: string, value: string) => {
+    const filterInstance = gridApi.getFilterInstance(column);
+    const currentValues = filterInstance?.getModel()?.values;
+    const values = getSetValues(value, currentValues);
+    filterInstance?.setModel({ values });
+    // @ts-ignore
+    filterInstance.applyModel();
+    gridApi.onFilterChanged();
+  };
+
   const getValueFormatter = (params: ValueFormatterParams, type?: DataGridColumnType) => {
     const { currency, numberFormat, dateFormat, language, timeFormat, durationFormat } = formatSettings;
     const defaultDateFormat = defaultFormatSettings.dateFormat as string;
@@ -277,16 +304,28 @@ export const DataGrid = ({
     return params.value;
   };
 
+  const getFilterParams = (params: any, columnField?: string) => {
+    let values: string[] = [];
+    const columnFilter = filters?.find((filter) => filter.columnField === columnField);
+    if (columnFilter && columnFilter.values) {
+      values = columnFilter.values;
+    }
+    params.success(values);
+  };
+
   return (
     <>
       <Filters
         columns={gridColumns}
         filtering={filtering}
+        filters={filters}
         grouping={grouping}
         onGrouping={onGrouping}
         onFiltering={onFiltering}
+        onSetFiltering={onSetFiltering}
         filterModel={filterModel}
         translations={translations}
+        searchColumns={searchColumns}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {viewing && (
@@ -346,7 +385,14 @@ export const DataGrid = ({
             sortDescending: () =>
               ReactDOMServer.renderToStaticMarkup(<TriangleUp size={theme.current.sizing.scale200} />),
           }}
-          modules={[ServerSideRowModelModule, RowGroupingModule, CsvExportModule, ExcelExportModule, StatusBarModule]}
+          modules={[
+            ServerSideRowModelModule,
+            RowGroupingModule,
+            CsvExportModule,
+            ExcelExportModule,
+            StatusBarModule,
+            SetFilterModule,
+          ]}
           statusBar={{
             statusPanels: [
               {
@@ -379,6 +425,8 @@ export const DataGrid = ({
               rowGroup={column.rowGroup}
               hide={column.rowGroup}
               sort={column.sort}
+              filter="agSetColumnFilter"
+              filterParams={{ values: (params: any) => getFilterParams(params, column.field) }}
               valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, column.type)}
               aggFunc={column.aggFunc}
               sortable={sortableColumns}

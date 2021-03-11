@@ -9,6 +9,7 @@ const timeEntries = [
     description: 'This is a description',
     client: 'Apple',
     project: 'Testing',
+    start: '2021-03-10T00:00:00',
   },
   {
     id: 'ACC-BBB-CCC-DDD-EE2',
@@ -16,6 +17,7 @@ const timeEntries = [
     description: 'This is a description',
     client: 'Microsoft',
     project: 'Development',
+    start: '2021-03-10T00:00:00',
   },
   {
     id: 'ACC-BBB-CCC-DDD-EE3',
@@ -23,6 +25,7 @@ const timeEntries = [
     description: 'This is a description',
     client: 'Amazon',
     project: 'Design',
+    start: '2021-03-10T00:00:00',
   },
 ];
 

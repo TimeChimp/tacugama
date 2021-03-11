@@ -4,11 +4,11 @@ import { TetherPlacement } from 'baseui/layer';
 import { borderBottom } from '../../utils';
 import { useTheme } from '../../providers/ThemeProvider';
 import { ClickOutside } from '../click-outside/ClickOutside';
-import { StatefulCalendar } from 'baseui/datepicker';
+import { StatefulCalendar, CalendarProps } from 'baseui/datepicker';
 import { SupportedLocale } from '../../types/SupportedLocale';
 import { getDateLocale } from '../../utils/get-date-locale';
 
-export interface DatepickerProps {
+export interface DatepickerProps extends CalendarProps {
   date: Date;
   placement?: TetherPlacement[keyof TetherPlacement];
   isOpen: boolean;
@@ -26,6 +26,7 @@ export const Datepicker = ({
   onChange,
   locale,
   weekStartDay,
+  ...rest
 }: DatepickerProps) => {
   const [localeObj, setLocaleObj] = useState<Locale>();
   const {
@@ -90,6 +91,7 @@ export const Datepicker = ({
                 },
               },
             }}
+            {...rest}
           />
         </ClickOutside>
       )}

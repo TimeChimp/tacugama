@@ -6,37 +6,68 @@ import '@ag-grid-community/core/dist/styles/ag-theme-alpine.css';
 import '@ag-grid-community/core/dist/styles/ag-theme-alpine-dark.css';
 
 import { DataGrid, DataGridProps, DataGridColumn } from '.';
-import { DataGridView, CreateViewInput } from './types';
+import { DataGridView, CreateViewInput, Filter, FilterType } from './types';
 import { getTimeEntriesQueryMock, DATA_URL } from './mockServer';
+import { Calendar } from 'components/icons';
 
 export default {
   title: 'Components/Data Grid',
   component: DataGrid,
+  parameters: {
+    msw: [getTimeEntriesQueryMock],
+  },
 } as Meta;
+
+const columns: DataGridColumn[] = [
+  {
+    field: 'start',
+    label: 'Date',
+  },
+  {
+    field: 'name',
+    label: 'Name',
+  },
+  {
+    field: 'description',
+    label: 'Description',
+  },
+  {
+    field: 'client',
+    label: 'Client',
+    groupable: true,
+  },
+  {
+    field: 'project',
+    label: 'Project',
+    groupable: true,
+  },
+];
+
+const filters: Filter[] = [
+  {
+    type: FilterType.date,
+    title: 'Date',
+    columnField: 'start',
+    icon: () => <Calendar size="12px" color="black" />,
+  },
+  {
+    type: FilterType.string,
+    title: 'Client',
+    columnField: 'client',
+    values: ['Apple', 'Microsoft', 'Amazon', 'Google'],
+    searchPlaceholder: 'Search clients',
+  },
+  {
+    type: FilterType.string,
+    title: 'Project',
+    columnField: 'project',
+    values: ['Testing', 'Development', 'Design', 'Support'],
+    searchPlaceholder: 'Search projects',
+  },
+];
 
 const Template: Story<DataGridProps> = (args) => {
   const [views, setViews] = useState<DataGridView[]>([]);
-
-  const columns: DataGridColumn[] = [
-    {
-      field: 'name',
-      label: 'Name',
-    },
-    {
-      field: 'description',
-      label: 'Description',
-    },
-    {
-      field: 'client',
-      label: 'Client',
-      groupable: true,
-    },
-    {
-      field: 'project',
-      label: 'Project',
-      groupable: true,
-    },
-  ];
 
   const handlePin = async (id: string, pinned: boolean) => {
     const view = views.find((x) => x.id === id);
@@ -50,14 +81,6 @@ const Template: Story<DataGridProps> = (args) => {
     const view = views.find((x) => x.id === id);
     if (view) {
       view.name = name;
-      setViews([...views.filter((x) => x.id !== id), view]);
-    }
-  };
-
-  const handleSaveView = async (id: string, viewState: string) => {
-    const view = views.find((x) => x.id === id);
-    if (view) {
-      view.viewState = viewState;
       setViews([...views.filter((x) => x.id !== id), view]);
     }
   };
@@ -115,22 +138,24 @@ const Template: Story<DataGridProps> = (args) => {
       onUnpinView={(id: string) => handlePin(id, false)}
       onRenameView={(id: string, name: string) => handleRename(id, name)}
       onCreateView={(input: CreateViewInput) => handleCreateView(input)}
-      onSaveViewState={(id: string, viewState: string) => handleSaveView(id, viewState)}
-      columns={columns}
-      columnToggling
-      selection
-      filtering
-      grouping
-      viewing
-      dataUrl={DATA_URL}
-      accessToken={''}
-      height={'calc(100vh - 200px)'}
+      {...args}
     />
   );
 };
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  columnToggling: true,
+  selection: true,
+  filtering: true,
+  grouping: true,
+  viewing: true,
+  columns,
+  filters,
+  dataUrl: DATA_URL,
+  accessToken: '',
+  height: 'calc(100vh - 200px)',
+};
 Default.parameters = {
   msw: [getTimeEntriesQueryMock],
 };

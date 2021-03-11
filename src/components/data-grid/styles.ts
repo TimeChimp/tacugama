@@ -49,7 +49,7 @@ export const StyledDataGridFilters = themedStyled('div', ({ $theme }) => ({
 }));
 
 export const StyledDataGridSearch = themedStyled('div', {
-  width: '25%',
+  width: '280px',
 });
 
 export const StyledStatusBarRowCount = themedStyled('div', ({ $theme }) => ({

@@ -3,7 +3,7 @@ import TertiaryButton from '../button/TertiaryButton';
 import { Trash } from '../icons/Trash';
 import { Download } from '../icons/Download';
 import useTheme from '../../providers/ThemeProvider';
-import { StyledDataGridActions } from './StyledDataGrid';
+import { StyledDataGridActions } from './styles';
 
 export const DataGridActions = () => {
   const {

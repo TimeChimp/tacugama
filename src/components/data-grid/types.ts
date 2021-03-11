@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction, ComponentType } from 'react';
 import {
   ColumnApi,
   ColumnState,
@@ -8,8 +9,8 @@ import {
   TextFilterModel,
 } from '@ag-grid-community/core';
 import { DurationFormat, NumberFormat, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
-import { Dispatch, SetStateAction } from 'react';
 import { DropdownItem } from '../dropdown';
+import { SVGProps as IconProps } from '../icons';
 
 export interface DataGridApi {
   getSelectedRows: () => any[];
@@ -36,6 +37,19 @@ export interface DataGridColumn {
 export type FilterTypeModel = TextFilterModel | NumberFilterModel | DateFilterModel;
 export interface FilterModel {
   [key: string]: FilterTypeModel | ICombinedSimpleModel<FilterTypeModel>;
+}
+
+export enum FilterType {
+  date = 'date',
+  string = 'string',
+}
+export interface Filter {
+  type: FilterType;
+  columnField: string;
+  values?: string[];
+  title: string;
+  icon?: ComponentType<IconProps>;
+  searchPlaceholder?: string;
 }
 
 export interface DataGridState {
@@ -83,6 +97,7 @@ export interface Translations {
 
 export interface DataGridProps {
   columns: DataGridColumn[];
+  filters?: Filter[];
   selection?: boolean;
   filtering?: boolean;
   grouping?: boolean;
@@ -102,6 +117,7 @@ export interface DataGridProps {
   onDeactivateView?: (id: string) => Promise<void>;
   onActivateView?: (id: string) => Promise<void>;
   onCreateView?: (view: CreateViewInput) => Promise<void>;
+  searchColumns?: string[];
   onDeleteView?: (id: string) => Promise<void>;
   onPinView?: (id: string) => Promise<void>;
   onUnpinView?: (id: string) => Promise<void>;
@@ -125,12 +141,15 @@ export interface CreateViewInput {
 
 export interface FiltersProps {
   columns: DataGridColumn[];
+  filters?: Filter[];
   grouping?: boolean;
   filtering?: boolean;
   onGrouping: (rowGroups: string[]) => void;
   onFiltering: (filters: FilterModel) => void;
+  onSetFiltering: (column: string, value: string) => void;
   filterModel: FilterModel;
   translations: Translations;
+  searchColumns?: string[];
 }
 export interface StatusBarRowCountProps {
   api: GridApi;
