@@ -13,6 +13,7 @@ import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 import { StatusBarModule } from '@ag-grid-enterprise/status-bar';
 import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
 import { SetFilterModule } from '@ag-grid-enterprise/set-filter';
+import { MultiFilterModule } from '@ag-grid-enterprise/multi-filter';
 import { AgGridColumn, AgGridReact } from '@ag-grid-community/react';
 import { CsvExportModule } from '@ag-grid-community/csv-export';
 import { ExcelExportModule } from '@ag-grid-enterprise/excel-export';
@@ -392,6 +393,7 @@ export const DataGrid = ({
             ExcelExportModule,
             StatusBarModule,
             SetFilterModule,
+            MultiFilterModule,
           ]}
           statusBar={{
             statusPanels: [
@@ -425,7 +427,7 @@ export const DataGrid = ({
               rowGroup={column.rowGroup}
               hide={column.rowGroup}
               sort={column.sort}
-              filter="agSetColumnFilter"
+              filter="agMultiColumnFilter"
               filterParams={{ values: (params: any) => getFilterParams(params, column.field) }}
               valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, column.type)}
               aggFunc={column.aggFunc}
