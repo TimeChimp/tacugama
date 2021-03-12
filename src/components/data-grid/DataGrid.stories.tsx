@@ -35,6 +35,7 @@ const Template: Story<DataGridProps> = (args) => {
       field: 'project',
       label: 'Project',
       groupable: true,
+      hide: true,
     },
   ];
 
@@ -119,6 +120,7 @@ const Template: Story<DataGridProps> = (args) => {
       columns={columns}
       columnToggling
       selection
+      sortableColumns
       filtering
       grouping
       viewing
