@@ -217,7 +217,7 @@ export const DataGrid = ({
     };
   };
 
-  const creatDataGridApi = useCallback(
+  const createDataGridApi = useCallback(
     (api: GridApi) => {
       if (onReady) {
         const dataGridApi: DataGridApi = {
@@ -234,7 +234,7 @@ export const DataGrid = ({
   );
 
   const onGridReady = async ({ api, columnApi }: GridReadyEvent) => {
-    creatDataGridApi(api);
+    createDataGridApi(api);
 
     setGridApi(api);
     setGridColumnApi(columnApi);
@@ -246,13 +246,6 @@ export const DataGrid = ({
 
     setFilterModel(api.getFilterModel());
   };
-
-  // create DataGridApi within useEffect also for next ssr rendering
-  useEffect(() => {
-    if (gridApi) {
-      creatDataGridApi(gridApi);
-    }
-  }, [gridApi, creatDataGridApi]);
 
   const getRowNodeId = (data: any) => {
     return data.id;
