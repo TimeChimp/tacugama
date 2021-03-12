@@ -98,6 +98,11 @@ export const DataGrid = ({
     setAllViews(allViews);
   }, [views, translations]);
 
+  // continue only when all views have been initialized
+  if (!allViews) {
+    return null;
+  }
+
   const getGridThemeClassName = () => {
     return theme.current === theme.dark ? 'ag-theme-alpine-dark' : 'ag-theme-alpine';
   };
