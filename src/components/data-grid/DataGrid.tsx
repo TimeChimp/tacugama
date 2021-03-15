@@ -178,7 +178,6 @@ export const DataGrid = ({
     if (onCreateView) {
       await onCreateView(input);
     }
-    return;
   };
 
   const onFirstDataRendered = () => {
