@@ -8,7 +8,7 @@ import { NoRowsTemplate } from './NoRowsTemplate';
 import { HeaderCheckbox } from './HeaderCheckbox';
 import { HeaderColumnToggle } from './HeaderColumnToggle';
 import { LoadingCellTemplate } from './LoadingCellTemplate';
-import { Filters } from './Filters';
+import { Filters } from './filters';
 import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 import { StatusBarModule } from '@ag-grid-enterprise/status-bar';
 import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
@@ -24,6 +24,7 @@ import {
   IServerSideGetRowsParams,
   ServerSideStoreType,
   GridReadyEvent,
+  IFilterComp,
 } from '@ag-grid-community/core';
 import {
   formatCurrency,
@@ -53,6 +54,13 @@ import DataGridViews from './views/DataGridViews';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
+
+type IFilterType =
+  | string
+  | {
+      new (): IFilterComp;
+    }
+  | boolean;
 
 export const DataGrid = ({
   columns,
@@ -85,7 +93,6 @@ export const DataGrid = ({
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
-  const [filterModel, setFilterModel] = useState<FilterModel>({});
   const [allViews, setAllViews] = useState<DataGridView[]>([]);
 
   const { theme } = useTheme();
@@ -148,12 +155,10 @@ export const DataGrid = ({
       gridColumnApi.setColumnState(gridState.columnState);
       gridColumnApi.setColumnGroupState(gridState.columnGroupState);
       gridApi.setFilterModel(gridState.filterModel);
-      setFilterModel(gridState.filterModel);
     } else {
       gridColumnApi.resetColumnState();
       gridColumnApi.resetColumnGroupState();
       gridApi.setFilterModel({});
-      setFilterModel({});
     }
 
     gridApi.sizeColumnsToFit();
@@ -242,8 +247,6 @@ export const DataGrid = ({
 
     const datasource = createServerSideDatasource();
     api.setServerSideDatasource(datasource);
-
-    setFilterModel(api.getFilterModel());
   };
 
   const getRowNodeId = (data: any) => {
@@ -259,29 +262,7 @@ export const DataGrid = ({
   };
 
   const onFiltering = (filters: FilterModel) => {
-    setFilterModel(filters);
     gridApi.setFilterModel(filters);
-    gridApi.onFilterChanged();
-  };
-
-  const getSetValues = (value: string, values?: string[]) => {
-    if (!values) {
-      return [value];
-    }
-
-    if (values?.includes(value)) {
-      return values.filter((x) => x !== value);
-    }
-    return [...values, value];
-  };
-
-  const onSetFiltering = (column: string, value: string) => {
-    const filterInstance = gridApi.getFilterInstance(column);
-    const currentValues = filterInstance?.getModel()?.values;
-    const values = getSetValues(value, currentValues);
-    filterInstance?.setModel({ values });
-    // @ts-ignore
-    filterInstance.applyModel();
     gridApi.onFilterChanged();
   };
 
@@ -313,17 +294,28 @@ export const DataGrid = ({
     params.success(values);
   };
 
+  const getFilterType = (type?: DataGridColumnType, isSearchColumn?: boolean): IFilterType | undefined => {
+    if (isSearchColumn) {
+      return 'agTextFilter';
+    }
+
+    if (type === 'date') {
+      return 'agDateColumnFilter';
+    }
+
+    return 'agSetColumnFilter';
+  };
+
   return (
     <>
       <Filters
+        api={gridApi}
         columns={gridColumns}
         filtering={filtering}
         filters={filters}
         grouping={grouping}
         onGrouping={onGrouping}
         onFiltering={onFiltering}
-        onSetFiltering={onSetFiltering}
-        filterModel={filterModel}
         translations={translations}
         searchColumns={searchColumns}
       />
@@ -425,7 +417,7 @@ export const DataGrid = ({
               rowGroup={column.rowGroup}
               hide={column.rowGroup}
               sort={column.sort}
-              filter="agSetColumnFilter"
+              filter={getFilterType(column.type)}
               filterParams={{ values: (params: any) => getFilterParams(params, column.field) }}
               valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, column.type)}
               aggFunc={column.aggFunc}

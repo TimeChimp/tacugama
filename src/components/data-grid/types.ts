@@ -140,14 +140,13 @@ export interface CreateViewInput {
 }
 
 export interface FiltersProps {
+  api: GridApi;
   columns: DataGridColumn[];
   filters?: Filter[];
   grouping?: boolean;
   filtering?: boolean;
   onGrouping: (rowGroups: string[]) => void;
   onFiltering: (filters: FilterModel) => void;
-  onSetFiltering: (column: string, value: string) => void;
-  filterModel: FilterModel;
   translations: Translations;
   searchColumns?: string[];
 }

@@ -1,17 +1,18 @@
 import React, { FormEvent, useCallback, useState } from 'react';
-import { FiltersProps, FilterType } from './types';
-import { StyledDataGridFilters, StyledDataGridSearch } from './styles';
-import { TextFilterModel } from '@ag-grid-community/core';
-import { Dropdown, DropdownItem } from '../dropdown';
-import { Pencil } from '../icons';
-import { SearchInput } from '../input';
-import { SecondaryButton, TertiaryButton } from '../button';
-import { ParagraphXSmall } from '../typography';
+import { FiltersProps, FilterType } from '../types';
+import { StyledDataGridFilters, StyledDataGridSearch } from '../styles';
+import { DateFilterModel, TextFilterModel } from '@ag-grid-community/core';
+import { Dropdown, DropdownItem } from '../../dropdown';
+import { Pencil } from '../../icons';
+import { SearchInput } from '../../input';
+import { TertiaryButton } from '../../button';
+import { ParagraphXSmall } from '../../typography';
 import { FlexItem } from 'components/flex-item';
 import { useTheme } from 'providers';
 import { SIZE } from 'baseui/button';
 import { Datepicker } from 'components/datepicker';
-import FilterButton from './FilterButton';
+import { TcDate } from '@timechimp/timechimp-typescript-helpers';
+import { FilterButton } from './FilterButton';
 
 const SEARCH_INPUT_TEST_ID = 'data-grid-search';
 
@@ -22,8 +23,7 @@ export const Filters = ({
   filtering,
   onGrouping,
   onFiltering,
-  onSetFiltering,
-  filterModel,
+  api,
   searchColumns,
   translations: { search, groupBy },
 }: FiltersProps) => {
@@ -50,6 +50,7 @@ export const Filters = ({
   };
 
   const handleSearch = (event: FormEvent<HTMLInputElement>) => {
+    const filterModel = api.getFilterModel();
     searchColumns?.forEach((searchColumn) => {
       const textFilter: TextFilterModel = {
         filter: event.currentTarget.value,
@@ -60,6 +61,35 @@ export const Filters = ({
     });
     onFiltering(filterModel);
   };
+
+  const getSetValues = (value: string, values?: string[]) => {
+    if (!values) {
+      return [value];
+    }
+
+    if (values?.includes(value)) {
+      return values.filter((x) => x !== value);
+    }
+    return [...values, value];
+  };
+
+  const onSetFiltering = useCallback(
+    (column: string, value: string) => {
+      const filterInstance = api.getFilterInstance(column);
+      const filterModel = api.getFilterModel();
+      const currentValues = filterInstance?.getModel()?.values;
+      const values = getSetValues(value, currentValues);
+
+      const setFilter = {
+        values,
+        type: 'set',
+      };
+      filterModel[column] = setFilter;
+
+      onFiltering(filterModel);
+    },
+    [api, onFiltering],
+  );
 
   const handleSetFilter = useCallback(
     (value: string) => {
@@ -86,13 +116,13 @@ export const Filters = ({
   };
 
   const filterOnValue = useCallback(
-    (id: string, value: string) => {
+    (value: string) => {
       handleSetFilter(value);
       setSelectedFilterIds((currentIds) => {
-        if (currentIds.includes(id)) {
-          return currentIds.filter((currentId) => currentId !== id);
+        if (currentIds.includes(value)) {
+          return currentIds.filter((currentId) => currentId !== value);
         }
-        return [...currentIds, id];
+        return [...currentIds, value];
       });
     },
     [handleSetFilter],
@@ -103,7 +133,7 @@ export const Filters = ({
       const columnValues: DropdownItem[] | undefined = values?.map((value) => ({
         id: value,
         label: value,
-        action: () => filterOnValue(value, value),
+        action: () => filterOnValue(value),
       }));
 
       return columnValues || [];
@@ -111,10 +141,19 @@ export const Filters = ({
     [filterOnValue],
   );
 
-  const onDateSelect = ({ date }: { date: Date | Date[] }) => {
-    console.log(date);
-    if (Array.isArray(date) && date?.length > 1) {
+  const onDateSelect = ({ date: dates }: { date: Date | Date[] }) => {
+    if (Array.isArray(dates) && dates?.length > 1) {
       setDatePickerIsOpen(false);
+
+      const dateFilter: DateFilterModel = {
+        filterType: 'date',
+        type: 'inRange',
+        dateFrom: new TcDate(dates[0]).format('y-MM-dd'),
+        dateTo: new TcDate(dates[1]).format('y-MM-dd'),
+      };
+      const filterModel = api.getFilterModel();
+      filterModel['start'] = dateFilter;
+      onFiltering(filterModel);
     }
   };
 

@@ -31,6 +31,10 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       font-size: ${theme.sizing.scale650};
       line-height: ${theme.sizing.scale650};
     }
+
+    .ag-header-icon.ag-header-cell-menu-button {
+      display: none;
+    }
   `;
 };
 

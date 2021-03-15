@@ -22,6 +22,7 @@ const columns: DataGridColumn[] = [
   {
     field: 'start',
     label: 'Date',
+    type: 'date',
   },
   {
     field: 'name',
