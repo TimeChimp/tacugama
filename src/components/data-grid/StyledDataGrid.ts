@@ -31,6 +31,11 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       font-size: ${theme.sizing.scale650};
       line-height: ${theme.sizing.scale650};
     }
+
+    .ag-theme-alpine .ag-pinned-right-header,
+    .ag-theme-alpine .ag-cell.ag-cell-first-right-pinned:not(.ag-cell-range-left):not(.ag-cell-range-single-cell) {
+      border-left: none;
+    }
   `;
 };
 

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import ReactDOMServer from 'react-dom/server';
+import React, { useCallback, useEffect, useState } from 'react';
 import fetch from 'isomorphic-unfetch';
 import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader } from './StyledDataGrid';
 import { RowActionsCell } from './RowActionsCell';
@@ -45,10 +44,12 @@ import {
   CreateViewInput,
 } from './types';
 import { useTheme } from '../../providers';
-import { TriangleDown, TriangleUp } from '../icons';
 import { defaultFormatSettings } from './defaultFormatSettings';
 import { defaultTranslations } from './defaultTranslations';
 import DataGridViews from './views/DataGridViews';
+import { SortAscendingIcon } from './SortAscendingIcon';
+import { SortDescendingIcon } from './SortDescendingIcon';
+import ReactDOMServer from 'react-dom/server';
 
 export const DataGrid = ({
   columns,
@@ -217,17 +218,29 @@ export const DataGrid = ({
     };
   };
 
+  const createDataGridApi = useCallback(
+    (api: GridApi) => {
+      if (onReady) {
+        const dataGridApi: DataGridApi = {
+          getSelectedRows: () => getSelectedRows(api),
+          getSelectedRow: () => getSelectedRow(api),
+          exportAsCsv: () => exportAsCsv(api),
+          exportAsExcel: () => exportAsExcel(api),
+          refreshStore: () => refreshStore(api),
+        };
+        onReady(dataGridApi);
+      }
+    },
+    [onReady],
+  );
+
+  // continue only when all views have been initialized
+  if (!allViews) {
+    return null;
+  }
+
   const onGridReady = async ({ api, columnApi }: GridReadyEvent) => {
-    if (onReady) {
-      const dataGridApi: DataGridApi = {
-        getSelectedRows: () => getSelectedRows(api),
-        getSelectedRow: () => getSelectedRow(api),
-        exportAsCsv: () => exportAsCsv(api),
-        exportAsExcel: () => exportAsExcel(api),
-        refreshStore: () => refreshStore(api),
-      };
-      onReady(dataGridApi);
-    }
+    createDataGridApi(api);
 
     setGridApi(api);
     setGridColumnApi(columnApi);
@@ -342,9 +355,9 @@ export const DataGrid = ({
           }}
           icons={{
             sortAscending: () =>
-              ReactDOMServer.renderToStaticMarkup(<TriangleDown size={theme.current.sizing.scale200} />),
+              ReactDOMServer.renderToStaticMarkup(<SortAscendingIcon color={theme.current.colors.colorPrimary} />),
             sortDescending: () =>
-              ReactDOMServer.renderToStaticMarkup(<TriangleUp size={theme.current.sizing.scale200} />),
+              ReactDOMServer.renderToStaticMarkup(<SortDescendingIcon color={theme.current.colors.colorPrimary} />),
           }}
           modules={[ServerSideRowModelModule, RowGroupingModule, CsvExportModule, ExcelExportModule, StatusBarModule]}
           statusBar={{
@@ -377,7 +390,7 @@ export const DataGrid = ({
               field={column.field}
               width={column.width}
               rowGroup={column.rowGroup}
-              hide={column.rowGroup}
+              hide={column.hide || column.rowGroup}
               sort={column.sort}
               valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, column.type)}
               aggFunc={column.aggFunc}
@@ -399,6 +412,7 @@ export const DataGrid = ({
             maxWidth={60}
             sortable={false}
             resizable={false}
+            pinned={'right'}
           />
         </AgGridReact>
       </StyledDataGrid>
