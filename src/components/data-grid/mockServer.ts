@@ -10,6 +10,7 @@ const timeEntries = [
     client: 'Apple',
     project: 'Testing',
     start: '2021-03-10T00:00:00',
+    userName: 'Bob',
   },
   {
     id: 'ACC-BBB-CCC-DDD-EE2',
@@ -18,6 +19,7 @@ const timeEntries = [
     client: 'Microsoft',
     project: 'Development',
     start: '2021-03-10T00:00:00',
+    userName: 'Henkie',
   },
   {
     id: 'ACC-BBB-CCC-DDD-EE3',
@@ -26,6 +28,7 @@ const timeEntries = [
     client: 'Amazon',
     project: 'Design',
     start: '2021-03-10T00:00:00',
+    userName: 'Baltus',
   },
 ];
 

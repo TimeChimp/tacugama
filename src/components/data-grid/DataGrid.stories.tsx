@@ -6,7 +6,7 @@ import '@ag-grid-community/core/dist/styles/ag-theme-alpine.css';
 import '@ag-grid-community/core/dist/styles/ag-theme-alpine-dark.css';
 
 import { DataGrid, DataGridProps, DataGridColumn } from '.';
-import { DataGridView, CreateViewInput, Filter, FilterType } from './types';
+import { DataGridView, CreateViewInput, Filter, FilterType, FormatSettings } from './types';
 import { getTimeEntriesQueryMock, DATA_URL } from './mockServer';
 import { Calendar } from 'components/icons';
 
@@ -25,8 +25,8 @@ const columns: DataGridColumn[] = [
     type: 'date',
   },
   {
-    field: 'name',
-    label: 'Name',
+    field: 'userName',
+    label: 'Employee',
   },
   {
     field: 'description',
@@ -54,6 +54,12 @@ const filters: Filter[] = [
   },
   {
     type: FilterType.string,
+    title: 'Employee',
+    columnField: 'userName',
+    values: ['Henkie', 'Baltus', 'Bob'],
+  },
+  {
+    type: FilterType.string,
     title: 'Client',
     columnField: 'client',
     values: ['Apple', 'Microsoft', 'Amazon', 'Google'],
@@ -67,6 +73,13 @@ const filters: Filter[] = [
     searchPlaceholder: 'Search projects',
   },
 ];
+
+const formatSettings: FormatSettings = {
+  timeFormat: 'HH:mm',
+  dateFormat: 'dd-MM-yyyy',
+  numberFormat: '1,234.56',
+  language: 'en-US',
+};
 
 const Template: Story<DataGridProps> = (args) => {
   const [views, setViews] = useState<DataGridView[]>([]);
@@ -166,6 +179,7 @@ Default.args = {
   dataUrl: DATA_URL,
   accessToken: '',
   height: 'calc(100vh - 200px)',
+  formatSettings,
 };
 Default.parameters = {
   msw: [getTimeEntriesQueryMock],
