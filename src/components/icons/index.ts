@@ -43,3 +43,7 @@ export * from './Pin';
 export * from './Text';
 export * from './TableSettings';
 export * from './Icon';
+export * from './Briefcase';
+export * from './Documents';
+export * from './Tasks';
+export * from './Dash';
