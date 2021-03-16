@@ -41,6 +41,7 @@ const columns: DataGridColumn[] = [
     field: 'project',
     label: 'Project',
     groupable: true,
+    hide: true,
   },
 ];
 
@@ -82,6 +83,14 @@ const Template: Story<DataGridProps> = (args) => {
     const view = views.find((x) => x.id === id);
     if (view) {
       view.name = name;
+      setViews([...views.filter((x) => x.id !== id), view]);
+    }
+  };
+
+  const handleSaveView = async (id: string, viewState: string) => {
+    const view = views.find((x) => x.id === id);
+    if (view) {
+      view.viewState = viewState;
       setViews([...views.filter((x) => x.id !== id), view]);
     }
   };
@@ -139,6 +148,7 @@ const Template: Story<DataGridProps> = (args) => {
       onUnpinView={(id: string) => handlePin(id, false)}
       onRenameView={(id: string, name: string) => handleRename(id, name)}
       onCreateView={(input: CreateViewInput) => handleCreateView(input)}
+      onSaveViewState={(id: string, viewState: string) => handleSaveView(id, viewState)}
       {...args}
     />
   );

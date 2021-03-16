@@ -32,6 +32,7 @@ export interface DataGridColumn {
   groupable?: boolean;
   aggFunc?: DataGridAggFunc;
   sort?: string;
+  hide?: boolean;
 }
 
 export type FilterTypeModel = TextFilterModel | NumberFilterModel | DateFilterModel;
@@ -250,4 +251,8 @@ export interface DataGridViewOptionsProps {
   setSaveModalIsOpen: Dispatch<SetStateAction<boolean>>;
   onPinView?: (id: string) => Promise<void>;
   onUnpinView?: (id: string) => Promise<void>;
+}
+
+export interface DataGridIconProps {
+  color: string;
 }

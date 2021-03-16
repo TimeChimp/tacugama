@@ -35,6 +35,11 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
     .ag-header-icon.ag-header-cell-menu-button {
       display: none;
     }
+
+    .ag-theme-alpine .ag-pinned-right-header,
+    .ag-theme-alpine .ag-cell.ag-cell-first-right-pinned:not(.ag-cell-range-left):not(.ag-cell-range-single-cell) {
+      border-left: none;
+    }
   `;
 };
 

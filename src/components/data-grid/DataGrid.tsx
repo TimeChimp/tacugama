@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import ReactDOMServer from 'react-dom/server';
+import React, { useCallback, useEffect, useState } from 'react';
 import fetch from 'isomorphic-unfetch';
 import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader } from './styles';
 import { RowActionsCell } from './RowActionsCell';
@@ -47,10 +46,12 @@ import {
   CreateViewInput,
 } from './types';
 import { useTheme } from '../../providers';
-import { TriangleDown, TriangleUp } from '../icons';
 import { defaultFormatSettings } from './defaultFormatSettings';
 import { defaultTranslations } from './defaultTranslations';
 import DataGridViews from './views/DataGridViews';
+import { SortAscendingIcon } from './SortAscendingIcon';
+import { SortDescendingIcon } from './SortDescendingIcon';
+import ReactDOMServer from 'react-dom/server';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
@@ -167,10 +168,8 @@ export const DataGrid = ({
   const handleActivateView = async (id: string) => {
     const view = allViews?.find((view) => view.id === id);
     if (view) {
-      if (view.id && onActivateView) {
-        await onActivateView(view.id);
-      } else if (onDeactivateView) {
-        // Deactive current view when selecting the default view
+      if (view.id === 'default' && onDeactivateView) {
+        // Deactivate current view when selecting the default view
         const activeView = allViews.find((view) => view.active);
         if (activeView) {
           await onDeactivateView(activeView.id);
@@ -178,6 +177,8 @@ export const DataGrid = ({
 
         view.active = true;
         setAllViews([...allViews.filter((x) => x.id !== id), view]);
+      } else if (onActivateView) {
+        await onActivateView(view.id);
       }
 
       setViewState(view.viewState!);
@@ -228,17 +229,29 @@ export const DataGrid = ({
     };
   };
 
+  const createDataGridApi = useCallback(
+    (api: GridApi) => {
+      if (onReady) {
+        const dataGridApi: DataGridApi = {
+          getSelectedRows: () => getSelectedRows(api),
+          getSelectedRow: () => getSelectedRow(api),
+          exportAsCsv: () => exportAsCsv(api),
+          exportAsExcel: () => exportAsExcel(api),
+          refreshStore: () => refreshStore(api),
+        };
+        onReady(dataGridApi);
+      }
+    },
+    [onReady],
+  );
+
+  // continue only when all views have been initialized
+  if (!allViews) {
+    return null;
+  }
+
   const onGridReady = async ({ api, columnApi }: GridReadyEvent) => {
-    if (onReady) {
-      const dataGridApi: DataGridApi = {
-        getSelectedRows: () => getSelectedRows(api),
-        getSelectedRow: () => getSelectedRow(api),
-        exportAsCsv: () => exportAsCsv(api),
-        exportAsExcel: () => exportAsExcel(api),
-        refreshStore: () => refreshStore(api),
-      };
-      onReady(dataGridApi);
-    }
+    createDataGridApi(api);
 
     setGridApi(api);
     setGridColumnApi(columnApi);
@@ -373,9 +386,9 @@ export const DataGrid = ({
           }}
           icons={{
             sortAscending: () =>
-              ReactDOMServer.renderToStaticMarkup(<TriangleDown size={theme.current.sizing.scale200} />),
+              ReactDOMServer.renderToStaticMarkup(<SortAscendingIcon color={theme.current.colors.colorPrimary} />),
             sortDescending: () =>
-              ReactDOMServer.renderToStaticMarkup(<TriangleUp size={theme.current.sizing.scale200} />),
+              ReactDOMServer.renderToStaticMarkup(<SortDescendingIcon color={theme.current.colors.colorPrimary} />),
           }}
           modules={[
             ServerSideRowModelModule,
@@ -415,7 +428,7 @@ export const DataGrid = ({
               field={column.field}
               width={column.width}
               rowGroup={column.rowGroup}
-              hide={column.rowGroup}
+              hide={column.hide || column.rowGroup}
               sort={column.sort}
               filter={getFilterType(column.type)}
               filterParams={{ values: (params: any) => getFilterParams(params, column.field) }}
@@ -439,6 +452,7 @@ export const DataGrid = ({
             maxWidth={60}
             sortable={false}
             resizable={false}
+            pinned={'right'}
           />
         </AgGridReact>
       </StyledDataGrid>
