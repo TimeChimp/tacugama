@@ -94,6 +94,8 @@ export interface Translations {
   deleteView: string;
   deleteViewConfirmation: string;
   defaultViewTooltip: string;
+  lessFilters: string;
+  allFilters: string;
 }
 
 export interface DataGridProps {

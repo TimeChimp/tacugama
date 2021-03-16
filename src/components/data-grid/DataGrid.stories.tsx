@@ -8,7 +8,7 @@ import '@ag-grid-community/core/dist/styles/ag-theme-alpine-dark.css';
 import { DataGrid, DataGridProps, DataGridColumn } from '.';
 import { DataGridView, CreateViewInput, Filter, FilterType, FormatSettings } from './types';
 import { getTimeEntriesQueryMock, DATA_URL } from './mockServer';
-import { Calendar } from 'components/icons';
+import { Account, Briefcase, Calendar, Documents, Tasks } from 'components/icons';
 
 export default {
   title: 'Components/Data Grid',
@@ -43,6 +43,11 @@ const columns: DataGridColumn[] = [
     groupable: true,
     hide: true,
   },
+  {
+    field: 'task',
+    label: 'Task',
+    groupable: true,
+  },
 ];
 
 const filters: Filter[] = [
@@ -54,23 +59,35 @@ const filters: Filter[] = [
   },
   {
     type: FilterType.string,
-    title: 'Employee',
+    title: 'Users',
     columnField: 'userName',
     values: ['Henkie', 'Baltus', 'Bob'],
+    icon: () => <Account size="12px" color="black" />,
+    searchPlaceholder: 'Search users',
   },
   {
     type: FilterType.string,
-    title: 'Client',
+    title: 'Clients',
     columnField: 'client',
     values: ['Apple', 'Microsoft', 'Amazon', 'Google'],
     searchPlaceholder: 'Search clients',
+    icon: () => <Briefcase color="black" />,
   },
   {
     type: FilterType.string,
-    title: 'Project',
+    title: 'Projects',
     columnField: 'project',
-    values: ['Testing', 'Development', 'Design', 'Support'],
+    values: ['Workshop', 'Website redesign', 'Logo and branding'],
     searchPlaceholder: 'Search projects',
+    icon: () => <Documents color="black" size="14px" />,
+  },
+  {
+    type: FilterType.string,
+    title: 'Tasks',
+    columnField: 'task',
+    values: ['Testing', 'Development', 'Design', 'Support'],
+    searchPlaceholder: 'Search tasks',
+    icon: () => <Tasks color="black" />,
   },
 ];
 

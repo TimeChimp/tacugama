@@ -3,7 +3,7 @@ import { FiltersProps, FilterType } from '../types';
 import { StyledDataGridFilters, StyledDataGridSearch } from '../styles';
 import { DateFilterModel, TextFilterModel } from '@ag-grid-community/core';
 import { Dropdown, DropdownItem } from '../../dropdown';
-import { Pencil } from '../../icons';
+import { Dash, Pencil, Plus } from '../../icons';
 import { SearchInput } from '../../input';
 import { TertiaryButton } from '../../button';
 import { ParagraphXSmall } from '../../typography';
@@ -25,9 +25,10 @@ export const Filters = ({
   onFiltering,
   api,
   searchColumns,
-  translations: { search, groupBy },
+  translations: { search, groupBy, lessFilters, allFilters },
 }: FiltersProps) => {
   const [openFilter, setOpenFilter] = useState<string>();
+  const [showLessFilters, setShowLessFilters] = useState<boolean>(false);
   const [datePickerIsOpen, setDatePickerIsOpen] = useState<boolean>(false);
   const [selectedFilterIds, setSelectedFilterIds] = useState<string[]>([]);
 
@@ -157,6 +158,13 @@ export const Filters = ({
     }
   };
 
+  const getFilters = () => {
+    if (showLessFilters) {
+      return filters?.slice(0, 2);
+    }
+    return filters;
+  };
+
   return (
     <StyledDataGridFilters>
       <FlexItem justifyContent="start" width="80%">
@@ -166,7 +174,7 @@ export const Filters = ({
           </StyledDataGridSearch>
         )}
         {filters?.length &&
-          filters.map(({ title, columnField, type, searchPlaceholder, icon, values }) => (
+          getFilters()?.map(({ title, columnField, type, searchPlaceholder, icon, values }) => (
             <FlexItem key={columnField} width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
               {type === FilterType.date ? (
                 <>
@@ -200,6 +208,25 @@ export const Filters = ({
               )}
             </FlexItem>
           ))}
+        {showLessFilters ? (
+          <FlexItem width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
+            <FilterButton
+              onClick={() => setShowLessFilters(false)}
+              startEnhancer={<Plus />}
+              size={SIZE.compact}
+              title={allFilters}
+            />
+          </FlexItem>
+        ) : (
+          <FlexItem width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
+            <FilterButton
+              onClick={() => setShowLessFilters(true)}
+              startEnhancer={<Dash />}
+              size={SIZE.compact}
+              title={lessFilters}
+            />
+          </FlexItem>
+        )}
       </FlexItem>
       <FlexItem width="20%" justifyContent="flex-end">
         {grouping && (
