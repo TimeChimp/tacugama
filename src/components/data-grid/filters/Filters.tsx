@@ -1,41 +1,34 @@
-import React, { FormEvent, useCallback, useState } from 'react';
-import { FiltersProps, FilterType } from '../types';
+import React, { FormEvent } from 'react';
+import { FiltersProps } from '../types';
 import { StyledDataGridFilters, StyledDataGridSearch } from '../styles';
-import { DateFilterModel, TextFilterModel } from '@ag-grid-community/core';
+import { TextFilterModel } from '@ag-grid-community/core';
 import { Dropdown, DropdownItem } from '../../dropdown';
-import { Dash, Pencil, Plus } from '../../icons';
+import { Pencil } from '../../icons';
 import { SearchInput } from '../../input';
 import { TertiaryButton } from '../../button';
 import { ParagraphXSmall } from '../../typography';
-import { FlexItem } from 'components/flex-item';
-import { useTheme } from 'providers';
-import { SIZE } from 'baseui/button';
-import { Datepicker } from 'components/datepicker';
-import { TcDate } from '@timechimp/timechimp-typescript-helpers';
-import { FilterButton } from './FilterButton';
+import { FlexItem } from '../../flex-item';
+import { ColumnFilters } from './ColumnFilters';
+import { useTheme } from '../../../providers';
 
 const SEARCH_INPUT_TEST_ID = 'data-grid-search';
 
 export const Filters = ({
   columns,
-  filters,
   grouping,
   filtering,
   onGrouping,
   onFiltering,
   api,
   searchColumns,
-  translations: { search, groupBy, lessFilters, allFilters },
+  translations,
+  filters,
 }: FiltersProps) => {
-  const [openFilter, setOpenFilter] = useState<string>();
-  const [showLessFilters, setShowLessFilters] = useState<boolean>(false);
-  const [datePickerIsOpen, setDatePickerIsOpen] = useState<boolean>(false);
-  const [selectedFilterIds, setSelectedFilterIds] = useState<string[]>([]);
-
+  const { groupBy, search } = translations;
   const {
     theme: {
       current: {
-        sizing: { scale300, scale500 },
+        sizing: { scale500 },
       },
     },
   } = useTheme();
@@ -63,44 +56,6 @@ export const Filters = ({
     onFiltering(filterModel);
   };
 
-  const getSetValues = (value: string, values?: string[]) => {
-    if (!values) {
-      return [value];
-    }
-
-    if (values?.includes(value)) {
-      return values.filter((x) => x !== value);
-    }
-    return [...values, value];
-  };
-
-  const onSetFiltering = useCallback(
-    (column: string, value: string) => {
-      const filterInstance = api.getFilterInstance(column);
-      const filterModel = api.getFilterModel();
-      const currentValues = filterInstance?.getModel()?.values;
-      const values = getSetValues(value, currentValues);
-
-      const setFilter = {
-        values,
-        type: 'set',
-      };
-      filterModel[column] = setFilter;
-
-      onFiltering(filterModel);
-    },
-    [api, onFiltering],
-  );
-
-  const handleSetFilter = useCallback(
-    (value: string) => {
-      if (openFilter) {
-        onSetFiltering(openFilter, value);
-      }
-    },
-    [onSetFiltering, openFilter],
-  );
-
   const options: DropdownItem[] = columns
     .filter((x) => x.groupable)
     .map((column) => {
@@ -112,59 +67,6 @@ export const Filters = ({
       };
     });
 
-  const onFilterOpen = (columnLabel: string) => {
-    setOpenFilter(columnLabel);
-  };
-
-  const filterOnValue = useCallback(
-    (value: string) => {
-      handleSetFilter(value);
-      setSelectedFilterIds((currentIds) => {
-        if (currentIds.includes(value)) {
-          return currentIds.filter((currentId) => currentId !== value);
-        }
-        return [...currentIds, value];
-      });
-    },
-    [handleSetFilter],
-  );
-
-  const getAllColumnValues = useCallback(
-    (values?: string[]) => {
-      const columnValues: DropdownItem[] | undefined = values?.map((value) => ({
-        id: value,
-        label: value,
-        action: () => filterOnValue(value),
-      }));
-
-      return columnValues || [];
-    },
-    [filterOnValue],
-  );
-
-  const onDateSelect = ({ date: dates }: { date: Date | Date[] }) => {
-    if (Array.isArray(dates) && dates?.length > 1) {
-      setDatePickerIsOpen(false);
-
-      const dateFilter: DateFilterModel = {
-        filterType: 'date',
-        type: 'inRange',
-        dateFrom: new TcDate(dates[0]).format('y-MM-dd'),
-        dateTo: new TcDate(dates[1]).format('y-MM-dd'),
-      };
-      const filterModel = api.getFilterModel();
-      filterModel['start'] = dateFilter;
-      onFiltering(filterModel);
-    }
-  };
-
-  const getFilters = () => {
-    if (showLessFilters) {
-      return filters?.slice(0, 2);
-    }
-    return filters;
-  };
-
   return (
     <StyledDataGridFilters>
       <FlexItem justifyContent="start" width="80%">
@@ -173,60 +75,7 @@ export const Filters = ({
             <SearchInput testId={SEARCH_INPUT_TEST_ID} size="mini" placeholder={search} onChange={handleSearch} />
           </StyledDataGridSearch>
         )}
-        {filters?.length &&
-          getFilters()?.map(({ title, columnField, type, searchPlaceholder, icon, values }) => (
-            <FlexItem key={columnField} width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
-              {type === FilterType.date ? (
-                <>
-                  <FilterButton
-                    onClick={() => setDatePickerIsOpen(!datePickerIsOpen)}
-                    startEnhancer={icon}
-                    size={SIZE.compact}
-                    title={title}
-                  />
-                  <Datepicker
-                    onChange={onDateSelect}
-                    date={new Date()}
-                    isOpen={datePickerIsOpen}
-                    setIsOpen={setDatePickerIsOpen}
-                    monthsShown={2}
-                    range
-                    quickSelect
-                  />
-                </>
-              ) : (
-                <Dropdown
-                  onOpen={() => onFilterOpen(columnField)}
-                  showSearch
-                  selection
-                  items={getAllColumnValues(values)}
-                  selectedIds={selectedFilterIds}
-                  searchPlaceholder={searchPlaceholder || search}
-                >
-                  <FilterButton title={title} startEnhancer={icon} size={SIZE.compact} />
-                </Dropdown>
-              )}
-            </FlexItem>
-          ))}
-        {showLessFilters ? (
-          <FlexItem width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
-            <FilterButton
-              onClick={() => setShowLessFilters(false)}
-              startEnhancer={<Plus />}
-              size={SIZE.compact}
-              title={allFilters}
-            />
-          </FlexItem>
-        ) : (
-          <FlexItem width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
-            <FilterButton
-              onClick={() => setShowLessFilters(true)}
-              startEnhancer={<Dash />}
-              size={SIZE.compact}
-              title={lessFilters}
-            />
-          </FlexItem>
-        )}
+        <ColumnFilters api={api} onFiltering={onFiltering} filters={filters} translations={translations} />
       </FlexItem>
       <FlexItem width="20%" justifyContent="flex-end">
         {grouping && (

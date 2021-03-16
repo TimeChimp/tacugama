@@ -5,6 +5,7 @@ import {
   DateFilterModel,
   GridApi,
   ICombinedSimpleModel,
+  IFilterComp,
   NumberFilterModel,
   TextFilterModel,
 } from '@ag-grid-community/core';
@@ -39,6 +40,13 @@ export type FilterTypeModel = TextFilterModel | NumberFilterModel | DateFilterMo
 export interface FilterModel {
   [key: string]: FilterTypeModel | ICombinedSimpleModel<FilterTypeModel>;
 }
+
+export type IFilterType =
+  | string
+  | {
+      new (): IFilterComp;
+    }
+  | boolean;
 
 export enum FilterType {
   date = 'date',
@@ -152,6 +160,13 @@ export interface FiltersProps {
   onFiltering: (filters: FilterModel) => void;
   translations: Translations;
   searchColumns?: string[];
+}
+
+export interface ColumnFiltersProps {
+  filters?: Filter[];
+  onFiltering: (filters: FilterModel) => void;
+  api: GridApi;
+  translations: Translations;
 }
 export interface StatusBarRowCountProps {
   api: GridApi;

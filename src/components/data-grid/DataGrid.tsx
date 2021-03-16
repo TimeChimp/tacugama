@@ -23,7 +23,6 @@ import {
   IServerSideGetRowsParams,
   ServerSideStoreType,
   GridReadyEvent,
-  IFilterComp,
 } from '@ag-grid-community/core';
 import {
   formatCurrency,
@@ -44,6 +43,7 @@ import {
   DataGridResponse,
   DataGridView,
   CreateViewInput,
+  IFilterType,
 } from './types';
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
@@ -55,13 +55,6 @@ import ReactDOMServer from 'react-dom/server';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
-
-type IFilterType =
-  | string
-  | {
-      new (): IFilterComp;
-    }
-  | boolean;
 
 export const DataGrid = ({
   columns,
