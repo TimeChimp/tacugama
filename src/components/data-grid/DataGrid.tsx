@@ -189,7 +189,6 @@ export const DataGrid = ({
     if (onCreateView) {
       await onCreateView(input);
     }
-    return;
   };
 
   const onFirstDataRendered = () => {
@@ -244,11 +243,6 @@ export const DataGrid = ({
     },
     [onReady],
   );
-
-  // continue only when all views have been initialized
-  if (!allViews) {
-    return null;
-  }
 
   const onGridReady = async ({ api, columnApi }: GridReadyEvent) => {
     createDataGridApi(api);
