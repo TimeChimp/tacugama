@@ -1,39 +1,16 @@
 import '@testing-library/jest-dom';
 import { setupServer } from 'msw/node';
 import * as React from 'react';
-import { configure, render, screen, waitFor } from '../../utils/test-utils';
-import { DataGrid } from './';
-import { getTimeEntriesQueryMock, DATA_URL } from './mockServer';
-import { DataGridColumn } from './types';
-
-const ACCESS_TOKEN = '';
-const COLUMNS: DataGridColumn[] = [
-  {
-    field: 'name',
-    label: 'Name',
-  },
-];
-const SEARCH_INPUT_TEST_ID = 'data-grid-search';
-const CHECKBOX_TEST_ID = 'data-grid-select-all';
-const LOADER_TEST_ID = 'loader';
+import { configure, render, screen, waitFor } from '../../../utils/test-utils';
+import { DataGrid } from '..';
+import { getTimeEntriesQueryMock } from './mockServer';
+import { ACCESS_TOKEN, CHECKBOX_TEST_ID, COLUMNS, DATA_URL, LOADER_TEST_ID } from './constants';
 
 export const server = setupServer(getTimeEntriesQueryMock);
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
-
-test('it shows no search bar by default', () => {
-  render(<DataGrid dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} />);
-
-  expect(screen.queryByTestId(SEARCH_INPUT_TEST_ID)).not.toBeInTheDocument();
-});
-
-test('it shows a search bar when filtering is enabled', () => {
-  render(<DataGrid filtering dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} />);
-
-  expect(screen.getByTestId(SEARCH_INPUT_TEST_ID)).toBeInTheDocument();
-});
 
 test('it shows no select all by default', () => {
   render(<DataGrid dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} />);

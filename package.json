@@ -63,6 +63,7 @@
     "@storybook/theming": "^6.1.20",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^13.0.0",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.1",
     "@types/styletron-engine-atomic": "^1.1.0",

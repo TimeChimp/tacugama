@@ -1,16 +1,19 @@
 import React, { forwardRef } from 'react';
-import { SecondaryButton, SecondaryButtonProps } from 'components';
+import { SecondaryButton, SecondaryButtonProps } from '../../button';
 import { border, borderRadius, padding } from '../../../utils';
-import { LabelSmall } from 'components/typography';
+import { LabelSmall } from '../../typography';
+
+const FILTER_BUTTON_TEST_ID = 'filter-button';
 
 export interface FilterButtonProps extends SecondaryButtonProps {
   title: string;
 }
 
 export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
-  ({ title, ...rest }: FilterButtonProps, ref) => (
+  ({ title, testId, ...rest }: FilterButtonProps, ref) => (
     <SecondaryButton
       ref={ref}
+      testId={testId ?? FILTER_BUTTON_TEST_ID}
       overrides={{
         BaseButton: {
           style: ({ $theme }) => {
