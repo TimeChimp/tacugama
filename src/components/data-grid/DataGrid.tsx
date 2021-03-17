@@ -23,6 +23,7 @@ import {
   IServerSideGetRowsParams,
   ServerSideStoreType,
   GridReadyEvent,
+  TextFilter,
 } from '@ag-grid-community/core';
 import {
   formatCurrency,
@@ -294,9 +295,13 @@ export const DataGrid = ({
     params.success(values);
   };
 
-  const getFilterType = (type?: DataGridColumnType, isSearchColumn?: boolean): IFilterType | undefined => {
+  const checkIfSearchColumn = (columnField: string) => searchColumns.includes(columnField);
+
+  const getFilterType = (columnField: string, type?: DataGridColumnType): IFilterType | undefined => {
+    const isSearchColumn = checkIfSearchColumn(columnField);
+
     if (isSearchColumn) {
-      return 'agTextFilter';
+      return 'agTextColumnFilter';
     }
 
     if (type === 'date') {
@@ -318,6 +323,7 @@ export const DataGrid = ({
         onFiltering={onFiltering}
         translations={translations}
         searchColumns={searchColumns}
+        dateFormat={formatSettings.dateFormat ?? (defaultFormatSettings.dateFormat as string)}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {viewing && (
@@ -408,19 +414,19 @@ export const DataGrid = ({
             sortable={false}
             resizable={false}
           />
-          {gridColumns.map((column) => (
+          {gridColumns.map(({ field, label, width, rowGroup, hide, sort, type, aggFunc }) => (
             <AgGridColumn
-              key={column.field}
-              headerName={column.label}
-              field={column.field}
-              width={column.width}
-              rowGroup={column.rowGroup}
-              hide={column.hide || column.rowGroup}
-              sort={column.sort}
-              filter={getFilterType(column.type)}
-              filterParams={{ values: (params: any) => getFilterParams(params, column.field) }}
-              valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, column.type)}
-              aggFunc={column.aggFunc}
+              key={field}
+              headerName={label}
+              field={field}
+              width={width}
+              rowGroup={rowGroup}
+              hide={hide || rowGroup}
+              sort={sort}
+              filter={getFilterType(field, type)}
+              filterParams={{ values: (params: any) => getFilterParams(params, field) }}
+              valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, type)}
+              aggFunc={aggFunc}
               sortable={sortableColumns}
               resizable={resizeableColumns}
             />

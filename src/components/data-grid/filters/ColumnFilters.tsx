@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ColumnFiltersProps, FilterType } from '../types';
 import { DateFilterModel } from '@ag-grid-community/core';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
@@ -13,25 +13,40 @@ import { FilterButton } from './FilterButton';
 const DATE_FORMAT = 'y-MM-dd';
 const LESS_FILTERS_BUTTON_TEST_ID = 'less-filters-button';
 const MORE_FILTERS_BUTTON_TEST_ID = 'more-filters-button';
+const MULTIPLE_DATE_FILTER_ERROR = 'You can only pass max. 1 date filter';
 
 export const ColumnFilters = ({
   filters,
   onFiltering,
   api,
+  dateFormat,
   translations: { search, lessFilters, allFilters },
 }: ColumnFiltersProps) => {
   const [openFilter, setOpenFilter] = useState<string>();
   const [showLessFilters, setShowLessFilters] = useState<boolean>(true);
-  const [datePickerIsOpen, setDatePickerIsOpen] = useState<boolean>(false);
-  const [selectedFilterIds, setSelectedFilterIds] = useState<string[]>([]);
+  const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
+  const [datepickerValue, setDatepickerValue] = useState<Date[]>();
+  const [selectedFilterIds, setSelectedFilterIds] = useState<{ [key: string]: string[] }>({});
 
   const {
     theme: {
       current: {
         sizing: { scale300 },
+        colors: { primary, contentSecondary },
       },
     },
   } = useTheme();
+
+  const validateFilters = useCallback(() => {
+    const dateFilters = filters?.filter((filter) => filter.type === FilterType.date);
+    if (dateFilters && dateFilters.length > 1) {
+      throw new Error(MULTIPLE_DATE_FILTER_ERROR);
+    }
+  }, [filters]);
+
+  useEffect(() => {
+    validateFilters();
+  }, [filters, validateFilters]);
 
   const getSetValues = (value: string, values?: string[]) => {
     if (!values) {
@@ -50,6 +65,11 @@ export const ColumnFilters = ({
       const filterModel = api.getFilterModel();
       const currentValues = filterInstance?.getModel()?.values;
       const values = getSetValues(value, currentValues);
+
+      if (!values.length) {
+        filterInstance?.setModel(null);
+        return api.onFilterChanged();
+      }
 
       const setFilter = {
         values,
@@ -76,24 +96,33 @@ export const ColumnFilters = ({
   };
 
   const filterOnValue = useCallback(
-    (value: string) => {
+    (columnField: string, value: string) => {
       handleSetFilter(value);
       setSelectedFilterIds((currentIds) => {
-        if (currentIds.includes(value)) {
-          return currentIds.filter((currentId) => currentId !== value);
+        if (!currentIds[columnField]) {
+          return {
+            ...currentIds,
+            [columnField]: [value],
+          };
         }
-        return [...currentIds, value];
+        if (currentIds[columnField].includes(value)) {
+          return {
+            ...currentIds,
+            [columnField]: currentIds[columnField].filter((currentId) => currentId !== value),
+          };
+        }
+        return { ...currentIds, [columnField]: [...currentIds[columnField], value] };
       });
     },
     [handleSetFilter],
   );
 
   const getAllColumnValues = useCallback(
-    (values?: string[]) => {
+    (columnField: string, values?: string[]) => {
       const columnValues: DropdownItem[] | undefined = values?.map((value) => ({
         id: value,
         label: value,
-        action: () => filterOnValue(value),
+        action: () => filterOnValue(columnField, value),
       }));
 
       return columnValues || [];
@@ -101,11 +130,40 @@ export const ColumnFilters = ({
     [filterOnValue],
   );
 
+  const dateFilterIsActive = () => datepickerValue?.length === 2;
+
+  const isSetFilterActive = (columnField: string) => !!selectedFilterIds[columnField]?.length;
+
+  const getDateIconColor = () => (dateFilterIsActive() ? primary : contentSecondary);
+
+  const getSetIconColor = (columnField: string) => (isSetFilterActive(columnField) ? primary : contentSecondary);
+
   const getDateFormat = (date: Date) => new TcDate(date).format(DATE_FORMAT);
 
+  const getDateTitleFormat = (date: Date) => new TcDate(date).format(dateFormat);
+
+  const getDateTitle = (title: string) =>
+    datepickerValue && dateFilterIsActive()
+      ? `${getDateTitleFormat(datepickerValue[0])} - ${getDateTitleFormat(datepickerValue[1])}`
+      : title;
+
+  const getSetTitle = (columnField: string, title: string) => {
+    if (!isSetFilterActive(columnField)) {
+      return title;
+    }
+    const { length } = selectedFilterIds[columnField];
+    return `${length} ${title}`;
+  };
+
   const onDateSelect = ({ date: dates, columnField }: { date: Date | Date[]; columnField: string }) => {
-    if (Array.isArray(dates) && dates?.length > 1) {
-      setDatePickerIsOpen(false);
+    if (!Array.isArray(dates)) {
+      return setDatepickerValue([dates]);
+    }
+
+    setDatepickerValue(dates);
+
+    if (dates.length > 1) {
+      setDatepickerIsOpen(false);
 
       const dateFilter: DateFilterModel = {
         filterType: 'date',
@@ -120,6 +178,7 @@ export const ColumnFilters = ({
   };
 
   const getFilters = () => {
+    validateFilters();
     if (showLessFilters) {
       return filters?.slice(0, 2);
     }
@@ -130,21 +189,21 @@ export const ColumnFilters = ({
     <>
       {filters?.length && (
         <>
-          {getFilters()?.map(({ title, columnField, type, searchPlaceholder, icon, values }) => (
+          {getFilters()?.map(({ title, columnField, type, searchPlaceholder, values, icon: Icon }) => (
             <FlexItem key={columnField} width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
               {type === FilterType.date ? (
                 <>
                   <FilterButton
-                    onClick={() => setDatePickerIsOpen(!datePickerIsOpen)}
-                    startEnhancer={icon}
+                    onClick={() => setDatepickerIsOpen(!datepickerIsOpen)}
+                    startEnhancer={Icon && <Icon color={getDateIconColor()} />}
                     size={SIZE.compact}
-                    title={title}
+                    title={getDateTitle(title)}
                   />
                   <Datepicker
                     onChange={({ date }) => onDateSelect({ date, columnField })}
-                    date={new Date()}
-                    isOpen={datePickerIsOpen}
-                    setIsOpen={setDatePickerIsOpen}
+                    date={datepickerValue}
+                    isOpen={datepickerIsOpen}
+                    setIsOpen={setDatepickerIsOpen}
                     monthsShown={2}
                     range
                     quickSelect
@@ -155,11 +214,16 @@ export const ColumnFilters = ({
                   onOpen={() => onFilterOpen(columnField)}
                   showSearch
                   selection
-                  items={getAllColumnValues(values)}
-                  selectedIds={selectedFilterIds}
+                  items={getAllColumnValues(columnField, values)}
+                  selectedIds={selectedFilterIds[columnField]}
                   searchPlaceholder={searchPlaceholder || search}
                 >
-                  <FilterButton title={title} startEnhancer={icon} size={SIZE.compact} />
+                  <FilterButton
+                    title={getSetTitle(columnField, title)}
+                    startEnhancer={Icon && <Icon color={getSetIconColor(columnField)} />}
+                    size={SIZE.compact}
+                    isActive={isSetFilterActive(columnField)}
+                  />
                 </Dropdown>
               )}
             </FlexItem>

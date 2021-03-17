@@ -85,6 +85,7 @@ export interface Translations {
   noRowsSubtext: string;
   groupBy: string;
   search: string;
+  searchBar: string;
   defaultView: string;
   viewOptions: string;
   addView: string;
@@ -160,6 +161,7 @@ export interface FiltersProps {
   onFiltering: (filters: FilterModel) => void;
   translations: Translations;
   searchColumns?: string[];
+  dateFormat: string;
 }
 
 export interface ColumnFiltersProps {
@@ -167,6 +169,7 @@ export interface ColumnFiltersProps {
   onFiltering: (filters: FilterModel) => void;
   api: GridApi;
   translations: Translations;
+  dateFormat: string;
 }
 export interface StatusBarRowCountProps {
   api: GridApi;

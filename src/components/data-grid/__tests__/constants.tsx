@@ -36,19 +36,21 @@ export const COLUMNS: DataGridColumn[] = [
   },
 ];
 
+export const SEARCH_COLUMNS = ['description'];
+
 export const FILTERS: Filter[] = [
   {
     type: FilterType.date,
     title: 'Date',
     columnField: 'start',
-    icon: () => <Calendar size="12px" color="black" />,
+    icon: ({ ...props }) => <Calendar size="12px" {...props} />,
   },
   {
     type: FilterType.string,
     title: 'Users',
     columnField: 'userName',
     values: ['Henkie', 'Baltus', 'Bob'],
-    icon: () => <Account size="12px" color="black" />,
+    icon: ({ ...props }) => <Account size="12px" {...props} />,
     searchPlaceholder: 'Search users',
   },
   {
@@ -57,7 +59,7 @@ export const FILTERS: Filter[] = [
     columnField: 'client',
     values: ['Apple', 'Microsoft', 'Amazon', 'Google'],
     searchPlaceholder: 'Search clients',
-    icon: () => <Briefcase color="black" />,
+    icon: ({ ...props }) => <Briefcase {...props} />,
   },
   {
     type: FilterType.string,
@@ -65,7 +67,7 @@ export const FILTERS: Filter[] = [
     columnField: 'project',
     values: ['Workshop', 'Website redesign', 'Logo and branding'],
     searchPlaceholder: 'Search projects',
-    icon: () => <Documents color="black" size="14px" />,
+    icon: ({ ...props }) => <Documents {...props} size="14px" />,
   },
   {
     type: FilterType.string,
@@ -73,7 +75,7 @@ export const FILTERS: Filter[] = [
     columnField: 'task',
     values: ['Testing', 'Development', 'Design', 'Support'],
     searchPlaceholder: 'Search tasks',
-    icon: () => <Tasks color="black" />,
+    icon: ({ ...props }) => <Tasks {...props} />,
   },
 ];
 

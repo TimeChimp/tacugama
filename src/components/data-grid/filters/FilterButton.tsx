@@ -7,10 +7,11 @@ const FILTER_BUTTON_TEST_ID = 'filter-button';
 
 export interface FilterButtonProps extends SecondaryButtonProps {
   title: string;
+  isActive?: boolean;
 }
 
 export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
-  ({ title, testId, ...rest }: FilterButtonProps, ref) => (
+  ({ title, testId, isActive = false, ...rest }: FilterButtonProps, ref) => (
     <SecondaryButton
       ref={ref}
       testId={testId ?? FILTER_BUTTON_TEST_ID}
@@ -22,6 +23,14 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
               boxSizing: 'border-box',
               ...borderRadius($theme.borders.radius100),
               ...padding('9px'), // NOTE: Values does not exist in theme
+              ':hover': {
+                backgroundColor: $theme.colors.primaryB,
+                boxShadow: $theme.lighting.shadow400,
+              },
+              ':active': {
+                backgroundColor: $theme.colors.primaryB,
+                boxShadow: $theme.lighting.shadow400,
+              },
             };
           },
         },
@@ -32,7 +41,7 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
         overrides={{
           Block: {
             style: {
-              fontWeight: 400,
+              fontWeight: isActive ? 600 : 400,
             },
           },
         }}

@@ -8,7 +8,8 @@ import '@ag-grid-community/core/dist/styles/ag-theme-alpine-dark.css';
 import { DataGrid, DataGridProps } from '.';
 import { DataGridView, CreateViewInput } from './types';
 import { getTimeEntriesQueryMock } from './__tests__/mockServer';
-import { ACCESS_TOKEN, COLUMNS, DATA_URL, FILTERS } from './__tests__/constants';
+import { ACCESS_TOKEN, COLUMNS, DATA_URL, FILTERS, SEARCH_COLUMNS } from './__tests__/constants';
+import { defaultTranslations } from './defaultTranslations';
 
 export default {
   title: 'Components/Data Grid',
@@ -116,6 +117,8 @@ Default.args = {
   dataUrl: DATA_URL,
   accessToken: ACCESS_TOKEN,
   height: 'calc(100vh - 200px)',
+  translations: defaultTranslations,
+  searchColumns: SEARCH_COLUMNS,
 };
 Default.parameters = {
   msw: [getTimeEntriesQueryMock],
