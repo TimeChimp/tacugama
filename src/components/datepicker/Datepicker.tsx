@@ -3,13 +3,13 @@ import { Popover } from '../popover';
 import { TetherPlacement } from 'baseui/layer';
 import { borderBottom } from '../../utils';
 import { useTheme } from '../../providers/ThemeProvider';
-import { ClickOutside } from '../click-outside/ClickOutside';
-import { StatefulCalendar, CalendarProps } from 'baseui/datepicker';
+import { CalendarProps, Calendar } from 'baseui/datepicker';
 import { SupportedLocale } from '../../types/SupportedLocale';
 import { getDateLocale } from '../../utils/get-date-locale';
+import { Select } from 'components/select';
 
 export interface DatepickerProps extends CalendarProps {
-  date: Date;
+  date?: Date | Date[];
   placement?: TetherPlacement[keyof TetherPlacement];
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => any;
@@ -54,46 +54,50 @@ export const Datepicker = ({
     <Popover
       isOpen={isOpen}
       placement={placement}
+      onClickOutside={() => {
+        isOpen && setIsOpen(false);
+      }}
       content={() => (
-        <ClickOutside onClickOutside={() => isOpen && setIsOpen(false)}>
-          <StatefulCalendar
-            locale={localeObj}
-            value={date}
-            onChange={onChange}
-            overrides={{
-              CalendarHeader: {
-                style: {
-                  backgroundColor: primaryB,
-                  ...borderBottom(border300),
-                },
+        <Calendar
+          value={date}
+          locale={localeObj}
+          onChange={onChange}
+          overrides={{
+            CalendarHeader: {
+              style: {
+                backgroundColor: primaryB,
+                ...borderBottom(border300),
               },
-              MonthHeader: {
-                style: {
-                  backgroundColor: primaryB,
-                  color: primaryA,
-                  fontWeight: 600,
-                },
+            },
+            MonthHeader: {
+              style: {
+                backgroundColor: primaryB,
+                color: primaryA,
+                fontWeight: 600,
               },
-              MonthYearSelectButton: {
-                style: {
-                  color: primaryA,
-                  fontWeight: 600,
-                },
+            },
+            MonthYearSelectButton: {
+              style: {
+                color: primaryA,
+                fontWeight: 600,
               },
-              PrevButton: {
-                style: {
-                  color: contentTertiary,
-                },
+            },
+            PrevButton: {
+              style: {
+                color: contentTertiary,
               },
-              NextButton: {
-                style: {
-                  color: contentTertiary,
-                },
+            },
+            NextButton: {
+              style: {
+                color: contentTertiary,
               },
-            }}
-            {...rest}
-          />
-        </ClickOutside>
+            },
+            QuickSelect: {
+              component: (props: any) => <Select {...props} />,
+            },
+          }}
+          {...rest}
+        />
       )}
     >
       <div />
