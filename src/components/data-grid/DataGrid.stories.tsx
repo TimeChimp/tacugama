@@ -120,6 +120,3 @@ Default.args = {
   translations: defaultTranslations,
   searchColumns: SEARCH_COLUMNS,
 };
-Default.parameters = {
-  msw: [getTimeEntriesQueryMock],
-};
