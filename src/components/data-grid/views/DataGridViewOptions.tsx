@@ -138,13 +138,13 @@ export const DataGridViewOptions = ({
                     >
                       <LabelXSmall margin={[0, scale400]}>{label}</LabelXSmall>
                     </TertiaryButton>
-                    <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
-                      {id !== 'default' && (
+                    {id !== 'default' && (
+                      <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
                         <TertiaryButton>
                           <ActionMenuHorizontal size={scale400} color={primary} />
                         </TertiaryButton>
-                      )}
-                    </Dropdown>
+                      </Dropdown>
+                    )}
                   </StyledDataGridViewListItem>
                 ),
               },
