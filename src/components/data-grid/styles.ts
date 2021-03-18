@@ -32,6 +32,10 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       line-height: ${theme.sizing.scale650};
     }
 
+    .ag-header-icon.ag-header-cell-menu-button {
+      display: none;
+    }
+
     .ag-theme-alpine .ag-pinned-right-header,
     .ag-theme-alpine .ag-cell.ag-cell-first-right-pinned:not(.ag-cell-range-left):not(.ag-cell-range-single-cell) {
       border-left: none;
@@ -54,7 +58,7 @@ export const StyledDataGridFilters = themedStyled('div', ({ $theme }) => ({
 }));
 
 export const StyledDataGridSearch = themedStyled('div', {
-  width: '25%',
+  width: '280px',
 });
 
 export const StyledStatusBarRowCount = themedStyled('div', ({ $theme }) => ({

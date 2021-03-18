@@ -5,39 +5,22 @@ import '@ag-grid-community/core/dist/styles/ag-grid.css';
 import '@ag-grid-community/core/dist/styles/ag-theme-alpine.css';
 import '@ag-grid-community/core/dist/styles/ag-theme-alpine-dark.css';
 
-import { DataGrid, DataGridProps, DataGridColumn } from '.';
+import { DataGrid, DataGridProps } from '.';
 import { DataGridView, CreateViewInput } from './types';
-import { getTimeEntriesQueryMock, DATA_URL } from './mockServer';
+import { getTimeEntriesQueryMock } from './__tests__/mockServer';
+import { ACCESS_TOKEN, COLUMNS, DATA_URL, FILTERS, SEARCH_COLUMNS } from './__tests__/constants';
+import { defaultTranslations } from './defaultTranslations';
 
 export default {
   title: 'Components/Data Grid',
   component: DataGrid,
+  parameters: {
+    msw: [getTimeEntriesQueryMock],
+  },
 } as Meta;
 
 const Template: Story<DataGridProps> = (args) => {
   const [views, setViews] = useState<DataGridView[]>([]);
-
-  const columns: DataGridColumn[] = [
-    {
-      field: 'name',
-      label: 'Name',
-    },
-    {
-      field: 'description',
-      label: 'Description',
-    },
-    {
-      field: 'client',
-      label: 'Client',
-      groupable: true,
-    },
-    {
-      field: 'project',
-      label: 'Project',
-      groupable: true,
-      hide: true,
-    },
-  ];
 
   const handlePin = async (id: string, pinned: boolean) => {
     const view = views.find((x) => x.id === id);
@@ -117,22 +100,23 @@ const Template: Story<DataGridProps> = (args) => {
       onRenameView={(id: string, name: string) => handleRename(id, name)}
       onCreateView={(input: CreateViewInput) => handleCreateView(input)}
       onSaveViewState={(id: string, viewState: string) => handleSaveView(id, viewState)}
-      columns={columns}
-      columnToggling
-      selection
-      sortableColumns
-      filtering
-      grouping
-      viewing
-      dataUrl={DATA_URL}
-      accessToken={''}
-      height={'calc(100vh - 200px)'}
+      {...args}
     />
   );
 };
 
 export const Default = Template.bind({});
-Default.args = {};
-Default.parameters = {
-  msw: [getTimeEntriesQueryMock],
+Default.args = {
+  columnToggling: true,
+  selection: true,
+  filtering: true,
+  grouping: true,
+  viewing: true,
+  columns: COLUMNS,
+  filters: FILTERS,
+  dataUrl: DATA_URL,
+  accessToken: ACCESS_TOKEN,
+  height: 'calc(100vh - 200px)',
+  translations: defaultTranslations,
+  searchColumns: SEARCH_COLUMNS,
 };

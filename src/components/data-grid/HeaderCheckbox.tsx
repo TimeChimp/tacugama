@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { HeaderCheckboxProps } from '.';
-import { StyledHeaderCheckbox, StyledHeaderCheckboxValue } from './StyledDataGrid';
+import { StyledHeaderCheckbox, StyledHeaderCheckboxValue } from './styles';
 import { Checkbox } from '../checkbox';
 
 const CHECKBOX_TEST_ID = 'data-grid-select-all';
