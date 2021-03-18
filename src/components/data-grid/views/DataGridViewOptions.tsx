@@ -18,7 +18,6 @@ import { StyledDropdownSearch } from '../../dropdown/StyledDropdownOption';
 
 import { useTheme } from '../../../providers';
 import { border, margin, padding } from '../../../utils';
-import { StatefulTooltip } from '../../tooltip';
 
 export const DataGridViewOptions = ({
   translations,
@@ -132,19 +131,7 @@ export const DataGridViewOptions = ({
                       <LabelXSmall margin={[0, scale400]}>{label}</LabelXSmall>
                     </StyledDataGridViewListItemLabel>
                     <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
-                      {id === 'default' ? (
-                        <>
-                          <StatefulTooltip
-                            accessibilityType={'tooltip'}
-                            content={translations.defaultViewTooltip}
-                            placement={PLACEMENT.right}
-                          >
-                            <TertiaryButton>
-                              <ActionMenuHorizontal size={scale400} color={primary} />
-                            </TertiaryButton>
-                          </StatefulTooltip>
-                        </>
-                      ) : (
+                      {id !== 'default' && (
                         <TertiaryButton>
                           <ActionMenuHorizontal size={scale400} color={primary} />
                         </TertiaryButton>
