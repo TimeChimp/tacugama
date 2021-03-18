@@ -79,6 +79,7 @@ export const Dropdown = ({
                 size={SIZE.compact}
                 placeholder={searchPlaceholder}
                 onChange={(event) => setSearchTerm(event.currentTarget.value)}
+                value={searchTerm}
               />
             </StyledDropdownSearch>
           )}
