@@ -91,10 +91,6 @@ export const ColumnFilters = ({
     [onSetFiltering, openFilter],
   );
 
-  const onFilterOpen = (columnLabel: string) => {
-    setOpenFilter(columnLabel);
-  };
-
   const filterOnValue = useCallback(
     (columnField: string, value: string) => {
       handleSetFilter(value);
@@ -211,7 +207,7 @@ export const ColumnFilters = ({
                 </>
               ) : (
                 <Dropdown
-                  onOpen={() => onFilterOpen(columnField)}
+                  onOpen={() => setOpenFilter(columnField)}
                   showSearch
                   selection
                   items={getAllColumnValues(columnField, values)}
