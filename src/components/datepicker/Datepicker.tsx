@@ -6,7 +6,7 @@ import { useTheme } from '../../providers/ThemeProvider';
 import { CalendarProps, Calendar } from 'baseui/datepicker';
 import { SupportedLocale } from '../../types/SupportedLocale';
 import { getDateLocale } from '../../utils/get-date-locale';
-import { Select } from 'components/select';
+import { Select } from '../select';
 
 export interface DatepickerProps extends CalendarProps {
   date?: Date | Date[];

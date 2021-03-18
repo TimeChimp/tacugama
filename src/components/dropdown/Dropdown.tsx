@@ -8,8 +8,8 @@ import { StyledDropdownSearch, StyledDropdownFooter } from './StyledDropdownOpti
 import { SearchInput } from '../input/SearchInput';
 import useTheme from '../../providers/ThemeProvider';
 import { SIZE } from 'baseui/button';
-import { Skeleton } from 'components/skeleton';
-import { ListItem } from 'components/list';
+import { Skeleton } from '../skeleton';
+import { ListItem } from '../list';
 
 const NUMBER_OF_LOADING_ROWS = 4;
 
