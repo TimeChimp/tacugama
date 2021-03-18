@@ -23,7 +23,6 @@ import {
   IServerSideGetRowsParams,
   ServerSideStoreType,
   GridReadyEvent,
-  TextFilter,
 } from '@ag-grid-community/core';
 import {
   formatCurrency,
