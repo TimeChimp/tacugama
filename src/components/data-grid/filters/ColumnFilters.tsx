@@ -185,7 +185,7 @@ export const ColumnFilters = ({
     <>
       {filters?.length && (
         <>
-          {getFilters()?.map(({ title, columnField, type, searchPlaceholder, values, icon: Icon }) => (
+          {getFilters()?.map(({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon: Icon }) => (
             <FlexItem key={columnField} width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
               {type === FilterType.date ? (
                 <>
@@ -213,6 +213,7 @@ export const ColumnFilters = ({
                   items={getAllColumnValues(columnField, values)}
                   selectedIds={selectedFilterIds[columnField]}
                   searchPlaceholder={searchPlaceholder || search}
+                  isLoading={valuesLoading}
                 >
                   <FilterButton
                     title={getSetTitle(columnField, title)}

@@ -52,6 +52,7 @@ export const FILTERS: Filter[] = [
     values: ['Henkie', 'Baltus', 'Bob'],
     icon: ({ ...props }) => <Account size="12px" {...props} />,
     searchPlaceholder: 'Search users',
+    valuesLoading: true,
   },
   {
     type: FilterType.string,

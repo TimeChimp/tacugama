@@ -8,6 +8,10 @@ import { StyledDropdownSearch, StyledDropdownFooter } from './StyledDropdownOpti
 import { SearchInput } from '../input/SearchInput';
 import useTheme from '../../providers/ThemeProvider';
 import { SIZE } from 'baseui/button';
+import { Skeleton } from 'components/skeleton';
+import { ListItem } from 'components/list';
+
+const NUMBER_OF_LOADING_ROWS = 4;
 
 export interface DropdownProps {
   children?: React.ReactNode;
@@ -25,12 +29,12 @@ export interface DropdownProps {
     listProps: () => {};
     optionProps: () => {};
   };
+  isLoading?: boolean;
 }
 
 export const Dropdown = ({
   children,
   items,
-  placement = 'bottomRight',
   showSearch,
   searchPlaceholder,
   onOpen,
@@ -40,11 +44,20 @@ export const Dropdown = ({
   footer,
   propOverrides,
   customOption,
+  placement = 'bottomRight',
+  isLoading = false,
 }: DropdownProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>();
 
-  const { theme } = useTheme();
+  const {
+    theme: {
+      current: {
+        sizing: { scale700, scale1000 },
+        lighting: { shadow600 },
+      },
+    },
+  } = useTheme();
 
   useEffect(() => {
     const dropDownItems = items
@@ -67,7 +80,7 @@ export const Dropdown = ({
       overrides={{
         Body: {
           style: {
-            boxShadow: theme.current.lighting.shadow600,
+            boxShadow: shadow600,
           },
         },
       }}
@@ -83,41 +96,57 @@ export const Dropdown = ({
               />
             </StyledDropdownSearch>
           )}
-          <StatefulMenu
-            items={dropdownItems}
-            overrides={{
-              List: {
-                style: {
-                  ...padding(),
-                  paddingInlineStart: '0',
-                  boxShadow: 'none',
-                  outline: 'none',
-                },
-                props: {
-                  ...propOverrides?.listProps(),
-                },
-              },
-              Option: {
-                component: customOption || DropdownOption,
-                props: {
-                  onItemSelect: (item: DropdownItem) => {
-                    if (item.action) {
-                      item.action();
-                    }
-                    if (!selection) {
-                      close();
-                    }
+          {isLoading ? (
+            Array.from(Array(NUMBER_OF_LOADING_ROWS)).map(() => (
+              <ListItem
+                overrides={{
+                  Root: {
+                    style: {
+                      height: scale1000,
+                    },
                   },
-                  ...propOverrides?.optionProps(),
+                }}
+              >
+                <Skeleton width="100%" height={scale700} animation />
+              </ListItem>
+            ))
+          ) : (
+            <StatefulMenu
+              items={dropdownItems}
+              overrides={{
+                List: {
+                  style: {
+                    ...padding(),
+                    paddingInlineStart: '0',
+                    boxShadow: 'none',
+                    outline: 'none',
+                  },
+                  props: {
+                    ...propOverrides?.listProps(),
+                  },
                 },
-              },
-              ListItem: {
-                props: {
-                  ...propOverrides?.optionProps(),
+                Option: {
+                  component: customOption || DropdownOption,
+                  props: {
+                    onItemSelect: (item: DropdownItem) => {
+                      if (item.action) {
+                        item.action();
+                      }
+                      if (!selection) {
+                        close();
+                      }
+                    },
+                    ...propOverrides?.optionProps(),
+                  },
                 },
-              },
-            }}
-          />
+                ListItem: {
+                  props: {
+                    ...propOverrides?.optionProps(),
+                  },
+                },
+              }}
+            />
+          )}
           {footer && <StyledDropdownFooter>{footer}</StyledDropdownFooter>}
         </>
       )}

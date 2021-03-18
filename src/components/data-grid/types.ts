@@ -56,6 +56,7 @@ export interface Filter {
   type: FilterType;
   columnField: string;
   values?: string[];
+  valuesLoading?: boolean;
   title: string;
   icon?: ComponentType<IconProps>;
   searchPlaceholder?: string;

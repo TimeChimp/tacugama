@@ -299,7 +299,6 @@ export const DataGrid = ({
 
   const getFilterType = (columnField: string, type?: DataGridColumnType): IFilterType | undefined => {
     const isSearchColumn = checkIfSearchColumn(columnField);
-
     if (isSearchColumn) {
       return 'agTextColumnFilter';
     }
@@ -307,7 +306,6 @@ export const DataGrid = ({
     if (type === 'date') {
       return 'agDateColumnFilter';
     }
-
     return 'agSetColumnFilter';
   };
 
