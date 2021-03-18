@@ -3,11 +3,7 @@ import { PLACEMENT } from 'baseui/popover';
 import { SIZE } from 'baseui/button';
 import { SecondaryButton, TertiaryButton } from '../../button';
 import { DataGridViewOptionsProps } from '../types';
-import {
-  StyledViewOptionsFooter,
-  StyledDataGridViewListItemLabel,
-  StyledDataGridViewListItem,
-} from '../StyledDataGrid';
+import { StyledViewOptionsFooter, StyledDataGridViewListItemLabel, StyledDataGridViewListItem } from '../styles';
 import { StatefulPopover } from '../../popover';
 import { Trash, Pin, Text, ActionMenuHorizontal, Views, Plus } from '../../icons';
 import { Dropdown, DropdownItem } from '../../dropdown';
