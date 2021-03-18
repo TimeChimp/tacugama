@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { StyledHeaderColumnToggle } from './StyledDataGrid';
 import { TableSettings } from '../icons';
+import { StyledHeaderColumnToggle } from './styles';
 import { Dropdown } from '../dropdown/Dropdown';
 import TertiaryButton from '../button/TertiaryButton';
 import { useTheme } from '../../providers/ThemeProvider';

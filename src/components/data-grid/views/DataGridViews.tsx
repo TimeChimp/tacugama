@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View } from '../../icons/View';
 import useTheme from '../../../providers/ThemeProvider';
 import { DataGridViewsProps, DataGridView, CreateViewInput } from '../types';
-import { StyledDataGridViews, StyledDataGridViewsDivider } from '../StyledDataGrid';
+import { StyledDataGridViews, StyledDataGridViewsDivider } from '../styles';
 import SecondaryButton from '../../button/SecondaryButton';
 import { SIZE } from 'baseui/button';
 import ConfirmationModal from '../../confirmation-modal/ConfirmationModal';

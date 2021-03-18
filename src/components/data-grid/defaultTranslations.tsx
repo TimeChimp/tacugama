@@ -7,6 +7,7 @@ export const defaultTranslations: Translations = {
   noRowsSubtext: 'Quick, add some items!',
   groupBy: 'Group by',
   search: 'Search',
+  searchBar: 'Search for a description',
   defaultView: 'Default view',
   viewOptions: 'View options',
   addView: 'Add view',
@@ -24,4 +25,6 @@ export const defaultTranslations: Translations = {
   deleteView: 'Delete view',
   deleteViewConfirmation: 'Are you sure you want to delete this view?',
   defaultViewTooltip: 'Default view cannot be edited.',
+  lessFilters: 'Less filters',
+  allFilters: 'All filters',
 };

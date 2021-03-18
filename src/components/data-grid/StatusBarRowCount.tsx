@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBarRowCountProps } from './types';
-import { StyledStatusBarRowCount } from './StyledDataGrid';
+import { StyledStatusBarRowCount } from './styles';
 import { useTheme } from '../../providers';
 import { LabelSmall } from '../typography';
 
