@@ -3,7 +3,7 @@ import { PLACEMENT } from 'baseui/popover';
 import { SIZE } from 'baseui/button';
 import { SecondaryButton, TertiaryButton } from '../../button';
 import { DataGridViewOptionsProps } from '../types';
-import { StyledViewOptionsFooter, StyledDataGridViewListItemLabel, StyledDataGridViewListItem } from '../styles';
+import { StyledViewOptionsFooter, StyledDataGridViewListItem } from '../styles';
 import { StatefulPopover } from '../../popover';
 import { Trash, Pin, Text, ActionMenuHorizontal, Views, Plus } from '../../icons';
 import { Dropdown, DropdownItem } from '../../dropdown';
@@ -13,7 +13,7 @@ import { SearchInput } from '../../input';
 import { StyledDropdownSearch } from '../../dropdown/StyledDropdownOption';
 
 import { useTheme } from '../../../providers';
-import { border, margin, padding } from '../../../utils';
+import { border, borderRadius, margin, padding } from '../../../utils';
 
 export const DataGridViewOptions = ({
   translations,
@@ -25,6 +25,7 @@ export const DataGridViewOptions = ({
   onUnpinView,
   setSaveModalIsOpen,
   setRenameModalIsOpen,
+  handleActivateView,
 }: DataGridViewOptionsProps) => {
   const [viewSearchTerm, setViewSearchTerm] = useState<string>();
 
@@ -32,7 +33,7 @@ export const DataGridViewOptions = ({
     theme: {
       current: {
         colors: { primary, primaryB, contentStateDisabled },
-        sizing: { scale200, scale400, scale600 },
+        sizing: { scale0, scale200, scale400, scale600 },
         borders: { border300 },
       },
     },
@@ -41,6 +42,13 @@ export const DataGridViewOptions = ({
   const getViewById = (id: string) => views?.find((view) => view.id === id);
 
   const isActiveView = (id: string) => getViewById(id)?.active;
+
+  const onViewSelect = (id: string) => {
+    const view = getViewById(id);
+    if (!view?.active) {
+      handleActivateView(id);
+    }
+  };
 
   const getViewMenuItems = (id: string) => {
     let items: DropdownItem[] = [];
@@ -122,10 +130,14 @@ export const DataGridViewOptions = ({
               ListItem: {
                 component: ({ item: { id, label } }: { item: DropdownItem }) => (
                   <StyledDataGridViewListItem>
-                    <StyledDataGridViewListItemLabel>
-                      <Views color={isActiveView(id!) ? primary : contentStateDisabled} size={scale600} />
+                    <TertiaryButton
+                      onClick={() => id && onViewSelect(id)}
+                      startEnhancer={() => (
+                        <Views color={isActiveView(id!) ? primary : contentStateDisabled} size={scale600} />
+                      )}
+                    >
                       <LabelXSmall margin={[0, scale400]}>{label}</LabelXSmall>
-                    </StyledDataGridViewListItemLabel>
+                    </TertiaryButton>
                     <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
                       {id !== 'default' && (
                         <TertiaryButton>
@@ -158,6 +170,7 @@ export const DataGridViewOptions = ({
                 borderStyle: 'dashed',
                 borderWidth: border300.borderWidth,
               }),
+              ...borderRadius(scale0),
               ...margin(scale200, scale400),
               boxSizing: 'border-box',
               ':hover': {

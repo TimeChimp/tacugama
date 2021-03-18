@@ -115,10 +115,6 @@ export const StyledDataGridViewListItem = themedStyled('li', ({ $theme }) => ({
   alignItems: 'center',
   justifyContent: 'space-between',
 }));
-export const StyledDataGridViewListItemLabel = themedStyled('div', ({ $theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-}));
 
 export const StyledDataGridViewsDivider = themedStyled('div', ({ $theme }) => ({
   height: $theme.sizing.scale750,

@@ -272,6 +272,7 @@ export interface DataGridViewOptionsProps {
   setSaveModalIsOpen: Dispatch<SetStateAction<boolean>>;
   onPinView?: (id: string) => Promise<void>;
   onUnpinView?: (id: string) => Promise<void>;
+  handleActivateView: (id: string) => Promise<void>;
 }
 
 export interface DataGridIconProps {
