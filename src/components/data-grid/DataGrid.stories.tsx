@@ -110,7 +110,7 @@ Default.args = {
   columnToggling: true,
   selection: true,
   filtering: true,
-  grouping: true,
+  grouping: false,
   viewing: true,
   columns: COLUMNS,
   filters: FILTERS,
