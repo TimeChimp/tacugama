@@ -362,6 +362,7 @@ export const DataGrid = ({
           getRowNodeId={getRowNodeId}
           onFirstDataRendered={onFirstDataRendered}
           onGridSizeChanged={onGridSizeChanged}
+          suppressDragLeaveHidesColumns
           cacheBlockSize={1000}
           maxBlocksInCache={10}
           blockLoadDebounceMillis={100}
