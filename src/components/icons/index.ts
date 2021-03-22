@@ -47,3 +47,4 @@ export * from './Briefcase';
 export * from './Documents';
 export * from './Tasks';
 export * from './Dash';
+export * from './Clear';

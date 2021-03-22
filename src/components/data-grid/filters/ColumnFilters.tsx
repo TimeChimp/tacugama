@@ -61,8 +61,8 @@ export const ColumnFilters = ({
   };
 
   const onSetFiltering = useCallback(
-    (column: string, value: string) => {
-      const filterInstance = api.getFilterInstance(column);
+    (columnField: string, value: string) => {
+      const filterInstance = api.getFilterInstance(columnField);
       const filterModel = api.getFilterModel();
       const currentValues = filterInstance?.getModel()?.values;
       const values = getSetValues(value, currentValues);
@@ -76,7 +76,7 @@ export const ColumnFilters = ({
         values,
         type: 'set',
       };
-      filterModel[column] = setFilter;
+      filterModel[columnField] = setFilter;
 
       onFiltering(filterModel);
     },
@@ -184,6 +184,19 @@ export const ColumnFilters = ({
     return filters;
   };
 
+  const onSetFilterClear = (columnField: string) => {
+    setOpenFilter(undefined);
+    const filterInstance = api.getFilterInstance(columnField);
+    filterInstance?.setModel(null);
+    api.onFilterChanged();
+    setSelectedFilterIds((currentIds) => {
+      return {
+        ...currentIds,
+        [columnField]: [],
+      };
+    });
+  };
+
   return (
     <>
       {filters?.length && (
@@ -223,6 +236,8 @@ export const ColumnFilters = ({
                     startEnhancer={Icon && <Icon color={getSetIconColor(columnField)} />}
                     size={SIZE.compact}
                     isActive={isSetFilterActive(columnField)}
+                    onClear={() => onSetFilterClear(columnField)}
+                    hasValue={isSetFilterActive(columnField)}
                   />
                 </Dropdown>
               )}
