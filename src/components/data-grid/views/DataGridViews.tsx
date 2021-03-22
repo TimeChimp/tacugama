@@ -48,28 +48,24 @@ export const DataGridViews = ({
     if (onCreateView) {
       await onCreateView(input);
     }
-    return;
   };
 
   const handleSaveViewState = async (id: string, viewState: string) => {
     if (onSaveViewState) {
       await onSaveViewState(id, viewState);
     }
-    return;
   };
 
   const handleRenameView = async (id: string, name: string) => {
     if (onRenameView) {
       await onRenameView(id, name);
     }
-    return;
   };
 
   const handleViewDelete = async () => {
     if (editView && onDeleteView) {
       await onDeleteView(editView.id);
     }
-    return;
   };
 
   const handleActivateView = async (id: string) => {
@@ -114,6 +110,7 @@ export const DataGridViews = ({
           setSaveModalIsOpen={setSaveModalIsOpen}
           onPinView={onPinView}
           onUnpinView={onUnpinView}
+          handleActivateView={handleActivateView}
         />
       </StyledDataGridViews>
       <ConfirmationModal
