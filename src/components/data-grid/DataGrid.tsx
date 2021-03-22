@@ -23,7 +23,6 @@ import {
   IServerSideGetRowsParams,
   ServerSideStoreType,
   GridReadyEvent,
-  TextFilter,
 } from '@ag-grid-community/core';
 import {
   formatCurrency,
@@ -32,6 +31,7 @@ import {
   TcDate,
   sortBy,
   nameOf,
+  SupportedLocale,
 } from '@timechimp/timechimp-typescript-helpers';
 
 import {
@@ -72,6 +72,8 @@ export const DataGrid = ({
   sortableColumns,
   resizeableColumns,
   views,
+  dates,
+  setDates,
   onDeactivateView,
   onActivateView,
   onCreateView,
@@ -268,8 +270,12 @@ export const DataGrid = ({
   };
 
   const getValueFormatter = (params: ValueFormatterParams, type?: DataGridColumnType) => {
+    if (!params.value) {
+      return;
+    }
     const { currency, numberFormat, dateFormat, language, timeFormat, durationFormat } = formatSettings;
     const defaultDateFormat = defaultFormatSettings.dateFormat as string;
+    const defaultLanguage = defaultFormatSettings.language as SupportedLocale;
 
     switch (type) {
       case 'currency':
@@ -277,9 +283,12 @@ export const DataGrid = ({
       case 'number':
         return formatNumber(params.value, 2, numberFormat);
       case 'date':
-        return new TcDate(params.value).format(dateFormat ?? defaultDateFormat, language);
+        return new TcDate(new Date(params.value)).format(defaultDateFormat, language || defaultLanguage);
       case 'time':
-        return new TcDate(params.value).format(timeFormat ?? defaultDateFormat, language);
+        if (params.data?.durationOnly) {
+          return '';
+        }
+        return new TcDate(new Date(params.value)).format(timeFormat ?? defaultDateFormat, language ?? defaultLanguage);
       case 'duration':
         return formatDuration(params.value, durationFormat, numberFormat);
     }
@@ -287,6 +296,9 @@ export const DataGrid = ({
   };
 
   const getFilterParams = (params: any, columnField?: string) => {
+    if (!params) {
+      return;
+    }
     let values: string[] = [];
     const columnFilter = filters?.find((filter) => filter.columnField === columnField);
     if (columnFilter && columnFilter.values) {
@@ -316,6 +328,8 @@ export const DataGrid = ({
         columns={gridColumns}
         filtering={filtering}
         filters={filters}
+        dates={dates}
+        setDates={setDates}
         grouping={grouping}
         onGrouping={onGrouping}
         onFiltering={onFiltering}

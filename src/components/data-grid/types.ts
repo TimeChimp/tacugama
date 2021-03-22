@@ -127,6 +127,8 @@ export interface DataGridProps {
   translations?: Translations;
   views?: DataGridView[];
   height?: string;
+  dates?: Date[];
+  setDates?: (dates: Date[]) => void;
   onDeactivateView?: (id: string) => Promise<void>;
   onActivateView?: (id: string) => Promise<void>;
   onCreateView?: (view: CreateViewInput) => Promise<void>;
@@ -156,6 +158,8 @@ export interface FiltersProps {
   api: GridApi;
   columns: DataGridColumn[];
   filters?: Filter[];
+  dates?: Date[];
+  setDates?: (dates: Date[]) => void;
   grouping?: boolean;
   filtering?: boolean;
   onGrouping: (rowGroups: string[]) => void;
@@ -167,6 +171,8 @@ export interface FiltersProps {
 
 export interface ColumnFiltersProps {
   filters?: Filter[];
+  dates?: Date[];
+  setDates?: (dates: Date[]) => void;
   onFiltering: (filters: FilterModel) => void;
   api: GridApi;
   translations: Translations;
