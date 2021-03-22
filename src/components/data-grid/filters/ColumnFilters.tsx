@@ -20,12 +20,13 @@ export const ColumnFilters = ({
   onFiltering,
   api,
   dateFormat,
+  dates,
+  setDates,
   translations: { search, lessFilters, allFilters },
 }: ColumnFiltersProps) => {
   const [openFilter, setOpenFilter] = useState<string>();
   const [showLessFilters, setShowLessFilters] = useState<boolean>(true);
   const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
-  const [datepickerValue, setDatepickerValue] = useState<Date[]>();
   const [selectedFilterIds, setSelectedFilterIds] = useState<{ [key: string]: string[] }>({});
 
   const {
@@ -126,7 +127,7 @@ export const ColumnFilters = ({
     [filterOnValue],
   );
 
-  const dateFilterIsActive = () => datepickerValue?.length === 2;
+  const dateFilterIsActive = () => dates?.length === 2;
 
   const isSetFilterActive = (columnField: string) => !!selectedFilterIds[columnField]?.length;
 
@@ -136,12 +137,10 @@ export const ColumnFilters = ({
 
   const getDateFormat = (date: Date) => new TcDate(date).format(DATE_FORMAT);
 
-  const getDateTitleFormat = (date: Date) => new TcDate(date).format(dateFormat);
+  const getDateTitleFormat = (date: Date) => new TcDate(date).format(DATE_FORMAT);
 
   const getDateTitle = (title: string) =>
-    datepickerValue && dateFilterIsActive()
-      ? `${getDateTitleFormat(datepickerValue[0])} - ${getDateTitleFormat(datepickerValue[1])}`
-      : title;
+    dates && dateFilterIsActive() ? `${getDateTitleFormat(dates[0])} - ${getDateTitleFormat(dates[1])}` : title;
 
   const getSetTitle = (columnField: string, title: string) => {
     if (!isSetFilterActive(columnField)) {
@@ -152,11 +151,15 @@ export const ColumnFilters = ({
   };
 
   const onDateSelect = ({ date: dates, columnField }: { date: Date | Date[]; columnField: string }) => {
-    if (!Array.isArray(dates)) {
-      return setDatepickerValue([dates]);
+    if (!setDates) {
+      return;
     }
 
-    setDatepickerValue(dates);
+    if (!Array.isArray(dates)) {
+      return setDates([dates]);
+    }
+
+    setDates(dates);
 
     if (dates.length > 1) {
       setDatepickerIsOpen(false);
@@ -197,7 +200,7 @@ export const ColumnFilters = ({
                   />
                   <Datepicker
                     onChange={({ date }) => onDateSelect({ date, columnField })}
-                    date={datepickerValue}
+                    date={dates}
                     isOpen={datepickerIsOpen}
                     setIsOpen={setDatepickerIsOpen}
                     monthsShown={2}

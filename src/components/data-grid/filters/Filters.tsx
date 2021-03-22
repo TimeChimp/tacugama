@@ -24,6 +24,8 @@ export const Filters = ({
   translations,
   filters,
   dateFormat,
+  dates,
+  setDates,
 }: FiltersProps) => {
   const { groupBy, searchBar } = translations;
   const {
@@ -82,6 +84,8 @@ export const Filters = ({
           filters={filters}
           translations={translations}
           dateFormat={dateFormat}
+          dates={dates}
+          setDates={setDates}
         />
       </FlexItem>
       <FlexItem width="20%" justifyContent="flex-end">
