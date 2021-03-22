@@ -27,6 +27,7 @@ export const ColumnFilters = ({
   const [openFilter, setOpenFilter] = useState<string>();
   const [showLessFilters, setShowLessFilters] = useState<boolean>(true);
   const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
+  const [internalDates, setInternalDates] = useState<Date[]>([]);
   const [selectedFilterIds, setSelectedFilterIds] = useState<{ [key: string]: string[] }>({});
 
   const {
@@ -150,19 +151,28 @@ export const ColumnFilters = ({
     return `${length} ${title}`;
   };
 
+  const toggleDatePicker = () => {
+    if (datepickerIsOpen) {
+      setDatepickerIsOpen(false);
+      return setInternalDates([]);
+    }
+    return setDatepickerIsOpen(true);
+  };
+
   const onDateSelect = ({ date: dates, columnField }: { date: Date | Date[]; columnField: string }) => {
     if (!setDates) {
       return;
     }
 
     if (!Array.isArray(dates)) {
-      return setDates([dates]);
+      return setInternalDates([dates]);
     }
 
-    setDates(dates);
+    setInternalDates(dates);
 
     if (dates.length > 1) {
-      setDatepickerIsOpen(false);
+      setDates(dates);
+      toggleDatePicker();
 
       const dateFilter: DateFilterModel = {
         filterType: 'date',
@@ -213,9 +223,9 @@ export const ColumnFilters = ({
                   />
                   <Datepicker
                     onChange={({ date }) => onDateSelect({ date, columnField })}
-                    date={dates}
+                    date={internalDates.length ? internalDates : dates}
                     isOpen={datepickerIsOpen}
-                    setIsOpen={setDatepickerIsOpen}
+                    setIsOpen={toggleDatePicker}
                     monthsShown={2}
                     range
                     quickSelect
