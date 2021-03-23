@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { Button, ButtonProps } from './Button';
-import { border } from '../../utils/css';
+import { border, borderRadius } from '../../utils/css';
 
 export interface ActiveButtonProps extends ButtonProps {
   children?: React.ReactNode;
@@ -22,6 +22,7 @@ export const ActiveButton = forwardRef<HTMLButtonElement, ActiveButtonProps>(
                 borderStyle: $theme.borders.border300.borderStyle,
                 borderWidth: $theme.borders.border300.borderWidth,
               }),
+              ...borderRadius($theme.sizing.scale0),
               boxSizing: 'border-box',
               ':hover': {
                 backgroundColor: $theme.colors.primary200,

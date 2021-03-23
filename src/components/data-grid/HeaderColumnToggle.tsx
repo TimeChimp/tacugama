@@ -70,7 +70,6 @@ export const HeaderColumnToggle = ({
       <Dropdown
         onOpen={() => setActive(true)}
         onClose={() => setActive(false)}
-        showSearch
         searchPlaceholder={searchColumns}
         items={dropdownItems}
         selection

@@ -20,12 +20,14 @@ export const ColumnFilters = ({
   onFiltering,
   api,
   dateFormat,
+  dates,
+  setDates,
   translations: { search, lessFilters, allFilters },
 }: ColumnFiltersProps) => {
   const [openFilter, setOpenFilter] = useState<string>();
   const [showLessFilters, setShowLessFilters] = useState<boolean>(true);
   const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
-  const [datepickerValue, setDatepickerValue] = useState<Date[]>();
+  const [internalDates, setInternalDates] = useState<Date[]>([]);
   const [selectedFilterIds, setSelectedFilterIds] = useState<{ [key: string]: string[] }>({});
 
   const {
@@ -60,14 +62,14 @@ export const ColumnFilters = ({
   };
 
   const onSetFiltering = useCallback(
-    (column: string, value: string) => {
-      const filterInstance = api.getFilterInstance(column);
+    (columnField: string, value: string) => {
+      const filterInstance = api.getFilterInstance(columnField);
       const filterModel = api.getFilterModel();
       const currentValues = filterInstance?.getModel()?.values;
       const values = getSetValues(value, currentValues);
 
       if (!values.length) {
-        filterInstance?.setModel(null);
+        api.destroyFilter(columnField);
         return api.onFilterChanged();
       }
 
@@ -75,7 +77,7 @@ export const ColumnFilters = ({
         values,
         type: 'set',
       };
-      filterModel[column] = setFilter;
+      filterModel[columnField] = setFilter;
 
       onFiltering(filterModel);
     },
@@ -115,18 +117,20 @@ export const ColumnFilters = ({
 
   const getAllColumnValues = useCallback(
     (columnField: string, values?: string[]) => {
-      const columnValues: DropdownItem[] | undefined = values?.map((value) => ({
-        id: value,
-        label: value,
-        action: () => filterOnValue(columnField, value),
-      }));
+      const columnValues: DropdownItem[] | undefined = values
+        ?.filter((value) => !!value)
+        .map((value) => ({
+          id: value,
+          label: value,
+          action: () => filterOnValue(columnField, value),
+        }));
 
       return columnValues || [];
     },
     [filterOnValue],
   );
 
-  const dateFilterIsActive = () => datepickerValue?.length === 2;
+  const dateFilterIsActive = () => dates?.length === 2;
 
   const isSetFilterActive = (columnField: string) => !!selectedFilterIds[columnField]?.length;
 
@@ -134,14 +138,13 @@ export const ColumnFilters = ({
 
   const getSetIconColor = (columnField: string) => (isSetFilterActive(columnField) ? primary : contentSecondary);
 
+  // Date format that is send as part of the query request
   const getDateFormat = (date: Date) => new TcDate(date).format(DATE_FORMAT);
 
   const getDateTitleFormat = (date: Date) => new TcDate(date).format(dateFormat);
 
   const getDateTitle = (title: string) =>
-    datepickerValue && dateFilterIsActive()
-      ? `${getDateTitleFormat(datepickerValue[0])} - ${getDateTitleFormat(datepickerValue[1])}`
-      : title;
+    dates && dateFilterIsActive() ? `${getDateTitleFormat(dates[0])} - ${getDateTitleFormat(dates[1])}` : title;
 
   const getSetTitle = (columnField: string, title: string) => {
     if (!isSetFilterActive(columnField)) {
@@ -151,15 +154,28 @@ export const ColumnFilters = ({
     return `${length} ${title}`;
   };
 
+  const toggleDatePicker = () => {
+    if (datepickerIsOpen) {
+      setDatepickerIsOpen(false);
+      return setInternalDates([]);
+    }
+    return setDatepickerIsOpen(true);
+  };
+
   const onDateSelect = ({ date: dates, columnField }: { date: Date | Date[]; columnField: string }) => {
-    if (!Array.isArray(dates)) {
-      return setDatepickerValue([dates]);
+    if (!setDates) {
+      return;
     }
 
-    setDatepickerValue(dates);
+    if (!Array.isArray(dates)) {
+      return setInternalDates([dates]);
+    }
+
+    setInternalDates(dates);
 
     if (dates.length > 1) {
-      setDatepickerIsOpen(false);
+      setDates(dates);
+      toggleDatePicker();
 
       const dateFilter: DateFilterModel = {
         filterType: 'date',
@@ -181,6 +197,18 @@ export const ColumnFilters = ({
     return filters;
   };
 
+  const onSetFilterClear = (columnField: string) => {
+    setOpenFilter(undefined);
+    api.destroyFilter(columnField);
+    api.onFilterChanged();
+    setSelectedFilterIds((currentIds) => {
+      return {
+        ...currentIds,
+        [columnField]: [],
+      };
+    });
+  };
+
   return (
     <>
       {filters?.length && (
@@ -197,9 +225,9 @@ export const ColumnFilters = ({
                   />
                   <Datepicker
                     onChange={({ date }) => onDateSelect({ date, columnField })}
-                    date={datepickerValue}
+                    date={internalDates.length ? internalDates : dates}
                     isOpen={datepickerIsOpen}
-                    setIsOpen={setDatepickerIsOpen}
+                    setIsOpen={toggleDatePicker}
                     monthsShown={2}
                     range
                     quickSelect
@@ -220,6 +248,8 @@ export const ColumnFilters = ({
                     startEnhancer={Icon && <Icon color={getSetIconColor(columnField)} />}
                     size={SIZE.compact}
                     isActive={isSetFilterActive(columnField)}
+                    onClear={() => onSetFilterClear(columnField)}
+                    hasValue={isSetFilterActive(columnField)}
                   />
                 </Dropdown>
               )}
