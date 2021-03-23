@@ -69,7 +69,7 @@ export const ColumnFilters = ({
       const values = getSetValues(value, currentValues);
 
       if (!values.length) {
-        filterInstance?.setModel(null);
+        api.destroyFilter(columnField);
         return api.onFilterChanged();
       }
 
@@ -117,11 +117,13 @@ export const ColumnFilters = ({
 
   const getAllColumnValues = useCallback(
     (columnField: string, values?: string[]) => {
-      const columnValues: DropdownItem[] | undefined = values?.map((value) => ({
-        id: value,
-        label: value,
-        action: () => filterOnValue(columnField, value),
-      }));
+      const columnValues: DropdownItem[] | undefined = values
+        ?.filter((value) => !!value)
+        .map((value) => ({
+          id: value,
+          label: value,
+          action: () => filterOnValue(columnField, value),
+        }));
 
       return columnValues || [];
     },
@@ -197,8 +199,7 @@ export const ColumnFilters = ({
 
   const onSetFilterClear = (columnField: string) => {
     setOpenFilter(undefined);
-    const filterInstance = api.getFilterInstance(columnField);
-    filterInstance?.setModel(null);
+    api.destroyFilter(columnField);
     api.onFilterChanged();
     setSelectedFilterIds((currentIds) => {
       return {
