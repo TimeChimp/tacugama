@@ -136,9 +136,10 @@ export const ColumnFilters = ({
 
   const getSetIconColor = (columnField: string) => (isSetFilterActive(columnField) ? primary : contentSecondary);
 
+  // Date format that is send as part of the query request
   const getDateFormat = (date: Date) => new TcDate(date).format(DATE_FORMAT);
 
-  const getDateTitleFormat = (date: Date) => new TcDate(date).format(DATE_FORMAT);
+  const getDateTitleFormat = (date: Date) => new TcDate(date).format(dateFormat);
 
   const getDateTitle = (title: string) =>
     dates && dateFilterIsActive() ? `${getDateTitleFormat(dates[0])} - ${getDateTitleFormat(dates[1])}` : title;

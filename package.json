@@ -80,7 +80,6 @@
     "msw": "^0.27.0",
     "msw-storybook-addon": "^1.1.0",
     "prettier": "^2.2.1",
-    "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "size-limit": "^4.6.0",
     "tsdx": "^0.14.1",
