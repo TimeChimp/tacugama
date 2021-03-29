@@ -160,7 +160,6 @@ export interface SelectedFilterIds {
 }
 
 export interface FiltersProps {
-  gridReady: boolean;
   api: GridApi;
   columns: DataGridColumn[];
   filters?: Filter[];
@@ -178,7 +177,6 @@ export interface FiltersProps {
 }
 
 export interface ColumnFiltersProps {
-  gridReady: boolean;
   filters?: Filter[];
   dates?: Date[];
   setDates?: (dates: Date[]) => void;

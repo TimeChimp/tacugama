@@ -16,7 +16,6 @@ const MORE_FILTERS_BUTTON_TEST_ID = 'more-filters-button';
 const MULTIPLE_DATE_FILTER_ERROR = 'You can only pass max. 1 date filter';
 
 export const ColumnFilters = ({
-  gridReady,
   filters,
   onFiltering,
   api,

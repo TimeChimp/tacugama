@@ -90,7 +90,6 @@ export const DataGrid = ({
   height = DEFAULT_HEIGHT,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
-  const [gridReady, setGridReady] = useState<boolean>(false);
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
   const [allViews, setAllViews] = useState<DataGridView[]>([]);
@@ -296,7 +295,6 @@ export const DataGrid = ({
 
     setGridApi(api);
     setGridColumnApi(columnApi);
-    setGridReady(true);
 
     api.sizeColumnsToFit();
 
@@ -376,7 +374,6 @@ export const DataGrid = ({
   return (
     <>
       <Filters
-        gridReady={gridReady}
         api={gridApi}
         columns={gridColumns}
         filtering={filtering}
