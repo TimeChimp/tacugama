@@ -16,19 +16,21 @@ const MORE_FILTERS_BUTTON_TEST_ID = 'more-filters-button';
 const MULTIPLE_DATE_FILTER_ERROR = 'You can only pass max. 1 date filter';
 
 export const ColumnFilters = ({
+  gridReady,
   filters,
   onFiltering,
   api,
   dateFormat,
   dates,
   setDates,
+  setSelectedFilterIds,
+  selectedFilterIds,
   translations: { search, lessFilters, allFilters },
 }: ColumnFiltersProps) => {
   const [openFilter, setOpenFilter] = useState<string>();
   const [showLessFilters, setShowLessFilters] = useState<boolean>(true);
   const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
   const [internalDates, setInternalDates] = useState<Date[]>([]);
-  const [selectedFilterIds, setSelectedFilterIds] = useState<{ [key: string]: string[] }>({});
 
   const {
     theme: {
@@ -112,7 +114,7 @@ export const ColumnFilters = ({
         return { ...currentIds, [columnField]: [...currentIds[columnField], value] };
       });
     },
-    [handleSetFilter],
+    [handleSetFilter, setSelectedFilterIds],
   );
 
   const getAllColumnValues = useCallback(

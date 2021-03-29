@@ -11,7 +11,7 @@ import { Filters } from './filters';
 import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 import { StatusBarModule } from '@ag-grid-enterprise/status-bar';
 import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
-import { SetFilterModule } from '@ag-grid-enterprise/set-filter';
+import { SetFilterModel, SetFilterModule } from '@ag-grid-enterprise/set-filter';
 import { AgGridColumn, AgGridReact } from '@ag-grid-community/react';
 import { CsvExportModule } from '@ag-grid-community/csv-export';
 import { ExcelExportModule } from '@ag-grid-enterprise/excel-export';
@@ -23,6 +23,7 @@ import {
   IServerSideGetRowsParams,
   ServerSideStoreType,
   GridReadyEvent,
+  DateFilterModel,
 } from '@ag-grid-community/core';
 import {
   formatCurrency,
@@ -45,6 +46,7 @@ import {
   DataGridView,
   CreateViewInput,
   IFilterType,
+  SelectedFilterIds,
 } from './types';
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
@@ -88,9 +90,11 @@ export const DataGrid = ({
   height = DEFAULT_HEIGHT,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
+  const [gridReady, setGridReady] = useState<boolean>(false);
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
   const [allViews, setAllViews] = useState<DataGridView[]>([]);
+  const [selectedFilterIds, setSelectedFilterIds] = useState<SelectedFilterIds>({});
 
   const { theme } = useTheme();
 
@@ -145,6 +149,53 @@ export const DataGrid = ({
     gridApi.sizeColumnsToFit();
   };
 
+  const setViewFilterIds = (filterModel: FilterModel) => {
+    setSelectedFilterIds({});
+
+    let filterIds: SelectedFilterIds = {};
+    Object.keys(filterModel).forEach((filterName) => {
+      const filter = filterModel[filterName];
+      if (filter.filterType === 'set') {
+        const setFilter = filter as SetFilterModel;
+        if (setFilter.values) {
+          const values = setFilter.values.filter((value) => typeof value === 'string') as string[];
+          filterIds[filterName] = values;
+        }
+      }
+
+      if (filter.filterType === 'date') {
+        const { dateFrom, dateTo } = filter as DateFilterModel;
+        if (setDates && dateFrom && dateTo) {
+          setDates([new TcDate(dateFrom).toDate(), new TcDate(dateTo).toDate()]);
+        }
+      }
+    });
+    setSelectedFilterIds(filterIds);
+  };
+
+  const getInitialDateRange = () => {
+    const tcDate = new TcDate();
+    const startOfMonth = tcDate.startOf('month').toDate();
+    const endOfMonth = tcDate.endOf('month').toDate();
+
+    return [startOfMonth, endOfMonth];
+  };
+
+  const resetGrid = () => {
+    gridColumnApi.resetColumnState();
+    gridColumnApi.resetColumnGroupState();
+
+    const filterModel = gridApi.getFilterModel();
+    Object.keys(filterModel).forEach((filter) => {
+      gridApi.destroyFilter(filter);
+    });
+
+    setViewFilterIds({});
+    if (setDates) {
+      setDates(getInitialDateRange());
+    }
+  };
+
   const setViewState = (state: string | null) => {
     if (state) {
       const gridState: DataGridState = JSON.parse(state);
@@ -152,12 +203,12 @@ export const DataGrid = ({
       gridColumnApi.setColumnState(gridState.columnState);
       gridColumnApi.setColumnGroupState(gridState.columnGroupState);
       gridApi.setFilterModel(gridState.filterModel);
+      setViewFilterIds(gridState.filterModel);
     } else {
-      gridColumnApi.resetColumnState();
-      gridColumnApi.resetColumnGroupState();
-      gridApi.setFilterModel({});
+      resetGrid();
     }
 
+    gridApi.onFilterChanged();
     gridApi.sizeColumnsToFit();
   };
 
@@ -245,6 +296,7 @@ export const DataGrid = ({
 
     setGridApi(api);
     setGridColumnApi(columnApi);
+    setGridReady(true);
 
     api.sizeColumnsToFit();
 
@@ -324,6 +376,7 @@ export const DataGrid = ({
   return (
     <>
       <Filters
+        gridReady={gridReady}
         api={gridApi}
         columns={gridColumns}
         filtering={filtering}
@@ -336,6 +389,8 @@ export const DataGrid = ({
         translations={translations}
         searchColumns={searchColumns}
         dateFormat={formatSettings.dateFormat ?? (defaultFormatSettings.dateFormat as string)}
+        selectedFilterIds={selectedFilterIds}
+        setSelectedFilterIds={setSelectedFilterIds}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {viewing && (
