@@ -7,7 +7,7 @@ export const LoadingCellTemplate = () => {
   const {
     theme: {
       current: {
-        sizing: { scale400, scale600, scale900 },
+        sizing: { scale300, scale600, scale800 },
       },
     },
   } = useTheme();
@@ -20,8 +20,8 @@ export const LoadingCellTemplate = () => {
             top: 0,
             left: 0,
             width: 'fill-available',
-            height: scale900,
-            ...margin(scale400, scale600),
+            height: scale800,
+            ...margin(scale300, scale600),
           },
         },
       }}

@@ -131,6 +131,7 @@ export const DataGridViewOptions = ({
                 component: ({ item: { id, label } }: { item: DropdownItem }) => (
                   <StyledDataGridViewListItem>
                     <TertiaryButton
+                      size={SIZE.mini}
                       onClick={() => id && onViewSelect(id)}
                       startEnhancer={() => (
                         <Views color={isActiveView(id!) ? primary : contentStateDisabled} size={scale600} />
