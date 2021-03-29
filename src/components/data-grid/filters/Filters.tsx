@@ -22,10 +22,7 @@ export const Filters = ({
   api,
   searchColumns,
   translations,
-  filters,
-  dateFormat,
-  dates,
-  setDates,
+  ...rest
 }: FiltersProps) => {
   const { groupBy, searchBar } = translations;
   const {
@@ -78,15 +75,7 @@ export const Filters = ({
             <SearchInput testId={SEARCH_INPUT_TEST_ID} size="mini" placeholder={searchBar} onChange={handleSearch} />
           </StyledDataGridSearch>
         )}
-        <ColumnFilters
-          api={api}
-          onFiltering={onFiltering}
-          filters={filters}
-          translations={translations}
-          dateFormat={dateFormat}
-          dates={dates}
-          setDates={setDates}
-        />
+        <ColumnFilters api={api} onFiltering={onFiltering} translations={translations} {...rest} />
       </FlexItem>
       <FlexItem width="20%" justifyContent="flex-end">
         {grouping && (

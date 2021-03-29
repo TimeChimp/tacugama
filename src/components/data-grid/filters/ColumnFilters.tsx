@@ -22,13 +22,14 @@ export const ColumnFilters = ({
   dateFormat,
   dates,
   setDates,
+  setSelectedFilterIds,
+  selectedFilterIds,
   translations: { search, lessFilters, allFilters },
 }: ColumnFiltersProps) => {
   const [openFilter, setOpenFilter] = useState<string>();
   const [showLessFilters, setShowLessFilters] = useState<boolean>(true);
   const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
   const [internalDates, setInternalDates] = useState<Date[]>([]);
-  const [selectedFilterIds, setSelectedFilterIds] = useState<{ [key: string]: string[] }>({});
 
   const {
     theme: {
@@ -112,7 +113,7 @@ export const ColumnFilters = ({
         return { ...currentIds, [columnField]: [...currentIds[columnField], value] };
       });
     },
-    [handleSetFilter],
+    [handleSetFilter, setSelectedFilterIds],
   );
 
   const getAllColumnValues = useCallback(

@@ -12,6 +12,7 @@ import {
 import { DurationFormat, NumberFormat, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DropdownItem } from '../dropdown';
 import { SVGProps as IconProps } from '../icons';
+import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
 
 export interface DataGridApi {
   getSelectedRows: () => any[];
@@ -36,7 +37,7 @@ export interface DataGridColumn {
   hide?: boolean;
 }
 
-export type FilterTypeModel = TextFilterModel | NumberFilterModel | DateFilterModel;
+export type FilterTypeModel = TextFilterModel | NumberFilterModel | DateFilterModel | SetFilterModel;
 export interface FilterModel {
   [key: string]: FilterTypeModel | ICombinedSimpleModel<FilterTypeModel>;
 }
@@ -154,6 +155,10 @@ export interface CreateViewInput {
   viewState: string;
 }
 
+export interface SelectedFilterIds {
+  [key: string]: string[];
+}
+
 export interface FiltersProps {
   api: GridApi;
   columns: DataGridColumn[];
@@ -167,6 +172,8 @@ export interface FiltersProps {
   translations: Translations;
   searchColumns?: string[];
   dateFormat: string;
+  selectedFilterIds: SelectedFilterIds;
+  setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
 }
 
 export interface ColumnFiltersProps {
@@ -177,6 +184,8 @@ export interface ColumnFiltersProps {
   api: GridApi;
   translations: Translations;
   dateFormat: string;
+  selectedFilterIds: SelectedFilterIds;
+  setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
 }
 export interface StatusBarRowCountProps {
   api: GridApi;
