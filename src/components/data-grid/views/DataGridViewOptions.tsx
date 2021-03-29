@@ -33,7 +33,7 @@ export const DataGridViewOptions = ({
     theme: {
       current: {
         colors: { primary, primaryB, contentStateDisabled },
-        sizing: { scale0, scale200, scale400, scale600 },
+        sizing: { scale0, scale200, scale400, scale500, scale600, scale650 },
         borders: { border300 },
       },
     },
@@ -154,9 +154,24 @@ export const DataGridViewOptions = ({
           <StyledViewOptionsFooter>
             <TertiaryButton
               onClick={() => setCreateModalIsOpen(true)}
-              startEnhancer={() => <Plus size={scale400} color={primary} />}
+              startEnhancer={() => <Plus size={scale650} color={primary} />}
+              overrides={{
+                Root: {
+                  style: {
+                    ...padding(scale200, scale500),
+                    ':hover': {
+                      backgroundColor: 'transparent',
+                    },
+                    ':active': {
+                      backgroundColor: 'transparent',
+                    },
+                  },
+                },
+              }}
             >
-              {translations.addView}
+              <LabelXSmall color={primary} margin={[0, scale400]}>
+                {translations.addView}
+              </LabelXSmall>
             </TertiaryButton>
           </StyledViewOptionsFooter>
         </>

@@ -1,7 +1,7 @@
 import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
 import { margin, padding } from '../../utils';
-import { borderTop, borderRight, borderLeft } from '../../utils/css';
+import { borderTop, borderRight, borderLeft, borderBottom } from '../../utils/css';
 
 export const getGridThemeOverrides = (theme: CustomThemeType) => {
   return `
@@ -114,6 +114,7 @@ export const StyledDataGridViewListItem = themedStyled('li', ({ $theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
+  ...borderBottom($theme.borders.border200),
 }));
 
 export const StyledDataGridViewsDivider = themedStyled('div', ({ $theme }) => ({
@@ -124,6 +125,5 @@ export const StyledDataGridViewsDivider = themedStyled('div', ({ $theme }) => ({
 
 export const StyledViewOptionsFooter = themedStyled('div', ({ $theme }) => ({
   backgroundColor: $theme.colors.primaryB,
-  ...padding($theme.sizing.scale200, $theme.sizing.scale300),
-  ...borderTop($theme.borders.border200),
+  ...padding('0', $theme.sizing.scale100),
 }));
