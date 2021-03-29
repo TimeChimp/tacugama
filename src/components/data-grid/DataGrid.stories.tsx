@@ -91,6 +91,7 @@ const Template: Story<DataGridProps> = (args) => {
 
   return (
     <DataGrid
+      {...args}
       views={views}
       onActivateView={(id: string) => onActivateView(id)}
       onDeactivateView={(id: string) => onDeactivateView(id)}
@@ -100,7 +101,6 @@ const Template: Story<DataGridProps> = (args) => {
       onRenameView={(id: string, name: string) => handleRename(id, name)}
       onCreateView={(input: CreateViewInput) => handleCreateView(input)}
       onSaveViewState={(id: string, viewState: string) => handleSaveView(id, viewState)}
-      {...args}
     />
   );
 };
