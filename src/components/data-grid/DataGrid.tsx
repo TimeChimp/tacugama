@@ -2,7 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import fetch from 'isomorphic-unfetch';
 import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader } from './styles';
 import { RowActionsCell } from './RowActionsCell';
-import { StatusBarRowCount } from './StatusBarRowCount';
+import { FooterRowCount } from './FooterRowCount';
+import { FooterPagination } from './FooterPagination';
+import { FooterPageSize } from './FooterPageSize';
 import { NoRowsTemplate } from './NoRowsTemplate';
 import { HeaderCheckbox } from './HeaderCheckbox';
 import { HeaderColumnToggle } from './HeaderColumnToggle';
@@ -424,6 +426,7 @@ export const DataGrid = ({
             },
           }}
           pagination
+          paginationPageSize={1}
           suppressPaginationPanel
           onGridReady={onGridReady}
           getRowNodeId={getRowNodeId}
@@ -436,7 +439,9 @@ export const DataGrid = ({
           headerHeight={36}
           frameworkComponents={{
             moreActionsCell: RowActionsCell,
-            statusBarRowCount: StatusBarRowCount,
+            footerRowCount: FooterRowCount,
+            footerPagination: FooterPagination,
+            footerPageSize: FooterPageSize,
             noRowsTemplate: () => <NoRowsTemplate translations={translations} />,
             headerCheckbox: HeaderCheckbox,
             headerColumnToggle: HeaderColumnToggle,
@@ -459,11 +464,25 @@ export const DataGrid = ({
           statusBar={{
             statusPanels: [
               {
-                statusPanel: 'statusBarRowCount',
+                statusPanel: 'footerRowCount',
                 statusPanelParams: {
                   translations,
                 },
                 align: 'left',
+              },
+              {
+                statusPanel: 'footerPagination',
+                statusPanelParams: {
+                  translations,
+                },
+                align: 'center',
+              },
+              {
+                statusPanel: 'footerPageSize',
+                statusPanelParams: {
+                  translations,
+                },
+                align: 'right',
               },
             ],
           }}

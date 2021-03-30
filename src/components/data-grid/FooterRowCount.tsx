@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBarRowCountProps } from './types';
-import { StyledStatusBarRowCount } from './styles';
+import { FooterRowCountProps } from './types';
+import { StyledFooterRowCount } from './styles';
 import { useTheme } from '../../providers';
 import { LabelSmall } from '../typography';
 
 const EVENT_LISTENER = 'modelUpdated';
 
-export const StatusBarRowCount = ({ api: gridApi, translations }: StatusBarRowCountProps) => {
+export const FooterRowCount = ({ api: gridApi, translations }: FooterRowCountProps) => {
   const [count, setCount] = useState(Number);
   const {
     theme: {
@@ -29,10 +29,10 @@ export const StatusBarRowCount = ({ api: gridApi, translations }: StatusBarRowCo
   }, [gridApi]);
 
   return (
-    <StyledStatusBarRowCount>
+    <StyledFooterRowCount>
       <LabelSmall color={contentTertiary}>{translations.rowCountText && translations.rowCountText(count)}</LabelSmall>
-    </StyledStatusBarRowCount>
+    </StyledFooterRowCount>
   );
 };
 
-export default StatusBarRowCount;
+export default FooterRowCount;

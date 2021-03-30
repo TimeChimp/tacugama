@@ -187,7 +187,7 @@ export interface ColumnFiltersProps {
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
 }
-export interface StatusBarRowCountProps {
+export interface FooterRowCountProps {
   api: GridApi;
   translations: Translations;
 }

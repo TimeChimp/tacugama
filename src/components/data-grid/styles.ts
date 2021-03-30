@@ -61,7 +61,15 @@ export const StyledDataGridSearch = themedStyled('div', {
   width: '280px',
 });
 
-export const StyledStatusBarRowCount = themedStyled('div', ({ $theme }) => ({
+export const StyledFooterRowCount = themedStyled('div', ({ $theme }) => ({
+  ...padding($theme.sizing.scale650, '0px'),
+}));
+
+export const StyledFooterPagination = themedStyled('div', ({ $theme }) => ({
+  ...padding($theme.sizing.scale650, '0px'),
+}));
+
+export const StyledFooterFooterPageSize = themedStyled('div', ({ $theme }) => ({
   ...padding($theme.sizing.scale650, '0px'),
 }));
 
