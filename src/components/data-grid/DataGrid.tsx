@@ -24,6 +24,7 @@ import {
   ServerSideStoreType,
   GridReadyEvent,
   DateFilterModel,
+  SelectionChangedEvent,
 } from '@ag-grid-community/core';
 import {
   formatCurrency,
@@ -55,6 +56,7 @@ import DataGridViews from './views/DataGridViews';
 import { SortAscendingIcon } from './SortAscendingIcon';
 import { SortDescendingIcon } from './SortDescendingIcon';
 import ReactDOMServer from 'react-dom/server';
+import DataGridActions from './DataGridActions';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
@@ -84,6 +86,7 @@ export const DataGrid = ({
   onPinView,
   onUnpinView,
   onSaveViewState,
+  onBulkDelete,
   searchColumns = DEFAULT_SEARCH_COLUMNS,
   formatSettings = defaultFormatSettings,
   translations = defaultTranslations,
@@ -94,6 +97,7 @@ export const DataGrid = ({
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
   const [allViews, setAllViews] = useState<DataGridView[]>([]);
   const [selectedFilterIds, setSelectedFilterIds] = useState<SelectedFilterIds>({});
+  const [rowsSelected, setRowsSelected] = useState<number>(0);
 
   const { theme } = useTheme();
 
@@ -371,6 +375,11 @@ export const DataGrid = ({
     return 'agSetColumnFilter';
   };
 
+  const onSelectionChanged = (event: SelectionChangedEvent) => {
+    const selected = event.api.getSelectedNodes().length;
+    setRowsSelected(selected);
+  };
+
   return (
     <>
       <Filters
@@ -390,22 +399,31 @@ export const DataGrid = ({
         setSelectedFilterIds={setSelectedFilterIds}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
-        {viewing && (
-          <StyledDataGridHeader>
-            <DataGridViews
-              views={allViews}
-              onCreateView={handleCreateView}
-              onDeleteView={onDeleteView}
-              onRenameView={onRenameView}
-              onPinView={onPinView}
-              onUnpinView={onUnpinView}
-              onSaveViewState={onSaveViewState}
-              onActivateView={handleActivateView}
-              translations={translations}
-              gridApi={gridApi}
-              gridColumnApi={gridColumnApi}
-            />
-            {/* <DataGridActions translations={translations} /> TODO include when in sprint */}
+        {(viewing || selection) && (
+          <StyledDataGridHeader $justifyContent={selection && !viewing ? 'flex-end' : 'space-between'}>
+            {viewing && (
+              <DataGridViews
+                views={allViews}
+                onCreateView={handleCreateView}
+                onDeleteView={onDeleteView}
+                onRenameView={onRenameView}
+                onPinView={onPinView}
+                onUnpinView={onUnpinView}
+                onSaveViewState={onSaveViewState}
+                onActivateView={handleActivateView}
+                translations={translations}
+                gridApi={gridApi}
+                gridColumnApi={gridColumnApi}
+              />
+            )}
+            {selection && (
+              <DataGridActions
+                api={gridApi}
+                rowsSelected={rowsSelected}
+                translations={translations}
+                onBulkDelete={onBulkDelete}
+              />
+            )}
           </StyledDataGridHeader>
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
@@ -429,6 +447,7 @@ export const DataGrid = ({
           getRowNodeId={getRowNodeId}
           onFirstDataRendered={onFirstDataRendered}
           onGridSizeChanged={onGridSizeChanged}
+          onSelectionChanged={onSelectionChanged}
           suppressDragLeaveHidesColumns
           cacheBlockSize={1000}
           maxBlocksInCache={10}

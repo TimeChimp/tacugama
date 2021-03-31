@@ -19,6 +19,9 @@ export const TertiaryButton = forwardRef<HTMLButtonElement, TertiaryButtonProps>
             ':active': {
               backgroundColor: 'transparent',
             },
+            ':disabled': {
+              backgroundColor: 'transparent',
+            },
           },
         },
       }}

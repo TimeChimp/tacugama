@@ -15,6 +15,12 @@ export const SecondaryModalButton = ({ children, size = 'compact', ...rest }: Bu
             ...border($theme.borders.border300),
             ...borderRadius($theme.borders.radius100),
             boxSizing: 'border-box',
+            ':hover': {
+              backgroundColor: $theme.colors.primaryB,
+            },
+            ':active': {
+              backgroundColor: $theme.colors.primaryB,
+            },
           };
         },
       },
