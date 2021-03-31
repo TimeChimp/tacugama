@@ -14,6 +14,17 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
             fontSize: $theme.typography.LabelXSmall.fontSize,
           }),
         },
+        Select: {
+          props: {
+            overrides: {
+              Root: {
+                style: ({ $theme }: { $theme: CustomThemeType }) => ({
+                  fontSize: $theme.typography.LabelXSmall.fontSize,
+                }),
+              },
+            },
+          },
+        },
       }}
       {...rest}
     />
