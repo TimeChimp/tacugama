@@ -1,2 +1,2 @@
-export { Pagination } from 'baseui/pagination';
-export type { PaginationProps } from 'baseui/pagination';
+export { Pagination } from './Pagination';
+export type { PaginationProps } from './Pagination';

@@ -27,4 +27,8 @@ export const defaultTranslations: Translations = {
   defaultViewTooltip: 'Default view cannot be edited.',
   lessFilters: 'Less filters',
   allFilters: 'All filters',
+  showResultsBy: 'Show results by',
+  paginationPrevious: 'Prev',
+  paginationNext: 'Next',
+  paginationOutOf: 'Of',
 };

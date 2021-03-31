@@ -107,6 +107,10 @@ export interface Translations {
   defaultViewTooltip: string;
   lessFilters: string;
   allFilters: string;
+  showResultsBy: string;
+  paginationPrevious: string;
+  paginationNext: string;
+  paginationOutOf: string;
 }
 
 export interface DataGridProps {

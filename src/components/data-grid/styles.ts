@@ -66,11 +66,14 @@ export const StyledFooterRowCount = themedStyled('div', ({ $theme }) => ({
 }));
 
 export const StyledFooterPagination = themedStyled('div', ({ $theme }) => ({
-  ...padding($theme.sizing.scale650, '0px'),
+  ...padding($theme.sizing.scale300, '0px'),
 }));
 
 export const StyledFooterFooterPageSize = themedStyled('div', ({ $theme }) => ({
-  ...padding($theme.sizing.scale650, '0px'),
+  ...padding($theme.sizing.scale300, '0'),
+  display: 'flex',
+  whiteSpace: 'nowrap',
+  alignItems: 'center',
 }));
 
 export const StyledNoRowsTemplate = themedStyled('div', ({ $theme }) => ({

@@ -426,7 +426,7 @@ export const DataGrid = ({
             },
           }}
           pagination
-          paginationPageSize={1}
+          paginationPageSize={25}
           suppressPaginationPanel
           onGridReady={onGridReady}
           getRowNodeId={getRowNodeId}
