@@ -14,6 +14,16 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
             fontSize: $theme.typography.LabelXSmall.fontSize,
           }),
         },
+        NextButton: {
+          style: ({ $theme }: { $theme: CustomThemeType }) => ({
+            color: $theme.colors.primaryA,
+          }),
+        },
+        PrevButton: {
+          style: ({ $theme }: { $theme: CustomThemeType }) => ({
+            color: $theme.colors.primaryA,
+          }),
+        },
         Select: {
           props: {
             overrides: {
