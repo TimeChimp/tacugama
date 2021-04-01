@@ -40,6 +40,11 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
     .ag-theme-alpine .ag-cell.ag-cell-first-right-pinned:not(.ag-cell-range-left):not(.ag-cell-range-single-cell) {
       border-left: none;
     }
+
+    .ag-theme-alpine .ag-status-bar {
+      padding-right: ${theme.sizing.scale300};
+      padding-left: ${theme.sizing.scale300};
+    }
   `;
 };
 
@@ -62,7 +67,7 @@ export const StyledDataGridSearch = themedStyled('div', {
 });
 
 export const StyledFooterRowCount = themedStyled('div', ({ $theme }) => ({
-  ...padding($theme.sizing.scale600, '0px'),
+  ...padding($theme.sizing.scale200, '0px'),
 }));
 
 export const StyledFooterPagination = themedStyled('div', ({ $theme }) => ({
@@ -101,17 +106,26 @@ export const StyledHeaderCheckboxValue = themedStyled('div', ({ $theme }) => ({
   ...padding('0', '0', '0', $theme.sizing.scale0),
 }));
 
-export const StyledDataGridHeader = themedStyled('div', ({ $theme }) => ({
-  ...padding($theme.sizing.scale100, $theme.sizing.scale300),
-  display: 'flex',
-  justifyContent: 'space-between',
-  ...borderTop($theme.borders.border300),
-  ...borderLeft($theme.borders.border300),
-  ...borderRight($theme.borders.border300),
-  background: $theme.colors.primaryB,
-}));
+interface StyledDataGridHeaderProps {
+  $justifyContent?: string;
+}
 
-export const StyledDataGridActions = themedStyled('div', ({ $theme }) => ({}));
+export const StyledDataGridHeader = themedStyled<'div', StyledDataGridHeaderProps>(
+  'div',
+  ({ $theme, $justifyContent = 'space-between' }) => ({
+    ...padding($theme.sizing.scale100, $theme.sizing.scale300),
+    display: 'flex',
+    justifyContent: $justifyContent,
+    ...borderTop($theme.borders.border300),
+    ...borderLeft($theme.borders.border300),
+    ...borderRight($theme.borders.border300),
+    background: $theme.colors.primaryB,
+  }),
+);
+
+export const StyledDataGridActions = themedStyled('div', ({ $theme }) => ({
+  display: 'flex',
+}));
 
 export const StyledDataGridViews = themedStyled('div', ({ $theme }) => ({
   display: 'flex',
@@ -128,7 +142,7 @@ export const StyledDataGridViewListItem = themedStyled('li', ({ $theme }) => ({
   ...borderBottom($theme.borders.border200),
 }));
 
-export const StyledDataGridViewsDivider = themedStyled('div', ({ $theme }) => ({
+export const StyledDataGridDivider = themedStyled('div', ({ $theme }) => ({
   height: $theme.sizing.scale750,
   ...margin($theme.sizing.scale500, $theme.sizing.scale200),
   ...borderRight($theme.borders.border600),
