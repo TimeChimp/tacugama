@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBarRowCountProps } from './types';
-import { StyledDataGridDivider, StyledStatusBarRowCount } from './styles';
+import { FooterRowCountProps } from './types';
+import { StyledDataGridDivider, StyledFooterRowCount } from './styles';
 import { useTheme } from '../../providers';
 import { LabelSmall } from '../typography';
 
 const MODEL_UPDATED_EVENT_LISTENER = 'modelUpdated';
 const ROW_SELECTED_EVENT_LISTENER = 'rowSelected';
 
-export const StatusBarRowCount = ({
+export const FooterRowCount = ({
   api: gridApi,
   translations: { rowCountSelectedText, rowCountText },
-}: StatusBarRowCountProps) => {
+}: FooterRowCountProps) => {
   const [count, setCount] = useState(0);
   const [rowsSelected, setRowsSelected] = useState(0);
   const {
@@ -41,20 +41,20 @@ export const StatusBarRowCount = ({
   }, [gridApi]);
 
   return (
-    <StyledStatusBarRowCount>
-      <LabelSmall marginLeft={scale400} marginRight={scale400} color={contentTertiary}>
+    <StyledFooterRowCount>
+      <LabelSmall margin={[0, scale400]} color={contentTertiary}>
         {rowCountText(count)}
       </LabelSmall>
       {rowsSelected ? (
         <>
           <StyledDataGridDivider />
-          <LabelSmall marginLeft={scale400} marginRight={scale400} color={contentTertiary}>
+          <LabelSmall margin={[0, scale400]} color={contentTertiary}>
             {rowCountSelectedText(rowsSelected)}
           </LabelSmall>
         </>
       ) : null}
-    </StyledStatusBarRowCount>
+    </StyledFooterRowCount>
   );
 };
 
-export default StatusBarRowCount;
+export default FooterRowCount;

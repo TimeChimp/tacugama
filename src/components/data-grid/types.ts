@@ -108,6 +108,10 @@ export interface Translations {
   defaultViewTooltip: string;
   lessFilters: string;
   allFilters: string;
+  showResultsBy: string;
+  paginationPrevious: string;
+  paginationNext: string;
+  paginationOutOf: string;
   deleteEntries: string;
   deleteEntriesCount: (count: number) => JSX.Element;
 }
@@ -191,7 +195,7 @@ export interface ColumnFiltersProps {
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
 }
-export interface StatusBarRowCountProps {
+export interface FooterRowCountProps {
   api: GridApi;
   translations: Translations;
 }
