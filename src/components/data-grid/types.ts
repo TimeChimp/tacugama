@@ -83,6 +83,7 @@ export interface FormatSettings {
 
 export interface Translations {
   rowCountText: (count: number) => JSX.Element;
+  rowCountSelectedText: (count: number) => JSX.Element;
   noRowsTitle: string;
   noRowsSubtext: string;
   groupBy: string;
@@ -107,6 +108,8 @@ export interface Translations {
   defaultViewTooltip: string;
   lessFilters: string;
   allFilters: string;
+  deleteEntries: string;
+  deleteEntriesCount: (count: number) => JSX.Element;
 }
 
 export interface DataGridProps {
@@ -139,6 +142,7 @@ export interface DataGridProps {
   onUnpinView?: (id: string) => Promise<void>;
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
+  onBulkDelete?: (ids: string[]) => Promise<void>;
 }
 
 export interface DataGridView {
@@ -292,4 +296,11 @@ export interface DataGridViewOptionsProps {
 
 export interface DataGridIconProps {
   color: string;
+}
+
+export interface DataGridActionsProps {
+  api: GridApi;
+  rowsSelected: number;
+  onBulkDelete?: (ids: string[]) => Promise<void>;
+  translations: Translations;
 }

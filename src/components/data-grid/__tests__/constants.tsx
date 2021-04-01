@@ -117,3 +117,9 @@ export const CHECKBOX_TEST_ID = 'data-grid-select-all';
 export const SEARCH_INPUT_TEST_ID = 'data-grid-search';
 export const LOADER_TEST_ID = 'loader';
 export const FILTER_BUTTON_TEST_ID = 'filter-button';
+
+export const DELETE_BUTTON_TEST_ID = 'delete-button';
+export const EXPORT_BUTTON_TEST_ID = 'export-button';
+export const DELETE_SUBMIT_BUTTON_TEST_ID = 'bulk-delete-confirmation-button';
+export const EXPORT_OPTIONS_TEST_ID = 'data-grid-export-options';
+export const EXPORT_OPTION_TEST_ID = 'data-grid-export-option';
