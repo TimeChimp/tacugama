@@ -446,6 +446,7 @@ export const DataGrid = ({
           pagination
           paginationPageSize={25}
           suppressPaginationPanel
+          enableCellTextSelection
           onGridReady={onGridReady}
           getRowNodeId={getRowNodeId}
           onFirstDataRendered={onFirstDataRendered}
