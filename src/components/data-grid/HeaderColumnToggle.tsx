@@ -9,11 +9,7 @@ import { DropdownItem } from '../dropdown/DropdownOption';
 import { Column } from '@ag-grid-community/core';
 import { DATA_TEST_ID } from '../../models';
 
-export const HeaderColumnToggle = ({
-  api: gridApi,
-  columnApi,
-  translations: { searchColumns },
-}: HeaderColumnToggleProps) => {
+export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnToggleProps) => {
   const [active, setActive] = useState(false);
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
   const [visibleColumnIds, setVisibleColumnIds] = useState<string[]>([]);
@@ -70,7 +66,6 @@ export const HeaderColumnToggle = ({
       <Dropdown
         onOpen={() => setActive(true)}
         onClose={() => setActive(false)}
-        searchPlaceholder={searchColumns}
         items={dropdownItems}
         selection
         selectedIds={visibleColumnIds}

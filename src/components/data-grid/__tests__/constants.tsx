@@ -1,6 +1,7 @@
 import React from 'react';
 import { DataGridColumn, Filter, FilterType } from '../types';
 import { Account, Briefcase, Calendar, Documents, Tasks } from '../../icons';
+import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 
 export const ACCESS_TOKEN = '';
 export const DATA_URL = '/timetracking';
@@ -80,40 +81,31 @@ export const FILTERS: Filter[] = [
   },
 ];
 
-export const TIME_ENTRIES = [
-  {
-    id: 'ACC-BBB-CCC-DDD-EEE',
-    name: 'Analysis',
-    description: 'This is a description',
-    client: 'Apple',
-    project: 'Logo and branding',
-    task: 'Testing',
-    start: '2021-03-10T00:00:00',
-    userName: 'Bob',
-  },
-  {
-    id: 'ACC-BBB-CCC-DDD-EE2',
-    name: 'Design',
-    description: 'This is a description',
-    client: 'Microsoft',
-    project: 'Website redesign',
-    task: 'Development',
-    start: '2021-03-10T00:00:00',
-    userName: 'Henkie',
-  },
-  {
-    id: 'ACC-BBB-CCC-DDD-EE3',
-    name: 'Development',
-    description: 'This is a description',
-    client: 'Amazon',
-    project: 'Workshops',
-    task: 'Meeting',
-    start: '2021-03-10T00:00:00',
-    userName: 'Baltus',
-  },
-];
+const getTimeEntries = () => {
+  const timeEntries: any[] = [];
+  for (let i = 0; i < 999; i++) {
+    timeEntries.push({
+      id: `ACC-BBB-CCC-DDD-EEE-${i}`,
+      name: 'Analysis',
+      description: 'This is a description',
+      client: 'Apple',
+      project: 'Logo and branding',
+      task: 'Testing',
+      start: new TcDate().add(i, 'd').toDate(),
+      userName: 'Bob',
+    });
+  }
+  return timeEntries;
+};
+export const TIME_ENTRIES = getTimeEntries();
 
 export const CHECKBOX_TEST_ID = 'data-grid-select-all';
 export const SEARCH_INPUT_TEST_ID = 'data-grid-search';
 export const LOADER_TEST_ID = 'loader';
 export const FILTER_BUTTON_TEST_ID = 'filter-button';
+
+export const DELETE_BUTTON_TEST_ID = 'delete-button';
+export const EXPORT_BUTTON_TEST_ID = 'export-button';
+export const DELETE_SUBMIT_BUTTON_TEST_ID = 'bulk-delete-confirmation-button';
+export const EXPORT_OPTIONS_TEST_ID = 'data-grid-export-options';
+export const EXPORT_OPTION_TEST_ID = 'data-grid-export-option';

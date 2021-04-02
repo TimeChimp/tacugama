@@ -11,7 +11,7 @@ import { ButtonType, ConfirmationModalType } from '../../models';
 
 export interface ConfirmationModalProps {
   title: string;
-  description: string;
+  description: string | JSX.Element;
   type: ConfirmationModalType;
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
