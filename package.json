@@ -1,5 +1,5 @@
 {
-  "version": "0.14.5",
+  "version": "0.16.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -44,17 +44,17 @@
   "size-limit": [
     {
       "path": "dist/tacugama.cjs.production.min.js",
-      "limit": "560 KB"
+      "limit": "565 KB"
     },
     {
       "path": "dist/tacugama.esm.js",
-      "limit": "485 KB"
+      "limit": "490 KB"
     }
   ],
   "devDependencies": {
     "@babel/core": "^7.13.10",
     "@size-limit/preset-small-lib": "^4.6.0",
-    "@storybook/addon-docs": "^6.1.21",
+    "@storybook/addon-docs": "^6.2.1",
     "@storybook/addon-essentials": "^6.1.20",
     "@storybook/addon-info": "^5.3.21",
     "@storybook/addon-links": "^6.1.20",
