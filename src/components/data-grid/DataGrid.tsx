@@ -341,9 +341,6 @@ export const DataGrid = ({
       case 'date':
         return new TcDate(new Date(params.value)).format(dateFormat ?? defaultDateFormat, language ?? defaultLanguage);
       case 'time':
-        if (params.data?.durationOnly) {
-          return '';
-        }
         return new TcDate(new Date(params.value)).format(timeFormat ?? defaultDateFormat, language ?? defaultLanguage);
       case 'duration':
         return formatDuration(params.value, durationFormat, numberFormat);
