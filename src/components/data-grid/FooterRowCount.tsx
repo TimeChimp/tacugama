@@ -4,9 +4,9 @@ import { StyledDataGridDivider, StyledFooterRowCount } from './styles';
 import { useTheme } from '../../providers';
 import { ParagraphSmall } from '../typography';
 
-const MODEL_UPDATED_EVENT_LISTENER = 'modelUpdated';
-const PAGINATION_CHANGED_EVENT_LISTENER = 'paginationChanged';
-const ROW_SELECTED_EVENT_LISTENER = 'rowSelected';
+const MODEL_UPDATED_EVENT = 'modelUpdated';
+const PAGINATION_CHANGED_EVENT = 'paginationChanged';
+const ROW_SELECTED_EVENT = 'rowSelected';
 
 export const FooterRowCount = ({
   api: gridApi,
@@ -25,21 +25,26 @@ export const FooterRowCount = ({
 
   useEffect(() => {
     const onModelUpdated = () => {
-      setCount(gridApi?.paginationGetPageSize());
+      const currentPage = gridApi.paginationGetCurrentPage();
+      const totalResults = gridApi.paginationGetRowCount();
+      const pageSize = gridApi.paginationGetPageSize();
+      const startIndex = currentPage * pageSize + 1;
+      const endIndex = Math.min(startIndex + pageSize - 1, totalResults);
+      setCount(endIndex - startIndex + 1);
     };
 
     const onRowSelection = () => {
       setRowsSelected(gridApi?.getSelectedRows()?.length);
     };
 
-    gridApi?.addEventListener(MODEL_UPDATED_EVENT_LISTENER, onModelUpdated);
-    gridApi?.addEventListener(PAGINATION_CHANGED_EVENT_LISTENER, onModelUpdated);
-    gridApi?.addEventListener(ROW_SELECTED_EVENT_LISTENER, onRowSelection);
+    gridApi?.addEventListener(MODEL_UPDATED_EVENT, onModelUpdated);
+    gridApi?.addEventListener(PAGINATION_CHANGED_EVENT, onModelUpdated);
+    gridApi?.addEventListener(ROW_SELECTED_EVENT, onRowSelection);
 
     return () => {
-      gridApi?.removeEventListener(MODEL_UPDATED_EVENT_LISTENER, onModelUpdated);
-      gridApi?.removeEventListener(PAGINATION_CHANGED_EVENT_LISTENER, onModelUpdated);
-      gridApi?.removeEventListener(ROW_SELECTED_EVENT_LISTENER, onModelUpdated);
+      gridApi?.removeEventListener(MODEL_UPDATED_EVENT, onModelUpdated);
+      gridApi?.removeEventListener(PAGINATION_CHANGED_EVENT, onModelUpdated);
+      gridApi?.removeEventListener(ROW_SELECTED_EVENT, onModelUpdated);
     };
   }, [gridApi]);
 
