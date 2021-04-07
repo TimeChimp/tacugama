@@ -22,7 +22,8 @@ export const FooterPagination = ({ api: gridApi, translations }: FooterRowCountP
   }, [gridApi]);
 
   const handlePageChange = (page: number) => {
-    gridApi.paginationGoToPage(page);
+    // Ag-grid and baseweb have a different way of counting the total number of pages
+    gridApi.paginationGoToPage(page - 1);
     setCurrentPage(page);
   };
 

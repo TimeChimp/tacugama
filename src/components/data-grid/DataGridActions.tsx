@@ -40,6 +40,7 @@ export const DataGridActions = ({
       if (selectedRows.length) {
         const selectedIds = selectedRows.map((row) => row.id);
         await onBulkDelete(selectedIds);
+        gridApi.deselectAll();
       }
     }
   };

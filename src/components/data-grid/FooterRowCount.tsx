@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { FooterRowCountProps } from './types';
 import { StyledDataGridDivider, StyledFooterRowCount } from './styles';
 import { useTheme } from '../../providers';
-import { LabelSmall } from '../typography';
+import { ParagraphSmall } from '../typography';
 
 const MODEL_UPDATED_EVENT_LISTENER = 'modelUpdated';
+const PAGINATION_CHANGED_EVENT_LISTENER = 'paginationChanged';
 const ROW_SELECTED_EVENT_LISTENER = 'rowSelected';
 
 export const FooterRowCount = ({
@@ -24,7 +25,7 @@ export const FooterRowCount = ({
 
   useEffect(() => {
     const onModelUpdated = () => {
-      setCount(gridApi?.getDisplayedRowCount());
+      setCount(gridApi?.paginationGetPageSize());
     };
 
     const onRowSelection = () => {
@@ -32,25 +33,27 @@ export const FooterRowCount = ({
     };
 
     gridApi?.addEventListener(MODEL_UPDATED_EVENT_LISTENER, onModelUpdated);
+    gridApi?.addEventListener(PAGINATION_CHANGED_EVENT_LISTENER, onModelUpdated);
     gridApi?.addEventListener(ROW_SELECTED_EVENT_LISTENER, onRowSelection);
 
     return () => {
       gridApi?.removeEventListener(MODEL_UPDATED_EVENT_LISTENER, onModelUpdated);
+      gridApi?.removeEventListener(PAGINATION_CHANGED_EVENT_LISTENER, onModelUpdated);
       gridApi?.removeEventListener(ROW_SELECTED_EVENT_LISTENER, onModelUpdated);
     };
   }, [gridApi]);
 
   return (
     <StyledFooterRowCount>
-      <LabelSmall margin={[0, scale400]} color={contentTertiary}>
+      <ParagraphSmall margin={[0, scale400]} color={contentTertiary}>
         {rowCountText(count)}
-      </LabelSmall>
+      </ParagraphSmall>
       {rowsSelected ? (
         <>
           <StyledDataGridDivider />
-          <LabelSmall margin={[0, scale400]} color={contentTertiary}>
+          <ParagraphSmall margin={[0, scale400]} color={contentTertiary}>
             {rowCountSelectedText(rowsSelected)}
-          </LabelSmall>
+          </ParagraphSmall>
         </>
       ) : null}
     </StyledFooterRowCount>

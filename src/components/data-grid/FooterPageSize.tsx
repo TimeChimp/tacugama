@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { FooterRowCountProps } from './types';
 import { StyledFooterFooterPageSize } from './styles';
 import { Select } from '../select/Select';
-import LabelSmall from '../typography/LabelSmall';
 import { SIZE } from 'baseui/select';
 import { useTheme } from '../../providers';
+import { ParagraphSmall } from '../typography';
 
 const EVENT_LISTENER = 'paginationChanged';
 
@@ -38,9 +38,9 @@ export const FooterPageSize = ({ api: gridApi, translations }: FooterRowCountPro
 
   return (
     <StyledFooterFooterPageSize>
-      <LabelSmall margin={['0', scale300]} color={dark4}>
+      <ParagraphSmall margin={['0', scale300]} color={dark4}>
         {translations.showResultsBy}
-      </LabelSmall>
+      </ParagraphSmall>
       <Select
         clearable={false}
         size={SIZE.mini}
