@@ -45,6 +45,10 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       padding-right: ${theme.sizing.scale300};
       padding-left: ${theme.sizing.scale300};
     }
+
+    .ag-theme-alpine .ag-ltr .ag-pinned-right-header .ag-header-row:after {
+      display: none;
+    }
   `;
 };
 
@@ -73,6 +77,9 @@ export const StyledFooterRowCount = themedStyled('div', ({ $theme }) => ({
 
 export const StyledFooterPagination = themedStyled('div', ({ $theme }) => ({
   ...padding($theme.sizing.scale300, '0px'),
+  position: 'absolute',
+  left: ' 50%',
+  transform: 'translateX(-50%)',
 }));
 
 export const StyledFooterFooterPageSize = themedStyled('div', ({ $theme }) => ({
@@ -144,8 +151,10 @@ export const StyledDataGridViewListItem = themedStyled('li', ({ $theme }) => ({
 }));
 
 export const StyledDataGridDivider = themedStyled('div', ({ $theme }) => ({
+  display: 'flex',
+  alignSelf: 'center',
   height: $theme.sizing.scale750,
-  ...margin($theme.sizing.scale500, $theme.sizing.scale200),
+  ...margin('0px', $theme.sizing.scale200),
   ...borderRight($theme.borders.border600),
 }));
 
