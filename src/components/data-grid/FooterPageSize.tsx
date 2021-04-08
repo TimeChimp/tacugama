@@ -43,6 +43,7 @@ export const FooterPageSize = ({ api: gridApi, translations }: FooterRowCountPro
       </ParagraphSmall>
       <Select
         clearable={false}
+        searchable={false}
         size={SIZE.mini}
         options={[
           { name: '10', id: 10 },
