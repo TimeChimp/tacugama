@@ -325,13 +325,17 @@ export const DataGrid = ({
     gridApi.onFilterChanged();
   };
 
-  const getValueFormatter = (params: ValueFormatterParams, type?: DataGridColumnType) => {
+  const getValueFormatter = (params: ValueFormatterParams, type?: DataGridColumnType, customMap?: (value: any) => any) => {
     if (!params.value) {
       return;
     }
     const { currency, numberFormat, dateFormat, language, timeFormat, durationFormat } = formatSettings;
     const defaultDateFormat = defaultFormatSettings.dateFormat as string;
     const defaultLanguage = defaultFormatSettings.language as SupportedLocale;
+
+    if (customMap) {
+      params.value = customMap(params);
+    }
 
     switch (type) {
       case 'currency':
@@ -515,7 +519,7 @@ export const DataGrid = ({
             sortable={false}
             resizable={false}
           />
-          {gridColumns.map(({ field, label, width, rowGroup, hide, sort, type, aggFunc }) => (
+          {gridColumns.map(({ field, label, width, rowGroup, hide, sort, sortable, type, aggFunc, customMap }) => (
             <AgGridColumn
               key={field}
               headerName={label}
@@ -526,9 +530,9 @@ export const DataGrid = ({
               sort={sort}
               filter={getFilterType(field, type)}
               filterParams={{ values: (params: any) => getFilterParams(params, field) }}
-              valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, type)}
+              valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, type, customMap)}
               aggFunc={aggFunc}
-              sortable={sortableColumns}
+              sortable={sortable ?? sortableColumns}
               resizable={resizeableColumns}
             />
           ))}
