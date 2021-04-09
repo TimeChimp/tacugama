@@ -34,7 +34,9 @@ export interface DataGridColumn {
   groupable?: boolean;
   aggFunc?: DataGridAggFunc;
   sort?: string;
+  sortable?: boolean;
   hide?: boolean;
+  customMap?: (value: any) => any;
 }
 
 export type FilterTypeModel = TextFilterModel | NumberFilterModel | DateFilterModel | SetFilterModel;
