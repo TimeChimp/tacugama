@@ -325,7 +325,11 @@ export const DataGrid = ({
     gridApi.onFilterChanged();
   };
 
-  const getValueFormatter = (params: ValueFormatterParams, type?: DataGridColumnType, customMap?: (value: any) => any) => {
+  const getValueFormatter = (
+    params: ValueFormatterParams,
+    type?: DataGridColumnType,
+    customMap?: (value: any) => any,
+  ) => {
     if (!params.value) {
       return;
     }
