@@ -340,7 +340,7 @@ export const DataGrid = ({
     }
 
     if (!params.value) {
-      return;
+      return '';
     }
 
     switch (type) {

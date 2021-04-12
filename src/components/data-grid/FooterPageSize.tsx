@@ -51,6 +51,7 @@ export const FooterPageSize = ({ api: gridApi, translations }: FooterRowCountPro
           { name: '50', id: 50 },
           { name: '100', id: 100 },
           { name: '250', id: 250 },
+          { name: '1000', id: 1000 },
         ]}
         value={[{ id: pageSize }]}
         onChange={({ value }) => handlePageSizeChange(value[0].id as number)}
