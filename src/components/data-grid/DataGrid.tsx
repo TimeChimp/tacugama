@@ -330,15 +330,17 @@ export const DataGrid = ({
     type?: DataGridColumnType,
     customMap?: (value: any) => any,
   ) => {
-    if (!params.value) {
-      return;
-    }
     const { currency, numberFormat, dateFormat, language, timeFormat, durationFormat } = formatSettings;
     const defaultDateFormat = defaultFormatSettings.dateFormat as string;
+    const defaultTimeFormat = defaultFormatSettings.timeFormat as string;
     const defaultLanguage = defaultFormatSettings.language as SupportedLocale;
 
     if (customMap) {
       params.value = customMap(params);
+    }
+
+    if (!params.value) {
+      return;
     }
 
     switch (type) {
@@ -349,7 +351,7 @@ export const DataGrid = ({
       case 'date':
         return new TcDate(new Date(params.value)).format(dateFormat ?? defaultDateFormat, language ?? defaultLanguage);
       case 'time':
-        return new TcDate(new Date(params.value)).format(timeFormat ?? defaultDateFormat, language ?? defaultLanguage);
+        return new TcDate(new Date(params.value)).format(timeFormat ?? defaultTimeFormat, language ?? defaultLanguage);
       case 'duration':
         return formatDuration(params.value, durationFormat, numberFormat);
     }
