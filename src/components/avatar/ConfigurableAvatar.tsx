@@ -17,7 +17,7 @@ export const ConfigurableAvatar = ({ src, onUploadClick, size = DEFAULT_SIZE, ..
     theme: {
       current: {
         sizing: { scale400 },
-        customColors: { dark4 },
+        colors: { contentTertiary },
       },
     },
   } = useTheme();
@@ -28,7 +28,7 @@ export const ConfigurableAvatar = ({ src, onUploadClick, size = DEFAULT_SIZE, ..
       <ButtonsContainer>
         <ButtonContainer>
           <RoundButton testId={UPLOAD_BUTTON_TEST_ID} onClick={onUploadClick}>
-            <ImagePlaceholder size={scale400} color={dark4} />
+            <ImagePlaceholder size={scale400} color={contentTertiary} />
           </RoundButton>
         </ButtonContainer>
       </ButtonsContainer>

@@ -26,7 +26,7 @@ export const CharCounter = ({ charCount, title, error = false }: CharCounterProp
       overrides={{
         Block: {
           style: ({ $theme }: { $theme: CustomThemeType }) => ({
-            color: error ? $theme.customColors.red2 : $theme.customColors.dark4,
+            color: error ? $theme.customColors.red2 : $theme.colors.contentTertiary,
             lineHeight: $theme.sizing.scale600,
           }),
         },
