@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View } from '../../icons/View';
 import useTheme from '../../../providers/ThemeProvider';
-import { DataGridViewsProps, DataGridView } from '../types';
-import { StyledDataGridViews, StyledDataGridViewsDivider } from '../StyledDataGrid';
+import { DataGridViewsProps, DataGridView, CreateViewInput } from '../types';
+import { StyledDataGridViews, StyledDataGridDivider } from '../styles';
 import SecondaryButton from '../../button/SecondaryButton';
 import { SIZE } from 'baseui/button';
 import ConfirmationModal from '../../confirmation-modal/ConfirmationModal';
@@ -12,7 +12,6 @@ import { SaveViewModal } from './SaveViewModal';
 import { RenameViewModal } from './RenameViewModal';
 import { ConfirmationModalType } from '../../../models';
 import { DataGridViewOptions } from './DataGridViewOptions';
-import { sortBy, nameOf } from '@timechimp/timechimp-typescript-helpers';
 import ActiveButton from '../../button/ActiveButton';
 
 const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
@@ -20,14 +19,13 @@ const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
 export const DataGridViews = ({
   translations,
   views,
-  selectedView,
   onCreateView,
   onDeleteView,
   onRenameView,
   onPinView,
   onUnpinView,
   onSaveViewState,
-  onSelectView,
+  onActivateView,
   gridApi,
   gridColumnApi,
 }: DataGridViewsProps) => {
@@ -36,7 +34,6 @@ export const DataGridViews = ({
   const [saveModalIsOpen, setSaveModalIsOpen] = useState<boolean>(false);
   const [renameModalIsOpen, setRenameModalIsOpen] = useState<boolean>(false);
   const [editView, setEditView] = useState<DataGridView>();
-  const [allViews, setAllViews] = useState<DataGridView[]>([]);
 
   const {
     theme: {
@@ -47,59 +44,40 @@ export const DataGridViews = ({
     },
   } = useTheme();
 
-  const handleCreateView = async (view: DataGridView) => {
+  const handleCreateView = async (input: CreateViewInput) => {
     if (onCreateView) {
-      await onCreateView(view);
+      await onCreateView(input);
     }
-    return;
   };
 
   const handleSaveViewState = async (id: string, viewState: string) => {
     if (onSaveViewState) {
       await onSaveViewState(id, viewState);
     }
-    return;
   };
 
   const handleRenameView = async (id: string, name: string) => {
     if (onRenameView) {
       await onRenameView(id, name);
     }
-    return;
   };
 
   const handleViewDelete = async () => {
-    if (onDeleteView) {
-      await onDeleteView(editView?.id!);
-    }
-    return;
-  };
-
-  const handleSelectView = (view: DataGridView) => {
-    if (onSelectView) {
-      onSelectView(view);
+    if (editView && onDeleteView) {
+      await onDeleteView(editView.id);
     }
   };
 
-  const isSelectedView = (id: string | undefined) => {
-    return selectedView?.id === id;
+  const handleActivateView = async (id: string) => {
+    if (onActivateView) {
+      await onActivateView(id);
+    }
   };
-
-  useEffect(() => {
-    const allViews = views ? sortBy<DataGridView>(views, [nameOf<DataGridView>('name')]) : [];
-
-    allViews.unshift({
-      name: translations.defaultView,
-      pinned: true,
-    } as DataGridView);
-
-    setAllViews(allViews);
-  }, [views, translations]);
 
   return (
     <>
       <StyledDataGridViews>
-        {allViews
+        {views
           ?.filter((view) => view.pinned)
           .map((view) => (
             <FlexItem
@@ -110,22 +88,21 @@ export const DataGridViews = ({
               marg4={scale400}
               width="fit-content"
             >
-              {isSelectedView(view.id) ? (
+              {view.active ? (
                 <ActiveButton size={SIZE.mini} startEnhancer={() => <View color={primary} size={scale600} />}>
                   {view.name}
                 </ActiveButton>
               ) : (
-                <SecondaryButton onClick={() => handleSelectView(view)} size={SIZE.mini}>
+                <SecondaryButton onClick={() => handleActivateView(view.id)} size={SIZE.mini}>
                   {view.name}
                 </SecondaryButton>
               )}
             </FlexItem>
           ))}
-        <StyledDataGridViewsDivider />
+        <StyledDataGridDivider />
         <DataGridViewOptions
           translations={translations}
-          views={allViews}
-          selectedView={selectedView}
+          views={views}
           setEditView={setEditView}
           setDeleteModalIsOpen={setDeleteModalIsOpen}
           setCreateModalIsOpen={setCreateModalIsOpen}
@@ -133,6 +110,7 @@ export const DataGridViews = ({
           setSaveModalIsOpen={setSaveModalIsOpen}
           onPinView={onPinView}
           onUnpinView={onUnpinView}
+          handleActivateView={handleActivateView}
         />
       </StyledDataGridViews>
       <ConfirmationModal

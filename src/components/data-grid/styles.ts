@@ -1,7 +1,7 @@
 import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
 import { margin, padding } from '../../utils';
-import { borderTop, borderRight, borderLeft } from '../../utils/css';
+import { borderTop, borderRight, borderLeft, borderBottom } from '../../utils/css';
 
 export const getGridThemeOverrides = (theme: CustomThemeType) => {
   return `
@@ -31,13 +31,34 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       font-size: ${theme.sizing.scale650};
       line-height: ${theme.sizing.scale650};
     }
+
+    .ag-header-icon.ag-header-cell-menu-button {
+      display: none;
+    }
+
+    .ag-theme-alpine .ag-pinned-right-header,
+    .ag-theme-alpine .ag-cell.ag-cell-first-right-pinned:not(.ag-cell-range-left):not(.ag-cell-range-single-cell) {
+      border-left: none;
+    }
+
+    .ag-theme-alpine .ag-status-bar {
+      padding-right: ${theme.sizing.scale300};
+      padding-left: ${theme.sizing.scale300};
+    }
+
+    .ag-theme-alpine .ag-ltr .ag-pinned-right-header .ag-header-row:after {
+      display: none;
+    }
   `;
 };
 
-export const StyledDataGrid = themedStyled('div', {
-  height: 'calc(100vh - 325px)',
+export interface StyledDataGridProps {
+  $height?: string;
+}
+export const StyledDataGrid = themedStyled<'div', StyledDataGridProps>('div', ({ $height = '100%' }) => ({
+  height: $height,
   width: '100%',
-});
+}));
 
 export const StyledDataGridFilters = themedStyled('div', ({ $theme }) => ({
   ...margin($theme.sizing.scale400, '0'),
@@ -46,11 +67,26 @@ export const StyledDataGridFilters = themedStyled('div', ({ $theme }) => ({
 }));
 
 export const StyledDataGridSearch = themedStyled('div', {
-  width: '25%',
+  width: '280px',
 });
 
-export const StyledStatusBarRowCount = themedStyled('div', ({ $theme }) => ({
-  ...padding($theme.sizing.scale650, '0px'),
+export const StyledFooterRowCount = themedStyled('div', ({ $theme }) => ({
+  display: 'flex',
+  ...padding($theme.sizing.scale200, '0px'),
+}));
+
+export const StyledFooterPagination = themedStyled('div', ({ $theme }) => ({
+  ...padding($theme.sizing.scale300, '0px'),
+  position: 'absolute',
+  left: ' 50%',
+  transform: 'translateX(-50%)',
+}));
+
+export const StyledFooterFooterPageSize = themedStyled('div', ({ $theme }) => ({
+  ...padding($theme.sizing.scale300, $theme.sizing.scale200),
+  display: 'flex',
+  whiteSpace: 'nowrap',
+  alignItems: 'center',
 }));
 
 export const StyledNoRowsTemplate = themedStyled('div', ({ $theme }) => ({
@@ -78,17 +114,26 @@ export const StyledHeaderCheckboxValue = themedStyled('div', ({ $theme }) => ({
   ...padding('0', '0', '0', $theme.sizing.scale0),
 }));
 
-export const StyledDataGridHeader = themedStyled('div', ({ $theme }) => ({
-  ...padding($theme.sizing.scale100, $theme.sizing.scale300),
-  display: 'flex',
-  justifyContent: 'space-between',
-  ...borderTop($theme.borders.border300),
-  ...borderLeft($theme.borders.border300),
-  ...borderRight($theme.borders.border300),
-  background: $theme.colors.primaryB,
-}));
+interface StyledDataGridHeaderProps {
+  $justifyContent?: string;
+}
 
-export const StyledDataGridActions = themedStyled('div', ({ $theme }) => ({}));
+export const StyledDataGridHeader = themedStyled<'div', StyledDataGridHeaderProps>(
+  'div',
+  ({ $theme, $justifyContent = 'space-between' }) => ({
+    ...padding($theme.sizing.scale100, $theme.sizing.scale300),
+    display: 'flex',
+    justifyContent: $justifyContent,
+    ...borderTop($theme.borders.border300),
+    ...borderLeft($theme.borders.border300),
+    ...borderRight($theme.borders.border300),
+    background: $theme.colors.primaryB,
+  }),
+);
+
+export const StyledDataGridActions = themedStyled('div', ({ $theme }) => ({
+  display: 'flex',
+}));
 
 export const StyledDataGridViews = themedStyled('div', ({ $theme }) => ({
   display: 'flex',
@@ -97,25 +142,23 @@ export const StyledDataGridViews = themedStyled('div', ({ $theme }) => ({
 }));
 
 export const StyledDataGridViewListItem = themedStyled('li', ({ $theme }) => ({
-  ...padding($theme.sizing.scale300, $theme.sizing.scale300, $theme.sizing.scale300, $theme.sizing.scale650),
+  ...padding('0', $theme.sizing.scale300),
   backgroundColor: $theme.colors.primaryB,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-}));
-export const StyledDataGridViewListItemLabel = themedStyled('div', ({ $theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
+  ...borderBottom($theme.borders.border200),
 }));
 
-export const StyledDataGridViewsDivider = themedStyled('div', ({ $theme }) => ({
+export const StyledDataGridDivider = themedStyled('div', ({ $theme }) => ({
+  display: 'flex',
+  alignSelf: 'center',
   height: $theme.sizing.scale750,
-  ...margin($theme.sizing.scale500, $theme.sizing.scale200),
+  ...margin('0px', $theme.sizing.scale200),
   ...borderRight($theme.borders.border600),
 }));
 
 export const StyledViewOptionsFooter = themedStyled('div', ({ $theme }) => ({
   backgroundColor: $theme.colors.primaryB,
-  ...padding($theme.sizing.scale200, $theme.sizing.scale300),
-  ...borderTop($theme.borders.border200),
+  ...padding('0', $theme.sizing.scale100),
 }));

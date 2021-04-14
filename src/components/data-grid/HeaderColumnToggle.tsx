@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { StyledHeaderColumnToggle } from './StyledDataGrid';
-import { Cog } from '../icons/Cog';
+import { TableSettings } from '../icons';
+import { StyledHeaderColumnToggle } from './styles';
 import { Dropdown } from '../dropdown/Dropdown';
 import TertiaryButton from '../button/TertiaryButton';
 import { useTheme } from '../../providers/ThemeProvider';
@@ -9,7 +9,7 @@ import { DropdownItem } from '../dropdown/DropdownOption';
 import { Column } from '@ag-grid-community/core';
 import { DATA_TEST_ID } from '../../models';
 
-export const HeaderColumnToggle = ({ api: gridApi, columnApi, searchPlaceholder }: HeaderColumnToggleProps) => {
+export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnToggleProps) => {
   const [active, setActive] = useState(false);
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
   const [visibleColumnIds, setVisibleColumnIds] = useState<string[]>([]);
@@ -18,7 +18,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi, searchPlaceholder 
     theme: {
       current: {
         sizing: { scale600 },
-        colors: { primary, contentPrimary },
+        colors: { primary },
       },
     },
   } = useTheme();
@@ -66,8 +66,6 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi, searchPlaceholder 
       <Dropdown
         onOpen={() => setActive(true)}
         onClose={() => setActive(false)}
-        showSearch
-        searchPlaceholder={searchPlaceholder}
         items={dropdownItems}
         selection
         selectedIds={visibleColumnIds}
@@ -77,7 +75,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi, searchPlaceholder 
         }}
       >
         <TertiaryButton>
-          <Cog size={scale600} color={active ? primary : contentPrimary} />
+          <TableSettings size={scale600} color={active ? primary : '#87878E'} />
         </TertiaryButton>
       </Dropdown>
     </StyledHeaderColumnToggle>

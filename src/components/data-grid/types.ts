@@ -1,14 +1,18 @@
+import { Dispatch, SetStateAction, ComponentType } from 'react';
 import {
   ColumnApi,
   ColumnState,
   DateFilterModel,
   GridApi,
   ICombinedSimpleModel,
+  IFilterComp,
   NumberFilterModel,
   TextFilterModel,
 } from '@ag-grid-community/core';
-import { Dispatch, SetStateAction } from 'react';
+import { DurationFormat, NumberFormat, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DropdownItem } from '../dropdown';
+import { SVGProps as IconProps } from '../icons';
+import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
 
 export interface DataGridApi {
   getSelectedRows: () => any[];
@@ -30,11 +34,35 @@ export interface DataGridColumn {
   groupable?: boolean;
   aggFunc?: DataGridAggFunc;
   sort?: string;
+  sortable?: boolean;
+  hide?: boolean;
+  customMap?: (value: any) => any;
 }
 
-export type FilterTypeModel = TextFilterModel | NumberFilterModel | DateFilterModel;
+export type FilterTypeModel = TextFilterModel | NumberFilterModel | DateFilterModel | SetFilterModel;
 export interface FilterModel {
   [key: string]: FilterTypeModel | ICombinedSimpleModel<FilterTypeModel>;
+}
+
+export type IFilterType =
+  | string
+  | {
+      new (): IFilterComp;
+    }
+  | boolean;
+
+export enum FilterType {
+  date = 'date',
+  string = 'string',
+}
+export interface Filter {
+  type: FilterType;
+  columnField: string;
+  values?: string[];
+  valuesLoading?: boolean;
+  title: string;
+  icon?: ComponentType<IconProps>;
+  searchPlaceholder?: string;
 }
 
 export interface DataGridState {
@@ -46,30 +74,29 @@ export interface DataGridState {
   filterModel: FilterModel;
 }
 
-export type NumberFormat = 'space' | 'dot' | 'comma' | 'apostrophe' | undefined;
-export type Language = 'nl-NL' | 'en-US' | 'en-GB' | undefined;
-export type DurationFormat = 'HH:mm:ss' | 'HH:mm' | 'decimal' | undefined;
-
 export interface FormatSettings {
-  durationFormat: DurationFormat;
-  dateFormat: string;
-  numberFormat: NumberFormat;
-  currency: string;
-  language: Language;
-  timeFormat: string;
+  durationFormat?: DurationFormat;
+  dateFormat?: string;
+  numberFormat?: NumberFormat;
+  currency?: string;
+  language?: SupportedLocale;
+  timeFormat?: string;
 }
 
 export interface Translations {
   rowCountText: (count: number) => JSX.Element;
+  rowCountSelectedText: (count: number) => JSX.Element;
   noRowsTitle: string;
   noRowsSubtext: string;
   groupBy: string;
   search: string;
+  searchBar: string;
   defaultView: string;
   viewOptions: string;
   addView: string;
   viewName: string;
   saveColumns: string;
+  searchColumns: string;
   saveGrouping: string;
   saveFilters: string;
   saveView: string;
@@ -81,10 +108,19 @@ export interface Translations {
   deleteView: string;
   deleteViewConfirmation: string;
   defaultViewTooltip: string;
+  lessFilters: string;
+  allFilters: string;
+  showResultsBy: string;
+  paginationPrevious: string;
+  paginationNext: string;
+  paginationOutOf: string;
+  deleteEntries: string;
+  deleteEntriesCount: (count: number) => JSX.Element;
 }
 
 export interface DataGridProps {
   columns: DataGridColumn[];
+  filters?: Filter[];
   selection?: boolean;
   filtering?: boolean;
   grouping?: boolean;
@@ -94,37 +130,74 @@ export interface DataGridProps {
   rowActionItems?: DropdownItem[];
   state?: string;
   dataUrl: string;
-  accessToken: string;
+  accessToken?: string;
   sortableColumns?: boolean;
   resizeableColumns?: boolean;
   formatSettings?: FormatSettings;
   translations?: Translations;
   views?: DataGridView[];
-  onCreateView?: (view: DataGridView) => Promise<void>;
+  height?: string;
+  dates?: Date[];
+  setDates?: (dates: Date[]) => void;
+  onDeactivateView?: (id: string) => Promise<void>;
+  onActivateView?: (id: string) => Promise<void>;
+  onCreateView?: (view: CreateViewInput) => Promise<void>;
+  searchColumns?: string[];
   onDeleteView?: (id: string) => Promise<void>;
   onPinView?: (id: string) => Promise<void>;
   onUnpinView?: (id: string) => Promise<void>;
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
+  onBulkDelete?: (ids: string[]) => Promise<void>;
 }
 
 export interface DataGridView {
-  id?: string;
+  id: string;
   name: string;
   pinned: boolean;
   viewState: string;
+  viewType: string;
+  active: boolean;
+}
+
+export interface CreateViewInput {
+  name: string;
+  viewState: string;
+}
+
+export interface SelectedFilterIds {
+  [key: string]: string[];
 }
 
 export interface FiltersProps {
+  api: GridApi;
   columns: DataGridColumn[];
+  filters?: Filter[];
+  dates?: Date[];
+  setDates?: (dates: Date[]) => void;
   grouping?: boolean;
   filtering?: boolean;
   onGrouping: (rowGroups: string[]) => void;
   onFiltering: (filters: FilterModel) => void;
-  filterModel: FilterModel;
   translations: Translations;
+  searchColumns?: string[];
+  dateFormat: string;
+  selectedFilterIds: SelectedFilterIds;
+  setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
 }
-export interface StatusBarRowCountProps {
+
+export interface ColumnFiltersProps {
+  filters?: Filter[];
+  dates?: Date[];
+  setDates?: (dates: Date[]) => void;
+  onFiltering: (filters: FilterModel) => void;
+  api: GridApi;
+  translations: Translations;
+  dateFormat: string;
+  selectedFilterIds: SelectedFilterIds;
+  setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
+}
+export interface FooterRowCountProps {
   api: GridApi;
   translations: Translations;
 }
@@ -142,7 +215,7 @@ export interface HeaderCheckboxProps {
 export interface HeaderColumnToggleProps {
   api: GridApi;
   columnApi: ColumnApi;
-  searchPlaceholder?: string;
+  translations: Translations;
 }
 
 export interface DataGridRequest {
@@ -176,14 +249,13 @@ export interface NoRowsTemplateProps {
 export interface DataGridViewsProps {
   translations: Translations;
   views?: DataGridView[];
-  selectedView?: DataGridView;
-  onCreateView?: (view: DataGridView) => Promise<void>;
+  onCreateView?: (input: CreateViewInput) => Promise<void>;
   onDeleteView?: (id: string) => Promise<void>;
   onPinView?: (id: string) => Promise<void>;
   onUnpinView?: (id: string) => Promise<void>;
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
-  onSelectView?: (view: DataGridView | null) => void;
+  onActivateView?: (id: string) => void;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
 }
@@ -191,7 +263,7 @@ export interface DataGridViewsProps {
 export interface CreateViewModalProps {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
-  handleCreateView: (view: DataGridView) => Promise<void>;
+  handleCreateView: (input: CreateViewInput) => Promise<void>;
   translations: Translations;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
@@ -218,7 +290,6 @@ export interface RenameViewModalProps {
 export interface DataGridViewOptionsProps {
   translations: Translations;
   views?: DataGridView[];
-  selectedView: DataGridView | undefined;
   setEditView: Dispatch<SetStateAction<DataGridView | undefined>>;
   setDeleteModalIsOpen: Dispatch<SetStateAction<boolean>>;
   setCreateModalIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -226,4 +297,16 @@ export interface DataGridViewOptionsProps {
   setSaveModalIsOpen: Dispatch<SetStateAction<boolean>>;
   onPinView?: (id: string) => Promise<void>;
   onUnpinView?: (id: string) => Promise<void>;
+  handleActivateView: (id: string) => Promise<void>;
+}
+
+export interface DataGridIconProps {
+  color: string;
+}
+
+export interface DataGridActionsProps {
+  api: GridApi;
+  rowsSelected: number;
+  onBulkDelete?: (ids: string[]) => Promise<void>;
+  translations: Translations;
 }

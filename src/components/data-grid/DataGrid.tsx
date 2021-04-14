@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
-import ReactDOMServer from 'react-dom/server';
+import React, { useCallback, useEffect, useState } from 'react';
 import fetch from 'isomorphic-unfetch';
-import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader } from './StyledDataGrid';
+import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader } from './styles';
 import { RowActionsCell } from './RowActionsCell';
-import { StatusBarRowCount } from './StatusBarRowCount';
+import { FooterRowCount } from './FooterRowCount';
+import { FooterPagination } from './FooterPagination';
+import { FooterPageSize } from './FooterPageSize';
 import { NoRowsTemplate } from './NoRowsTemplate';
 import { HeaderCheckbox } from './HeaderCheckbox';
 import { HeaderColumnToggle } from './HeaderColumnToggle';
 import { LoadingCellTemplate } from './LoadingCellTemplate';
-import { Filters } from './Filters';
+import { Filters } from './filters';
 import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 import { StatusBarModule } from '@ag-grid-enterprise/status-bar';
 import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
+import { SetFilterModel, SetFilterModule } from '@ag-grid-enterprise/set-filter';
 import { AgGridColumn, AgGridReact } from '@ag-grid-community/react';
 import { CsvExportModule } from '@ag-grid-community/csv-export';
 import { ExcelExportModule } from '@ag-grid-enterprise/excel-export';
@@ -23,8 +25,18 @@ import {
   IServerSideGetRowsParams,
   ServerSideStoreType,
   GridReadyEvent,
+  DateFilterModel,
+  SelectionChangedEvent,
 } from '@ag-grid-community/core';
-import { formatCurrency, formatNumber, formatDuration, TcDate } from '@timechimp/timechimp-typescript-helpers';
+import {
+  formatCurrency,
+  formatNumber,
+  formatDuration,
+  TcDate,
+  sortBy,
+  nameOf,
+  SupportedLocale,
+} from '@timechimp/timechimp-typescript-helpers';
 
 import {
   DataGridApi,
@@ -35,17 +47,27 @@ import {
   FilterModel,
   DataGridResponse,
   DataGridView,
+  CreateViewInput,
+  IFilterType,
+  SelectedFilterIds,
 } from './types';
 import { useTheme } from '../../providers';
-import { TriangleDown, TriangleUp } from '../icons';
 import { defaultFormatSettings } from './defaultFormatSettings';
 import { defaultTranslations } from './defaultTranslations';
 import DataGridViews from './views/DataGridViews';
+import { SortAscendingIcon } from './SortAscendingIcon';
+import { SortDescendingIcon } from './SortDescendingIcon';
+import ReactDOMServer from 'react-dom/server';
+import DataGridActions from './DataGridActions';
+
+const DEFAULT_SEARCH_COLUMNS = ['name'];
+const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
 
 export const DataGrid = ({
   columns,
   selection,
   filtering,
+  filters,
   grouping,
   columnToggling,
   viewing,
@@ -56,22 +78,44 @@ export const DataGrid = ({
   sortableColumns,
   resizeableColumns,
   views,
+  dates,
+  setDates,
+  onDeactivateView,
+  onActivateView,
   onCreateView,
   onDeleteView,
   onRenameView,
   onPinView,
   onUnpinView,
   onSaveViewState,
+  onBulkDelete,
+  searchColumns = DEFAULT_SEARCH_COLUMNS,
   formatSettings = defaultFormatSettings,
   translations = defaultTranslations,
+  height = DEFAULT_HEIGHT,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
-  const [filterModel, setFilterModel] = useState<FilterModel>({});
-  const [selectedView, setSelectedView] = useState<DataGridView | null>();
+  const [allViews, setAllViews] = useState<DataGridView[]>([]);
+  const [selectedFilterIds, setSelectedFilterIds] = useState<SelectedFilterIds>({});
+  const [rowsSelected, setRowsSelected] = useState<number>(0);
 
   const { theme } = useTheme();
+
+  useEffect(() => {
+    const allViews = views ? sortBy<DataGridView>(views, [nameOf<DataGridView>('name')]) : [];
+    const hasActiveView = allViews.some((view) => view.active);
+
+    allViews.unshift({
+      id: 'default',
+      name: translations.defaultView,
+      pinned: true,
+      active: !hasActiveView,
+    } as DataGridView);
+
+    setAllViews(allViews);
+  }, [views, translations]);
 
   const getGridThemeClassName = () => {
     return theme.current === theme.dark ? 'ag-theme-alpine-dark' : 'ag-theme-alpine';
@@ -110,6 +154,53 @@ export const DataGrid = ({
     gridApi.sizeColumnsToFit();
   };
 
+  const setViewFilterIds = (filterModel: FilterModel) => {
+    setSelectedFilterIds({});
+
+    let filterIds: SelectedFilterIds = {};
+    Object.keys(filterModel).forEach((filterName) => {
+      const filter = filterModel[filterName];
+      if (filter.filterType === 'set') {
+        const setFilter = filter as SetFilterModel;
+        if (setFilter.values) {
+          const values = setFilter.values.filter((value) => typeof value === 'string') as string[];
+          filterIds[filterName] = values;
+        }
+      }
+
+      if (filter.filterType === 'date') {
+        const { dateFrom, dateTo } = filter as DateFilterModel;
+        if (setDates && dateFrom && dateTo) {
+          setDates([new TcDate(dateFrom).toDate(), new TcDate(dateTo).toDate()]);
+        }
+      }
+    });
+    setSelectedFilterIds(filterIds);
+  };
+
+  const getInitialDateRange = () => {
+    const tcDate = new TcDate();
+    const startOfMonth = tcDate.startOf('month').toDate();
+    const endOfMonth = tcDate.endOf('month').toDate();
+
+    return [startOfMonth, endOfMonth];
+  };
+
+  const resetGrid = () => {
+    gridColumnApi.resetColumnState();
+    gridColumnApi.resetColumnGroupState();
+
+    const filterModel = gridApi.getFilterModel();
+    Object.keys(filterModel).forEach((filter) => {
+      gridApi.destroyFilter(filter);
+    });
+
+    setViewFilterIds({});
+    if (setDates) {
+      setDates(getInitialDateRange());
+    }
+  };
+
   const setViewState = (state: string | null) => {
     if (state) {
       const gridState: DataGridState = JSON.parse(state);
@@ -117,33 +208,46 @@ export const DataGrid = ({
       gridColumnApi.setColumnState(gridState.columnState);
       gridColumnApi.setColumnGroupState(gridState.columnGroupState);
       gridApi.setFilterModel(gridState.filterModel);
-      setFilterModel(gridState.filterModel);
+      setViewFilterIds(gridState.filterModel);
     } else {
-      gridColumnApi.resetColumnState();
-      gridColumnApi.resetColumnGroupState();
-      gridApi.setFilterModel({});
-      setFilterModel({});
+      resetGrid();
     }
 
+    gridApi.onFilterChanged();
     gridApi.sizeColumnsToFit();
   };
 
-  const onSelectView = (view: DataGridView | null) => {
-    setSelectedView(view);
-    setViewState(view?.viewState!);
+  const handleActivateView = async (id: string) => {
+    const view = allViews?.find((view) => view.id === id);
+    if (view) {
+      if (view.id === 'default' && onDeactivateView) {
+        // Deactivate current view when selecting the default view
+        const activeView = allViews.find((view) => view.active);
+        if (activeView) {
+          await onDeactivateView(activeView.id);
+        }
+
+        view.active = true;
+        setAllViews([...allViews.filter((x) => x.id !== id), view]);
+      } else if (onActivateView) {
+        await onActivateView(view.id);
+      }
+
+      setViewState(view.viewState!);
+    }
   };
 
-  const handleCreateView = async (view: DataGridView) => {
-    onSelectView(view);
+  const handleCreateView = async (input: CreateViewInput) => {
     if (onCreateView) {
-      await onCreateView(view);
+      await onCreateView(input);
     }
-    return;
   };
 
   const onFirstDataRendered = () => {
-    // const view = null; // TODO get selected view from user
-    // onSelectView
+    const activeView = allViews?.find((view) => view.active);
+    if (activeView) {
+      setViewState(activeView.viewState!);
+    }
   };
 
   const createServerSideDatasource = (): IServerSideDatasource => {
@@ -176,17 +280,24 @@ export const DataGrid = ({
     };
   };
 
+  const createDataGridApi = useCallback(
+    (api: GridApi) => {
+      if (onReady) {
+        const dataGridApi: DataGridApi = {
+          getSelectedRows: () => getSelectedRows(api),
+          getSelectedRow: () => getSelectedRow(api),
+          exportAsCsv: () => exportAsCsv(api),
+          exportAsExcel: () => exportAsExcel(api),
+          refreshStore: () => refreshStore(api),
+        };
+        onReady(dataGridApi);
+      }
+    },
+    [onReady],
+  );
+
   const onGridReady = async ({ api, columnApi }: GridReadyEvent) => {
-    if (onReady) {
-      const dataGridApi: DataGridApi = {
-        getSelectedRows: () => getSelectedRows(api),
-        getSelectedRow: () => getSelectedRow(api),
-        exportAsCsv: () => exportAsCsv(api),
-        exportAsExcel: () => exportAsExcel(api),
-        refreshStore: () => refreshStore(api),
-      };
-      onReady(dataGridApi);
-    }
+    createDataGridApi(api);
 
     setGridApi(api);
     setGridColumnApi(columnApi);
@@ -195,8 +306,6 @@ export const DataGrid = ({
 
     const datasource = createServerSideDatasource();
     api.setServerSideDatasource(datasource);
-
-    setFilterModel(api.getFilterModel());
   };
 
   const getRowNodeId = (data: any) => {
@@ -212,57 +321,118 @@ export const DataGrid = ({
   };
 
   const onFiltering = (filters: FilterModel) => {
-    setFilterModel(filters);
     gridApi.setFilterModel(filters);
     gridApi.onFilterChanged();
   };
 
-  const getValueFormatter = (params: ValueFormatterParams, type?: DataGridColumnType) => {
+  const getValueFormatter = (
+    params: ValueFormatterParams,
+    type?: DataGridColumnType,
+    customMap?: (value: any) => any,
+  ) => {
     const { currency, numberFormat, dateFormat, language, timeFormat, durationFormat } = formatSettings;
+    const defaultDateFormat = defaultFormatSettings.dateFormat as string;
+    const defaultTimeFormat = defaultFormatSettings.timeFormat as string;
+    const defaultLanguage = defaultFormatSettings.language as SupportedLocale;
+
+    if (customMap) {
+      params.value = customMap(params);
+    }
+
+    if (!params.value) {
+      return '';
+    }
+
     switch (type) {
       case 'currency':
         return formatCurrency(params.value, currency, numberFormat);
       case 'number':
         return formatNumber(params.value, 2, numberFormat);
       case 'date':
-        return new TcDate(params.value).format(dateFormat, language);
+        return new TcDate(new Date(params.value)).format(dateFormat ?? defaultDateFormat, language ?? defaultLanguage);
       case 'time':
-        return new TcDate(params.value).format(timeFormat, language);
+        return new TcDate(new Date(params.value)).format(timeFormat ?? defaultTimeFormat, language ?? defaultLanguage);
       case 'duration':
         return formatDuration(params.value, durationFormat, numberFormat);
     }
     return params.value;
   };
 
+  const getFilterParams = (params: any, columnField?: string) => {
+    if (!params) {
+      return;
+    }
+    let values: string[] = [];
+    const columnFilter = filters?.find((filter) => filter.columnField === columnField);
+    if (columnFilter && columnFilter.values) {
+      values = columnFilter.values;
+    }
+    params.success(values);
+  };
+
+  const checkIfSearchColumn = (columnField: string) => searchColumns.includes(columnField);
+
+  const getFilterType = (columnField: string, type?: DataGridColumnType): IFilterType | undefined => {
+    const isSearchColumn = checkIfSearchColumn(columnField);
+    if (isSearchColumn) {
+      return 'agTextColumnFilter';
+    }
+
+    if (type === 'date') {
+      return 'agDateColumnFilter';
+    }
+    return 'agSetColumnFilter';
+  };
+
+  const onSelectionChanged = (event: SelectionChangedEvent) => {
+    const selected = event.api.getSelectedNodes().length;
+    setRowsSelected(selected);
+  };
+
   return (
     <>
       <Filters
+        api={gridApi}
         columns={gridColumns}
         filtering={filtering}
+        filters={filters}
+        dates={dates}
+        setDates={setDates}
         grouping={grouping}
         onGrouping={onGrouping}
         onFiltering={onFiltering}
-        filterModel={filterModel}
         translations={translations}
+        searchColumns={searchColumns}
+        dateFormat={formatSettings.dateFormat ?? (defaultFormatSettings.dateFormat as string)}
+        selectedFilterIds={selectedFilterIds}
+        setSelectedFilterIds={setSelectedFilterIds}
       />
-      <StyledDataGrid className={getGridThemeClassName()}>
-        {viewing && (
-          <StyledDataGridHeader>
-            <DataGridViews
-              views={views}
-              selectedView={selectedView!}
-              onCreateView={handleCreateView}
-              onDeleteView={onDeleteView}
-              onRenameView={onRenameView}
-              onPinView={onPinView}
-              onUnpinView={onUnpinView}
-              onSaveViewState={onSaveViewState}
-              onSelectView={onSelectView}
-              translations={translations}
-              gridApi={gridApi}
-              gridColumnApi={gridColumnApi}
-            />
-            {/* <DataGridActions translations={translations} /> TODO include when in sprint */}
+      <StyledDataGrid $height={height} className={getGridThemeClassName()}>
+        {(viewing || selection) && (
+          <StyledDataGridHeader $justifyContent={selection && !viewing ? 'flex-end' : 'space-between'}>
+            {viewing && (
+              <DataGridViews
+                views={allViews}
+                onCreateView={handleCreateView}
+                onDeleteView={onDeleteView}
+                onRenameView={onRenameView}
+                onPinView={onPinView}
+                onUnpinView={onUnpinView}
+                onSaveViewState={onSaveViewState}
+                onActivateView={handleActivateView}
+                translations={translations}
+                gridApi={gridApi}
+                gridColumnApi={gridColumnApi}
+              />
+            )}
+            {selection && (
+              <DataGridActions
+                api={gridApi}
+                rowsSelected={rowsSelected}
+                translations={translations}
+                onBulkDelete={onBulkDelete}
+              />
+            )}
           </StyledDataGridHeader>
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
@@ -281,18 +451,24 @@ export const DataGrid = ({
             },
           }}
           pagination
+          paginationPageSize={25}
           suppressPaginationPanel
+          enableCellTextSelection
           onGridReady={onGridReady}
           getRowNodeId={getRowNodeId}
           onFirstDataRendered={onFirstDataRendered}
           onGridSizeChanged={onGridSizeChanged}
+          onSelectionChanged={onSelectionChanged}
+          suppressDragLeaveHidesColumns
           cacheBlockSize={1000}
           maxBlocksInCache={10}
           blockLoadDebounceMillis={100}
           headerHeight={36}
           frameworkComponents={{
             moreActionsCell: RowActionsCell,
-            statusBarRowCount: StatusBarRowCount,
+            footerRowCount: FooterRowCount,
+            footerPagination: FooterPagination,
+            footerPageSize: FooterPageSize,
             noRowsTemplate: () => <NoRowsTemplate translations={translations} />,
             headerCheckbox: HeaderCheckbox,
             headerColumnToggle: HeaderColumnToggle,
@@ -300,19 +476,40 @@ export const DataGrid = ({
           }}
           icons={{
             sortAscending: () =>
-              ReactDOMServer.renderToStaticMarkup(<TriangleDown size={theme.current.sizing.scale200} />),
+              ReactDOMServer.renderToStaticMarkup(<SortAscendingIcon color={theme.current.colors.colorPrimary} />),
             sortDescending: () =>
-              ReactDOMServer.renderToStaticMarkup(<TriangleUp size={theme.current.sizing.scale200} />),
+              ReactDOMServer.renderToStaticMarkup(<SortDescendingIcon color={theme.current.colors.colorPrimary} />),
           }}
-          modules={[ServerSideRowModelModule, RowGroupingModule, CsvExportModule, ExcelExportModule, StatusBarModule]}
+          modules={[
+            ServerSideRowModelModule,
+            RowGroupingModule,
+            CsvExportModule,
+            ExcelExportModule,
+            StatusBarModule,
+            SetFilterModule,
+          ]}
           statusBar={{
             statusPanels: [
               {
-                statusPanel: 'statusBarRowCount',
+                statusPanel: 'footerRowCount',
                 statusPanelParams: {
                   translations,
                 },
                 align: 'left',
+              },
+              {
+                statusPanel: 'footerPagination',
+                statusPanelParams: {
+                  translations,
+                },
+                align: 'center',
+              },
+              {
+                statusPanel: 'footerPageSize',
+                statusPanelParams: {
+                  translations,
+                },
+                align: 'right',
               },
             ],
           }}
@@ -328,18 +525,20 @@ export const DataGrid = ({
             sortable={false}
             resizable={false}
           />
-          {gridColumns.map((column) => (
+          {gridColumns.map(({ field, label, width, rowGroup, hide, sort, sortable, type, aggFunc, customMap }) => (
             <AgGridColumn
-              key={column.field}
-              headerName={column.label}
-              field={column.field}
-              width={column.width}
-              rowGroup={column.rowGroup}
-              hide={column.rowGroup}
-              sort={column.sort}
-              valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, column.type)}
-              aggFunc={column.aggFunc}
-              sortable={sortableColumns}
+              key={field}
+              headerName={label}
+              field={field}
+              width={width}
+              rowGroup={rowGroup}
+              hide={hide || rowGroup}
+              sort={sort}
+              filter={getFilterType(field, type)}
+              filterParams={{ values: (params: any) => getFilterParams(params, field) }}
+              valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, type, customMap)}
+              aggFunc={aggFunc}
+              sortable={sortable ?? sortableColumns}
               resizable={resizeableColumns}
             />
           ))}
@@ -357,6 +556,7 @@ export const DataGrid = ({
             maxWidth={60}
             sortable={false}
             resizable={false}
+            pinned={'right'}
           />
         </AgGridReact>
       </StyledDataGrid>

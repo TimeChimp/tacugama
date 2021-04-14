@@ -5,6 +5,6 @@ export const defaultFormatSettings: FormatSettings = {
   durationFormat: 'HH:mm',
   dateFormat: 'dd-MM-yyyy',
   currency: 'USD',
-  numberFormat: 'dot',
+  numberFormat: '1,234.56',
   language: 'en-US',
 };

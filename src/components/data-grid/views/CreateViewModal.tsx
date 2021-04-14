@@ -56,7 +56,6 @@ export const CreateViewModal = ({
     const viewState = getState();
     await handleCreateView({
       name,
-      pinned: true,
       viewState,
     });
     setLoading(false);

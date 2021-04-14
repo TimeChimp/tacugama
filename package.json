@@ -1,5 +1,5 @@
 {
-  "version": "0.11.4",
+  "version": "0.17.3",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -44,47 +44,47 @@
   "size-limit": [
     {
       "path": "dist/tacugama.cjs.production.min.js",
-      "limit": "550 KB"
+      "limit": "565 KB"
     },
     {
       "path": "dist/tacugama.esm.js",
-      "limit": "480 KB"
+      "limit": "490 KB"
     }
   ],
   "devDependencies": {
-    "@babel/core": "^7.13.1",
+    "@babel/core": "^7.13.10",
     "@size-limit/preset-small-lib": "^4.6.0",
-    "@storybook/addon-docs": "^6.1.20",
+    "@storybook/addon-docs": "^6.2.1",
     "@storybook/addon-essentials": "^6.1.20",
     "@storybook/addon-info": "^5.3.21",
     "@storybook/addon-links": "^6.1.20",
-    "@storybook/addons": "^6.1.20",
-    "@storybook/react": "^6.1.20",
+    "@storybook/addons": "^6.1.21",
+    "@storybook/react": "^6.1.21",
     "@storybook/theming": "^6.1.20",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
-    "@types/react": "^17.0.2",
-    "@types/react-dom": "^17.0.1",
+    "@testing-library/user-event": "^13.0.16",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.2",
     "@types/styletron-engine-atomic": "^1.1.0",
     "@types/styletron-react": "^5.0.2",
-    "@typescript-eslint/eslint-plugin": "^4.15.2",
-    "@typescript-eslint/parser": "^4.15.2",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.18.0",
     "babel-loader": "^8.2.2",
-    "eslint": "^7.20.0",
+    "eslint": "^7.22.0",
     "eslint-config-prettier": "^7.2.0",
-    "eslint-plugin-baseui": "^9.106.3",
+    "eslint-plugin-baseui": "^9.111.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "husky": "^5.1.3",
-    "msw": "^0.27.0",
+    "msw": "^0.28.0",
     "msw-storybook-addon": "^1.1.0",
     "prettier": "^2.2.1",
-    "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "size-limit": "^4.6.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.1.0",
-    "typescript": "^4.2.2"
+    "typescript": "^4.2.3"
   },
   "dependencies": {
     "@ag-grid-community/core": "~25.0.1",
@@ -93,8 +93,9 @@
     "@ag-grid-enterprise/excel-export": "~25.0.1",
     "@ag-grid-enterprise/row-grouping": "~25.0.1",
     "@ag-grid-enterprise/server-side-row-model": "~25.0.1",
+    "@ag-grid-enterprise/set-filter": "~25.0.1",
     "@ag-grid-enterprise/status-bar": "~25.0.1",
-    "@timechimp/timechimp-typescript-helpers": "^0.2.26",
+    "@timechimp/timechimp-typescript-helpers": "^1.0.2",
     "baseui": "^9.110.0",
     "date-fns": "^2.17.0",
     "deepmerge": "^4.2.2",
@@ -102,5 +103,8 @@
     "react-hook-form": "^6.15.4",
     "styletron-engine-atomic": "^1.4.7",
     "styletron-react": "^5.2.7"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

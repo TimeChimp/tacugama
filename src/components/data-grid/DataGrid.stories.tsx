@@ -5,44 +5,28 @@ import '@ag-grid-community/core/dist/styles/ag-grid.css';
 import '@ag-grid-community/core/dist/styles/ag-theme-alpine.css';
 import '@ag-grid-community/core/dist/styles/ag-theme-alpine-dark.css';
 
-import { DataGrid, DataGridProps, DataGridColumn } from '.';
-import { DataGridView } from './types';
-import { getTimeEntriesQueryMock, DATA_URL } from './mockServer';
+import { DataGrid, DataGridProps } from '.';
+import { DataGridView, CreateViewInput } from './types';
+import { getTimeEntriesQueryMock } from './__tests__/mockServer';
+import { ACCESS_TOKEN, COLUMNS, DATA_URL, FILTERS, SEARCH_COLUMNS } from './__tests__/constants';
+import { defaultTranslations } from './defaultTranslations';
 
 export default {
   title: 'Components/Data Grid',
   component: DataGrid,
+  parameters: {
+    msw: [getTimeEntriesQueryMock],
+  },
 } as Meta;
 
 const Template: Story<DataGridProps> = (args) => {
-  const [views, setView] = useState<DataGridView[]>([]);
-
-  const columns: DataGridColumn[] = [
-    {
-      field: 'name',
-      label: 'Name',
-    },
-    {
-      field: 'description',
-      label: 'Description',
-    },
-    {
-      field: 'client',
-      label: 'Client',
-      groupable: true,
-    },
-    {
-      field: 'project',
-      label: 'Project',
-      groupable: true,
-    },
-  ];
+  const [views, setViews] = useState<DataGridView[]>([]);
 
   const handlePin = async (id: string, pinned: boolean) => {
     const view = views.find((x) => x.id === id);
     if (view) {
       view.pinned = pinned;
-      setView([...views.filter((x) => x.id !== id), view]);
+      setViews([...views.filter((x) => x.id !== id), view]);
     }
   };
 
@@ -50,41 +34,89 @@ const Template: Story<DataGridProps> = (args) => {
     const view = views.find((x) => x.id === id);
     if (view) {
       view.name = name;
-      setView([...views.filter((x) => x.id !== id), view]);
+      setViews([...views.filter((x) => x.id !== id), view]);
     }
   };
 
-  const handleCreateView = async (view: DataGridView) => {
-    view.id = Math.random().toString(16);
-    setView([...views, view]);
+  const handleSaveView = async (id: string, viewState: string) => {
+    const view = views.find((x) => x.id === id);
+    if (view) {
+      view.viewState = viewState;
+      setViews([...views.filter((x) => x.id !== id), view]);
+    }
+  };
+
+  const handleCreateView = async (input: CreateViewInput) => {
+    const activeView = views.find((x) => x.active);
+    if (activeView) {
+      activeView.active = false;
+      setViews([...views.filter((x) => x.id !== activeView.id), activeView]);
+    }
+
+    const view: DataGridView = {
+      id: Math.random().toString(16),
+      name: input.name,
+      viewState: input.viewState,
+      viewType: 'test',
+      pinned: true,
+      active: true,
+    };
+    setViews([...views, view]);
   };
 
   const onDeleteView = async (id: string) => {
-    setView(views.filter((x) => x.id !== id));
+    setViews(views.filter((x) => x.id !== id));
+  };
+
+  const onDeactivateView = async (id: string) => {
+    const view = views.find((x) => x.id === id);
+    if (view) {
+      view.active = false;
+      setViews([...views.filter((x) => x.id !== id), view]);
+    }
+  };
+
+  const onActivateView = async (id: string) => {
+    const activeView = views.find((x) => x.active);
+    if (activeView) {
+      await onDeactivateView(activeView.id);
+    }
+
+    const view = views.find((x) => x.id === id);
+    if (view) {
+      view.active = true;
+      setViews([...views.filter((x) => x.id !== id), view]);
+    }
   };
 
   return (
     <DataGrid
+      {...args}
       views={views}
+      onActivateView={(id: string) => onActivateView(id)}
+      onDeactivateView={(id: string) => onDeactivateView(id)}
       onDeleteView={(id: string) => onDeleteView(id)}
       onPinView={(id: string) => handlePin(id, true)}
       onUnpinView={(id: string) => handlePin(id, false)}
       onRenameView={(id: string, name: string) => handleRename(id, name)}
-      onCreateView={(view: DataGridView) => handleCreateView(view)}
-      columns={columns}
-      columnToggling
-      selection
-      filtering
-      grouping
-      viewing
-      dataUrl={DATA_URL}
-      accessToken={''}
+      onCreateView={(input: CreateViewInput) => handleCreateView(input)}
+      onSaveViewState={(id: string, viewState: string) => handleSaveView(id, viewState)}
     />
   );
 };
 
 export const Default = Template.bind({});
-Default.args = {};
-Default.parameters = {
-  msw: [getTimeEntriesQueryMock],
+Default.args = {
+  columnToggling: true,
+  selection: true,
+  filtering: true,
+  grouping: false,
+  viewing: true,
+  columns: COLUMNS,
+  filters: FILTERS,
+  dataUrl: DATA_URL,
+  accessToken: ACCESS_TOKEN,
+  height: 'calc(100vh - 200px)',
+  translations: defaultTranslations,
+  searchColumns: SEARCH_COLUMNS,
 };
