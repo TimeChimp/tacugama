@@ -29,6 +29,7 @@ export const Input = ({ testId, type, ...rest }: InputProps) => {
   const { border300 } = borders;
   const { primaryB } = colors;
 
+  // Password input requires the default padding
   const rootPadding = () => {
     if (type !== 'password') {
       return { ...padding() };
@@ -89,6 +90,7 @@ export const Input = ({ testId, type, ...rest }: InputProps) => {
     MaskToggleButton: {
       style: {
         ...padding('0', '0', '0', '14px'),
+        outline: 'none',
       },
     },
   };
