@@ -38,7 +38,7 @@ const radioOverrides = ({ icon, colored }: Pick<RadioProps, 'icon' | 'colored'>)
       height: $theme.sizing.scale650,
       backgroundColor: 'transparent',
       ...border({
-        borderColor: $checked ? $theme.customColors.primaryMain : $theme.customColors.dark4,
+        borderColor: $checked ? $theme.customColors.primaryMain : $theme.colors.contentTertiary,
         borderStyle: 'solid',
         borderWidth: $theme.borders.radius100,
       }),

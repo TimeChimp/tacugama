@@ -70,12 +70,20 @@ export const customColors: CustomColors = {
 
 export const lightColors: DeepPartial<Theme['colors']> = {
   contentPrimary: customColors.dark0,
-  contentSecondary: customColors.dark3,
-  contentTertiary: '#9F9FA6',
+  contentSecondary: customColors.dark2,
+  contentTertiary: customColors.dark4,
+
+  contentInversePrimary: customColors.light4,
+  contentInverseSecondary: customColors.light2,
+  contentInverseTertiary: customColors.light0,
+
   contentStateDisabled: customColors.light0,
+
   contentAccent: customColors.purple2,
+
   buttonSecondaryFill: customColors.light4,
   buttonSecondaryText: customColors.dark0,
+
   backgroundNegative: customColors.red1,
   backgroundPositive: customColors.green1,
 

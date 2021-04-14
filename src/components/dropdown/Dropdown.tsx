@@ -120,6 +120,7 @@ export const Dropdown = ({
                     paddingInlineStart: '0',
                     boxShadow: 'none',
                     outline: 'none',
+                    maxHeight: '300px',
                   },
                   props: {
                     ...propOverrides?.listProps(),
