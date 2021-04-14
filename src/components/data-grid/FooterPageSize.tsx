@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FooterRowCountProps } from './types';
 import { StyledFooterFooterPageSize } from './styles';
 import { Select } from '../select/Select';
-import ParagraphSmall from '../typography/ParagraphSmall';
+import { ParagraphSmall } from '../typography';
 import { SIZE } from 'baseui/select';
 import { useTheme } from '../../providers';
 

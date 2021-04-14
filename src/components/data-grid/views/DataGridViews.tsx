@@ -80,11 +80,11 @@ export const DataGridViews = ({
   const isActiveView = (id: string) => {
     if (activeViewId) {
       return activeViewId === id;
-    } else {
-      const view = views?.find((x) => x.id === id);
-      if (view) {
-        return view.active;
-      }
+    }
+
+    const view = views?.find((x) => x.id === id);
+    if (view) {
+      return view.active;
     }
   };
 
