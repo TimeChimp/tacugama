@@ -34,6 +34,7 @@ export const DataGridViews = ({
   const [saveModalIsOpen, setSaveModalIsOpen] = useState<boolean>(false);
   const [renameModalIsOpen, setRenameModalIsOpen] = useState<boolean>(false);
   const [editView, setEditView] = useState<DataGridView>();
+  const [activeViewId, setActiveViewId] = useState<string>();
 
   const {
     theme: {
@@ -69,8 +70,21 @@ export const DataGridViews = ({
   };
 
   const handleActivateView = async (id: string) => {
+    setActiveViewId(id);
+
     if (onActivateView) {
       await onActivateView(id);
+    }
+  };
+
+  const isActiveView = (id: string) => {
+    if (activeViewId) {
+      return activeViewId === id;
+    } else {
+      const view = views?.find((x) => x.id === id);
+      if (view) {
+        return view.active;
+      }
     }
   };
 
@@ -79,6 +93,7 @@ export const DataGridViews = ({
       <StyledDataGridViews>
         {views
           ?.filter((view) => view.pinned)
+          .sort((a, b) => a.name.localeCompare(b.name))
           .map((view) => (
             <FlexItem
               key={view.id}
@@ -88,7 +103,7 @@ export const DataGridViews = ({
               marg4={scale400}
               width="fit-content"
             >
-              {view.active ? (
+              {isActiveView(view.id) ? (
                 <ActiveButton size={SIZE.mini} startEnhancer={() => <View color={primary} size={scale600} />}>
                   {view.name}
                 </ActiveButton>
