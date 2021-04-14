@@ -57,3 +57,8 @@ export const Search = SearchTemplate.bind({});
 Search.args = {
   placeholder: 'Lets go search',
 };
+
+export const Password = Template.bind({});
+Password.args = {
+  type: 'password',
+};
