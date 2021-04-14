@@ -49,6 +49,10 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
     .ag-theme-alpine .ag-ltr .ag-pinned-right-header .ag-header-row:after {
       display: none;
     }
+
+    .ag-theme-alpine .ag-row-loading:hover {
+      background: transparent;
+    }
   `;
 };
 
