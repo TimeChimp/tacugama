@@ -1,6 +1,7 @@
 import React from 'react';
 import { Pagination as BasePagination, SIZE, PaginationProps as BasePaginationProps } from 'baseui/pagination';
 import { CustomThemeType } from '../../models/Theme';
+import { border } from '../../utils';
 
 export interface PaginationProps extends BasePaginationProps {}
 
@@ -30,6 +31,15 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
               Root: {
                 style: ({ $theme }: { $theme: CustomThemeType }) => ({
                   fontSize: $theme.typography.LabelXSmall.fontSize,
+                  fontWeight: 600,
+                  outline: null,
+                }),
+              },
+              ControlContainer: {
+                style: ({ $theme }: { $theme: CustomThemeType }) => ({
+                  backgroundColor: 'none',
+                  ...border(),
+                  outline: null,
                 }),
               },
             },

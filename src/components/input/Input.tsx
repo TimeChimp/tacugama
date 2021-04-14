@@ -16,7 +16,7 @@ export interface InputProps extends BaseInputProps {
   testId?: string;
 }
 
-export const Input = ({ testId, ...rest }: InputProps) => {
+export const Input = ({ testId, type, ...rest }: InputProps) => {
   const {
     theme: {
       current: {
@@ -28,6 +28,13 @@ export const Input = ({ testId, ...rest }: InputProps) => {
   } = useTheme();
   const { border300 } = borders;
   const { primaryB } = colors;
+
+  // Password input requires the default padding
+  const rootPadding = () => {
+    if (type !== 'password') {
+      return { ...padding() };
+    }
+  };
 
   const baseOverrides: InputOverrides = {
     Input: {
@@ -65,7 +72,7 @@ export const Input = ({ testId, ...rest }: InputProps) => {
         ...borderRadius(scale0),
         backgroundColor: primaryB,
         ...margin(scale0),
-        ...padding(),
+        ...rootPadding(),
       }),
     },
     StartEnhancer: {
@@ -83,9 +90,10 @@ export const Input = ({ testId, ...rest }: InputProps) => {
     MaskToggleButton: {
       style: {
         ...padding('0', '0', '0', '14px'),
+        outline: 'none',
       },
     },
   };
 
-  return <BaseInput overrides={baseOverrides} {...rest} />;
+  return <BaseInput overrides={baseOverrides} type={type} {...rest} />;
 };

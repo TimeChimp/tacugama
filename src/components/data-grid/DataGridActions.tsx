@@ -8,6 +8,7 @@ import { DataGridActionsProps } from './types';
 import { ConfirmationModal } from '../confirmation-modal';
 import { TrashFull, Download } from '../icons';
 import { padding } from '../../utils';
+import { ValueFormatterParams } from '@ag-grid-community/core';
 
 const DELETE_BUTTON_TEST_ID = 'delete-button';
 const EXPORT_BUTTON_TEST_ID = 'export-button';
@@ -40,6 +41,7 @@ export const DataGridActions = ({
       if (selectedRows.length) {
         const selectedIds = selectedRows.map((row) => row.id);
         await onBulkDelete(selectedIds);
+        gridApi.deselectAll();
       }
     }
   };
@@ -52,6 +54,20 @@ export const DataGridActions = ({
           action: () =>
             gridApi.exportDataAsExcel({
               onlySelectedAllPages: true,
+              processCellCallback: (params) => {
+                const colDef = params.column.getColDef();
+                // try to reuse valueFormatter from the colDef
+                if (colDef.valueFormatter && typeof colDef.valueFormatter === 'function') {
+                  const valueFormatterParams: ValueFormatterParams = {
+                    ...params,
+                    data: params.node && params.node.data,
+                    node: params.node!,
+                    colDef: params.column.getColDef(),
+                  };
+                  return colDef.valueFormatter(valueFormatterParams);
+                }
+                return params.value;
+              },
             }),
         },
       ];
