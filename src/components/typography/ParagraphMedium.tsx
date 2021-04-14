@@ -3,8 +3,8 @@ import { ParagraphMedium as BaseParagraphMedium } from 'baseui/typography';
 import { BlockProps } from 'baseui/block';
 
 export const ParagraphMedium = forwardRef<HTMLButtonElement, BlockProps>(
-  ({ children, margin = '0', ...rest }: BlockProps, ref) => (
-    <BaseParagraphMedium ref={ref} margin={margin} {...rest}>
+  ({ children, marginTop = '0', marginBottom = '0', ...rest }: BlockProps, ref) => (
+    <BaseParagraphMedium ref={ref} marginTop={marginTop} marginBottom={marginBottom} {...rest}>
       {children}
     </BaseParagraphMedium>
   ),
