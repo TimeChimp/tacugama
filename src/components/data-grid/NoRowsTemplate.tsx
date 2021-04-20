@@ -222,10 +222,12 @@ export const NoRowsTemplate = ({ translations }: NoRowsTemplateProps) => {
           />
         </svg>
 
-        <HeadingSmall color={primary} margin={[scale900, 0, 0, 0]}>
+        <HeadingSmall color={primary} marginTop={scale900}>
           {translations.noRowsTitle}
         </HeadingSmall>
-        <ParagraphMedium margin={[scale900, 0, scale900, 0]}>{translations.noRowsSubtext}</ParagraphMedium>
+        <ParagraphMedium marginTop={scale900} marginBottom={scale900}>
+          {translations.noRowsSubtext}
+        </ParagraphMedium>
       </StyledNoRowsTemplateContainer>
     </StyledNoRowsTemplate>
   );

@@ -137,7 +137,14 @@ export const DataGridViewOptions = ({
                         <Views color={isActiveView(id!) ? primary : contentStateDisabled} size={scale600} />
                       )}
                     >
-                      <LabelXSmall margin={[0, scale400]}>{label}</LabelXSmall>
+                      <LabelXSmall
+                        marginTop={scale400}
+                        marginBottom={scale400}
+                        marginLeft={scale400}
+                        marginRight={scale400}
+                      >
+                        {label}
+                      </LabelXSmall>
                     </TertiaryButton>
                     {id !== 'default' && (
                       <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
@@ -169,7 +176,13 @@ export const DataGridViewOptions = ({
                 },
               }}
             >
-              <LabelXSmall color={primary} margin={[0, scale400]}>
+              <LabelXSmall
+                color={primary}
+                marginTop={scale400}
+                marginBottom={scale400}
+                marginLeft={scale400}
+                marginRight={scale400}
+              >
                 {translations.addView}
               </LabelXSmall>
             </TertiaryButton>
