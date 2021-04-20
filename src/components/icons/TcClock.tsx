@@ -17,11 +17,11 @@ const StyledSvg = themedStyled('svg', {
   },
 });
 
-export const TcClock = ({ title = 'TcClock', size = defaultIconProps.size, color = '#33D5B4' }: SVGProps) => {
+export const TcClock = ({ title = 'TcClock', size = defaultIconProps.size }: SVGProps) => {
   return (
     <Icon title={title}>
       <StyledSvg width={size} height={size} viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g clip-path="url(#clip0)">
+        <g clipPath="url(#clip0)">
           <path
             d="M414.748 163.106L371.632 206.222C371.678 207.698 371.699 209.173 371.696 210.648C371.696 305.527 290.318 381.393 193.557 372.27C116.458 365.016 54.988 303.545 47.7094 226.445C38.5915 129.683 114.456 48.3041 209.334 48.3041C210.76 48.3041 212.191 48.3041 213.612 48.3582L256.753 5.21724C242.134 1.89479 227.202 0.145492 212.211 -0.000795514C96.1416 -1.19096 0.629635 92.773 0.00505184 208.853C-0.619531 325.706 94.1941 420.56 211.035 419.999C327.213 419.434 421.264 323.822 420 207.648C419.838 192.656 418.077 177.724 414.748 163.106Z"
             fill="#33D5B4"
