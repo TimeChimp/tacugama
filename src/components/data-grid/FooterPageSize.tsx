@@ -38,7 +38,7 @@ export const FooterPageSize = ({ api: gridApi, translations }: FooterRowCountPro
 
   return (
     <StyledFooterFooterPageSize>
-      <ParagraphSmall margin={['0', scale300]} color={contentTertiary}>
+      <ParagraphSmall marginLeft={scale300} marginRight={scale300} color={contentTertiary}>
         {translations.showResultsBy}
       </ParagraphSmall>
       <Select

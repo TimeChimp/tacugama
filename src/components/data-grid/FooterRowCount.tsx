@@ -50,13 +50,25 @@ export const FooterRowCount = ({
 
   return (
     <StyledFooterRowCount>
-      <ParagraphSmall margin={[0, scale400]} color={contentTertiary}>
+      <ParagraphSmall
+        marginTop={scale400}
+        marginBottom={scale400}
+        marginLeft={scale400}
+        marginRight={scale400}
+        color={contentTertiary}
+      >
         {rowCountText(count)}
       </ParagraphSmall>
       {rowsSelected ? (
         <>
           <StyledDataGridDivider />
-          <ParagraphSmall margin={[0, scale400]} color={contentTertiary}>
+          <ParagraphSmall
+            marginTop={scale400}
+            marginBottom={scale400}
+            marginLeft={scale400}
+            marginRight={scale400}
+            color={contentTertiary}
+          >
             {rowCountSelectedText(rowsSelected)}
           </ParagraphSmall>
         </>
