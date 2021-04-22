@@ -52,3 +52,4 @@ export * from './Clear';
 export * from './AuthLock';
 export * from './PhoneLock';
 export * from './Archive';
+export * from './Account';
