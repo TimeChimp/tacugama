@@ -14,9 +14,10 @@ import { DATA_TEST_ID } from '../../models';
 
 export interface InputProps extends BaseInputProps {
   testId?: string;
+  uppercase?: boolean;
 }
 
-export const Input = ({ testId, type, ...rest }: InputProps) => {
+export const Input = ({ testId, type, uppercase, ...rest }: InputProps) => {
   const {
     theme: {
       current: {
@@ -44,6 +45,7 @@ export const Input = ({ testId, type, ...rest }: InputProps) => {
           backgroundColor,
           ...border(),
           ...padding('0', scale500),
+          textTransform: uppercase ? 'uppercase' : 'inherit',
           color,
           '::placeholder': {
             color: getInputPlaceholderTextColor($disabled, $isFocused, colors),
