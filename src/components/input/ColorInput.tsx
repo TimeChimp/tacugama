@@ -1,8 +1,8 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { ColorResult, TwitterPicker } from 'react-color';
 import { Input, InputProps } from './Input';
-import { TertiaryButton } from 'components/button';
-import { ClickOutside } from 'components/click-outside';
+import { TertiaryButton } from '../button';
+import { ClickOutside } from '../click-outside';
 import { margin, padding } from '../../utils';
 import { StyledColorSwatch } from './styles';
 
