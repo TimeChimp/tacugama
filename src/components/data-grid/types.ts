@@ -54,11 +54,18 @@ export type IFilterType =
 export enum FilterType {
   date = 'date',
   string = 'string',
+  select = 'select',
+}
+
+export interface FilterValue {
+  value: string;
+  label: string;
+  icon?: JSX.Element;
 }
 export interface Filter {
   type: FilterType;
   columnField: string;
-  values?: string[];
+  values?: FilterValue[] | string[];
   valuesLoading?: boolean;
   title: string;
   icon?: ComponentType<IconProps>;

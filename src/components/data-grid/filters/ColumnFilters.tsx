@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ColumnFiltersProps, FilterType } from '../types';
+import { ColumnFiltersProps, Filter, FilterType, FilterValue } from '../types';
 import { DateFilterModel } from '@ag-grid-community/core';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { SIZE } from 'baseui/button';
@@ -78,6 +78,7 @@ export const ColumnFilters = ({
         values,
         type: 'set',
       };
+
       filterModel[columnField] = setFilter;
 
       onFiltering(filterModel);
@@ -95,10 +96,12 @@ export const ColumnFilters = ({
   );
 
   const filterOnValue = useCallback(
-    (columnField: string, value: string) => {
+    (columnField: string, value: string, type: FilterType) => {
       handleSetFilter(value);
+      console.log(value);
+
       setSelectedFilterIds((currentIds) => {
-        if (!currentIds[columnField]) {
+        if (!currentIds[columnField] || type === FilterType.select) {
           return {
             ...currentIds,
             [columnField]: [value],
@@ -116,19 +119,43 @@ export const ColumnFilters = ({
     [handleSetFilter, setSelectedFilterIds],
   );
 
-  const getAllColumnValues = useCallback(
-    (columnField: string, values?: string[]) => {
-      const columnValues: DropdownItem[] | undefined = values
-        ?.filter((value) => !!value)
-        .map((value) => ({
-          id: value,
-          label: value,
-          action: () => filterOnValue(columnField, value),
-        }));
-
-      return columnValues || [];
+  const isSelectValueActive = useCallback(
+    (columnField: string, filterValue: string, type: FilterType) => {
+      if (type !== FilterType.select) {
+        return false;
+      }
+      const filterIdsByColumn = selectedFilterIds[columnField];
+      if (!filterIdsByColumn?.length) {
+        return false;
+      }
+      return filterIdsByColumn[0] === filterValue;
     },
-    [filterOnValue],
+    [selectedFilterIds],
+  );
+
+  const getAllColumnValues = useCallback(
+    (columnField: string, type: FilterType, values?: (FilterValue | string)[]) => {
+      if (!values) {
+        return [];
+      }
+      const columnValues: DropdownItem[] = values.map((value: FilterValue | string) => {
+        const filterValue = value && typeof value === 'object' ? value.value : value;
+        const filterLabel = value && typeof value === 'object' ? value.label : value;
+        const item: DropdownItem = {
+          id: filterValue,
+          label: filterLabel,
+          action: () => filterOnValue(columnField, filterValue, type),
+          isBold: isSelectValueActive(columnField, filterValue, type),
+        };
+        if (value && typeof value === 'object' && value.icon) {
+          item.icon = value.icon;
+        }
+        return item;
+      });
+
+      return columnValues;
+    },
+    [filterOnValue, isSelectValueActive],
   );
 
   const dateFilterIsActive = () => dates?.length === 2;
@@ -138,6 +165,26 @@ export const ColumnFilters = ({
   const getDateIconColor = () => (dateFilterIsActive() ? primary : contentSecondary);
 
   const getSetIconColor = (columnField: string) => (isSetFilterActive(columnField) ? primary : contentSecondary);
+
+  const getSelectActiveItem = (columnField: string, values?: string[] | FilterValue[]) => {
+    const filterIdsByColumn = selectedFilterIds[columnField];
+    let icon: JSX.Element | undefined;
+    let label: string | undefined;
+
+    if (filterIdsByColumn?.length) {
+      const selectedValue = filterIdsByColumn[0];
+      values?.forEach((value: string | FilterValue) => {
+        if (typeof value === 'object' && value.value === selectedValue) {
+          icon = value.icon;
+          label = value.label;
+        }
+      });
+    }
+    return {
+      icon,
+      label,
+    };
+  };
 
   // Date format that is send as part of the query request
   const getDateFormat = (date: Date) => new TcDate(date).format(DATE_FORMAT);
@@ -210,72 +257,107 @@ export const ColumnFilters = ({
     });
   };
 
+  const Filter = ({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon: Icon }: Filter) => {
+    const filterTypes = {
+      [FilterType.date]: (
+        <>
+          <FilterButton
+            onClick={() => setDatepickerIsOpen(!datepickerIsOpen)}
+            startEnhancer={Icon && <Icon color={getDateIconColor()} />}
+            size={SIZE.compact}
+            title={getDateTitle(title)}
+          />
+          <Datepicker
+            onChange={({ date }) => onDateSelect({ date, columnField })}
+            date={internalDates.length ? internalDates : dates}
+            isOpen={datepickerIsOpen}
+            setIsOpen={toggleDatePicker}
+            monthsShown={2}
+            range
+            quickSelect
+          />
+        </>
+      ),
+      [FilterType.string]: (
+        <Dropdown
+          onOpen={() => setOpenFilter(columnField)}
+          showSearch
+          selection
+          items={getAllColumnValues(columnField, FilterType.string, values)}
+          selectedIds={selectedFilterIds[columnField]}
+          searchPlaceholder={searchPlaceholder || search}
+          isLoading={valuesLoading}
+        >
+          <FilterButton
+            title={getSetTitle(columnField, title)}
+            startEnhancer={Icon && <Icon color={getSetIconColor(columnField)} />}
+            size={SIZE.compact}
+            isActive={isSetFilterActive(columnField)}
+            onClear={() => onSetFilterClear(columnField)}
+            hasValue={isSetFilterActive(columnField)}
+          />
+        </Dropdown>
+      ),
+      [FilterType.select]: (
+        <Dropdown
+          onOpen={() => setOpenFilter(columnField)}
+          items={getAllColumnValues(columnField, FilterType.select, values)}
+          selectedIds={selectedFilterIds[columnField]}
+          isLoading={valuesLoading}
+        >
+          <FilterButton
+            title={getSelectActiveItem(columnField, values).label ?? title}
+            startEnhancer={getSelectActiveItem(columnField, values).icon}
+            size={SIZE.compact}
+          />
+        </Dropdown>
+      ),
+    };
+
+    return filterTypes[type];
+  };
+
   return (
     <>
       {filters?.length && (
         <>
-          {getFilters()?.map(({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon: Icon }) => (
+          {getFilters()?.map(({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon }) => (
             <FlexItem key={columnField} width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
-              {type === FilterType.date ? (
-                <>
-                  <FilterButton
-                    onClick={() => setDatepickerIsOpen(!datepickerIsOpen)}
-                    startEnhancer={Icon && <Icon color={getDateIconColor()} />}
-                    size={SIZE.compact}
-                    title={getDateTitle(title)}
-                  />
-                  <Datepicker
-                    onChange={({ date }) => onDateSelect({ date, columnField })}
-                    date={internalDates.length ? internalDates : dates}
-                    isOpen={datepickerIsOpen}
-                    setIsOpen={toggleDatePicker}
-                    monthsShown={2}
-                    range
-                    quickSelect
-                  />
-                </>
-              ) : (
-                <Dropdown
-                  onOpen={() => setOpenFilter(columnField)}
-                  showSearch
-                  selection
-                  items={getAllColumnValues(columnField, values)}
-                  selectedIds={selectedFilterIds[columnField]}
-                  searchPlaceholder={searchPlaceholder || search}
-                  isLoading={valuesLoading}
-                >
-                  <FilterButton
-                    title={getSetTitle(columnField, title)}
-                    startEnhancer={Icon && <Icon color={getSetIconColor(columnField)} />}
-                    size={SIZE.compact}
-                    isActive={isSetFilterActive(columnField)}
-                    onClear={() => onSetFilterClear(columnField)}
-                    hasValue={isSetFilterActive(columnField)}
-                  />
-                </Dropdown>
-              )}
+              <Filter
+                title={title}
+                columnField={columnField}
+                type={type}
+                searchPlaceholder={searchPlaceholder}
+                values={values}
+                valuesLoading={valuesLoading}
+                icon={icon}
+              />
             </FlexItem>
           ))}
-          {showLessFilters ? (
-            <FlexItem width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
-              <FilterButton
-                testId={MORE_FILTERS_BUTTON_TEST_ID}
-                onClick={() => setShowLessFilters(false)}
-                startEnhancer={<Plus />}
-                size={SIZE.compact}
-                title={allFilters}
-              />
-            </FlexItem>
-          ) : (
-            <FlexItem width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
-              <FilterButton
-                testId={LESS_FILTERS_BUTTON_TEST_ID}
-                onClick={() => setShowLessFilters(true)}
-                startEnhancer={<Dash />}
-                size={SIZE.compact}
-                title={lessFilters}
-              />
-            </FlexItem>
+          {filters?.length > 2 && (
+            <>
+              {showLessFilters ? (
+                <FlexItem width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
+                  <FilterButton
+                    testId={MORE_FILTERS_BUTTON_TEST_ID}
+                    onClick={() => setShowLessFilters(false)}
+                    startEnhancer={<Plus />}
+                    size={SIZE.compact}
+                    title={allFilters}
+                  />
+                </FlexItem>
+              ) : (
+                <FlexItem width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
+                  <FilterButton
+                    testId={LESS_FILTERS_BUTTON_TEST_ID}
+                    onClick={() => setShowLessFilters(true)}
+                    startEnhancer={<Dash />}
+                    size={SIZE.compact}
+                    title={lessFilters}
+                  />
+                </FlexItem>
+              )}
+            </>
           )}
         </>
       )}

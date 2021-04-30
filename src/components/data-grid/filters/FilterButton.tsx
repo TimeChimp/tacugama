@@ -50,7 +50,8 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
           },
         }}
         endEnhancer={
-          hasValue && (
+          hasValue &&
+          onClear && (
             <TransparentButton onClick={onClear}>
               <Clear size={scale600} color={primaryA} />
             </TransparentButton>

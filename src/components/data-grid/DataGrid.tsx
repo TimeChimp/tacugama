@@ -50,6 +50,7 @@ import {
   CreateViewInput,
   IFilterType,
   SelectedFilterIds,
+  FilterValue,
 } from './types';
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
@@ -321,8 +322,12 @@ export const DataGrid = ({
   };
 
   const onFiltering = (filters: FilterModel) => {
+    console.log(filters);
+
     gridApi.setFilterModel(filters);
     gridApi.onFilterChanged();
+
+    console.log(gridApi.getFilterModel());
   };
 
   const getValueFormatter = (
@@ -362,7 +367,7 @@ export const DataGrid = ({
     if (!params) {
       return;
     }
-    let values: string[] = [];
+    let values: FilterValue[] | string[] = [];
     const columnFilter = filters?.find((filter) => filter.columnField === columnField);
     if (columnFilter && columnFilter.values) {
       values = columnFilter.values;
