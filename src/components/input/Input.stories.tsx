@@ -3,6 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Input, InputProps } from './Input';
 import { SearchInput, SearchInputProps } from './SearchInput';
+import { ColorInput, ColorInputProps } from './ColorInput';
 import { Search as SearchIcon } from '../icons';
 import { CharCounter } from '../char-counter';
 
@@ -14,6 +15,8 @@ export default {
 const Template: Story<InputProps> = (args) => <Input {...args} />;
 
 const SearchTemplate: Story<SearchInputProps> = (args) => <SearchInput {...args} />;
+
+const ColorTemplate: Story<ColorInputProps> = (args) => <ColorInput {...args} />;
 
 const WithCharCount: Story<InputProps> = (args) => (
   <>
@@ -62,3 +65,6 @@ export const Password = Template.bind({});
 Password.args = {
   type: 'password',
 };
+
+export const Color = ColorTemplate.bind({});
+Color.args = {};
