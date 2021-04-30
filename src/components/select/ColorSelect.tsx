@@ -14,7 +14,7 @@ interface ParamOptionsProps extends OnChangeParams {
   option?: ColorOptionProps;
 }
 
-interface ColorSelectProps extends Omit<BaseSelectProps, 'options' | 'onChange' | 'value'> {
+export interface ColorSelectProps extends Omit<BaseSelectProps, 'options' | 'onChange' | 'value'> {
   colors: ColorOptionProps[];
   value?: ParamOptionValue;
   onChange?: (params: ParamOptionsProps) => unknown;

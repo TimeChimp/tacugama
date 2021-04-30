@@ -1,5 +1,5 @@
 {
-  "version": "0.17.8",
+  "version": "0.18.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -44,11 +44,11 @@
   "size-limit": [
     {
       "path": "dist/tacugama.cjs.production.min.js",
-      "limit": "565 KB"
+      "limit": "610 KB"
     },
     {
       "path": "dist/tacugama.esm.js",
-      "limit": "490 KB"
+      "limit": "530 KB"
     }
   ],
   "devDependencies": {
@@ -100,6 +100,7 @@
     "date-fns": "^2.17.0",
     "deepmerge": "^4.2.2",
     "isomorphic-unfetch": "^3.1.0",
+    "react-color": "^2.19.3",
     "react-hook-form": "^6.15.4",
     "styletron-engine-atomic": "^1.4.7",
     "styletron-react": "^5.2.7"
