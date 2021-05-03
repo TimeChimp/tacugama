@@ -4,9 +4,12 @@ import { Input, InputProps } from './Input';
 import { TertiaryButton } from '../button';
 import { ClickOutside } from '../click-outside';
 import { margin, padding } from '../../utils';
-import { StyledColorSwatch } from './styles';
+import { ColorPickerContainer, StyledColorSwatch } from './styles';
 
-export interface ColorInputProps extends InputProps {}
+export interface ColorInputProps extends Omit<InputProps, 'value' | 'uppercase' | 'onChange'> {
+  onChange: (color: string) => void;
+  value?: string;
+}
 
 const colors = [
   '#eccc68',
@@ -28,8 +31,7 @@ const colors = [
   '#2f3542',
 ];
 
-export const ColorInput = ({ ...rest }: ColorInputProps) => {
-  const [color, setColor] = useState<string>(colors[0]);
+export const ColorInput = ({ onChange, value, ...rest }: ColorInputProps) => {
   const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
 
   const getRandomBackgroundColor = () => {
@@ -38,11 +40,12 @@ export const ColorInput = ({ ...rest }: ColorInputProps) => {
     return colors[randomNumber];
   };
 
-  const selectColor = (color: ColorResult) => setColor(color.hex);
+  const selectColor = (color: ColorResult) => onChange(color.hex);
 
   useEffect(() => {
     const color = getRandomBackgroundColor();
-    setColor(color);
+    onChange(color);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -70,19 +73,26 @@ export const ColorInput = ({ ...rest }: ColorInputProps) => {
             }}
             onClick={() => setShowColorPicker(!showColorPicker)}
           >
-            <StyledColorSwatch $color={color} />
+            <StyledColorSwatch $color={value} />
           </TertiaryButton>
         }
         placeholder="#00000"
-        onChange={(e: FormEvent<HTMLInputElement>) => setColor(e.currentTarget.value)}
-        value={color}
+        onChange={(e: FormEvent<HTMLInputElement>) => onChange(e.currentTarget.value)}
+        value={value}
         uppercase
         {...rest}
       />
       {showColorPicker ? (
-        <ClickOutside onClickOutside={() => setShowColorPicker(false)}>
-          <TwitterPicker colors={colors} color={color} onChange={selectColor} />
-        </ClickOutside>
+        <ColorPickerContainer>
+          <ClickOutside onClickOutside={() => setShowColorPicker(false)}>
+            <TwitterPicker
+              colors={colors}
+              color={value}
+              onChange={selectColor}
+              onChangeComplete={() => setShowColorPicker(false)}
+            />
+          </ClickOutside>
+        </ColorPickerContainer>
       ) : null}
     </>
   );

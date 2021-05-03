@@ -15,3 +15,9 @@ export const StyledColorSwatch = themedStyled<'div', StyledColorSwatchProps>('di
     ...borderRadius($theme.sizing.scale100),
   };
 });
+
+export const ColorPickerContainer = themedStyled('div', () => {
+  return {
+    position: 'absolute',
+  };
+});
