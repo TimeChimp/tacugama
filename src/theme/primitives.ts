@@ -1,7 +1,7 @@
 import { ThemePrimitives } from 'baseui/theme';
 
 const primitives: Partial<ThemePrimitives> = {
-  primaryFontFamily: 'Inter, sans-serif',
+  primaryFontFamily: 'Source Sans Pro, sans-serif',
 };
 
 export default primitives;
