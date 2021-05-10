@@ -428,6 +428,7 @@ export const DataGrid = ({
             {selection && (
               <DataGridActions
                 api={gridApi}
+                columns={gridColumns}
                 rowsSelected={rowsSelected}
                 translations={translations}
                 onBulkDelete={onBulkDelete}
