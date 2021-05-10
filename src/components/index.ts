@@ -37,3 +37,4 @@ export * from './flex-item';
 export * from './separator';
 export * from './tooltip';
 export * from './alert';
+export * from './breadcrumbs';
