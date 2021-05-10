@@ -18,6 +18,7 @@ const EXPORT_OPTION_TEST_ID = 'data-grid-export-option';
 
 export const DataGridActions = ({
   api: gridApi,
+  columns,
   rowsSelected,
   onBulkDelete,
   translations: { cancel, deleteEntries, deleteEntriesCount },
@@ -47,13 +48,14 @@ export const DataGridActions = ({
   };
 
   useEffect(() => {
-    if (gridApi) {
+    if (gridApi && columns) {
       const dropdownItems: DropdownItem[] = [
         {
           label: 'Excel',
           action: () =>
             gridApi.exportDataAsExcel({
               onlySelectedAllPages: true,
+              columnKeys: columns.map((column) => column.field),
               processCellCallback: (params) => {
                 const colDef = params.column.getColDef();
                 // try to reuse valueFormatter from the colDef
@@ -73,7 +75,7 @@ export const DataGridActions = ({
       ];
       setDropdownItems(dropdownItems);
     }
-  }, [gridApi]);
+  }, [gridApi, columns]);
 
   return (
     <StyledDataGridActions>

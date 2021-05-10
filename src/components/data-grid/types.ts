@@ -306,6 +306,7 @@ export interface DataGridIconProps {
 
 export interface DataGridActionsProps {
   api: GridApi;
+  columns: DataGridColumn[];
   rowsSelected: number;
   onBulkDelete?: (ids: string[]) => Promise<void>;
   translations: Translations;
