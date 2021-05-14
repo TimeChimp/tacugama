@@ -32,12 +32,22 @@ export const CopyText = ({ value, onClick, ...rest }: CopyTextProps) => {
       {...padding('2px', scale100)}
       {...rest}
     >
-      <ParagraphSmall font="Source Code Pro, serif" marginTop={scale0} marginBottom={scale0}>
+      <ParagraphSmall
+        overrides={{
+          Block: {
+            style: {
+              fontFamily: 'Source Code Pro, sans-serif',
+            },
+          },
+        }}
+        marginTop={scale0}
+        marginBottom={scale0}
+      >
         {value}
       </ParagraphSmall>
-      <StyledCopyIcon>
+      <StyledCopyIcon onClick={onClick}>
         <StatefulTooltip triggerType="click" content={() => <Block>Copied!</Block>}>
-          <TertiaryButton onClick={onClick}>
+          <TertiaryButton>
             <Copy />
           </TertiaryButton>
         </StatefulTooltip>
