@@ -9,6 +9,7 @@ import {
   Flag as FlagIcon,
   AuthLock as AuthLockIcon,
   PhoneLock as PhoneLockIcon,
+  Copy as CopyIcon,
 } from './';
 import { SVGProps } from './Icon';
 
@@ -24,6 +25,7 @@ const LockFilledTemplate: Story<SVGProps> = (args) => <LockFilledIcon {...args} 
 const FlagTemplate: Story<SVGProps> = (args) => <FlagIcon {...args} />;
 const AuthLockTemplate: Story<SVGProps> = (args) => <AuthLockIcon {...args} />;
 const PhoneLockTemplate: Story<SVGProps> = (args) => <PhoneLockIcon {...args} />;
+const CopyTemplate: Story<SVGProps> = (args) => <CopyIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {};
@@ -45,3 +47,6 @@ AuthLock.args = {};
 
 export const PhoneLock = PhoneLockTemplate.bind({});
 PhoneLock.args = {};
+
+export const Copy = CopyTemplate.bind({});
+Copy.args = {};
