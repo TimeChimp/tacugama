@@ -11,11 +11,11 @@ import { StyledCopyIcon } from './';
 
 export interface CopyTextProps {
   value: string;
-  onClick: () => void;
+  copyTextHandler: (value: string) => void;
   copiedText?: string;
 }
 
-export const CopyText = ({ value, onClick, copiedText = 'Copied!', ...rest }: CopyTextProps) => {
+export const CopyText = ({ value, copyTextHandler, copiedText = 'Copied!', ...rest }: CopyTextProps) => {
   const {
     theme: {
       current: {
@@ -46,7 +46,7 @@ export const CopyText = ({ value, onClick, copiedText = 'Copied!', ...rest }: Co
       >
         {value}
       </ParagraphSmall>
-      <StyledCopyIcon onClick={onClick}>
+      <StyledCopyIcon onClick={() => copyTextHandler(value)}>
         <StatefulTooltip triggerType="click" content={() => <Block>{copiedText}</Block>}>
           <TertiaryButton>
             <Copy />
