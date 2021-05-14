@@ -1,20 +1,21 @@
 import React from 'react';
-import { useTheme } from 'providers';
 import { ParagraphSmall } from 'baseui/typography';
-import { Block } from 'components/block';
-import { Box } from 'components/box';
-import { TertiaryButton } from 'components/button';
-import { Copy } from 'components/icons';
-import { StatefulTooltip } from 'components/tooltip';
-import { padding } from 'utils';
+import { useTheme } from '../../providers';
+import { Block } from '../../components/block';
+import { Box } from '../../components/box';
+import { TertiaryButton } from '../../components/button';
+import { Copy } from '../../components/icons';
+import { StatefulTooltip } from '../../components/tooltip';
+import { padding } from '../../utils';
 import { StyledCopyIcon } from './';
 
 export interface CopyTextProps {
   value: string;
   onClick: () => void;
+  copiedText?: string;
 }
 
-export const CopyText = ({ value, onClick, ...rest }: CopyTextProps) => {
+export const CopyText = ({ value, onClick, copiedText = 'Copied!', ...rest }: CopyTextProps) => {
   const {
     theme: {
       current: {
@@ -29,7 +30,7 @@ export const CopyText = ({ value, onClick, ...rest }: CopyTextProps) => {
       justifyContent="space-between"
       alignItems="center"
       noBorder
-      {...padding('2px', scale100)}
+      {...padding(scale0, scale100)}
       {...rest}
     >
       <ParagraphSmall
@@ -46,7 +47,7 @@ export const CopyText = ({ value, onClick, ...rest }: CopyTextProps) => {
         {value}
       </ParagraphSmall>
       <StyledCopyIcon onClick={onClick}>
-        <StatefulTooltip triggerType="click" content={() => <Block>Copied!</Block>}>
+        <StatefulTooltip triggerType="click" content={() => <Block>{copiedText}</Block>}>
           <TertiaryButton>
             <Copy />
           </TertiaryButton>
