@@ -13,9 +13,16 @@ export interface CopyTextProps {
   value: string;
   copyTextHandler: (value: string) => void;
   copiedText?: string;
+  backgroundColor?: string;
 }
 
-export const CopyText = ({ value, copyTextHandler, copiedText = 'Copied!', ...rest }: CopyTextProps) => {
+export const CopyText = ({
+  value,
+  copyTextHandler,
+  copiedText = 'Copied!',
+  backgroundColor = 'transparent',
+  ...rest
+}: CopyTextProps) => {
   const {
     theme: {
       current: {
@@ -30,6 +37,7 @@ export const CopyText = ({ value, copyTextHandler, copiedText = 'Copied!', ...re
       justifyContent="space-between"
       alignItems="center"
       noBorder
+      backgroundColor={backgroundColor}
       {...padding(scale0, scale100)}
       {...rest}
     >
@@ -48,8 +56,16 @@ export const CopyText = ({ value, copyTextHandler, copiedText = 'Copied!', ...re
       </ParagraphSmall>
       <StyledCopyIcon onClick={() => copyTextHandler(value)}>
         <StatefulTooltip triggerType="click" content={() => <Block>{copiedText}</Block>}>
-          <TertiaryButton>
-            <Copy />
+          <TertiaryButton
+            overrides={{
+              Root: {
+                style: {
+                  ...padding(),
+                },
+              },
+            }}
+          >
+            <Copy size="14" />
           </TertiaryButton>
         </StatefulTooltip>
       </StyledCopyIcon>
