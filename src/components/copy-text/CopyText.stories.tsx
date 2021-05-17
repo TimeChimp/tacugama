@@ -13,5 +13,5 @@ const value = '853VQRDNFXJ65NBQJAXPWFQ1';
 export const Default = Template.bind({});
 Default.args = {
   value,
-  onClick: () => navigator.clipboard.writeText(value),
+  copyTextHandler: (value) => navigator.clipboard.writeText(value),
 };
