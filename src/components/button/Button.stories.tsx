@@ -3,6 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Button, ButtonProps } from './';
 import { ButtonType } from 'models';
+import { Plus } from '../icons';
 
 export default {
   title: 'Components/Button',
@@ -16,7 +17,16 @@ Primary.args = {
   buttonType: ButtonType.default,
   kind: 'primary',
   children: 'Button',
-  testId: 'test-button  ',
+  testId: 'test-button',
+};
+
+export const StartEnhancer = Template.bind({});
+StartEnhancer.args = {
+  buttonType: ButtonType.default,
+  kind: 'primary',
+  children: 'Button',
+  testId: 'test-button',
+  startEnhancer: <Plus />,
 };
 
 export const Success = Template.bind({});
