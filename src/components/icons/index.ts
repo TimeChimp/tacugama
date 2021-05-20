@@ -54,3 +54,4 @@ export * from './PhoneLock';
 export * from './Archive';
 export * from './Account';
 export * from './Copy';
+export * from './Tag';
