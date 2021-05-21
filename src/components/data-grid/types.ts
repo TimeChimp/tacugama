@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, ComponentType } from 'react';
+import React, { Dispatch, SetStateAction, ComponentType } from 'react';
 import {
   ColumnApi,
   ColumnState,
@@ -37,6 +37,7 @@ export interface DataGridColumn {
   sortable?: boolean;
   hide?: boolean;
   customMap?: (value: any) => any;
+  customComponent?: React.FunctionComponent;
 }
 
 export type FilterTypeModel = TextFilterModel | NumberFilterModel | DateFilterModel | SetFilterModel;
