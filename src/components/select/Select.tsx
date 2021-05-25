@@ -101,7 +101,6 @@ export const Select = ({
               style: {
                 ...padding('0'),
                 ...borderRadius(radius100),
-                zIndex: 99999,
               },
             },
             DropdownListItem: {
@@ -135,6 +134,17 @@ export const Select = ({
                     style: {
                       width: scale700,
                       height: scale700,
+                    },
+                  },
+                },
+              },
+            },
+            Popover: {
+              props: {
+                overrides: {
+                  Body: {
+                    style: {
+                      zIndex: 99999,
                     },
                   },
                 },
