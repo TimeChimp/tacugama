@@ -139,6 +139,17 @@ export const Select = ({
                 },
               },
             },
+            Popover: {
+              props: {
+                overrides: {
+                  Body: {
+                    style: {
+                      zIndex: 99999,
+                    },
+                  },
+                },
+              },
+            },
           }}
         />
       )}

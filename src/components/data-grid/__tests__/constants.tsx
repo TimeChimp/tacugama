@@ -3,6 +3,52 @@ import { DataGridColumn, Filter, FilterType } from '../types';
 import { Account, Briefcase, Calendar, Documents, Tasks } from '../../icons';
 import { Dot } from '../../dot';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
+import { Avatar } from '../../avatar';
+import { ParagraphSmall } from 'baseui/typography';
+import { useTheme } from '../../../providers';
+
+const CustomCellComponent = ({ data }: any) => {
+  const {
+    theme: {
+      current: {
+        sizing: { scale300, scale500, scale600 },
+        colors: { white },
+      },
+    },
+  } = useTheme();
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <Avatar
+        name={data.userName}
+        overrides={{
+          Avatar: {
+            style: {
+              color: white,
+            },
+          },
+          Initials: {
+            style: {
+              fontSize: scale500,
+            },
+          },
+        }}
+        size={scale600}
+      />
+      <ParagraphSmall
+        overrides={{
+          Block: {
+            style: {
+              marginLeft: scale300,
+            },
+          },
+        }}
+      >
+        {data?.userName}
+      </ParagraphSmall>
+    </div>
+  );
+};
 
 export const ACCESS_TOKEN = '';
 export const DATA_URL = '/timetracking';
@@ -11,6 +57,7 @@ export const COLUMNS: DataGridColumn[] = [
     field: 'start',
     label: 'Date',
     type: 'date',
+    customComponent: CustomCellComponent,
   },
   {
     field: 'state',

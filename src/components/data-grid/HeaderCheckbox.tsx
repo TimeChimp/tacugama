@@ -33,7 +33,7 @@ export const HeaderCheckbox = ({ api: gridApi, displayName }: HeaderCheckboxProp
     }
 
     const selectedRows: RowNode[] = gridApi.getSelectedRows();
-    const selectedRowIds = selectedRows.map((row) => row.id);
+    const selectedRowIds = selectedRows?.map((row) => row.id);
     return pageRows.every(({ id }) => selectedRowIds.includes(id));
   }, [gridApi, getPageIndices]);
 

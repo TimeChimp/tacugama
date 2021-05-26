@@ -8,6 +8,7 @@ import {
   borderTop,
   getButtonBackgroundColor,
   getButtonBackgroundHoverColor,
+  margin,
 } from '../../utils';
 import { Button as BaseButton, ButtonProps as BaseButtonProps, KIND, SIZE } from 'baseui/button';
 import { ButtonType } from '../../models';
@@ -35,7 +36,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const {
       theme: {
         current: {
-          sizing: { scale0, scale600 },
+          sizing: { scale0, scale100, scale600 },
           colors,
         },
       },
@@ -62,6 +63,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 backgroundColor: primary300,
                 color: primaryB,
               },
+            },
+          },
+          StartEnhancer: {
+            style: {
+              ...margin('0', scale100, '0', '0'),
             },
           },
           LoadingSpinner: {

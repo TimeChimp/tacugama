@@ -432,6 +432,7 @@ export const DataGrid = ({
             {selection && (
               <DataGridActions
                 api={gridApi}
+                columns={gridColumns}
                 rowsSelected={rowsSelected}
                 translations={translations}
                 onBulkDelete={onBulkDelete}
@@ -529,23 +530,28 @@ export const DataGrid = ({
             sortable={false}
             resizable={false}
           />
-          {gridColumns.map(({ field, label, width, rowGroup, hide, sort, sortable, type, aggFunc, customMap }) => (
-            <AgGridColumn
-              key={field}
-              headerName={label}
-              field={field}
-              width={width}
-              rowGroup={rowGroup}
-              hide={hide || rowGroup}
-              sort={sort}
-              filter={getFilterType(field, type)}
-              filterParams={{ values: (params: any) => getFilterParams(params, field) }}
-              valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, type, customMap)}
-              aggFunc={aggFunc}
-              sortable={sortable ?? sortableColumns}
-              resizable={resizeableColumns}
-            />
-          ))}
+          {gridColumns.map(
+            ({ field, label, width, rowGroup, hide, sort, sortable, type, aggFunc, customMap, customComponent }) => (
+              <>
+                <AgGridColumn
+                  cellRendererFramework={customComponent}
+                  key={field}
+                  headerName={label}
+                  field={field}
+                  width={width}
+                  rowGroup={rowGroup}
+                  hide={hide || rowGroup}
+                  sort={sort}
+                  filter={getFilterType(field, type)}
+                  filterParams={{ values: (params: any) => getFilterParams(params, field) }}
+                  valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, type, customMap)}
+                  aggFunc={aggFunc}
+                  sortable={sortable ?? sortableColumns}
+                  resizable={resizeableColumns}
+                />
+              </>
+            ),
+          )}
           <AgGridColumn
             headerName={''}
             field={''}
