@@ -61,7 +61,6 @@ export const FILTERS: Filter[] = [
       { label: 'Active', value: 'active', icon: <Dot color="green" /> },
       { label: 'Archived', value: 'archived', icon: <Dot color="grey" /> },
     ],
-    icon: ({ ...props }) => <Account size="12px" {...props} />,
   },
   {
     type: FilterType.string,
