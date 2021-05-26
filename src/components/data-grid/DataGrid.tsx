@@ -322,12 +322,8 @@ export const DataGrid = ({
   };
 
   const onFiltering = (filters: FilterModel) => {
-    console.log(filters);
-
-    gridApi.setFilterModel(filters);
+    gridApi.setFilterModel({ ...filters });
     gridApi.onFilterChanged();
-
-    console.log(gridApi.getFilterModel());
   };
 
   const getValueFormatter = (
@@ -363,14 +359,17 @@ export const DataGrid = ({
     return params.value;
   };
 
-  const getFilterParams = (params: any, columnField?: string) => {
+  const getFilterParams = (params: any, columnField: string) => {
     if (!params) {
       return;
     }
-    let values: FilterValue[] | string[] = [];
+    let values: string[] = [];
     const columnFilter = filters?.find((filter) => filter.columnField === columnField);
-    if (columnFilter && columnFilter.values) {
-      values = columnFilter.values;
+    if (columnFilter?.values) {
+      const columnValues: (FilterValue | string)[] = columnFilter.values;
+      values = columnValues.map((value: FilterValue | string) =>
+        value && typeof value === 'object' ? value.value : value,
+      );
     }
     params.success(values);
   };

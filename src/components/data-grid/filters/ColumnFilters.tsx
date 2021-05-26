@@ -26,7 +26,6 @@ export const ColumnFilters = ({
   selectedFilterIds,
   translations: { search, lessFilters, allFilters },
 }: ColumnFiltersProps) => {
-  const [openFilter, setOpenFilter] = useState<string>();
   const [showLessFilters, setShowLessFilters] = useState<boolean>(true);
   const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
   const [internalDates, setInternalDates] = useState<Date[]>([]);
@@ -87,18 +86,15 @@ export const ColumnFilters = ({
   );
 
   const handleSetFilter = useCallback(
-    (value: string) => {
-      if (openFilter) {
-        onSetFiltering(openFilter, value);
-      }
+    (columnField, value: string) => {
+      onSetFiltering(columnField, value);
     },
-    [onSetFiltering, openFilter],
+    [onSetFiltering],
   );
 
   const filterOnValue = useCallback(
     (columnField: string, value: string, type: FilterType) => {
-      handleSetFilter(value);
-      console.log(value);
+      handleSetFilter(columnField, value);
 
       setSelectedFilterIds((currentIds) => {
         if (!currentIds[columnField] || type === FilterType.select) {
@@ -246,7 +242,6 @@ export const ColumnFilters = ({
   };
 
   const onSetFilterClear = (columnField: string) => {
-    setOpenFilter(undefined);
     api.destroyFilter(columnField);
     api.onFilterChanged();
     setSelectedFilterIds((currentIds) => {
@@ -280,7 +275,6 @@ export const ColumnFilters = ({
       ),
       [FilterType.string]: (
         <Dropdown
-          onOpen={() => setOpenFilter(columnField)}
           showSearch
           selection
           items={getAllColumnValues(columnField, FilterType.string, values)}
@@ -300,7 +294,6 @@ export const ColumnFilters = ({
       ),
       [FilterType.select]: (
         <Dropdown
-          onOpen={() => setOpenFilter(columnField)}
           items={getAllColumnValues(columnField, FilterType.select, values)}
           selectedIds={selectedFilterIds[columnField]}
           isLoading={valuesLoading}
