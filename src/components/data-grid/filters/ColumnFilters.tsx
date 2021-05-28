@@ -189,7 +189,7 @@ export const ColumnFilters = ({
   };
 
   const getSelectedFilterIds = (columnField: string) =>
-    selectedFilterIds[columnField] && selectedFilterIds[columnField].flatMap((value) => (value ? [value] : []));
+    selectedFilterIds[columnField]?.flatMap((value) => (value ? [value] : []));
 
   const Filter = ({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon: Icon }: Filter) => {
     const filterTypes = {
