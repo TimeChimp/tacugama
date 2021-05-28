@@ -57,7 +57,6 @@ export const COLUMNS: DataGridColumn[] = [
     field: 'start',
     label: 'Date',
     type: 'date',
-    customComponent: CustomCellComponent,
   },
   {
     field: 'state',
@@ -67,6 +66,7 @@ export const COLUMNS: DataGridColumn[] = [
   {
     field: 'userName',
     label: 'Employee',
+    customComponent: CustomCellComponent,
   },
   {
     field: 'description',
@@ -108,6 +108,7 @@ export const FILTERS: Filter[] = [
       { label: 'Active', value: 'active', icon: <Dot color="green" /> },
       { label: 'Archived', value: 'archived', icon: <Dot color="grey" /> },
     ],
+    defaultValue: 'active',
   },
   {
     type: FilterType.string,

@@ -25,6 +25,7 @@ export const ColumnFilters = ({
   setSelectedFilterIds,
   selectedFilterIds,
   translations: { search, lessFilters, allFilters },
+  filterOnValue,
 }: ColumnFiltersProps) => {
   const [showLessFilters, setShowLessFilters] = useState<boolean>(true);
   const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
@@ -50,73 +51,8 @@ export const ColumnFilters = ({
     validateFilters();
   }, [filters, validateFilters]);
 
-  const getSetValues = (value: string, values?: string[]) => {
-    if (!values) {
-      return [value];
-    }
-
-    if (values?.includes(value)) {
-      return values.filter((x) => x !== value);
-    }
-    return [...values, value];
-  };
-
-  const onSetFiltering = useCallback(
-    (columnField: string, value: string) => {
-      const filterInstance = api.getFilterInstance(columnField);
-      const filterModel = api.getFilterModel();
-      const currentValues = filterInstance?.getModel()?.values;
-      const values = getSetValues(value, currentValues);
-
-      if (!values.length) {
-        api.destroyFilter(columnField);
-        return api.onFilterChanged();
-      }
-
-      const setFilter = {
-        values,
-        type: 'set',
-      };
-
-      filterModel[columnField] = setFilter;
-
-      onFiltering(filterModel);
-    },
-    [api, onFiltering],
-  );
-
-  const handleSetFilter = useCallback(
-    (columnField, value: string) => {
-      onSetFiltering(columnField, value);
-    },
-    [onSetFiltering],
-  );
-
-  const filterOnValue = useCallback(
-    (columnField: string, value: string, type: FilterType) => {
-      handleSetFilter(columnField, value);
-
-      setSelectedFilterIds((currentIds) => {
-        if (!currentIds[columnField] || type === FilterType.select) {
-          return {
-            ...currentIds,
-            [columnField]: [value],
-          };
-        }
-        if (currentIds[columnField].includes(value)) {
-          return {
-            ...currentIds,
-            [columnField]: currentIds[columnField].filter((currentId) => currentId !== value),
-          };
-        }
-        return { ...currentIds, [columnField]: [...currentIds[columnField], value] };
-      });
-    },
-    [handleSetFilter, setSelectedFilterIds],
-  );
-
   const isSelectValueActive = useCallback(
-    (columnField: string, filterValue: string, type: FilterType) => {
+    (columnField: string, filterValue: string | null, type: FilterType) => {
       if (type !== FilterType.select) {
         return false;
       }
@@ -138,7 +74,7 @@ export const ColumnFilters = ({
         const filterValue = value && typeof value === 'object' ? value.value : value;
         const filterLabel = value && typeof value === 'object' ? value.label : value;
         const item: DropdownItem = {
-          id: filterValue,
+          id: filterLabel,
           label: filterLabel,
           action: () => filterOnValue(columnField, filterValue, type),
           isBold: isSelectValueActive(columnField, filterValue, type),
@@ -252,6 +188,9 @@ export const ColumnFilters = ({
     });
   };
 
+  const getSelectedFilterIds = (columnField: string) =>
+    selectedFilterIds[columnField]?.flatMap((value) => (value ? [value] : []));
+
   const Filter = ({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon: Icon }: Filter) => {
     const filterTypes = {
       [FilterType.date]: (
@@ -278,7 +217,7 @@ export const ColumnFilters = ({
           showSearch
           selection
           items={getAllColumnValues(columnField, FilterType.string, values)}
-          selectedIds={selectedFilterIds[columnField]}
+          selectedIds={getSelectedFilterIds(columnField)}
           searchPlaceholder={searchPlaceholder || search}
           isLoading={valuesLoading}
         >
@@ -295,7 +234,7 @@ export const ColumnFilters = ({
       [FilterType.select]: (
         <Dropdown
           items={getAllColumnValues(columnField, FilterType.select, values)}
-          selectedIds={selectedFilterIds[columnField]}
+          selectedIds={getSelectedFilterIds(columnField)}
           isLoading={valuesLoading}
         >
           <FilterButton
