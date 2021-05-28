@@ -18,6 +18,7 @@ export interface DropdownItem {
   color?: string;
   checkbox?: boolean;
   isChecked?: boolean;
+  isBold?: boolean;
 }
 
 export interface DropdownOptionProps {
@@ -34,7 +35,18 @@ export const DropdownOption = forwardRef<any, DropdownOptionProps>(
         {item.checkbox && <Checkbox testId="dropdown-option-checkbox" checked={item.isChecked} />}
         {item.icon && <StyledDropdownOptionIcon>{item.icon}</StyledDropdownOptionIcon>}
         <StyledDropdownOptionLabel>
-          <ParagraphSmall color={item.color || theme.current.colors.contentPrimary}>{item.label}</ParagraphSmall>
+          <ParagraphSmall
+            color={item.color || theme.current.colors.contentPrimary}
+            overrides={{
+              Block: {
+                style: {
+                  fontWeight: item.isBold ? 600 : 400,
+                },
+              },
+            }}
+          >
+            {item.label}
+          </ParagraphSmall>
           {item.iconEnd && <StyledDropdownOptionIconEnd>{item.iconEnd}</StyledDropdownOptionIconEnd>}
         </StyledDropdownOptionLabel>
       </StyledDropdownOption>

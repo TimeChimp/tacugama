@@ -50,6 +50,8 @@ import {
   CreateViewInput,
   IFilterType,
   SelectedFilterIds,
+  FilterValue,
+  FilterType,
 } from './types';
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
@@ -243,12 +245,13 @@ export const DataGrid = ({
     }
   };
 
-  const onFirstDataRendered = () => {
-    const activeView = allViews?.find((view) => view.active);
-    if (activeView) {
-      setViewState(activeView.viewState!);
-    }
-  };
+  const onFiltering = useCallback(
+    (filters: FilterModel) => {
+      gridApi.setFilterModel(filters);
+      gridApi.onFilterChanged();
+    },
+    [gridApi],
+  );
 
   const createServerSideDatasource = (): IServerSideDatasource => {
     return {
@@ -320,11 +323,6 @@ export const DataGrid = ({
     setGridColumns(columns);
   };
 
-  const onFiltering = (filters: FilterModel) => {
-    gridApi.setFilterModel(filters);
-    gridApi.onFilterChanged();
-  };
-
   const getValueFormatter = (
     params: ValueFormatterParams,
     type?: DataGridColumnType,
@@ -358,14 +356,17 @@ export const DataGrid = ({
     return params.value;
   };
 
-  const getFilterParams = (params: any, columnField?: string) => {
+  const getFilterParams = (params: any, columnField: string) => {
     if (!params) {
       return;
     }
-    let values: string[] = [];
+    let values: (string | null)[] = [];
     const columnFilter = filters?.find((filter) => filter.columnField === columnField);
-    if (columnFilter && columnFilter.values) {
-      values = columnFilter.values;
+    if (columnFilter?.values) {
+      const columnValues: (FilterValue | string)[] = columnFilter.values;
+      values = columnValues.map((value: FilterValue | string) =>
+        value && typeof value === 'object' ? value.value : value,
+      );
     }
     params.success(values);
   };
@@ -389,6 +390,96 @@ export const DataGrid = ({
     setRowsSelected(selected);
   };
 
+  const getSetValues = (value: string | null, type: FilterType, values?: string[]) => {
+    if (!value) {
+      return [];
+    }
+
+    if (!values || type === FilterType.select) {
+      return [value];
+    }
+
+    if (values?.includes(value)) {
+      return values.filter((x) => x !== value);
+    }
+    return [...values, value];
+  };
+
+  const onSetFiltering = useCallback(
+    (columnField: string, type: FilterType, value: string | null) => {
+      const filterInstance = gridApi?.getFilterInstance(columnField);
+      const filterModel = gridApi?.getFilterModel();
+      const currentValues = filterInstance?.getModel()?.values;
+      const values = getSetValues(value, type, currentValues);
+
+      if (!values.length) {
+        gridApi.destroyFilter(columnField);
+        return gridApi.onFilterChanged();
+      }
+
+      const setFilter = {
+        values,
+        type: 'set',
+      };
+
+      filterModel[columnField] = setFilter;
+
+      onFiltering(filterModel);
+    },
+    [gridApi, onFiltering],
+  );
+
+  const handleSetFilter = useCallback(
+    (columnField: string, type: FilterType, value: string | null) => {
+      onSetFiltering(columnField, type, value);
+    },
+    [onSetFiltering],
+  );
+
+  const filterOnValue = useCallback(
+    (columnField: string, value: string | null, type: FilterType) => {
+      handleSetFilter(columnField, type, value);
+
+      setSelectedFilterIds((currentIds) => {
+        if (!currentIds[columnField] || type === FilterType.select) {
+          return {
+            ...currentIds,
+            [columnField]: [value],
+          };
+        }
+        if (value && currentIds[columnField].includes(value)) {
+          return {
+            ...currentIds,
+            [columnField]: currentIds[columnField].filter((currentId) => currentId !== value),
+          };
+        }
+        return { ...currentIds, [columnField]: [...currentIds[columnField], value] };
+      });
+    },
+    [handleSetFilter, setSelectedFilterIds],
+  );
+
+  const setFilterDefaultValues = useCallback(() => {
+    const defaultFilterValues = filters?.filter((filter) => !!filter.defaultValue);
+
+    if (defaultFilterValues?.length) {
+      defaultFilterValues.forEach(({ columnField, defaultValue, type }) => {
+        if (defaultValue) {
+          filterOnValue(columnField, defaultValue, type);
+        }
+      });
+    }
+  }, [filterOnValue, filters]);
+
+  const onFirstDataRendered = () => {
+    const activeView = allViews?.find((view) => view.active);
+    if (activeView && activeView.viewState) {
+      return setViewState(activeView.viewState);
+    }
+
+    return setFilterDefaultValues();
+  };
+
   return (
     <>
       <Filters
@@ -406,6 +497,7 @@ export const DataGrid = ({
         dateFormat={formatSettings.dateFormat ?? (defaultFormatSettings.dateFormat as string)}
         selectedFilterIds={selectedFilterIds}
         setSelectedFilterIds={setSelectedFilterIds}
+        filterOnValue={filterOnValue}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {(viewing || selection) && (
@@ -528,24 +620,22 @@ export const DataGrid = ({
           />
           {gridColumns.map(
             ({ field, label, width, rowGroup, hide, sort, sortable, type, aggFunc, customMap, customComponent }) => (
-              <>
-                <AgGridColumn
-                  cellRendererFramework={customComponent}
-                  key={field}
-                  headerName={label}
-                  field={field}
-                  width={width}
-                  rowGroup={rowGroup}
-                  hide={hide || rowGroup}
-                  sort={sort}
-                  filter={getFilterType(field, type)}
-                  filterParams={{ values: (params: any) => getFilterParams(params, field) }}
-                  valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, type, customMap)}
-                  aggFunc={aggFunc}
-                  sortable={sortable ?? sortableColumns}
-                  resizable={resizeableColumns}
-                />
-              </>
+              <AgGridColumn
+                cellRendererFramework={customComponent}
+                key={field}
+                headerName={label}
+                field={field}
+                width={width}
+                rowGroup={rowGroup}
+                hide={hide || rowGroup}
+                sort={sort}
+                filter={getFilterType(field, type)}
+                filterParams={{ values: (params: any) => getFilterParams(params, field) }}
+                valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, type, customMap)}
+                aggFunc={aggFunc}
+                sortable={sortable ?? sortableColumns}
+                resizable={resizeableColumns}
+              />
             ),
           )}
           <AgGridColumn

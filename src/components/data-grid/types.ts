@@ -55,11 +55,19 @@ export type IFilterType =
 export enum FilterType {
   date = 'date',
   string = 'string',
+  select = 'select',
+}
+
+export interface FilterValue {
+  value: string | null;
+  label: string;
+  icon?: JSX.Element;
 }
 export interface Filter {
   type: FilterType;
   columnField: string;
-  values?: string[];
+  values?: FilterValue[] | string[];
+  defaultValue?: string;
   valuesLoading?: boolean;
   title: string;
   icon?: ComponentType<IconProps>;
@@ -167,7 +175,7 @@ export interface CreateViewInput {
 }
 
 export interface SelectedFilterIds {
-  [key: string]: string[];
+  [key: string]: (string | null)[];
 }
 
 export interface FiltersProps {
@@ -185,6 +193,7 @@ export interface FiltersProps {
   dateFormat: string;
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
+  filterOnValue: (columnField: string, value: string | null, type: FilterType) => void;
 }
 
 export interface ColumnFiltersProps {
@@ -197,6 +206,7 @@ export interface ColumnFiltersProps {
   dateFormat: string;
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
+  filterOnValue: (columnField: string, value: string | null, type: FilterType) => void;
 }
 export interface FooterRowCountProps {
   api: GridApi;

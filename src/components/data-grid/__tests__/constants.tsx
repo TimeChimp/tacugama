@@ -1,6 +1,7 @@
 import React from 'react';
 import { DataGridColumn, Filter, FilterType } from '../types';
 import { Account, Briefcase, Calendar, Documents, Tasks } from '../../icons';
+import { Dot } from '../../dot';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { Avatar } from '../../avatar';
 import { ParagraphSmall } from 'baseui/typography';
@@ -56,11 +57,16 @@ export const COLUMNS: DataGridColumn[] = [
     field: 'start',
     label: 'Date',
     type: 'date',
-    customComponent: CustomCellComponent,
+  },
+  {
+    field: 'state',
+    label: 'State',
+    hide: true,
   },
   {
     field: 'userName',
     label: 'Employee',
+    customComponent: CustomCellComponent,
   },
   {
     field: 'description',
@@ -92,6 +98,17 @@ export const FILTERS: Filter[] = [
     title: 'Date',
     columnField: 'start',
     icon: ({ ...props }) => <Calendar size="12px" {...props} />,
+  },
+  {
+    type: FilterType.select,
+    title: 'Status',
+    columnField: 'state',
+    values: [
+      { label: 'All statuses', value: '', icon: <Dot color="transparent" /> },
+      { label: 'Active', value: 'active', icon: <Dot color="green" /> },
+      { label: 'Archived', value: 'archived', icon: <Dot color="grey" /> },
+    ],
+    defaultValue: 'active',
   },
   {
     type: FilterType.string,
@@ -140,6 +157,7 @@ const getTimeEntries = () => {
       task: 'Testing',
       start: new TcDate().add(i, 'd').toDate(),
       userName: 'Bob',
+      state: 'active',
     });
   }
   return timeEntries;
