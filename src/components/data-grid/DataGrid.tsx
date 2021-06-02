@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import fetch from 'isomorphic-unfetch';
 import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader } from './styles';
 import { RowActionsCell } from './RowActionsCell';
@@ -61,6 +61,7 @@ import { SortAscendingIcon } from './SortAscendingIcon';
 import { SortDescendingIcon } from './SortDescendingIcon';
 import ReactDOMServer from 'react-dom/server';
 import DataGridActions from './DataGridActions';
+import RowEditCell from './RowEditCell';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
@@ -91,6 +92,7 @@ export const DataGrid = ({
   onUnpinView,
   onSaveViewState,
   onBulkDelete,
+  onRowEdit,
   searchColumns = DEFAULT_SEARCH_COLUMNS,
   formatSettings = defaultFormatSettings,
   translations = defaultTranslations,
@@ -480,6 +482,16 @@ export const DataGrid = ({
     return setFilterDefaultValues();
   };
 
+  const columnCellRenderer = useMemo(() => {
+    if (rowActionItems) {
+      return 'moreActionsCell';
+    }
+    if (!!onRowEdit) {
+      return 'rowEditCell';
+    }
+    return '';
+  }, [rowActionItems, onRowEdit]);
+
   return (
     <>
       <Filters
@@ -566,6 +578,7 @@ export const DataGrid = ({
             headerCheckbox: HeaderCheckbox,
             headerColumnToggle: HeaderColumnToggle,
             loadingCellTemplate: LoadingCellTemplate,
+            rowEditCell: RowEditCell,
           }}
           icons={{
             sortAscending: () =>
@@ -645,8 +658,8 @@ export const DataGrid = ({
             headerComponentParams={{
               translations,
             }}
-            cellRenderer={rowActionItems ? 'moreActionsCell' : ''}
-            cellRendererParams={{ items: rowActionItems }}
+            cellRenderer={columnCellRenderer}
+            cellRendererParams={{ items: rowActionItems, onRowEdit }}
             type="rightAligned"
             minWidth={60}
             maxWidth={60}

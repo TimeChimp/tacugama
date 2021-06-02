@@ -158,6 +158,7 @@ export interface DataGridProps {
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
   onBulkDelete?: (ids: string[]) => Promise<void>;
+  onRowEdit?: () => void;
 }
 
 export interface DataGridView {
@@ -216,6 +217,11 @@ export interface FooterRowCountProps {
 export interface RowActionsCellProps {
   items: DropdownItem[];
   api: GridApi;
+}
+
+export interface RowEditCellProps {
+  api: GridApi;
+  onRowEdit: () => void;
 }
 
 export interface HeaderCheckboxProps {
