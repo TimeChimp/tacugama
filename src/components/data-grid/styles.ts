@@ -53,6 +53,13 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
     .ag-theme-alpine .ag-row-loading:hover {
       background: transparent;
     }
+
+    .ag-row-edit-cell {
+      display: none;
+    }
+    .ag-row-hover .ag-row-edit-cell, .ag-row-focus .ag-row-edit-cell {
+      display: block;
+    }
   `;
 };
 
