@@ -61,7 +61,6 @@ import { SortAscendingIcon } from './SortAscendingIcon';
 import { SortDescendingIcon } from './SortDescendingIcon';
 import ReactDOMServer from 'react-dom/server';
 import DataGridActions from './DataGridActions';
-import RowEditCell from './RowEditCell';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
@@ -483,11 +482,8 @@ export const DataGrid = ({
   };
 
   const columnCellRenderer = useMemo(() => {
-    if (rowActionItems) {
+    if (rowActionItems || !!onRowEdit) {
       return 'moreActionsCell';
-    }
-    if (!!onRowEdit) {
-      return 'rowEditCell';
     }
     return '';
   }, [rowActionItems, onRowEdit]);
@@ -578,7 +574,6 @@ export const DataGrid = ({
             headerCheckbox: HeaderCheckbox,
             headerColumnToggle: HeaderColumnToggle,
             loadingCellTemplate: LoadingCellTemplate,
-            rowEditCell: RowEditCell,
           }}
           icons={{
             sortAscending: () =>
@@ -659,7 +654,7 @@ export const DataGrid = ({
               translations,
             }}
             cellRenderer={columnCellRenderer}
-            cellRendererParams={{ items: rowActionItems, onRowEdit }}
+            cellRendererParams={{ data: { items: rowActionItems, onEdit: onRowEdit } }}
             type="rightAligned"
             minWidth={60}
             maxWidth={60}

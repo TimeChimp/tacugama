@@ -4,8 +4,9 @@ import { RowActionsCellProps } from './types';
 import { Dropdown } from '../dropdown';
 import { TertiaryButton } from '../button';
 import { ActionMenu, ActionMenuActive } from '../icons';
+import { RowEditCell } from './RowEditCell';
 
-export const RowActionsCell = ({ items }: RowActionsCellProps) => {
+export const RowActionsCell = ({ data }: RowActionsCellProps) => {
   const [active, setActive] = useState(false);
   const {
     theme: {
@@ -23,9 +24,14 @@ export const RowActionsCell = ({ items }: RowActionsCellProps) => {
     containerRef.current?.click();
   };
 
-  return (
+  const onEdit = () => {
+    data.onEdit(data.id);
+  };
+  return !!data.onEdit ? (
+    <RowEditCell onClick={onEdit} />
+  ) : (
     <div ref={containerRef}>
-      <Dropdown onOpen={onOpen} onClose={() => setActive(false)} items={items}>
+      <Dropdown onOpen={onOpen} onClose={() => setActive(false)} items={data.items}>
         <TertiaryButton>
           {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
         </TertiaryButton>

@@ -34,7 +34,7 @@ export interface DropdownProps {
 
 export const Dropdown = ({
   children,
-  items,
+  items = [],
   showSearch,
   searchPlaceholder,
   onOpen,
