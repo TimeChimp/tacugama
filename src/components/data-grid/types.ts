@@ -216,7 +216,7 @@ export interface FooterRowCountProps {
 export interface RowActionsCellData {
   items: DropdownItem[];
   onEdit: (id: string) => void;
-  id: string;
+  contactId: string;
 }
 export interface RowActionsCellProps {
   api: GridApi;
