@@ -25,7 +25,7 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
   };
 
   const onEdit = () => {
-    data.onEdit(data.contactId);
+    data.onEdit(data);
   };
   return !!data.onEdit ? (
     <RowEditCell onClick={onEdit} />
