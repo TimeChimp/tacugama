@@ -171,10 +171,11 @@ export const ColumnFilters = ({
 
   const getFilters = () => {
     validateFilters();
+    const visibleFilters = filters?.filter((filter) => !filter.hide);
     if (showLessFilters) {
-      return filters?.slice(0, 2);
+      return visibleFilters?.slice(0, 2);
     }
-    return filters;
+    return visibleFilters;
   };
 
   const onSetFilterClear = (columnField: string) => {
