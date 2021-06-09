@@ -72,6 +72,7 @@ export interface Filter {
   title: string;
   icon?: ComponentType<IconProps>;
   searchPlaceholder?: string;
+  hide?: boolean;
 }
 
 export interface DataGridState {
