@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ColumnFiltersProps, Filter, FilterType, FilterValue } from '../types';
-import { DateFilterModel } from '@ag-grid-community/core';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { SIZE } from 'baseui/button';
 import { Dropdown, DropdownItem } from '../../dropdown';
@@ -10,7 +9,6 @@ import { useTheme } from '../../../providers';
 import { Datepicker } from '../../datepicker';
 import { FilterButton } from './FilterButton';
 
-const DATE_FORMAT = 'y-MM-dd';
 const LESS_FILTERS_BUTTON_TEST_ID = 'less-filters-button';
 const MORE_FILTERS_BUTTON_TEST_ID = 'more-filters-button';
 const MULTIPLE_DATE_FILTER_ERROR = 'You can only pass max. 1 date filter';
@@ -26,6 +24,7 @@ export const ColumnFilters = ({
   selectedFilterIds,
   translations: { search, lessFilters, allFilters },
   filterOnValue,
+  filterOnDate,
 }: ColumnFiltersProps) => {
   const [showLessFilters, setShowLessFilters] = useState<boolean>(true);
   const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
@@ -118,9 +117,6 @@ export const ColumnFilters = ({
     };
   };
 
-  // Date format that is send as part of the query request
-  const getDateFormat = (date: Date) => new TcDate(date).format(DATE_FORMAT);
-
   const getDateTitleFormat = (date: Date) => new TcDate(date).format(dateFormat);
 
   const getDateTitle = (title: string) =>
@@ -142,30 +138,21 @@ export const ColumnFilters = ({
     return setDatepickerIsOpen(true);
   };
 
-  const onDateSelect = ({ date: dates, columnField }: { date: Date | Date[]; columnField: string }) => {
+  const onDateSelect = ({ date: selectedDates, columnField }: { date: Date | Date[]; columnField: string }) => {
     if (!setDates) {
       return;
     }
 
-    if (!Array.isArray(dates)) {
-      return setInternalDates([dates]);
+    if (!Array.isArray(selectedDates)) {
+      return setInternalDates([selectedDates]);
     }
 
-    setInternalDates(dates);
+    setInternalDates(internalDates);
 
-    if (dates.length > 1) {
-      setDates(dates);
+    if (selectedDates.length > 1) {
+      setDates(selectedDates);
       toggleDatePicker();
-
-      const dateFilter: DateFilterModel = {
-        filterType: 'date',
-        type: 'inRange',
-        dateFrom: getDateFormat(dates[0]),
-        dateTo: getDateFormat(dates[1]),
-      };
-      const filterModel = api.getFilterModel();
-      filterModel[columnField] = dateFilter;
-      onFiltering(filterModel);
+      filterOnDate(columnField, selectedDates);
     }
   };
 
