@@ -22,6 +22,7 @@ export const DataGridActions = ({
   rowsSelected,
   onBulkDelete,
   translations: { cancel, deleteEntries, deleteEntriesCount },
+  hideDownload,
 }: DataGridActionsProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
@@ -79,17 +80,20 @@ export const DataGridActions = ({
 
   return (
     <StyledDataGridActions>
-      <Dropdown
-        items={dropdownItems}
-        propOverrides={{
-          listProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTIONS_TEST_ID }),
-          optionProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTION_TEST_ID }),
-        }}
-      >
-        <TertiaryButton disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
-          <Download size={scale600} color={rowsSelected ? primaryA : contentStateDisabled} />
-        </TertiaryButton>
-      </Dropdown>
+      {!hideDownload && (
+        <Dropdown
+          items={dropdownItems}
+          propOverrides={{
+            listProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTIONS_TEST_ID }),
+            optionProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTION_TEST_ID }),
+          }}
+        >
+          <TertiaryButton disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
+            <Download size={scale600} color={rowsSelected ? primaryA : contentStateDisabled} />
+          </TertiaryButton>
+        </Dropdown>
+      )}
+
       <TertiaryButton
         overrides={{
           Root: {
