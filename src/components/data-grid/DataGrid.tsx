@@ -97,6 +97,7 @@ export const DataGrid = ({
   formatSettings = defaultFormatSettings,
   translations = defaultTranslations,
   height = DEFAULT_HEIGHT,
+  hideDownload = false,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
@@ -550,6 +551,7 @@ export const DataGrid = ({
                 rowsSelected={rowsSelected}
                 translations={translations}
                 onBulkDelete={onBulkDelete}
+                hideDownload={hideDownload}
               />
             )}
           </StyledDataGridHeader>

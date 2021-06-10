@@ -148,6 +148,7 @@ export interface DataGridProps {
   views?: DataGridView[];
   height?: string;
   dates?: Date[];
+  hideDownload?: boolean;
   setDates?: (dates: Date[]) => void;
   onDeactivateView?: (id: string) => Promise<void>;
   onActivateView?: (id: string) => Promise<void>;
@@ -332,6 +333,7 @@ export interface DataGridActionsProps {
   api: GridApi;
   columns: DataGridColumn[];
   rowsSelected: number;
-  onBulkDelete?: (ids: string[]) => Promise<void>;
   translations: Translations;
+  onBulkDelete?: (ids: string[]) => Promise<void>;
+  hideDownload?: boolean;
 }
