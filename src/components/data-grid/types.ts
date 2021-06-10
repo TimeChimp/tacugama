@@ -197,6 +197,7 @@ export interface FiltersProps {
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
   filterOnValue: (columnField: string, value: string | null, type: FilterType) => void;
+  filterOnDate: (columnField: string, selectedDates: Date[]) => void;
 }
 
 export interface ColumnFiltersProps {
@@ -210,6 +211,7 @@ export interface ColumnFiltersProps {
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
   filterOnValue: (columnField: string, value: string | null, type: FilterType) => void;
+  filterOnDate: (columnField: string, selectedDates: Date[]) => void;
 }
 export interface FooterRowCountProps {
   api: GridApi;

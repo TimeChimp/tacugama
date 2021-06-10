@@ -64,6 +64,7 @@ import DataGridActions from './DataGridActions';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
+const DATE_FORMAT = 'y-MM-dd';
 
 export const DataGrid = ({
   columns,
@@ -431,16 +432,9 @@ export const DataGrid = ({
     [gridApi, onFiltering],
   );
 
-  const handleSetFilter = useCallback(
-    (columnField: string, type: FilterType, value: string | null) => {
-      onSetFiltering(columnField, type, value);
-    },
-    [onSetFiltering],
-  );
-
   const filterOnValue = useCallback(
     (columnField: string, value: string | null, type: FilterType) => {
-      handleSetFilter(columnField, type, value);
+      onSetFiltering(columnField, type, value);
 
       setSelectedFilterIds((currentIds) => {
         if (!currentIds[columnField] || type === FilterType.select) {
@@ -458,11 +452,34 @@ export const DataGrid = ({
         return { ...currentIds, [columnField]: [...currentIds[columnField], value] };
       });
     },
-    [handleSetFilter, setSelectedFilterIds],
+    [setSelectedFilterIds, onSetFiltering],
+  );
+
+  // Date format that is send as part of the query request
+  const getDateFormat = (date: Date) => new TcDate(date).format(DATE_FORMAT);
+
+  const filterOnDate = useCallback(
+    (columnField: string, selectedDates: Date[]) => {
+      const dateFilter: DateFilterModel = {
+        filterType: 'date',
+        type: 'inRange',
+        dateFrom: getDateFormat(selectedDates[0]),
+        dateTo: getDateFormat(selectedDates[1]),
+      };
+      const filterModel = gridApi.getFilterModel();
+      filterModel[columnField] = dateFilter;
+      onFiltering(filterModel);
+    },
+    [gridApi, onFiltering],
   );
 
   const setFilterDefaultValues = useCallback(() => {
     const defaultFilterValues = filters?.filter((filter) => !!filter.defaultValue);
+    const dateFilters = filters?.filter((filter) => filter.type === FilterType.date);
+
+    if (dates?.length && dateFilters?.length) {
+      filterOnDate(dateFilters[0].columnField, dates);
+    }
 
     if (defaultFilterValues?.length) {
       defaultFilterValues.forEach(({ columnField, defaultValue, type }) => {
@@ -471,7 +488,7 @@ export const DataGrid = ({
         }
       });
     }
-  }, [filterOnValue, filters]);
+  }, [filterOnValue, filterOnDate, filters, dates]);
 
   const onFirstDataRendered = () => {
     const activeView = allViews?.find((view) => view.active);
@@ -507,6 +524,7 @@ export const DataGrid = ({
         selectedFilterIds={selectedFilterIds}
         setSelectedFilterIds={setSelectedFilterIds}
         filterOnValue={filterOnValue}
+        filterOnDate={filterOnDate}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {(viewing || selection) && (
