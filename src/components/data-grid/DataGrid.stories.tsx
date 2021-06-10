@@ -119,4 +119,5 @@ Default.args = {
   height: 'calc(100vh - 200px)',
   translations: defaultTranslations,
   searchColumns: SEARCH_COLUMNS,
+  dates: [new Date(2020, 3, 20), new Date(2020, 3, 21)],
 };
