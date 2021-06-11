@@ -7,7 +7,6 @@ import {
   borderRadius,
   getInputBorderColor,
   getInputPlaceholderTextColor,
-  margin,
   padding,
 } from '../../utils';
 import { BottomArrow } from '../icons';
