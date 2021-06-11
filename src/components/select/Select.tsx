@@ -100,6 +100,7 @@ export const Select = ({
               style: {
                 ...padding('0'),
                 ...borderRadius(radius100),
+                maxHeight: '300px',
               },
             },
             DropdownListItem: {
