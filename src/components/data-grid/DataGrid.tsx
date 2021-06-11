@@ -645,6 +645,7 @@ export const DataGrid = ({
             maxWidth={40}
             sortable={false}
             resizable={false}
+            lockPosition
           />
           {gridColumns.map(
             ({ field, label, width, rowGroup, hide, sort, sortable, type, aggFunc, customMap, customComponent }) => (
