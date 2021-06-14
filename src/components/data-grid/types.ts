@@ -72,6 +72,7 @@ export interface Filter {
   title: string;
   icon?: ComponentType<IconProps>;
   searchPlaceholder?: string;
+  hide?: boolean;
 }
 
 export interface DataGridState {
@@ -147,6 +148,7 @@ export interface DataGridProps {
   views?: DataGridView[];
   height?: string;
   dates?: Date[];
+  hideDownload?: boolean;
   setDates?: (dates: Date[]) => void;
   onDeactivateView?: (id: string) => Promise<void>;
   onActivateView?: (id: string) => Promise<void>;
@@ -158,7 +160,7 @@ export interface DataGridProps {
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
   onBulkDelete?: (ids: string[]) => Promise<void>;
-  onRowEdit?: (id: string) => void;
+  onRowEdit?: (data: RowActionsCellData) => void;
 }
 
 export interface DataGridView {
@@ -195,6 +197,7 @@ export interface FiltersProps {
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
   filterOnValue: (columnField: string, value: string | null, type: FilterType) => void;
+  filterOnDate: (columnField: string, selectedDates: Date[]) => void;
 }
 
 export interface ColumnFiltersProps {
@@ -208,6 +211,7 @@ export interface ColumnFiltersProps {
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
   filterOnValue: (columnField: string, value: string | null, type: FilterType) => void;
+  filterOnDate: (columnField: string, selectedDates: Date[]) => void;
 }
 export interface FooterRowCountProps {
   api: GridApi;
@@ -215,7 +219,8 @@ export interface FooterRowCountProps {
 }
 export interface RowActionsCellData {
   items: DropdownItem[];
-  onEdit: (id: string) => void;
+  onEdit: (data: RowActionsCellData) => void;
+  contactId: string;
   id: string;
 }
 export interface RowActionsCellProps {
@@ -329,8 +334,9 @@ export interface DataGridActionsProps {
   gridColumnApi: ColumnApi;
   columns: DataGridColumn[];
   rowsSelected: number;
-  onBulkDelete?: (ids: string[]) => Promise<void>;
   translations: Translations;
+  onBulkDelete?: (ids: string[]) => Promise<void>;
+  hideDownload?: boolean;
 }
 
 export interface PrintParams {

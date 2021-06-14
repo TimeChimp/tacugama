@@ -7,7 +7,6 @@ import {
   borderRadius,
   getInputBorderColor,
   getInputPlaceholderTextColor,
-  margin,
   padding,
 } from '../../utils';
 import { BottomArrow } from '../icons';
@@ -36,7 +35,7 @@ export const Select = ({
       current: {
         colors,
         borders,
-        sizing: { scale0, scale100, scale200, scale700, scale900 },
+        sizing: { scale0, scale100, scale700, scale900 },
         typography: { ParagraphSmall, LabelSmall },
       },
     },
@@ -101,6 +100,7 @@ export const Select = ({
               style: {
                 ...padding('0'),
                 ...borderRadius(radius100),
+                maxHeight: '300px',
               },
             },
             DropdownListItem: {
@@ -117,14 +117,15 @@ export const Select = ({
             },
             SelectArrow: {
               component: () => (
-                <FlexItem marg1="0" marg2="0" marg3="0" marg4={scale100}>
+                <FlexItem marg1="0" marg2="0" marg3="0" marg4={scale100} width="auto">
                   <BottomArrow />
                 </FlexItem>
               ),
             },
             ClearIcon: {
               style: {
-                ...margin('0', scale200),
+                width: scale700,
+                height: scale700,
               },
             },
             LoadingIndicator: {
