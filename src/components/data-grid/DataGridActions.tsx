@@ -9,6 +9,7 @@ import { ConfirmationModal } from '../confirmation-modal';
 import { TrashFull, Download } from '../icons';
 import { padding } from '../../utils';
 import { ValueFormatterParams } from '@ag-grid-community/core';
+import { printDoc } from './pdfExport';
 
 const DELETE_BUTTON_TEST_ID = 'delete-button';
 const EXPORT_BUTTON_TEST_ID = 'export-button';
@@ -17,7 +18,8 @@ const EXPORT_OPTIONS_TEST_ID = 'data-grid-export-options';
 const EXPORT_OPTION_TEST_ID = 'data-grid-export-option';
 
 export const DataGridActions = ({
-  api: gridApi,
+  gridApi,
+  gridColumnApi,
   columns,
   rowsSelected,
   onBulkDelete,
@@ -64,18 +66,23 @@ export const DataGridActions = ({
                     ...params,
                     data: params.node && params.node.data,
                     node: params.node!,
-                    colDef: params.column.getColDef(),
+                    colDef,
                   };
+
                   return colDef.valueFormatter(valueFormatterParams);
                 }
                 return params.value;
               },
             }),
         },
+        {
+          label: 'Pdf',
+          action: () => printDoc(gridApi, gridColumnApi),
+        },
       ];
       setDropdownItems(dropdownItems);
     }
-  }, [gridApi, columns]);
+  }, [gridApi, gridColumnApi, columns]);
 
   return (
     <StyledDataGridActions>
