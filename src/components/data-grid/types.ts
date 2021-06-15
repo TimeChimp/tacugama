@@ -13,6 +13,7 @@ import { DurationFormat, NumberFormat, SupportedLocale } from '@timechimp/timech
 import { DropdownItem } from '../dropdown';
 import { SVGProps as IconProps } from '../icons';
 import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
+import { PageOrientation } from 'pdfmake/interfaces';
 
 export interface DataGridApi {
   getSelectedRows: () => any[];
@@ -347,11 +348,28 @@ export interface PrintParams {
   PDF_EVEN_BKG_COLOR?: string;
   PDF_HEADER_HEIGHT?: number;
   PDF_ROW_HEIGHT?: number;
-  PDF_PAGE_ORITENTATION?: string;
+  PDF_PAGE_ORIENTATION?: PageOrientation;
   PDF_WITH_CELL_FORMATTING?: boolean;
   PDF_WITH_COLUMNS_AS_LINKS?: boolean;
   PDF_SELECTED_ROWS_ONLY?: boolean;
   PDF_WITH_HEADER_IMAGE?: boolean;
   PDF_WITH_FOOTER_PAGE_COUNT?: boolean;
   PDF_LOGO?: string;
+}
+
+interface PdfCell {
+  text?: string;
+  style?: string;
+  link?: string;
+  color?: string;
+  decoration?: string;
+  [key: string]: any;
+}
+
+export interface PdfTableCell extends PdfCell {}
+
+export interface PdfHeaderCell extends PdfCell {
+  colSpan?: string;
+  colId?: string;
+  sort?: string;
 }

@@ -1,22 +1,20 @@
-// @ts-nocheck
-import { ColumnApi, GridApi, Column, ValueFormatterParams } from '@ag-grid-community/core';
-import { PrintParams } from '../types';
+import { ColumnApi, GridApi, ValueFormatterParams } from '@ag-grid-community/core';
+import { Content, Margins, TDocumentDefinitions } from 'pdfmake/interfaces';
+import { PdfHeaderCell, PdfTableCell, PrintParams } from '../types';
 
-export const getDocDefinition = (gridApi: GridApi, columnApi: ColumnApi, printParams?: PrintParams) => {
+export const getDocDefinition = (gridApi: GridApi, columnApi: ColumnApi, printParams: PrintParams) => {
   const {
     PDF_HEADER_COLOR,
     PDF_INNER_BORDER_COLOR,
     PDF_OUTER_BORDER_COLOR,
     PDF_ODD_BKG_COLOR,
     PDF_EVEN_BKG_COLOR,
-    PDF_HEADER_HEIGHT,
-    PDF_ROW_HEIGHT,
-    PDF_PAGE_ORITENTATION,
-    PDF_WITH_CELL_FORMATTING,
-    PDF_WITH_COLUMNS_AS_LINKS,
+    PDF_HEADER_HEIGHT = 25,
+    PDF_ROW_HEIGHT = 15,
+    PDF_PAGE_ORIENTATION,
     PDF_WITH_HEADER_IMAGE,
     PDF_WITH_FOOTER_PAGE_COUNT,
-    PDF_LOGO,
+    PDF_LOGO = '',
   } = printParams;
 
   return (function () {
@@ -35,46 +33,47 @@ export const getDocDefinition = (gridApi: GridApi, columnApi: ColumnApi, printPa
     const headerRows = columnGroupsToExport ? 2 : 1;
 
     const header = PDF_WITH_HEADER_IMAGE
-      ? {
+      ? ({
           image: 'ag-grid-logo',
           width: 150,
           alignment: 'center',
           margin: [0, 10, 0, 10],
-        }
-      : null;
+        } as Content)
+      : undefined;
 
     const footer = PDF_WITH_FOOTER_PAGE_COUNT
-      ? function (currentPage, pageCount) {
-          return {
+      ? function (currentPage: number, pageCount: number) {
+          const footer: Content = {
             text: currentPage.toString() + ' of ' + pageCount,
-            margin: [20],
+            margin: [20, 20, 20, 20],
           };
+          return footer;
         }
-      : null;
+      : undefined;
 
-    const pageMargins = [10, PDF_WITH_HEADER_IMAGE ? 70 : 20, 10, PDF_WITH_FOOTER_PAGE_COUNT ? 40 : 10];
+    const pageMargins: Margins = [10, PDF_WITH_HEADER_IMAGE ? 70 : 20, 10, PDF_WITH_FOOTER_PAGE_COUNT ? 40 : 10];
 
-    const heights = (rowIndex) => (rowIndex < headerRows ? PDF_HEADER_HEIGHT : PDF_ROW_HEIGHT);
+    const heights = (rowIndex: number) => (rowIndex < headerRows ? PDF_HEADER_HEIGHT : PDF_ROW_HEIGHT);
 
-    const fillColor = (rowIndex, node, columnIndex) => {
+    const fillColor = (rowIndex: number, node: any) => {
       if (rowIndex < node.table.headerRows) {
         return PDF_HEADER_COLOR;
       }
       return rowIndex % 2 === 0 ? PDF_ODD_BKG_COLOR : PDF_EVEN_BKG_COLOR;
     };
 
-    const hLineWidth = (i, node) => (i === 0 || i === node.table.body.length ? 1 : 1);
+    const hLineWidth = (i: number, node: any) => (i === 0 || i === node.table.body.length ? 1 : 1);
 
-    const vLineWidth = (i, node) => (i === 0 || i === node.table.widths.length ? 1 : 0);
+    const vLineWidth = (i: number, node: any) => (i === 0 || i === node.table.widths.length ? 1 : 0);
 
-    const hLineColor = (i, node) =>
+    const hLineColor = (i: number, node: any) =>
       i === 0 || i === node.table.body.length ? PDF_OUTER_BORDER_COLOR : PDF_INNER_BORDER_COLOR;
 
-    const vLineColor = (i, node) =>
+    const vLineColor = (i: number, node: any) =>
       i === 0 || i === node.table.widths.length ? PDF_OUTER_BORDER_COLOR : PDF_INNER_BORDER_COLOR;
 
-    const docDefintiion: TDocumentDefinitions = {
-      pageOrientation: PDF_PAGE_ORITENTATION,
+    const docDefinition: TDocumentDefinitions = {
+      pageOrientation: PDF_PAGE_ORIENTATION,
       header,
       footer,
       content: [
@@ -106,44 +105,38 @@ export const getDocDefinition = (gridApi: GridApi, columnApi: ColumnApi, printPa
           bold: true,
           margin: [0, PDF_HEADER_HEIGHT / 3, 0, 0],
         },
-        tableCell: {
-          // margin: [0, 15, 0, 0]
-        },
       },
       pageMargins,
     };
 
-    return docDefintiion;
+    return docDefinition;
   })();
 
   function getColumnGroupsToExport() {
-    let displayedColumnGroups = columnApi.getAllDisplayedColumnGroups();
+    const displayedColumnGroups = columnApi.getAllDisplayedColumnGroups();
 
-    let isColumnGrouping = displayedColumnGroups.some((col) => col.hasOwnProperty('children'));
+    const isColumnGrouping = displayedColumnGroups?.some((col) => col.hasOwnProperty('children'));
 
     if (!isColumnGrouping) {
       return null;
     }
 
-    let columnGroupsToExport = [];
+    const columnGroupsToExport: any[] = [];
 
-    displayedColumnGroups.forEach((colGroup) => {
-      let isColSpanning = colGroup.children.length > 1;
+    displayedColumnGroups?.forEach((colGroup: any) => {
+      const isColSpanning = colGroup.children.length > 1;
       let numberOfEmptyHeaderCellsToAdd = 0;
 
       if (isColSpanning) {
-        let headerCell = createHeaderCell(colGroup);
+        const headerCell = createHeaderCell(colGroup);
         columnGroupsToExport.push(headerCell);
         // subtract 1 as the column group counts as a header
         numberOfEmptyHeaderCellsToAdd--;
       }
 
       // add an empty header cell now for every column being spanned
-      colGroup.displayedChildren.forEach((childCol) => {
-        let pdfExportOptions = getPdfExportOptions(childCol.getColId());
-        if (!pdfExportOptions || !pdfExportOptions.skipColumn) {
-          numberOfEmptyHeaderCellsToAdd++;
-        }
+      colGroup.displayedChildren.forEach(() => {
+        numberOfEmptyHeaderCellsToAdd++;
       });
 
       for (let i = 0; i < numberOfEmptyHeaderCellsToAdd; i++) {
@@ -155,30 +148,30 @@ export const getDocDefinition = (gridApi: GridApi, columnApi: ColumnApi, printPa
   }
 
   function getColumnsToExport() {
-    let columnsToExport = [];
-
-    console.log(columnApi.getAllDisplayedColumns());
+    const columnsToExport: PdfHeaderCell[] = [];
 
     columnApi.getAllDisplayedColumns().forEach((col) => {
-      let pdfExportOptions = getPdfExportOptions(col.getColId());
-      if (pdfExportOptions && pdfExportOptions.skipColumn) {
+      const colDef = col.getColDef();
+
+      if (!colDef.field) {
         return;
       }
 
-      let headerCell = createHeaderCell(col);
+      const headerCell = createHeaderCell(col);
+
       columnsToExport.push(headerCell);
     });
 
     return columnsToExport;
   }
 
-  function getRowsToExport(columnsToExport) {
-    const rowsToExport = [];
+  function getRowsToExport(columnsToExport: any[]) {
+    const rowsToExport: any[] = [];
 
     const selectedRows = gridApi.getSelectedRows();
 
     selectedRows.forEach((node) => {
-      const rowToExport = columnsToExport.map((column) => {
+      const rowToExport = columnsToExport.map((column: any) => {
         let cellValue = node[column.colId];
 
         if (!!column.colDef) {
@@ -190,12 +183,13 @@ export const getDocDefinition = (gridApi: GridApi, columnApi: ColumnApi, printPa
             data: node,
             colDef: column.colDef,
             value: cellValue,
+            context: undefined,
           };
 
           cellValue = column.valueFormatter(valueFormatterParams);
         }
 
-        let tableCell = createTableCell(cellValue, column.colId);
+        const tableCell = createTableCell(cellValue);
         return tableCell;
       });
       rowsToExport.push(rowToExport);
@@ -204,14 +198,14 @@ export const getDocDefinition = (gridApi: GridApi, columnApi: ColumnApi, printPa
     return rowsToExport;
   }
 
-  function getExportedColumnsWidths(columnsToExport) {
+  function getExportedColumnsWidths(columnsToExport: PdfHeaderCell[]) {
     return columnsToExport.map(() => 100 / columnsToExport.length + '%');
   }
 
-  function createHeaderCell(col: Column) {
-    let headerCell = {};
+  function createHeaderCell(col: any) {
+    const headerCell: PdfHeaderCell = {};
 
-    let isColGroup = col.hasOwnProperty('children');
+    const isColGroup = col.hasOwnProperty('children');
 
     if (isColGroup) {
       headerCell.text = col.originalColumnGroup.colGroupDef.headerName;
@@ -223,15 +217,14 @@ export const getDocDefinition = (gridApi: GridApi, columnApi: ColumnApi, printPa
       if (col.sort) {
         headerName += ` (${col.sort})`;
       }
-      if (col.filterActive) {
-        headerName += ` [FILTERING]`;
-      }
 
       headerCell.text = headerName;
       headerCell.colId = col.getColId();
     }
 
     headerCell.style = 'tableHeader';
+
+    // try to reuse valueFormatter from the colDef
     const colDef = col.getColDef();
     if (colDef.valueFormatter && typeof colDef.valueFormatter === 'function') {
       headerCell.valueFormatter = colDef.valueFormatter;
@@ -241,33 +234,12 @@ export const getDocDefinition = (gridApi: GridApi, columnApi: ColumnApi, printPa
     return headerCell;
   }
 
-  function createTableCell(cellValue, colId, value) {
-    const tableCell = {
+  function createTableCell(cellValue: string) {
+    const tableCell: PdfTableCell = {
       text: cellValue !== undefined ? cellValue : '',
       style: 'tableCell',
     };
 
-    const pdfExportOptions = getPdfExportOptions(colId);
-
-    if (pdfExportOptions) {
-      const { styles, createURL } = pdfExportOptions;
-
-      if (PDF_WITH_CELL_FORMATTING && styles) {
-        Object.entries(styles).forEach(([key, value]) => (tableCell[key] = value));
-      }
-
-      if (PDF_WITH_COLUMNS_AS_LINKS && createURL) {
-        tableCell['link'] = createURL(cellValue);
-        tableCell['color'] = 'blue';
-        tableCell['decoration'] = 'underline';
-      }
-    }
-
     return tableCell;
-  }
-
-  function getPdfExportOptions(colId) {
-    let col = columnApi.getColumn(colId);
-    return col.colDef.pdfExportOptions;
   }
 };
