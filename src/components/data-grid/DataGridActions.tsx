@@ -22,11 +22,12 @@ export const DataGridActions = ({
   columns,
   rowsSelected,
   onBulkDelete,
-  translations: { cancel, deleteEntries, deleteEntriesCount },
+  translations,
   hideDownload,
 }: DataGridActionsProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
+  const { cancel, deleteEntries, deleteEntriesCount } = translations;
 
   const {
     theme: {
@@ -58,12 +59,12 @@ export const DataGridActions = ({
         },
         {
           label: 'Pdf',
-          action: () => exportPdf(gridApi, gridColumnApi),
+          action: () => exportPdf(gridApi, gridColumnApi, translations),
         },
       ];
       setDropdownItems(dropdownItems);
     }
-  }, [gridApi, gridColumnApi, columns]);
+  }, [gridApi, gridColumnApi, columns, translations]);
 
   return (
     <StyledDataGridActions>

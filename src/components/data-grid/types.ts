@@ -125,6 +125,7 @@ export interface Translations {
   paginationPrevious: string;
   paginationNext: string;
   paginationOutOf: string;
+  paginationOutOfLong: (currentPage: number, pageCount: number) => string;
   deleteEntries: string;
   deleteEntriesCount: (count: number) => JSX.Element;
 }

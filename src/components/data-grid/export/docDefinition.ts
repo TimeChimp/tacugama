@@ -1,8 +1,13 @@
 import { ColumnApi, GridApi, ValueFormatterParams } from '@ag-grid-community/core';
 import { Content, Margins, TDocumentDefinitions } from 'pdfmake/interfaces';
-import { PdfHeaderCell, PdfTableCell, PrintParams } from '../types';
+import { PdfHeaderCell, PdfTableCell, PrintParams, Translations } from '../types';
 
-export const getDocDefinition = (gridApi: GridApi, columnApi: ColumnApi, printParams: PrintParams) => {
+export const getDocDefinition = (
+  gridApi: GridApi,
+  columnApi: ColumnApi,
+  printParams: PrintParams,
+  translations: Translations,
+) => {
   const {
     PDF_HEADER_COLOR,
     PDF_INNER_BORDER_COLOR,
@@ -44,7 +49,7 @@ export const getDocDefinition = (gridApi: GridApi, columnApi: ColumnApi, printPa
     const footer = PDF_WITH_FOOTER_PAGE_COUNT
       ? function (currentPage: number, pageCount: number) {
           const footer: Content = {
-            text: currentPage.toString() + ' of ' + pageCount,
+            text: translations.paginationOutOfLong(currentPage, pageCount),
             margin: [20, 20, 20, 20],
           };
           return footer;
