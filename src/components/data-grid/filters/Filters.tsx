@@ -75,7 +75,7 @@ export const Filters = ({
             <SearchInput testId={SEARCH_INPUT_TEST_ID} size="mini" placeholder={searchBar} onChange={handleSearch} />
           </StyledDataGridSearch>
         )}
-        <ColumnFilters api={api} onFiltering={onFiltering} translations={translations} {...rest} />
+        <ColumnFilters api={api} translations={translations} {...rest} />
       </FlexItem>
       <FlexItem width="20%" justifyContent="flex-end">
         {grouping && (

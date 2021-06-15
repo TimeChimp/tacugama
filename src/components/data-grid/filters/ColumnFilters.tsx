@@ -15,7 +15,6 @@ const MULTIPLE_DATE_FILTER_ERROR = 'You can only pass max. 1 date filter';
 
 export const ColumnFilters = ({
   filters,
-  onFiltering,
   api,
   dateFormat,
   dates,
@@ -147,7 +146,7 @@ export const ColumnFilters = ({
       return setInternalDates([selectedDates]);
     }
 
-    setInternalDates(internalDates);
+    setInternalDates(selectedDates);
 
     if (selectedDates.length > 1) {
       setDates(selectedDates);
