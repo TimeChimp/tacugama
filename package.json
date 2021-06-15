@@ -44,11 +44,11 @@
   "size-limit": [
     {
       "path": "dist/tacugama.cjs.production.min.js",
-      "limit": "610 KB"
+      "limit": "1500 KB"
     },
     {
       "path": "dist/tacugama.esm.js",
-      "limit": "530 KB"
+      "limit": "1500 KB"
     }
   ],
   "devDependencies": {
