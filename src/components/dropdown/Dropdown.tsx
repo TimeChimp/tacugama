@@ -8,6 +8,10 @@ import { StyledDropdownSearch, StyledDropdownFooter } from './StyledDropdownOpti
 import { SearchInput } from '../input/SearchInput';
 import useTheme from '../../providers/ThemeProvider';
 import { SIZE } from 'baseui/button';
+import { Skeleton } from '../skeleton';
+import { ListItem } from '../list';
+
+const NUMBER_OF_LOADING_ROWS = 4;
 
 export interface DropdownProps {
   children?: React.ReactNode;
@@ -92,7 +96,24 @@ export const Dropdown = ({
               />
             </StyledDropdownSearch>
           )}
-          {!isLoading ? (
+          {isLoading ? (
+            Array.from(Array(NUMBER_OF_LOADING_ROWS)).map(() => (
+              <ListItem
+                overrides={{
+                  Root: {
+                    style: {
+                      height: scale1000,
+                    },
+                  },
+                  Content: {
+                    style: { borderColor: 'transparent' },
+                  },
+                }}
+              >
+                <Skeleton width="100%" height={scale700} animation />
+              </ListItem>
+            ))
+          ) : (
             <StatefulMenu
               items={dropdownItems}
               overrides={{
@@ -129,7 +150,7 @@ export const Dropdown = ({
                 },
               }}
             />
-          ) : null}
+          )}
           {footer && <StyledDropdownFooter>{footer}</StyledDropdownFooter>}
         </>
       )}
