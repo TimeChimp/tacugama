@@ -204,7 +204,6 @@ export interface ColumnFiltersProps {
   filters?: Filter[];
   dates?: Date[];
   setDates?: (dates: Date[]) => void;
-  onFiltering: (filters: FilterModel) => void;
   api: GridApi;
   translations: Translations;
   dateFormat: string;
