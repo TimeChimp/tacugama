@@ -105,6 +105,9 @@ export const Dropdown = ({
                       height: scale1000,
                     },
                   },
+                  Content: {
+                    style: { borderColor: 'transparent' },
+                  },
                 }}
               >
                 <Skeleton width="100%" height={scale700} animation />
