@@ -1,5 +1,5 @@
 import { ColumnApi, GridApi } from '@ag-grid-community/core';
-import { DEFAULT_PDF_HEADER_HEIGHT, DEFAULT_PDF_ROW_HEIGHT } from 'models';
+import { DEFAULT_PDF_HEADER_HEIGHT, DEFAULT_PDF_ROW_HEIGHT } from '../../../models';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { customColors, lightColors } from '../../../theme/colors';
