@@ -1,4 +1,5 @@
 import { ColumnApi, GridApi } from '@ag-grid-community/core';
+import { DEFAULT_PDF_HEADER_HEIGHT, DEFAULT_PDF_ROW_HEIGHT } from 'models';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { customColors, lightColors } from '../../../theme/colors';
@@ -18,8 +19,8 @@ export const exportPdf = (gridApi: GridApi, columnApi: ColumnApi, translations: 
       PDF_PAGE_ORIENTATION: 'landscape',
       PDF_WITH_HEADER_IMAGE: false,
       PDF_WITH_FOOTER_PAGE_COUNT: true,
-      PDF_HEADER_HEIGHT: 25,
-      PDF_ROW_HEIGHT: 15,
+      PDF_HEADER_HEIGHT: DEFAULT_PDF_HEADER_HEIGHT,
+      PDF_ROW_HEIGHT: DEFAULT_PDF_ROW_HEIGHT,
       PDF_ODD_BKG_COLOR: customColors.primarySubtle,
       PDF_EVEN_BKG_COLOR: lightColors.primaryB,
       PDF_WITH_CELL_FORMATTING: true,

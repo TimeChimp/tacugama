@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction, ComponentType } from 'react';
 import {
+  ColDef,
   ColumnApi,
   ColumnState,
   DateFilterModel,
@@ -8,6 +9,7 @@ import {
   IFilterComp,
   NumberFilterModel,
   TextFilterModel,
+  ValueFormatterParams,
 } from '@ag-grid-community/core';
 import { DurationFormat, NumberFormat, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DropdownItem } from '../dropdown';
@@ -363,13 +365,16 @@ interface PdfCell {
   link?: string;
   color?: string;
   decoration?: string;
-  [key: string]: any;
 }
 
 export interface PdfTableCell extends PdfCell {}
 
 export interface PdfHeaderCell extends PdfCell {
+  valueFormatter?: string | ((params: ValueFormatterParams) => string) | undefined;
+  colDef?: ColDef;
   colSpan?: string;
-  colId?: string;
+  colId: string | null;
   sort?: string;
 }
+
+export interface PdfRow {}

@@ -1,5 +1,6 @@
 import { ColumnApi, GridApi, ValueFormatterParams } from '@ag-grid-community/core';
-import { Content, Margins, TDocumentDefinitions } from 'pdfmake/interfaces';
+import { DEFAULT_PDF_HEADER_HEIGHT, DEFAULT_PDF_ROW_HEIGHT } from 'models';
+import { Content, Margins, TableCell, TDocumentDefinitions } from 'pdfmake/interfaces';
 import { PdfHeaderCell, PdfTableCell, PrintParams, Translations } from '../types';
 
 export const getDocDefinition = (
@@ -14,15 +15,15 @@ export const getDocDefinition = (
     PDF_OUTER_BORDER_COLOR,
     PDF_ODD_BKG_COLOR,
     PDF_EVEN_BKG_COLOR,
-    PDF_HEADER_HEIGHT = 25,
-    PDF_ROW_HEIGHT = 15,
+    PDF_HEADER_HEIGHT = DEFAULT_PDF_HEADER_HEIGHT,
+    PDF_ROW_HEIGHT = DEFAULT_PDF_ROW_HEIGHT,
     PDF_PAGE_ORIENTATION,
     PDF_WITH_HEADER_IMAGE,
     PDF_WITH_FOOTER_PAGE_COUNT,
     PDF_LOGO = '',
   } = printParams;
 
-  return (function () {
+  return (() => {
     const columnGroupsToExport = getColumnGroupsToExport();
 
     const columnsToExport = getColumnsToExport();
@@ -31,23 +32,23 @@ export const getDocDefinition = (
 
     const rowsToExport = getRowsToExport(columnsToExport);
 
-    const body = columnGroupsToExport
+    const body: TableCell[][] = columnGroupsToExport
       ? [columnGroupsToExport, columnsToExport, ...rowsToExport]
       : [columnsToExport, ...rowsToExport];
 
     const headerRows = columnGroupsToExport ? 2 : 1;
 
-    const header = PDF_WITH_HEADER_IMAGE
-      ? ({
+    const header: Content | undefined = PDF_WITH_HEADER_IMAGE
+      ? {
           image: 'ag-grid-logo',
           width: 150,
           alignment: 'center',
           margin: [0, 10, 0, 10],
-        } as Content)
+        }
       : undefined;
 
-    const footer = PDF_WITH_FOOTER_PAGE_COUNT
-      ? function (currentPage: number, pageCount: number) {
+    const getFooter = PDF_WITH_FOOTER_PAGE_COUNT
+      ? (currentPage: number, pageCount: number) => {
           const footer: Content = {
             text: translations.paginationOutOfLong(currentPage, pageCount),
             margin: [20, 20, 20, 20],
@@ -58,29 +59,29 @@ export const getDocDefinition = (
 
     const pageMargins: Margins = [10, PDF_WITH_HEADER_IMAGE ? 70 : 20, 10, PDF_WITH_FOOTER_PAGE_COUNT ? 40 : 10];
 
-    const heights = (rowIndex: number) => (rowIndex < headerRows ? PDF_HEADER_HEIGHT : PDF_ROW_HEIGHT);
+    const getHeights = (rowIndex: number) => (rowIndex < headerRows ? PDF_HEADER_HEIGHT : PDF_ROW_HEIGHT);
 
-    const fillColor = (rowIndex: number, node: any) => {
+    const getFillColor = (rowIndex: number, node: any) => {
       if (rowIndex < node.table.headerRows) {
         return PDF_HEADER_COLOR;
       }
       return rowIndex % 2 === 0 ? PDF_ODD_BKG_COLOR : PDF_EVEN_BKG_COLOR;
     };
 
-    const hLineWidth = (i: number, node: any) => (i === 0 || i === node.table.body.length ? 1 : 1);
+    const getHLineWidth = (i: number, node: any) => (i === 0 || i === node.table.body.length ? 1 : 1);
 
-    const vLineWidth = (i: number, node: any) => (i === 0 || i === node.table.widths.length ? 1 : 0);
+    const getVLineWidth = (i: number, node: any) => (i === 0 || i === node.table.widths.length ? 1 : 0);
 
-    const hLineColor = (i: number, node: any) =>
+    const getHLineColor = (i: number, node: any) =>
       i === 0 || i === node.table.body.length ? PDF_OUTER_BORDER_COLOR : PDF_INNER_BORDER_COLOR;
 
-    const vLineColor = (i: number, node: any) =>
+    const getVLineColor = (i: number, node: any) =>
       i === 0 || i === node.table.widths.length ? PDF_OUTER_BORDER_COLOR : PDF_INNER_BORDER_COLOR;
 
     const docDefinition: TDocumentDefinitions = {
       pageOrientation: PDF_PAGE_ORIENTATION,
       header,
-      footer,
+      footer: getFooter,
       content: [
         {
           style: 'myTable',
@@ -88,14 +89,14 @@ export const getDocDefinition = (
             headerRows,
             widths,
             body,
-            heights,
+            heights: getHeights,
           },
           layout: {
-            fillColor,
-            hLineWidth,
-            vLineWidth,
-            hLineColor,
-            vLineColor,
+            fillColor: getFillColor,
+            hLineWidth: getHLineWidth,
+            vLineWidth: getVLineWidth,
+            hLineColor: getHLineColor,
+            vLineColor: getVLineColor,
           },
         },
       ],
@@ -126,7 +127,7 @@ export const getDocDefinition = (
       return null;
     }
 
-    const columnGroupsToExport: any[] = [];
+    const columnGroupsToExport: PdfHeaderCell[] = [];
 
     displayedColumnGroups?.forEach((colGroup: any) => {
       const isColSpanning = colGroup.children.length > 1;
@@ -145,7 +146,7 @@ export const getDocDefinition = (
       });
 
       for (let i = 0; i < numberOfEmptyHeaderCellsToAdd; i++) {
-        columnGroupsToExport.push({});
+        columnGroupsToExport.push({ colId: null });
       }
     });
 
@@ -170,8 +171,8 @@ export const getDocDefinition = (
     return columnsToExport;
   }
 
-  function getRowsToExport(columnsToExport: any[]) {
-    const rowsToExport: any[] = [];
+  function getRowsToExport(columnsToExport: PdfHeaderCell[]) {
+    const rowsToExport: TableCell[][] = [];
 
     const selectedRows = gridApi.getSelectedRows();
 
@@ -208,7 +209,9 @@ export const getDocDefinition = (
   }
 
   function createHeaderCell(col: any) {
-    const headerCell: PdfHeaderCell = {};
+    const headerCell: PdfHeaderCell = {
+      colId: null,
+    };
 
     const isColGroup = col.hasOwnProperty('children');
 
