@@ -40,6 +40,7 @@ export const defaultTranslations: Translations = {
   paginationPrevious: 'Prev',
   paginationNext: 'Next',
   paginationOutOf: 'Of',
+  paginationOutOfLong: (currentPage: number, pageCount: number) => `${currentPage} of ${pageCount}`,
   deleteEntries: 'Delete entries',
   deleteEntriesCount: (count: number) => (
     <>

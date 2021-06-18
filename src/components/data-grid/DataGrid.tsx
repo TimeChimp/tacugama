@@ -546,7 +546,8 @@ export const DataGrid = ({
             )}
             {selection && (
               <DataGridActions
-                api={gridApi}
+                gridApi={gridApi}
+                gridColumnApi={gridColumnApi}
                 columns={gridColumns}
                 rowsSelected={rowsSelected}
                 translations={translations}
