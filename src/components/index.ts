@@ -40,3 +40,4 @@ export * from './alert';
 export * from './dot';
 export * from './breadcrumbs';
 export * from './copy-text';
+export * from './row-select';

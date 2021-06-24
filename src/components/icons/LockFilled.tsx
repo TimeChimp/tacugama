@@ -2,11 +2,11 @@ import React from 'react';
 import { useTheme } from '../../providers';
 import { Icon, SVGProps } from './Icon';
 
-export const LockFilled = ({ title = 'LockFilled', size = '18', color }: SVGProps) => {
+export const LockFilled = ({ title = 'LockFilled', size = '18', color, iconStyle }: SVGProps) => {
   const { theme } = useTheme();
 
   return (
-    <Icon title={title}>
+    <Icon title={title} iconStyle={iconStyle}>
       <svg width={size} height={size} viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           fillRule="evenodd"
