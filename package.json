@@ -1,5 +1,5 @@
 {
-  "version": "0.23.1",
+  "version": "0.23.3",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -44,11 +44,11 @@
   "size-limit": [
     {
       "path": "dist/tacugama.cjs.production.min.js",
-      "limit": "1.5 MB"
+      "limit": "1.7 MB"
     },
     {
       "path": "dist/tacugama.esm.js",
-      "limit": "1.5 MB"
+      "limit": "1.7 MB"
     }
   ],
   "devDependencies": {
