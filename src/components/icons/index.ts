@@ -56,3 +56,4 @@ export * from './Account';
 export * from './Copy';
 export * from './Tag';
 export * from './Unlink';
+export * from './Error';
