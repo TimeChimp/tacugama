@@ -5,6 +5,9 @@ export interface SVGProps {
   size?: string;
   color?: string;
   title?: string;
+  iconStyle?: {
+    [key: string]: string;
+  };
 }
 
 export const defaultIconProps: SVGProps = { color: '#000', size: '24' };
@@ -13,6 +16,9 @@ interface IconProps {
   title: string;
   lineHeight?: string;
   children: React.ReactNode;
+  iconStyle?: {
+    [key: string]: string;
+  };
 }
 
 interface StyledIconBoxProps {
@@ -23,12 +29,14 @@ const StyledIconBox = themedStyled<'div', StyledIconBoxProps>('div', ({ $lineHei
   lineHeight: $lineHeight || '16px',
 }));
 
-export const Icon = forwardRef<HTMLDivElement, IconProps>(({ title, lineHeight, children }: IconProps, ref) => {
-  return (
-    <StyledIconBox $lineHeight={lineHeight} ref={ref} title={title}>
-      {children}
-    </StyledIconBox>
-  );
-});
+export const Icon = forwardRef<HTMLDivElement, IconProps>(
+  ({ title, lineHeight, children, iconStyle }: IconProps, ref) => {
+    return (
+      <StyledIconBox style={iconStyle} $lineHeight={lineHeight} ref={ref} title={title}>
+        {children}
+      </StyledIconBox>
+    );
+  },
+);
 
 Icon.displayName = 'icon';
