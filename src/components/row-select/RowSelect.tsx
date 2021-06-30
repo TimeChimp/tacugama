@@ -1,20 +1,12 @@
 import React from 'react';
-import { Select as BaseSelect, SelectProps as BaseSelectProps, Option, Value, OnChangeParams } from 'baseui/select';
+import { useForm } from 'react-hook-form';
+import { Select as BaseSelect, Option, Value, OnChangeParams } from 'baseui/select';
 import { useTheme } from '../../providers';
 import { border, borderBottom, borderRadius, getInputPlaceholderTextColor, padding } from '../../utils';
 import { BottomArrow, LockFilled } from '../icons';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
-
-export interface RowSelectProps extends BaseSelectProps {
-  showSkeleton?: boolean;
-  isLocked?: boolean;
-  options: Option[];
-  propOverrides?: {
-    dropdownListItemProps?: () => {};
-    rootProps?: () => {};
-  };
-}
+import { FormInput, RowSelectProps } from './types';
 
 export const RowSelect = ({
   size = 'compact',
@@ -23,8 +15,12 @@ export const RowSelect = ({
   showSkeleton = false,
   isLocked = false,
   propOverrides,
+  onChangeHandler,
+  data,
+  options,
   ...rest
 }: RowSelectProps) => {
+  const { userId } = data;
   const {
     theme: {
       current: {
@@ -36,8 +32,21 @@ export const RowSelect = ({
       },
     },
   } = useTheme();
+  const { watch, reset } = useForm<FormInput>({
+    mode: 'onChange',
+  });
+  // TODO: set default user role once BE is updated. For now it is "member"
+  const { role = [options[1]] } = watch();
+
   const { border300, radius100 } = borders;
   const { primary100, contentPrimary } = colors;
+
+  const handleOnChange = (data: { value: Value }) => {
+    reset({
+      role: data.value,
+    });
+    onChangeHandler(data, userId);
+  };
 
   return (
     <>
@@ -48,7 +57,10 @@ export const RowSelect = ({
           size={size}
           valueKey={valueKey}
           labelKey={labelKey}
+          onChange={handleOnChange}
           {...rest}
+          options={options}
+          value={role}
           overrides={{
             ControlContainer: {
               style: {

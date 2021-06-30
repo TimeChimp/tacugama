@@ -16,6 +16,7 @@ import { DropdownItem } from '../dropdown';
 import { SVGProps as IconProps } from '../icons';
 import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
 import { PageOrientation } from 'pdfmake/interfaces';
+import { Option, Value } from '../select';
 
 export interface DataGridApi {
   getSelectedRows: () => any[];
@@ -27,6 +28,14 @@ export interface DataGridApi {
 
 export type DataGridColumnType = 'number' | 'currency' | 'date' | 'time' | 'duration';
 export type DataGridAggFunc = 'sum';
+
+export interface DataGridRowSelectProps {
+  placeholder: string;
+  labelKey: string;
+  valueKey: string;
+  onChangeHandler: (data: { value: Value }, userId: string) => void;
+  options: Option[];
+}
 
 export interface DataGridColumn {
   field: string;
@@ -41,6 +50,7 @@ export interface DataGridColumn {
   hide?: boolean;
   customMap?: (value: any) => any;
   customComponent?: React.FunctionComponent;
+  rowSelectProps?: DataGridRowSelectProps;
 }
 
 export type FilterTypeModel = TextFilterModel | NumberFilterModel | DateFilterModel | SetFilterModel;
