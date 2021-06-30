@@ -17,5 +17,6 @@ export interface RowSelectProps extends BaseSelectProps {
   onChangeHandler: (data: { value: Value }, userId: string) => void;
   data: {
     userId: string;
+    role: string;
   };
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { Select as BaseSelect, Option, Value, OnChangeParams } from 'baseui/select';
 import { useTheme } from '../../providers';
@@ -20,7 +20,7 @@ export const RowSelect = ({
   options,
   ...rest
 }: RowSelectProps) => {
-  const { userId } = data;
+  const { userId, role: userRoleId } = data;
   const {
     theme: {
       current: {
@@ -35,8 +35,12 @@ export const RowSelect = ({
   const { watch, reset } = useForm<FormInput>({
     mode: 'onChange',
   });
-  // TODO: set default user role once BE is updated. For now it is "member"
-  const { role = [options[1]] } = watch();
+
+  const userRole = useMemo(() => {
+    return options.find((option) => option.id === userRoleId);
+  }, [options, userRoleId]);
+  // set user role or "member" as default
+  const { role = [userRole || options[1]] } = watch();
 
   const { border300, radius100 } = borders;
   const { primary100, contentPrimary } = colors;
