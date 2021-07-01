@@ -19,6 +19,7 @@ export interface DropdownItem {
   checkbox?: boolean;
   isChecked?: boolean;
   isBold?: boolean;
+  role?: string;
 }
 
 export interface DropdownOptionProps {

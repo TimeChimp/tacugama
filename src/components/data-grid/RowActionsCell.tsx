@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { useTheme } from '../../providers';
 import { RowActionsCellProps } from './types';
 import { Dropdown } from '../dropdown';
@@ -27,11 +27,16 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
   const onEdit = () => {
     data.onEdit(data);
   };
+
+  const formattedItems = useMemo(
+    () => data.items.filter((item) => (item.role && data.role ? item.role === data.role : true)),
+    [data.items, data.role],
+  );
   return !!data.onEdit ? (
     <RowEditCell onClick={onEdit} />
   ) : (
     <div ref={containerRef}>
-      <Dropdown onOpen={onOpen} onClose={() => setActive(false)} items={data.items}>
+      <Dropdown onOpen={onOpen} onClose={() => setActive(false)} items={formattedItems}>
         <TertiaryButton>
           {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
         </TertiaryButton>

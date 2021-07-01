@@ -225,6 +225,7 @@ export interface RowActionsCellData {
   onEdit: (data: RowActionsCellData) => void;
   contactId: string;
   id: string;
+  role?: string;
 }
 export interface RowActionsCellProps {
   api: GridApi;
