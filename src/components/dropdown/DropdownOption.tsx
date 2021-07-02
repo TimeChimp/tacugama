@@ -19,7 +19,10 @@ export interface DropdownItem {
   checkbox?: boolean;
   isChecked?: boolean;
   isBold?: boolean;
-  role?: string;
+  filterByProp?: {
+    name: string;
+    value: any;
+  };
 }
 
 export interface DropdownOptionProps {

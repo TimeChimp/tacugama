@@ -7,6 +7,7 @@ import { ActionMenu, ActionMenuActive } from '../icons';
 import { RowEditCell } from './RowEditCell';
 
 export const RowActionsCell = ({ data }: RowActionsCellProps) => {
+  const { onEdit, items } = data;
   const [active, setActive] = useState(false);
   const {
     theme: {
@@ -24,19 +25,25 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
     containerRef.current?.click();
   };
 
-  const onEdit = () => {
-    data.onEdit(data);
+  const handleEdit = () => {
+    onEdit(data);
   };
 
-  const formattedItems = useMemo(
-    () => data.items.filter((item) => (item.role && data.role ? item.role === data.role : true)),
-    [data.items, data.role],
+  const filteredItems = useMemo(
+    () =>
+      items.filter((item: any) =>
+        item.filterByProp?.value! && data[item.filterByProp?.name!]
+          ? item.filterByProp?.value!.some((valueItem: any) => valueItem === data[item.filterByProp?.name!])
+          : true,
+      ),
+    [items, data],
   );
-  return !!data.onEdit ? (
-    <RowEditCell onClick={onEdit} />
+
+  return !!onEdit ? (
+    <RowEditCell onClick={handleEdit} />
   ) : (
     <div ref={containerRef}>
-      <Dropdown onOpen={onOpen} onClose={() => setActive(false)} items={formattedItems}>
+      <Dropdown onOpen={onOpen} onClose={() => setActive(false)} items={filteredItems}>
         <TertiaryButton>
           {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
         </TertiaryButton>

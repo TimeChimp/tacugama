@@ -11,6 +11,8 @@ import {
   PhoneLock as PhoneLockIcon,
   Copy as CopyIcon,
   Tag as TagIcon,
+  Crown as CrownIcon,
+  CrownOutlined as CrownOutlinedIcon,
 } from './';
 import { SVGProps } from './Icon';
 
@@ -28,6 +30,8 @@ const AuthLockTemplate: Story<SVGProps> = (args) => <AuthLockIcon {...args} />;
 const PhoneLockTemplate: Story<SVGProps> = (args) => <PhoneLockIcon {...args} />;
 const CopyTemplate: Story<SVGProps> = (args) => <CopyIcon {...args} />;
 const TagTemplate: Story<SVGProps> = (args) => <TagIcon {...args} />;
+const CrownTemplate: Story<SVGProps> = (args) => <CrownIcon {...args} />;
+const CrownOutlinedTemplate: Story<SVGProps> = (args) => <CrownOutlinedIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {};
@@ -55,3 +59,9 @@ Copy.args = {};
 
 export const Tag = TagTemplate.bind({});
 Tag.args = {};
+
+export const Crown = CrownTemplate.bind({});
+Crown.args = {};
+
+export const CrownOutlined = CrownOutlinedTemplate.bind({});
+CrownOutlined.args = {};
