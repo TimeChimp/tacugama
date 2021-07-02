@@ -33,8 +33,9 @@ export interface DataGridRowSelectProps {
   placeholder: string;
   labelKey: string;
   valueKey: string;
-  onChangeHandler: (data: { value: Value }, userId: string) => void;
+  onChangeHandler: (data: any) => void;
   options: Option[];
+  optionProp: string;
 }
 
 export interface DataGridColumn {

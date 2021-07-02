@@ -18,9 +18,9 @@ export const RowSelect = ({
   onChangeHandler,
   data,
   options,
+  optionProp,
   ...rest
 }: RowSelectProps) => {
-  const { userId, role: userRoleId } = data;
   const {
     theme: {
       current: {
@@ -36,20 +36,20 @@ export const RowSelect = ({
     mode: 'onChange',
   });
 
-  const userRole = useMemo(() => {
-    return options.find((option) => option.id === userRoleId);
-  }, [options, userRoleId]);
-  // set user role or "member" as default
-  const { role = [userRole || options[1]] } = watch();
+  const defaultSelectOption = useMemo(() => {
+    return options.find((option) => option[valueKey] === data[optionProp]);
+  }, [options, data]);
+
+  const { selectOption = [defaultSelectOption!] } = watch();
 
   const { border300, radius100 } = borders;
   const { primary100, contentPrimary } = colors;
 
-  const handleOnChange = (data: { value: Value }) => {
+  const handleOnChange = (selectData: { value: Value }) => {
     reset({
-      role: data.value,
+      selectOption: selectData.value,
     });
-    onChangeHandler(data, userId);
+    onChangeHandler({ ...selectData, ...data });
   };
 
   return (
@@ -64,7 +64,7 @@ export const RowSelect = ({
           onChange={handleOnChange}
           {...rest}
           options={options}
-          value={role}
+          value={selectOption}
           overrides={{
             ControlContainer: {
               style: {
@@ -85,7 +85,7 @@ export const RowSelect = ({
               },
             },
             Placeholder: {
-              style: ({ $disabled, $isFocused }) => ({
+              style: ({ $disabled, $isFocused }: { $disabled: boolean; $isFocused: boolean }) => ({
                 ...ParagraphSmall,
                 color: getInputPlaceholderTextColor($disabled, $isFocused, colors),
               }),

@@ -1,7 +1,7 @@
 import { Option, Value, SelectProps as BaseSelectProps } from '../select';
 
 export interface FormInput {
-  role: Value;
+  selectOption: Value;
 }
 export interface RowSelectProps extends BaseSelectProps {
   showSkeleton?: boolean;
@@ -14,9 +14,9 @@ export interface RowSelectProps extends BaseSelectProps {
   placeholder: string;
   labelKey: string;
   valueKey: string;
-  onChangeHandler: (data: { value: Value }, userId: string) => void;
+  onChangeHandler: (data: any) => void;
+  optionProp: string;
   data: {
-    userId: string;
-    role: string;
+    [key: string]: any;
   };
 }
