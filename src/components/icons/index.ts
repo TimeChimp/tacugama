@@ -57,3 +57,5 @@ export * from './Copy';
 export * from './Tag';
 export * from './Unlink';
 export * from './Error';
+export * from './Crown';
+export * from './CrownOutlined';
