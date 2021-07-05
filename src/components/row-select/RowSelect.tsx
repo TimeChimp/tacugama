@@ -1,20 +1,12 @@
-import React from 'react';
-import { Select as BaseSelect, SelectProps as BaseSelectProps, Option, Value, OnChangeParams } from 'baseui/select';
+import React, { useMemo } from 'react';
+import { useForm } from 'react-hook-form';
+import { Select as BaseSelect, Option, Value, OnChangeParams } from 'baseui/select';
 import { useTheme } from '../../providers';
 import { border, borderBottom, borderRadius, getInputPlaceholderTextColor, padding } from '../../utils';
 import { BottomArrow, LockFilled } from '../icons';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
-
-export interface RowSelectProps extends BaseSelectProps {
-  showSkeleton?: boolean;
-  isLocked?: boolean;
-  options: Option[];
-  propOverrides?: {
-    dropdownListItemProps?: () => {};
-    rootProps?: () => {};
-  };
-}
+import { FormInput, RowSelectProps } from './types';
 
 export const RowSelect = ({
   size = 'compact',
@@ -23,6 +15,10 @@ export const RowSelect = ({
   showSkeleton = false,
   isLocked = false,
   propOverrides,
+  onChangeHandler,
+  data,
+  options,
+  optionProp,
   ...rest
 }: RowSelectProps) => {
   const {
@@ -36,8 +32,25 @@ export const RowSelect = ({
       },
     },
   } = useTheme();
+  const { watch, reset } = useForm<FormInput>({
+    mode: 'onChange',
+  });
+
+  const defaultSelectOption = useMemo(() => {
+    return options.find((option) => option[valueKey] === data[optionProp]);
+  }, [options, data]);
+
+  const { selectOption = [defaultSelectOption!] } = watch();
+
   const { border300, radius100 } = borders;
   const { primary100, contentPrimary } = colors;
+
+  const handleOnChange = (selectData: { value: Value }) => {
+    reset({
+      selectOption: selectData.value,
+    });
+    onChangeHandler({ ...selectData, ...data });
+  };
 
   return (
     <>
@@ -48,7 +61,10 @@ export const RowSelect = ({
           size={size}
           valueKey={valueKey}
           labelKey={labelKey}
+          onChange={handleOnChange}
           {...rest}
+          options={options}
+          value={selectOption}
           overrides={{
             ControlContainer: {
               style: {
@@ -69,7 +85,7 @@ export const RowSelect = ({
               },
             },
             Placeholder: {
-              style: ({ $disabled, $isFocused }) => ({
+              style: ({ $disabled, $isFocused }: { $disabled: boolean; $isFocused: boolean }) => ({
                 ...ParagraphSmall,
                 color: getInputPlaceholderTextColor($disabled, $isFocused, colors),
               }),

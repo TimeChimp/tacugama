@@ -61,6 +61,7 @@ import { SortAscendingIcon } from './SortAscendingIcon';
 import { SortDescendingIcon } from './SortDescendingIcon';
 import ReactDOMServer from 'react-dom/server';
 import DataGridActions from './DataGridActions';
+import { RowSelect } from '../row-select';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
@@ -595,6 +596,7 @@ export const DataGrid = ({
             headerCheckbox: HeaderCheckbox,
             headerColumnToggle: HeaderColumnToggle,
             loadingCellTemplate: LoadingCellTemplate,
+            rowSelect: RowSelect,
           }}
           icons={{
             sortAscending: () =>
@@ -649,9 +651,24 @@ export const DataGrid = ({
             lockPosition
           />
           {gridColumns.map(
-            ({ field, label, width, rowGroup, hide, sort, sortable, type, aggFunc, customMap, customComponent }) => (
+            ({
+              field,
+              label,
+              width,
+              rowGroup,
+              hide,
+              sort,
+              sortable,
+              type,
+              aggFunc,
+              customMap,
+              customComponent,
+              rowSelectProps,
+            }) => (
               <AgGridColumn
                 cellRendererFramework={customComponent}
+                cellRenderer={!!rowSelectProps ? 'rowSelect' : undefined}
+                cellRendererParams={!!rowSelectProps ? { ...rowSelectProps } : undefined}
                 key={field}
                 headerName={label}
                 field={field}
