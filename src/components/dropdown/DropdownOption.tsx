@@ -22,6 +22,8 @@ export interface DropdownItem {
   filterByProp?: {
     name: string;
     value: any;
+    secondaryName: string;
+    secondaryValue: string;
   };
 }
 

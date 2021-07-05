@@ -33,7 +33,8 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
     () =>
       items.filter((item: any) =>
         item.filterByProp?.value! && data[item.filterByProp?.name!]
-          ? item.filterByProp?.value!.some((valueItem: any) => valueItem === data[item.filterByProp?.name!])
+          ? item.filterByProp?.value!.some((valueItem: any) => valueItem === data[item.filterByProp?.name!]) &&
+            item.filterByProp?.secondaryValue !== data[item.filterByProp?.secondaryName]
           : true,
       ),
     [items, data],
