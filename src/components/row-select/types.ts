@@ -5,7 +5,7 @@ export interface FormInput {
 }
 export interface RowSelectProps extends BaseSelectProps {
   showSkeleton?: boolean;
-  isLocked?: boolean;
+  isLockedIconDisplayedFunc?: (data: any) => boolean;
   options: Option[];
   propOverrides?: {
     dropdownListItemProps?: () => {};
