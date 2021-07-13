@@ -36,6 +36,7 @@ export interface DataGridRowSelectProps {
   onChangeHandler: (data: any) => void;
   options: Option[];
   optionProp: string;
+  isLockedIconDisplayedFunc?: (data: any) => boolean;
 }
 
 export interface DataGridColumn {

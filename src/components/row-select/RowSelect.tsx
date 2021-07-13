@@ -13,7 +13,7 @@ export const RowSelect = ({
   valueKey = 'id',
   labelKey = 'name',
   showSkeleton = false,
-  isLocked = false,
+  isLockedIconDisplayedFunc,
   propOverrides,
   onChangeHandler,
   data,
@@ -51,6 +51,12 @@ export const RowSelect = ({
     });
     onChangeHandler({ ...selectData, ...data });
   };
+
+  const isLocked = useMemo(() => {
+    if (isLockedIconDisplayedFunc) {
+      return isLockedIconDisplayedFunc(data);
+    }
+  }, [isLockedIconDisplayedFunc, data]);
 
   return (
     <>
