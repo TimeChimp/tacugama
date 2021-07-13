@@ -7,7 +7,7 @@ import { TertiaryButton } from '../../components/button';
 import { Copy } from '../../components/icons';
 import { StatefulTooltip } from '../../components/tooltip';
 import { padding } from '../../utils';
-import { StyledCopyIcon } from './';
+import { StyledCopyIcon } from './StyledCopyText';
 
 export interface CopyTextProps {
   value: string;
