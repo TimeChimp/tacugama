@@ -3,16 +3,17 @@ import { borderRadius, margin, padding } from '../../utils';
 
 export interface StyledAlertProps {
   $color?: string;
+  $width?: string;
 }
 
-export const StyledAlert = themedStyled<'div', StyledAlertProps>('div', ({ $theme, $color }) => ({
+export const StyledAlert = themedStyled<'div', StyledAlertProps>('div', ({ $theme, $color, $width }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
   backgroundColor: $color,
   ...borderRadius($theme.sizing.scale0),
   ...padding($theme.sizing.scale200, $theme.sizing.scale400),
-  width: '100%',
+  width: $width || '100%',
   boxShadow: $theme.lighting.shadow500,
 }));
 
