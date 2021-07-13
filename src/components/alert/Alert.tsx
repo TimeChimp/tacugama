@@ -8,10 +8,11 @@ import { SIZE } from 'baseui/button';
 
 export interface AlertProps extends BaseSnackbarElementProps {
   color?: string;
+  width?: string;
   startIcon?: JSX.Element;
 }
 
-export const Alert = ({ color, message, actionMessage, actionOnClick, startIcon }: AlertProps) => {
+export const Alert = ({ color, width, message, actionMessage, actionOnClick, startIcon }: AlertProps) => {
   const {
     theme: {
       current: {
@@ -21,7 +22,7 @@ export const Alert = ({ color, message, actionMessage, actionOnClick, startIcon 
     },
   } = useTheme();
   return (
-    <StyledAlert $color={color}>
+    <StyledAlert $color={color} $width={width}>
       <StyledDiv>
         <StyledSpan>{startIcon}</StyledSpan>
         <LabelSmall color={primaryB}>{message}</LabelSmall>
