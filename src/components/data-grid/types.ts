@@ -40,6 +40,7 @@ export interface DataGridRowSelectProps {
 }
 
 export interface DataGridColumn {
+  colId?: string;
   field: string;
   label?: string;
   width?: number;
