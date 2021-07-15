@@ -32,7 +32,7 @@ export const CharCounter = ({ charCount, title, error = false }: CharCounterProp
         },
       }}
     >
-      {error ? `${title} (${charCount})` : title}
+      {error ? `${title} (${charCount})` : null}
     </ParagraphXSmall>
   </CharCounterWrapper>
 );
