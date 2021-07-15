@@ -652,6 +652,7 @@ export const DataGrid = ({
           />
           {gridColumns.map(
             ({
+              colId,
               field,
               label,
               width,
@@ -666,6 +667,7 @@ export const DataGrid = ({
               rowSelectProps,
             }) => (
               <AgGridColumn
+                colId={colId}
                 cellRendererFramework={customComponent}
                 cellRenderer={!!rowSelectProps ? 'rowSelect' : undefined}
                 cellRendererParams={!!rowSelectProps ? { ...rowSelectProps } : undefined}
