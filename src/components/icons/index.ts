@@ -59,3 +59,6 @@ export * from './Unlink';
 export * from './Error';
 export * from './Crown';
 export * from './CrownOutlined';
+export * from './Folder';
+export * from './FolderAdd';
+export * from './Info';

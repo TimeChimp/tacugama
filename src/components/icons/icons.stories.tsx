@@ -13,6 +13,9 @@ import {
   Tag as TagIcon,
   Crown as CrownIcon,
   CrownOutlined as CrownOutlinedIcon,
+  Folder as FolderIcon,
+  FolderAdd as FolderAddIcon,
+  Info as InfoIcon,
 } from './';
 import { SVGProps } from './Icon';
 
@@ -32,6 +35,9 @@ const CopyTemplate: Story<SVGProps> = (args) => <CopyIcon {...args} />;
 const TagTemplate: Story<SVGProps> = (args) => <TagIcon {...args} />;
 const CrownTemplate: Story<SVGProps> = (args) => <CrownIcon {...args} />;
 const CrownOutlinedTemplate: Story<SVGProps> = (args) => <CrownOutlinedIcon {...args} />;
+const FolderTemplate: Story<SVGProps> = (args) => <FolderIcon {...args} />;
+const FolderAddTemplate: Story<SVGProps> = (args) => <FolderAddIcon {...args} />;
+const InfoTemplate: Story<SVGProps> = (args) => <InfoIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {};
@@ -65,3 +71,12 @@ Crown.args = {};
 
 export const CrownOutlined = CrownOutlinedTemplate.bind({});
 CrownOutlined.args = {};
+
+export const Folder = FolderTemplate.bind({});
+Folder.args = {};
+
+export const FolderAdd = FolderAddTemplate.bind({});
+FolderAdd.args = {};
+
+export const Info = InfoTemplate.bind({});
+Info.args = {};
