@@ -41,7 +41,7 @@ export const ErrorPage = ({
             Block: {
               style: {
                 lineHeight: scale800,
-                maxWidth: '270px', // NOTE: Value does not exist in theme
+                maxWidth: '450px', // NOTE: Value does not exist in theme
               },
             },
           }}
