@@ -4,7 +4,7 @@ import { DataGridColumn } from '../types';
 export const exportExcel = (gridApi: GridApi, columns: DataGridColumn[]) =>
   gridApi.exportDataAsExcel({
     onlySelectedAllPages: true,
-    columnKeys: columns.map((column) => column.field),
+    columnKeys: columns.map((column) => column.colId ?? column.field),
     processCellCallback: (params) => {
       const colDef = params.column.getColDef();
       // try to reuse valueFormatter from the colDef
