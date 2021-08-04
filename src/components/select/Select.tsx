@@ -54,7 +54,6 @@ export const Select = ({
   const handleOnChange = (params: CustomParams) => {
     if (onChangeHandler) {
       if (params.value.length === 1) {
-        console.log(params.value);
         onChangeHandler({ ...params, value: params.value[0] });
       } else {
         onChangeHandler({ ...params, value: params.value });
