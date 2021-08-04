@@ -13,9 +13,16 @@ import { BottomArrow } from '../icons';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
 
+interface CustomParams {
+  value: any;
+  option?: Option;
+  type?: any;
+}
+
 export interface SelectProps extends BaseSelectProps {
   showSkeleton?: boolean;
   options: Option[];
+  onChangeHandler?: (params: OnChangeParams) => void;
   propOverrides?: {
     dropdownListItemProps?: () => {};
     rootProps?: () => {};
@@ -28,6 +35,7 @@ export const Select = ({
   labelKey = 'name',
   showSkeleton = false,
   propOverrides,
+  onChangeHandler,
   ...rest
 }: SelectProps) => {
   const {
@@ -43,6 +51,17 @@ export const Select = ({
   const { border300, radius100 } = borders;
   const { primaryB, primary100 } = colors;
 
+  const handleOnChange = (params: CustomParams) => {
+    if (onChangeHandler) {
+      if (params.value.length === 1) {
+        console.log(params.value);
+        onChangeHandler({ ...params, value: params.value[0] });
+      } else {
+        onChangeHandler({ ...params, value: params.value });
+      }
+    }
+  };
+
   return (
     <>
       {showSkeleton ? (
@@ -52,6 +71,7 @@ export const Select = ({
           size={size}
           valueKey={valueKey}
           labelKey={labelKey}
+          onChange={handleOnChange}
           {...rest}
           overrides={{
             ControlContainer: {
