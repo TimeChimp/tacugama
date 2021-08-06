@@ -13,6 +13,11 @@ const fileUploaderOverrides = (
   instructionMessage: string,
   preview?: string,
 ): BaseFileUploaderOverrides<StyleProps> => ({
+  Root: {
+    style: {
+      height: '100%',
+    },
+  },
   FileDragAndDrop: {
     style: {
       margin: '0',
@@ -20,6 +25,7 @@ const fileUploaderOverrides = (
       display: 'flex',
       alignContent: 'center',
       justifyContent: 'center',
+      height: '100%',
     },
   },
   ButtonComponent: {
