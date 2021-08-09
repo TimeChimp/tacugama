@@ -6,6 +6,7 @@ import { customColors, lightColors } from '../../../theme/colors';
 import { Translations } from '../types';
 
 import { getDocDefinition } from './docDefinition';
+import { generateFilename } from '../../../utils';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export const exportPdf = (gridApi: GridApi, columnApi: ColumnApi, translations: Translations) => {
@@ -28,5 +29,5 @@ export const exportPdf = (gridApi: GridApi, columnApi: ColumnApi, translations: 
     },
     translations,
   );
-  pdfMake.createPdf(docDefinition).download();
+  pdfMake.createPdf(docDefinition).download(generateFilename(gridApi));
 };
