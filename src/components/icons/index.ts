@@ -63,3 +63,4 @@ export * from './CrownOutlined';
 export * from './Folder';
 export * from './FolderAdd';
 export * from './Info';
+export * from './InfoOutlined';
