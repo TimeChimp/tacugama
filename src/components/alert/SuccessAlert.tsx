@@ -10,10 +10,11 @@ export const SuccessAlert = ({ ...rest }: SuccessAlertProps) => {
     theme: {
       current: {
         colors: { backgroundPositive },
+        sizing: { scale700 },
       },
     },
   } = useTheme();
-  return <Alert {...rest} color={backgroundPositive} startIcon={<Check size="20" />} />;
+  return <Alert {...rest} color={backgroundPositive} startIcon={<Check size={scale700} />} />;
 };
 
 export default SuccessAlert;

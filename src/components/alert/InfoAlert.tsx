@@ -10,10 +10,11 @@ export const InfoAlert = ({ ...rest }: InfoAlertProps) => {
     theme: {
       current: {
         customColors: { blue1 },
+        sizing: { scale700 },
       },
     },
   } = useTheme();
-  return <Alert {...rest} color={blue1} startIcon={<InfoOutlined size="20" />} />;
+  return <Alert {...rest} color={blue1} startIcon={<InfoOutlined size={scale700} />} />;
 };
 
 export default InfoAlert;
