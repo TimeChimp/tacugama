@@ -341,7 +341,7 @@ export const DataGrid = ({
       params.value = customMap(params);
     }
 
-    if (!params.value) {
+    if (params.value == null) {
       return '';
     }
 
