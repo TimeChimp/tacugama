@@ -64,3 +64,5 @@ export * from './Folder';
 export * from './FolderAdd';
 export * from './Info';
 export * from './InfoOutlined';
+export * from './FilesLabeled';
+export * from './AddSquate';
