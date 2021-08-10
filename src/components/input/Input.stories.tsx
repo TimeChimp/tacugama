@@ -68,3 +68,8 @@ Password.args = {
 
 export const Color = ColorTemplate.bind({});
 Color.args = {};
+
+export const EmptyColor = ColorTemplate.bind({});
+EmptyColor.args = {
+  generateRandomColor: false,
+};

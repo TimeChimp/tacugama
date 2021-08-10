@@ -5,10 +5,12 @@ import { TertiaryButton } from '../button';
 import { ClickOutside } from '../click-outside';
 import { margin, padding } from '../../utils';
 import { ColorPickerContainer, StyledColorSwatch } from './styles';
+import { useTheme } from '../../providers';
 
 export interface ColorInputProps extends Omit<InputProps, 'value' | 'uppercase' | 'onChange'> {
   onChange: (color: string) => void;
   value?: string;
+  generateRandomColor?: boolean;
 }
 
 const colors = [
@@ -31,8 +33,15 @@ const colors = [
   '#2f3542',
 ];
 
-export const ColorInput = ({ onChange, value, ...rest }: ColorInputProps) => {
+export const ColorInput = ({ onChange, value, generateRandomColor = true, ...rest }: ColorInputProps) => {
   const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
+  const {
+    theme: {
+      current: {
+        colors: { contentInverseTertiary },
+      },
+    },
+  } = useTheme();
 
   const getRandomBackgroundColor = () => {
     const { length } = colors;
@@ -43,8 +52,10 @@ export const ColorInput = ({ onChange, value, ...rest }: ColorInputProps) => {
   const selectColor = (color: ColorResult) => onChange(color.hex);
 
   useEffect(() => {
-    const color = getRandomBackgroundColor();
-    onChange(color);
+    if (generateRandomColor) {
+      const color = getRandomBackgroundColor();
+      onChange(color);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -73,7 +84,7 @@ export const ColorInput = ({ onChange, value, ...rest }: ColorInputProps) => {
             }}
             onClick={() => setShowColorPicker(!showColorPicker)}
           >
-            <StyledColorSwatch $color={value} />
+            <StyledColorSwatch $color={value ?? contentInverseTertiary} />
           </TertiaryButton>
         }
         placeholder="#00000"
