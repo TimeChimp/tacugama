@@ -10,10 +10,11 @@ export const WarningAlert = ({ ...rest }: WarningAlertProps) => {
     theme: {
       current: {
         colors: { backgroundWarning },
+        sizing: { scale700 },
       },
     },
   } = useTheme();
-  return <Alert {...rest} color={backgroundWarning} startIcon={<Warning size="20" />} />;
+  return <Alert {...rest} color={backgroundWarning} startIcon={<Warning size={scale700} />} />;
 };
 
 export default WarningAlert;

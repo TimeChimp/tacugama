@@ -10,10 +10,11 @@ export const ErrorAlert = ({ ...rest }: ErrorAlertProps) => {
     theme: {
       current: {
         colors: { backgroundNegative },
+        sizing: { scale700 },
       },
     },
   } = useTheme();
-  return <Alert {...rest} color={backgroundNegative} startIcon={<Warning size="20" />} />;
+  return <Alert {...rest} color={backgroundNegative} startIcon={<Warning size={scale700} />} />;
 };
 
 export default ErrorAlert;
