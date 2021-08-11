@@ -348,6 +348,8 @@ export const DataGrid = ({
     switch (type) {
       case 'currency':
         return formatCurrency(params.value, currency, numberFormat);
+      case 'integer':
+        return formatNumber(params.value, 0, numberFormat);
       case 'number':
         return formatNumber(params.value, 2, numberFormat);
       case 'date':

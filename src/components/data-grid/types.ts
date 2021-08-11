@@ -26,7 +26,7 @@ export interface DataGridApi {
   refreshStore: () => void;
 }
 
-export type DataGridColumnType = 'number' | 'currency' | 'date' | 'time' | 'duration';
+export type DataGridColumnType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'duration';
 export type DataGridAggFunc = 'sum';
 
 export interface DataGridRowSelectProps {
