@@ -10,10 +10,11 @@ export const SuccessSnackbar = ({ ...rest }: SuccessSnackbarProps) => {
     theme: {
       current: {
         colors: { backgroundPositive },
+        sizing: { scale700 },
       },
     },
   } = useTheme();
-  return <Snackbar {...rest} color={backgroundPositive} startIcon={<Check size="20" />} />;
+  return <Snackbar {...rest} color={backgroundPositive} startIcon={<Check size={scale700} />} />;
 };
 
 export default SuccessSnackbarProps;
