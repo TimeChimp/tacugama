@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon, SVGProps, defaultIconProps } from './Icon';
 import { useTheme } from '../../providers';
 
-export const FfilesLabeled = ({ title = 'FilesLabeled', size = defaultIconProps.size, color }: SVGProps) => {
+export const FilesLabeled = ({ title = 'FilesLabeled', size = defaultIconProps.size, color }: SVGProps) => {
   const { theme } = useTheme();
 
   return (

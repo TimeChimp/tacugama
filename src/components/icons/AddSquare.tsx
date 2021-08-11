@@ -7,7 +7,7 @@ export const AddSquare = ({ title = 'AddSquare', size = defaultIconProps.size, c
 
   return (
     <Icon title={title}>
-      <svg width={size} height={size} viewBox="0 0 6 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width={size} height={size} viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
