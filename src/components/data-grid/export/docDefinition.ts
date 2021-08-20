@@ -178,9 +178,10 @@ export const getDocDefinition = (
 
     selectedRows.forEach((node) => {
       const rowToExport = columnsToExport.map((column: any) => {
-        let cellValue = node[column.colId];
+        let cellValue = '';
 
         if (!!column.colDef) {
+          cellValue = node[column.colDef.field];
           const valueFormatterParams: ValueFormatterParams = {
             api: gridApi,
             columnApi,
