@@ -4,7 +4,7 @@ import { useTheme } from '../../providers';
 
 export interface FormControlProps extends BaseFormControlProps {}
 
-export const FormControl = ({ ...rest }: FormControlProps) => {
+export const FormControl = ({ overrides, ...rest }: FormControlProps) => {
   const {
     theme: {
       current: {
@@ -17,6 +17,7 @@ export const FormControl = ({ ...rest }: FormControlProps) => {
     <BaseFormControl
       {...rest}
       overrides={{
+        ...overrides,
         Label: {
           style: {
             ...LabelSmall,
