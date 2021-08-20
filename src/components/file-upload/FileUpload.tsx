@@ -78,8 +78,8 @@ export const FileUpload = ({ instructionMessage, preview, buttonText, error, ...
     },
     ErrorMessage: {
       style: {
-        fontSize: '14px',
-        ...margin('0', '0', '12px'),
+        fontSize: scale550,
+        ...margin('0', '0', scale500),
       },
     },
     ContentSeparator: {
