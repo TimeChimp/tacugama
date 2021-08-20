@@ -22,8 +22,8 @@ export const FileUpload = ({ instructionMessage, preview, buttonText, error, ...
   const { theme } = useTheme();
   const {
     current: {
-      sizing: { scale100 },
-      colors: { negative },
+      sizing: { scale100, scale400, scale500, scale550, scale850 },
+      colors: { negative, white },
       customColors: { dark0 },
     },
   } = theme;
@@ -37,7 +37,6 @@ export const FileUpload = ({ instructionMessage, preview, buttonText, error, ...
     Root: {
       style: {
         height: '100%',
-        background: 'red',
       },
     },
     FileDragAndDrop: {
@@ -56,12 +55,12 @@ export const FileUpload = ({ instructionMessage, preview, buttonText, error, ...
         overrides={{
           BaseButton: {
             style: () => ({
-              backgroundColor: 'white',
+              backgroundColor: white,
               color: error ? negative : dark0,
-              ...margin('14px', '0', '28px'),
-              ...padding('10px', '12px'),
+              ...margin(scale550, '0', scale850),
+              ...padding(scale400, scale500),
               ...borderRadius(scale100),
-              fontSize: '14px',
+              fontSize: scale550,
             }),
           },
         }}
