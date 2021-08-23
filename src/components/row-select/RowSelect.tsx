@@ -38,7 +38,7 @@ export const RowSelect = ({
 
   const defaultSelectOption = useMemo(() => {
     return options.find((option) => option[valueKey] === data[optionProp]);
-  }, [options, data]);
+  }, [options, data, optionProp, valueKey]);
 
   const { selectOption = [defaultSelectOption!] } = watch();
 
