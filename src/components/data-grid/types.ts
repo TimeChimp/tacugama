@@ -16,7 +16,7 @@ import { DropdownItem } from '../dropdown';
 import { SVGProps as IconProps } from '../icons';
 import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
 import { PageOrientation } from 'pdfmake/interfaces';
-import { Option, Value } from '../select';
+import { Option } from '../select';
 
 export interface DataGridApi {
   getSelectedRows: () => any[];
