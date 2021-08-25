@@ -34,19 +34,13 @@ export const FileUpload = ({ instructionMessage, preview, buttonText, error, ...
     preview?: string,
     error?: boolean,
   ): BaseFileUploaderOverrides<StyleProps> => ({
-    Root: {
-      style: {
-        height: '100%',
-      },
-    },
     FileDragAndDrop: {
       style: {
         margin: '0',
-        ...padding('0'),
+        ...padding(scale850, '0'),
         display: 'flex',
         alignContent: 'center',
         justifyContent: 'center',
-        height: '100%',
       },
     },
     ButtonComponent: (props) => (
@@ -57,7 +51,7 @@ export const FileUpload = ({ instructionMessage, preview, buttonText, error, ...
             style: () => ({
               backgroundColor: white,
               color: error ? negative : dark0,
-              ...margin(scale550, '0', scale850),
+              ...margin(scale550, '0', '0'),
               ...padding(scale400, scale500),
               ...borderRadius(scale100),
               fontSize: scale550,
