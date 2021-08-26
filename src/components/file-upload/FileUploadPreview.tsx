@@ -5,6 +5,7 @@ const StyledImage = themedStyled('img', {
   maxWidth: '100px',
   maxHeight: '100px',
   marginBottom: '12px',
+  marginTop: '12px',
 });
 
 // TODO figure out the correct type
