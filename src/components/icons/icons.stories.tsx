@@ -19,7 +19,7 @@ import {
   AddSquare as AddSquareIcon,
   FilesLabeled as FilesLabeledIcon,
 } from './';
-import { SVGProps } from './Icon';
+import { SVGProps } from './icon/Icon';
 
 export default {
   title: 'Components/Icons',

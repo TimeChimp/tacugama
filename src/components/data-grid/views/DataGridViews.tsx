@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from '../../icons/View';
+import { View } from '../../icons/view/View';
 import useTheme from '../../../providers/ThemeProvider';
 import { DataGridViewsProps, DataGridView, CreateViewInput } from '../types';
 import { StyledDataGridViews, StyledDataGridDivider } from '../styles';
