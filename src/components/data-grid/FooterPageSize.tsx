@@ -54,7 +54,10 @@ export const FooterPageSize = ({ api: gridApi, translations }: FooterRowCountPro
           { name: '1000', id: 1000 },
         ]}
         value={[{ id: pageSize }]}
-        onChangeHandler={({ value }) => handlePageSizeChange(value[0].id as number)}
+        onChangeHandler={({ value }) => {
+          const selectedValue = (value as unknown) as { name: string; id: number };
+          handlePageSizeChange(selectedValue.id);
+        }}
       />
     </StyledFooterFooterPageSize>
   );
