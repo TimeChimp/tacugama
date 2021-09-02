@@ -66,3 +66,4 @@ export * from './Info';
 export * from './InfoOutlined';
 export * from './FilesLabeled';
 export * from './AddSquare';
+export * from './Windows';
