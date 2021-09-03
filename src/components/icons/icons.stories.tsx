@@ -18,6 +18,7 @@ import {
   Info as InfoIcon,
   AddSquare as AddSquareIcon,
   FilesLabeled as FilesLabeledIcon,
+  FileAttachment as FileAttachmentIcon,
 } from './';
 import { SVGProps } from './Icon';
 
@@ -42,6 +43,7 @@ const FolderAddTemplate: Story<SVGProps> = (args) => <FolderAddIcon {...args} />
 const InfoTemplate: Story<SVGProps> = (args) => <InfoIcon {...args} />;
 const AddSquareTemplate: Story<SVGProps> = (args) => <AddSquareIcon {...args} />;
 const FilesLabeledTemplate: Story<SVGProps> = (args) => <FilesLabeledIcon {...args} />;
+const FileAttachmentTemplate: Story<SVGProps> = (args) => <FileAttachmentIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {};
@@ -90,3 +92,6 @@ AddSquare.args = {};
 
 export const FilesLabeled = FilesLabeledTemplate.bind({});
 FilesLabeled.args = {};
+
+export const FileAttachment = FileAttachmentTemplate.bind({});
+FileAttachment.args = {};

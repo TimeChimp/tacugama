@@ -16,9 +16,17 @@ export interface FileUploadProps extends Omit<BaseFileUploaderProps, 'overrides'
   buttonText: string;
   preview?: string;
   error?: boolean;
+  progressMessage?: string;
 }
 
-export const FileUpload = ({ instructionMessage, preview, buttonText, error, ...rest }: FileUploadProps) => {
+export const FileUpload = ({
+  instructionMessage,
+  preview,
+  buttonText,
+  error,
+  progressMessage,
+  ...rest
+}: FileUploadProps) => {
   const { theme } = useTheme();
   const {
     current: {
@@ -27,6 +35,57 @@ export const FileUpload = ({ instructionMessage, preview, buttonText, error, ...
       customColors: { dark0 },
     },
   } = theme;
+
+  const buttonOverrides = {
+    basicStyle: {
+      backgroundColor: white,
+      color: dark0,
+      ...margin(scale550, '0', '0'),
+      ...padding(scale400, scale500),
+      ...borderRadius(scale100),
+      fontSize: scale550,
+    },
+    baseButton: {
+      BaseButton: {
+        style: () => ({
+          ...buttonOverrides.basicStyle,
+        }),
+      },
+    },
+    errorButton: {
+      BaseButton: {
+        style: () => ({
+          ...buttonOverrides.basicStyle,
+          color: negative,
+        }),
+      },
+    },
+    progressButton: {
+      BaseButton: {
+        style: () => ({
+          ...buttonOverrides.basicStyle,
+          backgroundColor: 'transparent',
+          color: negative,
+
+          ':hover': {
+            backgroundColor: 'transparent',
+          },
+        }),
+      },
+    },
+  };
+
+  const selectButton = () => {
+    if (error) {
+      return buttonOverrides.errorButton;
+    }
+
+    if (rest.progressAmount) {
+      return buttonOverrides.progressButton;
+    }
+
+    return buttonOverrides.baseButton;
+  };
 
   const fileUploaderOverrides = (
     instructionMessage: string,
@@ -44,21 +103,7 @@ export const FileUpload = ({ instructionMessage, preview, buttonText, error, ...
       },
     },
     ButtonComponent: (props) => (
-      <Button
-        {...props}
-        overrides={{
-          BaseButton: {
-            style: () => ({
-              backgroundColor: white,
-              color: error ? negative : dark0,
-              ...margin(scale550, '0', '0'),
-              ...padding(scale400, scale500),
-              ...borderRadius(scale100),
-              fontSize: scale550,
-            }),
-          },
-        }}
-      >
+      <Button {...props} overrides={selectButton()}>
         {buttonText}
       </Button>
     ),
@@ -66,7 +111,7 @@ export const FileUpload = ({ instructionMessage, preview, buttonText, error, ...
       // eslint-disable-next-line react/display-name
       component: preview ? FileUploadPreview : FileUploadInstruction,
       props: {
-        message: instructionMessage,
+        message: progressMessage ? progressMessage : instructionMessage,
         preview,
       },
     },
