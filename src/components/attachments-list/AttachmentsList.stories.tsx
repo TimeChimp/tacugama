@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { AttachmentsList } from './';
-import { AttachementsListProps } from './AttachemntsList';
+import { AttachementsListProps } from './AttachmentsList';
 
 export default {
   title: 'Components/AttachmentsList',

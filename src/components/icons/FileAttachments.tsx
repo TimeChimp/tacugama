@@ -6,8 +6,8 @@ export const FileAttachment = ({ title = 'FileAttachment', size = '18', color }:
     <Icon title={title}>
       <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M16 18C16 19.1046 15.1046 20 14 20H2C0.89543 20 0 19.1046 0 18V7.24C0.000700208 6.44462 0.31723 5.68207 0.88 5.12L5.12 0.88C5.68207 0.31723 6.44462 0.000700208 7.24 0H14C15.1046 0 16 0.89543 16 2V18ZM2 8V18H14V2H8V7C8 7.55228 7.55228 8 7 8H2Z"
           fill="#EB8909"
         />

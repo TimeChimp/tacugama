@@ -1,10 +1,10 @@
 import React from 'react';
 import { ParagraphSmall, ParagraphXSmall } from 'baseui/typography';
-import { Box } from '../../components/box';
-import { TertiaryButton } from '../../components/button';
-import { FlexGrid, FlexGridItem } from '../../components/flex-grid';
-import { Download, FileAttachment, Trash } from '../../components/icons';
-import { Separator } from '../../components/separator';
+import { Box } from '../box';
+import { TertiaryButton } from '../button';
+import { FlexGrid, FlexGridItem } from '../flex-grid';
+import { Download, FileAttachment, Trash } from '../icons';
+import { Separator } from '../separator';
 import { useTheme } from '../../providers/ThemeProvider';
 import bytes from 'bytes';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
