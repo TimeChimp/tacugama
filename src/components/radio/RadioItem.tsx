@@ -15,11 +15,11 @@ const radioOverrides = ({ icon, colored }: Pick<RadioProps, 'icon' | 'colored'>)
   Root: {
     style: ({ $theme, $checked }: { $theme: CustomThemeType; $checked: boolean }) => ({
       width: '100%',
-      backgroundColor: $checked ? $theme.colors.primary100 : $theme.colors.primary50,
       borderRadius: $theme.borders.radius100,
       ...margin($theme.sizing.scale100, '0'),
       ...padding($theme.sizing.scale300, $theme.sizing.scale400),
       ...(colored && {
+        backgroundColor: $checked ? $theme.colors.primary100 : $theme.colors.primary50,
         ':hover': {
           backgroundColor: $checked ? undefined : $theme.colors.primary100,
         },
@@ -54,7 +54,7 @@ const radioOverrides = ({ icon, colored }: Pick<RadioProps, 'icon' | 'colored'>)
   },
 });
 
-export const RadioItem = ({ icon, colored = true, children, ...rest }: RadioProps) => {
+export const RadioItem = ({ icon, colored = false, children, ...rest }: RadioProps) => {
   return (
     <BaseRadio {...rest} overrides={radioOverrides({ icon, colored })}>
       {children}
