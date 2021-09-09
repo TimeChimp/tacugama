@@ -68,3 +68,4 @@ export * from './FilesLabeled';
 export * from './AddSquare';
 export * from './Windows';
 export * from './FileAttachments';
+export * from './Attachment';
