@@ -23,7 +23,7 @@ export interface DropdownItem {
     name: string;
     value: any;
     secondaryName: string;
-    secondaryValue: string;
+    secondaryValue: any;
   };
 }
 
