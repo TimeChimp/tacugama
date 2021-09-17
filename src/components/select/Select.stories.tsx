@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Select, SelectProps } from './Select';
+import { Select, SelectProps, Value } from './Select';
 import { ColorSelect, ColorSelectProps } from './ColorSelect';
 
 export default {
@@ -9,7 +9,10 @@ export default {
   component: Select,
 } as Meta;
 
-const Template: Story<SelectProps> = (args) => <Select {...args} />;
+const Template: Story<SelectProps> = (args) => {
+  const [selectedValue, setSelectedValue] = useState<Value>([]);
+  return <Select {...args} onChangeHandler={({ value }) => setSelectedValue(value)} value={selectedValue} />;
+};
 const ColorSelectTemplate: Story<ColorSelectProps> = (args) => <ColorSelect {...args} />;
 
 export const Default = Template.bind({});
@@ -23,6 +26,20 @@ Default.args = {
     { name: 'Beige', id: '#F5F5DC' },
   ],
   placeholder: 'Select color',
+};
+
+export const Multi = Template.bind({});
+Multi.args = {
+  options: [
+    { name: 'AliceBlue', id: '#F0F8FF' },
+    { name: 'AntiqueWhite', id: '#FAEBD7' },
+    { name: 'Aqua', id: '#00FFFF' },
+    { name: 'Aquamarine', id: '#7FFFD4' },
+    { name: 'Azure', id: '#F0FFFF' },
+    { name: 'Beige', id: '#F5F5DC' },
+  ],
+  placeholder: 'Select color',
+  multi: true,
 };
 
 export const Loading = Template.bind({});
