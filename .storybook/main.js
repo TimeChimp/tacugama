@@ -20,6 +20,11 @@ module.exports = {
       path.resolve(__dirname, "..", "src"),
       "node_modules",
     ];
-    return config;
+    return {
+      ...config,
+      node: {
+        fs: 'empty',
+      }
+    };
   },
 };
