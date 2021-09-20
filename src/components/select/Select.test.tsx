@@ -5,7 +5,7 @@ import { Select } from '.';
 
 const SKELETON_TEST_ID = 'loader';
 const LOADER_TITLE = 'Loading';
-const OPTIONS = [
+export const OPTIONS = [
   { name: 'AliceBlue', id: '#F0F8FF', color: '#F0F8FF' },
   { name: 'AntiqueWhite', id: '#FAEBD7', color: '#FAEBD7' },
   { name: 'Aqua', id: '#00FFFF', color: '#00FFFF' },
