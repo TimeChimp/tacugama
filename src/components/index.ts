@@ -42,3 +42,4 @@ export * from './breadcrumbs';
 export * from './copy-text';
 export * from './row-select';
 export * from './attachments-list';
+export * from './tag-title';
