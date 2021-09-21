@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { ParagraphSmall } from 'baseui/typography';
 import { useTheme } from '../../providers';
-import { padding } from '../../utils';
+import { borderRadius, padding } from '../../utils';
 
 export interface TagProps {
   value?: string;
@@ -27,7 +27,7 @@ export const TagTitle = ({ value }: TagProps) => {
             display: 'inline-flex',
             background: light2,
             ...padding(scale0, scale300),
-            borderRadius: radius100,
+            ...borderRadius(radius100),
           },
         },
       }}
