@@ -10,7 +10,7 @@ import {
   AuthLock as AuthLockIcon,
   PhoneLock as PhoneLockIcon,
   Copy as CopyIcon,
-  Tag as TagIcon,
+  TagIcon,
   Crown as CrownIcon,
   CrownOutlined as CrownOutlinedIcon,
   Folder as FolderIcon,
