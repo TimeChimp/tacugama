@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '../../providers';
 import { Icon, SVGProps } from './Icon';
 
-export const Tag = ({ title = 'Tag', size = '12', color }: SVGProps) => {
+export const TagIcon = ({ title = 'Tag', size = '12', color }: SVGProps) => {
   const { theme } = useTheme();
 
   return (

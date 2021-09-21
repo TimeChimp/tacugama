@@ -8,7 +8,7 @@ export interface TagProps {
   children?: ReactNode;
 }
 
-export const TagTitle = ({ value }: TagProps) => {
+export const Tag = ({ value }: TagProps) => {
   const {
     theme: {
       current: {
