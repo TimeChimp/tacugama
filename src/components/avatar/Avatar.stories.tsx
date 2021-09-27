@@ -15,8 +15,7 @@ export const Default = Template.bind({});
 Default.args = {
   name: 'John Doe',
   size: 'scale1200',
-  src:
-    'https://st.depositphotos.com/3244893/5106/v/950/depositphotos_51060005-stock-illustration-cute-little-panda-icon.jpg',
+  src: 'https://st.depositphotos.com/3244893/5106/v/950/depositphotos_51060005-stock-illustration-cute-little-panda-icon.jpg',
 };
 
 export const Configurable = ConfigurableTemplate.bind({});

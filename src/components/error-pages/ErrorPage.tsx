@@ -23,10 +23,10 @@ export const ErrorPage = ({
     },
   } = useTheme();
 
-  const isSecondaryButtonShown = useMemo(() => !!onSecondaryButtonClick && !!secondaryButtonText, [
-    onSecondaryButtonClick,
-    secondaryButtonText,
-  ]);
+  const isSecondaryButtonShown = useMemo(
+    () => !!onSecondaryButtonClick && !!secondaryButtonText,
+    [onSecondaryButtonClick, secondaryButtonText],
+  );
 
   return (
     <ErrorPageWrapper>
