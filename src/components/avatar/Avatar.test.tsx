@@ -12,7 +12,7 @@ test('it shows initials', () => {
   expect(screen.getByText(intitials)).toBeInTheDocument();
 });
 
-test('it shows no initials when supplying an image src', () => {
+test.skip('it shows no initials when supplying an image src', () => {
   const testName = 'John Deo';
   const intitials = 'JD';
   const avatarLink =
