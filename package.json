@@ -1,5 +1,5 @@
 {
-  "version": "0.25.2",
+  "version": "0.25.3",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -98,8 +98,10 @@
     "@ag-grid-enterprise/status-bar": "~25.0.1",
     "@timechimp/timechimp-typescript-helpers": "^1.0.2",
     "@types/bytes": "^3.1.1",
+    "@types/react-color": "^3.0.5",
     "baseui": "^9.116.0",
     "bytes": "^3.1.0",
+    "core-js": "^3.18.0",
     "date-fns": "^2.17.0",
     "deepmerge": "^4.2.2",
     "isomorphic-unfetch": "^3.1.0",
