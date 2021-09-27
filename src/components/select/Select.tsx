@@ -8,8 +8,9 @@ import {
   getInputBorderColor,
   getInputPlaceholderTextColor,
   padding,
+  margin,
 } from '../../utils';
-import { BottomArrow } from '../icons';
+import { BottomArrow, TagIcon } from '../icons';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
 
@@ -45,7 +46,7 @@ export const Select = ({
         colors,
         borders,
         customColors: { primarySubtle },
-        sizing: { scale0, scale100, scale700, scale900 },
+        sizing: { scale0, scale100, scale550, scale700, scale900 },
         typography: { ParagraphSmall, LabelSmall },
       },
     },
@@ -177,6 +178,7 @@ export const Select = ({
                     style: {
                       backgroundColor: primarySubtle,
                       ...borderRadius(radius100),
+                      ...margin('0', scale100),
                     },
                   },
                   Text: {
@@ -192,6 +194,9 @@ export const Select = ({
                   },
                 },
               },
+            },
+            SearchIcon: {
+              component: () => <TagIcon size={scale550} />,
             },
           }}
         />
