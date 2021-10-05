@@ -50,6 +50,7 @@ export const customColors: CustomColors = {
   yellow2: '#FDDD48',
   yellow3: '#FDED72',
   yellow4: '#FFFEE5',
+  yellow5: '#FFA502',
 
   // Purple
   purple0: '#3D357E',
