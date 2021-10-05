@@ -70,3 +70,5 @@ export * from './AddSquare';
 export * from './Windows';
 export * from './FileAttachments';
 export * from './Attachment';
+export * from './CheckMark';
+export * from './Company';
