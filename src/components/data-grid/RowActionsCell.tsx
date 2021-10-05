@@ -31,7 +31,7 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
 
   const filteredItems = useMemo(
     () =>
-      items.filter((item: any) =>
+      items?.filter((item: any) =>
         item.filterByProp?.value! && data[item.filterByProp?.name!]
           ? item.filterByProp?.value!.some((valueItem: any) => valueItem === data[item.filterByProp?.name!]) &&
             item.filterByProp?.secondaryValue !== data[item.filterByProp?.secondaryName]

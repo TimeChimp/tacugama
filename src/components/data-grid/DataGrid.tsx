@@ -52,6 +52,7 @@ import {
   SelectedFilterIds,
   FilterValue,
   FilterType,
+  RowModelType,
 } from './types';
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
@@ -62,12 +63,15 @@ import { SortDescendingIcon } from './SortDescendingIcon';
 import ReactDOMServer from 'react-dom/server';
 import DataGridActions from './DataGridActions';
 import { RowSelect } from '../row-select';
+import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
+const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
 const DATE_FORMAT = 'y-MM-dd';
 
 export const DataGrid = ({
+  rowData,
   columns,
   selection,
   filtering,
@@ -94,6 +98,7 @@ export const DataGrid = ({
   onSaveViewState,
   onBulkDelete,
   onRowEdit,
+  rowModelType = DEFAULT_ROW_MODEL_TYPE,
   searchColumns = DEFAULT_SEARCH_COLUMNS,
   formatSettings = defaultFormatSettings,
   translations = defaultTranslations,
@@ -260,28 +265,30 @@ export const DataGrid = ({
   const createServerSideDatasource = (): IServerSideDatasource => {
     return {
       getRows: async function (params: IServerSideGetRowsParams) {
-        try {
-          const response = await fetch(dataUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${accessToken}`,
-            },
-            body: JSON.stringify(params.request),
-          });
+        if (dataUrl) {
+          try {
+            const response = await fetch(dataUrl, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${accessToken}`,
+              },
+              body: JSON.stringify(params.request),
+            });
 
-          const data = (await response.json()) as DataGridResponse;
-          const { rowData, rowCount } = data;
+            const data = (await response.json()) as DataGridResponse;
+            const { rowData, rowCount } = data;
 
-          if (!rowData || rowData.length === 0) {
-            params.api.showNoRowsOverlay();
-          } else {
-            params.api.hideOverlay();
+            if (!rowData || rowData.length === 0) {
+              params.api.showNoRowsOverlay();
+            } else {
+              params.api.hideOverlay();
+            }
+
+            return params.success({ rowData, rowCount });
+          } catch (error) {
+            return params.fail();
           }
-
-          return params.success({ rowData, rowCount });
-        } catch (error) {
-          return params.fail();
         }
       },
     };
@@ -311,8 +318,10 @@ export const DataGrid = ({
 
     api.sizeColumnsToFit();
 
-    const datasource = createServerSideDatasource();
-    api.setServerSideDatasource(datasource);
+    if (rowModelType === RowModelType.serverSide) {
+      const datasource = createServerSideDatasource();
+      api.setServerSideDatasource(datasource);
+    }
   };
 
   const getRowNodeId = (data: any) => {
@@ -562,8 +571,9 @@ export const DataGrid = ({
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
         <AgGridReact
+          rowData={rowData}
           rowSelection="multiple"
-          rowModelType="serverSide"
+          rowModelType={rowModelType}
           serverSideStoreType={ServerSideStoreType.Partial}
           noRowsOverlayComponent="noRowsTemplate"
           loadingCellRenderer="loadingCellTemplate"
@@ -607,6 +617,7 @@ export const DataGrid = ({
               ReactDOMServer.renderToStaticMarkup(<SortDescendingIcon color={theme.current.colors.colorPrimary} />),
           }}
           modules={[
+            ClientSideRowModelModule,
             ServerSideRowModelModule,
             RowGroupingModule,
             CsvExportModule,
