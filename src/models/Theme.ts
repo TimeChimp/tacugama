@@ -49,6 +49,7 @@ export interface CustomColors {
   yellow2: string;
   yellow3: string;
   yellow4: string;
+  yellow5: string;
 
   // Purple
   purple0: string;
