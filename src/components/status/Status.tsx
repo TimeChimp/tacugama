@@ -2,6 +2,7 @@ import React from 'react';
 import { ParagraphSmall } from 'baseui/typography';
 import { useTheme } from '../../providers';
 import { borderRadius, padding } from '../../utils';
+import { customColors } from '../../theme/colors';
 
 export interface StatusProps {
   value: string;
@@ -9,7 +10,7 @@ export interface StatusProps {
   fontColor?: string;
 }
 
-export const Status = ({ value, color = '#E7E7E9', fontColor = '#0F1020' }: StatusProps) => {
+export const Status = ({ value, color = customColors.light2, fontColor = customColors.dark0 }: StatusProps) => {
   const {
     theme: {
       current: {
