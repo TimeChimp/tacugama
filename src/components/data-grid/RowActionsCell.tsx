@@ -31,11 +31,13 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
 
   const filteredItems = useMemo(() => {
     return items.filter((item: any) => {
-      const check = item.filterConditions?.every(({ value, name, comparator }: any) => {
-        return comparator(value, name, data);
-      });
-
-      return check;
+      if (item.filterConditions?.length) {
+        return item.filterConditions?.every(({ value, name, comparator }: any) => {
+          return comparator(value, name, data);
+        });
+      } else {
+        return true;
+      }
     });
   }, [items, data]);
 
