@@ -29,6 +29,7 @@ export interface DataGridApi {
   exportAsCsv: () => void;
   exportAsExcel: () => void;
   refreshStore: () => void;
+  refreshCells: () => void;
 }
 
 export type DataGridColumnType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'duration';

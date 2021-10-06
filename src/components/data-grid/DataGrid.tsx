@@ -161,6 +161,8 @@ export const DataGrid = ({
     return api.refreshServerSideStore({ purge: rowCount === 0 });
   };
 
+  const refreshCells = (api: GridApi) => api.refreshCells();
+
   const onGridSizeChanged = () => {
     gridApi.sizeColumnsToFit();
   };
@@ -303,6 +305,7 @@ export const DataGrid = ({
           exportAsCsv: () => exportAsCsv(api),
           exportAsExcel: () => exportAsExcel(api),
           refreshStore: () => refreshStore(api),
+          refreshCells: () => refreshCells(api),
         };
         onReady(dataGridApi);
       }
@@ -574,6 +577,7 @@ export const DataGrid = ({
           rowData={rowData}
           rowSelection="multiple"
           rowModelType={rowModelType}
+          immutableData={rowModelType === RowModelType.clientSide}
           serverSideStoreType={ServerSideStoreType.Partial}
           noRowsOverlayComponent="noRowsTemplate"
           loadingCellRenderer="loadingCellTemplate"
