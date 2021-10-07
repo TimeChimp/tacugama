@@ -75,3 +75,5 @@ export * from './Company';
 export * from './Communication';
 export * from './Approve';
 export * from './Reject';
+export * from './CircleCross';
+export * from './CircleCheckmark';

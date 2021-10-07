@@ -23,6 +23,8 @@ import {
   Communication as CommunicationIcon,
   Approve as ApproveIcon,
   Reject as RejectIcon,
+  CircleCheckmark as CircleCheckmarkIcon,
+  CircleCross as CircleCrossIcon,
 } from './';
 import { SVGProps } from './Icon';
 
@@ -52,6 +54,8 @@ const AttachmentTemplate: Story<SVGProps> = (args) => <AttachmentIcon {...args} 
 const CommunicationTemplate: Story<SVGProps> = (args) => <CommunicationIcon {...args} />;
 const ApproveTemplate: Story<SVGProps> = (args) => <ApproveIcon {...args} />;
 const RejectTemplate: Story<SVGProps> = (args) => <RejectIcon {...args} />;
+const CircleCheckmarkTemplate: Story<SVGProps> = (args) => <CircleCheckmarkIcon {...args} />;
+const CircleCrossTemplate: Story<SVGProps> = (args) => <CircleCrossIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -142,6 +146,12 @@ export const Attachment = AttachmentTemplate.bind({});
 Attachment.args = {
   size: '12',
 };
+
+export const CircleCheckmark = CircleCheckmarkTemplate.bind({});
+CircleCheckmark.args = {};
+
+export const CircleCross = CircleCrossTemplate.bind({});
+CircleCross.args = {};
 
 export const Communication = CommunicationTemplate.bind({});
 Communication.args = {
