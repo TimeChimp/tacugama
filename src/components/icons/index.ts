@@ -72,3 +72,6 @@ export * from './FileAttachments';
 export * from './Attachment';
 export * from './CheckMark';
 export * from './Company';
+export * from './Communication';
+export * from './Approve';
+export * from './Reject';

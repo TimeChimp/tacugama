@@ -35,9 +35,9 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
         return item.filterConditions?.every(({ value, name, comparator }: any) => {
           return comparator(value, name, data);
         });
-      } else {
-        return true;
       }
+
+      return true;
     });
   }, [items, data]);
 
