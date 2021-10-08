@@ -1,8 +1,8 @@
 import React from 'react';
 import { Checkbox, CheckboxProps, STYLE_TYPE } from 'baseui/checkbox';
-import { useTheme } from 'providers';
-import { margin } from 'utils';
-import { DATA_TEST_ID } from 'models';
+import { useTheme } from '../../providers';
+import { margin } from '../../utils';
+import { DATA_TEST_ID } from '../../models';
 
 export interface ToggleProps extends CheckboxProps {
   testId?: string;
