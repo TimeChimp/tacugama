@@ -29,16 +29,17 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
     onEdit(data);
   };
 
-  const filteredItems = useMemo(
-    () =>
-      items?.filter((item: any) =>
-        item.filterByProp?.value! && data[item.filterByProp?.name!]
-          ? item.filterByProp?.value!.some((valueItem: any) => valueItem === data[item.filterByProp?.name!]) &&
-            item.filterByProp?.secondaryValue !== data[item.filterByProp?.secondaryName]
-          : true,
-      ),
-    [items, data],
-  );
+  const filteredItems = useMemo(() => {
+    return items?.filter((item: any) => {
+      if (item.filterConditions?.length) {
+        return item.filterConditions?.every(({ value, name, comparator }: any) => {
+          return comparator(value, name, data);
+        });
+      }
+
+      return true;
+    });
+  }, [items, data]);
 
   return !!onEdit ? (
     <RowEditCell onClick={handleEdit} />

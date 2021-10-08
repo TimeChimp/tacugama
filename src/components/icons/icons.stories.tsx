@@ -20,6 +20,9 @@ import {
   FilesLabeled as FilesLabeledIcon,
   FileAttachment as FileAttachmentIcon,
   Attachment as AttachmentIcon,
+  Communication as CommunicationIcon,
+  Approve as ApproveIcon,
+  Reject as RejectIcon,
   CircleCheckmark as CircleCheckmarkIcon,
   CircleCross as CircleCrossIcon,
 } from './';
@@ -48,65 +51,119 @@ const AddSquareTemplate: Story<SVGProps> = (args) => <AddSquareIcon {...args} />
 const FilesLabeledTemplate: Story<SVGProps> = (args) => <FilesLabeledIcon {...args} />;
 const FileAttachmentTemplate: Story<SVGProps> = (args) => <FileAttachmentIcon {...args} />;
 const AttachmentTemplate: Story<SVGProps> = (args) => <AttachmentIcon {...args} />;
+const CommunicationTemplate: Story<SVGProps> = (args) => <CommunicationIcon {...args} />;
+const ApproveTemplate: Story<SVGProps> = (args) => <ApproveIcon {...args} />;
+const RejectTemplate: Story<SVGProps> = (args) => <RejectIcon {...args} />;
 const CircleCheckmarkTemplate: Story<SVGProps> = (args) => <CircleCheckmarkIcon {...args} />;
 const CircleCrossTemplate: Story<SVGProps> = (args) => <CircleCrossIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
-Clock.args = {};
+Clock.args = {
+  size: '12',
+};
 
 export const Account = AccountTemplate.bind({});
-Account.args = {};
+Account.args = {
+  size: '12',
+};
 
 export const Lock = LockTemplate.bind({});
-Lock.args = {};
+Lock.args = {
+  size: '12',
+};
 
 export const LockFilled = LockFilledTemplate.bind({});
-LockFilled.args = {};
+LockFilled.args = {
+  size: '12',
+};
 
 export const Flag = FlagTemplate.bind({});
-Flag.args = {};
+Flag.args = {
+  size: '12',
+};
 
 export const AuthLock = AuthLockTemplate.bind({});
-AuthLock.args = {};
+AuthLock.args = {
+  size: '12',
+};
 
 export const PhoneLock = PhoneLockTemplate.bind({});
-PhoneLock.args = {};
+PhoneLock.args = {
+  size: '12',
+};
 
 export const Copy = CopyTemplate.bind({});
-Copy.args = {};
+Copy.args = {
+  size: '12',
+};
 
 export const Tag = TagTemplate.bind({});
-Tag.args = {};
+Tag.args = {
+  size: '12',
+};
 
 export const Crown = CrownTemplate.bind({});
-Crown.args = {};
+Crown.args = {
+  size: '12',
+};
 
 export const CrownOutlined = CrownOutlinedTemplate.bind({});
-CrownOutlined.args = {};
+CrownOutlined.args = {
+  size: '12',
+};
 
 export const Folder = FolderTemplate.bind({});
-Folder.args = {};
+Folder.args = {
+  size: '12',
+};
 
 export const FolderAdd = FolderAddTemplate.bind({});
-FolderAdd.args = {};
+FolderAdd.args = {
+  size: '12',
+};
 
 export const Info = InfoTemplate.bind({});
-Info.args = {};
+Info.args = {
+  size: '12',
+};
 
 export const AddSquare = AddSquareTemplate.bind({});
-AddSquare.args = {};
+AddSquare.args = {
+  size: '12',
+};
 
 export const FilesLabeled = FilesLabeledTemplate.bind({});
-FilesLabeled.args = {};
+FilesLabeled.args = {
+  size: '12',
+};
 
 export const FileAttachment = FileAttachmentTemplate.bind({});
-FileAttachment.args = {};
+FileAttachment.args = {
+  size: '12',
+};
 
 export const Attachment = AttachmentTemplate.bind({});
-Attachment.args = {};
+Attachment.args = {
+  size: '12',
+};
 
 export const CircleCheckmark = CircleCheckmarkTemplate.bind({});
 CircleCheckmark.args = {};
 
 export const CircleCross = CircleCrossTemplate.bind({});
 CircleCross.args = {};
+
+export const Communication = CommunicationTemplate.bind({});
+Communication.args = {
+  size: '12',
+};
+
+export const Approve = ApproveTemplate.bind({});
+Approve.args = {
+  size: '12',
+};
+
+export const Reject = RejectTemplate.bind({});
+Reject.args = {
+  size: '12',
+};
