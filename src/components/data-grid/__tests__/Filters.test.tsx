@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom';
 import { setupServer } from 'msw/node';
-import * as React from 'react';
 import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
 import { DataGrid } from '..';
 import { getTimeEntriesQueryMock } from './mockServer';
