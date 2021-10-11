@@ -1,11 +1,12 @@
 import React from 'react';
 import { DataGridColumn, Filter, FilterType } from '../types';
-import { Account, Briefcase, Calendar, Documents, Tasks } from '../../icons';
+import { Account, Briefcase, Calendar, Documents, Tasks, Unlink } from '../../icons';
 import { Dot } from '../../dot';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { Avatar } from '../../avatar';
 import { ParagraphSmall } from 'baseui/typography';
 import { useTheme } from '../../../providers';
+import { DropdownItem } from 'components/dropdown';
 
 const CustomCellComponent = ({ data }: any) => {
   const {
@@ -142,6 +143,14 @@ export const FILTERS: Filter[] = [
     values: ['Testing', 'Development', 'Design', 'Support'],
     searchPlaceholder: 'Search tasks',
     icon: ({ ...props }) => <Tasks {...props} />,
+  },
+];
+
+export const ROW_ACTION_ITEMS: DropdownItem[] = [
+  {
+    label: 'Edit',
+    icon: <Unlink size="12px" />,
+    action: () => {},
   },
 ];
 

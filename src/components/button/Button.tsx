@@ -57,7 +57,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               ...borderRadius(scale0),
               backgroundColor: getButtonBackgroundColor(buttonType, colors),
               ':hover': {
-                backgroundColor: getButtonBackgroundHoverColor(buttonType),
+                backgroundColor: getButtonBackgroundHoverColor(buttonType, colors),
               },
               ':disabled': {
                 backgroundColor: primary300,

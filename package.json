@@ -1,5 +1,5 @@
 {
-  "version": "0.25.9",
+  "version": "0.26.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -64,8 +64,10 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^13.1.9",
+    "@testing-library/dom": "^7.28.1",
     "@types/pdfmake": "^0.1.17",
     "@types/react": "^17.0.10",
+    "@types/react-color": "^3.0.5",
     "@types/react-dom": "^17.0.2",
     "@types/styletron-engine-atomic": "^1.1.0",
     "@types/styletron-react": "^5.0.2",
@@ -88,6 +90,7 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
+    "@ag-grid-community/client-side-row-model": "~25.0.1",
     "@ag-grid-community/core": "~25.0.1",
     "@ag-grid-community/csv-export": "~25.0.1",
     "@ag-grid-community/react": "~25.0.1",

@@ -30,7 +30,7 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
   };
 
   const filteredItems = useMemo(() => {
-    return items.filter((item: any) => {
+    return items?.filter((item: any) => {
       if (item.filterConditions?.length) {
         return item.filterConditions?.every(({ value, name, comparator }: any) => {
           return comparator(value, name, data);
