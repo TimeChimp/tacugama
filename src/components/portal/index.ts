@@ -17,6 +17,7 @@ export const Portal = ({ id, children }: PortalProps) => {
     }
     return () => {
       if (dynamic && current.parentElement) {
+        // @ts-expect-error
         current?.parentElement?.removeChild(current);
       }
     };
