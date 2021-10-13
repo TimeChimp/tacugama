@@ -9,6 +9,12 @@ import {
   StyledDropdownOptionLabel,
 } from './StyledDropdownOption';
 
+export interface ActionItemFilterCondition {
+  comparator: (value: any, name: string, data: any) => boolean;
+  value: any;
+  name: string;
+}
+
 export interface DropdownItem {
   id?: string;
   label: string;
@@ -19,12 +25,7 @@ export interface DropdownItem {
   checkbox?: boolean;
   isChecked?: boolean;
   isBold?: boolean;
-  filterByProp?: {
-    name: string;
-    value: any;
-    secondaryName: string;
-    secondaryValue: any;
-  };
+  filterConditions?: ActionItemFilterCondition[];
 }
 
 export interface DropdownOptionProps {
