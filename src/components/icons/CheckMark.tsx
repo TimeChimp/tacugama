@@ -1,12 +1,12 @@
 import React from 'react';
 import { useTheme } from '../../providers';
-import { Icon, SVGProps } from './Icon';
+import { defaultIconProps, Icon, SVGProps } from './Icon';
 
-export const CheckMark = ({ title = 'CheckMark', size = '12', color }: SVGProps) => {
+export const CheckMark = ({ title = 'CheckMark', size = defaultIconProps.size, color }: SVGProps) => {
   const { theme } = useTheme();
 
   return (
-    <Icon title={title}>
+    <Icon title={title} lineHeight="0">
       <svg width={size} height={size} viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           fillRule="evenodd"

@@ -77,3 +77,4 @@ export * from './Approve';
 export * from './Reject';
 export * from './CircleCross';
 export * from './CircleCheckmark';
+export * from './Dashboard';
