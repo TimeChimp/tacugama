@@ -25,6 +25,8 @@ import {
   Reject as RejectIcon,
   CircleCheckmark as CircleCheckmarkIcon,
   CircleCross as CircleCrossIcon,
+  LineChartIcon,
+  BarChartIcon,
 } from './';
 import { SVGProps } from './Icon';
 
@@ -56,6 +58,8 @@ const ApproveTemplate: Story<SVGProps> = (args) => <ApproveIcon {...args} />;
 const RejectTemplate: Story<SVGProps> = (args) => <RejectIcon {...args} />;
 const CircleCheckmarkTemplate: Story<SVGProps> = (args) => <CircleCheckmarkIcon {...args} />;
 const CircleCrossTemplate: Story<SVGProps> = (args) => <CircleCrossIcon {...args} />;
+const LineChartIconTemplate: Story<SVGProps> = (args) => <LineChartIcon {...args} />;
+const BarChartIconTemplate: Story<SVGProps> = (args) => <BarChartIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -148,10 +152,14 @@ Attachment.args = {
 };
 
 export const CircleCheckmark = CircleCheckmarkTemplate.bind({});
-CircleCheckmark.args = {};
+CircleCheckmark.args = {
+  size: '12',
+};
 
 export const CircleCross = CircleCrossTemplate.bind({});
-CircleCross.args = {};
+CircleCross.args = {
+  size: '12',
+};
 
 export const Communication = CommunicationTemplate.bind({});
 Communication.args = {
@@ -165,5 +173,15 @@ Approve.args = {
 
 export const Reject = RejectTemplate.bind({});
 Reject.args = {
+  size: '12',
+};
+
+export const LineChart = LineChartIconTemplate.bind({});
+LineChart.args = {
+  size: '12',
+};
+
+export const BarChart = BarChartIconTemplate.bind({});
+BarChart.args = {
   size: '12',
 };
