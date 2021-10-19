@@ -45,3 +45,4 @@ export * from './attachments-list';
 export * from './tag';
 export * from './status';
 export * from './toggle';
+export * from './graphs';
