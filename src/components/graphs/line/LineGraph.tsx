@@ -5,9 +5,7 @@ import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 
 interface LineGraphData {
   date?: Date;
-  trackedDuration: number;
-  x?: any;
-  y?: any;
+  trackedDuration?: number;
 }
 
 export interface LineGraphProps {
@@ -21,7 +19,7 @@ export const LineGraph = ({ data, horizontalAxisLabel, verticalAxisLabel }: Line
     theme: {
       current: {
         customColors: { primarySubtle, dark0, dark4, light2 },
-        sizing: { scale400, scale600, scale950 },
+        sizing: { scale400, scale600 },
       },
     },
   } = useTheme();
@@ -30,7 +28,7 @@ export const LineGraph = ({ data, horizontalAxisLabel, verticalAxisLabel }: Line
     () =>
       data.map((graphDataItem: LineGraphData) => ({
         ...graphDataItem,
-        trackedDuration: graphDataItem.trackedDuration / 3600,
+        trackedDuration: graphDataItem.trackedDuration! / 3600,
       })),
     [data],
   );
@@ -39,8 +37,8 @@ export const LineGraph = ({ data, horizontalAxisLabel, verticalAxisLabel }: Line
     let max: number = 0;
     convertedData.forEach((graphDataItem: LineGraphData) => {
       const { trackedDuration } = graphDataItem;
-      if (trackedDuration > max) {
-        max = trackedDuration;
+      if (trackedDuration! > max) {
+        max = trackedDuration!;
       }
     });
     return max * 1.1;
