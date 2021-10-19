@@ -680,6 +680,7 @@ export const DataGrid = ({
               type,
               aggFunc,
               customMap,
+              customHeaderComponent,
               customComponent,
               rowSelectProps,
             }) => (
@@ -688,6 +689,7 @@ export const DataGrid = ({
                 cellRendererFramework={customComponent}
                 cellRenderer={!!rowSelectProps ? 'rowSelect' : undefined}
                 cellRendererParams={!!rowSelectProps ? { ...rowSelectProps } : undefined}
+                headerComponentFramework={customHeaderComponent}
                 key={field}
                 headerName={label}
                 field={field}
