@@ -75,7 +75,7 @@ export const LineGraph = ({ data, horizontalAxisLabel, verticalAxisLabel }: Line
         tickFormat={(t) => t}
       />
       <VictoryArea
-        style={{ data: { fill: primarySubtle, opacity: 0.5, stroke: dark4 } }}
+        style={{ data: { fill: primarySubtle, opacity: 0.5, stroke: dark4, strokeWidth: 2 } }}
         interpolation="monotoneX"
         data={convertedData}
         x="date"
