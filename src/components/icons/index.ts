@@ -77,3 +77,6 @@ export * from './Approve';
 export * from './Reject';
 export * from './CircleCross';
 export * from './CircleCheckmark';
+export * from './Dashboard';
+export * from './LineChartIcon';
+export * from './BarChartIcon';
