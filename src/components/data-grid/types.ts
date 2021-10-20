@@ -59,6 +59,7 @@ export interface DataGridColumn {
   hide?: boolean;
   customMap?: (value: any) => any;
   customComponent?: React.FunctionComponent;
+  customHeaderComponent?: React.FunctionComponent;
   rowSelectProps?: DataGridRowSelectProps;
 }
 

@@ -80,3 +80,4 @@ export * from './CircleCheckmark';
 export * from './Dashboard';
 export * from './LineChartIcon';
 export * from './BarChartIcon';
+export * from './Help';
