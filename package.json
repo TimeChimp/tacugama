@@ -111,7 +111,7 @@
     "react-color": "^2.19.3",
     "react-hook-form": "^6.15.4",
     "styletron-engine-atomic": "^1.4.7",
-    "styletron-react": "^5.2.7",
+    "styletron-react": "^6.0.1",
     "victory": "^36.0.1"
   },
   "msw": {
