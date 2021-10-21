@@ -7,7 +7,7 @@ export const CircleClock = ({ title = 'CircleClock', size = defaultIconProps.siz
 
   return (
     <Icon title={title} lineHeight="0">
-      <svg width={size} height={size} viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width={size} height={size} viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
