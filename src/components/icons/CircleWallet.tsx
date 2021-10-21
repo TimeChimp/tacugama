@@ -9,7 +9,9 @@ export const CircleWallet = ({ title = 'CircleWallet', size = defaultIconProps.s
     <Icon title={title} lineHeight="0">
       <svg width={size} height={size} viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
-          d="M15.667 2h-4.658a.833.833 0 01-.584-.241L9.242.576a.833.833 0 00-.583-.242H2.334c-.92 0-1.667.746-1.667 1.667v10c0 .92.746 1.666 1.667 1.666h13.333c.92 0 1.667-.746 1.667-1.666V3.667c0-.92-.747-1.666-1.667-1.666z"
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M21.333 5.333H4a1.333 1.333 0 110-2.666h17.333A2.667 2.667 0 0018.667 0H4a4 4 0 00-4 4v17.333A2.667 2.667 0 002.667 24h18.666A2.667 2.667 0 0024 21.333V8a2.667 2.667 0 00-2.667-2.667zm0 13.334H12a1.333 1.333 0 01-1.333-1.334V12c0-.736.597-1.333 1.333-1.333h9.333v8zm-6-2.667H14a.667.667 0 01-.667-.667V14c0-.368.299-.667.667-.667h1.333c.368 0 .667.299.667.667v1.333a.667.667 0 01-.667.667z"
           fill={color || theme.current.colors.contentPrimary}
         />
       </svg>

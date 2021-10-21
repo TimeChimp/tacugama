@@ -9,7 +9,9 @@ export const CircleClock = ({ title = 'CircleClock', size = defaultIconProps.siz
     <Icon title={title} lineHeight="0">
       <svg width={size} height={size} viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
-          d="M15.667 2h-4.658a.833.833 0 01-.584-.241L9.242.576a.833.833 0 00-.583-.242H2.334c-.92 0-1.667.746-1.667 1.667v10c0 .92.746 1.666 1.667 1.666h13.333c.92 0 1.667-.746 1.667-1.666V3.667c0-.92-.747-1.666-1.667-1.666z"
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M.667 14C.667 6.636 6.637.667 14 .667A13.333 13.333 0 0127.333 14c0 7.364-5.97 13.333-13.333 13.333C6.636 27.333.667 21.363.667 14zm18.64 6.04l.706-.707a.68.68 0 000-.973l-4.84-4.84V6.667A.667.667 0 0014.507 6h-1.014a.667.667 0 00-.666.667v7.56c-.003.18.07.354.2.48l5.333 5.333a.68.68 0 00.947 0z"
           fill={color || theme.current.colors.contentPrimary}
         />
       </svg>
