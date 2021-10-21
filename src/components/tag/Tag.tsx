@@ -26,6 +26,7 @@ export const Tag = ({ value }: TagProps) => {
           style: {
             display: 'inline-flex',
             background: light2,
+            margin: scale0,
             ...padding(scale0, scale300),
             ...borderRadius(radius100),
           },

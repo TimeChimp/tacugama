@@ -18,12 +18,18 @@ import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
 import { PageOrientation } from 'pdfmake/interfaces';
 import { Option } from '../select';
 
+export enum RowModelType {
+  clientSide = 'clientSide',
+  serverSide = 'serverSide',
+}
+
 export interface DataGridApi {
   getSelectedRows: () => any[];
   getSelectedRow: () => any;
   exportAsCsv: () => void;
   exportAsExcel: () => void;
   refreshStore: () => void;
+  refreshCells: () => void;
 }
 
 export type DataGridColumnType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'duration';
@@ -53,6 +59,7 @@ export interface DataGridColumn {
   hide?: boolean;
   customMap?: (value: any) => any;
   customComponent?: React.FunctionComponent;
+  customHeaderComponent?: React.FunctionComponent;
   rowSelectProps?: DataGridRowSelectProps;
 }
 
@@ -146,6 +153,8 @@ export interface Translations {
 }
 
 export interface DataGridProps {
+  rowModelType?: RowModelType;
+  rowData?: any[] | undefined;
   columns: DataGridColumn[];
   filters?: Filter[];
   selection?: boolean;
@@ -156,7 +165,7 @@ export interface DataGridProps {
   onReady?: (dataGridApi: DataGridApi) => void;
   rowActionItems?: DropdownItem[];
   state?: string;
-  dataUrl: string;
+  dataUrl?: string;
   accessToken?: string;
   sortableColumns?: boolean;
   resizeableColumns?: boolean;

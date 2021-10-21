@@ -28,6 +28,11 @@ export const Breadcrumbs = ({ ...rest }: BreadcrumbsProps) => {
             </InlineBlock>
           ),
         },
+        List: {
+          style: {
+            display: 'flex',
+          },
+        },
       }}
       {...rest}
     />

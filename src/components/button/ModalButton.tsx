@@ -45,7 +45,7 @@ export const ModalButton = ({
             ...borderRadius($theme.borders.radius100),
             backgroundColor: getButtonBackgroundColor(buttonType, colors),
             ':hover': {
-              backgroundColor: getButtonBackgroundHoverColor(buttonType),
+              backgroundColor: getButtonBackgroundHoverColor(buttonType, colors),
             },
           }),
         },
