@@ -27,6 +27,9 @@ import {
   CircleCross as CircleCrossIcon,
   LineChartIcon,
   BarChartIcon,
+  CircleClock as CircleClockIcon,
+  CircleEuroCurrency as CircleEuroCurrencyIcon,
+  CircleWallet as CircleWalletIcon,
 } from './';
 import { SVGProps } from './Icon';
 
@@ -60,6 +63,9 @@ const CircleCheckmarkTemplate: Story<SVGProps> = (args) => <CircleCheckmarkIcon 
 const CircleCrossTemplate: Story<SVGProps> = (args) => <CircleCrossIcon {...args} />;
 const LineChartIconTemplate: Story<SVGProps> = (args) => <LineChartIcon {...args} />;
 const BarChartIconTemplate: Story<SVGProps> = (args) => <BarChartIcon {...args} />;
+const CircleClockTemplate: Story<SVGProps> = (args) => <CircleClockIcon {...args} />;
+const CircleEuroCurrencyTemplate: Story<SVGProps> = (args) => <CircleEuroCurrencyIcon {...args} />;
+const CircleWalletTemplate: Story<SVGProps> = (args) => <CircleWalletIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -183,5 +189,20 @@ LineChart.args = {
 
 export const BarChart = BarChartIconTemplate.bind({});
 BarChart.args = {
+  size: '12',
+};
+
+export const CircleClock = CircleClockTemplate.bind({});
+CircleClock.args = {
+  size: '12',
+};
+
+export const CircleEuroCurrency = CircleEuroCurrencyTemplate.bind({});
+CircleEuroCurrency.args = {
+  size: '12',
+};
+
+export const CircleWallet = CircleWalletTemplate.bind({});
+CircleWallet.args = {
   size: '12',
 };
