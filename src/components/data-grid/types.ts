@@ -256,6 +256,7 @@ export interface RowActionsCellProps {
 
 export interface RowEditCellProps {
   onClick: () => void;
+  icon?: ComponentType<IconProps>;
 }
 
 export interface HeaderCheckboxProps {
