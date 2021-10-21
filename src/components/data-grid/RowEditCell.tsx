@@ -4,7 +4,7 @@ import { Pencil } from '../icons';
 import { TertiaryButton } from '../button';
 import { RowEditCellProps } from './types';
 
-export const RowEditCell = ({ onClick }: RowEditCellProps) => {
+export const RowEditCell = ({ onClick, icon: Icon }: RowEditCellProps) => {
   const {
     theme: {
       current: {
@@ -17,7 +17,7 @@ export const RowEditCell = ({ onClick }: RowEditCellProps) => {
   return (
     <div className="ag-row-edit-cell" onClick={onClick}>
       <TertiaryButton>
-        <Pencil size={scale500} color={contentTertiary} />
+        {Icon ? <Icon size={scale500} color={contentTertiary} /> : <Pencil size={scale500} color={contentTertiary} />}
       </TertiaryButton>
     </div>
   );
