@@ -162,7 +162,6 @@ export interface DataGridProps {
   viewing?: boolean;
   columnToggling?: boolean;
   onReady?: (dataGridApi: DataGridApi) => void;
-  rowActionItems?: DropdownItem[];
   state?: string;
   dataUrl?: string;
   accessToken?: string;
@@ -185,7 +184,6 @@ export interface DataGridProps {
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
   onBulkDelete?: (ids: string[]) => Promise<void>;
-  onRowEdit?: (data: RowActionsCellData) => void;
 }
 
 export interface DataGridView {

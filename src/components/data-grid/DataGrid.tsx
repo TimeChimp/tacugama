@@ -52,6 +52,7 @@ import {
   FilterValue,
   FilterType,
   RowModelType,
+  DataGridColumnValueType
 } from './types';
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
@@ -63,7 +64,6 @@ import ReactDOMServer from 'react-dom/server';
 import DataGridActions from './DataGridActions';
 import { RowSelect } from '../row-select';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
-import { DataGridColumnValueType } from 'components';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
@@ -77,10 +77,8 @@ export const DataGrid = ({
   filtering,
   filters,
   grouping,
-  columnToggling,
   viewing,
   onReady,
-  rowActionItems,
   dataUrl,
   accessToken,
   sortableColumns,
@@ -97,7 +95,6 @@ export const DataGrid = ({
   onUnpinView,
   onSaveViewState,
   onBulkDelete,
-  onRowEdit,
   rowModelType = DEFAULT_ROW_MODEL_TYPE,
   searchColumns = DEFAULT_SEARCH_COLUMNS,
   formatSettings = defaultFormatSettings,
@@ -513,13 +510,6 @@ export const DataGrid = ({
 
     return setFilterDefaultValues();
   };
-
-  const columnCellRenderer = useMemo(() => {
-    if (rowActionItems || !!onRowEdit) {
-      return 'moreActionsCell';
-    }
-    return '';
-  }, [rowActionItems, onRowEdit]);
 
   return (
     <>
