@@ -245,6 +245,7 @@ export interface FooterRowCountProps {
 export interface RowActionsCellData {
   items: DropdownItem[];
   onEdit: (data: RowActionsCellData) => void;
+  icon?: ComponentType<IconProps>;
   contactId: string;
   id: string;
   [key: string]: any;
