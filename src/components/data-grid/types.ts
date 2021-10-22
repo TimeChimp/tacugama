@@ -252,6 +252,7 @@ export interface RowActionsCellData {
 export interface RowActionsCellProps {
   api: GridApi;
   data: RowActionsCellData;
+  icon?: ComponentType<IconProps>;
 }
 
 export interface RowEditCellProps {
