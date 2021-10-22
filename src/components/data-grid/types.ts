@@ -187,6 +187,7 @@ export interface DataGridProps {
   onSaveViewState?: (id: string, state: string) => Promise<void>;
   onBulkDelete?: (ids: string[]) => Promise<void>;
   onRowEdit?: (data: RowActionsCellData) => void;
+  onRowEditIcon?: ComponentType<IconProps>;
 }
 
 export interface DataGridView {
