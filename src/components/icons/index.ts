@@ -81,3 +81,6 @@ export * from './Dashboard';
 export * from './LineChartIcon';
 export * from './BarChartIcon';
 export * from './Help';
+export * from './CircleClock';
+export * from './CircleEuroCurrency';
+export * from './CircleWallet';

@@ -7,7 +7,7 @@ import { ActionMenu, ActionMenuActive } from '../icons';
 import { RowEditCell } from './RowEditCell';
 
 export const RowActionsCell = ({ data }: RowActionsCellProps) => {
-  const { onEdit, items, id } = data;
+  const { onEdit, items, id, icon } = data;
   const [active, setActive] = useState(false);
   const {
     theme: {
@@ -44,7 +44,7 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
   }, [items, data]);
 
   return !!onEdit ? (
-    <RowEditCell onClick={handleEdit} />
+    <RowEditCell onClick={handleEdit} icon={icon} />
   ) : (
     <div ref={containerRef}>
       <Dropdown onOpen={onOpen} onClose={() => setActive(false)} items={filteredItems} selectedIds={[id]}>
