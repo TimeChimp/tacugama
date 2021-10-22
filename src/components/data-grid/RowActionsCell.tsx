@@ -6,8 +6,8 @@ import { TertiaryButton } from '../button';
 import { ActionMenu, ActionMenuActive } from '../icons';
 import { RowEditCell } from './RowEditCell';
 
-export const RowActionsCell = ({ data, icon }: RowActionsCellProps) => {
-  const { onEdit, items } = data;
+export const RowActionsCell = ({ data }: RowActionsCellProps) => {
+  const { onEdit, items, icon } = data;
   const [active, setActive] = useState(false);
   const {
     theme: {
