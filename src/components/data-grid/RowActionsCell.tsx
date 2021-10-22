@@ -6,7 +6,7 @@ import { TertiaryButton } from '../button';
 import { ActionMenu, ActionMenuActive } from '../icons';
 import { RowEditCell } from './RowEditCell';
 
-export const RowActionsCell = ({ data }: RowActionsCellProps) => {
+export const RowActionsCell = ({ data, icon }: RowActionsCellProps) => {
   const { onEdit, items } = data;
   const [active, setActive] = useState(false);
   const {
@@ -42,7 +42,7 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
   }, [items, data]);
 
   return !!onEdit ? (
-    <RowEditCell onClick={handleEdit} />
+    <RowEditCell onClick={handleEdit} icon={icon} />
   ) : (
     <div ref={containerRef}>
       <Dropdown onOpen={onOpen} onClose={() => setActive(false)} items={filteredItems}>
