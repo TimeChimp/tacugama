@@ -245,7 +245,7 @@ export interface FooterRowCountProps {
 export interface RowActionsCellData {
   items: DropdownItem[];
   onEdit: (data: RowActionsCellData) => void;
-  icon?:ComponentType<IconProps>;
+  icon?: ComponentType<IconProps>;
   contactId: string;
   id: string;
   [key: string]: any;
@@ -257,7 +257,7 @@ export interface RowActionsCellProps {
 
 export interface RowEditCellProps {
   onClick: () => void;
-  icon?:ComponentType<IconProps>;
+  icon?: ComponentType<IconProps>;
 }
 
 export interface HeaderCheckboxProps {
