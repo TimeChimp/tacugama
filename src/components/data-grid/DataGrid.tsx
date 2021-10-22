@@ -98,6 +98,7 @@ export const DataGrid = ({
   onSaveViewState,
   onBulkDelete,
   onRowEdit,
+  onRowEditIcon,
   rowModelType = DEFAULT_ROW_MODEL_TYPE,
   searchColumns = DEFAULT_SEARCH_COLUMNS,
   formatSettings = defaultFormatSettings,
@@ -714,7 +715,7 @@ export const DataGrid = ({
               translations,
             }}
             cellRenderer={columnCellRenderer}
-            cellRendererParams={{ data: { items: rowActionItems, onEdit: onRowEdit } }}
+            cellRendererParams={{ data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon } }}
             type="rightAligned"
             minWidth={60}
             maxWidth={60}
