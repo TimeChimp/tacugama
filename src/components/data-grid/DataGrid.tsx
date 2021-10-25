@@ -43,7 +43,6 @@ import {
   DataGridColumn,
   DataGridProps,
   DataGridState,
-  DataGridColumnType,
   FilterModel,
   DataGridResponse,
   DataGridView,
@@ -53,6 +52,7 @@ import {
   FilterValue,
   FilterType,
   RowModelType,
+  DataGridColumnValueType
 } from './types';
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
@@ -77,10 +77,8 @@ export const DataGrid = ({
   filtering,
   filters,
   grouping,
-  columnToggling,
   viewing,
   onReady,
-  rowActionItems,
   dataUrl,
   accessToken,
   sortableColumns,
@@ -97,8 +95,6 @@ export const DataGrid = ({
   onUnpinView,
   onSaveViewState,
   onBulkDelete,
-  onRowEdit,
-  onRowEditIcon,
   rowModelType = DEFAULT_ROW_MODEL_TYPE,
   searchColumns = DEFAULT_SEARCH_COLUMNS,
   formatSettings = defaultFormatSettings,
@@ -342,7 +338,7 @@ export const DataGrid = ({
 
   const getValueFormatter = (
     params: ValueFormatterParams,
-    type?: DataGridColumnType,
+    type?: DataGridColumnValueType,
     customMap?: (value: any) => any,
   ) => {
     const { currency, numberFormat, dateFormat, language, timeFormat, durationFormat } = formatSettings;
@@ -392,7 +388,7 @@ export const DataGrid = ({
 
   const checkIfSearchColumn = (columnField: string) => searchColumns.includes(columnField);
 
-  const getFilterType = (columnField: string, type?: DataGridColumnType): IFilterType | undefined => {
+  const getFilterType = (columnField: string, type?: DataGridColumnValueType): IFilterType | undefined => {
     const isSearchColumn = checkIfSearchColumn(columnField);
     if (isSearchColumn) {
       return 'agTextColumnFilter';
@@ -514,13 +510,6 @@ export const DataGrid = ({
 
     return setFilterDefaultValues();
   };
-
-  const columnCellRenderer = useMemo(() => {
-    if (rowActionItems || !!onRowEdit) {
-      return 'moreActionsCell';
-    }
-    return '';
-  }, [rowActionItems, onRowEdit]);
 
   return (
     <>
@@ -670,7 +659,6 @@ export const DataGrid = ({
           />
           {gridColumns.map(
             ({
-              colId,
               field,
               label,
               width,
@@ -678,15 +666,15 @@ export const DataGrid = ({
               hide,
               sort,
               sortable,
-              type,
+              valueType,
               aggFunc,
               customMap,
               customHeaderComponent,
               customComponent,
               rowSelectProps,
+              ...rest
             }) => (
               <AgGridColumn
-                colId={colId}
                 cellRendererFramework={customComponent}
                 cellRenderer={!!rowSelectProps ? 'rowSelect' : undefined}
                 cellRendererParams={!!rowSelectProps ? { ...rowSelectProps } : undefined}
@@ -698,31 +686,16 @@ export const DataGrid = ({
                 rowGroup={rowGroup}
                 hide={hide || rowGroup}
                 sort={sort}
-                filter={getFilterType(field, type)}
+                filter={getFilterType(field, valueType)}
                 filterParams={{ values: (params: any) => getFilterParams(params, field) }}
-                valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, type, customMap)}
+                valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, valueType, customMap)}
                 aggFunc={aggFunc}
                 sortable={sortable ?? sortableColumns}
                 resizable={resizeableColumns}
+                {...rest}
               />
             ),
           )}
-          <AgGridColumn
-            headerName={''}
-            field={''}
-            headerComponent={columnToggling ? 'headerColumnToggle' : ''}
-            headerComponentParams={{
-              translations,
-            }}
-            cellRenderer={columnCellRenderer}
-            cellRendererParams={{ data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon } }}
-            type="rightAligned"
-            minWidth={60}
-            maxWidth={60}
-            sortable={false}
-            resizable={false}
-            pinned={'right'}
-          />
         </AgGridReact>
       </StyledDataGrid>
     </>
