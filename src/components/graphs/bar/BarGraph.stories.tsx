@@ -60,4 +60,5 @@ BarDefault.args = {
   ],
   horizontalAxisLabel: 'Dates',
   verticalAxisLabel: 'Hours',
+  formatAsDate: true,
 };

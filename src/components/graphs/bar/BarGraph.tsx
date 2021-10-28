@@ -4,7 +4,7 @@ import { VictoryAxis, VictoryBar, VictoryChart, VictoryTheme } from 'victory';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 
 interface BarGraphData {
-  date?: Date;
+  date?: Date | string;
   trackedDuration?: number;
 }
 
@@ -16,6 +16,8 @@ export interface BarGraphProps {
   verticalAxisValue?: string;
   width?: number;
   height?: number;
+  formatAsDate?: boolean;
+  horizontalAxisItemLabel?: string;
 }
 
 export const BarGraph = ({
@@ -26,6 +28,8 @@ export const BarGraph = ({
   verticalAxisValue = 'trackedDuration',
   width = 1400,
   height = 350,
+  formatAsDate = true,
+  horizontalAxisItemLabel = 'Week',
 }: BarGraphProps) => {
   const {
     theme: {
@@ -74,7 +78,9 @@ export const BarGraph = ({
           tickLabels: { fontSize: scale400, stroke: dark4 },
           grid: { stroke: 'none' },
         }}
-        tickFormat={(t) => new TcDate(new Date(t)).format('dd MMM')}
+        tickFormat={(t) =>
+          formatAsDate ? new TcDate(new Date(t)).format('dd MMM') : `${horizontalAxisItemLabel} ${t.split('-')[1]}`
+        }
       />
       <VictoryAxis
         dependentAxis
