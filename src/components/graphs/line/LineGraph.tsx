@@ -4,7 +4,7 @@ import { VictoryArea, VictoryAxis, VictoryChart, VictoryTheme } from 'victory';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 
 interface LineGraphData {
-  date?: Date;
+  date?: Date | string;
   trackedDuration?: number;
 }
 
@@ -12,9 +12,17 @@ export interface LineGraphProps {
   data: LineGraphData[];
   horizontalAxisLabel: string;
   verticalAxisLabel: string;
+  formatAsDate?: boolean;
+  horizontalAxisItemLabel?: string;
 }
 
-export const LineGraph = ({ data, horizontalAxisLabel, verticalAxisLabel }: LineGraphProps) => {
+export const LineGraph = ({
+  data,
+  horizontalAxisLabel,
+  verticalAxisLabel,
+  formatAsDate = true,
+  horizontalAxisItemLabel = 'Week',
+}: LineGraphProps) => {
   const {
     theme: {
       current: {
@@ -60,7 +68,9 @@ export const LineGraph = ({ data, horizontalAxisLabel, verticalAxisLabel }: Line
           tickLabels: { fontSize: scale400, stroke: dark4 },
           grid: { stroke: 'none' },
         }}
-        tickFormat={(t) => new TcDate(new Date(t)).format('dd MMM')}
+        tickFormat={(t) =>
+          formatAsDate ? new TcDate(new Date(t)).format('dd MMM') : `${horizontalAxisItemLabel} ${t?.split('-')[1]}`
+        }
       />
       <VictoryAxis
         dependentAxis
