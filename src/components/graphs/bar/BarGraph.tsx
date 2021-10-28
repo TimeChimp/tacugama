@@ -65,7 +65,7 @@ export const BarGraph = ({
       height={height}
       width={width}
       theme={VictoryTheme.material}
-      domainPadding={20}
+      domainPadding={100}
     >
       <VictoryAxis
         label={horizontalAxisLabel}
