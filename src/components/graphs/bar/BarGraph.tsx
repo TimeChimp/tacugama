@@ -79,7 +79,7 @@ export const BarGraph = ({
           grid: { stroke: 'none' },
         }}
         tickFormat={(t) =>
-          formatAsDate ? new TcDate(new Date(t)).format('dd MMM') : `${horizontalAxisItemLabel} ${t.split('-')[1]}`
+          formatAsDate ? new TcDate(new Date(t)).format('dd MMM') : `${horizontalAxisItemLabel} ${t?.split('-')[1]}`
         }
       />
       <VictoryAxis
