@@ -16,11 +16,11 @@ export interface LineGraphProps {
   horizontalAxisItemLabel?: string;
 }
 
-export const LineGraph = ({
-  data,
-  horizontalAxisLabel,
-  verticalAxisLabel,
-  formatAsDate = true,
+export const LineGraph = ({ 
+  data, 
+  horizontalAxisLabel, 
+  verticalAxisLabel, 
+  formatAsDate = true, 
   horizontalAxisItemLabel = 'Week',
 }: LineGraphProps) => {
   const {
