@@ -16,11 +16,11 @@ export interface LineGraphProps {
   horizontalAxisItemLabel?: string;
 }
 
-export const LineGraph = ({ 
-  data, 
-  horizontalAxisLabel, 
-  verticalAxisLabel, 
-  formatAsDate = true, 
+export const LineGraph = ({
+  data,
+  horizontalAxisLabel,
+  verticalAxisLabel,
+  formatAsDate = true,
   horizontalAxisItemLabel = 'Week',
 }: LineGraphProps) => {
   const {
@@ -43,18 +43,25 @@ export const LineGraph = ({
 
   const maxValue = useMemo(() => {
     let max: number = 0;
+    let maxDate: number = 0;
     convertedData.forEach((graphDataItem: LineGraphData) => {
-      const { trackedDuration } = graphDataItem;
+      const { trackedDuration, date } = graphDataItem;
       if (trackedDuration! > max) {
         max = trackedDuration!;
       }
+      const formattedDate = date?.valueOf();
+
+      if (formattedDate! > maxDate) {
+        maxDate = formattedDate as number;
+      }
     });
-    return max * 1.1;
+
+    return { x: maxDate, y: max * 1.1 };
   }, [convertedData]);
 
   return (
     <VictoryChart
-      maxDomain={{ y: maxValue }}
+      maxDomain={{ x: maxValue.x, y: maxValue.y }}
       minDomain={{ y: 0 }}
       scale={{ x: 'time' }}
       height={350}
@@ -68,6 +75,7 @@ export const LineGraph = ({
           tickLabels: { fontSize: scale400, stroke: dark4 },
           grid: { stroke: 'none' },
         }}
+        tickValues={convertedData.map((data) => new Date(data?.date!))}
         tickFormat={(t) =>
           formatAsDate ? new TcDate(new Date(t)).format('dd MMM') : `${horizontalAxisItemLabel} ${t?.split('-')[1]}`
         }

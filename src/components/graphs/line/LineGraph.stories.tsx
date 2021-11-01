@@ -19,10 +19,6 @@ Default.args = {
     },
     {
       date: new Date('2021-10-2'),
-      trackedDuration: 25200,
-    },
-    {
-      date: new Date('2021-10-3'),
       trackedDuration: 18000,
     },
     {
@@ -51,10 +47,6 @@ Default.args = {
     },
     {
       date: new Date('2021-10-10'),
-      trackedDuration: 18000,
-    },
-    {
-      date: new Date('2021-10-1'),
       trackedDuration: 18000,
     },
   ],
