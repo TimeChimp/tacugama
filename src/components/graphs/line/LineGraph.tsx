@@ -12,6 +12,10 @@ export interface LineGraphProps {
   data: LineGraphData[];
   horizontalAxisLabel: string;
   verticalAxisLabel: string;
+  horizontalAxisValue?: string;
+  verticalAxisValue?: string;
+  width?: number;
+  height?: number;
   formatAsDate?: boolean;
   horizontalAxisItemLabel?: string;
 }
@@ -20,6 +24,10 @@ export const LineGraph = ({
   data,
   horizontalAxisLabel,
   verticalAxisLabel,
+  horizontalAxisValue = 'date',
+  verticalAxisValue = 'trackedDuration',
+  width = 1400,
+  height = 350,
   formatAsDate = true,
   horizontalAxisItemLabel = 'Week',
 }: LineGraphProps) => {
@@ -64,8 +72,8 @@ export const LineGraph = ({
       maxDomain={{ x: maxValue.x, y: maxValue.y }}
       minDomain={{ y: 0 }}
       scale={{ x: 'time' }}
-      height={350}
-      width={1400}
+      height={height}
+      width={width}
       theme={VictoryTheme.material}
     >
       <VictoryAxis
@@ -96,8 +104,8 @@ export const LineGraph = ({
         style={{ data: { fill: primarySubtle, opacity: 0.5, stroke: dark4, strokeWidth: 2 } }}
         interpolation="monotoneX"
         data={convertedData}
-        x="date"
-        y="trackedDuration"
+        x={horizontalAxisValue}
+        y={verticalAxisValue}
       />
     </VictoryChart>
   );
