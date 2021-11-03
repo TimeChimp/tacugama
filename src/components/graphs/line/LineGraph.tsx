@@ -1,11 +1,21 @@
 import { useTheme } from '../../../providers';
 import React, { useMemo } from 'react';
-import { VictoryArea, VictoryAxis, VictoryChart, VictoryTheme } from 'victory';
+import {
+  VictoryArea,
+  VictoryAxis,
+  VictoryChart,
+  VictoryScatter,
+  VictoryTheme,
+  VictoryTooltip,
+  VictoryVoronoiContainer,
+} from 'victory';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
+import { FlyOutTooltip } from '../tooltip';
 
 interface LineGraphData {
   date?: Date | string;
   trackedDuration?: number;
+  label?: string;
 }
 
 export interface LineGraphProps {
@@ -18,6 +28,7 @@ export interface LineGraphProps {
   height?: number;
   formatAsDate?: boolean;
   horizontalAxisItemLabel?: string;
+  trackedText?: string;
 }
 
 export const LineGraph = ({
@@ -30,6 +41,7 @@ export const LineGraph = ({
   height = 350,
   formatAsDate = true,
   horizontalAxisItemLabel = 'Week',
+  trackedText,
 }: LineGraphProps) => {
   const {
     theme: {
@@ -64,7 +76,7 @@ export const LineGraph = ({
       }
     });
 
-    return { x: maxDate, y: max * 1.1 };
+    return { x: maxDate, y: max * 2.1 };
   }, [convertedData]);
 
   return (
@@ -75,6 +87,18 @@ export const LineGraph = ({
       height={height}
       width={width}
       theme={VictoryTheme.material}
+      containerComponent={
+        <VictoryVoronoiContainer
+          labels={() => ' '}
+          labelComponent={
+            <VictoryTooltip
+              dy={-70}
+              constrainToVisibleArea
+              flyoutComponent={<FlyOutTooltip trackedText={trackedText} />}
+            />
+          }
+        />
+      }
     >
       <VictoryAxis
         label={horizontalAxisLabel}
@@ -106,6 +130,15 @@ export const LineGraph = ({
         data={convertedData}
         x={horizontalAxisValue}
         y={verticalAxisValue}
+      />
+      <VictoryScatter
+        data={convertedData}
+        x={horizontalAxisValue}
+        y={verticalAxisValue}
+        style={{ data: { fill: 'white', stroke: '#B8B8B8', strokeWidth: '1' } }}
+        size={({ active }) => {
+          return active ? 4 : 0;
+        }}
       />
     </VictoryChart>
   );
