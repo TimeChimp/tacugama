@@ -41,16 +41,6 @@
     "access": "public"
   },
   "module": "dist/tacugama.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/tacugama.cjs.production.min.js",
-      "limit": "3 MB"
-    },
-    {
-      "path": "dist/tacugama.esm.js",
-      "limit": "3 MB"
-    }
-  ],
   "devDependencies": {
     "@babel/core": "^7.13.10",
     "@size-limit/preset-small-lib": "^4.6.0",
