@@ -29,6 +29,7 @@ export interface LineGraphProps {
   formatAsDate?: boolean;
   horizontalAxisItemLabel?: string;
   trackedText?: string;
+  hoursText?: string;
 }
 
 export const LineGraph = ({
@@ -42,6 +43,7 @@ export const LineGraph = ({
   formatAsDate = true,
   horizontalAxisItemLabel = 'Week',
   trackedText,
+  hoursText,
 }: LineGraphProps) => {
   const {
     theme: {
@@ -94,7 +96,7 @@ export const LineGraph = ({
             <VictoryTooltip
               dy={-70}
               constrainToVisibleArea
-              flyoutComponent={<FlyOutTooltip trackedText={trackedText} />}
+              flyoutComponent={<FlyOutTooltip trackedText={trackedText} hoursText={hoursText} />}
             />
           }
         />
