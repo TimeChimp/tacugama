@@ -53,4 +53,5 @@ Default.args = {
   horizontalAxisLabel: 'PERIOD',
   verticalAxisLabel: 'HOURS',
   formatAsDate: true,
+  trackedText: 'Tracked',
 };
