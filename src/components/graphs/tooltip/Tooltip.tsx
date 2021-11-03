@@ -5,7 +5,7 @@ import { LabelMedium, Box } from '../../../components';
 import { ParagraphSmall } from 'baseui/typography';
 import { FlexGrid } from 'index';
 
-export const FlyOutTooltip = ({ x = 0, y = 0, datum, trackedText }: any) => {
+export const FlyOutTooltip = ({ x = 0, y = 0, datum, trackedText, hoursText }: any) => {
   const {
     theme: {
       current: {
@@ -21,7 +21,7 @@ export const FlyOutTooltip = ({ x = 0, y = 0, datum, trackedText }: any) => {
           <LabelMedium>{new TcDate(datum.date).format('dd MMM yyyy')}</LabelMedium>
           <FlexGrid justifyContent="space-between">
             <ParagraphSmall color={dark4}>{trackedText}:</ParagraphSmall>
-            <ParagraphSmall color={dark4}>{datum.trackedDuration}h</ParagraphSmall>
+            <ParagraphSmall color={dark4}>{datum.trackedDuration}{hoursText}</ParagraphSmall>
           </FlexGrid>
         </Box>
       </foreignObject>

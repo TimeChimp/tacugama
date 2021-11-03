@@ -54,4 +54,5 @@ Default.args = {
   verticalAxisLabel: 'HOURS',
   formatAsDate: true,
   trackedText: 'Tracked',
+  hoursText: 'h'
 };
