@@ -70,7 +70,7 @@ export const BarGraph = ({
     <VictoryChart
       maxDomain={{ y: maxValue }}
       minDomain={{ y: 0 }}
-      scale={{ x: 'time' }}
+      scale={{ x: formatAsDate ? 'time' : 'linear' }}
       height={height}
       width={width}
       theme={VictoryTheme.material}
@@ -111,8 +111,12 @@ export const BarGraph = ({
         y={verticalAxisValue}
         labels={() => ' '}
         labelComponent={
-          <VictoryTooltip constrainToVisibleArea flyoutComponent={<FlyOutTooltip trackedText={trackedText} hoursText={hoursText} />} />
+          <VictoryTooltip
+            constrainToVisibleArea
+            flyoutComponent={<FlyOutTooltip trackedText={trackedText} hoursText={hoursText} />}
+          />
         }
+        barRatio={0.8}
       />
     </VictoryChart>
   );
