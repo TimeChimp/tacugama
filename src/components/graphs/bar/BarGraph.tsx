@@ -1,7 +1,8 @@
 import { useTheme } from '../../../providers';
 import React, { useMemo } from 'react';
-import { VictoryAxis, VictoryBar, VictoryChart, VictoryTheme } from 'victory';
+import { VictoryAxis, VictoryBar, VictoryChart, VictoryTheme, VictoryTooltip } from 'victory';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
+import { FlyOutTooltip } from '../tooltip';
 
 interface BarGraphData {
   date?: Date | string;
@@ -18,6 +19,8 @@ export interface BarGraphProps {
   height?: number;
   formatAsDate?: boolean;
   horizontalAxisItemLabel?: string;
+  trackedText?: string;
+  hoursText?: string;
 }
 
 export const BarGraph = ({
@@ -30,6 +33,8 @@ export const BarGraph = ({
   height = 350,
   formatAsDate = true,
   horizontalAxisItemLabel = 'Week',
+  trackedText,
+  hoursText,
 }: BarGraphProps) => {
   const {
     theme: {
@@ -58,7 +63,7 @@ export const BarGraph = ({
         max = trackedDuration!;
       }
     });
-    return max * 1.1;
+    return max * 2.1;
   }, [convertedData]);
 
   return (
@@ -104,6 +109,10 @@ export const BarGraph = ({
         data={convertedData}
         x={horizontalAxisValue}
         y={verticalAxisValue}
+        labels={() => ' '}
+        labelComponent={
+          <VictoryTooltip constrainToVisibleArea flyoutComponent={<FlyOutTooltip trackedText={trackedText} hoursText={hoursText} />} />
+        }
       />
     </VictoryChart>
   );

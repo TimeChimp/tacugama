@@ -61,4 +61,6 @@ BarDefault.args = {
   horizontalAxisLabel: 'Dates',
   verticalAxisLabel: 'Hours',
   formatAsDate: true,
+  trackedText: 'Tracked',
+  hoursText: 'h'
 };
