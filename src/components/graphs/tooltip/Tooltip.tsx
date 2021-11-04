@@ -1,9 +1,9 @@
+import React from 'react';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { useTheme } from '../../../providers';
-import React from 'react';
 import { LabelMedium, Box } from '../../../components';
 import { ParagraphSmall } from 'baseui/typography';
-import { FlexGrid } from 'index';
+import { FlexGrid } from '../../flex-grid';
 
 export const FlyOutTooltip = ({ x = 0, y = 0, datum, trackedText, hoursText }: any) => {
   const {
