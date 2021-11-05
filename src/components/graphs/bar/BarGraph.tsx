@@ -21,6 +21,7 @@ export interface BarGraphProps {
   horizontalAxisItemLabel?: string;
   trackedText?: string;
   hoursText?: string;
+  barRatio?: number;
 }
 
 export const BarGraph = ({
@@ -35,6 +36,7 @@ export const BarGraph = ({
   horizontalAxisItemLabel = 'Week',
   trackedText,
   hoursText,
+  barRatio = 0,
 }: BarGraphProps) => {
   const {
     theme: {
@@ -116,7 +118,7 @@ export const BarGraph = ({
             flyoutComponent={<FlyOutTooltip trackedText={trackedText} hoursText={hoursText} />}
           />
         }
-        barRatio={0.8}
+        barRatio={barRatio}
       />
     </VictoryChart>
   );
