@@ -4,6 +4,8 @@ import { VictoryAxis, VictoryBar, VictoryChart, VictoryTheme, VictoryTooltip } f
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { FlyOutTooltip } from '../tooltip';
 
+const SINGLE_BAR_WIDTH = 100;
+
 interface BarGraphData {
   date?: Date | string;
   trackedDuration?: number;
@@ -119,6 +121,7 @@ export const BarGraph = ({
           />
         }
         barRatio={barRatio}
+        barWidth={data?.length === 1 ? SINGLE_BAR_WIDTH : undefined}
       />
     </VictoryChart>
   );
