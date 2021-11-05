@@ -35,6 +35,7 @@ export interface CustomColors {
   green2: string;
   green3: string;
   green4: string;
+  green5: string;
 
   // Blue
   blue0: string;

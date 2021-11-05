@@ -84,4 +84,5 @@ export * from './Help';
 export * from './CircleClock';
 export * from './CircleEuroCurrency';
 export * from './CircleWallet';
+export * from './Done';
 export * from './Unarchive';

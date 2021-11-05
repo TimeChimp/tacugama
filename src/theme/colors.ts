@@ -36,6 +36,7 @@ export const customColors: CustomColors = {
   green2: '#39D98A',
   green3: '#57EBA1',
   green4: '#E3FFF1',
+  green5: '#34785C',
 
   // Blue
   blue0: '#004FC4',
