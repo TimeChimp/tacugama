@@ -21,6 +21,7 @@ export interface BarGraphProps {
   horizontalAxisItemLabel?: string;
   trackedText?: string;
   hoursText?: string;
+  barRatio?: number;
 }
 
 export const BarGraph = ({
@@ -35,6 +36,7 @@ export const BarGraph = ({
   horizontalAxisItemLabel = 'Week',
   trackedText,
   hoursText,
+  barRatio = 0,
 }: BarGraphProps) => {
   const {
     theme: {
@@ -70,7 +72,7 @@ export const BarGraph = ({
     <VictoryChart
       maxDomain={{ y: maxValue }}
       minDomain={{ y: 0 }}
-      scale={{ x: 'time' }}
+      scale={{ x: formatAsDate ? 'time' : 'linear' }}
       height={height}
       width={width}
       theme={VictoryTheme.material}
@@ -111,8 +113,12 @@ export const BarGraph = ({
         y={verticalAxisValue}
         labels={() => ' '}
         labelComponent={
-          <VictoryTooltip constrainToVisibleArea flyoutComponent={<FlyOutTooltip trackedText={trackedText} hoursText={hoursText} />} />
+          <VictoryTooltip
+            constrainToVisibleArea
+            flyoutComponent={<FlyOutTooltip trackedText={trackedText} hoursText={hoursText} />}
+          />
         }
+        barRatio={barRatio}
       />
     </VictoryChart>
   );
