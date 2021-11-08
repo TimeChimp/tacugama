@@ -9,6 +9,8 @@ const SINGLE_BAR_WIDTH = 100;
 interface BarGraphData {
   date?: Date | string;
   trackedDuration?: number;
+  billableDuration?: number;
+  nonBillableDuration?: number;
 }
 
 export interface BarGraphProps {
@@ -55,6 +57,8 @@ export const BarGraph = ({
       data.map((graphDataItem: BarGraphData) => ({
         ...graphDataItem,
         trackedDuration: graphDataItem.trackedDuration! / 3600,
+        billableDuration: graphDataItem.billableDuration! / 3600,
+        nonBillableDuration: graphDataItem.nonBillableDuration! / 3600,
       })),
     [data],
   );
