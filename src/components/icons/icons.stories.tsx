@@ -31,6 +31,7 @@ import {
   CircleEuroCurrency as CircleEuroCurrencyIcon,
   CircleWallet as CircleWalletIcon,
   Done as DoneIcon,
+  UserInvited as UserInvitedIcon,
 } from './';
 import { SVGProps } from './Icon';
 
@@ -68,6 +69,7 @@ const CircleClockTemplate: Story<SVGProps> = (args) => <CircleClockIcon {...args
 const CircleEuroCurrencyTemplate: Story<SVGProps> = (args) => <CircleEuroCurrencyIcon {...args} />;
 const CircleWalletTemplate: Story<SVGProps> = (args) => <CircleWalletIcon {...args} />;
 const DoneTemplate: Story<SVGProps> = (args) => <DoneIcon {...args} />;
+const UserInvitedTemplate: Story<SVGProps> = (args) => <UserInvitedIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -212,4 +214,9 @@ CircleWallet.args = {
 export const Done = DoneTemplate.bind({});
 Done.args = {
   size: '54',
+};
+
+export const UserInvited = UserInvitedTemplate.bind({});
+UserInvited.args = {
+  size: '16',
 };
