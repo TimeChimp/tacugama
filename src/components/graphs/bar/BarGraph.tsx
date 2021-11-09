@@ -26,6 +26,8 @@ export interface BarGraphProps {
   trackedText?: string;
   hoursText?: string;
   barRatio?: number;
+  billableText?: string;
+  nonBillableText?: string;
 }
 
 export const BarGraph = ({
@@ -41,6 +43,8 @@ export const BarGraph = ({
   trackedText,
   hoursText,
   barRatio = 0,
+  billableText,
+  nonBillableText,
 }: BarGraphProps) => {
   const {
     theme: {
@@ -121,7 +125,14 @@ export const BarGraph = ({
         labelComponent={
           <VictoryTooltip
             constrainToVisibleArea
-            flyoutComponent={<FlyOutTooltip trackedText={trackedText} hoursText={hoursText} />}
+            flyoutComponent={
+              <FlyOutTooltip
+                trackedText={trackedText}
+                hoursText={hoursText}
+                billableText={billableText}
+                nonBillableText={nonBillableText}
+              />
+            }
           />
         }
         barRatio={barRatio}
