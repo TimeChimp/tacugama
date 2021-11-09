@@ -15,6 +15,8 @@ import { FlyOutTooltip } from '../tooltip';
 interface LineGraphData {
   date?: Date | string;
   trackedDuration?: number;
+  billableDuration?: number;
+  nonBillableDuration?: number;
   label?: string;
 }
 
@@ -59,6 +61,8 @@ export const LineGraph = ({
       data.map((graphDataItem: LineGraphData) => ({
         ...graphDataItem,
         trackedDuration: graphDataItem.trackedDuration! / 3600,
+        billableDuration: graphDataItem.billableDuration! / 3600,
+        nonBillableDuration: graphDataItem.nonBillableDuration! / 3600,
       })),
     [data],
   );
