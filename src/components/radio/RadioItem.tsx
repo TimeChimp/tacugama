@@ -11,7 +11,11 @@ export interface RadioProps extends BaseRadioProps {
   icon?: FunctionComponent<IconProps>;
 }
 
-const radioOverrides = ({ icon, colored }: Pick<RadioProps, 'icon' | 'colored'>): RadioOverrides => ({
+const radioOverrides = ({
+  icon,
+  colored,
+  overrides,
+}: Pick<RadioProps, 'icon' | 'colored' | 'overrides'>): RadioOverrides => ({
   Root: {
     style: ({ $theme, $checked }: { $theme: CustomThemeType; $checked: boolean }) => ({
       width: '100%',
@@ -52,11 +56,12 @@ const radioOverrides = ({ icon, colored }: Pick<RadioProps, 'icon' | 'colored'>)
       backgroundColor: $checked ? $theme.customColors.primaryMain : 'transparent',
     }),
   },
+  ...overrides,
 });
 
-export const RadioItem = ({ icon, colored = false, children, ...rest }: RadioProps) => {
+export const RadioItem = ({ icon, colored = false, children, overrides, ...rest }: RadioProps) => {
   return (
-    <BaseRadio {...rest} overrides={radioOverrides({ icon, colored })}>
+    <BaseRadio {...rest} overrides={radioOverrides({ icon, colored, overrides })}>
       {children}
     </BaseRadio>
   );
