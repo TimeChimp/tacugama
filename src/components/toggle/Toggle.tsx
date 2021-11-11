@@ -1,18 +1,24 @@
 import React from 'react';
 import { Checkbox, CheckboxProps, STYLE_TYPE } from 'baseui/checkbox';
 import { useTheme } from '../../providers';
-import { margin } from '../../utils';
+import { borderRadius, margin } from '../../utils';
 import { DATA_TEST_ID } from '../../models';
 
 export interface ToggleProps extends CheckboxProps {
   testId?: string;
+  size?: ToggleSize;
 }
 
-export const Toggle = ({ checked, children, testId, ...rest }: ToggleProps) => {
+export enum ToggleSize {
+  small = 'small',
+  large = 'large',
+}
+
+export const Toggle = ({ checked, children, testId, size = ToggleSize.small, ...rest }: ToggleProps) => {
   const {
     theme: {
       current: {
-        sizing: { scale0, scale300, scale500, scale700 },
+        sizing: { scale0, scale100, scale300, scale400, scale500, scale700, scale900 },
         customColors: { dark4, light4, primaryMain },
         typography: { LabelSmall },
       },
@@ -38,19 +44,20 @@ export const Toggle = ({ checked, children, testId, ...rest }: ToggleProps) => {
         },
         ToggleTrack: {
           style: {
-            width: scale700,
-            height: scale500,
+            width: size === ToggleSize.small ? scale700 : scale900,
+            height: size === ToggleSize.small ? scale500 : scale700,
             marginRight: 0,
             marginLeft: 0,
             background: !!checked ? primaryMain : dark4,
+            ...borderRadius(scale400),
           },
         },
         Toggle: {
           style: {
-            width: scale300,
-            height: scale300,
+            width: size === ToggleSize.small ? scale300 : scale500,
+            height: size === ToggleSize.small ? scale300 : scale500,
             backgroundColor: light4,
-            ...margin(scale0),
+            ...margin(scale0, size === ToggleSize.small ? scale0 : scale100),
             ':hover': {
               boxShadow: 'none',
             },

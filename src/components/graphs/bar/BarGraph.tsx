@@ -1,11 +1,16 @@
 import { useTheme } from '../../../providers';
 import React, { useMemo } from 'react';
-import { VictoryAxis, VictoryBar, VictoryChart, VictoryTheme } from 'victory';
+import { VictoryAxis, VictoryBar, VictoryChart, VictoryTheme, VictoryTooltip } from 'victory';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
+import { FlyOutTooltip } from '../tooltip';
+
+const SINGLE_BAR_WIDTH = 100;
 
 interface BarGraphData {
   date?: Date | string;
   trackedDuration?: number;
+  billableDuration?: number;
+  nonBillableDuration?: number;
 }
 
 export interface BarGraphProps {
@@ -18,6 +23,11 @@ export interface BarGraphProps {
   height?: number;
   formatAsDate?: boolean;
   horizontalAxisItemLabel?: string;
+  trackedText?: string;
+  hoursText?: string;
+  barRatio?: number;
+  billableText?: string;
+  nonBillableText?: string;
 }
 
 export const BarGraph = ({
@@ -30,6 +40,11 @@ export const BarGraph = ({
   height = 350,
   formatAsDate = true,
   horizontalAxisItemLabel = 'Week',
+  trackedText,
+  hoursText,
+  barRatio = 0,
+  billableText,
+  nonBillableText,
 }: BarGraphProps) => {
   const {
     theme: {
@@ -46,6 +61,8 @@ export const BarGraph = ({
       data.map((graphDataItem: BarGraphData) => ({
         ...graphDataItem,
         trackedDuration: graphDataItem.trackedDuration! / 3600,
+        billableDuration: graphDataItem.billableDuration! / 3600,
+        nonBillableDuration: graphDataItem.nonBillableDuration! / 3600,
       })),
     [data],
   );
@@ -58,14 +75,14 @@ export const BarGraph = ({
         max = trackedDuration!;
       }
     });
-    return max * 1.1;
+    return max * 2.1;
   }, [convertedData]);
 
   return (
     <VictoryChart
       maxDomain={{ y: maxValue }}
       minDomain={{ y: 0 }}
-      scale={{ x: 'time' }}
+      scale={{ x: formatAsDate ? 'time' : 'linear' }}
       height={height}
       width={width}
       theme={VictoryTheme.material}
@@ -104,6 +121,22 @@ export const BarGraph = ({
         data={convertedData}
         x={horizontalAxisValue}
         y={verticalAxisValue}
+        labels={() => ' '}
+        labelComponent={
+          <VictoryTooltip
+            constrainToVisibleArea
+            flyoutComponent={
+              <FlyOutTooltip
+                trackedText={trackedText}
+                hoursText={hoursText}
+                billableText={billableText}
+                nonBillableText={nonBillableText}
+              />
+            }
+          />
+        }
+        barRatio={barRatio}
+        barWidth={data?.length === 1 ? SINGLE_BAR_WIDTH : undefined}
       />
     </VictoryChart>
   );
