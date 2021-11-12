@@ -94,9 +94,13 @@ export const LineGraph = ({
       maxDomain={{ x: maxValue.x, y: maxValue.y }}
       minDomain={{ y: 0 }}
       scale={{ x: 'time' }}
-      height={height}
       width={width}
       theme={VictoryTheme.material}
+      style={{
+        parent: {
+          height: '100%',
+        }
+      }}
       containerComponent={
         <VictoryVoronoiContainer
           labels={() => ' '}
@@ -110,6 +114,7 @@ export const LineGraph = ({
                   hoursText={hoursText}
                   billableText={billableText}
                   nonBillableText={nonBillableText}
+                  width={width}
                 />
               }
             />

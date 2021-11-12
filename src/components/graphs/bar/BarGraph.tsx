@@ -131,6 +131,7 @@ export const BarGraph = ({
                 hoursText={hoursText}
                 billableText={billableText}
                 nonBillableText={nonBillableText}
+                width={width}
               />
             }
           />

@@ -16,8 +16,6 @@ Default.args = {
     {
       date: new Date('2021-10-1'),
       trackedDuration: 7200,
-      billableDuration: 7200,
-      nonBillableDuration: 7200,
     },
     {
       date: new Date('2021-10-2'),
@@ -66,6 +64,52 @@ Default.args = {
       trackedDuration: 18000,
       billableDuration: 7200,
       nonBillableDuration: 7200,
+    },
+    {
+      date: new Date('2021-10-11'),
+      trackedDuration: 18000,
+      billableDuration: 7200,
+      nonBillableDuration: 7200,
+    },
+    {
+      date: new Date('2021-10-12'),
+      trackedDuration: 18000,
+      billableDuration: 7200,
+      nonBillableDuration: 7200,
+    },
+    {
+      date: new Date('2021-10-14'),
+      trackedDuration: 18000,
+      billableDuration: 7200,
+      nonBillableDuration: 7200,
+    },
+    {
+      date: new Date('2021-10-15'),
+      trackedDuration: 18000,
+      billableDuration: 7200,
+      nonBillableDuration: 7200,
+    },
+    {
+      date: new Date('2021-10-16'),
+      trackedDuration: 18000,
+      billableDuration: 7200,
+      nonBillableDuration: 7200,
+    },
+    {
+      date: new Date('2021-10-17'),
+      trackedDuration: 18000,
+      billableDuration: 7200,
+      nonBillableDuration: 7200,
+    },
+    {
+      date: new Date('2021-10-18'),
+      trackedDuration: 18000,
+      billableDuration: 7200,
+      nonBillableDuration: 7200,
+    },
+    {
+      date: new Date('2021-10-19'),
+      trackedDuration: 18000,
     },
   ],
   horizontalAxisLabel: 'PERIOD',
