@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { useTheme } from '../../../providers';
 import { LabelMedium, Box } from '../../../components';
@@ -13,6 +13,7 @@ export const FlyOutTooltip = ({
   billableText = 'Billable',
   nonBillableText = 'Non billable',
   hoursText,
+  width,
 }: any) => {
   const {
     theme: {
@@ -22,9 +23,23 @@ export const FlyOutTooltip = ({
       },
     },
   } = useTheme();
+  const flyOutWidth = 270;
+  const flyOutHeight = 200;
+
+  const calculateXOffset = useMemo(() => {
+    if (x < flyOutWidth / 2) {
+      return x + (flyOutWidth / 2 - x) + 5;
+    }
+
+    if (width - x < flyOutWidth / 2) {
+      return x - (flyOutWidth / 2 - (width - x));
+    }
+    return x;
+  }, [x, width]);
+
   return (
     <g style={{ pointerEvents: 'none' }}>
-      <foreignObject x={x - 140} y={y - 170} width="270" height="200">
+      <foreignObject x={calculateXOffset - 140} y={y - 170} width={flyOutWidth} height={flyOutHeight}>
         <Box padding={scale600}>
           <LabelMedium marginBottom={scale500}>{new TcDate(datum.date).format('dd MMM yyyy')}</LabelMedium>
           <FlexGrid justifyContent="space-between">
@@ -32,7 +47,7 @@ export const FlyOutTooltip = ({
               {trackedText}:
             </ParagraphSmall>
             <ParagraphSmall margin={scale100} color={dark4}>
-              {datum.trackedDuration}
+              {datum.trackedDuration || 0}
               {hoursText}
             </ParagraphSmall>
           </FlexGrid>
@@ -41,7 +56,7 @@ export const FlyOutTooltip = ({
               {billableText}:
             </ParagraphSmall>
             <ParagraphSmall margin={scale100} color={dark4}>
-              {datum.billableDuration}
+              {datum.billableDuration || 0}
               {hoursText}
             </ParagraphSmall>
           </FlexGrid>
@@ -50,7 +65,7 @@ export const FlyOutTooltip = ({
               {nonBillableText}:
             </ParagraphSmall>
             <ParagraphSmall margin={scale100} color={dark4}>
-              {datum.nonBillableDuration}
+              {datum.nonBillableDuration || 0}
               {hoursText}
             </ParagraphSmall>
           </FlexGrid>
