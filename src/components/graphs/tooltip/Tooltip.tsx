@@ -35,8 +35,8 @@ export const FlyOutTooltip = ({
       return x - (flyOutWidth / 2 - (width - x));
     }
     return x;
-  }, [x]);
-  
+  }, [x, width]);
+
   return (
     <g style={{ pointerEvents: 'none' }}>
       <foreignObject x={calculateXOffset - 140} y={y - 170} width={flyOutWidth} height={flyOutHeight}>

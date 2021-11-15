@@ -117,7 +117,7 @@ export const LineGraph = ({
       style={{
         parent: {
           height: '100%',
-        }
+        },
       }}
       containerComponent={
         <VictoryVoronoiContainer
