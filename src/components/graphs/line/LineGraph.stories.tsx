@@ -117,4 +117,5 @@ Default.args = {
   formatAsDate: true,
   trackedText: 'Tracked',
   hoursText: 'h',
+  limit: 30800,
 };
