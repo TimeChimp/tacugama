@@ -13,6 +13,10 @@ export const FlyOutTooltip = ({
   billableText = 'Billable',
   nonBillableText = 'Non billable',
   hoursText,
+  isBillable,
+  isNonBillable,
+  flyOutWidth = 270,
+  flyOutHeight = 200,
   width,
 }: any) => {
   const {
@@ -23,8 +27,6 @@ export const FlyOutTooltip = ({
       },
     },
   } = useTheme();
-  const flyOutWidth = 270;
-  const flyOutHeight = 200;
 
   const calculateXOffset = useMemo(() => {
     if (x < flyOutWidth / 2) {
@@ -51,7 +53,7 @@ export const FlyOutTooltip = ({
               {hoursText}
             </ParagraphSmall>
           </FlexGrid>
-          <FlexGrid justifyContent="space-between">
+          {isBillable && <FlexGrid justifyContent="space-between">
             <ParagraphSmall margin={scale100} color={dark4}>
               {billableText}:
             </ParagraphSmall>
@@ -59,8 +61,8 @@ export const FlyOutTooltip = ({
               {datum.billableDuration || 0}
               {hoursText}
             </ParagraphSmall>
-          </FlexGrid>
-          <FlexGrid justifyContent="space-between">
+          </FlexGrid>}
+          {isNonBillable && <FlexGrid justifyContent="space-between">
             <ParagraphSmall margin={scale100} color={dark4}>
               {nonBillableText}:
             </ParagraphSmall>
@@ -68,7 +70,7 @@ export const FlyOutTooltip = ({
               {datum.nonBillableDuration || 0}
               {hoursText}
             </ParagraphSmall>
-          </FlexGrid>
+          </FlexGrid>}
         </Box>
       </foreignObject>
     </g>

@@ -118,4 +118,8 @@ Default.args = {
   trackedText: 'Tracked',
   hoursText: 'h',
   limit: 30800,
+  isBillable: true,
+  isNonBillable: true,
+  flyOutWidth: 270,
+  flyOutHeight : 200,
 };
