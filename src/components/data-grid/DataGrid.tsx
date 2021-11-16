@@ -80,6 +80,8 @@ export const DataGrid = ({
   viewing,
   onReady,
   dataUrl,
+  rowActionItems,
+  columnToggling,
   accessToken,
   sortableColumns,
   resizeableColumns,
@@ -95,6 +97,8 @@ export const DataGrid = ({
   onUnpinView,
   onSaveViewState,
   onBulkDelete,
+  onRowEdit,
+  onRowEditIcon,
   rowModelType = DEFAULT_ROW_MODEL_TYPE,
   searchColumns = DEFAULT_SEARCH_COLUMNS,
   formatSettings = defaultFormatSettings,
@@ -511,6 +515,13 @@ export const DataGrid = ({
     return setFilterDefaultValues();
   };
 
+  const columnCellRenderer = useMemo(() => {
+    if (rowActionItems || !!onRowEdit) {
+      return 'moreActionsCell';
+    }
+    return '';
+  }, [rowActionItems, onRowEdit]);
+
   return (
     <>
       <Filters
@@ -696,6 +707,22 @@ export const DataGrid = ({
               />
             ),
           )}
+          <AgGridColumn
+            headerName={''}
+            field={''}
+            headerComponent={columnToggling ? 'headerColumnToggle' : ''}
+            headerComponentParams={{
+              translations,
+            }}
+            cellRenderer={columnCellRenderer}
+            cellRendererParams={{ data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon } }}
+            type="rightAligned"
+            minWidth={60}
+            maxWidth={60}
+            sortable={false}
+            resizable={false}
+            pinned={'right'}
+          />
         </AgGridReact>
       </StyledDataGrid>
     </>
