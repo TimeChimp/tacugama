@@ -118,6 +118,9 @@ export interface FormatSettings {
 export interface Translations {
   rowCountText: (count: number) => JSX.Element;
   rowCountSelectedText: (count: number) => JSX.Element;
+  rowActionItems?: DropdownItem[];
+  onRowEdit?: (data: RowActionsCellData) => void;
+  onRowEditIcon?: ComponentType<IconProps>;
   noRowsTitle: string;
   noRowsSubtext: string;
   groupBy: string;
@@ -162,6 +165,7 @@ export interface DataGridProps {
   viewing?: boolean;
   columnToggling?: boolean;
   onReady?: (dataGridApi: DataGridApi) => void;
+  rowActionItems?: DropdownItem[];
   state?: string;
   dataUrl?: string;
   accessToken?: string;
@@ -184,6 +188,8 @@ export interface DataGridProps {
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
   onBulkDelete?: (ids: string[]) => Promise<void>;
+  onRowEdit?: (data: RowActionsCellData) => void;
+  onRowEditIcon?: ComponentType<IconProps>;
 }
 
 export interface DataGridView {
