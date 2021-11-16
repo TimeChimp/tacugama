@@ -28,10 +28,10 @@ export interface BarGraphProps {
   barRatio?: number;
   billableText?: string;
   nonBillableText?: string;
-  isBillable?: boolean,
-  isNonBillable?: boolean,
-  flyOutWidth?: number,
-  flyOutHeight?: number,
+  isBillable?: boolean;
+  isNonBillable?: boolean;
+  flyOutWidth?: number;
+  flyOutHeight?: number;
 }
 
 export const BarGraph = ({

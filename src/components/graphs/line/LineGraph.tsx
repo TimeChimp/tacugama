@@ -35,10 +35,10 @@ export interface LineGraphProps {
   billableText?: string;
   nonBillableText?: string;
   limit?: number;
-  isBillable?: boolean,
-  isNonBillable?: boolean,
-  flyOutWidth?: number,
-  flyOutHeight?: number,
+  isBillable?: boolean;
+  isNonBillable?: boolean;
+  flyOutWidth?: number;
+  flyOutHeight?: number;
 }
 
 export const LineGraph = ({

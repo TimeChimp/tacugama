@@ -37,7 +37,7 @@ export const FlyOutTooltip = ({
       return x - (flyOutWidth / 2 - (width - x));
     }
     return x;
-  }, [x, width]);
+  }, [x, width, flyOutWidth]);
 
   return (
     <g style={{ pointerEvents: 'none' }}>

@@ -121,5 +121,5 @@ Default.args = {
   isBillable: true,
   isNonBillable: true,
   flyOutWidth: 270,
-  flyOutHeight : 200,
+  flyOutHeight: 200,
 };
