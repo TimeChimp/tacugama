@@ -53,24 +53,28 @@ export const FlyOutTooltip = ({
               {hoursText}
             </ParagraphSmall>
           </FlexGrid>
-          {isBillable && <FlexGrid justifyContent="space-between">
-            <ParagraphSmall margin={scale100} color={dark4}>
-              {billableText}:
-            </ParagraphSmall>
-            <ParagraphSmall margin={scale100} color={dark4}>
-              {datum.billableDuration || 0}
-              {hoursText}
-            </ParagraphSmall>
-          </FlexGrid>}
-          {isNonBillable && <FlexGrid justifyContent="space-between">
-            <ParagraphSmall margin={scale100} color={dark4}>
-              {nonBillableText}:
-            </ParagraphSmall>
-            <ParagraphSmall margin={scale100} color={dark4}>
-              {datum.nonBillableDuration || 0}
-              {hoursText}
-            </ParagraphSmall>
-          </FlexGrid>}
+          {isBillable && (
+            <FlexGrid justifyContent="space-between">
+              <ParagraphSmall margin={scale100} color={dark4}>
+                {billableText}:
+              </ParagraphSmall>
+              <ParagraphSmall margin={scale100} color={dark4}>
+                {datum.billableDuration || 0}
+                {hoursText}
+              </ParagraphSmall>
+            </FlexGrid>
+          )}
+          {isNonBillable && (
+            <FlexGrid justifyContent="space-between">
+              <ParagraphSmall margin={scale100} color={dark4}>
+                {nonBillableText}:
+              </ParagraphSmall>
+              <ParagraphSmall margin={scale100} color={dark4}>
+                {datum.nonBillableDuration || 0}
+                {hoursText}
+              </ParagraphSmall>
+            </FlexGrid>
+          )}
         </Box>
       </foreignObject>
     </g>
