@@ -706,7 +706,7 @@ export const DataGrid = ({
                 {...rest}
               />
             ),
-          )}
+          )}    
           <AgGridColumn
             headerName={''}
             field={''}
@@ -718,7 +718,7 @@ export const DataGrid = ({
             cellRendererParams={{ data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon } }}
             type="rightAligned"
             minWidth={60}
-            maxWidth={60}
+            maxWidth={rowActionItems?.length ? 60 : 0}
             sortable={false}
             resizable={false}
             pinned={'right'}
