@@ -706,7 +706,7 @@ export const DataGrid = ({
                 {...rest}
               />
             ),
-          )}    
+          )}
           <AgGridColumn
             headerName={''}
             field={''}
