@@ -28,6 +28,10 @@ export interface BarGraphProps {
   barRatio?: number;
   billableText?: string;
   nonBillableText?: string;
+  isBillable?: boolean;
+  isNonBillable?: boolean;
+  flyOutWidth?: number;
+  flyOutHeight?: number;
 }
 
 export const BarGraph = ({
@@ -45,6 +49,10 @@ export const BarGraph = ({
   barRatio = 0,
   billableText,
   nonBillableText,
+  isBillable = true,
+  isNonBillable = true,
+  flyOutWidth = 270,
+  flyOutHeight = 200,
 }: BarGraphProps) => {
   const {
     theme: {
@@ -132,6 +140,10 @@ export const BarGraph = ({
                 billableText={billableText}
                 nonBillableText={nonBillableText}
                 width={width}
+                isBillable={isBillable}
+                isNonBillable={isNonBillable}
+                flyOutTooltipWidth={flyOutWidth}
+                flyOutTooltipHeight={flyOutHeight}
               />
             }
           />

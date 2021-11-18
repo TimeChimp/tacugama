@@ -35,6 +35,10 @@ export interface LineGraphProps {
   billableText?: string;
   nonBillableText?: string;
   limit?: number;
+  isBillable?: boolean;
+  isNonBillable?: boolean;
+  flyOutWidth?: number;
+  flyOutHeight?: number;
 }
 
 export const LineGraph = ({
@@ -52,6 +56,10 @@ export const LineGraph = ({
   billableText,
   nonBillableText,
   limit = 0,
+  isBillable = true,
+  isNonBillable = true,
+  flyOutWidth = 270,
+  flyOutHeight = 200,
 }: LineGraphProps) => {
   const {
     theme: {
@@ -133,6 +141,10 @@ export const LineGraph = ({
                   billableText={billableText}
                   nonBillableText={nonBillableText}
                   width={width}
+                  isBillable={isBillable}
+                  isNonBillable={isNonBillable}
+                  flyOutTooltipWidth={flyOutWidth}
+                  flyOutTooltipHeight={flyOutHeight}
                 />
               }
             />

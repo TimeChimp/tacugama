@@ -13,6 +13,10 @@ export const FlyOutTooltip = ({
   billableText = 'Billable',
   nonBillableText = 'Non billable',
   hoursText,
+  isBillable,
+  isNonBillable,
+  flyOutWidth = 270,
+  flyOutHeight = 200,
   width,
 }: any) => {
   const {
@@ -23,8 +27,6 @@ export const FlyOutTooltip = ({
       },
     },
   } = useTheme();
-  const flyOutWidth = 270;
-  const flyOutHeight = 200;
 
   const calculateXOffset = useMemo(() => {
     if (x < flyOutWidth / 2) {
@@ -35,7 +37,7 @@ export const FlyOutTooltip = ({
       return x - (flyOutWidth / 2 - (width - x));
     }
     return x;
-  }, [x, width]);
+  }, [x, width, flyOutWidth]);
 
   return (
     <g style={{ pointerEvents: 'none' }}>
@@ -51,24 +53,28 @@ export const FlyOutTooltip = ({
               {hoursText}
             </ParagraphSmall>
           </FlexGrid>
-          <FlexGrid justifyContent="space-between">
-            <ParagraphSmall margin={scale100} color={dark4}>
-              {billableText}:
-            </ParagraphSmall>
-            <ParagraphSmall margin={scale100} color={dark4}>
-              {datum.billableDuration || 0}
-              {hoursText}
-            </ParagraphSmall>
-          </FlexGrid>
-          <FlexGrid justifyContent="space-between">
-            <ParagraphSmall margin={scale100} color={dark4}>
-              {nonBillableText}:
-            </ParagraphSmall>
-            <ParagraphSmall margin={scale100} color={dark4}>
-              {datum.nonBillableDuration || 0}
-              {hoursText}
-            </ParagraphSmall>
-          </FlexGrid>
+          {isBillable && (
+            <FlexGrid justifyContent="space-between">
+              <ParagraphSmall margin={scale100} color={dark4}>
+                {billableText}:
+              </ParagraphSmall>
+              <ParagraphSmall margin={scale100} color={dark4}>
+                {datum.billableDuration || 0}
+                {hoursText}
+              </ParagraphSmall>
+            </FlexGrid>
+          )}
+          {isNonBillable && (
+            <FlexGrid justifyContent="space-between">
+              <ParagraphSmall margin={scale100} color={dark4}>
+                {nonBillableText}:
+              </ParagraphSmall>
+              <ParagraphSmall margin={scale100} color={dark4}>
+                {datum.nonBillableDuration || 0}
+                {hoursText}
+              </ParagraphSmall>
+            </FlexGrid>
+          )}
         </Box>
       </foreignObject>
     </g>
