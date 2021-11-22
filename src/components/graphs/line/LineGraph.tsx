@@ -82,19 +82,23 @@ export const LineGraph = ({
   );
 
   const lineData = useMemo(() => {
-    return convertedData
-      .map((item) => ({
-        ...item,
-        trackedDuration: limit / 3600,
-      }))
-      .filter((_, idx) => idx === 0 || idx === convertedData.length - 1);
+    return (
+      convertedData
+        .map((item) => ({
+          ...item,
+          trackedDuration: limit / 3600,
+        }))
+        .filter((_, idx) => idx === 0 || idx === convertedData.length - 1) || []
+    );
   }, [convertedData, limit]);
 
   const diagonalLineData = useMemo(() => {
-    return lineData.map((item, idx) => ({
-      ...item,
-      trackedDuration: idx === 0 ? 0 : item.trackedDuration,
-    }));
+    return (
+      lineData.map((item, idx) => ({
+        ...item,
+        trackedDuration: idx === 0 ? 0 : item.trackedDuration,
+      })) || []
+    );
   }, [lineData]);
 
   const maxValue = useMemo(() => {
@@ -183,23 +187,23 @@ export const LineGraph = ({
         x={horizontalAxisValue}
         y={verticalAxisValue}
       />
-      {!!limit ? (
-        <>
-          <VictoryArea
-            style={{ data: { fill: 'transparent', stroke: purple2, strokeWidth: 2 } }}
-            interpolation="monotoneX"
-            data={lineData}
-            x={horizontalAxisValue}
-            y={verticalAxisValue}
-          />
-          <VictoryArea
-            style={{ data: { fill: 'transparent', stroke: purple2, strokeWidth: 2, strokeDasharray: 10 } }}
-            interpolation="monotoneX"
-            data={diagonalLineData}
-            x={horizontalAxisValue}
-            y={verticalAxisValue}
-          />
-        </>
+      {!!lineData.length ? (
+        <VictoryArea
+          style={{ data: { fill: 'transparent', stroke: purple2, strokeWidth: 2 } }}
+          interpolation="monotoneX"
+          data={lineData}
+          x={horizontalAxisValue}
+          y={verticalAxisValue}
+        />
+      ) : null}
+      {!!diagonalLineData.length ? (
+        <VictoryArea
+          style={{ data: { fill: 'transparent', stroke: purple2, strokeWidth: 2, strokeDasharray: 10 } }}
+          interpolation="monotoneX"
+          data={diagonalLineData}
+          x={horizontalAxisValue}
+          y={verticalAxisValue}
+        />
       ) : null}
       <VictoryScatter
         data={convertedData}
