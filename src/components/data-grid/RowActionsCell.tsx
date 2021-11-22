@@ -7,7 +7,7 @@ import { ActionMenu, ActionMenuActive } from '../icons';
 import { RowEditCell } from './RowEditCell';
 
 export const RowActionsCell = ({ data }: RowActionsCellProps) => {
-  const { onEdit, items, icon } = data;
+  const { onEdit, items, id, icon } = data;
   const [active, setActive] = useState(false);
   const {
     theme: {
@@ -26,7 +26,9 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
   };
 
   const handleEdit = () => {
-    onEdit(data);
+    if (onEdit) {
+      onEdit(data);
+    }
   };
 
   const filteredItems = useMemo(() => {
@@ -45,7 +47,7 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
     <RowEditCell onClick={handleEdit} icon={icon} />
   ) : (
     <div ref={containerRef}>
-      <Dropdown onOpen={onOpen} onClose={() => setActive(false)} items={filteredItems}>
+      <Dropdown onOpen={onOpen} onClose={() => setActive(false)} items={filteredItems} selectedIds={[id]}>
         <TertiaryButton>
           {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
         </TertiaryButton>

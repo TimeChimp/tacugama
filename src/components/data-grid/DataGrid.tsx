@@ -43,7 +43,6 @@ import {
   DataGridColumn,
   DataGridProps,
   DataGridState,
-  DataGridColumnType,
   FilterModel,
   DataGridResponse,
   DataGridView,
@@ -53,6 +52,7 @@ import {
   FilterValue,
   FilterType,
   RowModelType,
+  DataGridColumnValueType
 } from './types';
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
@@ -77,11 +77,11 @@ export const DataGrid = ({
   filtering,
   filters,
   grouping,
-  columnToggling,
   viewing,
   onReady,
-  rowActionItems,
   dataUrl,
+  rowActionItems,
+  columnToggling,
   accessToken,
   sortableColumns,
   resizeableColumns,
@@ -343,7 +343,7 @@ export const DataGrid = ({
 
   const getValueFormatter = (
     params: ValueFormatterParams,
-    type?: DataGridColumnType,
+    type?: DataGridColumnValueType,
     customMap?: (value: any) => any,
   ) => {
     const { currency, numberFormat, dateFormat, language, timeFormat, durationFormat } = formatSettings;
@@ -393,7 +393,7 @@ export const DataGrid = ({
 
   const checkIfSearchColumn = (columnField: string) => searchColumns.includes(columnField);
 
-  const getFilterType = (columnField: string, type?: DataGridColumnType): IFilterType | undefined => {
+  const getFilterType = (columnField: string, type?: DataGridColumnValueType): IFilterType | undefined => {
     const isSearchColumn = checkIfSearchColumn(columnField);
     if (isSearchColumn) {
       return 'agTextColumnFilter';
@@ -672,7 +672,6 @@ export const DataGrid = ({
           />
           {gridColumns.map(
             ({
-              colId,
               field,
               label,
               width,
@@ -680,15 +679,15 @@ export const DataGrid = ({
               hide,
               sort,
               sortable,
-              type,
+              valueType,
               aggFunc,
               customMap,
               customHeaderComponent,
               customComponent,
               rowSelectProps,
+              ...rest
             }) => (
               <AgGridColumn
-                colId={colId}
                 cellRendererFramework={customComponent}
                 cellRenderer={!!rowSelectProps ? 'rowSelect' : undefined}
                 cellRendererParams={!!rowSelectProps ? { ...rowSelectProps } : undefined}
@@ -700,12 +699,13 @@ export const DataGrid = ({
                 rowGroup={rowGroup}
                 hide={hide || rowGroup}
                 sort={sort}
-                filter={getFilterType(field, type)}
+                filter={getFilterType(field, valueType)}
                 filterParams={{ values: (params: any) => getFilterParams(params, field) }}
-                valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, type, customMap)}
+                valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, valueType, customMap)}
                 aggFunc={aggFunc}
                 sortable={sortable ?? sortableColumns}
                 resizable={resizeableColumns}
+                {...rest}
               />
             ),
           )}
@@ -720,7 +720,7 @@ export const DataGrid = ({
             cellRendererParams={{ data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon } }}
             type="rightAligned"
             minWidth={60}
-            maxWidth={60}
+            maxWidth={rowActionItems?.length ? 60 : 0}
             sortable={false}
             resizable={false}
             pinned={'right'}
