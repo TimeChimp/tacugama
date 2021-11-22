@@ -85,4 +85,8 @@ BarDefault.args = {
   formatAsDate: true,
   trackedText: 'Tracked',
   hoursText: 'h',
+  isBillable: true,
+  isNonBillable: true,
+  flyOutWidth: 270,
+  flyOutHeight: 200,
 };

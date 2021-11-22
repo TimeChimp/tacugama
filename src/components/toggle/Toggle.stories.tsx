@@ -14,5 +14,5 @@ const Template: Story<ToggleProps> = (args) => <Toggle {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   checked: true,
-  size: ToggleSize.small
+  size: ToggleSize.small,
 };
