@@ -18,6 +18,7 @@ import { SVGProps as IconProps } from '../icons';
 import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
 import { PageOrientation } from 'pdfmake/interfaces';
 import { Option } from '../select';
+import { AgGridColumnProps } from '@ag-grid-community/react';
 
 export enum RowModelType {
   clientSide = 'clientSide',
@@ -33,7 +34,7 @@ export interface DataGridApi {
   refreshCells: () => void;
 }
 
-export type DataGridColumnType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'duration';
+export type DataGridColumnValueType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'duration';
 export type DataGridAggFunc = 'sum';
 
 export interface DataGridRowSelectProps {
@@ -46,16 +47,14 @@ export interface DataGridRowSelectProps {
   isLockedIconDisplayedFunc?: (data: any) => boolean;
 }
 
-export interface DataGridColumn {
-  colId?: string;
+export interface DataGridColumn extends AgGridColumnProps {
   field: string;
   label?: string;
   width?: number;
   rowGroup?: boolean;
-  type?: DataGridColumnType;
+  valueType?: DataGridColumnValueType;
   groupable?: boolean;
   aggFunc?: DataGridAggFunc;
-  sort?: string;
   sortable?: boolean;
   hide?: boolean;
   customMap?: (value: any) => any;
@@ -120,6 +119,9 @@ export interface FormatSettings {
 export interface Translations {
   rowCountText: (count: number) => JSX.Element;
   rowCountSelectedText: (count: number) => JSX.Element;
+  rowActionItems?: DropdownItem[];
+  onRowEdit?: (data: RowActionsCellData) => void;
+  onRowEditIcon?: ComponentType<IconProps>;
   noRowsTitle: string;
   noRowsSubtext: string;
   groupBy: string;
@@ -247,14 +249,13 @@ export interface FooterRowCountProps {
 }
 export interface RowActionsCellData {
   items: DropdownItem[];
-  onEdit: (data: RowActionsCellData) => void;
+  onEdit?: (data: RowActionsCellData) => void;
   icon?: ComponentType<IconProps>;
-  contactId: string;
   id: string;
   [key: string]: any;
 }
 export interface RowActionsCellProps {
-  api: GridApi;
+  api?: GridApi;
   data: RowActionsCellData;
   icon?: ComponentType<IconProps>;
 }

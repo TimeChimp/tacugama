@@ -144,6 +144,4 @@ Client.args = {
   searchColumns: SEARCH_COLUMNS,
   rowModelType: RowModelType.clientSide,
   rowData: TIME_ENTRIES,
-  rowActionItems: ROW_ACTION_ITEMS,
-  onRowEdit: undefined,
 };

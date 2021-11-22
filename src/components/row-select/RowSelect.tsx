@@ -71,6 +71,7 @@ export const RowSelect = ({
           {...rest}
           options={options}
           value={selectOption}
+          searchable={false}
           overrides={{
             ControlContainer: {
               style: {

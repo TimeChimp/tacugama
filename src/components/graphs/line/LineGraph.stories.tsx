@@ -16,6 +16,8 @@ Default.args = {
     {
       date: new Date('2021-10-1'),
       trackedDuration: 7200,
+      billableDuration: 7200,
+      nonBillableDuration: 7200,
     },
     {
       date: new Date('2021-10-2'),

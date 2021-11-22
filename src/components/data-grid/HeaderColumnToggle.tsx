@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { TableSettings } from '../icons';
 import { StyledHeaderColumnToggle } from './styles';
-import { Dropdown } from '../dropdown/Dropdown';
+import { Dropdown, DropdownItem } from '../dropdown';
 import TertiaryButton from '../button/TertiaryButton';
 import { useTheme } from '../../providers/ThemeProvider';
 import { HeaderColumnToggleProps } from '.';
-import { DropdownItem } from '../dropdown/DropdownOption';
 import { Column } from '@ag-grid-community/core';
 import { DATA_TEST_ID } from '../../models';
 

@@ -10,7 +10,7 @@ import { Dropdown, DropdownItem } from '../../dropdown';
 import { StatefulMenu } from '../../menu';
 import LabelXSmall from '../../typography/LabelXSmall';
 import { SearchInput } from '../../input';
-import { StyledDropdownSearch } from '../../dropdown/StyledDropdownOption';
+import { StyledDropdownSearch } from '../../dropdown/styles';
 
 import { useTheme } from '../../../providers';
 import { border, borderRadius, margin, padding } from '../../../utils';
