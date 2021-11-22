@@ -105,6 +105,7 @@ export const DataGrid = ({
   translations = defaultTranslations,
   height = DEFAULT_HEIGHT,
   hideDownload = false,
+  onSelectionChangedHandler,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
@@ -405,8 +406,9 @@ export const DataGrid = ({
   };
 
   const onSelectionChanged = (event: SelectionChangedEvent) => {
-    const selected = event.api.getSelectedNodes().length;
-    setRowsSelected(selected);
+    const selected = event.api.getSelectedNodes();
+    onSelectionChangedHandler && onSelectionChangedHandler(selected);
+    setRowsSelected(selected.length);
   };
 
   const getSetValues = (value: string | null, type: FilterType, values?: string[]) => {
