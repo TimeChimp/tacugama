@@ -34,6 +34,11 @@ export interface LineGraphProps {
   hoursText?: string;
   billableText?: string;
   nonBillableText?: string;
+  limit?: number;
+  isBillable?: boolean;
+  isNonBillable?: boolean;
+  flyOutWidth?: number;
+  flyOutHeight?: number;
 }
 
 export const LineGraph = ({
@@ -50,11 +55,16 @@ export const LineGraph = ({
   hoursText,
   billableText,
   nonBillableText,
+  limit = 0,
+  isBillable = true,
+  isNonBillable = true,
+  flyOutWidth = 270,
+  flyOutHeight = 200,
 }: LineGraphProps) => {
   const {
     theme: {
       current: {
-        customColors: { primarySubtle, dark0, dark4, light2 },
+        customColors: { primarySubtle, dark0, dark4, light2, purple2 },
         sizing: { scale400, scale600 },
       },
     },
@@ -70,6 +80,26 @@ export const LineGraph = ({
       })),
     [data],
   );
+
+  const lineData = useMemo(() => {
+    return (
+      convertedData
+        .map((item) => ({
+          ...item,
+          trackedDuration: limit / 3600,
+        }))
+        .filter((_, idx) => idx === 0 || idx === convertedData.length - 1) || []
+    );
+  }, [convertedData, limit]);
+
+  const diagonalLineData = useMemo(() => {
+    return (
+      lineData.map((item, idx) => ({
+        ...item,
+        trackedDuration: idx === 0 ? 0 : item.trackedDuration,
+      })) || []
+    );
+  }, [lineData]);
 
   const maxValue = useMemo(() => {
     let max: number = 0;
@@ -94,9 +124,13 @@ export const LineGraph = ({
       maxDomain={{ x: maxValue.x, y: maxValue.y }}
       minDomain={{ y: 0 }}
       scale={{ x: 'time' }}
-      height={height}
       width={width}
       theme={VictoryTheme.material}
+      style={{
+        parent: {
+          height: '100%',
+        },
+      }}
       containerComponent={
         <VictoryVoronoiContainer
           labels={() => ' '}
@@ -110,6 +144,11 @@ export const LineGraph = ({
                   hoursText={hoursText}
                   billableText={billableText}
                   nonBillableText={nonBillableText}
+                  width={width}
+                  isBillable={isBillable}
+                  isNonBillable={isNonBillable}
+                  flyOutTooltipWidth={flyOutWidth}
+                  flyOutTooltipHeight={flyOutHeight}
                 />
               }
             />
@@ -148,6 +187,24 @@ export const LineGraph = ({
         x={horizontalAxisValue}
         y={verticalAxisValue}
       />
+      {!!lineData.length ? (
+        <VictoryArea
+          style={{ data: { fill: 'transparent', stroke: purple2, strokeWidth: 2 } }}
+          interpolation="monotoneX"
+          data={lineData}
+          x={horizontalAxisValue}
+          y={verticalAxisValue}
+        />
+      ) : null}
+      {!!diagonalLineData.length ? (
+        <VictoryArea
+          style={{ data: { fill: 'transparent', stroke: purple2, strokeWidth: 2, strokeDasharray: 10 } }}
+          interpolation="monotoneX"
+          data={diagonalLineData}
+          x={horizontalAxisValue}
+          y={verticalAxisValue}
+        />
+      ) : null}
       <VictoryScatter
         data={convertedData}
         x={horizontalAxisValue}

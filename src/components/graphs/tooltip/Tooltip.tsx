@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { useTheme } from '../../../providers';
 import { LabelMedium, Box } from '../../../components';
@@ -13,6 +13,11 @@ export const FlyOutTooltip = ({
   billableText = 'Billable',
   nonBillableText = 'Non billable',
   hoursText,
+  isBillable,
+  isNonBillable,
+  flyOutWidth = 270,
+  flyOutHeight = 200,
+  width,
 }: any) => {
   const {
     theme: {
@@ -22,9 +27,21 @@ export const FlyOutTooltip = ({
       },
     },
   } = useTheme();
+
+  const calculateXOffset = useMemo(() => {
+    if (x < flyOutWidth / 2) {
+      return x + (flyOutWidth / 2 - x) + 5;
+    }
+
+    if (width - x < flyOutWidth / 2) {
+      return x - (flyOutWidth / 2 - (width - x));
+    }
+    return x;
+  }, [x, width, flyOutWidth]);
+
   return (
     <g style={{ pointerEvents: 'none' }}>
-      <foreignObject x={x - 140} y={y - 170} width="270" height="200">
+      <foreignObject x={calculateXOffset - 140} y={y - 170} width={flyOutWidth} height={flyOutHeight}>
         <Box padding={scale600}>
           <LabelMedium marginBottom={scale500}>{new TcDate(datum.date).format('dd MMM yyyy')}</LabelMedium>
           <FlexGrid justifyContent="space-between">
@@ -32,28 +49,32 @@ export const FlyOutTooltip = ({
               {trackedText}:
             </ParagraphSmall>
             <ParagraphSmall margin={scale100} color={dark4}>
-              {datum.trackedDuration}
+              {datum.trackedDuration || 0}
               {hoursText}
             </ParagraphSmall>
           </FlexGrid>
-          <FlexGrid justifyContent="space-between">
-            <ParagraphSmall margin={scale100} color={dark4}>
-              {billableText}:
-            </ParagraphSmall>
-            <ParagraphSmall margin={scale100} color={dark4}>
-              {datum.billableDuration}
-              {hoursText}
-            </ParagraphSmall>
-          </FlexGrid>
-          <FlexGrid justifyContent="space-between">
-            <ParagraphSmall margin={scale100} color={dark4}>
-              {nonBillableText}:
-            </ParagraphSmall>
-            <ParagraphSmall margin={scale100} color={dark4}>
-              {datum.nonBillableDuration}
-              {hoursText}
-            </ParagraphSmall>
-          </FlexGrid>
+          {isBillable && (
+            <FlexGrid justifyContent="space-between">
+              <ParagraphSmall margin={scale100} color={dark4}>
+                {billableText}:
+              </ParagraphSmall>
+              <ParagraphSmall margin={scale100} color={dark4}>
+                {datum.billableDuration || 0}
+                {hoursText}
+              </ParagraphSmall>
+            </FlexGrid>
+          )}
+          {isNonBillable && (
+            <FlexGrid justifyContent="space-between">
+              <ParagraphSmall margin={scale100} color={dark4}>
+                {nonBillableText}:
+              </ParagraphSmall>
+              <ParagraphSmall margin={scale100} color={dark4}>
+                {datum.nonBillableDuration || 0}
+                {hoursText}
+              </ParagraphSmall>
+            </FlexGrid>
+          )}
         </Box>
       </foreignObject>
     </g>
