@@ -8,6 +8,7 @@ import {
   ICombinedSimpleModel,
   IFilterComp,
   NumberFilterModel,
+  RowNode,
   TextFilterModel,
   ValueFormatterParams,
 } from '@ag-grid-community/core';
@@ -188,6 +189,7 @@ export interface DataGridProps {
   onBulkDelete?: (ids: string[]) => Promise<void>;
   onRowEdit?: (data: RowActionsCellData) => void;
   onRowEditIcon?: ComponentType<IconProps>;
+  onSelectionChangedHandler?: (data: RowNode[]) => void;
 }
 
 export interface DataGridView {
