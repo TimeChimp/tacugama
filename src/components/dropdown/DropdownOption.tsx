@@ -10,7 +10,6 @@ import {
 } from './styles';
 import { DropdownOptionProps } from './types';
 
-
 export const DropdownOption = forwardRef<any, DropdownOptionProps>(
   ({ item, onItemSelect }: DropdownOptionProps, ref) => {
     const { theme } = useTheme();

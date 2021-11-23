@@ -8,15 +8,7 @@ import '@ag-grid-community/core/dist/styles/ag-theme-alpine-dark.css';
 import { DataGrid, DataGridProps } from '.';
 import { DataGridView, CreateViewInput, RowModelType } from './types';
 import { getTimeEntriesQueryMock } from './__tests__/mockServer';
-import {
-  ACCESS_TOKEN,
-  COLUMNS,
-  DATA_URL,
-  FILTERS,
-  SEARCH_COLUMNS,
-  TIME_ENTRIES,
-  ROW_ACTION_ITEMS,
-} from './__tests__/constants';
+import { ACCESS_TOKEN, COLUMNS, DATA_URL, FILTERS, SEARCH_COLUMNS, TIME_ENTRIES } from './__tests__/constants';
 import { defaultTranslations } from './defaultTranslations';
 
 export default {
