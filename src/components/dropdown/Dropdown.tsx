@@ -13,7 +13,6 @@ import { DropdownOption } from './DropdownOption';
 
 const NUMBER_OF_LOADING_ROWS = 4;
 
-
 export const Dropdown = ({
   children,
   items = [],
