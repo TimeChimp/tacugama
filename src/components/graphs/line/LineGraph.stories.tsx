@@ -124,4 +124,9 @@ Default.args = {
   isNonBillable: true,
   flyOutWidth: 270,
   flyOutHeight: 200,
+  legendData: [
+    { name: 'Forecast', symbol: { fill: '#9E97E2', type: 'minus' } },
+    { name: 'Budget', symbol: { fill: '#6559D2', type: 'minus' } },
+    { name: 'Logged', symbol: { fill: '#87878F', type: 'minus' } },
+  ],
 };
