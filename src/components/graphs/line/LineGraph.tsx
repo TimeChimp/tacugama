@@ -4,6 +4,7 @@ import {
   VictoryArea,
   VictoryAxis,
   VictoryChart,
+  VictoryLegend,
   VictoryScatter,
   VictoryTheme,
   VictoryTooltip,
@@ -18,6 +19,10 @@ interface LineGraphData {
   billableDuration?: number;
   nonBillableDuration?: number;
   label?: string;
+}
+interface LegendData {
+  name: string;
+  symbol: { fill: string; type: string };
 }
 
 export interface LineGraphProps {
@@ -39,6 +44,7 @@ export interface LineGraphProps {
   isNonBillable?: boolean;
   flyOutWidth?: number;
   flyOutHeight?: number;
+  legendData?: LegendData[];
 }
 
 export const LineGraph = ({
@@ -60,11 +66,12 @@ export const LineGraph = ({
   isNonBillable = true,
   flyOutWidth = 270,
   flyOutHeight = 200,
+  legendData,
 }: LineGraphProps) => {
   const {
     theme: {
       current: {
-        customColors: { primarySubtle, dark0, dark4, light2, purple2 },
+        customColors: { primarySubtle, dark0, dark4, light2, purple3, purple2 },
         sizing: { scale400, scale600 },
       },
     },
@@ -198,12 +205,15 @@ export const LineGraph = ({
       ) : null}
       {!!diagonalLineData.length ? (
         <VictoryArea
-          style={{ data: { fill: 'transparent', stroke: purple2, strokeWidth: 2, strokeDasharray: 10 } }}
+          style={{ data: { fill: 'transparent', stroke: purple3, strokeWidth: 2, strokeDasharray: 10 } }}
           interpolation="monotoneX"
           data={diagonalLineData}
           x={horizontalAxisValue}
           y={verticalAxisValue}
         />
+      ) : null}
+      {limit && legendData ? (
+        <VictoryLegend x={width - 350} y={height - 90} orientation="horizontal" gutter={20} data={legendData} />
       ) : null}
       <VictoryScatter
         data={convertedData}
