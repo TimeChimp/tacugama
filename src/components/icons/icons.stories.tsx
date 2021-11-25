@@ -88,7 +88,7 @@ Lock.args = {
   size: '12',
 };
 
-export const LockOpen = LockTemplate.bind({});
+export const LockOpen = LockOpenTemplate.bind({});
 LockOpen.args = {
   size: '12',
 };
