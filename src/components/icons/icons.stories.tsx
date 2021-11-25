@@ -32,6 +32,7 @@ import {
   CircleWallet as CircleWalletIcon,
   Done as DoneIcon,
   UserInvited as UserInvitedIcon,
+  LockOpen as LockOpenIcon
 } from './';
 import { SVGProps } from './Icon';
 
@@ -70,6 +71,7 @@ const CircleEuroCurrencyTemplate: Story<SVGProps> = (args) => <CircleEuroCurrenc
 const CircleWalletTemplate: Story<SVGProps> = (args) => <CircleWalletIcon {...args} />;
 const DoneTemplate: Story<SVGProps> = (args) => <DoneIcon {...args} />;
 const UserInvitedTemplate: Story<SVGProps> = (args) => <UserInvitedIcon {...args} />;
+const LockOpenTemplate: Story<SVGProps> = (args) => <LockOpenIcon {...args} />; 
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -85,6 +87,12 @@ export const Lock = LockTemplate.bind({});
 Lock.args = {
   size: '12',
 };
+
+export const LockOpen = LockTemplate.bind({});
+LockOpen.args = {
+  size: '12',
+};
+
 
 export const LockFilled = LockFilledTemplate.bind({});
 LockFilled.args = {
