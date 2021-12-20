@@ -80,6 +80,7 @@ export const DataGrid = ({
   viewing,
   onReady,
   dataUrl,
+  autoGroupColumnDef,
   rowActionItems,
   columnToggling,
   accessToken,
@@ -105,6 +106,7 @@ export const DataGrid = ({
   translations = defaultTranslations,
   height = DEFAULT_HEIGHT,
   hideDownload = false,
+  hideDelete = false,
   onSelectionChangedHandler,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -571,6 +573,7 @@ export const DataGrid = ({
                 translations={translations}
                 onBulkDelete={onBulkDelete}
                 hideDownload={hideDownload}
+                hideDelete={hideDelete}
               />
             )}
           </StyledDataGridHeader>
@@ -586,12 +589,13 @@ export const DataGrid = ({
           loadingCellRenderer="loadingCellTemplate"
           animateRows
           suppressAggFuncInHeader
-          autoGroupColumnDef={{
+          autoGroupColumnDef={autoGroupColumnDef ?? {
             cellRendererParams: {
               suppressCount: false,
               checkbox: false,
             },
           }}
+          groupSelectsChildren
           pagination
           paginationPageSize={25}
           suppressPaginationPanel
