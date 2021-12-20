@@ -573,7 +573,7 @@ export const DataGrid = ({
                 translations={translations}
                 onBulkDelete={onBulkDelete}
                 hideDownload={hideDownload}
-                
+                hideDelete={hideDelete}
               />
             )}
           </StyledDataGridHeader>
