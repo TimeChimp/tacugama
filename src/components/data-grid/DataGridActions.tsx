@@ -24,6 +24,7 @@ export const DataGridActions = ({
   onBulkDelete,
   translations,
   hideDownload,
+  hideDelete,
 }: DataGridActionsProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
@@ -66,6 +67,10 @@ export const DataGridActions = ({
     }
   }, [gridApi, gridColumnApi, columns, translations]);
 
+  if (hideDownload && hideDelete) {
+    return null;
+  }
+
   return (
     <StyledDataGridActions>
       {!hideDownload && (
@@ -82,40 +87,44 @@ export const DataGridActions = ({
         </Dropdown>
       )}
 
-      <TertiaryButton
-        overrides={{
-          Root: {
-            style: {
-              ...padding(scale400, scale200, scale400, scale500),
-              ':hover': {
-                backgroundColor: 'transparent',
+      {!hideDelete ? (
+        <>
+          <TertiaryButton
+            overrides={{
+              Root: {
+                style: {
+                  ...padding(scale400, scale200, scale400, scale500),
+                  ':hover': {
+                    backgroundColor: 'transparent',
+                  },
+                  ':active': {
+                    backgroundColor: 'transparent',
+                  },
+                  ':disabled': {
+                    backgroundColor: 'transparent',
+                  },
+                },
               },
-              ':active': {
-                backgroundColor: 'transparent',
-              },
-              ':disabled': {
-                backgroundColor: 'transparent',
-              },
-            },
-          },
-        }}
-        disabled={!rowsSelected}
-        onClick={() => setDeleteModalIsOpen(true)}
-        testId={DELETE_BUTTON_TEST_ID}
-      >
-        <TrashFull color={rowsSelected ? red3 : contentStateDisabled} size={scale600} />
-      </TertiaryButton>
-      <ConfirmationModal
-        title={deleteEntries}
-        description={deleteEntriesCount(rowsSelected)}
-        type={ConfirmationModalType.danger}
-        isOpen={deleteModalIsOpen}
-        setIsOpen={setDeleteModalIsOpen}
-        submitLabel={deleteEntries}
-        submitOnClick={handleBulkDelete}
-        cancelLabel={cancel!}
-        submitButtonTestId={DELETE_SUBMIT_BUTTON_TEST_ID}
-      />
+            }}
+            disabled={!rowsSelected}
+            onClick={() => setDeleteModalIsOpen(true)}
+            testId={DELETE_BUTTON_TEST_ID}
+          >
+            <TrashFull color={rowsSelected ? red3 : contentStateDisabled} size={scale600} />
+          </TertiaryButton>
+          <ConfirmationModal
+            title={deleteEntries}
+            description={deleteEntriesCount(rowsSelected)}
+            type={ConfirmationModalType.danger}
+            isOpen={deleteModalIsOpen}
+            setIsOpen={setDeleteModalIsOpen}
+            submitLabel={deleteEntries}
+            submitOnClick={handleBulkDelete}
+            cancelLabel={cancel!}
+            submitButtonTestId={DELETE_SUBMIT_BUTTON_TEST_ID}
+          />
+        </>
+      ) : null}
     </StyledDataGridActions>
   );
 };

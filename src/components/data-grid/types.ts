@@ -167,6 +167,7 @@ export interface DataGridProps {
   columnToggling?: boolean;
   onReady?: (dataGridApi: DataGridApi) => void;
   rowActionItems?: DropdownItem[];
+  autoGroupColumnDef?: ColDef;
   state?: string;
   dataUrl?: string;
   accessToken?: string;
@@ -178,6 +179,7 @@ export interface DataGridProps {
   height?: string;
   dates?: Date[];
   hideDownload?: boolean;
+  hideDelete?: boolean;
   setDates?: (dates: Date[]) => void;
   onDeactivateView?: (id: string) => Promise<void>;
   onActivateView?: (id: string) => Promise<void>;
@@ -370,6 +372,7 @@ export interface DataGridActionsProps {
   translations: Translations;
   onBulkDelete?: (ids: string[]) => Promise<void>;
   hideDownload?: boolean;
+  hideDelete?: boolean;
 }
 
 export interface PrintParams {
