@@ -1,1 +1,1 @@
-export * from 'baseui/table-grid';
+export { StyledTable, StyledBodyCell, StyledHeadCell } from 'baseui/table-grid';
