@@ -5,7 +5,6 @@ const MODEL_UPDATED_EVENT = 'modelUpdated';
 const CELL_VALUE_CHANGED_EVENT = 'cellValueChanged';
 const FILTER_CHANGED_EVENT = 'filterChanged';
 
-
 export const GroupRowInnerRenderer = ({ node, value, api, totalCounts }: any) => {
   const [totalChildrenCount, setTotalChildrenCount] = useState(node.allChildrenCount);
   const [totalNumberCount, setTotalNumberCount] = useState(totalCounts ? totalCounts[node.key] : 0);
@@ -24,20 +23,26 @@ export const GroupRowInnerRenderer = ({ node, value, api, totalCounts }: any) =>
 
     return () => {
       api.removeEventListener(CELL_VALUE_CHANGED_EVENT, dataChangedListener);
-      api.removeEventListener(FILTER_CHANGED_EVENT ,dataChangedListener);
+      api.removeEventListener(FILTER_CHANGED_EVENT, dataChangedListener);
       api.removeEventListener(MODEL_UPDATED_EVENT, dataChangedListener);
     };
   }, []);
 
+  const getFormattedCount = () => {
+    if (!totalNumberCount) {
+      return `(${totalChildrenCount})`;
+    }
+    return `(${totalChildrenCount}/${totalNumberCount})`;
+  };
+
   if (!totalChildrenCount) {
     return value;
   }
-  
+
   return (
     <StyledGroupRowInnerRendererContainer>
       <span>{value}</span>&nbsp;
-      <span>
-        {`(${totalChildrenCount}/${totalNumberCount})`}</span>
+      <span>{getFormattedCount()}</span>
     </StyledGroupRowInnerRendererContainer>
   );
 };
