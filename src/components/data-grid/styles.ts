@@ -173,3 +173,7 @@ export const StyledViewOptionsFooter = themedStyled('div', ({ $theme }) => ({
   backgroundColor: $theme.colors.primaryB,
   ...padding('0', $theme.sizing.scale100),
 }));
+
+export const StyledGroupRowInnerRendererContainer = themedStyled('div', () => ({
+  display: 'inline-block',
+}));

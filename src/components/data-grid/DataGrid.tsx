@@ -64,6 +64,7 @@ import ReactDOMServer from 'react-dom/server';
 import DataGridActions from './DataGridActions';
 import { RowSelect } from '../row-select';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
+import { GroupRowInnerRenderer } from './GroupRowInnerRenderer';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
@@ -620,6 +621,7 @@ export const DataGrid = ({
             headerColumnToggle: HeaderColumnToggle,
             loadingCellTemplate: LoadingCellTemplate,
             rowSelect: RowSelect,
+            groupRowInnerRenderer: GroupRowInnerRenderer,
           }}
           icons={{
             sortAscending: () =>
