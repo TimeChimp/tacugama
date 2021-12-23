@@ -69,6 +69,9 @@ export interface CustomColors {
   blueOutline: string;
   yellowOutline: string;
   purpleOutline: string;
+
+  //Brand
+  brand700: string;
 }
 
 interface App {

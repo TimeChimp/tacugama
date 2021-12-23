@@ -99,7 +99,6 @@ LockOpen.args = {
   size: '12',
 };
 
-
 export const LockFilled = LockFilledTemplate.bind({});
 LockFilled.args = {
   size: '12',

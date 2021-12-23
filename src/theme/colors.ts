@@ -70,6 +70,9 @@ export const customColors: CustomColors = {
   blueOutline: '#0063F7',
   yellowOutline: '#FFCC00',
   purpleOutline: '#5147A8',
+
+  //Brand
+  brand700: '#3F3787',
 };
 
 export const lightColors: DeepPartial<Theme['colors']> = {
