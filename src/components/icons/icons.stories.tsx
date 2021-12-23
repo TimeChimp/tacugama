@@ -33,6 +33,9 @@ import {
   Done as DoneIcon,
   UserInvited as UserInvitedIcon,
   LockOpen as LockOpenIcon
+  Settings as SettingsIcon,
+  WorkspaceSettings as WorkspaceSettingsIcon,
+  UserStatus as UserStatusIcon,
 } from './';
 import { SVGProps } from './Icon';
 
@@ -71,7 +74,10 @@ const CircleEuroCurrencyTemplate: Story<SVGProps> = (args) => <CircleEuroCurrenc
 const CircleWalletTemplate: Story<SVGProps> = (args) => <CircleWalletIcon {...args} />;
 const DoneTemplate: Story<SVGProps> = (args) => <DoneIcon {...args} />;
 const UserInvitedTemplate: Story<SVGProps> = (args) => <UserInvitedIcon {...args} />;
-const LockOpenTemplate: Story<SVGProps> = (args) => <LockOpenIcon {...args} />; 
+const LockOpenTemplate: Story<SVGProps> = (args) => <LockOpenIcon {...args} />;
+const SettingsTemplate: Story<SVGProps> = (args) => <SettingsIcon {...args} />;
+const WorkspaceSettingsTemplate: Story<SVGProps> = (args) => <WorkspaceSettingsIcon {...args} />;
+const UserStatusTemplate: Story<SVGProps> = (args) => <UserStatusIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -227,4 +233,19 @@ Done.args = {
 export const UserInvited = UserInvitedTemplate.bind({});
 UserInvited.args = {
   size: '16',
+};
+
+export const Settings = SettingsTemplate.bind({});
+Settings.args = {
+  size: '16',
+};
+
+export const WorkspaceSettings = WorkspaceSettingsTemplate.bind({});
+WorkspaceSettings.args = {
+  size: '16',
+};
+
+export const UserStatus = UserStatusTemplate.bind({});
+UserStatus.args = {
+  size: '12',
 };
