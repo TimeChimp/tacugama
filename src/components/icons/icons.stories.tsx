@@ -32,7 +32,7 @@ import {
   CircleWallet as CircleWalletIcon,
   Done as DoneIcon,
   UserInvited as UserInvitedIcon,
-  LockOpen as LockOpenIcon
+  LockOpen as LockOpenIcon,
   Settings as SettingsIcon,
   WorkspaceSettings as WorkspaceSettingsIcon,
   UserStatus as UserStatusIcon,

@@ -590,12 +590,14 @@ export const DataGrid = ({
           loadingCellRenderer="loadingCellTemplate"
           animateRows
           suppressAggFuncInHeader
-          autoGroupColumnDef={autoGroupColumnDef ?? {
-            cellRendererParams: {
-              suppressCount: false,
-              checkbox: false,
-            },
-          }}
+          autoGroupColumnDef={
+            autoGroupColumnDef ?? {
+              cellRendererParams: {
+                suppressCount: false,
+                checkbox: false,
+              },
+            }
+          }
           groupSelectsChildren
           pagination
           paginationPageSize={25}

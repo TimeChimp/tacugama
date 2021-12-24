@@ -26,7 +26,7 @@ export const GroupRowInnerRenderer = ({ node, value, api, totalCounts }: any) =>
       api.removeEventListener(FILTER_CHANGED_EVENT, dataChangedListener);
       api.removeEventListener(MODEL_UPDATED_EVENT, dataChangedListener);
     };
-  }, []);
+  }, [api]);
 
   const getFormattedCount = () => {
     if (!totalNumberCount) {
