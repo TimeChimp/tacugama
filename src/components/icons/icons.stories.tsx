@@ -35,6 +35,7 @@ import {
   LockOpen as LockOpenIcon,
   Settings as SettingsIcon,
   WorkspaceSettings as WorkspaceSettingsIcon,
+  UserStatus as UserStatusIcon,
 } from './';
 import { SVGProps } from './Icon';
 
@@ -76,6 +77,7 @@ const UserInvitedTemplate: Story<SVGProps> = (args) => <UserInvitedIcon {...args
 const LockOpenTemplate: Story<SVGProps> = (args) => <LockOpenIcon {...args} />;
 const SettingsTemplate: Story<SVGProps> = (args) => <SettingsIcon {...args} />;
 const WorkspaceSettingsTemplate: Story<SVGProps> = (args) => <WorkspaceSettingsIcon {...args} />;
+const UserStatusTemplate: Story<SVGProps> = (args) => <UserStatusIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -240,4 +242,9 @@ Settings.args = {
 export const WorkspaceSettings = WorkspaceSettingsTemplate.bind({});
 WorkspaceSettings.args = {
   size: '16',
+};
+
+export const UserStatus = UserStatusTemplate.bind({});
+UserStatus.args = {
+  size: '12',
 };
