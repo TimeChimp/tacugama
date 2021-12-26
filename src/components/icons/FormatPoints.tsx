@@ -15,6 +15,6 @@ export const FormatPoints = ({ title = 'FormatPoints', size = defaultIconProps.s
           fill={color || theme.current.colors.contentPrimary}
         />
       </svg>
-  </Icon>
+    </Icon>
   );
 };

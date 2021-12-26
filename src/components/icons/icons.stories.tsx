@@ -81,7 +81,6 @@ const WorkspaceSettingsTemplate: Story<SVGProps> = (args) => <WorkspaceSettingsI
 const UserStatusTemplate: Story<SVGProps> = (args) => <UserStatusIcon {...args} />;
 const FormatPointsTemplate: Story<SVGProps> = (args) => <FormatPointsIcon {...args} />;
 
-
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
   size: '12',
