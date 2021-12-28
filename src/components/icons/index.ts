@@ -90,3 +90,4 @@ export * from './UserInvited';
 export * from './LockOpen';
 export * from './WorkspaceSettings';
 export * from './UserStatus';
+export * from './FormatPoints';
