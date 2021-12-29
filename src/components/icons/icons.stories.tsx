@@ -37,6 +37,8 @@ import {
   WorkspaceSettings as WorkspaceSettingsIcon,
   UserStatus as UserStatusIcon,
   FormatPoints as FormatPointsIcon,
+  Loader as LoaderIcon,
+  LogoWithName as LogoWithNameIcon,
 } from './';
 import { SVGProps } from './Icon';
 
@@ -80,6 +82,8 @@ const SettingsTemplate: Story<SVGProps> = (args) => <SettingsIcon {...args} />;
 const WorkspaceSettingsTemplate: Story<SVGProps> = (args) => <WorkspaceSettingsIcon {...args} />;
 const UserStatusTemplate: Story<SVGProps> = (args) => <UserStatusIcon {...args} />;
 const FormatPointsTemplate: Story<SVGProps> = (args) => <FormatPointsIcon {...args} />;
+const LoaderTemplate: Story<SVGProps> = (args) => <LoaderIcon {...args} />;
+const LogoWithNameTemplate: Story<SVGProps> = (args) => <LogoWithNameIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -255,3 +259,11 @@ export const FormatPoints = FormatPointsTemplate.bind({});
 FormatPoints.args = {
   size: '12',
 };
+
+export const Loader = LoaderTemplate.bind({});
+Loader.args = {
+  size: '20',
+  color: 'red',
+};
+
+export const LogoWithName = LogoWithNameTemplate.bind({});
