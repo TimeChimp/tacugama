@@ -7,15 +7,15 @@ export const Loader = ({ title = 'Loader', size = defaultIconProps.size, color =
       <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle
           xmlns="http://www.w3.org/2000/svg"
-          stroke-linecap="round"
+          strokeLinecap="round"
           cx="12"
           cy="12"
           r="10"
           stroke={color}
-          stroke-width="2"
+          strokeWidth="2"
           fill="none"
-          stroke-dasharray="73"
-          stroke-dashoffset="20"
+          strokeDasharray="73"
+          strokeDashoffset="20"
         >
           <animateTransform
             attributeName="transform"
