@@ -1,13 +1,5 @@
 import React, { useMemo } from 'react';
-import {
-  VictoryAxis,
-  VictoryBar,
-  VictoryChart,
-  VictoryLabel,
-  VictoryStack,
-  VictoryTheme,
-  VictoryTooltip,
-} from 'victory';
+import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack, VictoryTheme, VictoryTooltip } from 'victory';
 import maxBy from 'lodash/maxBy';
 import { useTheme } from '../../../providers';
 import { MyDashboardTooltip } from '../tooltip/MyDashboardTooltip';

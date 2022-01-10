@@ -23,7 +23,11 @@ export const MyDashboardTooltip = ({
     },
   } = useTheme();
 
-  const duration = useMemo(() => (isDefault ? maxValue - datum.duration : datum.duration), [isDefault]);
+  const duration = useMemo(() => (isDefault ? maxValue - datum.duration : datum.duration), [
+    isDefault,
+    datum.duration,
+    maxValue,
+  ]);
 
   return (
     <g style={{ pointerEvents: 'none' }}>
