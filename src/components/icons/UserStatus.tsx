@@ -14,7 +14,7 @@ export const UserStatus = ({ title = 'UserStatus', size = '12', color }: SVGProp
         fill={color || theme.current.customColors.green6}
         xmlns="http://www.w3.org/2000/svg"
       >
-        <circle cx="4" cy="4" r="4" fill="#06C167" />
+        <circle cx="4" cy="4" r="4" fill={color || '#06C167'} />
       </svg>
     </Icon>
   );
