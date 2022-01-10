@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack, VictoryTheme, VictoryTooltip } from 'victory';
-import maxBy from 'lodash/maxBy';
 import { useTheme } from '../../../providers';
 import { MyDashboardTooltip } from '../tooltip/MyDashboardTooltip';
 
@@ -46,16 +45,20 @@ export const MyDashboardBar = ({
   }, [data]);
 
   const maxValue = useMemo(() => {
-    const maxValueDataItem = maxBy(barData, (dataItem) => dataItem.duration);
-    if (maxValueDataItem!.duration < 40) {
+    const maxValueDataItem = Math.max.apply(
+      Math,
+      barData.map((dataItem: MyDashboardBarData) => dataItem.duration),
+    );
+
+    if (maxValueDataItem < 40) {
       return 40;
     }
 
-    return maxValueDataItem?.duration;
+    return maxValueDataItem;
   }, [barData]);
 
   const defaultData = useMemo(
-    () => barData.map((data) => ({ isoWeek: data.isoWeek, duration: maxValue! - data.duration })),
+    () => barData.map((data: MyDashboardBarData) => ({ isoWeek: data.isoWeek, duration: maxValue! - data.duration })),
     [barData, maxValue],
   );
 
