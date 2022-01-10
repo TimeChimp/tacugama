@@ -90,6 +90,7 @@ export * from './UserInvited';
 export * from './LockOpen';
 export * from './WorkspaceSettings';
 export * from './UserStatus';
+export * from './CircleClockInverted';
 export * from './FormatPoints';
 export * from './Loader';
 export * from './LogoWithName';

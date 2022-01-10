@@ -47,3 +47,4 @@ export * from './status';
 export * from './toggle';
 export * from './graphs';
 export * from './table-grid';
+export * from './switcher';

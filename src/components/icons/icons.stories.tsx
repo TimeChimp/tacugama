@@ -39,6 +39,7 @@ import {
   FormatPoints as FormatPointsIcon,
   Loader as LoaderIcon,
   LogoWithName as LogoWithNameIcon,
+  CircleClockInverted as CircleClockInvertedIcon,
 } from './';
 import { SVGProps } from './Icon';
 
@@ -84,6 +85,7 @@ const UserStatusTemplate: Story<SVGProps> = (args) => <UserStatusIcon {...args} 
 const FormatPointsTemplate: Story<SVGProps> = (args) => <FormatPointsIcon {...args} />;
 const LoaderTemplate: Story<SVGProps> = (args) => <LoaderIcon {...args} />;
 const LogoWithNameTemplate: Story<SVGProps> = (args) => <LogoWithNameIcon {...args} />;
+const CircleClockInvertedTemplate: Story<SVGProps> = (args) => <CircleClockInvertedIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -267,3 +269,5 @@ Loader.args = {
 };
 
 export const LogoWithName = LogoWithNameTemplate.bind({});
+
+export const CircleClockInverted = CircleClockInvertedTemplate.bind({});
