@@ -98,6 +98,14 @@ export interface Filter {
   hide?: boolean;
 }
 
+export interface GetServerSideGroupKey {
+  (dataItem: any): string;
+}
+
+export interface GetDataPath {
+  (data: any): string[];
+}
+
 export interface DataGridState {
   columnState: ColumnState[];
   columnGroupState: {
@@ -194,6 +202,9 @@ export interface DataGridProps {
   onRowEdit?: (data: RowActionsCellData) => void;
   onRowEditIcon?: ComponentType<IconProps>;
   onSelectionChangedHandler?: (data: RowNode[]) => void;
+  treeData?: boolean;
+  getServerSideGroupKey?: GetServerSideGroupKey | undefined;
+  getDataPath?: GetDataPath | undefined;
 }
 
 export interface DataGridView {
