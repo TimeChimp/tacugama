@@ -108,6 +108,9 @@ export const DataGrid = ({
   height = DEFAULT_HEIGHT,
   hideDownload = false,
   hideDelete = false,
+  treeData = false,
+  getServerSideGroupKey,
+  getDataPath,
   onSelectionChangedHandler,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -333,7 +336,7 @@ export const DataGrid = ({
   };
 
   const getRowNodeId = (data: any) => {
-    return data.id;
+    return data.hierarchy ?? data.id;
   };
 
   const onGrouping = (rowGroups: string[]) => {
@@ -520,6 +523,10 @@ export const DataGrid = ({
     return setFilterDefaultValues();
   };
 
+  const isServerSideGroup = (dataItem: any) => {
+    return !!dataItem.children?.length;
+  };
+
   const columnCellRenderer = useMemo(() => {
     if (rowActionItems || !!onRowEdit) {
       return 'moreActionsCell';
@@ -586,6 +593,10 @@ export const DataGrid = ({
           rowModelType={rowModelType}
           immutableData={rowModelType === RowModelType.clientSide}
           serverSideStoreType={ServerSideStoreType.Partial}
+          treeData={treeData}
+          isServerSideGroup={isServerSideGroup}
+          getServerSideGroupKey={getServerSideGroupKey}
+          getDataPath={getDataPath}
           noRowsOverlayComponent="noRowsTemplate"
           loadingCellRenderer="loadingCellTemplate"
           animateRows
@@ -598,7 +609,7 @@ export const DataGrid = ({
               },
             }
           }
-          groupSelectsChildren
+          groupSelectsChildren={!treeData && true}
           pagination
           paginationPageSize={25}
           suppressPaginationPanel
@@ -728,7 +739,7 @@ export const DataGrid = ({
             cellRendererParams={{ data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon } }}
             type="rightAligned"
             minWidth={60}
-            maxWidth={rowActionItems?.length ? 60 : 0}
+            maxWidth={rowActionItems?.length || columnToggling ? 60 : 0}
             sortable={false}
             resizable={false}
             pinned={'right'}
