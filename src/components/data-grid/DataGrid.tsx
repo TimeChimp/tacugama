@@ -685,7 +685,7 @@ export const DataGrid = ({
             ],
           }}
         >
-          {/* <AgGridColumn
+          <AgGridColumn
             hide={!selection}
             headerName={''}
             field={''}
@@ -696,7 +696,7 @@ export const DataGrid = ({
             sortable={false}
             resizable={false}
             lockPosition
-          /> */}
+          />
           {gridColumns.map(
             ({
               field,
