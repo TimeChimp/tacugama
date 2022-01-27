@@ -112,6 +112,7 @@ export const DataGrid = ({
   treeData = false,
   groupIncludeFooter = false,
   groupIncludeTotalFooter = false,
+  enableExport = false,
   getServerSideGroupKey,
   getDataPath,
   onSelectionChangedHandler,
@@ -575,7 +576,7 @@ export const DataGrid = ({
                 gridColumnApi={gridColumnApi}
               />
             )}
-            {selection && (
+            {(selection || enableExport) && (
               <DataGridActions
                 gridApi={gridApi}
                 gridColumnApi={gridColumnApi}

@@ -81,13 +81,11 @@ export const COLUMNS: DataGridColumn[] = [
   {
     field: 'project',
     label: 'Project',
-    groupable: true,
     hide: true,
   },
   {
     field: 'task',
     label: 'Task',
-    groupable: true,
   },
 ];
 

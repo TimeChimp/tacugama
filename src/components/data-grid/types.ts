@@ -168,6 +168,7 @@ export interface DataGridProps {
   columns: DataGridColumn[];
   filters?: Filter[];
   selection?: boolean;
+  enableExport?: boolean;
   filtering?: boolean;
   grouping?: boolean;
   viewing?: boolean;
