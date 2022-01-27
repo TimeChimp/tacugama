@@ -1,4 +1,4 @@
-import { Tag } from 'components';
+import { Tag } from '..';
 import React from 'react';
 import { StyledGroupRowInnerRendererContainer } from './styles';
 
