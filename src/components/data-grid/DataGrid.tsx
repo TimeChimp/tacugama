@@ -112,6 +112,7 @@ export const DataGrid = ({
   treeData = false,
   groupIncludeFooter = false,
   groupIncludeTotalFooter = false,
+  enableExport = false,
   getServerSideGroupKey,
   getDataPath,
   onSelectionChangedHandler,
@@ -575,18 +576,19 @@ export const DataGrid = ({
                 gridColumnApi={gridColumnApi}
               />
             )}
-            {selection && (
-              <DataGridActions
-                gridApi={gridApi}
-                gridColumnApi={gridColumnApi}
-                columns={gridColumns}
-                rowsSelected={rowsSelected}
-                translations={translations}
-                onBulkDelete={onBulkDelete}
-                hideDownload={hideDownload}
-                hideDelete={hideDelete}
-              />
-            )}
+            {selection ||
+              (enableExport && (
+                <DataGridActions
+                  gridApi={gridApi}
+                  gridColumnApi={gridColumnApi}
+                  columns={gridColumns}
+                  rowsSelected={rowsSelected}
+                  translations={translations}
+                  onBulkDelete={onBulkDelete}
+                  hideDownload={hideDownload}
+                  hideDelete={hideDelete}
+                />
+              ))}
           </StyledDataGridHeader>
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
@@ -683,7 +685,7 @@ export const DataGrid = ({
             ],
           }}
         >
-          <AgGridColumn
+          {/* <AgGridColumn
             hide={!selection}
             headerName={''}
             field={''}
@@ -694,7 +696,7 @@ export const DataGrid = ({
             sortable={false}
             resizable={false}
             lockPosition
-          />
+          /> */}
           {gridColumns.map(
             ({
               field,
