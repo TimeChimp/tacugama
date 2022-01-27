@@ -576,19 +576,18 @@ export const DataGrid = ({
                 gridColumnApi={gridColumnApi}
               />
             )}
-            {selection ||
-              (enableExport && (
-                <DataGridActions
-                  gridApi={gridApi}
-                  gridColumnApi={gridColumnApi}
-                  columns={gridColumns}
-                  rowsSelected={rowsSelected}
-                  translations={translations}
-                  onBulkDelete={onBulkDelete}
-                  hideDownload={hideDownload}
-                  hideDelete={hideDelete}
-                />
-              ))}
+            {(selection || enableExport) && (
+              <DataGridActions
+                gridApi={gridApi}
+                gridColumnApi={gridColumnApi}
+                columns={gridColumns}
+                rowsSelected={rowsSelected}
+                translations={translations}
+                onBulkDelete={onBulkDelete}
+                hideDownload={hideDownload}
+                hideDelete={hideDelete}
+              />
+            )}
           </StyledDataGridHeader>
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
