@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { StyledGroupRowInnerRendererContainer } from './styles';
 
 const MODEL_UPDATED_EVENT = 'modelUpdated';
@@ -9,12 +9,12 @@ export const GroupRowInnerRenderer = ({ node, value, api, totalCounts }: any) =>
   const [totalChildrenCount, setTotalChildrenCount] = useState(node.allChildrenCount);
   const [totalNumberCount, setTotalNumberCount] = useState(totalCounts ? totalCounts[node.key] : 0);
 
-  const refreshUi = () => {
+  const refreshUi = useCallback(() => {
     setTotalChildrenCount(node.allChildrenCount);
     setTotalNumberCount(totalCounts ? totalCounts[node.key] : 0);
-  };
+  }, [node.allChildrenCount, node.key, totalCounts]);
 
-  const dataChangedListener = () => refreshUi();
+  const dataChangedListener = useCallback(() => refreshUi(), [refreshUi]);
 
   useEffect(() => {
     api.addEventListener(CELL_VALUE_CHANGED_EVENT, dataChangedListener);
@@ -26,7 +26,7 @@ export const GroupRowInnerRenderer = ({ node, value, api, totalCounts }: any) =>
       api.removeEventListener(FILTER_CHANGED_EVENT, dataChangedListener);
       api.removeEventListener(MODEL_UPDATED_EVENT, dataChangedListener);
     };
-  }, [api]);
+  }, [api, dataChangedListener]);
 
   const getFormattedCount = () => {
     if (!totalNumberCount) {

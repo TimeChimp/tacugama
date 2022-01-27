@@ -54,7 +54,6 @@ export interface DataGridColumn extends AgGridColumnProps {
   rowGroup?: boolean;
   valueType?: DataGridColumnValueType;
   groupable?: boolean;
-  aggFunc?: DataGridAggFunc;
   sortable?: boolean;
   hide?: boolean;
   customMap?: (value: any) => any;
@@ -205,6 +204,8 @@ export interface DataGridProps {
   treeData?: boolean;
   getServerSideGroupKey?: GetServerSideGroupKey | undefined;
   getDataPath?: GetDataPath | undefined;
+  groupIncludeFooter?: boolean;
+  groupIncludeTotalFooter?: boolean;
 }
 
 export interface DataGridView {

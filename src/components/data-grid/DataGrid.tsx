@@ -65,6 +65,7 @@ import DataGridActions from './DataGridActions';
 import { RowSelect } from '../row-select';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { GroupRowInnerRenderer } from './GroupRowInnerRenderer';
+import { GroupRowInnerTagRenderer } from './GroupRowInnerTagRenderer';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
@@ -109,6 +110,8 @@ export const DataGrid = ({
   hideDownload = false,
   hideDelete = false,
   treeData = false,
+  groupIncludeFooter = false,
+  groupIncludeTotalFooter = false,
   getServerSideGroupKey,
   getDataPath,
   onSelectionChangedHandler,
@@ -609,6 +612,8 @@ export const DataGrid = ({
               },
             }
           }
+          groupIncludeFooter={groupIncludeFooter}
+          groupIncludeTotalFooter={groupIncludeTotalFooter}
           groupSelectsChildren={!treeData && true}
           pagination
           paginationPageSize={25}
@@ -635,6 +640,7 @@ export const DataGrid = ({
             loadingCellTemplate: LoadingCellTemplate,
             rowSelect: RowSelect,
             groupRowInnerRenderer: GroupRowInnerRenderer,
+            groupRowInnerTagRenderer: GroupRowInnerTagRenderer,
           }}
           icons={{
             sortAscending: () =>
