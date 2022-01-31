@@ -72,6 +72,7 @@ export const ColumnFilters = ({
         const filterValue = value && typeof value === 'object' ? value.value : value;
         const filterLabel = value && typeof value === 'object' ? value.label : value;
         const item: DropdownItem = {
+          ...(typeof value === 'object' ? value : {}),
           id: filterLabel,
           label: filterLabel,
           action: () => filterOnValue(columnField, filterValue, type),
