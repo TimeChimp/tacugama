@@ -84,7 +84,7 @@
     "@ag-grid-community/core": "25.0.1",
     "@ag-grid-community/csv-export": "25.0.1",
     "@ag-grid-community/react": "25.0.1",
-    "@ag-grid-enterprise/excel-export": "25.0.1",
+    "@ag-grid-enterprise/excel-export": "26.2.0",
     "@ag-grid-enterprise/row-grouping": "25.0.1",
     "@ag-grid-enterprise/server-side-row-model": "25.0.1",
     "@ag-grid-enterprise/set-filter": "25.0.1",
