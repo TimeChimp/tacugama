@@ -73,7 +73,7 @@ export const Input = ({ testId, type, uppercase, ...rest }: InputProps) => {
         }),
         ...borderRadius(scale0),
         backgroundColor: primaryB,
-        ...margin(scale0),
+        ...margin('0'),
         ...rootPadding(),
       }),
     },
