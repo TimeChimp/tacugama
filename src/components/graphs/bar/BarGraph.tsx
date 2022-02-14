@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryTheme, VictoryTooltip } from 'victory';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { FlyOutTooltip } from '../tooltip';
+import { calculateDateAxisRange } from '../utils';
 
 const SINGLE_BAR_WIDTH = 100;
 
@@ -86,6 +87,16 @@ export const BarGraph = ({
     return max * 2.1;
   }, [convertedData]);
 
+  const xAxisRange = useMemo(() => {
+    if (convertedData.length && formatAsDate) {
+      const dates = convertedData.map((convertedData: BarGraphData) => {
+        return new Date(convertedData?.date!);
+      });
+
+      return calculateDateAxisRange(dates);
+    }
+  }, [convertedData, formatAsDate]);
+
   return (
     <VictoryChart
       maxDomain={{ y: maxValue }}
@@ -94,10 +105,10 @@ export const BarGraph = ({
       height={height}
       width={width}
       theme={VictoryTheme.material}
-      domainPadding={100}
+      domainPadding={50}
     >
       <VictoryAxis
-        label={horizontalAxisLabel}
+        label={!formatAsDate ? horizontalAxisLabel : ''}
         style={{
           axisLabel: { padding: 35, color: dark0, fontSize: scale600 },
           tickLabels: { fontSize: scale400, stroke: dark4 },
@@ -106,6 +117,7 @@ export const BarGraph = ({
         tickFormat={(t) =>
           formatAsDate ? new TcDate(new Date(t)).format('dd MMM') : `${horizontalAxisItemLabel} ${t?.split('-')[1]}`
         }
+        tickValues={xAxisRange}
       />
       <VictoryAxis
         dependentAxis
@@ -144,6 +156,8 @@ export const BarGraph = ({
                 isNonBillable={isNonBillable}
                 flyOutTooltipWidth={flyOutWidth}
                 flyOutTooltipHeight={flyOutHeight}
+                formatAsDate={formatAsDate}
+                horizontalAxisItemLabel={horizontalAxisItemLabel}
               />
             }
           />

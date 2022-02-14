@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { useTheme } from '../../../providers';
-import { LabelMedium, Box } from '../../../components';
+import { Box } from '../../../components/box';
+import { LabelMedium } from '../../../components/typography';
 import { ParagraphSmall } from 'baseui/typography';
 import { FlexGrid } from '../../flex-grid';
 
@@ -18,6 +19,8 @@ export const FlyOutTooltip = ({
   flyOutWidth = 270,
   flyOutHeight = 200,
   width,
+  formatAsDate,
+  horizontalAxisItemLabel,
 }: any) => {
   const {
     theme: {
@@ -39,11 +42,15 @@ export const FlyOutTooltip = ({
     return x;
   }, [x, width, flyOutWidth]);
 
+  const headingLabel = formatAsDate
+    ? new TcDate(datum.date).format('dd MMM yyyy')
+    : `${horizontalAxisItemLabel} ${datum.date.split('-')[1]}`;
+
   return (
     <g style={{ pointerEvents: 'none' }}>
       <foreignObject x={calculateXOffset - 140} y={y - 170} width={flyOutWidth} height={flyOutHeight}>
         <Box padding={scale600}>
-          <LabelMedium marginBottom={scale500}>{new TcDate(datum.date).format('dd MMM yyyy')}</LabelMedium>
+          <LabelMedium marginBottom={scale500}>{headingLabel}</LabelMedium>
           <FlexGrid justifyContent="space-between">
             <ParagraphSmall margin={scale100} color={dark4}>
               {trackedText}:
