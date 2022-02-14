@@ -177,7 +177,6 @@ export const LineGraph = ({
       }
     >
       <VictoryAxis
-        label={!formatAsDate ? horizontalAxisLabel : ''}
         style={{
           axisLabel: { padding: 35, color: dark0, fontSize: scale600 },
           tickLabels: { fontSize: scale400, stroke: dark4 },
