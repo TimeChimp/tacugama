@@ -225,7 +225,7 @@ export const LineGraph = ({
           y={verticalAxisValue}
         />
       ) : null}
-      {legendData ? (
+      {limit && legendData ? (
         <VictoryLegend
           x={width / 2 - 115}
           y={height - 20}
