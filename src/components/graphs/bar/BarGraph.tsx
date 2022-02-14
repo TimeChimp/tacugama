@@ -5,7 +5,7 @@ import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { FlyOutTooltip } from '../tooltip';
 import { calculateDateAxisRange } from '../utils';
 
-const SINGLE_BAR_WIDTH = 100;
+const SINGLE_BAR_WIDTH = 50;
 
 interface BarGraphData {
   date?: Date | string;
@@ -105,7 +105,7 @@ export const BarGraph = ({
       height={height}
       width={width}
       theme={VictoryTheme.material}
-      domainPadding={50}
+      domainPadding={25}
     >
       <VictoryAxis
         label={!formatAsDate ? horizontalAxisLabel : ''}
@@ -164,7 +164,7 @@ export const BarGraph = ({
           />
         }
         barRatio={barRatio}
-        barWidth={data?.length === 1 ? SINGLE_BAR_WIDTH : undefined}
+        barWidth={data?.length < 4 ? SINGLE_BAR_WIDTH : undefined}
       />
     </VictoryChart>
   );
