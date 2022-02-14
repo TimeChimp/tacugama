@@ -118,6 +118,7 @@ export const BarGraph = ({
           formatAsDate ? new TcDate(new Date(t)).format('dd MMM') : `${horizontalAxisItemLabel} ${t?.split('-')[1]}`
         }
         tickValues={xAxisRange}
+        fixLabelOverlap
       />
       <VictoryAxis
         dependentAxis
