@@ -186,6 +186,7 @@ export const LineGraph = ({
         tickFormat={(t) =>
           formatAsDate ? new TcDate(new Date(t)).format('dd MMM') : `${horizontalAxisItemLabel} ${t?.split('-')[1]}`
         }
+        fixLabelOverlap
       />
       <VictoryAxis
         dependentAxis
@@ -227,7 +228,7 @@ export const LineGraph = ({
       {limit && legendData ? (
         <VictoryLegend
           x={width / 2 - 115}
-          y={height - 20}
+          y={20}
           orientation="horizontal"
           gutter={20}
           data={legendData}
