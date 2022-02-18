@@ -1,8 +1,11 @@
-import { NumberFormat } from '@timechimp/timechimp-typescript-helpers';
 import React from 'react';
+import { NumberFormat } from '@timechimp/timechimp-typescript-helpers';
 import { PRICE_INPUT_PLACEHOLDER, PRICE_INPUT_PREFIX } from '../../../models';
 import { PriceInputComponent } from './styles';
 import { PriceInputProps } from './types';
+
+const DEFAULT_NUMBER_FORMAT = '1,234.56';
+const DEFAULT_TEST_ID = 'price-input';
 
 const getNumberSeparators = (numberFormat: NumberFormat) => {
   switch (numberFormat) {
@@ -19,6 +22,8 @@ const getNumberSeparators = (numberFormat: NumberFormat) => {
 export const PriceInput = ({
   placeholder = PRICE_INPUT_PLACEHOLDER,
   prefix = PRICE_INPUT_PREFIX,
+  numberFormat = DEFAULT_NUMBER_FORMAT,
+  testId = DEFAULT_TEST_ID,
   allowNegative = true,
   error,
   onChange,
@@ -26,8 +31,6 @@ export const PriceInput = ({
   defaultValue,
   onKeyPress,
   onBlur,
-  numberFormat = '1,234.56',
-  testId = 'price-input',
 }: PriceInputProps) => {
   const { thousandSeparator, decimalSeparator } = getNumberSeparators(numberFormat);
   return (
