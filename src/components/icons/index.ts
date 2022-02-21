@@ -95,3 +95,4 @@ export * from './FormatPoints';
 export * from './Loader';
 export * from './LogoWithName';
 export * from './Plane';
+export * from './Calculator';
