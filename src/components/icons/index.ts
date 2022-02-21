@@ -94,3 +94,4 @@ export * from './CircleClockInverted';
 export * from './FormatPoints';
 export * from './Loader';
 export * from './LogoWithName';
+export * from './Plane';
