@@ -42,6 +42,8 @@ import {
   CircleClockInverted as CircleClockInvertedIcon,
   Plane as PlaneIcon,
   Calculator as CalculatorIcon,
+  Menu as MenuIcon,
+  User as UserIcon,
 } from './';
 import { SVGProps } from './Icon';
 
@@ -90,6 +92,8 @@ const LogoWithNameTemplate: Story<SVGProps> = (args) => <LogoWithNameIcon {...ar
 const CircleClockInvertedTemplate: Story<SVGProps> = (args) => <CircleClockInvertedIcon {...args} />;
 const PlaneTemplate: Story<SVGProps> = (args) => <PlaneIcon {...args} />;
 const CalculatorTemplate: Story<SVGProps> = (args) => <CalculatorIcon {...args} />;
+const MenuTemplate: Story<SVGProps> = (args) => <MenuIcon {...args} />;
+const UserTemplate: Story<SVGProps> = (args) => <UserIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -283,5 +287,15 @@ Plane.args = {
 
 export const Calculator = CalculatorTemplate.bind({});
 Calculator.args = {
+  size: '16',
+};
+
+export const Menu = MenuTemplate.bind({});
+Menu.args = {
+  size: '16',
+};
+
+export const User = UserTemplate.bind({});
+User.args = {
   size: '16',
 };
