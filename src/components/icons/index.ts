@@ -96,5 +96,5 @@ export * from './Loader';
 export * from './LogoWithName';
 export * from './Plane';
 export * from './Calculator';
-export * from './Menu';
+export * from './OrganizationMenu';
 export * from './User';
