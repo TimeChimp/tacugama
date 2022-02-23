@@ -19,6 +19,7 @@ export const Toggle = ({ checked, children, testId, size = ToggleSize.small, ...
     theme: {
       current: {
         sizing: { scale0, scale100, scale300, scale400, scale500, scale700, scale900 },
+        colors: { primary400 },
         customColors: { dark4, light4, primaryMain },
         typography: { LabelSmall },
       },
@@ -48,7 +49,7 @@ export const Toggle = ({ checked, children, testId, size = ToggleSize.small, ...
             height: size === ToggleSize.small ? scale500 : scale700,
             marginRight: 0,
             marginLeft: 0,
-            background: !!checked ? primaryMain : dark4,
+            backgroundColor: !!checked ? primary400 : dark4,
             ...borderRadius(scale400),
           },
         },
