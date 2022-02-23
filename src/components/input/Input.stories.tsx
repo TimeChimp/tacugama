@@ -6,10 +6,6 @@ import { SearchInput, SearchInputProps } from './SearchInput';
 import { ColorInput, ColorInputProps } from './ColorInput';
 import { Search as SearchIcon } from '../icons';
 import { CharCounter } from '../char-counter';
-import { PriceInputProps } from './price-input/types';
-import { PriceInput } from './price-input';
-import { HoursInputProps } from './hours-input/types';
-import { HoursInput } from './hours-input';
 
 export default {
   title: 'Components/Input',
@@ -21,10 +17,6 @@ const Template: Story<InputProps> = (args) => <Input {...args} />;
 const SearchTemplate: Story<SearchInputProps> = (args) => <SearchInput {...args} />;
 
 const ColorTemplate: Story<ColorInputProps> = (args) => <ColorInput {...args} />;
-
-const PriceTemplate: Story<PriceInputProps> = (args) => <PriceInput {...args} />;
-
-const Hoursemplate: Story<HoursInputProps> = (args) => <HoursInput {...args} />;
 
 const WithCharCount: Story<InputProps> = (args) => (
   <>
@@ -81,9 +73,3 @@ export const EmptyColor = ColorTemplate.bind({});
 EmptyColor.args = {
   generateRandomColor: false,
 };
-
-export const Price = PriceTemplate.bind({});
-Color.args = {};
-
-export const Hours = Hoursemplate.bind({});
-Color.args = {};
