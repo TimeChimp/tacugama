@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '../../providers';
 import { Icon, SVGProps, defaultIconProps } from './Icon';
 
-export const Menu = ({ title = 'Menu', size = defaultIconProps.size, color }: SVGProps) => {
+export const OrganizationMenu = ({ title = 'OrganizationMenu', size = defaultIconProps.size, color }: SVGProps) => {
   const { theme } = useTheme();
 
   return (
