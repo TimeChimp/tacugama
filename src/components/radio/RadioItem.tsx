@@ -42,7 +42,7 @@ const radioOverrides = ({
       height: $theme.sizing.scale650,
       backgroundColor: 'transparent',
       ...border({
-        borderColor: $checked ? $theme.customColors.primaryMain : $theme.colors.contentTertiary,
+        borderColor: $checked ? $theme.colors.primary400 : $theme.colors.contentTertiary,
         borderStyle: 'solid',
         borderWidth: $theme.borders.radius100,
       }),
@@ -53,7 +53,7 @@ const radioOverrides = ({
     style: ({ $theme, $checked }: { $theme: CustomThemeType; $checked: boolean }) => ({
       width: $theme.sizing.scale400,
       height: $theme.sizing.scale400,
-      backgroundColor: $checked ? $theme.customColors.primaryMain : 'transparent',
+      backgroundColor: $checked ? $theme.colors.primary400 : 'transparent',
     }),
   },
   ...overrides,
