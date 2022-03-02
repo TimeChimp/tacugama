@@ -31,6 +31,7 @@ export const PriceInput = ({
   defaultValue,
   onKeyPress,
   onBlur,
+  value,
 }: PriceInputProps) => {
   const { thousandSeparator, decimalSeparator } = getNumberSeparators(numberFormat);
   return (
@@ -41,6 +42,7 @@ export const PriceInput = ({
       allowNegative={allowNegative}
       onValueChange={({ value }) => onChange(value)}
       disabled={disabled}
+      value={value}
       defaultValue={defaultValue}
       onKeyPress={onKeyPress}
       onBlur={onBlur}
