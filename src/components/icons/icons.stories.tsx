@@ -44,6 +44,7 @@ import {
   Calculator as CalculatorIcon,
   OrganizationMenu as OrganizationMenuIcon,
   User as UserIcon,
+  Clinic as ClinicIcon,
 } from './';
 import { SVGProps } from './Icon';
 
@@ -91,6 +92,7 @@ const LoaderTemplate: Story<SVGProps> = (args) => <LoaderIcon {...args} />;
 const LogoWithNameTemplate: Story<SVGProps> = (args) => <LogoWithNameIcon {...args} />;
 const CircleClockInvertedTemplate: Story<SVGProps> = (args) => <CircleClockInvertedIcon {...args} />;
 const PlaneTemplate: Story<SVGProps> = (args) => <PlaneIcon {...args} />;
+const ClinicTemplate: Story<SVGProps> = (args) => <ClinicIcon {...args} />;
 const CalculatorTemplate: Story<SVGProps> = (args) => <CalculatorIcon {...args} />;
 const OrganizationMenuTemplate: Story<SVGProps> = (args) => <OrganizationMenuIcon {...args} />;
 const UserTemplate: Story<SVGProps> = (args) => <UserIcon {...args} />;
@@ -297,5 +299,10 @@ OrganizationMenu.args = {
 
 export const User = UserTemplate.bind({});
 User.args = {
+  size: '16',
+};
+
+export const Clinic = ClinicTemplate.bind({});
+Clinic.args = {
   size: '16',
 };
