@@ -1,9 +1,9 @@
 import NumberFormat from 'react-number-format';
 import { border, getInputBorderColor, borderRadius } from '../../../utils';
 import { themedStyled } from '../../../theme';
-import { PriceInputComponentProps } from './types';
+import { NumberInputComponentProps } from './types';
 
-export const PriceInputComponent = themedStyled<typeof NumberFormat, PriceInputComponentProps>(
+export const NumberInputComponent = themedStyled<typeof NumberFormat, NumberInputComponentProps>(
   NumberFormat,
   ({ $theme, $error }) => ({
     height: $theme.sizing.scale1000,
