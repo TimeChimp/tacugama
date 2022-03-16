@@ -40,6 +40,7 @@ export const NumberInput = ({
       prefix={prefix}
       allowNegative={allowNegative}
       onValueChange={({ value }) => onChange(value)}
+      isNumericString
       disabled={disabled}
       value={value}
       defaultValue={defaultValue}
