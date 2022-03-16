@@ -1,5 +1,5 @@
 {
-  "version": "1.9.1",
+  "version": "1.9.3",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -100,7 +100,7 @@
     "pdfmake": "^0.1.71",
     "react-color": "^2.19.3",
     "react-hook-form": "^6.15.4",
-    "react-number-format": "^4.9.1",
+    "react-number-format": "^4.7.3",
     "styletron-engine-atomic": "^1.4.7",
     "styletron-react": "^5.2.7",
     "victory": "^36.0.1"
