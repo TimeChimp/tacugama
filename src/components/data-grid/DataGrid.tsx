@@ -397,20 +397,21 @@ export const DataGrid = ({
         value && typeof value === 'object' ? value.value : value,
       );
     }
-    params.success(values);
+    params.success([...values, '']);
   };
 
   const checkIfSearchColumn = (columnField: string) => searchColumns.includes(columnField);
 
   const getFilterType = (columnField: string, type?: DataGridColumnValueType): IFilterType | undefined => {
+    if (type === 'date' || type === 'time') {
+      return 'agDateColumnFilter';
+    }
+
     const isSearchColumn = checkIfSearchColumn(columnField);
     if (isSearchColumn) {
       return 'agTextColumnFilter';
     }
 
-    if (type === 'date') {
-      return 'agDateColumnFilter';
-    }
     return 'agSetColumnFilter';
   };
 
