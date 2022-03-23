@@ -116,6 +116,8 @@ export const DataGrid = ({
   getServerSideGroupKey,
   getDataPath,
   onSelectionChangedHandler,
+  onRowDataUpdated,
+  onRowDataChanged,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
@@ -622,6 +624,8 @@ export const DataGrid = ({
           suppressPaginationPanel
           enableCellTextSelection
           onGridReady={onGridReady}
+          onRowDataUpdated={onRowDataUpdated}
+          onRowDataChanged={onRowDataChanged}
           getRowNodeId={getRowNodeId}
           onFirstDataRendered={onFirstDataRendered}
           onGridSizeChanged={onGridSizeChanged}

@@ -8,6 +8,7 @@ import {
   ICombinedSimpleModel,
   IFilterComp,
   NumberFilterModel,
+  RowDataUpdatedEvent,
   RowNode,
   TextFilterModel,
   ValueFormatterParams,
@@ -207,6 +208,8 @@ export interface DataGridProps {
   getDataPath?: GetDataPath | undefined;
   groupIncludeFooter?: boolean;
   groupIncludeTotalFooter?: boolean;
+  onRowDataChanged?: (e: RowDataUpdatedEvent) => void;
+  onRowDataUpdated?: (e: RowDataUpdatedEvent) => void;
 }
 
 export interface DataGridView {
