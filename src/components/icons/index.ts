@@ -99,3 +99,4 @@ export * from './Calculator';
 export * from './OrganizationMenu';
 export * from './User';
 export * from './Clinic';
+export * from './ArrowDown';

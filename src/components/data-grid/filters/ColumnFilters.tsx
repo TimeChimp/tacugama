@@ -188,6 +188,7 @@ export const ColumnFilters = ({
             startEnhancer={Icon && <Icon color={getDateIconColor()} />}
             size={SIZE.compact}
             title={getDateTitle(title)}
+            arrows
           />
           <Datepicker
             onChange={({ date }) => onDateSelect({ date, columnField })}
@@ -216,6 +217,7 @@ export const ColumnFilters = ({
             isActive={isSetFilterActive(columnField)}
             onClear={() => onSetFilterClear(columnField)}
             hasValue={isSetFilterActive(columnField)}
+            arrows
           />
         </Dropdown>
       ),
@@ -229,6 +231,7 @@ export const ColumnFilters = ({
             title={getSelectActiveItem(columnField, values).label ?? title}
             startEnhancer={getSelectActiveItem(columnField, values).icon}
             size={SIZE.compact}
+            arrows
           />
         </Dropdown>
       ),

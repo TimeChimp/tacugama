@@ -2,9 +2,9 @@ import React from 'react';
 import { Translations } from './types';
 
 export const defaultTranslations: Translations = {
-  rowCountText: (count: number) => (
+  rowCountText: (count: number, totalCount: number) => (
     <>
-      Showing <strong>{count}</strong> results
+      Showing <strong>{count}</strong> of <strong>{totalCount}</strong> results
     </>
   ),
   rowCountSelectedText: (count: number) => (

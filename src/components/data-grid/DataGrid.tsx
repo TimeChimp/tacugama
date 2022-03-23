@@ -87,7 +87,6 @@ export const DataGrid = ({
   columnToggling,
   accessToken,
   sortableColumns,
-  resizeableColumns,
   views,
   dates,
   setDates,
@@ -683,6 +682,8 @@ export const DataGrid = ({
               },
             ],
           }}
+          tooltipShowDelay={0}
+          colResizeDefault="shift"
         >
           <AgGridColumn
             hide={!selection}
@@ -730,7 +731,7 @@ export const DataGrid = ({
                 valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, valueType, customMap)}
                 aggFunc={aggFunc}
                 sortable={sortable ?? sortableColumns}
-                resizable={resizeableColumns}
+                resizable={true}
                 {...rest}
               />
             ),
