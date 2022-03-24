@@ -125,7 +125,7 @@ export interface FormatSettings {
 }
 
 export interface Translations {
-  rowCountText: (count: number) => JSX.Element;
+  rowCountText: (count: number, totalCount: number) => JSX.Element;
   rowCountSelectedText: (count: number) => JSX.Element;
   rowActionItems?: DropdownItem[];
   onRowEdit?: (data: RowActionsCellData) => void;

@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import { SecondaryButton, SecondaryButtonProps, TransparentButton } from '../../button';
 import { border, borderRadius, padding } from '../../../utils';
 import { LabelSmall } from '../../typography';
-import { Clear } from '../../icons';
+import { ArrowDown, Clear } from '../../icons';
 import { useTheme } from '../../../providers';
 
 const FILTER_BUTTON_TEST_ID = 'filter-button';
@@ -12,14 +12,15 @@ export interface FilterButtonProps extends SecondaryButtonProps {
   isActive?: boolean;
   hasValue?: boolean;
   onClear?: () => void;
+  arrows?: boolean;
 }
 
 export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
-  ({ title, testId, onClear, hasValue = false, isActive = false, ...rest }: FilterButtonProps, ref) => {
+  ({ title, testId, onClear, hasValue = false, isActive = false, arrows, ...rest }: FilterButtonProps, ref) => {
     const {
       theme: {
         current: {
-          sizing: { scale600 },
+          sizing: { scale300, scale600 },
           colors: { primaryA },
         },
       },
@@ -50,12 +51,14 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
           },
         }}
         endEnhancer={
-          hasValue &&
-          onClear && (
-            <TransparentButton onClick={onClear}>
-              <Clear size={scale600} color={primaryA} />
-            </TransparentButton>
-          )
+          <>
+            {arrows && <ArrowDown size={scale300} />}
+            {hasValue && onClear && (
+              <TransparentButton onClick={onClear}>
+                <Clear size={scale600} color={primaryA} />
+              </TransparentButton>
+            )}
+          </>
         }
         {...rest}
       >

@@ -45,6 +45,8 @@ import {
   OrganizationMenu as OrganizationMenuIcon,
   User as UserIcon,
   Clinic as ClinicIcon,
+  ArrowDown as ArrowDownIcon,
+  Drag as DragIcon,
 } from './';
 import { SVGProps } from './Icon';
 
@@ -96,6 +98,8 @@ const ClinicTemplate: Story<SVGProps> = (args) => <ClinicIcon {...args} />;
 const CalculatorTemplate: Story<SVGProps> = (args) => <CalculatorIcon {...args} />;
 const OrganizationMenuTemplate: Story<SVGProps> = (args) => <OrganizationMenuIcon {...args} />;
 const UserTemplate: Story<SVGProps> = (args) => <UserIcon {...args} />;
+const ArrowDownTemplate: Story<SVGProps> = (args) => <ArrowDownIcon {...args} />;
+const DragTemplate: Story<SVGProps> = (args) => <DragIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -304,5 +308,15 @@ User.args = {
 
 export const Clinic = ClinicTemplate.bind({});
 Clinic.args = {
+  size: '16',
+};
+
+export const ArrowDown = ArrowDownTemplate.bind({});
+ArrowDown.args = {
+  size: '16',
+};
+
+export const Drag = DragTemplate.bind({});
+Drag.args = {
   size: '16',
 };

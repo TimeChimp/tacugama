@@ -65,6 +65,7 @@ export const Dropdown = ({
           },
         },
       }}
+      showArrow
       content={({ close }) => (
         <>
           {showSearch && (
