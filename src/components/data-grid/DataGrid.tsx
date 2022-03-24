@@ -732,7 +732,7 @@ export const DataGrid = ({
                 valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, valueType, customMap)}
                 aggFunc={aggFunc}
                 sortable={sortable ?? sortableColumns}
-                resizable={true}
+                resizable
                 {...rest}
               />
             ),
