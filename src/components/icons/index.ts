@@ -100,3 +100,4 @@ export * from './OrganizationMenu';
 export * from './User';
 export * from './Clinic';
 export * from './ArrowDown';
+export * from './EmptyCalendar';
