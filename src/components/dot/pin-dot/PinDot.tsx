@@ -1,6 +1,6 @@
 import { Colors } from 'baseui/theme';
 import React from 'react';
-import { themedStyled } from '../../theme';
+import { themedStyled } from '../../../theme';
 
 export interface PinDotProps {
   hasValue: boolean;

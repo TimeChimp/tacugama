@@ -5,8 +5,8 @@ import {
   FileUploaderProps as BaseFileUploaderProps,
   StyleProps,
 } from 'baseui/file-uploader';
-import FileUploadInstruction from './FileUploadInstruction';
-import FileUploadPreview from './FileUploadPreview';
+import { FileUploadInstruction } from './file-upload-instruction';
+import { FileUploadPreview } from './file-upload-preview';
 import { borderRadius, margin, padding } from '../../utils';
 import { Button } from 'baseui/button';
 import { useTheme } from '../../providers/ThemeProvider';

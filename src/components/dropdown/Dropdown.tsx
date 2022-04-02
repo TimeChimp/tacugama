@@ -9,7 +9,7 @@ import { SIZE } from 'baseui/button';
 import { Skeleton } from '../skeleton';
 import { ListItem } from '../list';
 import { DropdownItem, DropdownProps } from './types';
-import { DropdownOption } from './DropdownOption';
+import { DropdownOption } from './dropdown-option';
 
 const NUMBER_OF_LOADING_ROWS = 4;
 

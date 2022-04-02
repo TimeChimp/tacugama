@@ -1,6 +1,6 @@
 import React from 'react';
-import ErrorPage from './ErrorPage';
-import { ErrorPageProps } from './types';
+import ErrorPage from '../ErrorPage';
+import { ErrorPageProps } from '../types';
 
 export const Forbidden = ({
   title,

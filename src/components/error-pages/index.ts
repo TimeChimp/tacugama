@@ -1,3 +1,3 @@
-export * from './NotFound';
-export * from './Forbidden';
+export * from './not-found';
+export * from './forbidden';
 export * from './ErrorPage';

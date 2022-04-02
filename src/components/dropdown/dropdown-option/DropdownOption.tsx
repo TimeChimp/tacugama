@@ -1,14 +1,14 @@
-import { ParagraphSmall } from '../typography';
-import { useTheme } from '../../providers';
+import { ParagraphSmall } from '../../typography';
+import { useTheme } from '../../../providers';
 import React, { forwardRef } from 'react';
-import { Checkbox } from '../checkbox/Checkbox';
+import { Checkbox } from '../../checkbox/Checkbox';
 import {
   StyledDropdownOption,
   StyledDropdownOptionIcon,
   StyledDropdownOptionIconEnd,
   StyledDropdownOptionLabel,
-} from './styles';
-import { DropdownOptionProps } from './types';
+} from '../styles';
+import { DropdownOptionProps } from '../types';
 
 export const DropdownOption = forwardRef<any, DropdownOptionProps>(
   ({ item, onItemSelect }: DropdownOptionProps, ref) => {

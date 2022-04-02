@@ -1,6 +1,6 @@
 import React from 'react';
-import { Dot } from './Dot';
-import { useTheme } from '../../providers';
+import { Dot } from '../Dot';
+import { useTheme } from '../../../providers';
 
 export interface StatusDotProps {
   clockedIn: boolean;

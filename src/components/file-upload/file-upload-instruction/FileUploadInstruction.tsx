@@ -1,5 +1,5 @@
 import React from 'react';
-import { themedStyled } from '../../theme';
+import { themedStyled } from '../../../theme';
 
 const StyledFileUploadInstruction = themedStyled('div', {
   fontWeight: 600,
