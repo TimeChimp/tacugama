@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
-import { Modal } from '../modal/Modal';
-import { ModalHeader } from '../modal/ModalHeader';
-import { SecondaryModalButton } from '../button/SecondaryModalButton';
-import { ModalFooter } from '../modal/ModalFooter';
-import { ModalBody } from '../modal/ModalBody';
-import { HeadingSmall } from '../typography/HeadingSmall';
-import { ParagraphSmall } from '../typography/ParagraphSmall';
-import { ModalButton } from '../button/ModalButton';
+import { ModalHeader, ModalFooter, ModalBody, Modal } from '../modal';
+import { HeadingSmall, ParagraphSmall } from '../typography';
+import { ModalButton, SecondaryModalButton } from '../button';
 import { ButtonType, ConfirmationModalType } from '../../models';
 
 export interface ConfirmationModalProps {

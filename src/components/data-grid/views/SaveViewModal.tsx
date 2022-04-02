@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ModalFooter } from '../../modal/ModalFooter';
-import { ModalBody } from '../../modal/ModalBody';
-import { Modal } from '../../modal/Modal';
-import ModalButton from '../../button/ModalButton';
-import { SecondaryModalButton } from '../../button/SecondaryModalButton';
-import { ModalHeader } from '../../modal/ModalHeader';
-import { HeadingSmall } from '../../typography/HeadingSmall';
+import { ModalFooter, ModalBody, Modal, ModalHeader } from '../../modal';
+import { ModalButton, SecondaryModalButton } from '../../button';
+import { HeadingSmall } from '../../typography';
 import { FormControl } from '../../form-control/FormControl';
 import { SaveViewModalProps, DataGridState } from '../types';
 import { Checkbox } from '../../checkbox/Checkbox';

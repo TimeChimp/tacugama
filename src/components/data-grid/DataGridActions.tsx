@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import TertiaryButton from '../button/TertiaryButton';
+import { TertiaryButton } from '../button';
 import useTheme from '../../providers/ThemeProvider';
 import { StyledDataGridActions } from './styles';
 import { Dropdown, DropdownItem } from '../dropdown';

@@ -2,9 +2,9 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Snackbar, SnackbarProps } from './Snackbar';
-import { ErrorSnackbarProps, ErrorSnackbar } from './ErrorSnackbar';
-import { SuccessSnackbarProps, SuccessSnackbar } from './SuccessSnackbar';
-import { InfoSnackbar, InfoSnackbarProps } from './InfoSnackbar';
+import { ErrorSnackbarProps, ErrorSnackbar } from './error-snackbar';
+import { SuccessSnackbarProps, SuccessSnackbar } from './success-snackbar';
+import { InfoSnackbar, InfoSnackbarProps } from './info-snackbar';
 
 export default {
   title: 'Components/Snackbar',

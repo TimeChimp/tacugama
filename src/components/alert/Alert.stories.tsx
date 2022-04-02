@@ -2,10 +2,10 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Alert, AlertProps } from './Alert';
-import { ErrorAlert, ErrorAlertProps } from './ErrorAlert';
-import { SuccessAlert, SuccessAlertProps } from './SuccessAlert';
-import { WarningAlert, WarningAlertProps } from './WarningAlert';
-import { InfoAlert, InfoAlertProps } from './InfoAlert';
+import { ErrorAlert, ErrorAlertProps } from './error-alert';
+import { SuccessAlert, SuccessAlertProps } from './success-alert';
+import { WarningAlert, WarningAlertProps } from './warning-alert';
+import { InfoAlert, InfoAlertProps } from './info-alert';
 
 export default {
   title: 'Components/Alert',

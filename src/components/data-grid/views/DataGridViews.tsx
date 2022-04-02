@@ -3,7 +3,7 @@ import { View } from '../../icons/view/View';
 import useTheme from '../../../providers/ThemeProvider';
 import { DataGridViewsProps, DataGridView, CreateViewInput } from '../types';
 import { StyledDataGridViews, StyledDataGridDivider } from '../styles';
-import SecondaryButton from '../../button/SecondaryButton';
+import { SecondaryButton, ActiveButton } from '../../button';
 import { SIZE } from 'baseui/button';
 import ConfirmationModal from '../../confirmation-modal/ConfirmationModal';
 import { CreateViewModal } from './CreateViewModal';
@@ -12,7 +12,6 @@ import { SaveViewModal } from './SaveViewModal';
 import { RenameViewModal } from './RenameViewModal';
 import { ConfirmationModalType } from '../../../models';
 import { DataGridViewOptions } from './DataGridViewOptions';
-import ActiveButton from '../../button/ActiveButton';
 
 const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
 

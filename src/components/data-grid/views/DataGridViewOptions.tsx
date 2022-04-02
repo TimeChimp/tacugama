@@ -8,7 +8,7 @@ import { StatefulPopover } from '../../popover';
 import { Trash, Pin, Text, ActionMenuHorizontal, Views, Plus } from '../../icons';
 import { Dropdown, DropdownItem } from '../../dropdown';
 import { StatefulMenu } from '../../menu';
-import LabelXSmall from '../../typography/LabelXSmall';
+import { LabelXSmall } from '../../typography';
 import { SearchInput } from '../../input';
 import { StyledDropdownSearch } from '../../dropdown/styles';
 
