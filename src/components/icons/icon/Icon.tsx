@@ -27,6 +27,8 @@ interface StyledIconBoxProps {
 
 const StyledIconBox = themedStyled<'div', StyledIconBoxProps>('div', ({ $lineHeight }) => ({
   lineHeight: $lineHeight || '16px',
+  display: 'flex',
+  alignItems: 'center',
 }));
 
 export const Icon = forwardRef<HTMLDivElement, IconProps>(

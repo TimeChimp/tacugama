@@ -72,6 +72,7 @@ export const ColumnFilters = ({
         const filterValue = value && typeof value === 'object' ? value.value : value;
         const filterLabel = value && typeof value === 'object' ? value.label : value;
         const item: DropdownItem = {
+          ...(typeof value === 'object' ? value : {}),
           id: filterLabel,
           label: filterLabel,
           action: () => filterOnValue(columnField, filterValue, type),
@@ -187,6 +188,7 @@ export const ColumnFilters = ({
             startEnhancer={Icon && <Icon color={getDateIconColor()} />}
             size={SIZE.compact}
             title={getDateTitle(title)}
+            arrows
           />
           <Datepicker
             onChange={({ date }) => onDateSelect({ date, columnField })}
@@ -215,6 +217,7 @@ export const ColumnFilters = ({
             isActive={isSetFilterActive(columnField)}
             onClear={() => onSetFilterClear(columnField)}
             hasValue={isSetFilterActive(columnField)}
+            arrows
           />
         </Dropdown>
       ),
@@ -228,6 +231,7 @@ export const ColumnFilters = ({
             title={getSelectActiveItem(columnField, values).label ?? title}
             startEnhancer={getSelectActiveItem(columnField, values).icon}
             size={SIZE.compact}
+            arrows
           />
         </Dropdown>
       ),

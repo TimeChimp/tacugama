@@ -144,9 +144,9 @@ export const getButtonBackgroundColor = (type: ButtonType, { primary400, backgro
   return colors[type];
 };
 
-export const getButtonBackgroundHoverColor = (type: ButtonType) => {
+export const getButtonBackgroundHoverColor = (type: ButtonType, { primary600 }: Colors) => {
   const colors = {
-    default: '#5147A8',
+    default: primary600,
     success: '#06C270',
     error: '#FF3B3B',
   };

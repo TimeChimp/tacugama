@@ -90,6 +90,7 @@ describe('utils/colors', () => {
   describe('getButtonBackgroundColor', () => {
     const colors = {
       primary400: 'primary400',
+      primary600: 'primary600',
       backgroundPositive: 'backgroundPositive',
     };
 
@@ -113,20 +114,23 @@ describe('utils/colors', () => {
   });
 
   describe('getButtonBackgroundHoverColor', () => {
+    const colors = {
+      primary600: 'primary600',
+    };
     it('should get a default color', () => {
-      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.default);
+      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.default, colors as any);
 
-      expect(buttonBackgroundColor).toBe('#5147A8');
+      expect(buttonBackgroundColor).toBe(colors.primary600);
     });
 
     it('should get a success color', () => {
-      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.success);
+      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.success, colors as any);
 
       expect(buttonBackgroundColor).toBe('#06C270');
     });
 
     it('should get an error color', () => {
-      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.error);
+      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.error, colors as any);
 
       expect(buttonBackgroundColor).toBe('#FF3B3B');
     });

@@ -7,30 +7,8 @@ import {
   StyledDropdownOptionIcon,
   StyledDropdownOptionIconEnd,
   StyledDropdownOptionLabel,
-} from './StyledDropdownOption';
-
-export interface DropdownItem {
-  id?: string;
-  label: string;
-  icon?: JSX.Element;
-  iconEnd?: JSX.Element;
-  action?: () => void;
-  color?: string;
-  checkbox?: boolean;
-  isChecked?: boolean;
-  isBold?: boolean;
-  filterByProp?: {
-    name: string;
-    value: any;
-    secondaryName: string;
-    secondaryValue: string;
-  };
-}
-
-export interface DropdownOptionProps {
-  item: DropdownItem;
-  onItemSelect: (item: DropdownItem) => void;
-}
+} from './styles';
+import { DropdownOptionProps } from './types';
 
 export const DropdownOption = forwardRef<any, DropdownOptionProps>(
   ({ item, onItemSelect }: DropdownOptionProps, ref) => {

@@ -22,6 +22,8 @@ export const customColors: CustomColors = {
   light2: '#E7E7E9',
   light3: '#F3F3F4',
   light4: '#FFFFFF',
+  light5: '#B8B8B8',
+  light6: '#EEEEEE',
 
   // Red
   red0: '#E53535',
@@ -36,6 +38,8 @@ export const customColors: CustomColors = {
   green2: '#39D98A',
   green3: '#57EBA1',
   green4: '#E3FFF1',
+  green5: '#34785C',
+  green6: '#06C167',
 
   // Blue
   blue0: '#004FC4',
@@ -50,6 +54,7 @@ export const customColors: CustomColors = {
   yellow2: '#FDDD48',
   yellow3: '#FDED72',
   yellow4: '#FFFEE5',
+  yellow5: '#FFA502',
 
   // Purple
   purple0: '#3D357E',
@@ -66,6 +71,9 @@ export const customColors: CustomColors = {
   blueOutline: '#0063F7',
   yellowOutline: '#FFCC00',
   purpleOutline: '#5147A8',
+
+  //Brand
+  brand700: '#3F3787',
 };
 
 export const lightColors: DeepPartial<Theme['colors']> = {

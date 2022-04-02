@@ -1,36 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { StatefulMenu } from '../menu';
 import { StatefulPopover } from '../popover';
-import { DropdownItem, DropdownOption } from './DropdownOption';
-import { TetherPlacement } from 'baseui/layer';
 import { padding } from '../../utils';
-import { StyledDropdownSearch, StyledDropdownFooter } from './StyledDropdownOption';
+import { StyledDropdownSearch, StyledDropdownFooter } from './styles';
 import { SearchInput } from '../input/SearchInput';
 import useTheme from '../../providers/ThemeProvider';
 import { SIZE } from 'baseui/button';
 import { Skeleton } from '../skeleton';
 import { ListItem } from '../list';
+import { DropdownItem, DropdownProps } from './types';
+import { DropdownOption } from './DropdownOption';
 
 const NUMBER_OF_LOADING_ROWS = 4;
-
-export interface DropdownProps {
-  children?: React.ReactNode;
-  items: DropdownItem[];
-  placement?: TetherPlacement[keyof TetherPlacement];
-  showSearch?: boolean;
-  searchPlaceholder?: string;
-  onClose?: () => any;
-  onOpen?: () => any;
-  selection?: boolean;
-  selectedIds?: Array<string>;
-  footer?: JSX.Element;
-  customOption?: React.ForwardRefExoticComponent<any & React.RefAttributes<any>>;
-  propOverrides?: {
-    listProps: () => {};
-    optionProps: () => {};
-  };
-  isLoading?: boolean;
-}
 
 export const Dropdown = ({
   children,
@@ -84,6 +65,7 @@ export const Dropdown = ({
           },
         },
       }}
+      showArrow
       content={({ close }) => (
         <>
           {showSearch && (
@@ -134,7 +116,7 @@ export const Dropdown = ({
                   props: {
                     onItemSelect: (item: DropdownItem) => {
                       if (item.action) {
-                        item.action();
+                        item.action(selectedIds);
                       }
                       if (!selection) {
                         close();

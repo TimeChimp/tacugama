@@ -8,6 +8,8 @@ import {
   ICombinedSimpleModel,
   IFilterComp,
   NumberFilterModel,
+  RowDataUpdatedEvent,
+  RowNode,
   TextFilterModel,
   ValueFormatterParams,
 } from '@ag-grid-community/core';
@@ -17,6 +19,12 @@ import { SVGProps as IconProps } from '../icons';
 import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
 import { PageOrientation } from 'pdfmake/interfaces';
 import { Option } from '../select';
+import { AgGridColumnProps } from '@ag-grid-community/react';
+
+export enum RowModelType {
+  clientSide = 'clientSide',
+  serverSide = 'serverSide',
+}
 
 export interface DataGridApi {
   getSelectedRows: () => any[];
@@ -24,9 +32,10 @@ export interface DataGridApi {
   exportAsCsv: () => void;
   exportAsExcel: () => void;
   refreshStore: () => void;
+  refreshCells: () => void;
 }
 
-export type DataGridColumnType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'duration';
+export type DataGridColumnValueType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'duration';
 export type DataGridAggFunc = 'sum';
 
 export interface DataGridRowSelectProps {
@@ -39,20 +48,18 @@ export interface DataGridRowSelectProps {
   isLockedIconDisplayedFunc?: (data: any) => boolean;
 }
 
-export interface DataGridColumn {
-  colId?: string;
+export interface DataGridColumn extends AgGridColumnProps {
   field: string;
   label?: string;
   width?: number;
   rowGroup?: boolean;
-  type?: DataGridColumnType;
+  valueType?: DataGridColumnValueType;
   groupable?: boolean;
-  aggFunc?: DataGridAggFunc;
-  sort?: string;
   sortable?: boolean;
   hide?: boolean;
   customMap?: (value: any) => any;
   customComponent?: React.FunctionComponent;
+  customHeaderComponent?: React.FunctionComponent;
   rowSelectProps?: DataGridRowSelectProps;
 }
 
@@ -91,6 +98,14 @@ export interface Filter {
   hide?: boolean;
 }
 
+export interface GetServerSideGroupKey {
+  (dataItem: any): string;
+}
+
+export interface GetDataPath {
+  (data: any): string[];
+}
+
 export interface DataGridState {
   columnState: ColumnState[];
   columnGroupState: {
@@ -110,8 +125,11 @@ export interface FormatSettings {
 }
 
 export interface Translations {
-  rowCountText: (count: number) => JSX.Element;
+  rowCountText: (count: number, totalCount: number) => JSX.Element;
   rowCountSelectedText: (count: number) => JSX.Element;
+  rowActionItems?: DropdownItem[];
+  onRowEdit?: (data: RowActionsCellData) => void;
+  onRowEditIcon?: ComponentType<IconProps>;
   noRowsTitle: string;
   noRowsSubtext: string;
   groupBy: string;
@@ -146,17 +164,21 @@ export interface Translations {
 }
 
 export interface DataGridProps {
+  rowModelType?: RowModelType;
+  rowData?: any[] | undefined;
   columns: DataGridColumn[];
   filters?: Filter[];
   selection?: boolean;
+  enableExport?: boolean;
   filtering?: boolean;
   grouping?: boolean;
   viewing?: boolean;
   columnToggling?: boolean;
   onReady?: (dataGridApi: DataGridApi) => void;
   rowActionItems?: DropdownItem[];
+  autoGroupColumnDef?: ColDef;
   state?: string;
-  dataUrl: string;
+  dataUrl?: string;
   accessToken?: string;
   sortableColumns?: boolean;
   resizeableColumns?: boolean;
@@ -166,6 +188,7 @@ export interface DataGridProps {
   height?: string;
   dates?: Date[];
   hideDownload?: boolean;
+  hideDelete?: boolean;
   setDates?: (dates: Date[]) => void;
   onDeactivateView?: (id: string) => Promise<void>;
   onActivateView?: (id: string) => Promise<void>;
@@ -178,6 +201,15 @@ export interface DataGridProps {
   onSaveViewState?: (id: string, state: string) => Promise<void>;
   onBulkDelete?: (ids: string[]) => Promise<void>;
   onRowEdit?: (data: RowActionsCellData) => void;
+  onRowEditIcon?: ComponentType<IconProps>;
+  onSelectionChangedHandler?: (data: RowNode[]) => void;
+  treeData?: boolean;
+  getServerSideGroupKey?: GetServerSideGroupKey | undefined;
+  getDataPath?: GetDataPath | undefined;
+  groupIncludeFooter?: boolean;
+  groupIncludeTotalFooter?: boolean;
+  onRowDataChanged?: (e: RowDataUpdatedEvent) => void;
+  onRowDataUpdated?: (e: RowDataUpdatedEvent) => void;
 }
 
 export interface DataGridView {
@@ -235,18 +267,20 @@ export interface FooterRowCountProps {
 }
 export interface RowActionsCellData {
   items: DropdownItem[];
-  onEdit: (data: RowActionsCellData) => void;
-  contactId: string;
+  onEdit?: (data: RowActionsCellData) => void;
+  icon?: ComponentType<IconProps>;
   id: string;
   [key: string]: any;
 }
 export interface RowActionsCellProps {
-  api: GridApi;
+  api?: GridApi;
   data: RowActionsCellData;
+  icon?: ComponentType<IconProps>;
 }
 
 export interface RowEditCellProps {
   onClick: () => void;
+  icon?: ComponentType<IconProps>;
 }
 
 export interface HeaderCheckboxProps {
@@ -354,6 +388,7 @@ export interface DataGridActionsProps {
   translations: Translations;
   onBulkDelete?: (ids: string[]) => Promise<void>;
   hideDownload?: boolean;
+  hideDelete?: boolean;
 }
 
 export interface PrintParams {

@@ -43,7 +43,6 @@ import {
   DataGridColumn,
   DataGridProps,
   DataGridState,
-  DataGridColumnType,
   FilterModel,
   DataGridResponse,
   DataGridView,
@@ -52,6 +51,8 @@ import {
   SelectedFilterIds,
   FilterValue,
   FilterType,
+  RowModelType,
+  DataGridColumnValueType,
 } from './types';
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
@@ -62,25 +63,30 @@ import { SortDescendingIcon } from './SortDescendingIcon';
 import ReactDOMServer from 'react-dom/server';
 import DataGridActions from './DataGridActions';
 import { RowSelect } from '../row-select';
+import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
+import { GroupRowInnerRenderer } from './GroupRowInnerRenderer';
+import { GroupRowInnerTagRenderer } from './GroupRowInnerTagRenderer';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
+const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
 const DATE_FORMAT = 'y-MM-dd';
 
 export const DataGrid = ({
+  rowData,
   columns,
   selection,
   filtering,
   filters,
   grouping,
-  columnToggling,
   viewing,
   onReady,
-  rowActionItems,
   dataUrl,
+  autoGroupColumnDef,
+  rowActionItems,
+  columnToggling,
   accessToken,
   sortableColumns,
-  resizeableColumns,
   views,
   dates,
   setDates,
@@ -94,11 +100,23 @@ export const DataGrid = ({
   onSaveViewState,
   onBulkDelete,
   onRowEdit,
+  onRowEditIcon,
+  rowModelType = DEFAULT_ROW_MODEL_TYPE,
   searchColumns = DEFAULT_SEARCH_COLUMNS,
   formatSettings = defaultFormatSettings,
   translations = defaultTranslations,
   height = DEFAULT_HEIGHT,
   hideDownload = false,
+  hideDelete = false,
+  treeData = false,
+  groupIncludeFooter = false,
+  groupIncludeTotalFooter = false,
+  enableExport = false,
+  getServerSideGroupKey,
+  getDataPath,
+  onSelectionChangedHandler,
+  onRowDataUpdated,
+  onRowDataChanged,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
@@ -155,6 +173,8 @@ export const DataGrid = ({
     const rowCount = api.getDisplayedRowCount();
     return api.refreshServerSideStore({ purge: rowCount === 0 });
   };
+
+  const refreshCells = (api: GridApi) => api.refreshCells();
 
   const onGridSizeChanged = () => {
     gridApi.sizeColumnsToFit();
@@ -260,28 +280,30 @@ export const DataGrid = ({
   const createServerSideDatasource = (): IServerSideDatasource => {
     return {
       getRows: async function (params: IServerSideGetRowsParams) {
-        try {
-          const response = await fetch(dataUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${accessToken}`,
-            },
-            body: JSON.stringify(params.request),
-          });
+        if (dataUrl) {
+          try {
+            const response = await fetch(dataUrl, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${accessToken}`,
+              },
+              body: JSON.stringify(params.request),
+            });
 
-          const data = (await response.json()) as DataGridResponse;
-          const { rowData, rowCount } = data;
+            const data = (await response.json()) as DataGridResponse;
+            const { rowData, rowCount } = data;
 
-          if (!rowData || rowData.length === 0) {
-            params.api.showNoRowsOverlay();
-          } else {
-            params.api.hideOverlay();
+            if (!rowData || rowData.length === 0) {
+              params.api.showNoRowsOverlay();
+            } else {
+              params.api.hideOverlay();
+            }
+
+            return params.success({ rowData, rowCount });
+          } catch (error) {
+            return params.fail();
           }
-
-          return params.success({ rowData, rowCount });
-        } catch (error) {
-          return params.fail();
         }
       },
     };
@@ -296,6 +318,7 @@ export const DataGrid = ({
           exportAsCsv: () => exportAsCsv(api),
           exportAsExcel: () => exportAsExcel(api),
           refreshStore: () => refreshStore(api),
+          refreshCells: () => refreshCells(api),
         };
         onReady(dataGridApi);
       }
@@ -311,12 +334,14 @@ export const DataGrid = ({
 
     api.sizeColumnsToFit();
 
-    const datasource = createServerSideDatasource();
-    api.setServerSideDatasource(datasource);
+    if (rowModelType === RowModelType.serverSide) {
+      const datasource = createServerSideDatasource();
+      api.setServerSideDatasource(datasource);
+    }
   };
 
   const getRowNodeId = (data: any) => {
-    return data.id;
+    return data.hierarchy ?? data.id;
   };
 
   const onGrouping = (rowGroups: string[]) => {
@@ -329,7 +354,7 @@ export const DataGrid = ({
 
   const getValueFormatter = (
     params: ValueFormatterParams,
-    type?: DataGridColumnType,
+    type?: DataGridColumnValueType,
     customMap?: (value: any) => any,
   ) => {
     const { currency, numberFormat, dateFormat, language, timeFormat, durationFormat } = formatSettings;
@@ -374,26 +399,28 @@ export const DataGrid = ({
         value && typeof value === 'object' ? value.value : value,
       );
     }
-    params.success(values);
+    params.success([...values, '']);
   };
 
   const checkIfSearchColumn = (columnField: string) => searchColumns.includes(columnField);
 
-  const getFilterType = (columnField: string, type?: DataGridColumnType): IFilterType | undefined => {
+  const getFilterType = (columnField: string, type?: DataGridColumnValueType): IFilterType | undefined => {
+    if (type === 'date' || type === 'time') {
+      return 'agDateColumnFilter';
+    }
+
     const isSearchColumn = checkIfSearchColumn(columnField);
     if (isSearchColumn) {
       return 'agTextColumnFilter';
     }
 
-    if (type === 'date') {
-      return 'agDateColumnFilter';
-    }
     return 'agSetColumnFilter';
   };
 
   const onSelectionChanged = (event: SelectionChangedEvent) => {
-    const selected = event.api.getSelectedNodes().length;
-    setRowsSelected(selected);
+    const selected = event.api.getSelectedNodes();
+    onSelectionChangedHandler && onSelectionChangedHandler(selected);
+    setRowsSelected(selected.length);
   };
 
   const getSetValues = (value: string | null, type: FilterType, values?: string[]) => {
@@ -502,6 +529,10 @@ export const DataGrid = ({
     return setFilterDefaultValues();
   };
 
+  const isServerSideGroup = (dataItem: any) => {
+    return !!dataItem.children?.length;
+  };
+
   const columnCellRenderer = useMemo(() => {
     if (rowActionItems || !!onRowEdit) {
       return 'moreActionsCell';
@@ -547,7 +578,7 @@ export const DataGrid = ({
                 gridColumnApi={gridColumnApi}
               />
             )}
-            {selection && (
+            {(selection || enableExport) && (
               <DataGridActions
                 gridApi={gridApi}
                 gridColumnApi={gridColumnApi}
@@ -556,30 +587,44 @@ export const DataGrid = ({
                 translations={translations}
                 onBulkDelete={onBulkDelete}
                 hideDownload={hideDownload}
+                hideDelete={hideDelete}
               />
             )}
           </StyledDataGridHeader>
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
         <AgGridReact
+          rowData={rowData}
           rowSelection="multiple"
-          rowModelType="serverSide"
+          rowModelType={rowModelType}
+          immutableData={rowModelType === RowModelType.clientSide}
           serverSideStoreType={ServerSideStoreType.Partial}
+          treeData={treeData}
+          isServerSideGroup={isServerSideGroup}
+          getServerSideGroupKey={getServerSideGroupKey}
+          getDataPath={getDataPath}
           noRowsOverlayComponent="noRowsTemplate"
           loadingCellRenderer="loadingCellTemplate"
           animateRows
           suppressAggFuncInHeader
-          autoGroupColumnDef={{
-            cellRendererParams: {
-              suppressCount: false,
-              checkbox: false,
-            },
-          }}
+          autoGroupColumnDef={
+            autoGroupColumnDef ?? {
+              cellRendererParams: {
+                suppressCount: false,
+                checkbox: false,
+              },
+            }
+          }
+          groupIncludeFooter={groupIncludeFooter}
+          groupIncludeTotalFooter={groupIncludeTotalFooter}
+          groupSelectsChildren={!treeData && true}
           pagination
           paginationPageSize={25}
           suppressPaginationPanel
           enableCellTextSelection
           onGridReady={onGridReady}
+          onRowDataUpdated={onRowDataUpdated}
+          onRowDataChanged={onRowDataChanged}
           getRowNodeId={getRowNodeId}
           onFirstDataRendered={onFirstDataRendered}
           onGridSizeChanged={onGridSizeChanged}
@@ -599,6 +644,8 @@ export const DataGrid = ({
             headerColumnToggle: HeaderColumnToggle,
             loadingCellTemplate: LoadingCellTemplate,
             rowSelect: RowSelect,
+            groupRowInnerRenderer: GroupRowInnerRenderer,
+            groupRowInnerTagRenderer: GroupRowInnerTagRenderer,
           }}
           icons={{
             sortAscending: () =>
@@ -607,6 +654,7 @@ export const DataGrid = ({
               ReactDOMServer.renderToStaticMarkup(<SortDescendingIcon color={theme.current.colors.colorPrimary} />),
           }}
           modules={[
+            ClientSideRowModelModule,
             ServerSideRowModelModule,
             RowGroupingModule,
             CsvExportModule,
@@ -639,6 +687,8 @@ export const DataGrid = ({
               },
             ],
           }}
+          tooltipShowDelay={0}
+          colResizeDefault="shift"
         >
           <AgGridColumn
             hide={!selection}
@@ -654,7 +704,6 @@ export const DataGrid = ({
           />
           {gridColumns.map(
             ({
-              colId,
               field,
               label,
               width,
@@ -662,17 +711,19 @@ export const DataGrid = ({
               hide,
               sort,
               sortable,
-              type,
+              valueType,
               aggFunc,
               customMap,
+              customHeaderComponent,
               customComponent,
               rowSelectProps,
+              ...rest
             }) => (
               <AgGridColumn
-                colId={colId}
                 cellRendererFramework={customComponent}
                 cellRenderer={!!rowSelectProps ? 'rowSelect' : undefined}
                 cellRendererParams={!!rowSelectProps ? { ...rowSelectProps } : undefined}
+                headerComponentFramework={customHeaderComponent}
                 key={field}
                 headerName={label}
                 field={field}
@@ -680,12 +731,13 @@ export const DataGrid = ({
                 rowGroup={rowGroup}
                 hide={hide || rowGroup}
                 sort={sort}
-                filter={getFilterType(field, type)}
+                filter={getFilterType(field, valueType)}
                 filterParams={{ values: (params: any) => getFilterParams(params, field) }}
-                valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, type, customMap)}
+                valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, valueType, customMap)}
                 aggFunc={aggFunc}
                 sortable={sortable ?? sortableColumns}
-                resizable={resizeableColumns}
+                resizable
+                {...rest}
               />
             ),
           )}
@@ -697,10 +749,10 @@ export const DataGrid = ({
               translations,
             }}
             cellRenderer={columnCellRenderer}
-            cellRendererParams={{ data: { items: rowActionItems, onEdit: onRowEdit } }}
+            cellRendererParams={{ data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon } }}
             type="rightAligned"
             minWidth={60}
-            maxWidth={60}
+            maxWidth={rowActionItems?.length || columnToggling ? 60 : 0}
             sortable={false}
             resizable={false}
             pinned={'right'}

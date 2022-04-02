@@ -7,7 +7,7 @@ import { ActionMenu, ActionMenuActive } from '../icons';
 import { RowEditCell } from './RowEditCell';
 
 export const RowActionsCell = ({ data }: RowActionsCellProps) => {
-  const { onEdit, items } = data;
+  const { onEdit, items, id, icon } = data;
   const [active, setActive] = useState(false);
   const {
     theme: {
@@ -26,25 +26,28 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
   };
 
   const handleEdit = () => {
-    onEdit(data);
+    if (onEdit) {
+      onEdit(data);
+    }
   };
 
-  const filteredItems = useMemo(
-    () =>
-      items.filter((item: any) =>
-        item.filterByProp?.value! && data[item.filterByProp?.name!]
-          ? item.filterByProp?.value!.some((valueItem: any) => valueItem === data[item.filterByProp?.name!]) &&
-            item.filterByProp?.secondaryValue !== data[item.filterByProp?.secondaryName]
-          : true,
-      ),
-    [items, data],
-  );
+  const filteredItems = useMemo(() => {
+    return items?.filter((item: any) => {
+      if (item.filterConditions?.length) {
+        return item.filterConditions?.every(({ value, name, comparator }: any) => {
+          return comparator(value, name, data);
+        });
+      }
+
+      return true;
+    });
+  }, [items, data]);
 
   return !!onEdit ? (
-    <RowEditCell onClick={handleEdit} />
+    <RowEditCell onClick={handleEdit} icon={icon} />
   ) : (
     <div ref={containerRef}>
-      <Dropdown onOpen={onOpen} onClose={() => setActive(false)} items={filteredItems}>
+      <Dropdown onOpen={onOpen} onClose={() => setActive(false)} items={filteredItems} selectedIds={[id]}>
         <TertiaryButton>
           {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
         </TertiaryButton>

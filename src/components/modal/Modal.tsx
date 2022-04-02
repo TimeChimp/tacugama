@@ -32,11 +32,6 @@ export const Modal = ({ children, onStateChange, name, overrides = {}, ...rest }
         top: theme.current.sizing.scale700,
       },
     },
-    Root: {
-      style: {
-        zIndex: 9999,
-      },
-    },
   });
 
   return (

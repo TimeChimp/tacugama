@@ -8,8 +8,9 @@ import {
   getInputBorderColor,
   getInputPlaceholderTextColor,
   padding,
+  margin,
 } from '../../utils';
-import { BottomArrow } from '../icons';
+import { BottomArrow, TagIcon } from '../icons';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
 
@@ -22,7 +23,7 @@ interface CustomParams {
 export interface SelectProps extends BaseSelectProps {
   showSkeleton?: boolean;
   options: Option[];
-  onChangeHandler?: (params: OnChangeParams) => void;
+  onChangeHandler: (params: OnChangeParams) => void;
   propOverrides?: {
     dropdownListItemProps?: () => {};
     rootProps?: () => {};
@@ -36,6 +37,7 @@ export const Select = ({
   showSkeleton = false,
   propOverrides,
   onChangeHandler,
+  multi,
   ...rest
 }: SelectProps) => {
   const {
@@ -43,18 +45,20 @@ export const Select = ({
       current: {
         colors,
         borders,
-        sizing: { scale0, scale100, scale700, scale900 },
+        customColors: { primarySubtle },
+        sizing: { scale0, scale100, scale550, scale700, scale900 },
         typography: { ParagraphSmall, LabelSmall },
       },
     },
   } = useTheme();
   const { border300, radius100 } = borders;
-  const { primaryB, primary100 } = colors;
+  const { primaryB, primary100, contentPrimary } = colors;
 
   const handleOnChange = (params: CustomParams) => {
-    if (onChangeHandler) {
-      onChangeHandler({ ...params, value: params.value.length === 1 ? params.value[0] : params.value });
+    if (multi) {
+      return onChangeHandler(params);
     }
+    return onChangeHandler({ ...params, value: params.value.length === 1 ? params.value[0] : params.value });
   };
 
   return (
@@ -67,6 +71,7 @@ export const Select = ({
           valueKey={valueKey}
           labelKey={labelKey}
           onChange={handleOnChange}
+          multi={multi}
           {...rest}
           overrides={{
             ControlContainer: {
@@ -165,6 +170,33 @@ export const Select = ({
                   },
                 },
               },
+            },
+            Tag: {
+              props: {
+                overrides: {
+                  Root: {
+                    style: {
+                      backgroundColor: primarySubtle,
+                      ...borderRadius(radius100),
+                      ...margin('0', scale100),
+                    },
+                  },
+                  Text: {
+                    style: {
+                      ...ParagraphSmall,
+                      color: contentPrimary,
+                    },
+                  },
+                  Action: {
+                    style: {
+                      color: '#4A4A4A', // NOTE: property does not exist in theme
+                    },
+                  },
+                },
+              },
+            },
+            SearchIcon: {
+              component: () => <TagIcon size={scale550} />,
             },
           }}
         />

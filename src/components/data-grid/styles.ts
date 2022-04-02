@@ -60,6 +60,13 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
     .ag-row-hover .ag-row-edit-cell, .ag-row-focus .ag-row-edit-cell {
       display: block;
     }
+
+    .ag-theme-alpine .ag-header-cell-resize:after {
+      top: 0;
+      bottom: 0;
+      height: auto;
+    }
+
   `;
 };
 
@@ -172,4 +179,8 @@ export const StyledDataGridDivider = themedStyled('div', ({ $theme }) => ({
 export const StyledViewOptionsFooter = themedStyled('div', ({ $theme }) => ({
   backgroundColor: $theme.colors.primaryB,
   ...padding('0', $theme.sizing.scale100),
+}));
+
+export const StyledGroupRowInnerRendererContainer = themedStyled('div', () => ({
+  display: 'inline-block',
 }));

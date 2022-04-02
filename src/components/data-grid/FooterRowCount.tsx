@@ -13,6 +13,7 @@ export const FooterRowCount = ({
   translations: { rowCountSelectedText, rowCountText },
 }: FooterRowCountProps) => {
   const [count, setCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [rowsSelected, setRowsSelected] = useState(0);
   const {
     theme: {
@@ -31,6 +32,7 @@ export const FooterRowCount = ({
       const startIndex = currentPage * pageSize + 1;
       const endIndex = Math.min(startIndex + pageSize - 1, totalResults);
       setCount(endIndex - startIndex + 1);
+      setTotalCount(totalResults);
     };
 
     const onRowSelection = () => {
@@ -57,7 +59,7 @@ export const FooterRowCount = ({
         marginRight={scale400}
         color={contentTertiary}
       >
-        {rowCountText(count)}
+        {rowCountText(count, totalCount)}
       </ParagraphSmall>
       {rowsSelected ? (
         <>
