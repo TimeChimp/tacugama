@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, SVGProps, defaultIconProps } from '../icon/Icon';
+import { Icon, SVGProps, defaultIconProps } from '../icon';
 
 export const Location = ({ title = 'Location', size = defaultIconProps.size, color = '#0F1020' }: SVGProps) => (
   <Icon title={title} lineHeight="0">

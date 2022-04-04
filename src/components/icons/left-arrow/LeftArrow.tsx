@@ -1,6 +1,6 @@
 import { useTheme } from '../../../providers';
 import React from 'react';
-import { Icon, SVGProps, defaultIconProps } from '../icon/Icon';
+import { Icon, SVGProps, defaultIconProps } from '../icon';
 
 export const LeftArrow = ({ title = 'LeftArrow', size = defaultIconProps.size, color }: SVGProps) => {
   const { theme } = useTheme();

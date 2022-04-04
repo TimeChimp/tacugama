@@ -1,7 +1,7 @@
 import { ParagraphSmall } from '../../typography';
 import { useTheme } from '../../../providers';
 import React, { forwardRef } from 'react';
-import { Checkbox } from '../../checkbox/Checkbox';
+import { Checkbox } from '../../checkbox';
 import {
   StyledDropdownOption,
   StyledDropdownOptionIcon,

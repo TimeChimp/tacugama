@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '../../../providers';
-import { Icon, SVGProps, defaultIconProps } from '../icon/Icon';
+import { Icon, SVGProps, defaultIconProps } from '../icon';
 
 export const Folder = ({ title = 'Folder', size = defaultIconProps.size, color }: SVGProps) => {
   const { theme } = useTheme();

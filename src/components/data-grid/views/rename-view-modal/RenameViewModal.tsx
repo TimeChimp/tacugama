@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { MAX_NAME_INPUT_LENGTH } from '../../../models/MaxInputLength';
-import { ModalFooter, ModalBody, ModalHeader, Modal } from '../../modal';
-import { ModalButton, SecondaryModalButton } from '../../button';
-import { HeadingSmall } from '../../typography';
-import { FormControl } from '../../form-control/FormControl';
-import { Input } from '../../input/Input';
-import { RenameViewModalProps } from '../types';
+import { MAX_NAME_INPUT_LENGTH } from '../../../../models';
+import { ModalFooter, ModalBody, ModalHeader, Modal } from '../../../modal';
+import { ModalButton, SecondaryModalButton } from '../../../button';
+import { HeadingSmall } from '../../../typography';
+import { FormControl } from '../../../form-control';
+import { Input } from '../../../input';
+import { RenameViewModalProps } from '../../types';
 
 interface FormInput {
   name: string;

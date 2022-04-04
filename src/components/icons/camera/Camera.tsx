@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, SVGProps, defaultIconProps } from '../icon/Icon';
+import { Icon, SVGProps, defaultIconProps } from '../icon';
 
 export const Camera = ({ title = 'Camera', size = defaultIconProps.size, color = 'white' }: SVGProps) => (
   <Icon title={title} lineHeight="0">

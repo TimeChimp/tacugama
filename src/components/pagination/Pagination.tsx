@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pagination as BasePagination, SIZE, PaginationProps as BasePaginationProps } from 'baseui/pagination';
-import { CustomThemeType } from '../../models/Theme';
+import { CustomThemeType } from '../../models';
 import { border } from '../../utils';
 
 export interface PaginationProps extends BasePaginationProps {}

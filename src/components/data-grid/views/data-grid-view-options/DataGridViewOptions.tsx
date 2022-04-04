@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { PLACEMENT } from 'baseui/popover';
 import { SIZE } from 'baseui/button';
-import { SecondaryButton, TertiaryButton } from '../../button';
-import { DataGridViewOptionsProps } from '../types';
-import { StyledViewOptionsFooter, StyledDataGridViewListItem } from '../styles';
-import { StatefulPopover } from '../../popover';
-import { Trash, Pin, Text, ActionMenuHorizontal, Views, Plus } from '../../icons';
-import { Dropdown, DropdownItem } from '../../dropdown';
-import { StatefulMenu } from '../../menu';
-import { LabelXSmall } from '../../typography';
-import { SearchInput } from '../../input';
-import { StyledDropdownSearch } from '../../dropdown/styles';
+import { SecondaryButton, TertiaryButton } from '../../../button';
+import { DataGridViewOptionsProps } from '../../types';
+import { StyledViewOptionsFooter, StyledDataGridViewListItem } from '../../styles';
+import { StatefulPopover } from '../../../popover';
+import { Trash, Pin, Text, ActionMenuHorizontal, Views, Plus } from '../../../icons';
+import { Dropdown, DropdownItem } from '../../../dropdown';
+import { StatefulMenu } from '../../../menu';
+import { LabelXSmall } from '../../../typography';
+import { SearchInput } from '../../../input';
+import { StyledDropdownSearch } from '../../../dropdown/styles';
 
-import { useTheme } from '../../../providers';
-import { border, borderRadius, margin, padding } from '../../../utils';
+import { useTheme } from '../../../../providers';
+import { border, borderRadius, margin, padding } from '../../../../utils';
 
 export const DataGridViewOptions = ({
   translations,

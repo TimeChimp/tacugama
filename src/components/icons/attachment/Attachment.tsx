@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, SVGProps, defaultIconProps } from '../icon/Icon';
+import { Icon, SVGProps, defaultIconProps } from '../icon';
 import { useTheme } from '../../../providers';
 
 export const Attachment = ({ title = 'Attachment', size = defaultIconProps.size, color }: SVGProps) => {

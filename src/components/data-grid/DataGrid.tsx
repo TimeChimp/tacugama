@@ -57,7 +57,7 @@ import {
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
 import { defaultTranslations } from './defaultTranslations';
-import DataGridViews from './views/DataGridViews';
+import { DataGridViews } from './views/data-grid-views';
 import { SortAscendingIcon } from './sort-ascending-icon';
 import { SortDescendingIcon } from './sort-descending-icon';
 import ReactDOMServer from 'react-dom/server';

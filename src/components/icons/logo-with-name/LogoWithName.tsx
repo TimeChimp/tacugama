@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, SVGProps } from '../icon/Icon';
+import { Icon, SVGProps } from '../icon';
 
 export const LogoWithName = ({ title = 'LogoWithName' }: SVGProps) => {
   return (

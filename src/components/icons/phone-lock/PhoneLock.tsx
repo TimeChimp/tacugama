@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, SVGProps, defaultIconProps } from '../icon/Icon';
+import { Icon, SVGProps, defaultIconProps } from '../icon';
 
 export const PhoneLock = ({ title = 'PhoneLock', size = defaultIconProps.size }: SVGProps) => (
   <Icon title={title}>

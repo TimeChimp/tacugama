@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { MAX_NAME_INPUT_LENGTH } from '../../../models/MaxInputLength';
-import { ModalFooter, ModalBody, Modal, ModalHeader } from '../../modal';
-import { ModalButton, SecondaryModalButton } from '../../button';
-import { HeadingSmall } from '../../typography';
-import { FormControl } from '../../form-control/FormControl';
-import { Input } from '../../input/Input';
-import { CreateViewModalProps, DataGridState } from '../types';
-import { Checkbox } from '../../checkbox/Checkbox';
+import { MAX_NAME_INPUT_LENGTH } from '../../../../models';
+import { ModalFooter, ModalBody, Modal, ModalHeader } from '../../../modal';
+import { ModalButton, SecondaryModalButton } from '../../../button';
+import { HeadingSmall } from '../../../typography';
+import { FormControl } from '../../../form-control';
+import { Input } from '../../../input';
+import { CreateViewModalProps, DataGridState } from '../../types';
+import { Checkbox } from '../../../checkbox';
 
 interface FormInput {
   name: string;

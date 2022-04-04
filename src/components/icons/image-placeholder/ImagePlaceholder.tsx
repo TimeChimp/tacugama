@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, SVGProps, defaultIconProps } from '../icon/Icon';
+import { Icon, SVGProps, defaultIconProps } from '../icon';
 
 export const ImagePlaceholder = ({ title = 'ImagePlaceholder', size = defaultIconProps.size, color }: SVGProps) => (
   <Icon title={title} lineHeight="0">

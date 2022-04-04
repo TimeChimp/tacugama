@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, SVGProps, defaultIconProps } from '../icon/Icon';
+import { Icon, SVGProps, defaultIconProps } from '../icon';
 import { useTheme } from '../../../providers';
 
 export const Windows = ({ title = 'Windows', size = defaultIconProps.size, color = 'white' }: SVGProps) => {

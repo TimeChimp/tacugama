@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, SVGProps, defaultIconProps } from '../icon/Icon';
+import { Icon, SVGProps, defaultIconProps } from '../icon';
 
 export const Loader = ({ title = 'Loader', size = defaultIconProps.size, color = '#FFFFFF' }: SVGProps) => {
   return (

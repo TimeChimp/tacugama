@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '../../../providers';
-import { defaultIconProps, Icon, SVGProps } from '../icon/Icon';
+import { defaultIconProps, Icon, SVGProps } from '../icon';
 
 export const CheckMark = ({ title = 'CheckMark', size = defaultIconProps.size, color }: SVGProps) => {
   const { theme } = useTheme();

@@ -1,6 +1,6 @@
 import { useTheme } from '../../../providers';
 import React from 'react';
-import { Icon, SVGProps, defaultIconProps } from '../icon/Icon';
+import { Icon, SVGProps, defaultIconProps } from '../icon';
 
 export const Views = ({ title = 'Views', size = defaultIconProps.size, color }: SVGProps) => {
   const { theme } = useTheme();

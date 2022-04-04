@@ -4,7 +4,7 @@ import { StatefulPopover } from '../popover';
 import { padding } from '../../utils';
 import { StyledDropdownSearch, StyledDropdownFooter } from './styles';
 import { SearchInput } from '../input';
-import useTheme from '../../providers/ThemeProvider';
+import { useTheme } from '../../providers';
 import { SIZE } from 'baseui/button';
 import { Skeleton } from '../skeleton';
 import { ListItem } from '../list';

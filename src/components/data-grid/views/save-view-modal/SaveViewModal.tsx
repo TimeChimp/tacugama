@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { ModalFooter, ModalBody, Modal, ModalHeader } from '../../modal';
-import { ModalButton, SecondaryModalButton } from '../../button';
-import { HeadingSmall } from '../../typography';
-import { FormControl } from '../../form-control/FormControl';
-import { SaveViewModalProps, DataGridState } from '../types';
-import { Checkbox } from '../../checkbox/Checkbox';
+import { ModalFooter, ModalBody, Modal, ModalHeader } from '../../../modal';
+import { ModalButton, SecondaryModalButton } from '../../../button';
+import { HeadingSmall } from '../../../typography';
+import { FormControl } from '../../../form-control';
+import { SaveViewModalProps, DataGridState } from '../../types';
+import { Checkbox } from '../../../checkbox';
 
 export const SaveViewModal = ({
   isOpen,

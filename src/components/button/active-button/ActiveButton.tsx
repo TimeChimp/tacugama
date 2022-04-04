@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { Button, ButtonProps } from '../Button';
-import { border, borderRadius } from '../../../utils/css';
+import { border, borderRadius } from '../../../utils';
 
 export interface ActiveButtonProps extends ButtonProps {
   children?: React.ReactNode;

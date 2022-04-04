@@ -10,7 +10,7 @@ import {
   getButtonBackgroundColor,
   getButtonBackgroundHoverColor,
 } from '../../../utils';
-import useTheme from '../../../providers/ThemeProvider';
+import { useTheme } from '../../../providers';
 import { ButtonType, CustomThemeType } from '../../../models';
 
 export interface ModalButtonProps extends BaseButtonProps {

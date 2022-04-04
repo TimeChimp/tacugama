@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { View } from '../../icons/view/View';
-import useTheme from '../../../providers/ThemeProvider';
-import { DataGridViewsProps, DataGridView, CreateViewInput } from '../types';
-import { StyledDataGridViews, StyledDataGridDivider } from '../styles';
-import { SecondaryButton, ActiveButton } from '../../button';
+import { View } from '../../../icons/view';
+import { useTheme } from '../../../../providers';
+import { DataGridViewsProps, DataGridView, CreateViewInput } from '../../types';
+import { StyledDataGridViews, StyledDataGridDivider } from '../../styles';
+import { SecondaryButton, ActiveButton } from '../../../button';
 import { SIZE } from 'baseui/button';
-import ConfirmationModal from '../../confirmation-modal/ConfirmationModal';
-import { CreateViewModal } from './CreateViewModal';
-import { FlexItem } from '../../flex-item/FlexItem';
-import { SaveViewModal } from './SaveViewModal';
-import { RenameViewModal } from './RenameViewModal';
-import { ConfirmationModalType } from '../../../models';
-import { DataGridViewOptions } from './DataGridViewOptions';
+import { ConfirmationModal } from '../../../confirmation-modal';
+import { CreateViewModal } from '../create-view-modal';
+import { FlexItem } from '../../../flex-item';
+import { SaveViewModal } from '../save-view-modal';
+import { RenameViewModal } from '../rename-view-modal';
+import { ConfirmationModalType } from '../../../../models';
+import { DataGridViewOptions } from '../data-grid-view-options';
 
 const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
 

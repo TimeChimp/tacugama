@@ -1,6 +1,6 @@
 import React from 'react';
 import { Checkbox as BaseCheckbox, CheckboxProps as BaseCheckboxProps } from 'baseui/checkbox';
-import { useTheme } from '../../providers/ThemeProvider';
+import { useTheme } from '../../providers';
 import { border, borderRadius } from '../../utils';
 import { DATA_TEST_ID } from '../../models';
 

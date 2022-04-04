@@ -4,7 +4,7 @@ import { RowActionsCellProps } from '../types';
 import { Dropdown } from '../../dropdown';
 import { TertiaryButton } from '../../button';
 import { ActionMenu, ActionMenuActive } from '../../icons';
-import { RowEditCell } from '../row-edit-cell/RowEditCell';
+import { RowEditCell } from '../row-edit-cell';
 
 export const RowActionsCell = ({ data }: RowActionsCellProps) => {
   const { onEdit, items, id, icon } = data;

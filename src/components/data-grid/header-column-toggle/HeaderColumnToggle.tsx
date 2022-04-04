@@ -3,7 +3,7 @@ import { TableSettings } from '../../icons';
 import { StyledHeaderColumnToggle } from '../styles';
 import { Dropdown, DropdownItem } from '../../dropdown';
 import { TertiaryButton } from '../../button';
-import { useTheme } from '../../../providers/ThemeProvider';
+import { useTheme } from '../../../providers';
 import { HeaderColumnToggleProps } from '..';
 import { Column } from '@ag-grid-community/core';
 import { DATA_TEST_ID } from '../../../models';

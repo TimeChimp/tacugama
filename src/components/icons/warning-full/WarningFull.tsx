@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, SVGProps, defaultIconProps } from '../icon/Icon';
+import { Icon, SVGProps, defaultIconProps } from '../icon';
 
 export const WarningFull = ({ title = 'WarningFull', size = defaultIconProps.size, color = 'white' }: SVGProps) => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input as BaseInput, InputOverrides, InputProps as BaseInputProps } from 'baseui/input';
-import { useTheme } from '../../providers/ThemeProvider';
+import { useTheme } from '../../providers';
 import {
   border,
   borderRadius,

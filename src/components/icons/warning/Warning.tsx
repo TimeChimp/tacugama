@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, SVGProps, defaultIconProps } from '../icon/Icon';
+import { Icon, SVGProps, defaultIconProps } from '../icon';
 
 export const Warning = ({ title = 'Warning', size = defaultIconProps.size, color = 'white' }: SVGProps) => {
   return (

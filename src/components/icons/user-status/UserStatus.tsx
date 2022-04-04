@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '../../../providers';
-import { Icon, SVGProps } from '../icon/Icon';
+import { Icon, SVGProps } from '../icon';
 
 export const UserStatus = ({ title = 'UserStatus', size = '12', color }: SVGProps) => {
   const { theme } = useTheme();

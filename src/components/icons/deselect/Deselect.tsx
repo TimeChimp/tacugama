@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, SVGProps, defaultIconProps } from '../icon/Icon';
+import { Icon, SVGProps, defaultIconProps } from '../icon';
 
 export const Deselect = ({ title = 'Deselect', size = defaultIconProps.size, color = '#2E2E2E' }: SVGProps) => (
   <Icon title={title} lineHeight="0">

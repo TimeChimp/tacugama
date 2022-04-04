@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, SVGProps } from '../icon/Icon';
+import { Icon, SVGProps } from '../icon';
 
 export const FileAttachment = ({ title = 'FileAttachment', size = '18', color }: SVGProps) => {
   return (

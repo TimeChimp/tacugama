@@ -1,6 +1,6 @@
 import { useTheme } from '../../../providers';
 import React from 'react';
-import { Icon, SVGProps } from '../icon/Icon';
+import { Icon, SVGProps } from '../icon';
 
 export const BottomArrow = ({ title = 'BottomArrow', size = '10', color }: SVGProps) => {
   const { theme } = useTheme();
