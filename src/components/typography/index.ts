@@ -1,14 +1,14 @@
-export { ParagraphXSmall } from './ParagraphXSmall';
-export { ParagraphSmall } from './ParagraphSmall';
-export { ParagraphMedium } from './ParagraphMedium';
+export { ParagraphXSmall } from './paragraph-x-small';
+export { ParagraphSmall } from './paragraph-small';
+export { ParagraphMedium } from './paragraph-medium';
 
-export { LabelXSmall } from './LabelXSmall';
-export { LabelSmall } from './LabelSmall';
-export { LabelMedium } from './LabelMedium';
+export { LabelXSmall } from './label-x-small';
+export { LabelSmall } from './label-small';
+export { LabelMedium } from './label-medium';
 
-export { HeadingSmall } from './HeadingSmall';
-export { HeadingXSmall } from './HeadingXSmall';
-export { HeadingMedium } from './HeadingMedium';
-export { HeadingLarge } from './HeadingLarge';
-export { HeadingXLarge } from './HeadingXLarge';
-export { HeadingXXLarge } from './HeadingXXLarge';
+export { HeadingSmall } from './heading-small';
+export { HeadingXSmall } from './heading-x-small';
+export { HeadingMedium } from './heading-medium';
+export { HeadingLarge } from './heading-large';
+export { HeadingXLarge } from './heading-x-large';
+export { HeadingXXLarge } from './heading-xx-large';

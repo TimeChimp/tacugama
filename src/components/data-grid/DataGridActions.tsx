@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import TertiaryButton from '../button/TertiaryButton';
-import useTheme from '../../providers/ThemeProvider';
+import { TertiaryButton } from '../button';
+import { useTheme } from '../../providers';
 import { StyledDataGridActions } from './styles';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { ConfirmationModalType, DATA_TEST_ID } from '../../models';

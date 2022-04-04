@@ -49,7 +49,7 @@ import {
   Drag as DragIcon,
   EmptyCalendar as EmptyCalendarIcon,
 } from './';
-import { SVGProps } from './Icon';
+import { SVGProps } from './icon/Icon';
 
 export default {
   title: 'Components/Icons',

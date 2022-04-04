@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack, VictoryTheme, VictoryTooltip } from 'victory';
 import { useTheme } from '../../../providers';
-import { MyDashboardTooltip } from '../tooltip/MyDashboardTooltip';
+import { MyDashboardTooltip } from '../tooltip';
 
 export interface MyDashboardBarData {
   isoWeek: number;

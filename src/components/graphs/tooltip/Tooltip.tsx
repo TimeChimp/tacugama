@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { useTheme } from '../../../providers';
-import { Box } from '../../../components/box';
+import { Box } from '../../../components';
 import { LabelMedium } from '../../../components/typography';
 import { ParagraphSmall } from 'baseui/typography';
 import { FlexGrid } from '../../flex-grid';

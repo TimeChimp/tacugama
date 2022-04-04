@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Popover } from '../popover';
 import { TetherPlacement } from 'baseui/layer';
-import { borderBottom } from '../../utils';
-import { useTheme } from '../../providers/ThemeProvider';
+import { borderBottom, getDateLocale } from '../../utils';
+import { useTheme } from '../../providers';
 import { CalendarProps, Calendar } from 'baseui/datepicker';
-import { SupportedLocale } from '../../types/SupportedLocale';
-import { getDateLocale } from '../../utils/get-date-locale';
+import { SupportedLocale } from '../../types';
 import { Select } from '../select';
 
 export interface DatepickerProps extends CalendarProps {

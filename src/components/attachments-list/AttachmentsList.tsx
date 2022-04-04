@@ -5,7 +5,7 @@ import { TertiaryButton } from '../button';
 import { FlexGrid, FlexGridItem } from '../flex-grid';
 import { Download, Attachment as PaperClip, Trash } from '../icons';
 import { Separator } from '../separator';
-import { useTheme } from '../../providers/ThemeProvider';
+import { useTheme } from '../../providers';
 import bytes from 'bytes';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 

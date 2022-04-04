@@ -2,8 +2,8 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Input, InputProps } from './Input';
-import { SearchInput, SearchInputProps } from './SearchInput';
-import { ColorInput, ColorInputProps } from './ColorInput';
+import { SearchInput, SearchInputProps } from './search-input';
+import { ColorInput, ColorInputProps } from './color-input';
 import { Search as SearchIcon } from '../icons';
 import { CharCounter } from '../char-counter';
 import { PriceInput, PriceInputProps } from './price-input';

@@ -1,6 +1,5 @@
 import { themedStyled } from '../../theme';
-import { margin, padding } from '../../utils';
-import { borderBottom, borderTop } from '../../utils/css';
+import { margin, padding, borderBottom, borderTop } from '../../utils';
 
 export const StyledDropdownOption = themedStyled('div', ({ $theme }) => ({
   display: 'flex',

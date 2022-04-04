@@ -1,4 +1,4 @@
-import { ParagraphMedium } from '../typography/ParagraphMedium';
+import { ParagraphMedium } from '../typography';
 import React from 'react';
 import { useTheme } from '../../providers';
 import {

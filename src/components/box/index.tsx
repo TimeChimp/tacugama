@@ -1,4 +1,4 @@
 export * from './Box';
-export * from './BoxBody';
-export * from './BoxFooter';
-export * from './BoxHeader';
+export * from './box-body';
+export * from './box-footer';
+export * from './box-header';

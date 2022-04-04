@@ -1,2 +1,2 @@
 export * from './Avatar';
-export * from './ConfigurableAvatar';
+export * from './configurable-avatar';

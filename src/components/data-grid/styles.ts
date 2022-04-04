@@ -1,7 +1,6 @@
 import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
-import { margin, padding } from '../../utils';
-import { borderTop, borderRight, borderLeft, borderBottom } from '../../utils/css';
+import { margin, padding, borderTop, borderRight, borderLeft, borderBottom } from '../../utils';
 
 export const getGridThemeOverrides = (theme: CustomThemeType) => {
   return `

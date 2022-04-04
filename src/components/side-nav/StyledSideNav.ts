@@ -1,5 +1,5 @@
-import { padding } from './../../utils/css';
-import { themedStyled } from '../../theme/theme';
+import { padding } from './../../utils';
+import { themedStyled } from '../../theme';
 
 export const StyledSideNav = themedStyled('ul', () => ({
   listStyleType: 'none',

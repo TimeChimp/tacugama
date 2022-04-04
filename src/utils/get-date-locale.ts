@@ -1,4 +1,4 @@
-import { SupportedLocale } from '../types/SupportedLocale';
+import { SupportedLocale } from '../types';
 import nl from 'date-fns/locale/nl';
 import enUS from 'date-fns/locale/en-US';
 import enGB from 'date-fns/locale/en-GB';
