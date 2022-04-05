@@ -96,3 +96,4 @@ export * from './user';
 export * from './clinic';
 export * from './arrow-down';
 export * from './empty-calendar';
+export * from './question-mark';
