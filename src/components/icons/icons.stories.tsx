@@ -48,6 +48,7 @@ import {
   ArrowDown as ArrowDownIcon,
   Drag as DragIcon,
   EmptyCalendar as EmptyCalendarIcon,
+  QuestionMark as QuestionMarkIcon,
 } from './';
 import { SVGProps } from './icon/Icon';
 
@@ -102,6 +103,7 @@ const UserTemplate: Story<SVGProps> = (args) => <UserIcon {...args} />;
 const ArrowDownTemplate: Story<SVGProps> = (args) => <ArrowDownIcon {...args} />;
 const DragTemplate: Story<SVGProps> = (args) => <DragIcon {...args} />;
 const EmptyCalendarTemplate: Story<SVGProps> = (args) => <EmptyCalendarIcon {...args} />;
+const QuestionMarkTemplate: Story<SVGProps> = (args) => <QuestionMarkIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -325,5 +327,10 @@ ArrowDown.args = {
 
 export const Drag = DragTemplate.bind({});
 Drag.args = {
+  size: '16',
+};
+
+export const QuestionMark = QuestionMarkTemplate.bind({});
+QuestionMark.args = {
   size: '16',
 };
