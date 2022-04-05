@@ -31,6 +31,7 @@ export const NumberInput = ({
   onKeyPress,
   onBlur,
   value,
+  onFocus,
 }: NumberInputProps) => {
   const { thousandSeparator, decimalSeparator } = getNumberSeparators(numberFormat);
   return (
@@ -50,6 +51,7 @@ export const NumberInput = ({
       thousandSeparator={thousandSeparator}
       decimalSeparator={decimalSeparator}
       data-test-id={testId}
+      onFocus={onFocus}
     />
   );
 };

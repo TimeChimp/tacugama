@@ -12,4 +12,5 @@ export interface NumberInputProps extends Omit<NumberFormatProps, OmitValues> {
   onChange: (value: string) => void;
   numberFormat?: NumberFormat;
   testId?: string;
+  onFocus?: (value: any) => void;
 }
