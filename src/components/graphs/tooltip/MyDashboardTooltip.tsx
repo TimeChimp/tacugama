@@ -12,6 +12,7 @@ export const MyDashboardTooltip = ({
   hoursText,
   isDefault,
   maxValue,
+  fieldName = 'duration',
 }: any) => {
   const {
     theme: {
@@ -23,12 +24,17 @@ export const MyDashboardTooltip = ({
     },
   } = useTheme();
 
-  const duration = useMemo(() => (isDefault ? maxValue - datum.duration : datum.duration), [
-    isDefault,
-    datum.duration,
-    maxValue,
-  ]);
+  const convertHours = (value: number) => {
+    const hours = Math.floor(value);
+    const minutes = Math.round((value - Math.floor(value)) * 60);
+    return hours + ':' + minutes;
+  };
 
+  const duration = useMemo(
+    () => (isDefault ? convertHours(maxValue - datum.duration) : convertHours(datum[fieldName])),
+    [isDefault, maxValue, fieldName, datum],
+  );
+  console.log(datum.duration);
   return (
     <g style={{ pointerEvents: 'none' }}>
       <foreignObject x={x - width / 2} y={-10} width={width} height={height}>
@@ -39,6 +45,7 @@ export const MyDashboardTooltip = ({
               style: {
                 background: contentSecondary,
                 color: light4,
+                textAlign: 'center',
               },
             },
           }}

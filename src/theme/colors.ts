@@ -31,6 +31,7 @@ export const customColors: CustomColors = {
   red2: '#FF5C5C',
   red3: '#FF8080',
   red4: '#FFE5E5',
+  red5: '#E11900',
 
   // Green
   green0: '#05A660',
@@ -47,6 +48,7 @@ export const customColors: CustomColors = {
   blue2: '#5B8DEF',
   blue3: '#9DBFF9',
   blue4: '#E5F0FF',
+  blue5: '#5B91F5',
 
   // Yellow
   yellow0: '#E5B800',
@@ -55,6 +57,8 @@ export const customColors: CustomColors = {
   yellow3: '#FDED72',
   yellow4: '#FFFEE5',
   yellow5: '#FFA502',
+  yellow6: '#FFC043',
+  yellow7: '#BC8B2C',
 
   // Purple
   purple0: '#3D357E',

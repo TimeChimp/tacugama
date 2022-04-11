@@ -1,13 +1,26 @@
 import React, { useMemo } from 'react';
-import { VictoryAxis, VictoryBar, VictoryChart, VictoryStack, VictoryTheme, VictoryTooltip } from 'victory';
+import {
+  VictoryAxis,
+  VictoryBar,
+  VictoryChart,
+  VictoryLegend,
+  VictoryStack,
+  VictoryTheme,
+  VictoryTooltip,
+} from 'victory';
 import { useTheme } from '../../../providers';
 import { MyDashboardTooltip } from '../tooltip';
 
 export interface MyDashboardBarData {
   isoWeek: number;
   duration: number;
+  absence: number;
 }
 
+interface LegendData {
+  name: string;
+  symbol: { fill: string; type: string };
+}
 export interface MyDashboardBarProps {
   data: MyDashboardBarData[];
   width?: number;
@@ -16,6 +29,8 @@ export interface MyDashboardBarProps {
   shortHoursText?: string;
   tooltipWidth?: number;
   tooltipHeight?: number;
+  legendData?: LegendData[];
+  height?: number;
 }
 
 export const MyDashboardBar = ({
@@ -24,13 +39,15 @@ export const MyDashboardBar = ({
   weekText = 'Week',
   hoursText = 'hours',
   shortHoursText = 'h',
-  tooltipWidth = 150,
+  tooltipWidth = 180,
   tooltipHeight = 100,
+  legendData,
+  height = 350,
 }: MyDashboardBarProps) => {
   const {
     theme: {
       current: {
-        customColors: { light6, purple2 },
+        customColors: { light6, purple2, red5 },
         colors: { contentInverseTertiary },
         sizing: { scale400 },
       },
@@ -41,13 +58,14 @@ export const MyDashboardBar = ({
     return data.map((item) => ({
       ...item,
       duration: item.duration / 3600,
+      absence: item.absence / 3600,
     }));
   }, [data]);
 
   const maxValue = useMemo(() => {
     const maxValueDataItem = Math.max.apply(
       Math,
-      barData.map((dataItem: MyDashboardBarData) => dataItem.duration),
+      barData.map((dataItem: MyDashboardBarData) => dataItem.duration + dataItem.absence),
     );
 
     if (maxValueDataItem < 40) {
@@ -58,9 +76,25 @@ export const MyDashboardBar = ({
   }, [barData]);
 
   const defaultData = useMemo(
-    () => barData.map((data: MyDashboardBarData) => ({ isoWeek: data.isoWeek, duration: maxValue! - data.duration })),
+    () =>
+      barData.map((data: MyDashboardBarData) => ({
+        isoWeek: data.isoWeek,
+        duration: maxValue! - data.duration - data.absence,
+      })),
     [barData, maxValue],
   );
+
+  const yTickValues = useMemo(() => {
+    let counter = 10;
+    let result = [];
+    while (counter <= maxValue) {
+      result.push(counter);
+
+      counter += 10;
+    }
+
+    return result;
+  }, [maxValue]);
 
   return (
     <VictoryChart
@@ -81,7 +115,7 @@ export const MyDashboardBar = ({
           tickLabels: { fill: contentInverseTertiary },
           grid: { stroke: light6, strokeDasharray: '8, 4', strokeWidth: 1, width: '100px' },
         }}
-        tickValues={[5, 10, 15, 20, 25, 30, 35, 40]}
+        tickValues={yTickValues}
         tickFormat={(t) => `${t} ${shortHoursText}`}
         theme={VictoryTheme.material}
       />
@@ -102,7 +136,6 @@ export const MyDashboardBar = ({
             />
           }
           labels={({ datum }) => datum.y}
-          cornerRadius={{ top: 5, bottom: 5 }}
           style={{
             data: {
               fill: purple2,
@@ -123,6 +156,33 @@ export const MyDashboardBar = ({
                   weekText={weekText}
                   width={tooltipWidth}
                   height={tooltipHeight}
+                  fieldName="absence"
+                  maxValue={maxValue}
+                />
+              }
+            />
+          }
+          labels={() => ' '}
+          style={{
+            data: {
+              fill: red5,
+            },
+          }}
+          data={barData}
+          x="isoWeek"
+          y="absence"
+        />
+        <VictoryBar
+          labelComponent={
+            <VictoryTooltip
+              dy={-70}
+              constrainToVisibleArea
+              flyoutComponent={
+                <MyDashboardTooltip
+                  hoursText={hoursText}
+                  weekText={weekText}
+                  width={tooltipWidth}
+                  height={tooltipHeight}
                   isDefault
                   maxValue={maxValue}
                 />
@@ -130,7 +190,6 @@ export const MyDashboardBar = ({
             />
           }
           labels={() => ' '}
-          cornerRadius={{ top: 5, bottom: 5 }}
           style={{
             data: {
               fill: light6,
@@ -141,6 +200,14 @@ export const MyDashboardBar = ({
           y="duration"
         />
       </VictoryStack>
+      <VictoryLegend
+        x={width / 2 - 90}
+        y={height - 20}
+        orientation="horizontal"
+        gutter={20}
+        data={legendData}
+        standalone={false}
+      />
     </VictoryChart>
   );
 };
