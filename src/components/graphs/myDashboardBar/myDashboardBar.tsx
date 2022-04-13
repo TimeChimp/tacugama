@@ -39,7 +39,7 @@ export const MyDashboardBar = ({
   weekText = 'Week',
   hoursText = 'hours',
   shortHoursText = 'h',
-  tooltipWidth = 180,
+  tooltipWidth = 200,
   tooltipHeight = 100,
   legendData,
   height = 350,
@@ -201,12 +201,15 @@ export const MyDashboardBar = ({
         />
       </VictoryStack>
       <VictoryLegend
-        x={width / 2 - 90}
-        y={height - 20}
+        x={width / 2 - 120}
+        y={height - 40}
         orientation="horizontal"
         gutter={20}
         data={legendData}
         standalone={false}
+        style={{
+          labels: { fontSize: 16 },
+        }}
       />
     </VictoryChart>
   );
