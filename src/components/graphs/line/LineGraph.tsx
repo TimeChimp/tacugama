@@ -46,6 +46,7 @@ export interface LineGraphProps {
   flyOutWidth?: number;
   flyOutHeight?: number;
   legendData?: LegendData[];
+  dateFormat?: string;
 }
 
 export const LineGraph = ({
@@ -68,6 +69,7 @@ export const LineGraph = ({
   flyOutWidth = 270,
   flyOutHeight = 200,
   legendData,
+  dateFormat,
 }: LineGraphProps) => {
   const {
     theme: {
@@ -169,6 +171,7 @@ export const LineGraph = ({
                   flyOutTooltipHeight={flyOutHeight}
                   formatAsDate={formatAsDate}
                   horizontalAxisItemLabel={horizontalAxisItemLabel}
+                  dateFormat={dateFormat}
                 />
               }
             />
