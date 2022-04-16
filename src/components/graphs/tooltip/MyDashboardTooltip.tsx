@@ -17,7 +17,7 @@ export const MyDashboardTooltip = ({
   const {
     theme: {
       current: {
-        sizing: { scale300, scale600 },
+        sizing: { scale300, scale500 },
         colors: { contentSecondary },
         customColors: { light4 },
       },
@@ -47,7 +47,7 @@ export const MyDashboardTooltip = ({
                 background: contentSecondary,
                 color: light4,
                 textAlign: 'center',
-                fontSize: scale600,
+                fontSize: scale500,
               },
             },
           }}
