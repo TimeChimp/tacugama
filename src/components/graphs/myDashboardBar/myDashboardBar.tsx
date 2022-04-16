@@ -208,7 +208,7 @@ export const MyDashboardBar = ({
         data={legendData}
         standalone={false}
         style={{
-          labels: { fontSize: 16 },
+          labels: { fontSize: 14 },
         }}
       />
     </VictoryChart>
