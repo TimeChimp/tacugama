@@ -88,7 +88,7 @@
     "@ag-grid-enterprise/row-grouping": "25.0.1",
     "@ag-grid-enterprise/server-side-row-model": "25.0.1",
     "@ag-grid-enterprise/set-filter": "25.0.1",
-    "@ag-grid-enterprise/status-bar": "25.0.1",
+    "@ag-grid-enterprise/status-bar": "27.1.0",
     "@timechimp/timechimp-typescript-helpers": "^1.0.2",
     "@types/bytes": "^3.1.1",
     "baseui": "^9.116.0",
