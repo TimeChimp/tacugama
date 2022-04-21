@@ -50,6 +50,8 @@ import {
   EmptyCalendar as EmptyCalendarIcon,
   QuestionMark as QuestionMarkIcon,
   Star as StarIcon,
+  Eye as EyeIcon,
+  Asterisk as AsteriskIcon,
 } from './';
 import { SVGProps } from './icon/Icon';
 
@@ -106,6 +108,8 @@ const DragTemplate: Story<SVGProps> = (args) => <DragIcon {...args} />;
 const EmptyCalendarTemplate: Story<SVGProps> = (args) => <EmptyCalendarIcon {...args} />;
 const QuestionMarkTemplate: Story<SVGProps> = (args) => <QuestionMarkIcon {...args} />;
 const StarTemplate: Story<SVGProps> = (args) => <StarIcon {...args} />;
+const EyeTemplate: Story<SVGProps> = (args) => <EyeIcon {...args} />;
+const AsteriskTemplate: Story<SVGProps> = (args) => <AsteriskIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -339,5 +343,15 @@ QuestionMark.args = {
 
 export const Star = StarTemplate.bind({});
 Star.args = {
+  size: '16',
+};
+
+export const Asterisk = AsteriskTemplate.bind({});
+Asterisk.args = {
+  size: '16',
+};
+
+export const Eye = EyeTemplate.bind({});
+Eye.args = {
   size: '16',
 };
