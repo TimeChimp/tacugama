@@ -14,4 +14,6 @@ export const Default = Template.bind({});
 Default.args = {
   checkmarkType: 'default',
   labelPlacement: 'right',
+  disabled: false,
+  checked: false,
 };

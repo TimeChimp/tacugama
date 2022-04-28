@@ -8,7 +8,7 @@ export interface CheckboxProps extends BaseCheckboxProps {
   testId?: string;
 }
 
-export const Checkbox = ({ checked, children, testId, ...rest }: CheckboxProps) => {
+export const Checkbox = ({ checked, children, testId, disabled, ...rest }: CheckboxProps) => {
   const {
     theme: {
       current: {
@@ -24,6 +24,7 @@ export const Checkbox = ({ checked, children, testId, ...rest }: CheckboxProps) 
   return (
     <BaseCheckbox
       checked={checked}
+      disabled={disabled}
       overrides={{
         Root: {
           props: {
@@ -43,16 +44,16 @@ export const Checkbox = ({ checked, children, testId, ...rest }: CheckboxProps) 
             ...border({
               ...border100,
               borderWidth: scale0,
-              borderColor: !!checked ? primary400 : '#87878F',
+              borderColor: !!checked && !disabled ? primary400 : '#87878F',
             }),
             ...borderRadius(radius100),
-            ':hover': {
+            ':hover:enabled': {
               ...border({
                 ...border100,
                 borderWidth: scale0,
                 borderColor: primary400,
               }),
-              backgroundColor: !!checked ? primary400 : primaryB,
+              backgroundColor: !!checked && !disabled ? primary400 : primaryB,
             },
           },
         },
