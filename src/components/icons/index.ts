@@ -100,3 +100,5 @@ export * from './question-mark';
 export * from './star';
 export * from './eye';
 export * from './asterisk';
+export * from './play';
+export * from './stop';
