@@ -17,6 +17,7 @@ export interface DropdownItem {
   isChecked?: boolean;
   isBold?: boolean;
   filterConditions?: ActionItemFilterCondition[];
+  context?: any;
 }
 
 export interface DropdownOptionProps {

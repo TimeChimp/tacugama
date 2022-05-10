@@ -42,7 +42,15 @@ export const Dropdown = ({
 
   useEffect(() => {
     const dropDownItems = items
-      .filter((x) => !searchTerm || x.label.toLowerCase().includes(searchTerm.toLowerCase()))
+      .filter((x) => {
+        if (x.filterConditions?.length && x.context) {
+          return x.filterConditions?.every(({ value, name, comparator }: any) => {
+            return comparator(value, name, x.context);
+          });
+        }
+
+        return !searchTerm || x.label.toLowerCase().includes(searchTerm.toLowerCase());
+      })
       .map((x) => ({
         ...x,
         checkbox: selection,

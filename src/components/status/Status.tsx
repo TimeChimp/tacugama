@@ -29,6 +29,7 @@ export const Status = ({ value, color = customColors.light2, fontColor = customC
             background: color,
             ...padding(scale0, scale300),
             ...borderRadius(radius100),
+            margin: 0,
             color: fontColor,
           },
         },
