@@ -102,3 +102,4 @@ export * from './eye';
 export * from './asterisk';
 export * from './play';
 export * from './stop';
+export * from './open-new';
