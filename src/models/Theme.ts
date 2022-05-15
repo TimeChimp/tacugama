@@ -23,6 +23,7 @@ export interface CustomColors {
   light4: string;
   light5: string;
   light6: string;
+  light7: string;
 
   // Red
   red0: string;
