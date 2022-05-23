@@ -33,6 +33,7 @@ export interface DataGridApi {
   exportAsExcel: () => void;
   refreshStore: () => void;
   refreshCells: () => void;
+  datagridRef: React.RefObject<HTMLDivElement>;
 }
 
 export type DataGridColumnValueType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'duration';
