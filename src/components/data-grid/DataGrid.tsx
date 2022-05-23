@@ -66,7 +66,6 @@ import { RowSelect } from '../row-select';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { GroupRowInnerRenderer } from './group-row-inner-renderer';
 import { GroupRowInnerTagRenderer } from './group-row-inner-tag-renderer';
-import { Button } from 'components/button';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
@@ -545,7 +544,6 @@ export const DataGrid = ({
 
   return (
     <>
-      <Button onClick={() => console.log(datagridRef)}>TEST ref</Button>
       <Filters
         api={gridApi}
         columns={gridColumns}
