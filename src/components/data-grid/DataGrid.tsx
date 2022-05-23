@@ -753,7 +753,10 @@ export const DataGrid = ({
               translations,
             }}
             cellRenderer={columnCellRenderer}
-            cellRendererParams={{ data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon } }}
+            cellRendererParams={{
+              data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon },
+              api: gridApi,
+            }}
             type="rightAligned"
             minWidth={60}
             maxWidth={rowActionItems?.length || columnToggling ? 60 : 0}
