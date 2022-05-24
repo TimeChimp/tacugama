@@ -754,8 +754,7 @@ export const DataGrid = ({
             }}
             cellRenderer={columnCellRenderer}
             cellRendererParams={{
-              data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon },
-              api: gridApi,
+              data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon, api: gridApi },
             }}
             type="rightAligned"
             minWidth={60}
