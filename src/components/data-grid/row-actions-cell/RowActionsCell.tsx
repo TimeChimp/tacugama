@@ -43,7 +43,7 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
     });
   }, [items, data]);
 
-  return !!onEdit ? (
+  return !onEdit ? (
     <div ref={containerRef}>
       <Dropdown
         onOpen={onOpen}
