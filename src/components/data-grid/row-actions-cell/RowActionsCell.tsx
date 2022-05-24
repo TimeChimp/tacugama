@@ -6,8 +6,8 @@ import { TertiaryButton } from '../../button';
 import { ActionMenu, ActionMenuActive } from '../../icons';
 import { RowEditCell } from '../row-edit-cell';
 
-export const RowActionsCell = ({ data, api }: RowActionsCellProps) => {
-  const { onEdit, items, id, icon } = data;
+export const RowActionsCell = ({ data }: RowActionsCellProps) => {
+  const { onEdit, items, id, icon, api } = data;
   const [active, setActive] = useState(false);
   const {
     theme: {
@@ -44,8 +44,6 @@ export const RowActionsCell = ({ data, api }: RowActionsCellProps) => {
   }, [items, data]);
 
   return !!onEdit ? (
-    <RowEditCell onClick={handleEdit} icon={icon} />
-  ) : (
     <div ref={containerRef}>
       <Dropdown
         onOpen={onOpen}
@@ -59,6 +57,8 @@ export const RowActionsCell = ({ data, api }: RowActionsCellProps) => {
         </TertiaryButton>
       </Dropdown>
     </div>
+  ) : (
+    <RowEditCell onClick={handleEdit} icon={icon} />
   );
 };
 
