@@ -1,26 +1,12 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { BaseProvider } from 'baseui';
-import { ThemeOptionsProps, getTheme, Theme } from '../theme';
-import { debug, styletron, StyletronProvider } from './StyletronProvider';
+import { ThemeOptionsProps, getTheme } from '../../theme';
+import { debug, styletron, StyletronProvider } from '../styletron/StyletronProvider';
+import { defaultThemeContextProps, ThemeContext, ThemeProviderProps } from './types';
 
-export interface ThemeContextProps {
-  theme: Theme;
-  setTheme: (options?: ThemeOptionsProps) => void;
-}
-
-export const defaultThemeContextProps: ThemeContextProps = {
-  theme: getTheme(),
-  setTheme: () => null,
-};
-
-export const ThemeContext = createContext(defaultThemeContextProps);
-
-interface ThemeProviderProps {
-  children: React.ReactNode;
-}
-
-export const ThemeProvider = ({ children }: ThemeProviderProps) => {
+export const ThemeProvider = ({ children, theme: themeOptions }: ThemeProviderProps) => {
   const [themeContext, setThemeContext] = useState(defaultThemeContextProps);
+  const [currentTheme, setCurrentTheme] = useState(getTheme(themeOptions).current);
 
   useEffect(() => {
     setThemeContext((state) => ({
@@ -31,6 +17,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
   function setTheme(options?: ThemeOptionsProps) {
     const theme = getTheme(options);
+    setCurrentTheme(theme.current);
     setThemeContext((prevState) => ({ ...prevState, theme }));
   }
 
@@ -38,7 +25,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     <StyletronProvider value={styletron} debug={debug} debugAfterHydration>
       <ThemeContext.Provider value={themeContext}>
         <BaseProvider
-          theme={themeContext.theme.current}
+          theme={currentTheme}
           overrides={{
             AppContainer: {
               style: { height: '100%' },

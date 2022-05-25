@@ -1,2 +1,2 @@
-export * from './ThemeProvider';
-export * from './StyletronProvider';
+export * from './theme';
+export * from './styletron';
