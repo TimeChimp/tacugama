@@ -5,7 +5,7 @@ export const lightBorders: DeepPartial<Theme['borders']> = {
   border300: {
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderColor: '#E7E7E9',
+    borderColor: '#cfd6e4',
   },
 };
 

@@ -57,9 +57,7 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
         </TertiaryButton>
       </Dropdown>
     </div>
-  ) : (
-    <RowEditCell onClick={handleEdit} icon={icon} />
-  );
+  ) : null;
 };
 
 export default RowActionsCell;
