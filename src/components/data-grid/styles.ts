@@ -45,6 +45,11 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       padding-left: ${theme.sizing.scale300};
     }
 
+    .ag-theme-alpine .ag-root-wrapper {
+      border-bottom-right-radius: ${theme.borders.radius200};
+      border-bottom-left-radius: ${theme.borders.radius200};
+    }
+
     .ag-theme-alpine .ag-ltr .ag-pinned-right-header .ag-header-row:after {
       display: none;
     }
@@ -145,6 +150,8 @@ export const StyledDataGridHeader = themedStyled<'div', StyledDataGridHeaderProp
     ...borderLeft($theme.borders.border300),
     ...borderRight($theme.borders.border300),
     background: $theme.colors.primaryB,
+    borderTopRightRadius: $theme.borders.radius200,
+    borderTopLeftRadius: $theme.borders.radius200,
   }),
 );
 

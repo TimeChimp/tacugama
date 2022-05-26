@@ -38,6 +38,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       theme: {
         current: {
           sizing: { scale0, scale100, scale200, scale600 },
+          borders: { radius200 },
           colors,
         },
       },
@@ -55,7 +56,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         overrides={{
           Root: {
             style: {
-              ...borderRadius(scale100),
+              ...borderRadius(radius200),
               ...padding(scale200, scale600),
               fontWeight: 'normal',
               backgroundColor: getButtonBackgroundColor(buttonType, colors),

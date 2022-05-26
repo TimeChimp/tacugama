@@ -22,7 +22,7 @@ export const Modal = ({ children, onStateChange, name, overrides = {}, ...rest }
     Dialog: {
       style: {
         ...border(theme.current.borders.border100),
-        ...borderRadius(theme.current.borders.radius100),
+        ...borderRadius(theme.current.borders.radius200),
       },
     },
     Close: {
@@ -32,6 +32,11 @@ export const Modal = ({ children, onStateChange, name, overrides = {}, ...rest }
         top: theme.current.sizing.scale700,
       },
     },
+    // DialogContainer: {
+    //   style: {
+
+    //   },
+    // },
   });
 
   return (
