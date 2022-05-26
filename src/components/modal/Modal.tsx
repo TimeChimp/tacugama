@@ -3,7 +3,7 @@ import { Modal as BaseModal, ModalOverrides, ModalProps as BaseModelProps } from
 import { useTheme } from '../../providers';
 import merge from 'deepmerge';
 
-import { border, borderRadius, MountStateNotifier, MountStates } from '../../utils';
+import { border, borderRadius, margin, MountStateNotifier, MountStates } from '../../utils';
 
 export interface ModalProps extends BaseModelProps {
   children: React.ReactNode;
@@ -16,27 +16,36 @@ export const Modal = ({ children, onStateChange, name, overrides = {}, ...rest }
   // the modal is closed. The base modal is unmounted, but this component `Modal` is still mounted.
   // Hence using a component to check the current state so the modal can use animations for mount states.
 
-  const { theme } = useTheme();
+  const {
+    theme: {
+      current: {
+        sizing: { scale600, scale700 },
+        borders: { border100, radius200 },
+        colors: { contentTertiary },
+      },
+    },
+  } = useTheme();
 
   const mergedOverrides: ModalOverrides = merge(overrides, {
     Dialog: {
       style: {
-        ...border(theme.current.borders.border100),
-        ...borderRadius(theme.current.borders.radius200),
+        ...border(border100),
+        ...borderRadius(radius200),
+        ...margin('-20vh', scale600, scale600, scale600), // -20vh is fix for aligning modal in bright eyes iframe
       },
     },
     Close: {
       style: {
-        color: theme.current.colors.contentTertiary,
-        right: theme.current.sizing.scale700,
-        top: theme.current.sizing.scale700,
+        color: contentTertiary,
+        right: scale700,
+        top: scale700,
       },
     },
-    // DialogContainer: {
-    //   style: {
-
-    //   },
-    // },
+    DialogContainer: {
+      style: {
+        transitionDuration: '0ms', // use no transition because bright eyes has non for the backdrop
+      },
+    },
   });
 
   return (
