@@ -43,7 +43,7 @@ export const Modal = ({ children, onStateChange, name, overrides = {}, ...rest }
     },
     DialogContainer: {
       style: {
-        transitionDuration: '0ms',
+        transitionDuration: '0ms', // use no transition because bright eyes has non for the backdrop
       },
     },
   });
