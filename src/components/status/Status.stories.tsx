@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Status, StatusProps } from '.';
 
 export default {
-  title: 'Component/Status',
+  title: 'Components/Status',
   component: Status,
 } as Meta;
 

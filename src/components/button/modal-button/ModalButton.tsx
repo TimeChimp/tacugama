@@ -9,6 +9,7 @@ import {
   borderTop,
   getButtonBackgroundColor,
   getButtonBackgroundHoverColor,
+  padding,
 } from '../../../utils';
 import { useTheme } from '../../../providers';
 import { ButtonType, CustomThemeType } from '../../../models';
@@ -28,7 +29,7 @@ export const ModalButton = ({
   const {
     theme: {
       current: {
-        sizing: { scale0, scale600 },
+        sizing: { scale0, scale200, scale600 },
         colors,
       },
     },
@@ -42,7 +43,9 @@ export const ModalButton = ({
       overrides={{
         BaseButton: {
           style: ({ $theme }: { $theme: CustomThemeType }) => ({
-            ...borderRadius($theme.borders.radius100),
+            ...borderRadius($theme.borders.radius200),
+            ...padding(scale200, scale600),
+            fontWeight: 'normal',
             backgroundColor: getButtonBackgroundColor(buttonType, colors),
             ':hover': {
               backgroundColor: getButtonBackgroundHoverColor(buttonType, colors),

@@ -3,7 +3,7 @@ import { TextAlignProperty } from '../../models';
 import { StyledItem } from './StyledFlexItem';
 
 export interface FlexItemProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   justifyContent?: string;
   alignItems?: string;
   textAlign?: TextAlignProperty;
