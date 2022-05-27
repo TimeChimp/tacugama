@@ -177,10 +177,6 @@ export const DataGrid = ({
 
   const refreshCells = (api: GridApi) => api.refreshCells();
 
-  const onGridSizeChanged = () => {
-    gridApi?.sizeColumnsToFit();
-  };
-
   const setViewFilterIds = (filterModel: FilterModel) => {
     setSelectedFilterIds({});
 
@@ -631,7 +627,6 @@ export const DataGrid = ({
           onRowDataChanged={onRowDataChanged}
           getRowNodeId={getRowNodeId}
           onFirstDataRendered={onFirstDataRendered}
-          onGridSizeChanged={onGridSizeChanged}
           onSelectionChanged={onSelectionChanged}
           suppressDragLeaveHidesColumns
           cacheBlockSize={1000}
