@@ -14,4 +14,3 @@ export * from './row-actions-cell';
 export * from './row-edit-cell';
 export * from './sort-ascending-icon';
 export * from './sort-descending-icon';
-export { LicenseManager } from 'ag-grid-enterprise';
