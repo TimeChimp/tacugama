@@ -136,6 +136,12 @@ export const DataGrid = ({
   }
 
   useEffect(() => {
+    if (licenseKey) {
+      LicenseManager.setLicenseKey(licenseKey);
+    }
+  }, [licenseKey]);
+
+  useEffect(() => {
     const allViews = views ? sortBy<DataGridView>(views, [nameOf<DataGridView>('name')]) : [];
     const hasActiveView = allViews.some((view) => view.active);
 
