@@ -130,6 +130,11 @@ export const DataGrid = ({
 
   const { theme } = useTheme();
 
+  // note: setting the license key is not working in use effect. Downside is that setLicenseKey is now called multiple times.
+  if (licenseKey) {
+    LicenseManager.setLicenseKey(licenseKey);
+  }
+
   useEffect(() => {
     if (licenseKey) {
       LicenseManager.setLicenseKey(licenseKey);
