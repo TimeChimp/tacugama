@@ -178,7 +178,7 @@ export const DataGrid = ({
   const refreshCells = (api: GridApi) => api.refreshCells();
 
   const onGridSizeChanged = () => {
-    gridApi.sizeColumnsToFit();
+    gridApi?.sizeColumnsToFit();
   };
 
   const setViewFilterIds = (filterModel: FilterModel) => {
