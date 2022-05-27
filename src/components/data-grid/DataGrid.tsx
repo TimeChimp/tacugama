@@ -16,6 +16,7 @@ import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-mo
 import { SetFilterModel, SetFilterModule } from '@ag-grid-enterprise/set-filter';
 import { AgGridColumn, AgGridReact } from '@ag-grid-community/react';
 import { CsvExportModule } from '@ag-grid-community/csv-export';
+import { LicenseManager } from '@ag-grid-enterprise/core';
 import { ExcelExportModule } from '@ag-grid-enterprise/excel-export';
 import {
   GridApi,
@@ -73,6 +74,7 @@ const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
 const DATE_FORMAT = 'y-MM-dd';
 
 export const DataGrid = ({
+  licenseKey,
   rowData,
   columns,
   selection,
@@ -127,6 +129,12 @@ export const DataGrid = ({
   const [rowsSelected, setRowsSelected] = useState<number>(0);
 
   const { theme } = useTheme();
+
+  useEffect(() => {
+    if (licenseKey) {
+      LicenseManager.setLicenseKey(licenseKey);
+    }
+  }, [licenseKey]);
 
   useEffect(() => {
     const allViews = views ? sortBy<DataGridView>(views, [nameOf<DataGridView>('name')]) : [];

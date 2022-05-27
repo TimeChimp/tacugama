@@ -165,6 +165,7 @@ export interface Translations {
 }
 
 export interface DataGridProps {
+  licenseKey?: string;
   rowModelType?: RowModelType;
   rowData?: any[] | undefined;
   columns: DataGridColumn[];
