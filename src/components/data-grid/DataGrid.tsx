@@ -234,14 +234,14 @@ export const DataGrid = ({
 
       gridColumnApi.setColumnState(gridState.columnState);
       gridColumnApi.setColumnGroupState(gridState.columnGroupState);
-      gridApi.setFilterModel(gridState.filterModel);
+      gridApi?.setFilterModel(gridState.filterModel);
       setViewFilterIds(gridState.filterModel);
     } else {
       resetGrid();
     }
 
-    gridApi.onFilterChanged();
-    gridApi.sizeColumnsToFit();
+    gridApi?.onFilterChanged();
+    gridApi?.sizeColumnsToFit();
   };
 
   const handleActivateView = async (id: string) => {
@@ -334,7 +334,7 @@ export const DataGrid = ({
     setGridApi(api);
     setGridColumnApi(columnApi);
 
-    api.sizeColumnsToFit();
+    api?.sizeColumnsToFit();
 
     if (rowModelType === RowModelType.serverSide) {
       const datasource = createServerSideDatasource();
