@@ -177,6 +177,10 @@ export const DataGrid = ({
 
   const refreshCells = (api: GridApi) => api.refreshCells();
 
+  const onGridSizeChanged = () => {
+    gridApi?.sizeColumnsToFit();
+  };
+
   const setViewFilterIds = (filterModel: FilterModel) => {
     setSelectedFilterIds({});
 
@@ -230,14 +234,14 @@ export const DataGrid = ({
 
       gridColumnApi.setColumnState(gridState.columnState);
       gridColumnApi.setColumnGroupState(gridState.columnGroupState);
-      gridApi.setFilterModel(gridState.filterModel);
+      gridApi?.setFilterModel(gridState.filterModel);
       setViewFilterIds(gridState.filterModel);
     } else {
       resetGrid();
     }
 
-    gridApi.onFilterChanged();
-    gridApi.sizeColumnsToFit();
+    gridApi?.onFilterChanged();
+    gridApi?.sizeColumnsToFit();
   };
 
   const handleActivateView = async (id: string) => {
@@ -330,7 +334,7 @@ export const DataGrid = ({
     setGridApi(api);
     setGridColumnApi(columnApi);
 
-    api.sizeColumnsToFit();
+    api?.sizeColumnsToFit();
 
     if (rowModelType === RowModelType.serverSide) {
       const datasource = createServerSideDatasource();
@@ -627,6 +631,7 @@ export const DataGrid = ({
           onRowDataChanged={onRowDataChanged}
           getRowNodeId={getRowNodeId}
           onFirstDataRendered={onFirstDataRendered}
+          onGridSizeChanged={onGridSizeChanged}
           onSelectionChanged={onSelectionChanged}
           suppressDragLeaveHidesColumns
           cacheBlockSize={1000}
