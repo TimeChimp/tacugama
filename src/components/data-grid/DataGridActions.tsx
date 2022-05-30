@@ -3,16 +3,14 @@ import { TertiaryButton } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDataGridActions } from './styles';
 import { Dropdown, DropdownItem } from '../dropdown';
-import { ConfirmationModalType, DATA_TEST_ID } from '../../models';
+import { DATA_TEST_ID } from '../../models';
 import { DataGridActionsProps } from './types';
-import { ConfirmationModal } from '../confirmation-modal';
 import { TrashFull, Download } from '../icons';
 import { padding } from '../../utils';
 import { exportExcel, exportPdf } from './export';
 
 const DELETE_BUTTON_TEST_ID = 'delete-button';
 const EXPORT_BUTTON_TEST_ID = 'export-button';
-const DELETE_SUBMIT_BUTTON_TEST_ID = 'bulk-delete-confirmation-button';
 const EXPORT_OPTIONS_TEST_ID = 'data-grid-export-options';
 const EXPORT_OPTION_TEST_ID = 'data-grid-export-option';
 
@@ -27,8 +25,6 @@ export const DataGridActions = ({
   hideDelete,
 }: DataGridActionsProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
-  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
-  const { cancel, deleteEntries, deleteEntriesCount } = translations;
 
   const {
     theme: {
@@ -39,17 +35,6 @@ export const DataGridActions = ({
       },
     },
   } = useTheme();
-
-  const handleBulkDelete = async () => {
-    if (onBulkDelete && gridApi) {
-      const selectedRows = gridApi.getSelectedRows();
-      if (selectedRows.length) {
-        const selectedIds = selectedRows.map((row) => row.id);
-        await onBulkDelete(selectedIds);
-        gridApi.deselectAll();
-      }
-    }
-  };
 
   useEffect(() => {
     if (gridApi && columns) {
@@ -87,7 +72,7 @@ export const DataGridActions = ({
         </Dropdown>
       )}
 
-      {!hideDelete ? (
+      {!hideDelete && onBulkDelete ? (
         <>
           <TertiaryButton
             overrides={{
@@ -107,22 +92,11 @@ export const DataGridActions = ({
               },
             }}
             disabled={!rowsSelected}
-            onClick={() => setDeleteModalIsOpen(true)}
+            onClick={() => onBulkDelete()}
             testId={DELETE_BUTTON_TEST_ID}
           >
             <TrashFull color={rowsSelected ? red3 : contentStateDisabled} size={scale600} />
           </TertiaryButton>
-          <ConfirmationModal
-            title={deleteEntries}
-            description={deleteEntriesCount(rowsSelected)}
-            type={ConfirmationModalType.danger}
-            isOpen={deleteModalIsOpen}
-            setIsOpen={setDeleteModalIsOpen}
-            submitLabel={deleteEntries}
-            submitOnClick={handleBulkDelete}
-            cancelLabel={cancel!}
-            submitButtonTestId={DELETE_SUBMIT_BUTTON_TEST_ID}
-          />
         </>
       ) : null}
     </StyledDataGridActions>

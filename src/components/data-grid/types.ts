@@ -388,7 +388,7 @@ export interface DataGridActionsProps {
   columns: DataGridColumn[];
   rowsSelected: number;
   translations: Translations;
-  onBulkDelete?: (ids: string[]) => Promise<void>;
+  onBulkDelete?: () => void;
   hideDownload?: boolean;
   hideDelete?: boolean;
 }
