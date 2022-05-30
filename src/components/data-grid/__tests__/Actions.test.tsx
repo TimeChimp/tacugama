@@ -19,14 +19,30 @@ test('it shows no actions by default', () => {
 });
 
 test('it shows actions when selection is enabled', () => {
-  render(<DataGrid selection dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} />);
+  render(
+    <DataGrid
+      selection
+      dataUrl={DATA_URL}
+      columns={COLUMNS}
+      accessToken={ACCESS_TOKEN}
+      onBulkDelete={async () => {}}
+    />,
+  );
 
   expect(screen.getByTestId(DELETE_BUTTON_TEST_ID)).toBeInTheDocument();
   expect(screen.getByTestId(EXPORT_BUTTON_TEST_ID)).toBeInTheDocument();
 });
 
 test('actions are disabled when no selection is made', () => {
-  render(<DataGrid selection dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} />);
+  render(
+    <DataGrid
+      selection
+      dataUrl={DATA_URL}
+      columns={COLUMNS}
+      accessToken={ACCESS_TOKEN}
+      onBulkDelete={async () => {}}
+    />,
+  );
 
   expect(screen.getByTestId(DELETE_BUTTON_TEST_ID)).toBeDisabled();
   expect(screen.getByTestId(EXPORT_BUTTON_TEST_ID)).toBeDisabled();
