@@ -201,7 +201,7 @@ export interface DataGridProps {
   onUnpinView?: (id: string) => Promise<void>;
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
-  onBulkDelete?: (ids: string[]) => Promise<void>;
+  onBulkDelete?: () => Promise<void>;
   onRowEdit?: (data: RowActionsCellData) => void;
   onRowEditIcon?: ComponentType<IconProps>;
   onSelectionChangedHandler?: (data: RowNode[]) => void;
@@ -388,7 +388,7 @@ export interface DataGridActionsProps {
   columns: DataGridColumn[];
   rowsSelected: number;
   translations: Translations;
-  onBulkDelete?: (ids: string[]) => Promise<void>;
+  onBulkDelete?: () => Promise<void>;
   hideDownload?: boolean;
   hideDelete?: boolean;
 }
