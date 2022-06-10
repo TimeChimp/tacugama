@@ -15,7 +15,7 @@ export const Box = ({ noBorder = false, ...rest }: BoxProps) => {
         Block: {
           style: ({ $theme }: ThemeProps) => ({
             ...border(!noBorder ? $theme.borders.border300 : undefined),
-            ...borderRadius($theme.borders.radius100),
+            ...borderRadius($theme.borders.radius200),
             background: $theme.colors.primaryB,
           }),
         },

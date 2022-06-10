@@ -2,7 +2,7 @@ import { ThemeProps } from 'models';
 import { borderRadius, margin, padding } from '../../utils';
 
 export const dialogStyle = ({ $theme }: ThemeProps) => ({
-  ...borderRadius($theme.borders.radius100),
+  ...borderRadius($theme.borders.radius200),
 });
 
 export const modalHeaderStyle = ({ $theme }: ThemeProps) => ({
