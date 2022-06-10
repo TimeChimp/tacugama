@@ -15,7 +15,7 @@ export const Status = ({ value, color = customColors.light2, fontColor = customC
     theme: {
       current: {
         sizing: { scale0, scale300 },
-        borders: { radius100 },
+        borders: { radius200 },
       },
     },
   } = useTheme();
@@ -28,7 +28,7 @@ export const Status = ({ value, color = customColors.light2, fontColor = customC
             display: 'inline-flex',
             background: color,
             ...padding(scale0, scale300),
-            ...borderRadius(radius100),
+            ...borderRadius(radius200),
             margin: 0,
             color: fontColor,
           },

@@ -17,7 +17,7 @@ export const SecondaryButton = forwardRef<HTMLButtonElement, SecondaryButtonProp
             return {
               ...border($theme.borders.border300),
               boxSizing: 'border-box',
-              ...borderRadius($theme.borders.radius100),
+              ...borderRadius($theme.borders.radius200),
             };
           },
         },

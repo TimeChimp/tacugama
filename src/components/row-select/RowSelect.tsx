@@ -42,7 +42,7 @@ export const RowSelect = ({
 
   const { selectOption = [defaultSelectOption!] } = watch();
 
-  const { border300, radius100 } = borders;
+  const { border300, radius200 } = borders;
   const { primary100, contentPrimary } = colors;
 
   const handleOnChange = (selectData: { value: Value }) => {
@@ -118,7 +118,7 @@ export const RowSelect = ({
             Dropdown: {
               style: {
                 ...padding('0'),
-                ...borderRadius(radius100),
+                ...borderRadius(radius200),
                 maxHeight: '300px', // NOTE: Value does not exist in theme
               },
             },
