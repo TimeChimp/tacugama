@@ -14,7 +14,7 @@ export const Tag = ({ value }: TagProps) => {
       current: {
         sizing: { scale0, scale300 },
         customColors: { light2 },
-        borders: { radius100 },
+        borders: { radius200 },
       },
     },
   } = useTheme();
@@ -28,7 +28,7 @@ export const Tag = ({ value }: TagProps) => {
             background: light2,
             margin: scale0,
             ...padding(scale0, scale300),
-            ...borderRadius(radius100),
+            ...borderRadius(radius200),
           },
         },
       }}

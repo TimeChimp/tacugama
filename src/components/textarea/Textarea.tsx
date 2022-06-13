@@ -21,7 +21,7 @@ export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps)
     },
   } = useTheme();
 
-  const { border300, radius100 } = borders;
+  const { border300, radius200 } = borders;
   const { contentSecondary, contentTertiary } = colors;
 
   return (
@@ -46,7 +46,7 @@ export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps)
                 ...border300,
                 borderColor: getInputBorderColor($error, $isFocused, colors, borders),
               }),
-              ...borderRadius(radius100),
+              ...borderRadius(radius200),
             };
           },
           props: {

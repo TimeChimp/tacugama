@@ -36,7 +36,7 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
               return {
                 ...border($theme.borders.border300),
                 boxSizing: 'border-box',
-                ...borderRadius($theme.borders.radius100),
+                ...borderRadius($theme.borders.radius200),
                 ...padding('9px'), // NOTE: Values does not exist in theme
                 ':hover': {
                   backgroundColor: $theme.colors.primaryB,
