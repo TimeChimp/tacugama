@@ -55,6 +55,9 @@ import {
   Play as PlayIcon,
   Stop as StopIcon,
   OpenNew as OpenNewIcon,
+  Checkmark as CheckmarkIcon,
+  Check as CheckIcon,
+  Cross as CrossIcon,
 } from './';
 import { SVGProps } from './icon/Icon';
 
@@ -116,6 +119,9 @@ const AsteriskTemplate: Story<SVGProps> = (args) => <AsteriskIcon {...args} />;
 const PlayTemplate: Story<SVGProps> = (args) => <PlayIcon {...args} />;
 const StopTemplate: Story<SVGProps> = (args) => <StopIcon {...args} />;
 const OpenNewTemplate: Story<SVGProps> = (args) => <OpenNewIcon {...args} />;
+const CheckmarkTemplate: Story<SVGProps> = (args) => <CheckmarkIcon {...args} />;
+const CheckTemplate: Story<SVGProps> = (args) => <CheckIcon {...args} />;
+const CrossTemplate: Story<SVGProps> = (args) => <CrossIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -374,5 +380,20 @@ Stop.args = {
 
 export const OpenNew = OpenNewTemplate.bind({});
 OpenNew.args = {
+  size: '16',
+};
+
+export const Checkmark = CheckmarkTemplate.bind({});
+Checkmark.args = {
+  size: '16',
+};
+
+export const Check = CheckTemplate.bind({});
+Check.args = {
+  size: '16',
+};
+
+export const Cross = CrossTemplate.bind({});
+Cross.args = {
   size: '16',
 };
