@@ -119,6 +119,8 @@ export const DataGrid = ({
   onSelectionChangedHandler,
   onRowDataUpdated,
   onRowDataChanged,
+  onModalClose,
+  onModalOpen,
 }: DataGridProps) => {
   const datagridRef = useRef<HTMLDivElement>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -194,29 +196,32 @@ export const DataGrid = ({
     gridApi?.sizeColumnsToFit();
   };
 
-  const setViewFilterIds = (filterModel: FilterModel) => {
-    setSelectedFilterIds({});
+  const setViewFilterIds = useCallback(
+    (filterModel: FilterModel) => {
+      setSelectedFilterIds({});
 
-    let filterIds: SelectedFilterIds = {};
-    Object.keys(filterModel).forEach((filterName) => {
-      const filter = filterModel[filterName];
-      if (filter.filterType === 'set') {
-        const setFilter = filter as SetFilterModel;
-        if (setFilter.values) {
-          const values = setFilter.values.filter((value) => typeof value === 'string') as string[];
-          filterIds[filterName] = values;
+      let filterIds: SelectedFilterIds = {};
+      Object.keys(filterModel).forEach((filterName) => {
+        const filter = filterModel[filterName];
+        if (filter.filterType === 'set') {
+          const setFilter = filter as SetFilterModel;
+          if (setFilter.values) {
+            const values = setFilter.values.filter((value) => typeof value === 'string') as string[];
+            filterIds[filterName] = values;
+          }
         }
-      }
 
-      if (filter.filterType === 'date') {
-        const { dateFrom, dateTo } = filter as DateFilterModel;
-        if (setDates && dateFrom && dateTo) {
-          setDates([new TcDate(dateFrom).toDate(), new TcDate(dateTo).toDate()]);
+        if (filter.filterType === 'date') {
+          const { dateFrom, dateTo } = filter as DateFilterModel;
+          if (setDates && dateFrom && dateTo) {
+            setDates([new TcDate(dateFrom).toDate(), new TcDate(dateTo).toDate()]);
+          }
         }
-      }
-    });
-    setSelectedFilterIds(filterIds);
-  };
+      });
+      setSelectedFilterIds(filterIds);
+    },
+    [setDates],
+  );
 
   const getInitialDateRange = () => {
     const tcDate = new TcDate();
@@ -226,36 +231,42 @@ export const DataGrid = ({
     return [startOfMonth, endOfMonth];
   };
 
-  const resetGrid = () => {
-    gridColumnApi.resetColumnState();
-    gridColumnApi.resetColumnGroupState();
+  const resetGrid = useCallback(
+    (api: GridApi, columnApi: ColumnApi) => {
+      columnApi.resetColumnState();
+      columnApi.resetColumnGroupState();
 
-    const filterModel = gridApi.getFilterModel();
-    Object.keys(filterModel).forEach((filter) => {
-      gridApi.destroyFilter(filter);
-    });
+      const filterModel = api.getFilterModel();
+      Object.keys(filterModel).forEach((filter) => {
+        api.destroyFilter(filter);
+      });
 
-    setViewFilterIds({});
-    if (setDates) {
-      setDates(getInitialDateRange());
-    }
-  };
+      setViewFilterIds({});
+      if (setDates) {
+        setDates(getInitialDateRange());
+      }
+    },
+    [setDates, setViewFilterIds],
+  );
 
-  const setViewState = (state: string | null) => {
-    if (state) {
-      const gridState: DataGridState = JSON.parse(state);
+  const setViewState = useCallback(
+    (api: GridApi, columnApi: ColumnApi, state: string | null) => {
+      if (state) {
+        const gridState: DataGridState = JSON.parse(state);
 
-      gridColumnApi.setColumnState(gridState.columnState);
-      gridColumnApi.setColumnGroupState(gridState.columnGroupState);
-      gridApi?.setFilterModel(gridState.filterModel);
-      setViewFilterIds(gridState.filterModel);
-    } else {
-      resetGrid();
-    }
+        columnApi.setColumnState(gridState.columnState);
+        columnApi.setColumnGroupState(gridState.columnGroupState);
+        api?.setFilterModel(gridState.filterModel);
+        setViewFilterIds(gridState.filterModel);
+      } else {
+        resetGrid(api, columnApi);
+      }
 
-    gridApi?.onFilterChanged();
-    gridApi?.sizeColumnsToFit();
-  };
+      api?.onFilterChanged();
+      api?.sizeColumnsToFit();
+    },
+    [setViewFilterIds, resetGrid],
+  );
 
   const handleActivateView = async (id: string) => {
     const view = allViews?.find((view) => view.id === id);
@@ -273,7 +284,7 @@ export const DataGrid = ({
         await onActivateView(view.id);
       }
 
-      setViewState(view.viewState!);
+      setViewState(gridApi, gridColumnApi, view.viewState!);
     }
   };
 
@@ -324,7 +335,7 @@ export const DataGrid = ({
   };
 
   const createDataGridApi = useCallback(
-    (api: GridApi) => {
+    (api: GridApi, columnApi: ColumnApi) => {
       if (onReady) {
         const dataGridApi: DataGridApi = {
           getSelectedRows: () => getSelectedRows(api),
@@ -333,16 +344,17 @@ export const DataGrid = ({
           exportAsExcel: () => exportAsExcel(api),
           refreshStore: () => refreshStore(api),
           refreshCells: () => refreshCells(api),
+          setViewState: (state: string | null) => setViewState(api, columnApi, state),
           datagridRef,
         };
         onReady(dataGridApi);
       }
     },
-    [onReady],
+    [onReady, setViewState],
   );
 
   const onGridReady = async ({ api, columnApi }: GridReadyEvent) => {
-    createDataGridApi(api);
+    createDataGridApi(api, columnApi);
 
     setGridApi(api);
     setGridColumnApi(columnApi);
@@ -538,7 +550,7 @@ export const DataGrid = ({
   const onFirstDataRendered = () => {
     const activeView = allViews?.find((view) => view.active);
     if (activeView && activeView.viewState) {
-      return setViewState(activeView.viewState);
+      return setViewState(gridApi, gridColumnApi, activeView.viewState);
     }
 
     return setFilterDefaultValues();
@@ -591,6 +603,8 @@ export const DataGrid = ({
                 translations={translations}
                 gridApi={gridApi}
                 gridColumnApi={gridColumnApi}
+                onModalClose={onModalClose}
+                onModalOpen={onModalOpen}
               />
             )}
             {(selection || enableExport) && (

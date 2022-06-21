@@ -9,7 +9,11 @@ export interface ConfirmationModalProps {
   description: string | JSX.Element;
   type: ConfirmationModalType;
   isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
+  /**
+   * @deprecated The prop should not be used. Use onClose instead.
+   */
+  setIsOpen?: (open: boolean) => void;
+  onClose: () => void;
   submitLabel: string;
   submitOnClick?: () => Promise<void>;
   cancelLabel: string;
@@ -28,6 +32,7 @@ export const ConfirmationModal = ({
   cancelLabel,
   cancelOnClick,
   submitButtonTestId,
+  onClose,
 }: ConfirmationModalProps) => {
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -35,7 +40,10 @@ export const ConfirmationModal = ({
     if (cancelOnClick) {
       await cancelOnClick();
     }
-    setIsOpen(false);
+    if (setIsOpen) {
+      setIsOpen(false);
+    }
+    onClose();
   };
 
   const handleSubmit = async () => {
@@ -44,7 +52,10 @@ export const ConfirmationModal = ({
       await submitOnClick();
       setLoading(false);
     }
-    setIsOpen(false);
+    if (setIsOpen) {
+      setIsOpen(false);
+    }
+    onClose();
   };
 
   const getButtonType = () => {

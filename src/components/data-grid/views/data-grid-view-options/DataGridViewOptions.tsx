@@ -33,8 +33,8 @@ export const DataGridViewOptions = ({
     theme: {
       current: {
         colors: { primary, primaryB, contentStateDisabled },
-        sizing: { scale0, scale200, scale400, scale500, scale600, scale650 },
-        borders: { border300 },
+        sizing: { scale200, scale400, scale500, scale600, scale650 },
+        borders: { border300, radius200 },
       },
     },
   } = useTheme();
@@ -199,7 +199,7 @@ export const DataGridViewOptions = ({
                 borderStyle: 'dashed',
                 borderWidth: border300.borderWidth,
               }),
-              ...borderRadius(scale0),
+              ...borderRadius(radius200),
               ...margin(scale200, scale400),
               boxSizing: 'border-box',
               ':hover': {
