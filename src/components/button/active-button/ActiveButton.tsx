@@ -22,7 +22,7 @@ export const ActiveButton = forwardRef<HTMLButtonElement, ActiveButtonProps>(
                 borderStyle: $theme.borders.border300.borderStyle,
                 borderWidth: $theme.borders.border300.borderWidth,
               }),
-              ...borderRadius($theme.sizing.scale0),
+              ...borderRadius($theme.borders.radius200),
               boxSizing: 'border-box',
               ':hover': {
                 backgroundColor: $theme.colors.primary200,
