@@ -1,5 +1,5 @@
 {
-  "version": "2.0.0-beta.10",
+  "version": "2.0.0-beta.19",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -84,6 +84,7 @@
     "@ag-grid-community/core": "25.0.1",
     "@ag-grid-community/csv-export": "25.0.1",
     "@ag-grid-community/react": "25.0.1",
+    "@ag-grid-enterprise/core": "25.0.1",
     "@ag-grid-enterprise/excel-export": "25.0.1",
     "@ag-grid-enterprise/row-grouping": "25.0.1",
     "@ag-grid-enterprise/server-side-row-model": "25.0.1",
@@ -91,8 +92,6 @@
     "@ag-grid-enterprise/status-bar": "25.0.1",
     "@timechimp/timechimp-typescript-helpers": "^1.0.2",
     "@types/bytes": "^3.1.1",
-    "ag-grid-community": "25.0.1",
-    "ag-grid-enterprise": "25.0.1",
     "baseui": "^9.116.0",
     "bytes": "^3.1.0",
     "core-js": "^3.18.3",

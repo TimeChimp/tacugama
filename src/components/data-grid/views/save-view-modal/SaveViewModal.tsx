@@ -8,7 +8,7 @@ import { Checkbox } from '../../../checkbox';
 
 export const SaveViewModal = ({
   isOpen,
-  setIsOpen,
+  onClose,
   handleSaveView,
   translations,
   gridApi,
@@ -42,11 +42,11 @@ export const SaveViewModal = ({
     const viewState = getState();
     await handleSaveView(view.id, viewState);
     setLoading(false);
-    setIsOpen(false);
+    onClose();
   };
 
   return (
-    <Modal name="save-view" isOpen={isOpen} onClose={() => setIsOpen(false)}>
+    <Modal name="save-view" isOpen={isOpen} onClose={() => onClose()}>
       <ModalHeader>
         <HeadingSmall>{translations.saveView}</HeadingSmall>
       </ModalHeader>
@@ -68,7 +68,7 @@ export const SaveViewModal = ({
         </FormControl>
       </ModalBody>
       <ModalFooter>
-        <SecondaryModalButton type="button" onClick={() => setIsOpen(false)}>
+        <SecondaryModalButton type="button" onClick={() => onClose()}>
           {translations.cancel}
         </SecondaryModalButton>
         <ModalButton onClick={onSubmit} testId="save-view-modal-submit" isLoading={loading}>

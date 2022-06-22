@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Button, ButtonProps } from './';
+import { Button, ButtonProps, SecondaryButton, SecondaryButtonProps } from './';
 import { ButtonType } from 'models';
 import { Plus } from '../icons';
 
@@ -11,6 +11,7 @@ export default {
 } as Meta;
 
 const Template: Story<ButtonProps> = (args) => <Button {...args} />;
+const SecondaryButtonTemplate: Story<SecondaryButtonProps> = (args) => <SecondaryButton {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
@@ -43,9 +44,8 @@ Error.args = {
   buttonType: ButtonType.error,
 };
 
-export const Secondary = Template.bind({});
+export const Secondary = SecondaryButtonTemplate.bind({});
 Secondary.args = {
-  kind: 'secondary',
   children: 'Button',
 };
 

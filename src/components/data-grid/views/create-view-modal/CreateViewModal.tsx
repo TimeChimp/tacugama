@@ -15,7 +15,7 @@ interface FormInput {
 
 export const CreateViewModal = ({
   isOpen,
-  setIsOpen,
+  onClose,
   handleCreateView,
   translations,
   gridApi,
@@ -55,11 +55,11 @@ export const CreateViewModal = ({
       viewState,
     });
     setLoading(false);
-    setIsOpen(false);
+    onClose();
   };
 
   return (
-    <Modal name="create-view" isOpen={isOpen} onClose={() => setIsOpen(false)}>
+    <Modal name="create-view" isOpen={isOpen} onClose={() => onClose()}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <ModalHeader>
           <HeadingSmall>{translations.addView}</HeadingSmall>
@@ -96,7 +96,7 @@ export const CreateViewModal = ({
           </FormControl>
         </ModalBody>
         <ModalFooter>
-          <SecondaryModalButton type="button" onClick={() => setIsOpen(false)}>
+          <SecondaryModalButton type="button" onClick={() => onClose()}>
             {translations.cancel}
           </SecondaryModalButton>
           <ModalButton testId="create-view-modal-submit" isLoading={loading} type="submit">

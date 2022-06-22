@@ -33,6 +33,7 @@ export interface DataGridApi {
   exportAsExcel: () => void;
   refreshStore: () => void;
   refreshCells: () => void;
+  setViewState: (viewState: string | null) => void;
   datagridRef: React.RefObject<HTMLDivElement>;
 }
 
@@ -165,6 +166,7 @@ export interface Translations {
 }
 
 export interface DataGridProps {
+  licenseKey?: string;
   rowModelType?: RowModelType;
   rowData?: any[] | undefined;
   columns: DataGridColumn[];
@@ -200,7 +202,7 @@ export interface DataGridProps {
   onUnpinView?: (id: string) => Promise<void>;
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
-  onBulkDelete?: (ids: string[]) => Promise<void>;
+  onBulkDelete?: () => Promise<void>;
   onRowEdit?: (data: RowActionsCellData) => void;
   onRowEditIcon?: ComponentType<IconProps>;
   onSelectionChangedHandler?: (data: RowNode[]) => void;
@@ -211,6 +213,8 @@ export interface DataGridProps {
   groupIncludeTotalFooter?: boolean;
   onRowDataChanged?: (e: RowDataUpdatedEvent) => void;
   onRowDataUpdated?: (e: RowDataUpdatedEvent) => void;
+  onModalOpen?: () => void;
+  onModalClose?: () => void;
 }
 
 export interface DataGridView {
@@ -333,13 +337,15 @@ export interface DataGridViewsProps {
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
   onActivateView?: (id: string) => void;
+  onModalOpen?: () => void;
+  onModalClose?: () => void;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
 }
 
 export interface CreateViewModalProps {
   isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
+  onClose: () => void;
   handleCreateView: (input: CreateViewInput) => Promise<void>;
   translations: Translations;
   gridApi: GridApi;
@@ -348,7 +354,7 @@ export interface CreateViewModalProps {
 
 export interface SaveViewModalProps {
   isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
+  onClose: () => void;
   handleSaveView: (id: string, viewState: string) => Promise<void>;
   translations: Translations;
   gridApi: GridApi;
@@ -358,7 +364,7 @@ export interface SaveViewModalProps {
 
 export interface RenameViewModalProps {
   isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
+  onClose: () => void;
   handleRenameView: (id: string, name: string) => Promise<void>;
   translations: Translations;
   view: DataGridView;
@@ -387,7 +393,7 @@ export interface DataGridActionsProps {
   columns: DataGridColumn[];
   rowsSelected: number;
   translations: Translations;
-  onBulkDelete?: (ids: string[]) => Promise<void>;
+  onBulkDelete?: () => Promise<void>;
   hideDownload?: boolean;
   hideDelete?: boolean;
 }
