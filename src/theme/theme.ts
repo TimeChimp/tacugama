@@ -73,7 +73,7 @@ export const getTheme = (options: ThemeOptionsProps = defaultTheme): Theme => {
     borders: lightBorders,
     lighting: lightLighting,
     app: {
-      background: lightPrimitives.primary50,
+      background: customColors.light7,
     },
   };
 

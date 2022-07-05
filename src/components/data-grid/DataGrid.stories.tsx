@@ -101,6 +101,7 @@ const Template: Story<DataGridProps> = (args) => {
       onRenameView={(id: string, name: string) => handleRename(id, name)}
       onCreateView={(input: CreateViewInput) => handleCreateView(input)}
       onSaveViewState={(id: string, viewState: string) => handleSaveView(id, viewState)}
+      onReady={(data: any) => console.log(data)}
     />
   );
 };
@@ -120,6 +121,12 @@ Default.args = {
   translations: defaultTranslations,
   searchColumns: SEARCH_COLUMNS,
   dates: [new Date(2020, 3, 20), new Date(2020, 3, 21)],
+  rowActionItems: [
+    {
+      action: (selectedIds, additionalProps) => console.log(selectedIds, additionalProps),
+      label: 'Test',
+    },
+  ],
 };
 
 export const Client = Template.bind({});
@@ -136,4 +143,5 @@ Client.args = {
   searchColumns: SEARCH_COLUMNS,
   rowModelType: RowModelType.clientSide,
   rowData: TIME_ENTRIES,
+  rowActionItems: [],
 };

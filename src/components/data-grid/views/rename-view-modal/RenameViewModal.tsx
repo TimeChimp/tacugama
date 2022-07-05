@@ -12,7 +12,7 @@ interface FormInput {
   name: string;
 }
 
-export const RenameViewModal = ({ isOpen, setIsOpen, handleRenameView, translations, view }: RenameViewModalProps) => {
+export const RenameViewModal = ({ isOpen, onClose, handleRenameView, translations, view }: RenameViewModalProps) => {
   const { errors, handleSubmit, register, setValue, reset } = useForm<FormInput>({
     mode: 'onChange',
   });
@@ -28,11 +28,11 @@ export const RenameViewModal = ({ isOpen, setIsOpen, handleRenameView, translati
     setLoading(true);
     await handleRenameView(view.id, name);
     setLoading(false);
-    setIsOpen(false);
+    onClose();
   };
 
   return (
-    <Modal name="rename-view" isOpen={isOpen} onClose={() => setIsOpen(false)}>
+    <Modal name="rename-view" isOpen={isOpen} onClose={() => onClose()}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <ModalHeader>
           <HeadingSmall>{translations.renameView}</HeadingSmall>
@@ -54,7 +54,7 @@ export const RenameViewModal = ({ isOpen, setIsOpen, handleRenameView, translati
           </FormControl>
         </ModalBody>
         <ModalFooter>
-          <SecondaryModalButton type="button" onClick={() => setIsOpen(false)}>
+          <SecondaryModalButton type="button" onClick={() => onClose()}>
             {translations.cancel}
           </SecondaryModalButton>
           <ModalButton testId="rename-view-modal-submit" isLoading={loading} type="submit">

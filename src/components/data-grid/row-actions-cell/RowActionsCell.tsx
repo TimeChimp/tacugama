@@ -7,7 +7,7 @@ import { ActionMenu, ActionMenuActive } from '../../icons';
 import { RowEditCell } from '../row-edit-cell';
 
 export const RowActionsCell = ({ data }: RowActionsCellProps) => {
-  const { onEdit, items, id, icon } = data;
+  const { onEdit, items, id, icon, api } = data;
   const [active, setActive] = useState(false);
   const {
     theme: {
@@ -43,16 +43,22 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
     });
   }, [items, data]);
 
-  return !!onEdit ? (
-    <RowEditCell onClick={handleEdit} icon={icon} />
-  ) : (
+  return !onEdit ? (
     <div ref={containerRef}>
-      <Dropdown onOpen={onOpen} onClose={() => setActive(false)} items={filteredItems} selectedIds={[id]}>
+      <Dropdown
+        onOpen={onOpen}
+        onClose={() => setActive(false)}
+        items={filteredItems}
+        selectedIds={[id]}
+        additionalProperties={api}
+      >
         <TertiaryButton>
           {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
         </TertiaryButton>
       </Dropdown>
     </div>
+  ) : (
+    <RowEditCell onClick={handleEdit} icon={icon} />
   );
 };
 

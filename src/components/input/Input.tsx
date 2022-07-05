@@ -71,7 +71,7 @@ export const Input = ({ testId, type, uppercase, ...rest }: InputProps) => {
           borderColor: getInputBorderColor($error, $isFocused, colors, borders),
           borderWidth: $error ? scale0 : border300.borderWidth,
         }),
-        ...borderRadius(scale0),
+        ...borderRadius(borders.radius200),
         backgroundColor: primaryB,
         ...margin('0'),
         ...rootPadding(),

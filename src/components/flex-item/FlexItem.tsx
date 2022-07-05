@@ -3,10 +3,11 @@ import { TextAlignProperty } from '../../models';
 import { StyledItem } from './StyledFlexItem';
 
 export interface FlexItemProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   justifyContent?: string;
   alignItems?: string;
   textAlign?: TextAlignProperty;
+  gap?: string;
   width?: string;
   marg1?: string;
   marg2?: string;
@@ -24,6 +25,7 @@ export const FlexItem = ({
   marg2,
   marg3,
   marg4,
+  gap,
 }: FlexItemProps) => {
   return (
     <StyledItem
@@ -35,6 +37,7 @@ export const FlexItem = ({
       $marg2={marg2}
       $marg3={marg3}
       $marg4={marg4}
+      $gap={gap}
     >
       {children}
     </StyledItem>

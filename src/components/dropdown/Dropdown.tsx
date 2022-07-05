@@ -27,6 +27,7 @@ export const Dropdown = ({
   customOption,
   placement = 'bottomRight',
   isLoading = false,
+  additionalProperties,
 }: DropdownProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>();
@@ -124,7 +125,7 @@ export const Dropdown = ({
                   props: {
                     onItemSelect: (item: DropdownItem) => {
                       if (item.action) {
-                        item.action(selectedIds);
+                        item.action(selectedIds, additionalProperties);
                       }
                       if (!selection) {
                         close();

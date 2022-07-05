@@ -25,6 +25,8 @@ export const DataGridViews = ({
   onUnpinView,
   onSaveViewState,
   onActivateView,
+  onModalClose,
+  onModalOpen,
   gridApi,
   gridColumnApi,
 }: DataGridViewsProps) => {
@@ -87,6 +89,62 @@ export const DataGridViews = ({
     }
   };
 
+  const openDeleteModal = () => {
+    setDeleteModalIsOpen(true);
+    if (onModalOpen) {
+      onModalOpen();
+    }
+  };
+
+  const onDeleteModalClose = () => {
+    setDeleteModalIsOpen(false);
+    if (onModalClose) {
+      onModalClose();
+    }
+  };
+
+  const openCreateModal = () => {
+    setCreateModalIsOpen(true);
+    if (onModalOpen) {
+      onModalOpen();
+    }
+  };
+
+  const onCreateModalClose = () => {
+    setCreateModalIsOpen(false);
+    if (onModalClose) {
+      onModalClose();
+    }
+  };
+
+  const openRenameModal = () => {
+    setRenameModalIsOpen(true);
+    if (onModalOpen) {
+      onModalOpen();
+    }
+  };
+
+  const onRenameModalClose = () => {
+    setRenameModalIsOpen(false);
+    if (onModalClose) {
+      onModalClose();
+    }
+  };
+
+  const openSaveModal = () => {
+    setSaveModalIsOpen(true);
+    if (onModalOpen) {
+      onModalOpen();
+    }
+  };
+
+  const onSaveModalClose = () => {
+    setSaveModalIsOpen(false);
+    if (onModalClose) {
+      onModalClose();
+    }
+  };
+
   return (
     <>
       <StyledDataGridViews>
@@ -118,10 +176,10 @@ export const DataGridViews = ({
           translations={translations}
           views={views}
           setEditView={setEditView}
-          setDeleteModalIsOpen={setDeleteModalIsOpen}
-          setCreateModalIsOpen={setCreateModalIsOpen}
-          setRenameModalIsOpen={setRenameModalIsOpen}
-          setSaveModalIsOpen={setSaveModalIsOpen}
+          setDeleteModalIsOpen={openDeleteModal}
+          setCreateModalIsOpen={openCreateModal}
+          setRenameModalIsOpen={openRenameModal}
+          setSaveModalIsOpen={openSaveModal}
           onPinView={onPinView}
           onUnpinView={onUnpinView}
           handleActivateView={handleActivateView}
@@ -132,7 +190,7 @@ export const DataGridViews = ({
         description={translations.deleteViewConfirmation!}
         type={ConfirmationModalType.danger}
         isOpen={deleteModalIsOpen}
-        setIsOpen={setDeleteModalIsOpen}
+        onClose={onDeleteModalClose}
         submitLabel={translations.deleteView!}
         submitOnClick={handleViewDelete}
         cancelLabel={translations.cancel!}
@@ -140,7 +198,7 @@ export const DataGridViews = ({
       />
       <CreateViewModal
         isOpen={createModalIsOpen}
-        setIsOpen={setCreateModalIsOpen}
+        onClose={onCreateModalClose}
         handleCreateView={handleCreateView}
         translations={translations}
         gridApi={gridApi}
@@ -150,7 +208,7 @@ export const DataGridViews = ({
         <SaveViewModal
           view={editView}
           isOpen={saveModalIsOpen}
-          setIsOpen={setSaveModalIsOpen}
+          onClose={onSaveModalClose}
           handleSaveView={handleSaveViewState}
           translations={translations}
           gridApi={gridApi}
@@ -161,7 +219,7 @@ export const DataGridViews = ({
         <RenameViewModal
           view={editView}
           isOpen={renameModalIsOpen}
-          setIsOpen={setRenameModalIsOpen}
+          onClose={onRenameModalClose}
           handleRenameView={handleRenameView}
           translations={translations}
         />

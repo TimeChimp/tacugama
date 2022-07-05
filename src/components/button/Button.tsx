@@ -9,6 +9,7 @@ import {
   getButtonBackgroundColor,
   getButtonBackgroundHoverColor,
   margin,
+  padding,
 } from '../../utils';
 import { Button as BaseButton, ButtonProps as BaseButtonProps, KIND, SIZE } from 'baseui/button';
 import { ButtonType } from '../../models';
@@ -36,7 +37,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const {
       theme: {
         current: {
-          sizing: { scale0, scale100, scale600 },
+          sizing: { scale0, scale100, scale200, scale600 },
+          borders: { radius200 },
           colors,
         },
       },
@@ -54,7 +56,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         overrides={{
           Root: {
             style: {
-              ...borderRadius(scale0),
+              ...borderRadius(radius200),
+              ...padding(scale200, scale600),
+              fontWeight: 'normal',
               backgroundColor: getButtonBackgroundColor(buttonType, colors),
               ':hover': {
                 backgroundColor: getButtonBackgroundHoverColor(buttonType, colors),

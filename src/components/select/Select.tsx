@@ -51,7 +51,7 @@ export const Select = ({
       },
     },
   } = useTheme();
-  const { border300, radius100 } = borders;
+  const { border300, radius200 } = borders;
   const { primaryB, primary100, contentPrimary } = colors;
 
   const handleOnChange = (params: CustomParams) => {
@@ -119,7 +119,7 @@ export const Select = ({
             Dropdown: {
               style: {
                 ...padding('0'),
-                ...borderRadius(radius100),
+                ...borderRadius(radius200),
                 maxHeight: '300px',
               },
             },
@@ -177,7 +177,7 @@ export const Select = ({
                   Root: {
                     style: {
                       backgroundColor: primarySubtle,
-                      ...borderRadius(radius100),
+                      ...borderRadius(radius200),
                       ...margin('0', scale100),
                     },
                   },

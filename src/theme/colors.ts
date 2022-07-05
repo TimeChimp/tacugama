@@ -24,6 +24,7 @@ export const customColors: CustomColors = {
   light4: '#FFFFFF',
   light5: '#B8B8B8',
   light6: '#EEEEEE',
+  light7: '#F4F4F5',
 
   // Red
   red0: '#E53535',
