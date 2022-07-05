@@ -65,6 +65,7 @@ export interface CustomColors {
   purple2: string;
   purple3: string;
   purple4: string;
+  purple5: string;
 
   // Outlines
   darkOutline: string;

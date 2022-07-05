@@ -54,6 +54,8 @@ import {
   Asterisk as AsteriskIcon,
   Play as PlayIcon,
   Stop as StopIcon,
+  Text as TextIcon,
+  Schedule as ScheduleIcon,
 } from './';
 import { SVGProps } from './icon/Icon';
 
@@ -114,6 +116,8 @@ const EyeTemplate: Story<SVGProps> = (args) => <EyeIcon {...args} />;
 const AsteriskTemplate: Story<SVGProps> = (args) => <AsteriskIcon {...args} />;
 const PlayTemplate: Story<SVGProps> = (args) => <PlayIcon {...args} />;
 const StopTemplate: Story<SVGProps> = (args) => <StopIcon {...args} />;
+const TextTemplate: Story<SVGProps> = (args) => <TextIcon {...args} />;
+const ScheduleTemplate: Story<SVGProps> = (args) => <ScheduleIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -367,5 +371,15 @@ Play.args = {
 
 export const Stop = StopTemplate.bind({});
 Stop.args = {
+  size: '16',
+};
+
+export const Text = TextTemplate.bind({});
+Text.args = {
+  size: '16',
+};
+
+export const Schedule = ScheduleTemplate.bind({});
+Schedule.args = {
   size: '16',
 };
