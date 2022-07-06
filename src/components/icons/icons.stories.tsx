@@ -416,4 +416,5 @@ Text.args = {
 
 export const Schedule = ScheduleTemplate.bind({});
 Schedule.args = {
-
+  size: '16',
+};
