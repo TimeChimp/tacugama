@@ -59,6 +59,8 @@ import {
   Check as CheckIcon,
   Cross as CrossIcon,
   TimeClockSuccess as TimeClockSuccessIcon,
+  Text as TextIcon,
+  Schedule as ScheduleIcon,
 } from './';
 import { SVGProps } from './icon/Icon';
 
@@ -124,6 +126,8 @@ const CheckmarkTemplate: Story<SVGProps> = (args) => <CheckmarkIcon {...args} />
 const CheckTemplate: Story<SVGProps> = (args) => <CheckIcon {...args} />;
 const CrossTemplate: Story<SVGProps> = (args) => <CrossIcon {...args} />;
 const TimeClockSuccessTemplate: Story<SVGProps> = (args) => <TimeClockSuccessIcon {...args} />;
+const TextTemplate: Story<SVGProps> = (args) => <TextIcon {...args} />;
+const ScheduleTemplate: Story<SVGProps> = (args) => <ScheduleIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -402,5 +406,15 @@ Cross.args = {
 
 export const TimeClockSuccess = TimeClockSuccessTemplate.bind({});
 TimeClockSuccess.args = {
+  size: '16',
+};
+
+export const Text = TextTemplate.bind({});
+Text.args = {
+  size: '16',
+};
+
+export const Schedule = ScheduleTemplate.bind({});
+Schedule.args = {
   size: '16',
 };
