@@ -19,7 +19,7 @@ export const Modal = ({ children, onStateChange, name, overrides = {}, ...rest }
   const {
     theme: {
       current: {
-        sizing: { scale600, scale700 },
+        sizing: { scale600, scale700, scale900 },
         borders: { border100, radius200 },
         colors: { contentTertiary },
       },
@@ -31,7 +31,7 @@ export const Modal = ({ children, onStateChange, name, overrides = {}, ...rest }
       style: {
         ...border(border100),
         ...borderRadius(radius200),
-        ...margin('-20vh', scale600, scale600, scale600), // -20vh is fix for aligning modal in bright eyes iframe
+        ...margin(scale900, scale600, scale600, scale600),
       },
     },
     Close: {
@@ -44,6 +44,7 @@ export const Modal = ({ children, onStateChange, name, overrides = {}, ...rest }
     DialogContainer: {
       style: {
         transitionDuration: '0ms', // use no transition because bright eyes has non for the backdrop
+        alignItems: 'flex-start',
       },
     },
   });
