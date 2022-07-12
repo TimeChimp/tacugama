@@ -50,7 +50,7 @@ export const ColumnFilters = ({
   }, [filters, validateFilters]);
 
   const isSelectValueActive = useCallback(
-    (columnField: string, filterValue: string | null, type: FilterType) => {
+    (columnField: string, filterValue: string | boolean | null, type: FilterType) => {
       if (type !== FilterType.select) {
         return false;
       }
@@ -206,6 +206,7 @@ export const ColumnFilters = ({
           showSearch
           selection
           items={getAllColumnValues(columnField, FilterType.string, values)}
+          // @ts-ignore
           selectedIds={getSelectedFilterIds(columnField)}
           searchPlaceholder={searchPlaceholder || search}
           isLoading={valuesLoading}
@@ -224,6 +225,7 @@ export const ColumnFilters = ({
       [FilterType.select]: (
         <Dropdown
           items={getAllColumnValues(columnField, FilterType.select, values)}
+          // @ts-ignore
           selectedIds={getSelectedFilterIds(columnField)}
           isLoading={valuesLoading}
         >
