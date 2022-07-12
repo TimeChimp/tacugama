@@ -418,7 +418,7 @@ export const DataGrid = ({
     if (!params) {
       return;
     }
-    let values: (string | null)[] = [];
+    let values: (string | boolean | null)[] = [];
     const columnFilter = filters?.find((filter) => filter.columnField === columnField);
     if (columnFilter?.values) {
       const columnValues: (FilterValue | string)[] = columnFilter.values;
@@ -450,7 +450,7 @@ export const DataGrid = ({
     setRowsSelected(selected.length);
   };
 
-  const getSetValues = (value: string | null, type: FilterType, values?: string[]) => {
+  const getSetValues = (value: string | boolean | null, type: FilterType, values?: (string | boolean)[]) => {
     if (!value) {
       return [];
     }
@@ -466,7 +466,7 @@ export const DataGrid = ({
   };
 
   const onSetFiltering = useCallback(
-    (columnField: string, type: FilterType, value: string | null) => {
+    (columnField: string, type: FilterType, value: string | boolean | null) => {
       const filterInstance = gridApi?.getFilterInstance(columnField);
       const filterModel = gridApi?.getFilterModel();
       const currentValues = filterInstance?.getModel()?.values;
@@ -490,7 +490,7 @@ export const DataGrid = ({
   );
 
   const filterOnValue = useCallback(
-    (columnField: string, value: string | null, type: FilterType) => {
+    (columnField: string, value: string | boolean | null, type: FilterType) => {
       onSetFiltering(columnField, type, value);
 
       setSelectedFilterIds((currentIds) => {

@@ -84,7 +84,7 @@ export enum FilterType {
 }
 
 export interface FilterValue {
-  value: string | null;
+  value: string | boolean | null;
   label: string;
   icon?: JSX.Element;
 }
@@ -92,7 +92,7 @@ export interface Filter {
   type: FilterType;
   columnField: string;
   values?: FilterValue[] | string[];
-  defaultValue?: string;
+  defaultValue?: string | boolean;
   valuesLoading?: boolean;
   title: string;
   icon?: ComponentType<IconProps>;
@@ -232,7 +232,7 @@ export interface CreateViewInput {
 }
 
 export interface SelectedFilterIds {
-  [key: string]: (string | null)[];
+  [key: string]: (string | boolean | null)[];
 }
 
 export interface FiltersProps {
@@ -250,7 +250,7 @@ export interface FiltersProps {
   dateFormat: string;
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
-  filterOnValue: (columnField: string, value: string | null, type: FilterType) => void;
+  filterOnValue: (columnField: string, value: string | boolean | null, type: FilterType) => void;
   filterOnDate: (columnField: string, selectedDates: Date[]) => void;
 }
 
@@ -263,7 +263,7 @@ export interface ColumnFiltersProps {
   dateFormat: string;
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
-  filterOnValue: (columnField: string, value: string | null, type: FilterType) => void;
+  filterOnValue: (columnField: string, value: string | boolean | null, type: FilterType) => void;
   filterOnDate: (columnField: string, selectedDates: Date[]) => void;
 }
 export interface FooterRowCountProps {
