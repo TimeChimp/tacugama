@@ -215,6 +215,8 @@ export interface DataGridProps {
   onRowDataUpdated?: (e: RowDataUpdatedEvent) => void;
   onModalOpen?: () => void;
   onModalClose?: () => void;
+  suppressRowHoverHighlight?: boolean;
+  suppressRowClickSelection?: boolean;
 }
 
 export interface DataGridView {
