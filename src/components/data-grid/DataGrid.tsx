@@ -114,6 +114,8 @@ export const DataGrid = ({
   groupIncludeFooter = false,
   groupIncludeTotalFooter = false,
   enableExport = false,
+  suppressRowHoverHighlight = false,
+  suppressRowClickSelection = false,
   getServerSideGroupKey,
   getDataPath,
   onSelectionChangedHandler,
@@ -652,6 +654,8 @@ export const DataGrid = ({
           pagination
           paginationPageSize={25}
           suppressPaginationPanel
+          suppressRowHoverHighlight={suppressRowHoverHighlight}
+          suppressRowClickSelection={suppressRowClickSelection}
           enableCellTextSelection
           onGridReady={onGridReady}
           onRowDataUpdated={onRowDataUpdated}
