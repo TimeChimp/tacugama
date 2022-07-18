@@ -1,8 +1,7 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { durationPlaceholder, formatDuration, TimeParser } from '@timechimp/timechimp-typescript-helpers';
 import { HoursInputProps } from './types';
 import { Input } from '..';
-import { useCallback } from '@storybook/addons';
 
 const DEFAULT_DURATION_FORMAT = 'HH:mm';
 const SECONDS_IN_HOUR = 60 * 60;
