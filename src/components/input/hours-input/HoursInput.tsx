@@ -1,9 +1,10 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { durationPlaceholder, formatDuration, TimeParser } from '@timechimp/timechimp-typescript-helpers';
 import { HoursInputProps } from './types';
 import { Input } from '..';
 
 const DEFAULT_DURATION_FORMAT = 'HH:mm';
+const SECONDS_IN_HOUR = 60 * 60;
 
 export const HoursInput = ({
   disabled,
@@ -15,12 +16,6 @@ export const HoursInput = ({
   const [inputIsValid, setInputIsValid] = useState(true);
   const [inputValue, setInputValue] = useState('');
 
-  useEffect(() => {
-    if (defaultValue) {
-      setInputValue(defaultValue);
-    }
-  }, [defaultValue]);
-
   const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
     const { isValid } = new TimeParser(value).parse();
@@ -29,15 +24,32 @@ export const HoursInput = ({
     setInputValue(value);
   };
 
-  const onBlur = () => {
-    const { seconds } = new TimeParser(inputValue).parse();
+  const formatInputValue = useCallback(
+    (value: string) => {
+      const { seconds } = new TimeParser(value).parse();
 
-    if (seconds) {
-      const formattedValue = formatDuration(seconds, durationFormat);
-      setInputValue(formattedValue);
+      if (seconds) {
+        const formattedValue = formatDuration(seconds, durationFormat);
+        setInputValue(formattedValue);
+      }
+
+      return seconds;
+    },
+    [durationFormat],
+  );
+
+  useEffect(() => {
+    if (defaultValue) {
+      formatInputValue(defaultValue);
     }
+  }, [formatInputValue, defaultValue]);
 
-    onSubmit(seconds);
+  const onBlur = () => {
+    const seconds = formatInputValue(inputValue);
+    if (seconds) {
+      return onSubmit(seconds * SECONDS_IN_HOUR);
+    }
+    return onSubmit(0);
   };
 
   return (
