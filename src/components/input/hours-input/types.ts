@@ -4,7 +4,7 @@ export interface HoursInputProps {
   disabled?: boolean;
   error?: boolean;
   endEnhancer?: JSX.Element;
-  defaultValue?: string;
+  defaultValue?: string | number;
   onSubmit: (value: number | null | undefined) => void;
   durationFormat?: DurationFormat;
 }

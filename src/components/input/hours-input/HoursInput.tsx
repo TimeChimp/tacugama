@@ -40,16 +40,16 @@ export const HoursInput = ({
 
   useEffect(() => {
     if (defaultValue) {
-      formatInputValue(defaultValue);
+      formatInputValue(defaultValue.toString());
     }
   }, [formatInputValue, defaultValue]);
 
   const onBlur = () => {
     const seconds = formatInputValue(inputValue);
     if (seconds) {
-      return onSubmit(seconds * SECONDS_IN_HOUR);
+      return onSubmit(seconds / SECONDS_IN_HOUR);
     }
-    return onSubmit(0);
+    return onSubmit(undefined);
   };
 
   return (
