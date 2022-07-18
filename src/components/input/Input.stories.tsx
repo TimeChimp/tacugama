@@ -90,4 +90,6 @@ export const Price = PriceTemplate.bind({});
 Price.args = {};
 
 export const Hours = HoursTemplate.bind({});
-Hours.args = {};
+Hours.args = {
+  defaultValue: undefined,
+};
