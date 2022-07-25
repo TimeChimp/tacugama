@@ -52,7 +52,7 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
         selectedIds={[id]}
         additionalProperties={api}
       >
-        <TertiaryButton>
+        <TertiaryButton type="button">
           {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
         </TertiaryButton>
       </Dropdown>
