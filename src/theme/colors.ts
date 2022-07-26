@@ -11,10 +11,10 @@ export const customColors: CustomColors = {
 
   // Dark
   dark0: '#0F1020',
-  dark1: '#1B1C2B',
-  dark2: '#3F404D',
-  dark3: '#575863',
-  dark4: '#87878F',
+  dark1: '#2E2E2E',
+  dark2: '#595959',
+  dark3: '#858D9F',
+  dark4: '#A2AABD',
 
   // Light
   light0: '#CFCFD2',
@@ -78,12 +78,12 @@ export const customColors: CustomColors = {
   yellowOutline: '#FFCC00',
   purpleOutline: '#5147A8',
 
-  //Brand
+  // Brand
   brand700: '#3F3787',
 };
 
 export const lightColors: DeepPartial<Theme['colors']> = {
-  contentPrimary: customColors.dark0,
+  contentPrimary: customColors.dark1,
   contentSecondary: customColors.dark2,
   contentTertiary: customColors.dark4,
 
@@ -96,7 +96,7 @@ export const lightColors: DeepPartial<Theme['colors']> = {
   contentAccent: customColors.purple2,
 
   buttonSecondaryFill: customColors.light4,
-  buttonSecondaryText: customColors.dark0,
+  buttonSecondaryText: customColors.dark1,
 
   backgroundNegative: customColors.red1,
   backgroundPositive: customColors.green1,
