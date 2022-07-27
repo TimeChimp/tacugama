@@ -43,25 +43,23 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
     });
   }, [items, data]);
 
-  // return !onEdit ? (
-  //   <div ref={containerRef}>
-  //     <Dropdown
-  //       onOpen={onOpen}
-  //       onClose={() => setActive(false)}
-  //       items={filteredItems}
-  //       selectedIds={[id]}
-  //       additionalProperties={api}
-  //     >
-  //       <TertiaryButton type="button">
-  //         {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
-  //       </TertiaryButton>
-  //     </Dropdown>
-  //   </div>
-  // ) : (
-  //   <RowEditCell onClick={handleEdit} icon={icon} />
-  // );
-
-  return null;
+  return !onEdit ? (
+    <div ref={containerRef}>
+      <Dropdown
+        onOpen={onOpen}
+        onClose={() => setActive(false)}
+        items={filteredItems}
+        selectedIds={[id]}
+        additionalProperties={api}
+      >
+        <TertiaryButton type="button">
+          {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
+        </TertiaryButton>
+      </Dropdown>
+    </div>
+  ) : (
+    <RowEditCell onClick={handleEdit} icon={icon} />
+  );
 };
 
 export default RowActionsCell;

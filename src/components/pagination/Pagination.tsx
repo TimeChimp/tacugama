@@ -69,8 +69,6 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
                   fontSize: $theme.typography.LabelXSmall.fontSize,
                   fontWeight: 600,
                   outline: null,
-                  ...padding('0'),
-                  ...margin('0'),
                 }),
               },
               ControlContainer: {
@@ -78,8 +76,6 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
                   backgroundColor: 'none',
                   ...border(),
                   outline: null,
-                  ...padding('0'),
-                  ...margin('0'),
                 }),
               },
             },
