@@ -590,7 +590,7 @@ export const DataGrid = ({
         filterOnDate={filterOnDate}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
-        {(viewing || selection) && (
+        {(viewing || (selection && !(hideDelete && hideDownload))) && (
           <StyledDataGridHeader $justifyContent={selection && !viewing ? 'flex-end' : 'space-between'}>
             {viewing && (
               <DataGridViews
