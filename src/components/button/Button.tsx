@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import { useTheme } from '../../providers';
 import {
+  border,
   borderBottom,
   borderLeft,
   borderRadius,
@@ -38,7 +39,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       theme: {
         current: {
           sizing: { scale0, scale100, scale200, scale600 },
-          borders: { radius200 },
+          borders: { radius200, border100 },
           colors,
         },
       },
@@ -58,10 +59,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             style: {
               ...borderRadius(radius200),
               ...padding(scale200, scale600),
+              ...border({
+                ...border100,
+                borderColor: getButtonBackgroundColor(buttonType, colors),
+              }),
               fontWeight: 'normal',
               backgroundColor: getButtonBackgroundColor(buttonType, colors),
               ':hover': {
                 backgroundColor: getButtonBackgroundHoverColor(buttonType, colors),
+                ...border({
+                  ...border100,
+                  borderColor: getButtonBackgroundHoverColor(buttonType, colors),
+                }),
               },
               ':disabled': {
                 backgroundColor: primary300,

@@ -83,6 +83,7 @@ export const StyledDataGrid = themedStyled<'div', StyledDataGridProps>('div', ({
 }));
 
 export const StyledDataGridFilters = themedStyled('div', ({ $theme }) => ({
+  width: '100%',
   ...margin($theme.sizing.scale400, '0'),
   display: 'flex',
   justifyContent: 'space-between',
