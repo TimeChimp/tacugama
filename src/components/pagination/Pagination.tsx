@@ -1,9 +1,9 @@
 import React from 'react';
 import { Pagination as BasePagination, SIZE, PaginationProps as BasePaginationProps } from 'baseui/pagination';
 import { CustomThemeType } from '../../models';
-import { border, borderRadius, margin, padding } from '../../utils';
-import { Button } from 'components/button';
-import { LeftArrow, RightArrow } from 'components/icons';
+import { border, borderRadius, padding } from '../../utils';
+import { Button } from '../button';
+import { LeftArrow, RightArrow } from '../icons';
 import { useTheme } from '../../providers';
 
 export interface PaginationProps extends BasePaginationProps {}
