@@ -247,7 +247,7 @@ export const ColumnFilters = ({
       {filters?.length && (
         <>
           {getFilters()?.map(({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon }) => (
-            <FlexItem key={columnField} width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
+            <FlexItem key={columnField} width="fit-content" marg1="0" marg2={scale300} marg3="0" marg4="0">
               <Filter
                 title={title}
                 columnField={columnField}
@@ -262,7 +262,7 @@ export const ColumnFilters = ({
           {filters?.length > 2 && (
             <>
               {showLessFilters ? (
-                <FlexItem width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
+                <FlexItem width="fit-content" marg1="0" marg2={scale300} marg3="0" marg4="0">
                   <FilterButton
                     testId={MORE_FILTERS_BUTTON_TEST_ID}
                     onClick={() => setShowLessFilters(false)}
@@ -272,7 +272,7 @@ export const ColumnFilters = ({
                   />
                 </FlexItem>
               ) : (
-                <FlexItem width="fit-content" marg1="0" marg2="0" marg3="0" marg4={scale300}>
+                <FlexItem width="fit-content" marg1="0" marg2={scale300} marg3="0" marg4="0">
                   <FilterButton
                     testId={LESS_FILTERS_BUTTON_TEST_ID}
                     onClick={() => setShowLessFilters(true)}
