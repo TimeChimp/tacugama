@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input as BaseInput, InputOverrides, InputProps as BaseInputProps } from 'baseui/input';
+import { Input as BaseInput, InputOverrides } from 'baseui/input';
 import { useTheme } from '../../providers';
 import {
   border,
@@ -11,13 +11,9 @@ import {
   padding,
 } from '../../utils';
 import { DATA_TEST_ID } from '../../models';
+import { InputProps } from './types';
 
-export interface InputProps extends BaseInputProps {
-  testId?: string;
-  uppercase?: boolean;
-}
-
-export const Input = ({ testId, type, uppercase, ...rest }: InputProps) => {
+export const Input = ({ testId, type, uppercase, noBorder = false, ...rest }: InputProps) => {
   const {
     theme: {
       current: {
@@ -66,11 +62,15 @@ export const Input = ({ testId, type, uppercase, ...rest }: InputProps) => {
     Root: {
       style: ({ $error, $isFocused }) => ({
         height: scale1000,
-        ...border({
-          ...border300,
-          borderColor: getInputBorderColor($error, $isFocused, colors, borders),
-          borderWidth: $error ? scale0 : border300.borderWidth,
-        }),
+        ...border(
+          !noBorder
+            ? {
+                ...border300,
+                borderColor: getInputBorderColor($error, $isFocused, colors, borders),
+                borderWidth: $error ? scale0 : border300.borderWidth,
+              }
+            : undefined,
+        ),
         ...borderRadius(borders.radius200),
         backgroundColor: primaryB,
         ...margin('0'),
