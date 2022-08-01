@@ -1,11 +1,12 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { ColorResult, TwitterPicker } from 'react-color';
-import { Input, InputProps } from '../Input';
+import { Input } from '../Input';
 import { TertiaryButton } from '../../button';
 import { ClickOutside } from '../../click-outside';
 import { margin, padding } from '../../../utils';
 import { ColorPickerContainer, StyledColorSwatch } from '../styles';
 import { useTheme } from '../../../providers';
+import { InputProps } from '../types';
 
 export interface ColorInputProps extends Omit<InputProps, 'value' | 'uppercase' | 'onChange'> {
   onChange: (color: string) => void;
