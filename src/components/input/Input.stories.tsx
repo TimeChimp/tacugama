@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-
-import { Input, InputProps } from './Input';
+import { InputProps } from './types';
+import { Input } from './Input';
 import { SearchInput, SearchInputProps } from './search-input';
 import { ColorInput, ColorInputProps } from './color-input';
 import { Search as SearchIcon } from '../icons';

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Input, InputProps } from '../Input';
+import { Input } from '../Input';
 import { Search } from '../../icons';
 import { useTheme } from '../../../providers';
+import { InputProps } from '../types';
 
 export interface SearchInputProps extends InputProps {}
 
