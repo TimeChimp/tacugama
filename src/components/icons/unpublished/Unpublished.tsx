@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '../../../providers';
 import { Icon, SVGProps, defaultIconProps } from '../icon';
 
-export const Published = ({ title = 'Published', size = defaultIconProps.size, color }: SVGProps) => {
+export const Unpublished = ({ title = 'Unpublished', size = defaultIconProps.size, color }: SVGProps) => {
   const { theme } = useTheme();
 
   return (
