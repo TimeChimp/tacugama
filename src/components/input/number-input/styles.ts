@@ -12,6 +12,7 @@ export const NumberInputComponent = themedStyled<typeof NumberFormat, NumberInpu
     paddingLeft: $theme.sizing.scale500,
     paddingRight: $theme.sizing.scale500,
     fontSize: $theme.sizing.scale550,
+    fontFamily: 'Inter, sans-serif',
     lineHeight: $theme.sizing.scale700,
     color: $theme.colors.contentPrimary,
     ...border({
