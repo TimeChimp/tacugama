@@ -49,3 +49,4 @@ export * from './graphs';
 export * from './table-grid';
 export * from './switcher';
 export * from './dnd-list';
+export * from './pagination';
