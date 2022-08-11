@@ -62,6 +62,7 @@ import {
   Text as TextIcon,
   Schedule as ScheduleIcon,
   Unpublished as UnpublishedIcon,
+  Refresh as RefreshIcon,
 } from './';
 import { SVGProps } from './icon/Icon';
 
@@ -130,6 +131,7 @@ const TimeClockSuccessTemplate: Story<SVGProps> = (args) => <TimeClockSuccessIco
 const TextTemplate: Story<SVGProps> = (args) => <TextIcon {...args} />;
 const ScheduleTemplate: Story<SVGProps> = (args) => <ScheduleIcon {...args} />;
 const UnpublishedTemplate: Story<SVGProps> = (args) => <UnpublishedIcon {...args} />;
+const RefreshTemplate: Story<SVGProps> = (args) => <RefreshIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -423,5 +425,10 @@ Schedule.args = {
 
 export const Unpublished = UnpublishedTemplate.bind({});
 Unpublished.args = {
+  size: '16',
+};
+
+export const Refresh = RefreshTemplate.bind({});
+Refresh.args = {
   size: '16',
 };
