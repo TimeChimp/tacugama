@@ -19,7 +19,7 @@ export const HoursInput = ({
   const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
     const { isValid } = new TimeParser(value).parse();
-
+    console.log(value, isValid);
     setInputIsValid(isValid);
     setInputValue(value);
   };
@@ -30,6 +30,7 @@ export const HoursInput = ({
 
       if (seconds) {
         const formattedValue = formatDuration(seconds, durationFormat);
+        console.log(formattedValue);
         setInputValue(formattedValue);
       }
 
@@ -46,6 +47,7 @@ export const HoursInput = ({
 
   const onBlur = () => {
     const seconds = formatInputValue(inputValue);
+    console.log('sec', seconds);
     if (seconds) {
       return onSubmit(seconds / SECONDS_IN_HOUR);
     }
