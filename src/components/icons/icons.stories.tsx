@@ -63,6 +63,7 @@ import {
   Schedule as ScheduleIcon,
   Unpublished as UnpublishedIcon,
   Refresh as RefreshIcon,
+  LocationMarker as LocationMarkerIcon,
 } from './';
 import { SVGProps } from './icon/Icon';
 
@@ -132,6 +133,7 @@ const TextTemplate: Story<SVGProps> = (args) => <TextIcon {...args} />;
 const ScheduleTemplate: Story<SVGProps> = (args) => <ScheduleIcon {...args} />;
 const UnpublishedTemplate: Story<SVGProps> = (args) => <UnpublishedIcon {...args} />;
 const RefreshTemplate: Story<SVGProps> = (args) => <RefreshIcon {...args} />;
+const LocationMarkerTemplate: Story<SVGProps> = (args) => <LocationMarkerIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -430,5 +432,10 @@ Unpublished.args = {
 
 export const Refresh = RefreshTemplate.bind({});
 Refresh.args = {
+  size: '16',
+};
+
+export const LocationMarker = LocationMarkerTemplate.bind({});
+LocationMarkerTemplate.args = {
   size: '16',
 };
