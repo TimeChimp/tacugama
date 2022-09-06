@@ -27,6 +27,11 @@ export const Modal = ({ children, onStateChange, name, overrides = {}, ...rest }
   } = useTheme();
 
   const mergedOverrides: ModalOverrides = merge(overrides, {
+    Root: {
+      style: {
+        zIndex: 1000,
+      },
+    },
     Dialog: {
       style: {
         ...border(border100),

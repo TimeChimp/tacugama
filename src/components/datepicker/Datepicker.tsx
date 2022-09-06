@@ -56,6 +56,13 @@ export const Datepicker = ({
       onClickOutside={() => {
         isOpen && setIsOpen(false);
       }}
+      overrides={{
+        Body: {
+          style: {
+            zIndex: 1000,
+          },
+        },
+      }}
       content={() => (
         <Calendar
           value={date}
