@@ -118,7 +118,7 @@ export const Dropdown = ({
                     maxHeight: '300px',
                   },
                   props: {
-                    ...propOverrides?.listProps(),
+                    ...propOverrides?.listProps?.(),
                   },
                 },
                 Option: {
@@ -132,12 +132,12 @@ export const Dropdown = ({
                         close();
                       }
                     },
-                    ...propOverrides?.optionProps(),
+                    ...propOverrides?.optionProps?.(),
                   },
                 },
                 ListItem: {
                   props: {
-                    ...propOverrides?.optionProps(),
+                    ...propOverrides?.optionProps?.(),
                   },
                 },
               }}

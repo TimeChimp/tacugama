@@ -38,8 +38,8 @@ export interface DropdownProps {
   footer?: JSX.Element;
   customOption?: React.ForwardRefExoticComponent<any & React.RefAttributes<any>>;
   propOverrides?: {
-    listProps: () => {};
-    optionProps: () => {};
+    listProps?: () => {};
+    optionProps?: () => {};
     bodyProps?: () => {};
   };
   isLoading?: boolean;
