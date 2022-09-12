@@ -6,7 +6,7 @@ import { TertiaryButton } from '../../button';
 import { ActionMenu, ActionMenuActive } from '../../icons';
 import { RowEditCell } from '../row-edit-cell';
 
-export const RowActionsCell = ({ data }: RowActionsCellProps) => {
+export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
   const { onEdit, items, id, icon, api } = data;
   const [active, setActive] = useState(false);
   const {
@@ -51,6 +51,7 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
         items={filteredItems}
         selectedIds={[id]}
         additionalProperties={api}
+        {...props}
       >
         <TertiaryButton type="button">
           {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
