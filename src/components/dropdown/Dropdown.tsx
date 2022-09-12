@@ -71,6 +71,7 @@ export const Dropdown = ({
         Body: {
           style: {
             boxShadow: shadow600,
+            ...propOverrides?.bodyProps?.(),
           },
         },
       }}

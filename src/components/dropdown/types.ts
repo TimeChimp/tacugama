@@ -40,6 +40,7 @@ export interface DropdownProps {
   propOverrides?: {
     listProps: () => {};
     optionProps: () => {};
+    bodyProps?: () => {};
   };
   isLoading?: boolean;
   // Additional properties to pass to the action function of a dropdown item i.e. a reference to the GridApi
