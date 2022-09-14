@@ -109,3 +109,4 @@ export * from './schedule';
 export * from './unpublished';
 export * from './refresh';
 export * from './location-marker';
+export * from './warning-triangle-full';
