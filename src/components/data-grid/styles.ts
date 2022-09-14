@@ -1,3 +1,4 @@
+import { AgGridReact } from '@ag-grid-community/react';
 import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
 import { margin, padding, borderTop, borderRight, borderLeft, borderBottom } from '../../utils';
@@ -81,6 +82,13 @@ export const StyledDataGrid = themedStyled<'div', StyledDataGridProps>('div', ({
   height: $height,
   width: '100%',
 }));
+
+export const StyledAgGridReact = themedStyled<typeof AgGridReact, StyledDataGridProps>(
+  AgGridReact,
+  ({ $height = '100%' }) => ({
+    height: `${$height} !important`, // Needed to overwrite default AgGrid height
+  }),
+);
 
 export const StyledDataGridFilters = themedStyled('div', ({ $theme }) => ({
   width: '100%',

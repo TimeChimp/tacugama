@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import fetch from 'isomorphic-unfetch';
-import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader } from './styles';
+import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader, StyledAgGridReact } from './styles';
 import { RowActionsCell } from './row-actions-cell';
 import { FooterRowCount } from './footer-row-count';
 import { FooterPagination } from './footer-pagination';
@@ -14,7 +14,7 @@ import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 import { StatusBarModule } from '@ag-grid-enterprise/status-bar';
 import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
 import { SetFilterModel, SetFilterModule } from '@ag-grid-enterprise/set-filter';
-import { AgGridColumn, AgGridReact } from '@ag-grid-community/react';
+import { AgGridColumn } from '@ag-grid-community/react';
 import { CsvExportModule } from '@ag-grid-community/csv-export';
 import { LicenseManager } from '@ag-grid-enterprise/core';
 import { ExcelExportModule } from '@ag-grid-enterprise/excel-export';
@@ -569,6 +569,18 @@ export const DataGrid = ({
     return '';
   }, [rowActionItems, onRowEdit]);
 
+  const showDataGridHeader = useMemo(() => viewing || (selection && !(hideDelete && hideDownload)), [
+    viewing,
+    selection,
+    hideDelete,
+    hideDownload,
+  ]);
+
+  const dataGridHeight = useMemo(() => {
+    const headerHeight = showDataGridHeader ? 45 : 0;
+    return `calc(100% - ${headerHeight}px)`;
+  }, [showDataGridHeader]);
+
   return (
     <>
       <Filters
@@ -590,7 +602,7 @@ export const DataGrid = ({
         filterOnDate={filterOnDate}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
-        {(viewing || (selection && !(hideDelete && hideDownload))) && (
+        {showDataGridHeader && (
           <StyledDataGridHeader $justifyContent={selection && !viewing ? 'flex-end' : 'space-between'}>
             {viewing && (
               <DataGridViews
@@ -624,7 +636,8 @@ export const DataGrid = ({
           </StyledDataGridHeader>
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
-        <AgGridReact
+        <StyledAgGridReact
+          $height={dataGridHeight}
           // @ts-expect-error - ag-grid-react typings are wrong
           ref={datagridRef}
           rowData={rowData}
@@ -794,7 +807,7 @@ export const DataGrid = ({
             resizable={false}
             pinned={'right'}
           />
-        </AgGridReact>
+        </StyledAgGridReact>
       </StyledDataGrid>
     </>
   );
