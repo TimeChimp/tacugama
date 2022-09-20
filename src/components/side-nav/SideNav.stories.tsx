@@ -1,6 +1,6 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { Pencil } from '../icons/Pencil';
+import { Pencil } from '../icons/pencil/Pencil';
 
 import { SideNav, SideNavItem, SideNavProps } from '.';
 

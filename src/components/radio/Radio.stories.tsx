@@ -10,15 +10,24 @@ export default {
 
 let value = '1';
 
-const Template: Story<RadioProps> = () => (
+const Template: Story<RadioProps> = ({ ...props }) => (
   <RadioGroup value={value} onChange={(e) => (value = e.target.value)} name="number" align="vertical">
-    <RadioItem value="1">One</RadioItem>
-    <RadioItem value="2" description="This is a radio description">
+    <RadioItem {...props} value="1">
+      One
+    </RadioItem>
+    <RadioItem {...props} value="2" description="This is a radio description">
       Two
     </RadioItem>
-    <RadioItem value="3">Three</RadioItem>
+    <RadioItem {...props} value="3">
+      Three
+    </RadioItem>
   </RadioGroup>
 );
 
 export const Default = Template.bind({});
 Default.args = {};
+
+export const Colored = Template.bind({});
+Colored.args = {
+  colored: true,
+};

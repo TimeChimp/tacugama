@@ -2,9 +2,9 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Box } from './Box';
-import { BoxHeader } from './BoxHeader';
-import { BoxBody } from './BoxBody';
-import { BoxFooter } from './BoxFooter';
+import { BoxHeader } from './box-header';
+import { BoxBody } from './box-body';
+import { BoxFooter } from './box-footer';
 
 import { Button, BoxProps, HeadingSmall, Input } from 'components';
 

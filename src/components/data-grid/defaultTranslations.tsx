@@ -2,14 +2,14 @@ import React from 'react';
 import { Translations } from './types';
 
 export const defaultTranslations: Translations = {
-  rowCountText: (count: number) => (
+  rowCountText: (count: number, totalCount: number) => (
     <>
-      Showing <strong>{count}</strong> results
+      <strong>{count}</strong> of <strong>{totalCount}</strong> results
     </>
   ),
   rowCountSelectedText: (count: number) => (
     <>
-      <strong>{count}</strong> entries selected
+      <strong>{count}</strong> selected
     </>
   ),
   noRowsTitle: 'It`s a bit lonely in here',
@@ -36,10 +36,11 @@ export const defaultTranslations: Translations = {
   defaultViewTooltip: 'Default view cannot be edited.',
   lessFilters: 'Less filters',
   allFilters: 'All filters',
-  showResultsBy: 'Show results by',
+  showResultsBy: 'Show',
   paginationPrevious: 'Prev',
   paginationNext: 'Next',
   paginationOutOf: 'Of',
+  paginationOutOfLong: (currentPage: number, pageCount: number) => `${currentPage} of ${pageCount}`,
   deleteEntries: 'Delete entries',
   deleteEntriesCount: (count: number) => (
     <>

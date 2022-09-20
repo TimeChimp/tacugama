@@ -1,3 +1,4 @@
 export * from './Snackbar';
-export * from './ErrorSnackbar';
-export * from './SuccessSnackbar';
+export * from './error-snackbar';
+export * from './success-snackbar';
+export * from './info-snackbar';

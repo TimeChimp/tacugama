@@ -1,40 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { StatefulMenu } from '../menu';
 import { StatefulPopover } from '../popover';
-import { DropdownItem, DropdownOption } from './DropdownOption';
-import { TetherPlacement } from 'baseui/layer';
 import { padding } from '../../utils';
-import { StyledDropdownSearch, StyledDropdownFooter } from './StyledDropdownOption';
-import { SearchInput } from '../input/SearchInput';
-import useTheme from '../../providers/ThemeProvider';
+import { StyledDropdownSearch, StyledDropdownFooter } from './styles';
+import { SearchInput } from '../input';
+import { useTheme } from '../../providers';
 import { SIZE } from 'baseui/button';
 import { Skeleton } from '../skeleton';
 import { ListItem } from '../list';
+import { DropdownItem, DropdownProps } from './types';
+import { DropdownOption } from './dropdown-option';
 
 const NUMBER_OF_LOADING_ROWS = 4;
 
-export interface DropdownProps {
-  children?: React.ReactNode;
-  items: DropdownItem[];
-  placement?: TetherPlacement[keyof TetherPlacement];
-  showSearch?: boolean;
-  searchPlaceholder?: string;
-  onClose?: () => any;
-  onOpen?: () => any;
-  selection?: boolean;
-  selectedIds?: Array<string>;
-  footer?: JSX.Element;
-  customOption?: React.ForwardRefExoticComponent<any & React.RefAttributes<any>>;
-  propOverrides?: {
-    listProps: () => {};
-    optionProps: () => {};
-  };
-  isLoading?: boolean;
-}
-
 export const Dropdown = ({
   children,
-  items,
+  items = [],
   showSearch,
   searchPlaceholder,
   onOpen,
@@ -46,6 +27,7 @@ export const Dropdown = ({
   customOption,
   placement = 'bottomRight',
   isLoading = false,
+  additionalProperties,
 }: DropdownProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>();
@@ -61,7 +43,15 @@ export const Dropdown = ({
 
   useEffect(() => {
     const dropDownItems = items
-      .filter((x) => !searchTerm || x.label.toLowerCase().includes(searchTerm.toLowerCase()))
+      .filter((x) => {
+        if (x.filterConditions?.length && x.context) {
+          return x.filterConditions?.every(({ value, name, comparator }: any) => {
+            return comparator(value, name, x.context);
+          });
+        }
+
+        return !searchTerm || x.label.toLowerCase().includes(searchTerm.toLowerCase());
+      })
       .map((x) => ({
         ...x,
         checkbox: selection,
@@ -86,6 +76,7 @@ export const Dropdown = ({
           },
         },
       }}
+      showArrow
       content={({ close }) => (
         <>
           {showSearch && (
@@ -107,6 +98,9 @@ export const Dropdown = ({
                       height: scale1000,
                     },
                   },
+                  Content: {
+                    style: { borderColor: 'transparent' },
+                  },
                 }}
               >
                 <Skeleton width="100%" height={scale700} animation />
@@ -125,7 +119,7 @@ export const Dropdown = ({
                     maxHeight: '300px',
                   },
                   props: {
-                    ...propOverrides?.listProps(),
+                    ...propOverrides?.listProps?.(),
                   },
                 },
                 Option: {
@@ -133,18 +127,18 @@ export const Dropdown = ({
                   props: {
                     onItemSelect: (item: DropdownItem) => {
                       if (item.action) {
-                        item.action();
+                        item.action(selectedIds, additionalProperties);
                       }
                       if (!selection) {
                         close();
                       }
                     },
-                    ...propOverrides?.optionProps(),
+                    ...propOverrides?.optionProps?.(),
                   },
                 },
                 ListItem: {
                   props: {
-                    ...propOverrides?.optionProps(),
+                    ...propOverrides?.optionProps?.(),
                   },
                 },
               }}

@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction, ComponentType } from 'react';
 import {
+  ColDef,
   ColumnApi,
   ColumnState,
   DateFilterModel,
@@ -7,12 +8,24 @@ import {
   ICombinedSimpleModel,
   IFilterComp,
   NumberFilterModel,
+  RowDataUpdatedEvent,
+  RowNode,
   TextFilterModel,
+  ValueFormatterParams,
 } from '@ag-grid-community/core';
 import { DurationFormat, NumberFormat, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DropdownItem } from '../dropdown';
 import { SVGProps as IconProps } from '../icons';
 import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
+import { PageOrientation } from 'pdfmake/interfaces';
+import { Option } from '../select';
+import { AgGridColumnProps } from '@ag-grid-community/react';
+import { DropdownProps } from 'baseui/select';
+
+export enum RowModelType {
+  clientSide = 'clientSide',
+  serverSide = 'serverSide',
+}
 
 export interface DataGridApi {
   getSelectedRows: () => any[];
@@ -20,24 +33,37 @@ export interface DataGridApi {
   exportAsCsv: () => void;
   exportAsExcel: () => void;
   refreshStore: () => void;
+  refreshCells: () => void;
+  setViewState: (viewState: string | null) => void;
+  datagridRef: React.RefObject<HTMLDivElement>;
 }
 
-export type DataGridColumnType = 'number' | 'currency' | 'date' | 'time' | 'duration';
+export type DataGridColumnValueType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'duration';
 export type DataGridAggFunc = 'sum';
 
-export interface DataGridColumn {
+export interface DataGridRowSelectProps {
+  placeholder: string;
+  labelKey: string;
+  valueKey: string;
+  onChangeHandler: (data: any) => void;
+  options: Option[];
+  optionProp: string;
+  isLockedIconDisplayedFunc?: (data: any) => boolean;
+}
+
+export interface DataGridColumn extends AgGridColumnProps {
   field: string;
   label?: string;
   width?: number;
   rowGroup?: boolean;
-  type?: DataGridColumnType;
+  valueType?: DataGridColumnValueType;
   groupable?: boolean;
-  aggFunc?: DataGridAggFunc;
-  sort?: string;
   sortable?: boolean;
   hide?: boolean;
   customMap?: (value: any) => any;
   customComponent?: React.FunctionComponent;
+  customHeaderComponent?: React.FunctionComponent;
+  rowSelectProps?: DataGridRowSelectProps;
 }
 
 export type FilterTypeModel = TextFilterModel | NumberFilterModel | DateFilterModel | SetFilterModel;
@@ -55,15 +81,32 @@ export type IFilterType =
 export enum FilterType {
   date = 'date',
   string = 'string',
+  select = 'select',
+}
+
+export interface FilterValue {
+  value: string | boolean | null;
+  label: string;
+  icon?: JSX.Element;
 }
 export interface Filter {
   type: FilterType;
   columnField: string;
-  values?: string[];
+  values?: FilterValue[] | string[];
+  defaultValue?: string | boolean;
   valuesLoading?: boolean;
   title: string;
   icon?: ComponentType<IconProps>;
   searchPlaceholder?: string;
+  hide?: boolean;
+}
+
+export interface GetServerSideGroupKey {
+  (dataItem: any): string;
+}
+
+export interface GetDataPath {
+  (data: any): string[];
 }
 
 export interface DataGridState {
@@ -85,8 +128,11 @@ export interface FormatSettings {
 }
 
 export interface Translations {
-  rowCountText: (count: number) => JSX.Element;
+  rowCountText: (count: number, totalCount: number) => JSX.Element;
   rowCountSelectedText: (count: number) => JSX.Element;
+  rowActionItems?: DropdownItem[];
+  onRowEdit?: (data: RowActionsCellData) => void;
+  onRowEditIcon?: ComponentType<IconProps>;
   noRowsTitle: string;
   noRowsSubtext: string;
   groupBy: string;
@@ -115,22 +161,28 @@ export interface Translations {
   paginationPrevious: string;
   paginationNext: string;
   paginationOutOf: string;
+  paginationOutOfLong: (currentPage: number, pageCount: number) => string;
   deleteEntries: string;
   deleteEntriesCount: (count: number) => JSX.Element;
 }
 
 export interface DataGridProps {
+  licenseKey?: string;
+  rowModelType?: RowModelType;
+  rowData?: any[] | undefined;
   columns: DataGridColumn[];
   filters?: Filter[];
   selection?: boolean;
+  enableExport?: boolean;
   filtering?: boolean;
   grouping?: boolean;
   viewing?: boolean;
   columnToggling?: boolean;
   onReady?: (dataGridApi: DataGridApi) => void;
   rowActionItems?: DropdownItem[];
+  autoGroupColumnDef?: ColDef;
   state?: string;
-  dataUrl: string;
+  dataUrl?: string;
   accessToken?: string;
   sortableColumns?: boolean;
   resizeableColumns?: boolean;
@@ -139,6 +191,8 @@ export interface DataGridProps {
   views?: DataGridView[];
   height?: string;
   dates?: Date[];
+  hideDownload?: boolean;
+  hideDelete?: boolean;
   setDates?: (dates: Date[]) => void;
   onDeactivateView?: (id: string) => Promise<void>;
   onActivateView?: (id: string) => Promise<void>;
@@ -149,7 +203,21 @@ export interface DataGridProps {
   onUnpinView?: (id: string) => Promise<void>;
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
-  onBulkDelete?: (ids: string[]) => Promise<void>;
+  onBulkDelete?: () => Promise<void>;
+  onRowEdit?: (data: RowActionsCellData) => void;
+  onRowEditIcon?: ComponentType<IconProps>;
+  onSelectionChangedHandler?: (data: RowNode[]) => void;
+  treeData?: boolean;
+  getServerSideGroupKey?: GetServerSideGroupKey | undefined;
+  getDataPath?: GetDataPath | undefined;
+  groupIncludeFooter?: boolean;
+  groupIncludeTotalFooter?: boolean;
+  onRowDataChanged?: (e: RowDataUpdatedEvent) => void;
+  onRowDataUpdated?: (e: RowDataUpdatedEvent) => void;
+  onModalOpen?: () => void;
+  onModalClose?: () => void;
+  suppressRowHoverHighlight?: boolean;
+  suppressRowClickSelection?: boolean;
 }
 
 export interface DataGridView {
@@ -167,7 +235,7 @@ export interface CreateViewInput {
 }
 
 export interface SelectedFilterIds {
-  [key: string]: string[];
+  [key: string]: (string | boolean | null)[];
 }
 
 export interface FiltersProps {
@@ -185,27 +253,47 @@ export interface FiltersProps {
   dateFormat: string;
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
+  filterOnValue: (columnField: string, value: string | boolean | null, type: FilterType) => void;
+  filterOnDate: (columnField: string, selectedDates: Date[]) => void;
 }
 
 export interface ColumnFiltersProps {
   filters?: Filter[];
   dates?: Date[];
   setDates?: (dates: Date[]) => void;
-  onFiltering: (filters: FilterModel) => void;
   api: GridApi;
   translations: Translations;
   dateFormat: string;
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
+  filterOnValue: (columnField: string, value: string | boolean | null, type: FilterType) => void;
+  filterOnDate: (columnField: string, selectedDates: Date[]) => void;
 }
 export interface FooterRowCountProps {
   api: GridApi;
   translations: Translations;
 }
-
-export interface RowActionsCellProps {
+export interface RowActionsCellData {
   items: DropdownItem[];
-  api: GridApi;
+  onEdit?: (data: RowActionsCellData) => void;
+  icon?: ComponentType<IconProps>;
+  id: string;
+  [key: string]: any;
+}
+export interface RowActionsCellProps {
+  api?: GridApi;
+  data: RowActionsCellData;
+  icon?: ComponentType<IconProps>;
+  propOverrides?: {
+    listProps?: () => {};
+    optionProps?: () => {};
+    bodyProps?: () => {};
+  };
+}
+
+export interface RowEditCellProps {
+  onClick: () => void;
+  icon?: ComponentType<IconProps>;
 }
 
 export interface HeaderCheckboxProps {
@@ -257,13 +345,15 @@ export interface DataGridViewsProps {
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
   onActivateView?: (id: string) => void;
+  onModalOpen?: () => void;
+  onModalClose?: () => void;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
 }
 
 export interface CreateViewModalProps {
   isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
+  onClose: () => void;
   handleCreateView: (input: CreateViewInput) => Promise<void>;
   translations: Translations;
   gridApi: GridApi;
@@ -272,7 +362,7 @@ export interface CreateViewModalProps {
 
 export interface SaveViewModalProps {
   isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
+  onClose: () => void;
   handleSaveView: (id: string, viewState: string) => Promise<void>;
   translations: Translations;
   gridApi: GridApi;
@@ -282,7 +372,7 @@ export interface SaveViewModalProps {
 
 export interface RenameViewModalProps {
   isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
+  onClose: () => void;
   handleRenameView: (id: string, name: string) => Promise<void>;
   translations: Translations;
   view: DataGridView;
@@ -306,9 +396,49 @@ export interface DataGridIconProps {
 }
 
 export interface DataGridActionsProps {
-  api: GridApi;
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
   columns: DataGridColumn[];
   rowsSelected: number;
-  onBulkDelete?: (ids: string[]) => Promise<void>;
   translations: Translations;
+  onBulkDelete?: () => Promise<void>;
+  hideDownload?: boolean;
+  hideDelete?: boolean;
 }
+
+export interface PrintParams {
+  PDF_HEADER_COLOR?: string;
+  PDF_INNER_BORDER_COLOR?: string;
+  PDF_OUTER_BORDER_COLOR?: string;
+  PDF_ODD_BKG_COLOR?: string;
+  PDF_EVEN_BKG_COLOR?: string;
+  PDF_HEADER_HEIGHT?: number;
+  PDF_ROW_HEIGHT?: number;
+  PDF_PAGE_ORIENTATION?: PageOrientation;
+  PDF_WITH_CELL_FORMATTING?: boolean;
+  PDF_WITH_COLUMNS_AS_LINKS?: boolean;
+  PDF_SELECTED_ROWS_ONLY?: boolean;
+  PDF_WITH_HEADER_IMAGE?: boolean;
+  PDF_WITH_FOOTER_PAGE_COUNT?: boolean;
+  PDF_LOGO?: string;
+}
+
+interface PdfCell {
+  text?: string;
+  style?: string;
+  link?: string;
+  color?: string;
+  decoration?: string;
+}
+
+export interface PdfTableCell extends PdfCell {}
+
+export interface PdfHeaderCell extends PdfCell {
+  valueFormatter?: string | ((params: ValueFormatterParams) => string) | undefined;
+  colDef?: ColDef;
+  colSpan?: string;
+  colId: string | null;
+  sort?: string;
+}
+
+export interface PdfRow {}

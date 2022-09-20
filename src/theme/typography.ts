@@ -6,33 +6,33 @@ export const typography: DeepPartial<Theme['typography']> = {
   HeadingXXLarge: {
     fontSize: '40px',
     lineHeight: '52px',
-    fontWeight: 700,
+    fontWeight: 400,
   },
   HeadingSmall: {
     fontSize: '24px',
     lineHeight: '32px',
-    fontWeight: 600,
+    fontWeight: 400,
   },
   HeadingXSmall: {
     fontSize: '20px',
     lineHeight: '28px',
-    fontWeight: 600,
+    fontWeight: 400,
   },
   /* Labels */
   LabelMedium: {
     fontSize: '16px',
     lineHeight: '20px',
-    fontWeight: 600,
+    fontWeight: 400,
   },
   LabelSmall: {
     fontSize: '14px',
     lineHeight: '20px',
-    fontWeight: 600,
+    fontWeight: 400,
   },
   LabelXSmall: {
     fontSize: '12px',
     lineHeight: '20px',
-    fontWeight: 600,
+    fontWeight: 400,
   },
   /* Paragraph */
   ParagraphMedium: {

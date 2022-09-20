@@ -1,7 +1,7 @@
+import { AgGridReact } from '@ag-grid-community/react';
 import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
-import { margin, padding } from '../../utils';
-import { borderTop, borderRight, borderLeft, borderBottom } from '../../utils/css';
+import { margin, padding, borderTop, borderRight, borderLeft, borderBottom } from '../../utils';
 
 export const getGridThemeOverrides = (theme: CustomThemeType) => {
   return `
@@ -46,6 +46,11 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       padding-left: ${theme.sizing.scale300};
     }
 
+    .ag-theme-alpine .ag-root-wrapper {
+      border-bottom-right-radius: ${theme.borders.radius200};
+      border-bottom-left-radius: ${theme.borders.radius200};
+    }
+
     .ag-theme-alpine .ag-ltr .ag-pinned-right-header .ag-header-row:after {
       display: none;
     }
@@ -53,6 +58,20 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
     .ag-theme-alpine .ag-row-loading:hover {
       background: transparent;
     }
+
+    .ag-row-edit-cell {
+      display: none;
+    }
+    .ag-row-hover .ag-row-edit-cell, .ag-row-focus .ag-row-edit-cell {
+      display: block;
+    }
+
+    .ag-theme-alpine .ag-header-cell-resize:after {
+      top: 0;
+      bottom: 0;
+      height: auto;
+    }
+
   `;
 };
 
@@ -64,15 +83,24 @@ export const StyledDataGrid = themedStyled<'div', StyledDataGridProps>('div', ({
   width: '100%',
 }));
 
+export const StyledAgGridReact = themedStyled<typeof AgGridReact, StyledDataGridProps>(
+  AgGridReact,
+  ({ $height = '100%' }) => ({
+    height: `${$height} !important`, // Needed to overwrite default AgGrid height
+  }),
+);
+
 export const StyledDataGridFilters = themedStyled('div', ({ $theme }) => ({
+  width: '100%',
   ...margin($theme.sizing.scale400, '0'),
   display: 'flex',
   justifyContent: 'space-between',
 }));
 
-export const StyledDataGridSearch = themedStyled('div', {
+export const StyledDataGridSearch = themedStyled('div', ({ $theme }) => ({
   width: '280px',
-});
+  ...margin('0', $theme.sizing.scale300, '0', '0'),
+}));
 
 export const StyledFooterRowCount = themedStyled('div', ({ $theme }) => ({
   display: 'flex',
@@ -132,6 +160,8 @@ export const StyledDataGridHeader = themedStyled<'div', StyledDataGridHeaderProp
     ...borderLeft($theme.borders.border300),
     ...borderRight($theme.borders.border300),
     background: $theme.colors.primaryB,
+    borderTopRightRadius: $theme.borders.radius200,
+    borderTopLeftRadius: $theme.borders.radius200,
   }),
 );
 
@@ -165,4 +195,8 @@ export const StyledDataGridDivider = themedStyled('div', ({ $theme }) => ({
 export const StyledViewOptionsFooter = themedStyled('div', ({ $theme }) => ({
   backgroundColor: $theme.colors.primaryB,
   ...padding('0', $theme.sizing.scale100),
+}));
+
+export const StyledGroupRowInnerRendererContainer = themedStyled('div', () => ({
+  display: 'inline-block',
 }));

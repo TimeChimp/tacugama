@@ -1,2 +1,3 @@
-export * from './RadioGroup';
-export * from './RadioItem';
+export * from './radio-group';
+export * from './radio-icon';
+export * from './radio-item';

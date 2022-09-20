@@ -5,11 +5,11 @@ import {
   createThemedWithStyle,
   createThemedUseStyletron,
 } from 'baseui';
-import { CustomThemeType, CustomOverrideType } from 'models';
+import { CustomThemeType, CustomOverrideType, CustomColors } from 'models';
 
 import { default as basePrimitives } from './primitives';
 import { default as baseOverrides } from './overrides';
-import { lightColors, darkColors } from './colors';
+import { lightColors, darkColors, customColors } from './colors';
 import { lightBorders, darkBorders } from './borders';
 import { lightLighting, darkLighting } from './lighting';
 
@@ -62,18 +62,24 @@ export const getTheme = (options: ThemeOptionsProps = defaultTheme): Theme => {
     primary700: `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, .7)`, // TODO make rgb darker?
   };
 
+  const darkCustomColors: CustomColors = {
+    ...customColors,
+    primarySubtle: '#141414',
+  };
+
   const lightOverrides: CustomOverrideType = {
     ...baseOverrides,
     colors: lightColors,
     borders: lightBorders,
     lighting: lightLighting,
     app: {
-      background: lightPrimitives.primary50,
+      background: customColors.light7,
     },
   };
 
   const darkOverrides: CustomOverrideType = {
     ...baseOverrides,
+    customColors: darkCustomColors,
     colors: darkColors,
     borders: darkBorders,
     lighting: darkLighting,

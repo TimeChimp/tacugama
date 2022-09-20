@@ -5,48 +5,128 @@ import {
   FileUploaderProps as BaseFileUploaderProps,
   StyleProps,
 } from 'baseui/file-uploader';
-import FileUploadInstruction from './FileUploadInstruction';
-import FileUploadPreview from './FileUploadPreview';
-import { padding } from '../../utils';
-
-const fileUploaderOverrides = (
-  instructionMessage: string,
-  preview?: string,
-): BaseFileUploaderOverrides<StyleProps> => ({
-  FileDragAndDrop: {
-    style: {
-      margin: '0',
-      ...padding('0'),
-      display: 'flex',
-      alignContent: 'center',
-      justifyContent: 'center',
-    },
-  },
-  ButtonComponent: {
-    props: {
-      size: 'compact',
-      kind: 'secondary',
-      shape: 'pill',
-    },
-  },
-  ContentMessage: {
-    // eslint-disable-next-line react/display-name
-    component: preview ? FileUploadPreview : FileUploadInstruction,
-    props: {
-      message: instructionMessage,
-      preview,
-    },
-  },
-  ContentSeparator: {
-    component: () => null,
-  },
-});
+import { FileUploadInstruction } from './file-upload-instruction';
+import { FileUploadPreview } from './file-upload-preview';
+import { borderRadius, margin, padding } from '../../utils';
+import { Button } from 'baseui/button';
+import { useTheme } from '../../providers';
 
 export interface FileUploadProps extends Omit<BaseFileUploaderProps, 'overrides'> {
   instructionMessage: string;
+  buttonText: string;
   preview?: string;
+  error?: boolean;
+  progressMessage?: string;
 }
 
-export const FileUpload = ({ instructionMessage, preview, ...rest }: FileUploadProps) => {
-  return <BaseFileUploader {...rest} overrides={fileUploaderOverrides(instructionMessage, preview)} />;
+export const FileUpload = ({
+  instructionMessage,
+  preview,
+  buttonText,
+  error,
+  progressMessage,
+  ...rest
+}: FileUploadProps) => {
+  const { theme } = useTheme();
+  const {
+    current: {
+      sizing: { scale100, scale400, scale500, scale550, scale850 },
+      colors: { negative, white },
+      customColors: { dark0 },
+    },
+  } = theme;
+
+  const buttonOverrides = {
+    basicStyle: {
+      backgroundColor: white,
+      color: dark0,
+      ...margin(scale550, '0', '0'),
+      ...padding(scale400, scale500),
+      ...borderRadius(scale100),
+      fontSize: scale550,
+    },
+    baseButton: {
+      BaseButton: {
+        style: () => ({
+          ...buttonOverrides.basicStyle,
+        }),
+      },
+    },
+    errorButton: {
+      BaseButton: {
+        style: () => ({
+          ...buttonOverrides.basicStyle,
+          color: negative,
+        }),
+      },
+    },
+    progressButton: {
+      BaseButton: {
+        style: () => ({
+          ...buttonOverrides.basicStyle,
+          backgroundColor: 'transparent',
+          color: negative,
+
+          ':hover': {
+            backgroundColor: 'transparent',
+          },
+        }),
+      },
+    },
+  };
+
+  const selectButton = () => {
+    if (error) {
+      return buttonOverrides.errorButton;
+    }
+
+    if (rest.progressAmount) {
+      return buttonOverrides.progressButton;
+    }
+
+    return buttonOverrides.baseButton;
+  };
+
+  const fileUploaderOverrides = (
+    instructionMessage: string,
+    buttonText: string,
+    preview?: string,
+    error?: boolean,
+  ): BaseFileUploaderOverrides<StyleProps> => ({
+    FileDragAndDrop: {
+      style: {
+        margin: '0',
+        ...padding(scale850, '0'),
+        display: 'flex',
+        alignContent: 'center',
+        justifyContent: 'center',
+      },
+    },
+    ButtonComponent: (props) => (
+      <Button {...props} overrides={selectButton()}>
+        {buttonText}
+      </Button>
+    ),
+    ContentMessage: {
+      // eslint-disable-next-line react/display-name
+      component: preview ? FileUploadPreview : FileUploadInstruction,
+      props: {
+        message: progressMessage ? progressMessage : instructionMessage,
+        preview,
+      },
+    },
+    ErrorMessage: {
+      style: {
+        fontSize: scale550,
+        ...margin('0', '0', scale500),
+      },
+    },
+    ContentSeparator: {
+      component: () => null,
+    },
+  });
+
+  return (
+    <BaseFileUploader {...rest} overrides={fileUploaderOverrides(instructionMessage, buttonText, preview, error)} />
+  );
 };

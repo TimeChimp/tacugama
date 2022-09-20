@@ -1,11 +1,19 @@
 import '@testing-library/jest-dom';
 import { setupServer } from 'msw/node';
 import * as React from 'react';
-import { render, screen, userEvent } from '../../../utils/test-utils';
+import { render, screen, userEvent, waitFor } from '../../../utils/test-utils';
 import { DataGrid } from '..';
 import { getTimeEntriesQueryMock } from './mockServer';
 import { defaultTranslations } from '../defaultTranslations';
-import { ACCESS_TOKEN, COLUMNS, DATA_URL, SEARCH_INPUT_TEST_ID, FILTERS, FILTER_BUTTON_TEST_ID } from './constants';
+import {
+  ACCESS_TOKEN,
+  COLUMNS,
+  DATA_URL,
+  SEARCH_INPUT_TEST_ID,
+  FILTERS,
+  FILTER_BUTTON_TEST_ID,
+  LOADER_TEST_ID,
+} from './constants';
 
 export const server = setupServer(getTimeEntriesQueryMock);
 
@@ -43,4 +51,15 @@ test('it shows all filters when selecting button to show all', () => {
   userEvent.click(screen.getByText(defaultTranslations.allFilters));
 
   expect(screen.queryAllByTestId(FILTER_BUTTON_TEST_ID)).toHaveLength(FILTERS.length);
+});
+
+test('it filters on defaultValue when a default value is provided', async () => {
+  render(<DataGrid dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} filters={FILTERS} />);
+
+  userEvent.click(screen.getByText(defaultTranslations.allFilters));
+
+  await waitFor(() => {
+    expect(screen.queryByTestId(LOADER_TEST_ID)).not.toBeInTheDocument();
+    expect(screen.queryByText('Active')).toBeInTheDocument();
+  });
 });
