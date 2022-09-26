@@ -62,7 +62,8 @@ export const Select = ({
     return onChangeHandler({ ...params, value: params.value.length === 1 ? params.value[0] : params.value });
   };
 
-  const alphabetizeOptions = (options: Option[]) => options.sort((a, b) => a[labelKey].localeCompare(b[labelKey]));
+  const alphabetizeOptions = (options: Option[]) =>
+    options.length ? [...options].sort((a, b) => a[labelKey].localeCompare(b[labelKey])) : [];
 
   return (
     <>
