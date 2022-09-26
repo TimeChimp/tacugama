@@ -38,6 +38,7 @@ export const Select = ({
   propOverrides,
   onChangeHandler,
   multi,
+  options,
   ...rest
 }: SelectProps) => {
   const {
@@ -61,6 +62,8 @@ export const Select = ({
     return onChangeHandler({ ...params, value: params.value.length === 1 ? params.value[0] : params.value });
   };
 
+  const alphabetizeOptions = (options: Option[]) => options.sort((a, b) => a[labelKey].localeCompare(b[labelKey]));
+
   return (
     <>
       {showSkeleton ? (
@@ -72,6 +75,7 @@ export const Select = ({
           labelKey={labelKey}
           onChange={handleOnChange}
           multi={multi}
+          options={alphabetizeOptions(options)}
           {...rest}
           overrides={{
             ControlContainer: {

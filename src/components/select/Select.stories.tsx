@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Select, SelectProps, Value } from './Select';
 import { ColorSelect, ColorSelectProps } from './color-select';
-import { OPTIONS } from './Select.test';
+import { OPTIONS } from './test-data';
 
 export default {
   title: 'Components/Select',
