@@ -65,6 +65,7 @@ import {
   Refresh as RefreshIcon,
   LocationMarker as LocationMarkerIcon,
   WarningTriangleFull as WarningTriangleFullIcon,
+  Filter as FilterIcon,
 } from './';
 import { SVGProps } from './icon/Icon';
 
@@ -136,6 +137,7 @@ const UnpublishedTemplate: Story<SVGProps> = (args) => <UnpublishedIcon {...args
 const RefreshTemplate: Story<SVGProps> = (args) => <RefreshIcon {...args} />;
 const LocationMarkerTemplate: Story<SVGProps> = (args) => <LocationMarkerIcon {...args} />;
 const WarningTriangleFullTemplate: Story<SVGProps> = (args) => <WarningTriangleFullIcon {...args} />;
+const FilterTemplate: Story<SVGProps> = (args) => <FilterIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -444,5 +446,10 @@ LocationMarkerTemplate.args = {
 
 export const WarningTriangleFull = WarningTriangleFullTemplate.bind({});
 WarningTriangleFull.args = {
+  size: '16',
+};
+
+export const Filter = FilterTemplate.bind({});
+Filter.args = {
   size: '16',
 };
