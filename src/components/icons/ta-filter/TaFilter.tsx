@@ -2,7 +2,7 @@ import { useTheme } from '../../../providers';
 import React from 'react';
 import { Icon, SVGProps, defaultIconProps } from '../icon';
 
-export const Filter = ({ title = 'Filter', size = defaultIconProps.size, color }: SVGProps) => {
+export const TaFilter = ({ title = 'TaFilter', size = defaultIconProps.size, color }: SVGProps) => {
   const { theme } = useTheme();
 
   return (

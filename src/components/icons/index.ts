@@ -110,4 +110,4 @@ export * from './unpublished';
 export * from './refresh';
 export * from './location-marker';
 export * from './warning-triangle-full';
-export * from './filter';
+export * from './ta-filter';
