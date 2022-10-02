@@ -25,6 +25,7 @@ export const Datepicker = ({
   onChange,
   locale,
   weekStartDay,
+  overrides,
   ...rest
 }: DatepickerProps) => {
   const [localeObj, setLocaleObj] = useState<Locale>();
@@ -101,6 +102,7 @@ export const Datepicker = ({
             QuickSelect: {
               component: (props: any) => <Select {...props} />,
             },
+            ...overrides,
           }}
           {...rest}
         />
