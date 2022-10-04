@@ -30,7 +30,7 @@ export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps)
       overrides={{
         Input: {
           style: ({ $theme, $error, $disabled, $isFocused }) => {
-            const { color, backgroundColor } = getInputContainerColors($theme.colors, $error, $disabled);
+            const { color, backgroundColor } = getInputContainerColors($theme.colors, $disabled);
             return {
               minHeight: scale2400,
               height: scale2400,

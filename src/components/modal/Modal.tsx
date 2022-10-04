@@ -13,7 +13,7 @@ export interface ModalProps extends Omit<BaseModelProps, 'size'> {
   children: React.ReactNode;
   onStateChange?: (mountState: MountStates[keyof MountStates]) => void;
   name?: string;
-  size: ModalSize;
+  size?: ModalSize;
 }
 
 export const Modal = ({
