@@ -11,8 +11,10 @@ export const NumberInputComponent = themedStyled<typeof NumberFormat, NumberInpu
     outline: 'none',
     paddingLeft: $theme.sizing.scale500,
     paddingRight: $theme.sizing.scale500,
+    paddingTop: '0',
+    paddingBottom: '0',
     fontSize: $theme.sizing.scale550,
-    fontFamily: 'Inter, sans-serif',
+    fontFamily: 'Inter',
     lineHeight: $theme.sizing.scale700,
     color: $theme.colors.contentPrimary,
     ...border({

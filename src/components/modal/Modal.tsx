@@ -3,15 +3,27 @@ import { Modal as BaseModal, ModalOverrides, ModalProps as BaseModelProps } from
 import { useTheme } from '../../providers';
 import merge from 'deepmerge';
 
-import { border, borderRadius, margin, MountStateNotifier, MountStates } from '../../utils';
+import { borderRadius, margin, MountStateNotifier, MountStates } from '../../utils';
 
-export interface ModalProps extends BaseModelProps {
+export enum ModalSize {
+  DEFAULT = '600px',
+  LARGE = '900px',
+}
+export interface ModalProps extends Omit<BaseModelProps, 'size'> {
   children: React.ReactNode;
   onStateChange?: (mountState: MountStates[keyof MountStates]) => void;
   name?: string;
+  size?: ModalSize;
 }
 
-export const Modal = ({ children, onStateChange, name, overrides = {}, ...rest }: ModalProps) => {
+export const Modal = ({
+  children,
+  onStateChange,
+  name,
+  overrides = {},
+  size = ModalSize.DEFAULT,
+  ...rest
+}: ModalProps) => {
   // By utilizing the `MountStateNotifier` inside of `BaseModal` it will know the mountstate for when
   // the modal is closed. The base modal is unmounted, but this component `Modal` is still mounted.
   // Hence using a component to check the current state so the modal can use animations for mount states.
@@ -19,9 +31,9 @@ export const Modal = ({ children, onStateChange, name, overrides = {}, ...rest }
   const {
     theme: {
       current: {
-        sizing: { scale600, scale700, scale900 },
-        borders: { border100, radius200 },
-        colors: { contentTertiary },
+        sizing: { scale550, scale850, scale1200 },
+        borders: { radius200 },
+        customColors: { dark2 },
       },
     },
   } = useTheme();
@@ -34,16 +46,18 @@ export const Modal = ({ children, onStateChange, name, overrides = {}, ...rest }
     },
     Dialog: {
       style: {
-        ...border(border100),
+        width: size,
         ...borderRadius(radius200),
-        ...margin(scale900, scale600, scale600, scale600),
+        ...margin('0'),
       },
     },
     Close: {
       style: {
-        color: contentTertiary,
-        right: scale700,
-        top: scale700,
+        color: dark2,
+        right: scale1200,
+        top: scale550,
+        height: scale850,
+        width: scale850,
       },
     },
     DialogContainer: {
@@ -59,6 +73,7 @@ export const Modal = ({ children, onStateChange, name, overrides = {}, ...rest }
       autoFocus={false}
       unstable_ModalBackdropScroll={true} // prop will be removed in the next major version but implemented as the default behavior
       overrides={mergedOverrides}
+      size="default"
       {...rest}
     >
       {onStateChange && <MountStateNotifier onStateChange={onStateChange} />}

@@ -77,18 +77,11 @@ export const invertHexColor = (hex: string, options?: HexColorInverseOptions) =>
   return newHex;
 };
 
-export function getInputContainerColors(colors: Colors, $error: boolean = false, $disabled: boolean = false) {
+export function getInputContainerColors(colors: Colors, $disabled: boolean = false) {
   /**
    * This helper is based on BaseWeb's internal helper, which can be used more dynamically.
    * Source: https://github.com/uber/baseweb/blob/eebaf24fecc2d0b54133af41d31604fc54b6b3e3/src/input/styled-components.js#L329
    */
-
-  if ($error) {
-    return {
-      color: colors.contentPrimary,
-      backgroundColor: colors.inputFillError,
-    };
-  }
 
   if ($disabled) {
     return {

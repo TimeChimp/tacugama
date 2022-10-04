@@ -47,7 +47,7 @@ export const Select = ({
         colors,
         borders,
         customColors: { primarySubtle },
-        sizing: { scale0, scale100, scale550, scale700, scale900 },
+        sizing: { scale100, scale550, scale700, scale900 },
         typography: { ParagraphSmall, LabelSmall },
       },
     },
@@ -83,13 +83,13 @@ export const Select = ({
               style: {
                 backgroundColor: primaryB,
                 ...border(),
-                ...borderRadius(scale0),
+                ...borderRadius(radius200),
               },
             },
             Root: {
               style: ({ $error, $isFocused }) => ({
                 backgroundColor: primaryB,
-                ...borderRadius(scale0),
+                ...borderRadius(radius200),
                 ...border({
                   ...border300,
                   borderColor: getInputBorderColor($error, $isFocused, colors, borders),
@@ -107,7 +107,7 @@ export const Select = ({
             },
             DropdownContainer: {
               style: {
-                ...borderRadius(scale0),
+                ...borderRadius(radius200),
                 ...border(border300),
               },
             },

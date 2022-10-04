@@ -17,7 +17,7 @@ export const Input = ({ testId, type, uppercase, noBorder = false, ...rest }: In
   const {
     theme: {
       current: {
-        sizing: { scale0, scale500, scale1000 },
+        sizing: { scale500, scale1000 },
         borders,
         colors,
       },
@@ -35,8 +35,8 @@ export const Input = ({ testId, type, uppercase, noBorder = false, ...rest }: In
 
   const baseOverrides: InputOverrides = {
     Input: {
-      style: ({ $disabled, $isFocused, $error, $theme }) => {
-        const { color, backgroundColor } = getInputContainerColors($theme.colors, $error, $disabled);
+      style: ({ $disabled, $isFocused, $theme }) => {
+        const { color, backgroundColor } = getInputContainerColors($theme.colors, $disabled);
         return {
           backgroundColor,
           ...border(),
@@ -67,7 +67,6 @@ export const Input = ({ testId, type, uppercase, noBorder = false, ...rest }: In
             ? {
                 ...border300,
                 borderColor: getInputBorderColor($error, $isFocused, colors, borders),
-                borderWidth: $error ? scale0 : border300.borderWidth,
               }
             : undefined,
         ),
@@ -78,14 +77,14 @@ export const Input = ({ testId, type, uppercase, noBorder = false, ...rest }: In
       }),
     },
     StartEnhancer: {
-      style: ({ $disabled, $error, $theme }) => ({
-        backgroundColor: getInputContainerColors(colors, $error, $disabled).backgroundColor,
+      style: ({ $disabled, $theme }) => ({
+        backgroundColor: getInputContainerColors(colors, $disabled).backgroundColor,
         ...padding('0', $theme.sizing.scale0, '0', '14px'),
       }),
     },
     EndEnhancer: {
-      style: ({ $disabled, $error, $theme }) => ({
-        backgroundColor: getInputContainerColors(colors, $error, $disabled).backgroundColor,
+      style: ({ $disabled, $theme }) => ({
+        backgroundColor: getInputContainerColors(colors, $disabled).backgroundColor,
         ...padding('0', '14px', '0', $theme.sizing.scale0),
       }),
     },

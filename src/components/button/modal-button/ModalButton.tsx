@@ -2,6 +2,7 @@ import React from 'react';
 import { ModalButton as BaseModalButton } from 'baseui/modal';
 import { ButtonProps as BaseButtonProps } from 'baseui/button';
 import {
+  border,
   borderBottom,
   borderLeft,
   borderRadius,
@@ -9,10 +10,11 @@ import {
   borderTop,
   getButtonBackgroundColor,
   getButtonBackgroundHoverColor,
+  margin,
   padding,
 } from '../../../utils';
 import { useTheme } from '../../../providers';
-import { ButtonType, CustomThemeType } from '../../../models';
+import { ButtonType, CustomThemeProps } from '../../../models';
 
 export interface ModalButtonProps extends BaseButtonProps {
   buttonType?: ButtonType;
@@ -42,13 +44,20 @@ export const ModalButton = ({
       data-test-id={testId}
       overrides={{
         BaseButton: {
-          style: ({ $theme }: { $theme: CustomThemeType }) => ({
+          style: ({ $theme }: CustomThemeProps) => ({
             ...borderRadius($theme.borders.radius200),
             ...padding(scale200, scale600),
             fontWeight: 'normal',
             backgroundColor: getButtonBackgroundColor(buttonType, colors),
+            ...border({
+              ...$theme.borders.border300,
+              borderColor: getButtonBackgroundColor(buttonType, colors),
+            }),
             ':hover': {
               backgroundColor: getButtonBackgroundHoverColor(buttonType, colors),
+            },
+            ':not(:last-child)': {
+              ...margin('0', $theme.sizing.scale300, '0', '0'),
             },
           }),
         },
