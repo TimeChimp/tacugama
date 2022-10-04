@@ -23,13 +23,6 @@ describe('utils/colors', () => {
       expect(inputColors.color).toBe(colors.contentPrimary);
     });
 
-    it('should get error colors', () => {
-      const inputColors = getInputContainerColors(colors as any, true);
-
-      expect(inputColors.backgroundColor).toBe(colors.backgroundPrimary);
-      expect(inputColors.color).toBe(colors.contentPrimary);
-    });
-
     it('should get disabled colors', () => {
       const inputColors = getInputContainerColors(colors as any, true);
 
