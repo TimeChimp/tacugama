@@ -111,3 +111,5 @@ export * from './refresh';
 export * from './location-marker';
 export * from './warning-triangle-full';
 export * from './ta-filter';
+export * from './position';
+export * from './location-point';
