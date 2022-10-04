@@ -113,3 +113,7 @@ export type CustomThemeType = Theme & CustomOverrideType;
 export interface ThemeProps {
   $theme: Theme;
 }
+
+export interface CustomThemeProps {
+  $theme: CustomThemeType;
+}

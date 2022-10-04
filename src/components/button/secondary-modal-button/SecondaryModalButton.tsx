@@ -1,6 +1,6 @@
 import React from 'react';
 import { ButtonProps } from 'baseui/button';
-import { border, borderRadius, padding } from '../../../utils';
+import { border, borderRadius, margin, padding } from '../../../utils';
 import { useTheme } from '../../../providers';
 import { ModalButton } from 'baseui/modal';
 
@@ -32,6 +32,9 @@ export const SecondaryModalButton = ({ children, size = 'compact', ...rest }: Bu
               },
               ':active': {
                 backgroundColor: $theme.colors.primaryB,
+              },
+              ':not(:last-child)': {
+                ...margin('0', $theme.sizing.scale300, '0', '0'),
               },
             };
           },
