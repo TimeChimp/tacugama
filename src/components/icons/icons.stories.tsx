@@ -66,6 +66,8 @@ import {
   LocationMarker as LocationMarkerIcon,
   WarningTriangleFull as WarningTriangleFullIcon,
   TaFilter as TaFilterIcon,
+  Position as PositionIcon,
+  LocationPoint as LocationPointIcon,
 } from './';
 import { SVGProps } from './icon/Icon';
 
@@ -138,6 +140,8 @@ const RefreshTemplate: Story<SVGProps> = (args) => <RefreshIcon {...args} />;
 const LocationMarkerTemplate: Story<SVGProps> = (args) => <LocationMarkerIcon {...args} />;
 const WarningTriangleFullTemplate: Story<SVGProps> = (args) => <WarningTriangleFullIcon {...args} />;
 const TaFilterTemplate: Story<SVGProps> = (args) => <TaFilterIcon {...args} />;
+const PositionTemplate: Story<SVGProps> = (args) => <PositionIcon {...args} />;
+const LocationPointTemplate: Story<SVGProps> = (args) => <LocationPointIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -451,5 +455,15 @@ WarningTriangleFull.args = {
 
 export const TaFilter = TaFilterTemplate.bind({});
 TaFilter.args = {
+  size: '16',
+};
+
+export const Position = PositionTemplate.bind({});
+Position.args = {
+  size: '16',
+};
+
+export const LocationPoint = LocationPointTemplate.bind({});
+LocationPoint.args = {
   size: '16',
 };
