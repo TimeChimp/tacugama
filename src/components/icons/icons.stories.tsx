@@ -68,6 +68,15 @@ import {
   TaFilter as TaFilterIcon,
   Position as PositionIcon,
   LocationPoint as LocationPointIcon,
+  TagOutlined as TagOutlinedIcon,
+  CalendarOutlined as CalendarOutlinedIcon,
+  ClockOutlined as ClockOutlinedIcon,
+  AppleOutlined as AppleOutlinedIcon,
+  EmployeeOutlined as EmployeeOutlinedIcon,
+  PositionOutlined as PositionOutlinedIcon,
+  LocationOutlined as LocationOutlinedIcon,
+  DescriptionOutlined as DescriptionOutlinedIcon,
+  CheckmarkOutlined as CheckmarkOutlinedIcon,
 } from './';
 import { SVGProps } from './icon/Icon';
 
@@ -142,6 +151,15 @@ const WarningTriangleFullTemplate: Story<SVGProps> = (args) => <WarningTriangleF
 const TaFilterTemplate: Story<SVGProps> = (args) => <TaFilterIcon {...args} />;
 const PositionTemplate: Story<SVGProps> = (args) => <PositionIcon {...args} />;
 const LocationPointTemplate: Story<SVGProps> = (args) => <LocationPointIcon {...args} />;
+const TagOutlinedTemplate: Story<SVGProps> = (args) => <TagOutlinedIcon {...args} />;
+const CalendarOutlinedTemplate: Story<SVGProps> = (args) => <CalendarOutlinedIcon {...args} />;
+const ClockOutlinedTemplate: Story<SVGProps> = (args) => <ClockOutlinedIcon {...args} />;
+const AppleOutlinedTemplate: Story<SVGProps> = (args) => <AppleOutlinedIcon {...args} />;
+const EmployeeOutlinedTemplate: Story<SVGProps> = (args) => <EmployeeOutlinedIcon {...args} />;
+const PositionOutlinedTemplate: Story<SVGProps> = (args) => <PositionOutlinedIcon {...args} />;
+const LocationOutlinedTemplate: Story<SVGProps> = (args) => <LocationOutlinedIcon {...args} />;
+const DescriptionOutlinedTemplate: Story<SVGProps> = (args) => <DescriptionOutlinedIcon {...args} />;
+const CheckmarkOutlinedTemplate: Story<SVGProps> = (args) => <CheckmarkOutlinedIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -465,5 +483,50 @@ Position.args = {
 
 export const LocationPoint = LocationPointTemplate.bind({});
 LocationPoint.args = {
+  size: '16',
+};
+
+export const TagOutlined = TagOutlinedTemplate.bind({});
+TagOutlined.args = {
+  size: '16',
+};
+
+export const CalendarOutlined = CalendarOutlinedTemplate.bind({});
+CalendarOutlined.args = {
+  size: '16',
+};
+
+export const ClockOutlined = ClockOutlinedTemplate.bind({});
+ClockOutlined.args = {
+  size: '16',
+};
+
+export const AppleOutlined = AppleOutlinedTemplate.bind({});
+AppleOutlined.args = {
+  size: '16',
+};
+
+export const EmployeeOutlined = EmployeeOutlinedTemplate.bind({});
+EmployeeOutlined.args = {
+  size: '16',
+};
+
+export const PositionOutlined = PositionOutlinedTemplate.bind({});
+PositionOutlined.args = {
+  size: '16',
+};
+
+export const LocationOutlined = LocationOutlinedTemplate.bind({});
+LocationOutlined.args = {
+  size: '16',
+};
+
+export const DescriptionOutlined = DescriptionOutlinedTemplate.bind({});
+DescriptionOutlined.args = {
+  size: '16',
+};
+
+export const CheckmarkOutlined = CheckmarkOutlinedTemplate.bind({});
+CheckmarkOutlined.args = {
   size: '16',
 };
