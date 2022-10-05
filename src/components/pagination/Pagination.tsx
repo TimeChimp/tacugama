@@ -49,14 +49,14 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
         },
         NextButton: {
           component: ({ onClick }: any) => (
-            <Button onClick={onClick} overrides={buttonOverrides}>
+            <Button type="button" onClick={onClick} overrides={buttonOverrides}>
               <RightArrow size={scale400} color={dark2} />
             </Button>
           ),
         },
         PrevButton: {
           component: ({ onClick }: any) => (
-            <Button onClick={onClick} overrides={buttonOverrides}>
+            <Button type="button" onClick={onClick} overrides={buttonOverrides}>
               <LeftArrow size={scale400} color={dark2} />
             </Button>
           ),
