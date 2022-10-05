@@ -6,7 +6,7 @@ import merge from 'deepmerge';
 import { borderRadius, margin, MountStateNotifier, MountStates } from '../../utils';
 
 export enum ModalSize {
-  DEFAULT = '600px',
+  DEFAULT = '700px',
   LARGE = '900px',
 }
 export interface ModalProps extends Omit<BaseModelProps, 'size'> {
