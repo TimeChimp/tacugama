@@ -28,6 +28,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       isLoading,
       disabled,
       buttonType = ButtonType.default,
+      type = 'submit',
       kind = KIND.primary,
       size = SIZE.compact,
       testId,
@@ -48,6 +49,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <BaseButton
+        type={type}
         ref={ref}
         kind={kind}
         size={size}
