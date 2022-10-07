@@ -22,6 +22,7 @@ interface CustomParams {
 
 export interface SelectProps extends BaseSelectProps {
   showSkeleton?: boolean;
+  disableSortOptions?: boolean;
   options: Option[];
   onChangeHandler: (params: OnChangeParams) => void;
   propOverrides?: {
@@ -39,6 +40,7 @@ export const Select = ({
   onChangeHandler,
   multi,
   options,
+  disableSortOptions = false,
   ...rest
 }: SelectProps) => {
   const {
@@ -62,8 +64,12 @@ export const Select = ({
     return onChangeHandler({ ...params, value: params.value.length === 1 ? params.value[0] : params.value });
   };
 
-  const alphabetizeOptions = (options: Option[]) =>
-    options.length ? [...options].sort((a, b) => a[labelKey].localeCompare(b[labelKey])) : [];
+  const alphabetizeOptions = (options: Option[], disableSortOptions?: boolean) => {
+    if (disableSortOptions) {
+      return options;
+    }
+    return options.length ? [...options].sort((a, b) => a[labelKey].localeCompare(b[labelKey])) : [];
+  };
 
   return (
     <>
@@ -76,7 +82,7 @@ export const Select = ({
           labelKey={labelKey}
           onChange={handleOnChange}
           multi={multi}
-          options={alphabetizeOptions(options)}
+          options={alphabetizeOptions(options, disableSortOptions)}
           {...rest}
           overrides={{
             ControlContainer: {
