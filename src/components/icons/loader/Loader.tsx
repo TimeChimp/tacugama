@@ -12,7 +12,7 @@ export const Loader = ({ title = 'Loader', size = defaultIconProps.size, color =
           cy="12"
           r="10"
           stroke={color}
-          strokeWidth="2"
+          strokeWidth="3"
           fill="none"
           strokeDasharray="73"
           strokeDashoffset="20"
