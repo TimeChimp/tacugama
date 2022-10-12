@@ -7,6 +7,7 @@ import { FlexItem } from '../../flex-item';
 import { useTheme } from '../../../providers';
 import { Datepicker } from '../../datepicker';
 import { FilterButton } from './FilterButton';
+import { FILTER_BUTTON_TEST_ID } from '../__tests__/constants';
 
 const LESS_FILTERS_BUTTON_TEST_ID = 'less-filters-button';
 const MORE_FILTERS_BUTTON_TEST_ID = 'more-filters-button';
@@ -183,6 +184,7 @@ export const ColumnFilters = ({
             monthsShown={2}
             range
             quickSelect
+            testId={FILTER_BUTTON_TEST_ID}
           />
         </>
       ),
