@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ColumnFiltersProps, Filter, FilterType, FilterValue } from '../types';
+import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { SIZE } from 'baseui/button';
 import { Dropdown, DropdownItem } from '../../dropdown';
 import { Dash, Plus } from '../../icons';
 import { FlexItem } from '../../flex-item';
 import { useTheme } from '../../../providers';
-import { Datepicker } from '../../datepicker';
+import { DatepickerPopover } from '../../datepicker-popover';
 import { FilterButton } from './FilterButton';
-import { FILTER_BUTTON_TEST_ID } from '../__tests__/constants';
 
 const LESS_FILTERS_BUTTON_TEST_ID = 'less-filters-button';
 const MORE_FILTERS_BUTTON_TEST_ID = 'more-filters-button';
@@ -26,8 +26,8 @@ export const ColumnFilters = ({
   filterOnDate,
 }: ColumnFiltersProps) => {
   const [showLessFilters, setShowLessFilters] = useState<boolean>(true);
+  const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
   const [internalDates, setInternalDates] = useState<Date[]>([]);
-  const [date, setDate] = useState(internalDates.length ? internalDates : dates);
 
   const {
     theme: {
@@ -44,12 +44,6 @@ export const ColumnFilters = ({
       throw new Error(MULTIPLE_DATE_FILTER_ERROR);
     }
   }, [filters]);
-
-  useEffect(() => {
-    if (date && date?.length === 0) {
-      setDate(dates);
-    }
-  }, [date, dates]);
 
   useEffect(() => {
     validateFilters();
@@ -123,6 +117,11 @@ export const ColumnFilters = ({
     };
   };
 
+  const getDateTitleFormat = (date: Date) => new TcDate(date).format(dateFormat);
+
+  const getDateTitle = (title: string) =>
+    dates && dateFilterIsActive() ? `${getDateTitleFormat(dates[0])} - ${getDateTitleFormat(dates[1])}` : title;
+
   const getSetTitle = (columnField: string, title: string) => {
     if (!isSetFilterActive(columnField)) {
       return title;
@@ -131,17 +130,28 @@ export const ColumnFilters = ({
     return `${length} ${title}`;
   };
 
+  const toggleDatePicker = () => {
+    if (datepickerIsOpen) {
+      setDatepickerIsOpen(false);
+      return setInternalDates([]);
+    }
+    return setDatepickerIsOpen(true);
+  };
+
   const onDateSelect = ({ date: selectedDates, columnField }: { date: Date | Date[]; columnField: string }) => {
-    setDate(Array.isArray(selectedDates) ? selectedDates : [selectedDates]);
     if (!setDates) {
       return;
     }
 
-    setInternalDates(Array.isArray(selectedDates) ? selectedDates : [selectedDates]);
+    if (!Array.isArray(selectedDates)) {
+      return setInternalDates([selectedDates]);
+    }
 
-    if (Array.isArray(selectedDates) && selectedDates.length > 1) {
-      setDate(selectedDates);
+    setInternalDates(selectedDates);
+
+    if (selectedDates.length > 1) {
       setDates(selectedDates);
+      toggleDatePicker();
       filterOnDate(columnField, selectedDates);
     }
   };
@@ -173,18 +183,21 @@ export const ColumnFilters = ({
     const filterTypes = {
       [FilterType.date]: (
         <>
-          <Datepicker
-            customValue={date!}
-            setCustomValue={setDate}
-            // @ts-ignore
+          <FilterButton
+            onClick={() => setDatepickerIsOpen(!datepickerIsOpen)}
+            startEnhancer={Icon && <Icon color={getDateIconColor()} />}
+            size={SIZE.compact}
+            title={getDateTitle(title)}
+            arrows
+          />
+          <DatepickerPopover
             onChange={({ date }) => onDateSelect({ date, columnField })}
-            placeholder={`${dateFormat} – ${dateFormat}`}
-            formatString={dateFormat}
-            iconColor={getDateIconColor()}
+            date={internalDates.length ? internalDates : dates}
+            isOpen={datepickerIsOpen}
+            setIsOpen={toggleDatePicker}
             monthsShown={2}
             range
             quickSelect
-            testId={FILTER_BUTTON_TEST_ID}
           />
         </>
       ),

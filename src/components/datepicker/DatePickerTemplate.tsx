@@ -9,7 +9,7 @@ export const DatePickerTemplate = ({ ...rest }: DatePickerProps & InputProps) =>
       {...rest}
       customValue={value}
       setCustomValue={setValue}
-      // @ts-ignore
+      // @ts-expect-error
       onChange={({ date }) => setValue(Array.isArray(date) ? date : [date])}
     />
   );
