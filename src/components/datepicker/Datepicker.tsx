@@ -15,7 +15,7 @@ import { useTheme } from '../../providers';
 import { DatepickerProps, DatePicker, DatepickerOverrides, SharedStylePropsT } from 'baseui/datepicker';
 import { SupportedLocale } from '../../types';
 import { Select } from '../select';
-import { DATA_TEST_ID } from 'models';
+import { DATA_TEST_ID } from '../../models';
 import { InputOverrides, InputProps } from 'baseui/input';
 import { Calendar } from '../icons';
 
