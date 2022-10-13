@@ -1,21 +1,16 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-
-import { Datepicker, DatepickerProps } from '.';
+import { DatePickerTemplate, DatePickerProps } from '.';
+import { InputProps } from 'components/input/types';
 
 export default {
   title: 'Components/Datepicker',
-  component: Datepicker,
+  component: DatePickerTemplate,
 } as Meta;
 
-let isOpen = true;
-
-const Template: Story<DatepickerProps> = (args) => <Datepicker {...args} />;
+const Template: Story<DatePickerProps & InputProps> = (args) => <DatePickerTemplate {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
   placement: 'bottomLeft',
-  date: new Date(),
-  isOpen: true,
-  setIsOpen: () => (isOpen = !isOpen),
 };

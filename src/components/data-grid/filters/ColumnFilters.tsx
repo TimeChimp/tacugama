@@ -6,7 +6,7 @@ import { Dropdown, DropdownItem } from '../../dropdown';
 import { Dash, Plus } from '../../icons';
 import { FlexItem } from '../../flex-item';
 import { useTheme } from '../../../providers';
-import { Datepicker } from '../../datepicker';
+import { DatepickerPopover } from '../../datepicker-popover';
 import { FilterButton } from './FilterButton';
 
 const LESS_FILTERS_BUTTON_TEST_ID = 'less-filters-button';
@@ -190,7 +190,7 @@ export const ColumnFilters = ({
             title={getDateTitle(title)}
             arrows
           />
-          <Datepicker
+          <DatepickerPopover
             onChange={({ date }) => onDateSelect({ date, columnField })}
             date={internalDates.length ? internalDates : dates}
             isOpen={datepickerIsOpen}
