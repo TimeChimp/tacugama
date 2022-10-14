@@ -20,7 +20,6 @@ import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
 import { PageOrientation } from 'pdfmake/interfaces';
 import { Option } from '../select';
 import { AgGridColumnProps } from '@ag-grid-community/react';
-import { DropdownProps } from 'baseui/select';
 
 export enum RowModelType {
   clientSide = 'clientSide',
