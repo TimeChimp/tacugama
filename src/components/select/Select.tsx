@@ -68,7 +68,7 @@ export const Select = ({
     if (disableSortOptions) {
       return options;
     }
-    return options.length ? [...options].sort((a, b) => a[labelKey].localeCompare(b[labelKey])) : [];
+    return options.length > 1 ? [...options].sort((a, b) => a[labelKey]?.localeCompare(b[labelKey])) : [];
   };
 
   return (
