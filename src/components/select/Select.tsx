@@ -65,10 +65,13 @@ export const Select = ({
   };
 
   const alphabetizeOptions = (options: Option[], disableSortOptions?: boolean) => {
+    if (!options) {
+      return [];
+    }
     if (disableSortOptions) {
       return options;
     }
-    return options.length > 1 ? [...options].sort((a, b) => a[labelKey]?.localeCompare(b[labelKey])) : [];
+    return options.length > 1 ? [...options].sort((a, b) => a[labelKey]?.localeCompare(b[labelKey])) : options;
   };
 
   return (
