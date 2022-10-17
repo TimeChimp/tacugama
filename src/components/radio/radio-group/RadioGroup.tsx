@@ -6,7 +6,6 @@ import {
   RadioGroupOverrides,
 } from 'baseui/radio';
 import { RadioProps } from '../radio-item';
-import { margin } from '../../../utils';
 
 interface RadioGroupProps extends BaseRadioGroupProps {
   value: string;
@@ -17,7 +16,6 @@ interface RadioGroupProps extends BaseRadioGroupProps {
 const radioGroupOverrides: RadioGroupOverrides = {
   RadioGroupRoot: {
     style: {
-      ...margin('16px', '0'),
       width: '100%',
     },
   },
