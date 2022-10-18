@@ -4,7 +4,6 @@ import {
   border,
   borderBottom,
   borderRadius,
-  getDateLocale,
   getInputBorderColor,
   getInputContainerColors,
   getInputPlaceholderTextColor,
@@ -13,11 +12,11 @@ import {
 } from '../../utils';
 import { useTheme } from '../../providers';
 import { DatepickerProps, DatePicker, DatepickerOverrides, SharedStylePropsT } from 'baseui/datepicker';
-import { SupportedLocale } from '../../types';
 import { Select } from '../select';
 import { DATA_TEST_ID } from '../../models';
 import { InputOverrides, InputProps } from 'baseui/input';
 import { Calendar } from '../icons';
+import { getDateLocale, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 
 export interface DatePickerProps extends DatepickerProps {
   placement?: TetherPlacement[keyof TetherPlacement];
