@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Tag as TagComponent, TagProps as TagComponentProps } from 'baseui/tag';
 import { useTheme } from '../../providers';
-import { borderRadius, margin, padding } from 'utils';
+import { borderRadius, margin, padding } from '../../utils';
 
 export enum TagSize {
   small = 'small',
