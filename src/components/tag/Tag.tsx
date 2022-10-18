@@ -39,7 +39,7 @@ export const Tag = ({ value, size = TagSize.small, closeable = false, ...rest }:
               ...borderRadius(scale100),
               ...margin('0px', scale100, '0px', '0px'),
               border: `1px solid ${light2}`,
-              background: '#F9FAFB',
+              background: '#F9FAFB', // NOTE: Value does not exist in theme
             }),
           },
           Text: {
@@ -72,7 +72,7 @@ export const Tag = ({ value, size = TagSize.small, closeable = false, ...rest }:
               ...borderRadius(scale100),
               ...margin('0px', scale100, '0px', '0px'),
               border: `1px solid ${light2}`,
-              background: '#F9FAFB',
+              background: '#F9FAFB', // NOTE: Value does not exist in theme
             }),
           },
           Text: {
