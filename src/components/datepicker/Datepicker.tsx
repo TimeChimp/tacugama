@@ -1,42 +1,62 @@
 import React, { useEffect, useState } from 'react';
-import { Popover } from '../popover';
 import { TetherPlacement } from 'baseui/layer';
-import { borderBottom } from '../../utils';
+import {
+  border,
+  borderBottom,
+  borderRadius,
+  getInputBorderColor,
+  getInputContainerColors,
+  getInputPlaceholderTextColor,
+  margin,
+  padding,
+} from '../../utils';
 import { useTheme } from '../../providers';
-import { CalendarProps, Calendar } from 'baseui/datepicker';
+import { DatepickerProps, DatePicker, DatepickerOverrides, SharedStylePropsT } from 'baseui/datepicker';
 import { Select } from '../select';
+import { DATA_TEST_ID } from '../../models';
+import { InputOverrides, InputProps } from 'baseui/input';
+import { Calendar } from '../icons';
 import { getDateLocale, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 
-export interface DatepickerProps extends CalendarProps {
-  date?: Date | Date[];
+export interface DatePickerProps extends DatepickerProps {
   placement?: TetherPlacement[keyof TetherPlacement];
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => any;
-  onChange?: (args: { date: Date | Date[] }) => any;
   locale?: SupportedLocale;
   weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
+  testId?: string;
+  noBorder?: boolean;
+  iconColor?: string;
+  customValue: Date[];
+  setCustomValue: (date: Date[]) => any;
+  onChange: (date: { date: Date | Date[] }) => any;
 }
 
 export const Datepicker = ({
-  date,
-  placement = 'bottomLeft',
-  setIsOpen,
-  isOpen,
+  customValue,
+  setCustomValue,
   onChange,
+  placement = 'bottomLeft',
   locale,
   weekStartDay,
   overrides,
+  noBorder,
+  testId,
+  iconColor,
   ...rest
-}: DatepickerProps) => {
+}: DatePickerProps & InputProps) => {
   const [localeObj, setLocaleObj] = useState<Locale>();
+
   const {
     theme: {
       current: {
-        borders: { border300 },
-        colors: { primaryA, primaryB, contentTertiary },
+        sizing: { scale500, scale600, scale1000 },
+        colors: { primaryA, contentTertiary },
+        borders,
+        colors,
       },
     },
   } = useTheme();
+  const { border300 } = borders;
+  const { primaryB } = colors;
 
   useEffect(() => {
     if (locale) {
@@ -50,65 +70,141 @@ export const Datepicker = ({
     }
   }, [locale, weekStartDay]);
 
-  return (
-    <Popover
-      isOpen={isOpen}
-      placement={placement}
-      onClickOutside={() => {
-        isOpen && setIsOpen(false);
-      }}
-      overrides={{
-        Body: {
-          style: {
-            zIndex: 1000,
+  const inputBaseOverrides: InputOverrides = {
+    Input: {
+      style: ({ $disabled, $isFocused, $theme }) => {
+        const { color, backgroundColor } = getInputContainerColors($theme.colors, $disabled);
+        return {
+          backgroundColor,
+          ...border(),
+          ...padding('0', scale500),
+          color,
+          '::placeholder': {
+            color: getInputPlaceholderTextColor($disabled, $isFocused, colors),
+          },
+          fontSize: $theme.typography.LabelSmall.fontSize,
+        };
+      },
+      props: {
+        [DATA_TEST_ID]: testId,
+      },
+    },
+    InputContainer: {
+      style: {
+        ...border(),
+        backgroundColor: primaryB,
+      },
+    },
+    Root: {
+      style: ({ $error, $isFocused }) => ({
+        height: scale1000,
+        ...border(
+          !noBorder
+            ? {
+                ...border300,
+                borderColor: getInputBorderColor($error, $isFocused, colors, borders),
+              }
+            : undefined,
+        ),
+        ...borderRadius(borders.radius200),
+        backgroundColor: primaryB,
+        ...margin('0'),
+      }),
+    },
+    StartEnhancer: {
+      style: ({ $disabled, $theme }) => ({
+        backgroundColor: getInputContainerColors(colors, $disabled).backgroundColor,
+        ...padding('0', $theme.sizing.scale0, '0', '0px'),
+      }),
+    },
+    EndEnhancer: {
+      style: ({ $disabled, $theme }) => ({
+        backgroundColor: getInputContainerColors(colors, $disabled).backgroundColor,
+        ...padding('0', '0', '0', $theme.sizing.scale0),
+      }),
+    },
+    MaskToggleButton: {
+      style: {
+        ...padding('0', '0', '0', '14px'),
+        outline: 'none',
+      },
+    },
+  };
+
+  const datepickerBaseOverrides: DatepickerOverrides<SharedStylePropsT> = {
+    CalendarHeader: {
+      style: {
+        backgroundColor: primaryB,
+        ...borderBottom(border300),
+      },
+    },
+    MonthHeader: {
+      style: {
+        backgroundColor: primaryB,
+        color: primaryA,
+        fontWeight: 600,
+      },
+    },
+    MonthYearSelectButton: {
+      style: {
+        color: primaryA,
+        fontWeight: 600,
+      },
+    },
+    PrevButton: {
+      style: {
+        color: contentTertiary,
+      },
+    },
+    NextButton: {
+      style: {
+        color: contentTertiary,
+      },
+    },
+    QuickSelect: {
+      component: (props: any) => <Select {...props} />,
+    },
+    Input: {
+      props: {
+        overrides: inputBaseOverrides,
+        endEnhancer: <Calendar size={scale600} color={iconColor || contentTertiary} />,
+      },
+    },
+    Popover: {
+      props: {
+        placement: placement,
+        overrides: {
+          Body: {
+            style: () => ({
+              zIndex: 1000,
+            }),
           },
         },
+      },
+    },
+    MonthYearSelectPopover: {
+      props: {
+        overrides: {
+          Body: {
+            style: () => ({
+              zIndex: 1001,
+            }),
+          },
+        },
+      },
+    },
+  };
+
+  return (
+    <DatePicker
+      value={customValue}
+      onChange={onChange}
+      locale={localeObj}
+      overrides={{
+        ...datepickerBaseOverrides,
+        ...overrides,
       }}
-      content={() => (
-        <Calendar
-          value={date}
-          locale={localeObj}
-          onChange={onChange}
-          overrides={{
-            CalendarHeader: {
-              style: {
-                backgroundColor: primaryB,
-                ...borderBottom(border300),
-              },
-            },
-            MonthHeader: {
-              style: {
-                backgroundColor: primaryB,
-                color: primaryA,
-                fontWeight: 600,
-              },
-            },
-            MonthYearSelectButton: {
-              style: {
-                color: primaryA,
-                fontWeight: 600,
-              },
-            },
-            PrevButton: {
-              style: {
-                color: contentTertiary,
-              },
-            },
-            NextButton: {
-              style: {
-                color: contentTertiary,
-              },
-            },
-            QuickSelect: {
-              component: (props: any) => <Select {...props} />,
-            },
-            ...overrides,
-          }}
-          {...rest}
-        />
-      )}
-    >
-      <div />
-    </Popover>
+      {...rest}
+    />
   );
 };
