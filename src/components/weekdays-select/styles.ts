@@ -8,7 +8,7 @@ const getBackgroundColor = ({ $isDisable, $active, $theme }: StyledWeekdayProps 
     return $theme.customColors.light3;
   }
   if ($active) {
-    return $theme.customColors.primaryLighter;
+    return $theme.customColors.purple4;
   }
   return $theme.customColors.light4;
 };
