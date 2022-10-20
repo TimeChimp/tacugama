@@ -1,6 +1,6 @@
-import { CustomThemeType } from 'models';
-import { themedStyled } from 'theme';
-import { borderRadius } from 'utils';
+import { CustomThemeType } from '../../models';
+import { themedStyled } from '../../theme';
+import { borderRadius } from '../../utils';
 import { StyledWeekdayProps } from './types';
 
 const getBackgroundColor = ({ $isDisable, $active, $theme }: StyledWeekdayProps & { $theme: CustomThemeType }) => {

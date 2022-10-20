@@ -1,8 +1,8 @@
 import React from 'react';
 import { WeekdaysSelectProps } from './types';
 import { Container, SelectAllLink, Weekday, WeekdaysContainer } from './styles';
-import { ParagraphSmall, TransparentButton } from 'components';
-import { useTheme } from 'providers';
+import { ParagraphSmall, TransparentButton } from '..';
+import { useTheme } from '../../providers';
 
 export const WeekdaysSelect = ({
   weekDays = [],
