@@ -57,8 +57,8 @@ export const Tag = ({ value, size = TagSize.small, closeable = false, ...rest }:
           },
           ActionIcon: {
             style: () => ({
-              height: scale300,
-              width: scale300,
+              height: scale400,
+              width: scale400,
               color: dark1,
             }),
           },
