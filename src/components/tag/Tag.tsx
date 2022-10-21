@@ -86,7 +86,6 @@ export const Tag = ({ value, size = TagSize.small, closeable = false, ...rest }:
           Action: {
             style: () => ({
               marginLeft: scale100,
-              marginTop: scale0,
             }),
           },
           ActionIcon: {
