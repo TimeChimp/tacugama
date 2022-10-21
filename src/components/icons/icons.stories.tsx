@@ -77,6 +77,7 @@ import {
   LocationOutlined as LocationOutlinedIcon,
   DescriptionOutlined as DescriptionOutlinedIcon,
   CheckmarkOutlined as CheckmarkOutlinedIcon,
+  ExclamationMark as ExclamationMarkIcon,
 } from './';
 import { SVGProps } from './icon/Icon';
 
@@ -160,6 +161,7 @@ const PositionOutlinedTemplate: Story<SVGProps> = (args) => <PositionOutlinedIco
 const LocationOutlinedTemplate: Story<SVGProps> = (args) => <LocationOutlinedIcon {...args} />;
 const DescriptionOutlinedTemplate: Story<SVGProps> = (args) => <DescriptionOutlinedIcon {...args} />;
 const CheckmarkOutlinedTemplate: Story<SVGProps> = (args) => <CheckmarkOutlinedIcon {...args} />;
+const ExclamationMarkTemplate: Story<SVGProps> = (args) => <ExclamationMarkIcon {...args} />;
 
 export const Clock = ClockTemplate.bind({});
 Clock.args = {
@@ -528,5 +530,10 @@ DescriptionOutlined.args = {
 
 export const CheckmarkOutlined = CheckmarkOutlinedTemplate.bind({});
 CheckmarkOutlined.args = {
+  size: '16',
+};
+
+export const ExclamationMark = ExclamationMarkTemplate.bind({});
+ExclamationMark.args = {
   size: '16',
 };

@@ -122,3 +122,4 @@ export * from './description-outlined';
 export * from './checkmark-outlined';
 export * from './apple-outlined';
 export * from './tag-outlined';
+export * from './exclamation-mark';
