@@ -33,13 +33,14 @@ export const customColors: CustomColors = {
   red3: '#FF8080',
   red4: '#FFE5E5',
   red5: '#E11900',
+  red6: '#AB1300',
 
   // Green
-  green0: '#05A660',
+  green0: '#048848',
   green1: '#06C270',
   green2: '#39D98A',
   green3: '#57EBA1',
-  green4: '#E3FFF1',
+  green4: '#E6F2ED',
   green5: '#34785C',
   green6: '#06C167',
 
