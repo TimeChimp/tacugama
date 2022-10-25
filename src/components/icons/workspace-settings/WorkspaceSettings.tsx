@@ -6,7 +6,7 @@ export const WorkspaceSettings = ({ title = 'WorkspaceSettings', size = defaultI
   const { theme } = useTheme();
   return (
     <Icon title={title} lineHeight="0">
-      <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width={size} height={size} viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
