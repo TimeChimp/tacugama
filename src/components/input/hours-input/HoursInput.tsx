@@ -26,9 +26,8 @@ export const HoursInput = ({
   const formatInputValue = useCallback(
     (value: string) => {
       const { seconds } = new TimeParser(value).parse();
-
-      if (seconds) {
-        const formattedValue = formatDuration(seconds, durationFormat);
+      if (seconds || value) {
+        const formattedValue = formatDuration(seconds || 0, durationFormat);
         setInputValue(formattedValue);
       }
 
