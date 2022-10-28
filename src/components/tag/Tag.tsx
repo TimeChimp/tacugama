@@ -43,7 +43,7 @@ export const Tag = ({ value, size = TagSize.small, closeable = false, ...rest }:
                 ...border300,
                 borderColor: light2,
               }),
-              background: '#F9FAFB', // NOTE: Value does not exist in theme
+              backgroundColor: '#F9FAFB', // NOTE: Value does not exist in theme
             }),
           },
           Text: {
@@ -79,7 +79,7 @@ export const Tag = ({ value, size = TagSize.small, closeable = false, ...rest }:
                 ...border300,
                 borderColor: light2,
               }),
-              background: '#F9FAFB', // NOTE: Value does not exist in theme
+              backgroundColor: '#F9FAFB', // NOTE: Value does not exist in theme
             }),
           },
           Text: {
