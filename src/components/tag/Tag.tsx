@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Tag as TagComponent, TagProps as TagComponentProps } from 'baseui/tag';
 import { useTheme } from '../../providers';
-import { borderRadius, margin, padding } from '../../utils';
+import { border, borderRadius, margin, padding } from '../../utils';
 
 export enum TagSize {
   small = 'small',
@@ -20,6 +20,7 @@ export const Tag = ({ value, size = TagSize.small, closeable = false, ...rest }:
     theme: {
       current: {
         sizing: { scale0, scale100, scale200, scale300, scale400, scale500, scale550, scale700 },
+        borders: { border300 },
         customColors: { light2, dark1 },
       },
     },
@@ -38,8 +39,11 @@ export const Tag = ({ value, size = TagSize.small, closeable = false, ...rest }:
               ...padding('0px', scale200),
               ...borderRadius(scale100),
               ...margin('0px', scale100, '0px', '0px'),
-              border: `1px solid ${light2}`,
-              background: '#F9FAFB', // NOTE: Value does not exist in theme
+              ...border({
+                ...border300,
+                borderColor: light2,
+              }),
+              backgroundColor: '#F9FAFB', // NOTE: Value does not exist in theme
             }),
           },
           Text: {
@@ -71,8 +75,11 @@ export const Tag = ({ value, size = TagSize.small, closeable = false, ...rest }:
               ...padding(scale0, scale300),
               ...borderRadius(scale100),
               ...margin('0px', scale100, '0px', '0px'),
-              border: `1px solid ${light2}`,
-              background: '#F9FAFB', // NOTE: Value does not exist in theme
+              ...border({
+                ...border300,
+                borderColor: light2,
+              }),
+              backgroundColor: '#F9FAFB', // NOTE: Value does not exist in theme
             }),
           },
           Text: {

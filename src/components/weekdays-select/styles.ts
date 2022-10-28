@@ -1,6 +1,6 @@
 import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
-import { borderRadius } from '../../utils';
+import { border, borderRadius } from '../../utils';
 import { StyledWeekdayProps } from './types';
 
 const getBackgroundColor = ({ $isDisable, $active, $theme }: StyledWeekdayProps & { $theme: CustomThemeType }) => {
@@ -37,7 +37,10 @@ export const Weekday = themedStyled<'div', StyledWeekdayProps>('div', ({ $theme,
     fontSize: '14px',
     height: $theme.sizing.scale1000,
     width: $theme.sizing.scale1000,
-    border: `1px solid ${borderColor}`,
+    ...border({
+      ...$theme.borders.border300,
+      borderColor: borderColor,
+    }),
     ...borderRadius($theme.sizing.scale1000),
     display: 'flex',
     alignItems: 'center',
