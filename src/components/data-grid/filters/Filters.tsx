@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { useCallback } from 'react';
 import { FiltersProps } from '../types';
 import { StyledDataGridFilters, StyledDataGridSearch } from '../styles';
 import { TextFilterModel } from '@ag-grid-community/core';
@@ -10,6 +10,7 @@ import { ParagraphXSmall } from '../../typography';
 import { FlexItem } from '../../flex-item';
 import { ColumnFilters } from './ColumnFilters';
 import { useTheme } from '../../../providers';
+import { debounce } from 'utils';
 
 const SEARCH_INPUT_TEST_ID = 'data-grid-search';
 
@@ -22,6 +23,7 @@ export const Filters = ({
   api,
   searchColumns,
   translations,
+  debouncedSearch,
   ...rest
 }: FiltersProps) => {
   const { groupBy, searchBar } = translations;
@@ -43,11 +45,11 @@ export const Filters = ({
     onGrouping(groups);
   };
 
-  const handleSearch = (event: FormEvent<HTMLInputElement>) => {
+  const handleSearch = (searchTerm: string) => {
     const filterModel = api.getFilterModel();
     searchColumns?.forEach((searchColumn) => {
       const textFilter: TextFilterModel = {
-        filter: event.currentTarget.value,
+        filter: searchTerm,
         filterType: 'text',
         type: 'contains',
       };
@@ -55,6 +57,8 @@ export const Filters = ({
     });
     onFiltering(filterModel);
   };
+
+  const debouncedHandler = useCallback(debounce(handleSearch), [handleSearch]);
 
   const options: DropdownItem[] = columns
     .filter((x) => x.groupable)
@@ -72,7 +76,14 @@ export const Filters = ({
       <FlexItem justifyContent="start" width="80%">
         {filtering && (
           <StyledDataGridSearch>
-            <SearchInput testId={SEARCH_INPUT_TEST_ID} size="mini" placeholder={searchBar} onChange={handleSearch} />
+            <SearchInput
+              testId={SEARCH_INPUT_TEST_ID}
+              size="mini"
+              placeholder={searchBar}
+              onChange={(e) => {
+                debouncedSearch ? debouncedHandler(e.currentTarget.value) : handleSearch(e.currentTarget.value);
+              }}
+            />
           </StyledDataGridSearch>
         )}
         <ColumnFilters api={api} translations={translations} {...rest} />
