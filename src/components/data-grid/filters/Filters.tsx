@@ -10,7 +10,7 @@ import { ParagraphXSmall } from '../../typography';
 import { FlexItem } from '../../flex-item';
 import { ColumnFilters } from './ColumnFilters';
 import { useTheme } from '../../../providers';
-import { debounce } from 'utils';
+import { debounce } from '../../../utils';
 
 const SEARCH_INPUT_TEST_ID = 'data-grid-search';
 
