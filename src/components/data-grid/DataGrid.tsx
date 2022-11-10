@@ -123,6 +123,7 @@ export const DataGrid = ({
   onRowDataChanged,
   onModalClose,
   onModalOpen,
+  debouncedSearch = false,
 }: DataGridProps) => {
   const datagridRef = useRef<HTMLDivElement>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -600,6 +601,7 @@ export const DataGrid = ({
         setSelectedFilterIds={setSelectedFilterIds}
         filterOnValue={filterOnValue}
         filterOnDate={filterOnDate}
+        debouncedSearch={debouncedSearch}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {showDataGridHeader && (

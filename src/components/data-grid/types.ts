@@ -217,6 +217,7 @@ export interface DataGridProps {
   onModalClose?: () => void;
   suppressRowHoverHighlight?: boolean;
   suppressRowClickSelection?: boolean;
+  debouncedSearch?: boolean;
 }
 
 export interface DataGridView {
@@ -254,6 +255,7 @@ export interface FiltersProps {
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
   filterOnValue: (columnField: string, value: string | boolean | null, type: FilterType) => void;
   filterOnDate: (columnField: string, selectedDates: Date[]) => void;
+  debouncedSearch?: boolean;
 }
 
 export interface ColumnFiltersProps {
