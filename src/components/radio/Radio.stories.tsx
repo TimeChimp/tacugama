@@ -2,6 +2,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { RadioGroup, RadioItem, RadioProps } from './';
+import { ParagraphXSmall } from '../typography';
 
 export default {
   title: 'Components/Radio',
@@ -15,8 +16,9 @@ const Template: Story<RadioProps> = ({ ...props }) => (
     <RadioItem {...props} value="1">
       One
     </RadioItem>
-    <RadioItem {...props} value="2" description="This is a radio description">
+    <RadioItem {...props} value="2">
       Two
+      <ParagraphXSmall>Much information. Very detailed</ParagraphXSmall>
     </RadioItem>
     <RadioItem {...props} value="3">
       Three
