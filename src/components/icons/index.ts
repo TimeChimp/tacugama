@@ -123,3 +123,4 @@ export * from './checkmark-outlined';
 export * from './apple-outlined';
 export * from './tag-outlined';
 export * from './exclamation-mark';
+export * from './hospital';
