@@ -52,3 +52,4 @@ export * from './switcher';
 export * from './dnd-list';
 export * from './pagination';
 export * from './weekdays-select';
+export * from './clickable-tag';
