@@ -13,9 +13,10 @@ export interface TagProps extends TagComponentProps {
   children?: ReactNode;
   size?: TagSize;
   closeable?: boolean;
+  cursor?: string;
 }
 
-export const Tag = ({ value, size = TagSize.small, closeable = false, ...rest }: TagProps) => {
+export const Tag = ({ value, size = TagSize.small, closeable = false, cursor = 'default', ...rest }: TagProps) => {
   const {
     theme: {
       current: {
@@ -44,6 +45,7 @@ export const Tag = ({ value, size = TagSize.small, closeable = false, ...rest }:
                 borderColor: light2,
               }),
               backgroundColor: '#F9FAFB', // NOTE: Value does not exist in theme
+              cursor,
             }),
           },
           Text: {
@@ -80,6 +82,7 @@ export const Tag = ({ value, size = TagSize.small, closeable = false, ...rest }:
                 borderColor: light2,
               }),
               backgroundColor: '#F9FAFB', // NOTE: Value does not exist in theme
+              cursor,
             }),
           },
           Text: {
