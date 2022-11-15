@@ -10,10 +10,22 @@ export default {
 
 const Template: Story<CheckboxProps> = (args) => <Checkbox {...args}>Sign up for the newsletter</Checkbox>;
 
+const WithoutChildrenTemplate: Story<CheckboxProps> = (args) => <Checkbox {...args} />;
+
 export const Default = Template.bind({});
 Default.args = {
   checkmarkType: 'default',
   labelPlacement: 'right',
   disabled: false,
   checked: false,
+  isIndeterminate: false,
+};
+
+export const WithoutLabel = WithoutChildrenTemplate.bind({});
+WithoutLabel.args = {
+  checkmarkType: 'default',
+  labelPlacement: 'right',
+  disabled: false,
+  checked: false,
+  isIndeterminate: false,
 };

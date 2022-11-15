@@ -8,22 +8,67 @@ export interface CheckboxProps extends BaseCheckboxProps {
   testId?: string;
 }
 
-export const Checkbox = ({ checked, children, testId, disabled, ...rest }: CheckboxProps) => {
+export const Checkbox = ({ checked, children, testId, disabled, isIndeterminate, ...rest }: CheckboxProps) => {
   const {
     theme: {
       current: {
         sizing: { scale0, scale650 },
         borders: { border100, radius100 },
         typography: { LabelSmall },
-        colors,
+        customColors: { dark4, light3, purple2, purple1 },
       },
     },
   } = useTheme();
-  const { primaryB, primary400 } = colors;
+
+  const isCheckedOrIndeterminate = checked || isIndeterminate;
+
+  const getBackgroundColor = () => {
+    if (disabled && isCheckedOrIndeterminate) {
+      return dark4;
+    }
+    if (isCheckedOrIndeterminate) {
+      return purple2;
+    }
+    if (disabled) {
+      return light3;
+    }
+    return 'transparent';
+  };
+
+  const getBorderColor = () => {
+    if (isCheckedOrIndeterminate && !disabled) {
+      return purple2;
+    }
+    return dark4;
+  };
+
+  const getHoverBackgroundColor = () => {
+    if (disabled && isCheckedOrIndeterminate) {
+      return dark4;
+    }
+    if (disabled) {
+      return light3;
+    }
+    if (isCheckedOrIndeterminate) {
+      return purple1;
+    }
+    return 'transparent';
+  };
+
+  const getHoverBorderColor = () => {
+    if (disabled) {
+      return dark4;
+    }
+    if (isCheckedOrIndeterminate) {
+      return purple1;
+    }
+    return purple2;
+  };
 
   return (
     <BaseCheckbox
       checked={checked}
+      isIndeterminate={isIndeterminate}
       disabled={disabled}
       overrides={{
         Root: {
@@ -35,6 +80,7 @@ export const Checkbox = ({ checked, children, testId, disabled, ...rest }: Check
           style: {
             ...LabelSmall,
             fontWeight: 400,
+            display: !!children ? 'inline-block' : 'none',
           },
         },
         Checkmark: {
@@ -44,16 +90,17 @@ export const Checkbox = ({ checked, children, testId, disabled, ...rest }: Check
             ...border({
               ...border100,
               borderWidth: scale0,
-              borderColor: !!checked && !disabled ? primary400 : '#87878F',
+              borderColor: getBorderColor(),
             }),
+            backgroundColor: getBackgroundColor(),
             ...borderRadius(radius100),
-            ':hover:enabled': {
+            ':hover': {
               ...border({
                 ...border100,
                 borderWidth: scale0,
-                borderColor: primary400,
+                borderColor: getHoverBorderColor(),
               }),
-              backgroundColor: !!checked && !disabled ? primary400 : primaryB,
+              backgroundColor: getHoverBackgroundColor(),
             },
           },
         },
