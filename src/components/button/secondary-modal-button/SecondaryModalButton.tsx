@@ -8,7 +8,7 @@ export const SecondaryModalButton = ({ children, size = 'compact', ...rest }: Bu
   const {
     theme: {
       current: {
-        sizing: { scale200, scale600 },
+        sizing: { scale200, scale600, scale900 },
       },
     },
   } = useTheme();
@@ -25,6 +25,7 @@ export const SecondaryModalButton = ({ children, size = 'compact', ...rest }: Bu
               ...border($theme.borders.border300),
               ...borderRadius($theme.borders.radius200),
               ...padding(scale200, scale600),
+              height: scale900,
               fontWeight: 'normal',
               boxSizing: 'border-box',
               ':hover': {

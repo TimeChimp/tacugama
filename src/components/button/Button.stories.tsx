@@ -1,9 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Button, ButtonProps, SecondaryButton, SecondaryButtonProps } from './';
+import { Button, ButtonProps, SecondaryButton, SecondaryButtonProps, SquareButton, SquareButtonProps } from './';
 import { ButtonType } from 'models';
 import { Plus } from '../icons';
+import { Checkbox } from 'components/checkbox';
 
 export default {
   title: 'Components/Button',
@@ -12,6 +13,11 @@ export default {
 
 const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 const SecondaryButtonTemplate: Story<SecondaryButtonProps> = (args) => <SecondaryButton {...args} />;
+const SquareButtonTemplate: Story<SquareButtonProps> = (args) => (
+  <SquareButton {...args}>
+    <Checkbox />
+  </SquareButton>
+);
 
 export const Primary = Template.bind({});
 Primary.args = {
@@ -52,5 +58,10 @@ Secondary.args = {
 export const Tertiary = Template.bind({});
 Tertiary.args = {
   kind: 'tertiary',
+  children: 'Button',
+};
+
+export const Square = SquareButtonTemplate.bind({});
+Square.args = {
   children: 'Button',
 };

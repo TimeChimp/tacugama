@@ -6,3 +6,4 @@ export * from './secondary-modal-button';
 export * from './transparent-button';
 export * from './round-button';
 export * from './active-button';
+export * from './square-button';
