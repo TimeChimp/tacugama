@@ -31,7 +31,7 @@ export const ModalButton = ({
   const {
     theme: {
       current: {
-        sizing: { scale0, scale200, scale600 },
+        sizing: { scale0, scale200, scale600, scale900 },
         colors,
       },
     },
@@ -48,6 +48,7 @@ export const ModalButton = ({
             ...borderRadius($theme.borders.radius200),
             ...padding(scale200, scale600),
             fontWeight: 'normal',
+            height: scale900,
             backgroundColor: getButtonBackgroundColor(buttonType, colors),
             ...border({
               ...$theme.borders.border300,

@@ -39,7 +39,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const {
       theme: {
         current: {
-          sizing: { scale0, scale100, scale200, scale600 },
+          sizing: { scale0, scale100, scale200, scale600, scale900 },
           borders: { radius200, border100 },
           colors,
         },
@@ -66,6 +66,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 borderColor: getButtonBackgroundColor(buttonType, colors),
               }),
               fontWeight: 'normal',
+              height: scale900,
               backgroundColor: getButtonBackgroundColor(buttonType, colors),
               ':hover': {
                 backgroundColor: getButtonBackgroundHoverColor(buttonType, colors),

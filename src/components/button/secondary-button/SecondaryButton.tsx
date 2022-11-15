@@ -18,7 +18,7 @@ export const SecondaryButton = forwardRef<HTMLButtonElement, SecondaryButtonProp
     const {
       theme: {
         current: {
-          sizing: { scale0, scale100, scale200, scale600 },
+          sizing: { scale0, scale100, scale200, scale600, scale900 },
           borders: { radius200, border300 },
           colors,
         },
@@ -37,6 +37,7 @@ export const SecondaryButton = forwardRef<HTMLButtonElement, SecondaryButtonProp
               ...padding(scale200, scale600),
               fontWeight: 'normal',
               backgroundColor: 'transparent',
+              height: scale900,
               ...border({
                 ...border300,
                 borderColor: primary400,
