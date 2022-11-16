@@ -70,7 +70,7 @@ Tertiary.args = {
 export const Square = SquareButtonCheckboxTemplate.bind({});
 Square.args = {};
 
-const red0 = '#E53535';
+const red0 = 'black';
 
 export const SquareDelete = SquareButtonDeleteTemplate.bind({});
 SquareDelete.args = {
