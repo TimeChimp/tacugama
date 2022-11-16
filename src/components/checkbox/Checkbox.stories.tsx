@@ -1,7 +1,8 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Checkbox, CheckboxProps } from './';
+import { Checkbox } from './';
+import { CheckboxProps, CheckboxSize } from './types';
 
 export default {
   title: 'Components/Checkbox',
@@ -14,6 +15,7 @@ const WithoutChildrenTemplate: Story<CheckboxProps> = (args) => <Checkbox {...ar
 
 export const Default = Template.bind({});
 Default.args = {
+  size: CheckboxSize.Default,
   checkmarkType: 'default',
   labelPlacement: 'right',
   disabled: false,
@@ -23,6 +25,7 @@ Default.args = {
 
 export const WithoutLabel = WithoutChildrenTemplate.bind({});
 WithoutLabel.args = {
+  size: CheckboxSize.Default,
   checkmarkType: 'default',
   labelPlacement: 'right',
   disabled: false,
