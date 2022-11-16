@@ -1,14 +1,8 @@
 import React from 'react';
 import { border, borderRadius, padding } from '../../../utils';
 import { useTheme } from '../../../providers';
-import { TertiaryButton, TertiaryButtonProps } from '../tertiary-button';
-
-export interface SquareButtonProps extends TertiaryButtonProps {
-  backgroundColor?: string;
-  borderColor?: string;
-  textColor?: string;
-  children?: React.ReactNode;
-}
+import { TertiaryButton } from '../tertiary-button';
+import { SquareButtonProps } from './types';
 
 export const SquareButton = ({ children, borderColor, backgroundColor, ...props }: SquareButtonProps) => {
   const {
@@ -41,6 +35,13 @@ export const SquareButton = ({ children, borderColor, backgroundColor, ...props 
             ':disabled': {
               backgroundColor: light7,
               ...border(border300),
+            },
+            ':hover': {
+              backgroundColor: backgroundColor ?? primaryB,
+              ...border({
+                ...border300,
+                borderColor: borderColor ?? light2,
+              }),
             },
           },
         },
