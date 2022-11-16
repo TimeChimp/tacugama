@@ -76,7 +76,9 @@ Password.args = {
 };
 
 export const Color = ColorTemplate.bind({});
-Color.args = {};
+Color.args = {
+  onChange: (color) => console.log(color),
+};
 
 export const EmptyColor = ColorTemplate.bind({});
 EmptyColor.args = {

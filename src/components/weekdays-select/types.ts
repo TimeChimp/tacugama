@@ -13,7 +13,7 @@ export interface WeekdaysSelectProps {
 
 export interface StyledWeekdayProps {
   $active: boolean;
-  $isDisable: boolean;
+  $isDisabled: boolean;
 }
 
 export interface Weekday {

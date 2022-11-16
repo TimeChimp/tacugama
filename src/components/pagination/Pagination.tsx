@@ -72,7 +72,7 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
                 }),
               },
               ControlContainer: {
-                style: ({ $theme }: { $theme: CustomThemeType }) => ({
+                style: () => ({
                   backgroundColor: 'none',
                   ...border(),
                   outline: null,

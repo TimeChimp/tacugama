@@ -27,6 +27,7 @@ const SquareButtonDeleteTemplate: Story<SquareButtonProps> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
+  children: 'Button',
   buttonType: ButtonType.default,
   kind: 'primary',
   testId: 'test-button',
@@ -34,6 +35,7 @@ Primary.args = {
 
 export const StartEnhancer = Template.bind({});
 StartEnhancer.args = {
+  children: 'Button',
   buttonType: ButtonType.default,
   kind: 'primary',
   testId: 'test-button',
@@ -42,21 +44,26 @@ StartEnhancer.args = {
 
 export const Success = Template.bind({});
 Success.args = {
+  children: 'Button',
   kind: 'primary',
   buttonType: ButtonType.success,
 };
 
 export const Error = Template.bind({});
 Error.args = {
+  children: 'Button',
   kind: 'primary',
   buttonType: ButtonType.error,
 };
 
 export const Secondary = SecondaryButtonTemplate.bind({});
-Secondary.args = {};
+Secondary.args = {
+  children: 'Button',
+};
 
 export const Tertiary = Template.bind({});
 Tertiary.args = {
+  children: 'Button',
   kind: 'tertiary',
 };
 
