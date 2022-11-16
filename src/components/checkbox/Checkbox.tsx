@@ -1,18 +1,23 @@
 import React from 'react';
-import { Checkbox as BaseCheckbox, CheckboxProps as BaseCheckboxProps } from 'baseui/checkbox';
+import { Checkbox as BaseCheckbox } from 'baseui/checkbox';
 import { useTheme } from '../../providers';
 import { border, borderRadius } from '../../utils';
 import { DATA_TEST_ID } from '../../models';
+import { CheckboxProps, CheckboxSize } from './types';
 
-export interface CheckboxProps extends BaseCheckboxProps {
-  testId?: string;
-}
-
-export const Checkbox = ({ checked, children, testId, disabled, isIndeterminate, ...rest }: CheckboxProps) => {
+export const Checkbox = ({
+  checked,
+  children,
+  testId,
+  disabled,
+  isIndeterminate,
+  size = CheckboxSize.Default,
+  ...rest
+}: CheckboxProps) => {
   const {
     theme: {
       current: {
-        sizing: { scale0, scale650 },
+        sizing: { scale0, scale550, scale650 },
         borders: { border100, radius100 },
         typography: { LabelSmall },
         customColors: { dark4, light3, purple2, purple1 },
@@ -85,8 +90,8 @@ export const Checkbox = ({ checked, children, testId, disabled, isIndeterminate,
         },
         Checkmark: {
           style: {
-            width: scale650,
-            height: scale650,
+            height: size === CheckboxSize.Default ? scale650 : scale550,
+            width: size === CheckboxSize.Default ? scale650 : scale550,
             ...border({
               ...border100,
               borderWidth: scale0,
