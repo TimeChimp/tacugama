@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/TimeChimp/tacugama.git"
+    "url": "git+https://github.com/TimeChimp/tacugama.git"
   },
   "scripts": {
     "start": "tsdx watch",
@@ -24,7 +24,8 @@
     "size": "size-limit",
     "analyze": "size-limit --why",
     "storybook": "start-storybook -s public -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "chromatic": "npx chromatic --project-token=7a9845c4024e"
   },
   "peerDependencies": {
     "react": ">=16"
@@ -36,7 +37,9 @@
     }
   },
   "name": "@timechimp/tacugama",
-  "author": "TimeChimp",
+  "author": {
+    "name": "TimeChimp"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -64,6 +67,7 @@
     "@typescript-eslint/eslint-plugin": "4.26.0",
     "@typescript-eslint/parser": "4.18.0",
     "babel-loader": "^8.2.2",
+    "chromatic": "^6.11.4",
     "eslint": "7.22.0",
     "eslint-config-prettier": "7.2.0",
     "eslint-plugin-baseui": "10.4.0",
@@ -108,5 +112,11 @@
   },
   "msw": {
     "workerDirectory": "public"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/TimeChimp/tacugama/issues"
+  },
+  "readme": "ERROR: No README data found!",
+  "homepage": "https://github.com/TimeChimp/tacugama#readme",
+  "_id": "@timechimp/tacugama@3.2.0"
 }
