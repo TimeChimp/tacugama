@@ -1,6 +1,6 @@
 import React from 'react';
 import { WeekdaysSelectProps } from './types';
-import { Container, SelectAllLink, Weekday, WeekdaysContainer } from './styles';
+import { Container, SelectAllLink, WeekdayComponent, WeekdaysContainer } from './styles';
 import { ParagraphSmall, TransparentButton } from '..';
 import { useTheme } from '../../providers';
 
@@ -41,14 +41,14 @@ export const WeekdaysSelect = ({
     <Container>
       <WeekdaysContainer>
         {weekDays.map((day, index) => (
-          <Weekday
+          <WeekdayComponent
             key={index}
-            $isDisable={isWeekdayDisabled(day.id)}
+            $isDisabled={isWeekdayDisabled(day.id)}
             $active={isWeekdaySelected(day.id)}
             onClick={() => selectWeekDay(day.id)}
           >
             <ParagraphSmall color={isWeekdayDisabled(day.id) ? dark4 : dark1}>{day.label}</ParagraphSmall>
-          </Weekday>
+          </WeekdayComponent>
         ))}
       </WeekdaysContainer>
       {withSelectAll && (

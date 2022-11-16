@@ -3,8 +3,8 @@ import { themedStyled } from '../../theme';
 import { border, borderRadius } from '../../utils';
 import { StyledWeekdayProps } from './types';
 
-const getBackgroundColor = ({ $isDisable, $active, $theme }: StyledWeekdayProps & { $theme: CustomThemeType }) => {
-  if ($isDisable) {
+const getBackgroundColor = ({ $isDisabled, $active, $theme }: StyledWeekdayProps & { $theme: CustomThemeType }) => {
+  if ($isDisabled) {
     return $theme.customColors.light3;
   }
   if ($active) {
@@ -29,10 +29,10 @@ export const SelectAllLink = themedStyled('div', () => ({
   textDecoration: 'underline',
 }));
 
-export const Weekday = themedStyled<'div', StyledWeekdayProps>('div', ({ $theme, $active, $isDisable }) => {
-  const borderColor = !$active || $isDisable ? $theme.customColors.light2 : $theme.customColors.primaryMain;
+export const WeekdayComponent = themedStyled<'div', StyledWeekdayProps>('div', ({ $theme, $active, $isDisabled }) => {
+  const borderColor = !$active || $isDisabled ? $theme.customColors.light2 : $theme.customColors.primaryMain;
   return {
-    backgroundColor: getBackgroundColor({ $active, $isDisable, $theme }),
+    backgroundColor: getBackgroundColor({ $active, $isDisabled, $theme }),
     boxSizing: 'border-box',
     fontSize: '14px',
     height: $theme.sizing.scale1000,
@@ -41,10 +41,10 @@ export const Weekday = themedStyled<'div', StyledWeekdayProps>('div', ({ $theme,
       ...$theme.borders.border300,
       borderColor: borderColor,
     }),
-    ...borderRadius($theme.sizing.scale1000),
+    ...borderRadius('50%'),
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    cursor: $isDisable ? 'not-allowed' : 'pointer',
+    cursor: $isDisabled ? 'not-allowed' : 'pointer',
   };
 });
