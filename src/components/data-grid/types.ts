@@ -163,6 +163,8 @@ export interface Translations {
   paginationOutOfLong: (currentPage: number, pageCount: number) => string;
   deleteEntries: string;
   deleteEntriesCount: (count: number) => JSX.Element;
+  delete: string;
+  export: string;
 }
 
 export interface DataGridProps {

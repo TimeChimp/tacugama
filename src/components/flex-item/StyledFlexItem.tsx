@@ -12,12 +12,14 @@ export interface FlexItemType {
   $marg3?: string;
   $marg4?: string;
   $gap?: string;
+  $height?: string;
 }
 
 export const StyledItem = themedStyled<'div', FlexItemType>(
   'div',
-  ({ $justifyContent, $alignItems, $textAlign, $gap, $width, $marg1, $marg2, $marg3, $marg4 }) => ({
+  ({ $justifyContent, $alignItems, $textAlign, $gap, $width, $marg1, $marg2, $marg3, $marg4, $height }) => ({
     width: $width || '100%',
+    height: $height || 'auto',
     display: 'flex',
     justifyContent: $justifyContent || 'center',
     alignItems: $alignItems || 'center',

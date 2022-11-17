@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { PLACEMENT } from 'baseui/popover';
 import { SIZE } from 'baseui/button';
-import { SecondaryButton, TertiaryButton } from '../../../button';
+import { TertiaryButton } from '../../../button';
 import { DataGridViewOptionsProps } from '../../types';
 import { StyledViewOptionsFooter, StyledDataGridViewListItem } from '../../styles';
 import { StatefulPopover } from '../../../popover';
-import { Trash, Pin, Text, ActionMenuHorizontal, Views, Plus } from '../../../icons';
+import { Trash, Pin, Text, ActionMenuHorizontal, Views, Plus, ArrowDown } from '../../../icons';
 import { Dropdown, DropdownItem } from '../../../dropdown';
 import { StatefulMenu } from '../../../menu';
 import { LabelXSmall } from '../../../typography';
 import { SearchInput } from '../../../input';
 import { StyledDropdownSearch } from '../../../dropdown/styles';
-
+import { ParagraphSmall } from 'baseui/typography';
 import { useTheme } from '../../../../providers';
-import { border, borderRadius, margin, padding } from '../../../../utils';
+import { border, borderRadius, padding } from '../../../../utils';
 
 export const DataGridViewOptions = ({
   translations,
@@ -32,9 +32,10 @@ export const DataGridViewOptions = ({
   const {
     theme: {
       current: {
-        colors: { primary, primaryB, contentStateDisabled },
-        sizing: { scale200, scale400, scale500, scale600, scale650 },
+        colors: { primary, contentStateDisabled },
+        sizing: { scale200, scale300, scale400, scale500, scale600, scale650, scale800 },
         borders: { border300, radius200 },
+        customColors: { dark1, light2, light3 },
       },
     },
   } = useTheme();
@@ -190,32 +191,33 @@ export const DataGridViewOptions = ({
         </>
       )}
     >
-      <SecondaryButton
+      <TertiaryButton
         overrides={{
           BaseButton: {
             style: {
+              height: scale800,
+              backgroundColor: light3,
               ...border({
-                borderColor: border300.borderColor,
-                borderStyle: 'dashed',
-                borderWidth: border300.borderWidth,
+                ...border300,
+                borderColor: light2,
               }),
               ...borderRadius(radius200),
-              ...margin(scale200, scale400),
-              boxSizing: 'border-box',
+              ...padding(scale200, scale300),
               ':hover': {
-                backgroundColor: primaryB,
-              },
-              ':active': {
-                backgroundColor: primaryB,
+                backgroundColor: light3,
+                ...border({
+                  ...border300,
+                  borderColor: light2,
+                }),
               },
             },
           },
         }}
         size={SIZE.mini}
-        startEnhancer={() => <Views size={scale600} />}
+        endEnhancer={() => <ArrowDown color={dark1} size={scale300} />}
       >
-        {translations.viewOptions}
-      </SecondaryButton>
+        <ParagraphSmall color={dark1}>{translations.viewOptions}</ParagraphSmall>
+      </TertiaryButton>
     </StatefulPopover>
   );
 };
