@@ -30,9 +30,9 @@ export const DataGridActions = ({
   const {
     theme: {
       current: {
-        colors: { contentStateDisabled, primaryA },
+        colors: { primaryA },
         sizing: { scale300, scale400, scale500, scale800 },
-        customColors: { red3, light2, light3 },
+        customColors: { red3, light3, dark4 },
         borders: { border300, radius200 },
       },
     },
@@ -76,25 +76,18 @@ export const DataGridActions = ({
                   backgroundColor: light3,
                   ...border({
                     ...border300,
-                    borderColor: light2,
+                    borderColor: dark4,
                   }),
                   ...borderRadius(radius200),
                   ...padding(scale300),
-                  ':hover': {
-                    backgroundColor: light3,
-                    ...border({
-                      ...border300,
-                      borderColor: light2,
-                    }),
-                  },
                 },
               },
             }}
             disabled={!rowsSelected}
             testId={EXPORT_BUTTON_TEST_ID}
           >
-            <Download size={scale500} color={rowsSelected ? primaryA : contentStateDisabled} />
-            <ParagraphSmall color={rowsSelected ? primaryA : contentStateDisabled} paddingLeft={scale400}>
+            <Download size={scale500} color={rowsSelected ? primaryA : dark4} />
+            <ParagraphSmall color={rowsSelected ? primaryA : dark4} paddingLeft={scale400}>
               {translations.export}
             </ParagraphSmall>
           </TertiaryButton>
@@ -112,17 +105,10 @@ export const DataGridActions = ({
                   marginLeft: scale400,
                   ...border({
                     ...border300,
-                    borderColor: light2,
+                    borderColor: dark4,
                   }),
                   ...borderRadius(radius200),
                   ...padding(scale300),
-                  ':hover': {
-                    backgroundColor: light3,
-                    ...border({
-                      ...border300,
-                      borderColor: light2,
-                    }),
-                  },
                 },
               },
             }}
@@ -130,8 +116,8 @@ export const DataGridActions = ({
             onClick={() => onBulkDelete()}
             testId={DELETE_BUTTON_TEST_ID}
           >
-            <TrashFull color={rowsSelected ? red3 : contentStateDisabled} size={scale500} />
-            <ParagraphSmall color={rowsSelected ? red3 : contentStateDisabled} paddingLeft={scale400}>
+            <TrashFull color={rowsSelected ? red3 : dark4} size={scale500} />
+            <ParagraphSmall color={rowsSelected ? red3 : dark4} paddingLeft={scale400}>
               {translations.delete}
             </ParagraphSmall>
           </TertiaryButton>

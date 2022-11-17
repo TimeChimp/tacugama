@@ -185,9 +185,9 @@ export const StyledDataGridViewListItem = themedStyled('li', ({ $theme }) => ({
 export const StyledDataGridDivider = themedStyled('div', ({ $theme }) => ({
   display: 'flex',
   alignSelf: 'center',
-  height: $theme.sizing.scale750,
+  height: $theme.sizing.scale800,
   ...margin('0px', $theme.sizing.scale200),
-  ...borderRight($theme.borders.border600),
+  ...borderRight({ ...$theme.borders.border600, borderColor: $theme.customColors.light2 }),
 }));
 
 export const StyledViewOptionsFooter = themedStyled('div', ({ $theme }) => ({
