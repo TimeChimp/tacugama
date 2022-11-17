@@ -12,7 +12,7 @@ import { SaveViewModal } from '../save-view-modal';
 import { RenameViewModal } from '../rename-view-modal';
 import { ConfirmationModalType } from '../../../../models';
 import { DataGridViewOptions } from '../data-grid-view-options';
-import { borderRadius } from 'utils';
+import { borderRadius } from '../../../../utils';
 
 const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
 

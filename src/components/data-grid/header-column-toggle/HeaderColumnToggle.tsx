@@ -7,7 +7,7 @@ import { HeaderColumnToggleProps } from '..';
 import { Column } from '@ag-grid-community/core';
 import { DATA_TEST_ID } from '../../../models';
 import { border, borderRadius, padding } from '../../../utils';
-import { FlexItem } from 'components/flex-item';
+import { FlexItem } from '../../flex-item';
 
 export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnToggleProps) => {
   const [active, setActive] = useState(false);
