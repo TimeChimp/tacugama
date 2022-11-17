@@ -617,11 +617,11 @@ export const DataGrid = ({
           <StyledDataGridHeader $justifyContent={selection && !viewing ? 'flex-end' : 'space-between'}>
             {(selection || enableExport) && (
               <DataGridActions
-                translations={translations}
                 gridApi={gridApi}
                 gridColumnApi={gridColumnApi}
                 columns={gridColumns}
                 rowsSelected={rowsSelected}
+                translations={translations}
                 onBulkDelete={onBulkDelete}
                 hideDownload={hideDownload}
                 hideDelete={hideDelete}

@@ -32,8 +32,8 @@ export const DataGridActions = ({
       current: {
         colors: { contentStateDisabled, primaryA },
         sizing: { scale300, scale400, scale500, scale800 },
-        borders: { border300, radius200 },
         customColors: { red3, light2, light3 },
+        borders: { border300, radius200 },
       },
     },
   } = useTheme();
