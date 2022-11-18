@@ -150,7 +150,7 @@ export const StyledDataGridHeader = themedStyled<'div', StyledDataGridHeaderProp
   ({ $theme, $justifyContent = 'space-between' }) => ({
     ...padding($theme.sizing.scale100, $theme.sizing.scale300),
     display: 'flex',
-    height: $theme.sizing.scale900,
+    height: $theme.sizing.scale1000,
     justifyContent: $justifyContent,
     ...borderTop($theme.borders.border300),
     ...borderLeft($theme.borders.border300),

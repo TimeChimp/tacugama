@@ -32,7 +32,7 @@ export const DataGridActions = ({
       current: {
         colors: { primaryA },
         sizing: { scale300, scale400, scale500, scale800 },
-        customColors: { red3, light3, dark4 },
+        customColors: { red3, light3, dark4, light2 },
         borders: { border300, radius200 },
       },
     },
@@ -76,7 +76,7 @@ export const DataGridActions = ({
                   backgroundColor: light3,
                   ...border({
                     ...border300,
-                    borderColor: dark4,
+                    borderColor: light2,
                   }),
                   ...borderRadius(radius200),
                   ...padding(scale300),
@@ -105,7 +105,7 @@ export const DataGridActions = ({
                   marginLeft: scale400,
                   ...border({
                     ...border300,
-                    borderColor: dark4,
+                    borderColor: light2,
                   }),
                   ...borderRadius(radius200),
                   ...padding(scale300),
