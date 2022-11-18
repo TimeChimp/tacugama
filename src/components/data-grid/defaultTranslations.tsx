@@ -17,7 +17,7 @@ export const defaultTranslations: Translations = {
   groupBy: 'Group by',
   search: 'Search',
   searchBar: 'Search for a description',
-  defaultView: 'Default view',
+  defaultView: 'Default',
   viewOptions: 'View options',
   addView: 'Add view',
   viewName: 'View name',
@@ -47,4 +47,6 @@ export const defaultTranslations: Translations = {
       Are you sure you want to delete <strong>{count}</strong> results
     </>
   ),
+  delete: 'Delete',
+  export: 'Export',
 };

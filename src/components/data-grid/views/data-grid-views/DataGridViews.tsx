@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View } from '../../../icons/view';
+import { ParagraphSmall } from '../../../typography';
 import { useTheme } from '../../../../providers';
 import { DataGridViewsProps, DataGridView, CreateViewInput } from '../../types';
-import { StyledDataGridViews, StyledDataGridDivider } from '../../styles';
+import { StyledDataGridViews } from '../../styles';
 import { SecondaryButton, ActiveButton } from '../../../button';
 import { SIZE } from 'baseui/button';
 import { ConfirmationModal } from '../../../confirmation-modal';
@@ -12,6 +12,7 @@ import { SaveViewModal } from '../save-view-modal';
 import { RenameViewModal } from '../rename-view-modal';
 import { ConfirmationModalType } from '../../../../models';
 import { DataGridViewOptions } from '../data-grid-view-options';
+import { borderRadius } from '../../../../utils';
 
 const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
 
@@ -40,8 +41,9 @@ export const DataGridViews = ({
   const {
     theme: {
       current: {
-        sizing: { scale200, scale400, scale600 },
-        colors: { primary },
+        sizing: { scale200, scale400, scale800 },
+        borders: { radius200 },
+        colors: { primaryB },
       },
     },
   } = useTheme();
@@ -158,20 +160,31 @@ export const DataGridViews = ({
               marg2={scale400}
               marg3={scale200}
               marg4={scale400}
+              height={scale800}
               width="fit-content"
             >
               {isActiveView(view.id) ? (
-                <ActiveButton size={SIZE.mini} startEnhancer={() => <View color={primary} size={scale600} />}>
-                  {view.name}
+                <ActiveButton size={SIZE.mini}>
+                  <ParagraphSmall color={primaryB}>{view.name}</ParagraphSmall>
                 </ActiveButton>
               ) : (
-                <SecondaryButton onClick={() => handleActivateView(view.id)} size={SIZE.mini}>
-                  {view.name}
+                <SecondaryButton
+                  onClick={() => handleActivateView(view.id)}
+                  size={SIZE.mini}
+                  overrides={{
+                    BaseButton: {
+                      style: {
+                        height: scale800,
+                        ...borderRadius(radius200),
+                      },
+                    },
+                  }}
+                >
+                  <ParagraphSmall color={primaryB}>{view.name}</ParagraphSmall>
                 </SecondaryButton>
               )}
             </FlexItem>
           ))}
-        <StyledDataGridDivider />
         <DataGridViewOptions
           translations={translations}
           views={views}

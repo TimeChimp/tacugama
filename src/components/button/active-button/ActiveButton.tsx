@@ -10,13 +10,12 @@ export const ActiveButton = forwardRef<HTMLButtonElement, ActiveButtonProps>(
   ({ children, ...rest }: ActiveButtonProps, ref) => (
     <Button
       ref={ref}
-      kind="secondary"
+      kind="primary"
       overrides={{
         BaseButton: {
           style: ({ $theme }) => {
             return {
-              backgroundColor: $theme.colors.primary100,
-              color: $theme.colors.primary,
+              height: $theme.sizing.scale800,
               ...border({
                 borderColor: $theme.colors.primary200,
                 borderStyle: $theme.borders.border300.borderStyle,

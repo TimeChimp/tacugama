@@ -1,6 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import fetch from 'isomorphic-unfetch';
-import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader, StyledAgGridReact } from './styles';
+import {
+  StyledDataGrid,
+  getGridThemeOverrides,
+  StyledDataGridHeader,
+  StyledAgGridReact,
+  StyledDataGridDivider,
+} from './styles';
 import { RowActionsCell } from './row-actions-cell';
 import { FooterRowCount } from './footer-row-count';
 import { FooterPagination } from './footer-pagination';
@@ -67,6 +73,7 @@ import { RowSelect } from '../row-select';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { GroupRowInnerRenderer } from './group-row-inner-renderer';
 import { GroupRowInnerTagRenderer } from './group-row-inner-tag-renderer';
+import { FlexItem } from '../flex-item';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
@@ -132,6 +139,7 @@ export const DataGrid = ({
   const [allViews, setAllViews] = useState<DataGridView[]>([]);
   const [selectedFilterIds, setSelectedFilterIds] = useState<SelectedFilterIds>({});
   const [rowsSelected, setRowsSelected] = useState<number>(0);
+  const [isGridColumnApiLoaded, setIsGridColumnApiLoaded] = useState<boolean>(false);
 
   const { theme } = useTheme();
 
@@ -361,6 +369,7 @@ export const DataGrid = ({
 
     setGridApi(api);
     setGridColumnApi(columnApi);
+    setIsGridColumnApiLoaded(true);
 
     api?.sizeColumnsToFit();
 
@@ -606,23 +615,6 @@ export const DataGrid = ({
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {showDataGridHeader && (
           <StyledDataGridHeader $justifyContent={selection && !viewing ? 'flex-end' : 'space-between'}>
-            {viewing && (
-              <DataGridViews
-                views={allViews}
-                onCreateView={handleCreateView}
-                onDeleteView={onDeleteView}
-                onRenameView={onRenameView}
-                onPinView={onPinView}
-                onUnpinView={onUnpinView}
-                onSaveViewState={onSaveViewState}
-                onActivateView={handleActivateView}
-                translations={translations}
-                gridApi={gridApi}
-                gridColumnApi={gridColumnApi}
-                onModalClose={onModalClose}
-                onModalOpen={onModalOpen}
-              />
-            )}
             {(selection || enableExport) && (
               <DataGridActions
                 gridApi={gridApi}
@@ -635,6 +627,29 @@ export const DataGrid = ({
                 hideDelete={hideDelete}
               />
             )}
+            <FlexItem width="auto">
+              {viewing && (
+                <DataGridViews
+                  views={allViews}
+                  onCreateView={handleCreateView}
+                  onDeleteView={onDeleteView}
+                  onRenameView={onRenameView}
+                  onPinView={onPinView}
+                  onUnpinView={onUnpinView}
+                  onSaveViewState={onSaveViewState}
+                  onActivateView={handleActivateView}
+                  translations={translations}
+                  gridApi={gridApi}
+                  gridColumnApi={gridColumnApi}
+                  onModalClose={onModalClose}
+                  onModalOpen={onModalOpen}
+                />
+              )}
+              <StyledDataGridDivider />
+              {isGridColumnApiLoaded && (
+                <HeaderColumnToggle api={gridApi} columnApi={gridColumnApi} translations={translations} />
+              )}
+            </FlexItem>
           </StyledDataGridHeader>
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
@@ -691,7 +706,6 @@ export const DataGrid = ({
             footerPageSize: FooterPageSize,
             noRowsTemplate: () => <NoRowsTemplate translations={translations} />,
             headerCheckbox: HeaderCheckbox,
-            headerColumnToggle: HeaderColumnToggle,
             loadingCellTemplate: LoadingCellTemplate,
             rowSelect: RowSelect,
             groupRowInnerRenderer: GroupRowInnerRenderer,
@@ -794,7 +808,7 @@ export const DataGrid = ({
           <AgGridColumn
             headerName={''}
             field={''}
-            headerComponent={columnToggling ? 'headerColumnToggle' : ''}
+            headerComponent={''}
             headerComponentParams={{
               translations,
             }}

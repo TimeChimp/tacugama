@@ -52,7 +52,7 @@ const CustomCellComponent = ({ data }: any) => {
 };
 
 export const ACCESS_TOKEN = '';
-export const DATA_URL = '/timetracking';
+export const DATA_URL = '';
 export const COLUMNS: DataGridColumn[] = [
   {
     field: 'start',

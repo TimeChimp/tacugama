@@ -6,8 +6,9 @@ import { Dropdown, DropdownItem } from '../dropdown';
 import { DATA_TEST_ID } from '../../models';
 import { DataGridActionsProps } from './types';
 import { TrashFull, Download } from '../icons';
-import { padding } from '../../utils';
+import { border, borderRadius, padding } from '../../utils';
 import { exportExcel, exportPdf } from './export';
+import { ParagraphSmall } from '../typography';
 
 const DELETE_BUTTON_TEST_ID = 'delete-button';
 const EXPORT_BUTTON_TEST_ID = 'export-button';
@@ -29,9 +30,10 @@ export const DataGridActions = ({
   const {
     theme: {
       current: {
-        colors: { contentStateDisabled, primaryA },
-        sizing: { scale200, scale400, scale500, scale600 },
-        customColors: { red3 },
+        colors: { primaryA },
+        sizing: { scale300, scale400, scale500, scale800 },
+        customColors: { red3, light3, dark4 },
+        borders: { border300, radius200 },
       },
     },
   } = useTheme();
@@ -66,8 +68,28 @@ export const DataGridActions = ({
             optionProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTION_TEST_ID }),
           }}
         >
-          <TertiaryButton disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
-            <Download size={scale600} color={rowsSelected ? primaryA : contentStateDisabled} />
+          <TertiaryButton
+            overrides={{
+              Root: {
+                style: {
+                  height: scale800,
+                  backgroundColor: light3,
+                  ...border({
+                    ...border300,
+                    borderColor: dark4,
+                  }),
+                  ...borderRadius(radius200),
+                  ...padding(scale300),
+                },
+              },
+            }}
+            disabled={!rowsSelected}
+            testId={EXPORT_BUTTON_TEST_ID}
+          >
+            <Download size={scale500} color={rowsSelected ? primaryA : dark4} />
+            <ParagraphSmall color={rowsSelected ? primaryA : dark4} paddingLeft={scale400}>
+              {translations.export}
+            </ParagraphSmall>
           </TertiaryButton>
         </Dropdown>
       )}
@@ -78,16 +100,15 @@ export const DataGridActions = ({
             overrides={{
               Root: {
                 style: {
-                  ...padding(scale400, scale200, scale400, scale500),
-                  ':hover': {
-                    backgroundColor: 'transparent',
-                  },
-                  ':active': {
-                    backgroundColor: 'transparent',
-                  },
-                  ':disabled': {
-                    backgroundColor: 'transparent',
-                  },
+                  height: scale800,
+                  backgroundColor: light3,
+                  marginLeft: scale400,
+                  ...border({
+                    ...border300,
+                    borderColor: dark4,
+                  }),
+                  ...borderRadius(radius200),
+                  ...padding(scale300),
                 },
               },
             }}
@@ -95,7 +116,10 @@ export const DataGridActions = ({
             onClick={() => onBulkDelete()}
             testId={DELETE_BUTTON_TEST_ID}
           >
-            <TrashFull color={rowsSelected ? red3 : contentStateDisabled} size={scale600} />
+            <TrashFull color={rowsSelected ? red3 : dark4} size={scale500} />
+            <ParagraphSmall color={rowsSelected ? red3 : dark4} paddingLeft={scale400}>
+              {translations.delete}
+            </ParagraphSmall>
           </TertiaryButton>
         </>
       ) : null}

@@ -137,11 +137,6 @@ export const StyledHeaderCheckbox = themedStyled('div', {
   ...margin('0', '0', '0', '-2px'),
 });
 
-export const StyledHeaderColumnToggle = themedStyled('div', {
-  display: 'flex',
-  alignItems: 'flex-end',
-});
-
 export const StyledHeaderCheckboxValue = themedStyled('div', ({ $theme }) => ({
   ...padding('0', '0', '0', $theme.sizing.scale0),
 }));
@@ -155,6 +150,7 @@ export const StyledDataGridHeader = themedStyled<'div', StyledDataGridHeaderProp
   ({ $theme, $justifyContent = 'space-between' }) => ({
     ...padding($theme.sizing.scale100, $theme.sizing.scale300),
     display: 'flex',
+    height: $theme.sizing.scale900,
     justifyContent: $justifyContent,
     ...borderTop($theme.borders.border300),
     ...borderLeft($theme.borders.border300),
@@ -165,12 +161,14 @@ export const StyledDataGridHeader = themedStyled<'div', StyledDataGridHeaderProp
   }),
 );
 
-export const StyledDataGridActions = themedStyled('div', ({ $theme }) => ({
+export const StyledDataGridActions = themedStyled('div', () => ({
   display: 'flex',
+  alignItems: 'center',
 }));
 
 export const StyledDataGridViews = themedStyled('div', ({ $theme }) => ({
   display: 'flex',
+  alignItems: 'center',
   flexWrap: 'wrap',
   background: $theme.colors.primaryB,
 }));
@@ -187,9 +185,9 @@ export const StyledDataGridViewListItem = themedStyled('li', ({ $theme }) => ({
 export const StyledDataGridDivider = themedStyled('div', ({ $theme }) => ({
   display: 'flex',
   alignSelf: 'center',
-  height: $theme.sizing.scale750,
+  height: $theme.sizing.scale800,
   ...margin('0px', $theme.sizing.scale200),
-  ...borderRight($theme.borders.border600),
+  ...borderRight({ ...$theme.borders.border600, borderColor: $theme.customColors.light2 }),
 }));
 
 export const StyledViewOptionsFooter = themedStyled('div', ({ $theme }) => ({
