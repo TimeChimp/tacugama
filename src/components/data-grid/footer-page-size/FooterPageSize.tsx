@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { FooterRowCountProps } from '../types';
 import { StyledFooterFooterPageSize } from '../styles';
 import { Select } from '../../select';
@@ -36,6 +36,19 @@ export const FooterPageSize = ({ api: gridApi, translations }: FooterRowCountPro
     setPageSize(pageSize);
   };
 
+  const options = useMemo(
+    () =>
+      [
+        { name: '10', id: 10 },
+        { name: '25', id: 25 },
+        { name: '50', id: 50 },
+        { name: '100', id: 100 },
+        { name: '250', id: 250 },
+        { name: '1000', id: 1000 },
+      ].sort((a, b) => a.id - b.id),
+    [],
+  );
+
   return (
     <StyledFooterFooterPageSize>
       <ParagraphSmall marginLeft={scale300} marginRight={scale300} color={contentTertiary}>
@@ -45,14 +58,7 @@ export const FooterPageSize = ({ api: gridApi, translations }: FooterRowCountPro
         clearable={false}
         searchable={false}
         size={SIZE.mini}
-        options={[
-          { name: '10', id: 10 },
-          { name: '25', id: 25 },
-          { name: '50', id: 50 },
-          { name: '100', id: 100 },
-          { name: '250', id: 250 },
-          { name: '1000', id: 1000 },
-        ]}
+        options={options}
         value={[{ id: pageSize }]}
         onChangeHandler={({ value }) => {
           const selectedValue = (value as unknown) as { name: string; id: number };
