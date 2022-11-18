@@ -8,7 +8,7 @@ import { DataGridActionsProps } from './types';
 import { TrashFull, Download } from '../icons';
 import { border, borderRadius, padding } from '../../utils';
 import { exportExcel, exportPdf } from './export';
-import { ParagraphSmall } from 'baseui/typography';
+import { ParagraphSmall } from '../typography';
 
 const DELETE_BUTTON_TEST_ID = 'delete-button';
 const EXPORT_BUTTON_TEST_ID = 'export-button';

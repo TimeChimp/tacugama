@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ParagraphSmall } from 'baseui/typography';
+import { ParagraphSmall } from '../../../typography';
 import { useTheme } from '../../../../providers';
 import { DataGridViewsProps, DataGridView, CreateViewInput } from '../../types';
 import { StyledDataGridViews } from '../../styles';

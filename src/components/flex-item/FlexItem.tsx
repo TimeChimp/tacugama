@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextAlignProperty } from 'models';
+import { TextAlignProperty } from '../../models';
 import { StyledItem } from './StyledFlexItem';
 
 export interface FlexItemProps {

@@ -706,7 +706,6 @@ export const DataGrid = ({
             footerPageSize: FooterPageSize,
             noRowsTemplate: () => <NoRowsTemplate translations={translations} />,
             headerCheckbox: HeaderCheckbox,
-            headerColumnToggle: () => <></>,
             loadingCellTemplate: LoadingCellTemplate,
             rowSelect: RowSelect,
             groupRowInnerRenderer: GroupRowInnerRenderer,
@@ -809,7 +808,7 @@ export const DataGrid = ({
           <AgGridColumn
             headerName={''}
             field={''}
-            headerComponent={columnToggling ? 'headerColumnToggle' : ''}
+            headerComponent={''}
             headerComponentParams={{
               translations,
             }}

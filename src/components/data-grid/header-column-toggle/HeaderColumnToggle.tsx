@@ -102,7 +102,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
           overrides={{
             BaseButton: {
               style: {
-                padding: '0px',
+                ...padding('0'),
               },
             },
           }}
