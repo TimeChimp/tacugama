@@ -14,7 +14,7 @@ export const defaultTranslations: Translations = {
   ),
   noRowsTitle: 'It`s a bit lonely in here',
   noRowsSubtext: 'Quick, add some items!',
-  groupBy: 'Group by',
+  groupBy: 'Group by:',
   search: 'Search',
   searchBar: 'Search for a description',
   defaultView: 'Default',
@@ -49,4 +49,5 @@ export const defaultTranslations: Translations = {
   ),
   delete: 'Delete',
   export: 'Export',
+  none: 'None',
 };

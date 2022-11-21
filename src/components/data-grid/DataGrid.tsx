@@ -74,6 +74,11 @@ import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-mod
 import { GroupRowInnerRenderer } from './group-row-inner-renderer';
 import { GroupRowInnerTagRenderer } from './group-row-inner-tag-renderer';
 import { FlexItem } from '../flex-item';
+import { ParagraphSmall } from '../typography';
+import { TertiaryButton } from '../button';
+import { Dropdown, DropdownItem } from '../dropdown';
+import { ArrowDown, Pencil } from '../icons';
+import { border, borderRadius, padding } from '../../utils';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
@@ -142,6 +147,16 @@ export const DataGrid = ({
   const [isGridColumnApiLoaded, setIsGridColumnApiLoaded] = useState<boolean>(false);
 
   const { theme } = useTheme();
+
+  const {
+    theme: {
+      current: {
+        sizing: { scale300, scale500, scale800 },
+        borders: { border300, radius200 },
+        customColors: { light2, light3, dark1 },
+      },
+    },
+  } = useTheme();
 
   // note: setting the license key is not working in use effect. Downside is that setLicenseKey is now called multiple times.
   if (licenseKey) {
@@ -591,6 +606,27 @@ export const DataGrid = ({
     return `calc(100% - ${headerHeight}px)`;
   }, [showDataGridHeader]);
 
+  const selectedGroupOption = columns.filter((x) => x.groupable).find((column) => column.rowGroup);
+
+  const handleGrouping = (field: string) => {
+    if (selectedGroupOption?.field === field) {
+      onGrouping([]);
+    } else {
+      onGrouping([field]);
+    }
+  };
+
+  const options: DropdownItem[] = columns
+    .filter((x) => x.groupable)
+    .map((column) => {
+      return {
+        id: column.field,
+        label: column.label || '',
+        icon: column.rowGroup ? <Pencil size={scale500} /> : <></>,
+        action: () => handleGrouping(column.field),
+      };
+    });
+
   return (
     <>
       <Filters
@@ -644,6 +680,45 @@ export const DataGrid = ({
                   onModalClose={onModalClose}
                   onModalOpen={onModalOpen}
                 />
+              )}
+              <StyledDataGridDivider />
+              {grouping && (
+                <FlexItem width="auto">
+                  <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
+                  <Dropdown items={options}>
+                    <TertiaryButton
+                      size="mini"
+                      overrides={{
+                        BaseButton: {
+                          style: {
+                            height: scale800,
+                            backgroundColor: light3,
+                            ...border({
+                              ...border300,
+                              borderColor: light2,
+                            }),
+                            ...borderRadius(radius200),
+                            ...padding(scale300),
+                            ':hover': {
+                              backgroundColor: light3,
+                              ...border({
+                                ...border300,
+                                borderColor: light2,
+                              }),
+                            },
+                          },
+                        },
+                      }}
+                    >
+                      <ParagraphSmall $style={{ cursor: 'pointer' }} color={dark1}>
+                        {selectedGroupOption?.label ?? translations.none}
+                      </ParagraphSmall>
+                      <FlexItem marg4={scale500}>
+                        <ArrowDown size={scale300} color={dark1} />
+                      </FlexItem>
+                    </TertiaryButton>
+                  </Dropdown>
+                </FlexItem>
               )}
               <StyledDataGridDivider />
               {isGridColumnApiLoaded && (

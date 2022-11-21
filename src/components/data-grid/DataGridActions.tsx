@@ -60,6 +60,35 @@ export const DataGridActions = ({
 
   return (
     <StyledDataGridActions>
+      {!hideDelete && onBulkDelete ? (
+        <>
+          <TertiaryButton
+            overrides={{
+              Root: {
+                style: {
+                  height: scale800,
+                  backgroundColor: light3,
+                  marginRight: scale400,
+                  ...border({
+                    ...border300,
+                    borderColor: light2,
+                  }),
+                  ...borderRadius(radius200),
+                  ...padding(scale300),
+                },
+              },
+            }}
+            disabled={!rowsSelected}
+            onClick={() => onBulkDelete()}
+            testId={DELETE_BUTTON_TEST_ID}
+          >
+            <TrashFull color={rowsSelected ? red3 : dark4} size={scale500} />
+            <ParagraphSmall color={rowsSelected ? red3 : dark4} paddingLeft={scale400}>
+              {translations.delete}
+            </ParagraphSmall>
+          </TertiaryButton>
+        </>
+      ) : null}
       {!hideDownload && (
         <Dropdown
           items={dropdownItems}
@@ -93,36 +122,6 @@ export const DataGridActions = ({
           </TertiaryButton>
         </Dropdown>
       )}
-
-      {!hideDelete && onBulkDelete ? (
-        <>
-          <TertiaryButton
-            overrides={{
-              Root: {
-                style: {
-                  height: scale800,
-                  backgroundColor: light3,
-                  marginLeft: scale400,
-                  ...border({
-                    ...border300,
-                    borderColor: light2,
-                  }),
-                  ...borderRadius(radius200),
-                  ...padding(scale300),
-                },
-              },
-            }}
-            disabled={!rowsSelected}
-            onClick={() => onBulkDelete()}
-            testId={DELETE_BUTTON_TEST_ID}
-          >
-            <TrashFull color={rowsSelected ? red3 : dark4} size={scale500} />
-            <ParagraphSmall color={rowsSelected ? red3 : dark4} paddingLeft={scale400}>
-              {translations.delete}
-            </ParagraphSmall>
-          </TertiaryButton>
-        </>
-      ) : null}
     </StyledDataGridActions>
   );
 };
