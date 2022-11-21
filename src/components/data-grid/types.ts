@@ -165,6 +165,7 @@ export interface Translations {
   deleteEntriesCount: (count: number) => JSX.Element;
   delete: string;
   export: string;
+  none: string;
 }
 
 export interface DataGridProps {
