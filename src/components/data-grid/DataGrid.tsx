@@ -681,44 +681,46 @@ export const DataGrid = ({
                   onModalOpen={onModalOpen}
                 />
               )}
-              <StyledDataGridDivider />
               {grouping && (
-                <FlexItem width="auto">
-                  <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
-                  <Dropdown items={options}>
-                    <TertiaryButton
-                      size="mini"
-                      overrides={{
-                        BaseButton: {
-                          style: {
-                            height: scale800,
-                            backgroundColor: light3,
-                            ...border({
-                              ...border300,
-                              borderColor: light2,
-                            }),
-                            ...borderRadius(radius200),
-                            ...padding(scale300),
-                            ':hover': {
+                <>
+                  <StyledDataGridDivider />
+                  <FlexItem width="auto">
+                    <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
+                    <Dropdown items={options}>
+                      <TertiaryButton
+                        size="mini"
+                        overrides={{
+                          BaseButton: {
+                            style: {
+                              height: scale800,
                               backgroundColor: light3,
                               ...border({
                                 ...border300,
                                 borderColor: light2,
                               }),
+                              ...borderRadius(radius200),
+                              ...padding(scale300),
+                              ':hover': {
+                                backgroundColor: light3,
+                                ...border({
+                                  ...border300,
+                                  borderColor: light2,
+                                }),
+                              },
                             },
                           },
-                        },
-                      }}
-                    >
-                      <ParagraphSmall $style={{ cursor: 'pointer' }} color={dark1}>
-                        {selectedGroupOption?.label ?? translations.none}
-                      </ParagraphSmall>
-                      <FlexItem marg4={scale500}>
-                        <ArrowDown size={scale300} color={dark1} />
-                      </FlexItem>
-                    </TertiaryButton>
-                  </Dropdown>
-                </FlexItem>
+                        }}
+                      >
+                        <ParagraphSmall $style={{ cursor: 'pointer' }} color={dark1}>
+                          {selectedGroupOption?.label ?? translations.none}
+                        </ParagraphSmall>
+                        <FlexItem marg4={scale500}>
+                          <ArrowDown size={scale300} color={dark1} />
+                        </FlexItem>
+                      </TertiaryButton>
+                    </Dropdown>
+                  </FlexItem>
+                </>
               )}
               <StyledDataGridDivider />
               {isGridColumnApiLoaded && (
