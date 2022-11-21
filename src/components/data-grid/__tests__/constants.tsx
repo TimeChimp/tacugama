@@ -72,7 +72,6 @@ export const COLUMNS: DataGridColumn[] = [
   {
     field: 'description',
     label: 'Description',
-    groupable: true,
   },
   {
     field: 'client',
@@ -87,6 +86,7 @@ export const COLUMNS: DataGridColumn[] = [
   {
     field: 'task',
     label: 'Task',
+    groupable: true,
   },
 ];
 
