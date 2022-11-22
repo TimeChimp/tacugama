@@ -339,6 +339,10 @@ export interface NoRowsTemplateProps {
   translations: Translations;
 }
 
+export interface HeaderComponentFrameworkProps {
+  label: string | undefined;
+}
+
 export interface DataGridViewsProps {
   translations: Translations;
   views?: DataGridView[];

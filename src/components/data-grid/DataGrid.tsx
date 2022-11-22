@@ -12,6 +12,7 @@ import { FooterRowCount } from './footer-row-count';
 import { FooterPagination } from './footer-pagination';
 import { FooterPageSize } from './footer-page-size';
 import { NoRowsTemplate } from './no-rows-template';
+import { HeaderComponentFramework } from './header-component-framework';
 import { HeaderCheckbox } from './header-checkbox';
 import { HeaderColumnToggle } from './header-column-toggle';
 import { LoadingCellTemplate } from './loading-cell-template';
@@ -864,7 +865,7 @@ export const DataGrid = ({
                 cellRendererFramework={customComponent}
                 cellRenderer={!!rowSelectProps ? 'rowSelect' : undefined}
                 cellRendererParams={!!rowSelectProps ? { ...rowSelectProps } : undefined}
-                headerComponentFramework={customHeaderComponent}
+                headerComponentFramework={() => <HeaderComponentFramework label={label} />}
                 key={field}
                 headerName={label}
                 field={field}
