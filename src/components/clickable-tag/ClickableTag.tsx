@@ -4,13 +4,7 @@ import { ClickableTagProps } from './types';
 
 export const ClickableTag = ({ onClick, label, tagProps = {}, buttonProps = {} }: ClickableTagProps) => {
   return (
-    <TransparentButton
-      onClick={(e) => {
-        e.preventDefault();
-        onClick(e);
-      }}
-      {...buttonProps}
-    >
+    <TransparentButton onClick={onClick} type="button" {...buttonProps}>
       <Tag value={label} cursor="pointer" {...tagProps} />
     </TransparentButton>
   );
