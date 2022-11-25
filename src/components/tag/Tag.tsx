@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { Tag as TagComponent, TagProps as TagComponentProps } from 'baseui/tag';
 import { useTheme } from '../../providers';
 import { border, borderRadius, margin, padding } from '../../utils';
-import { ParagraphSmall, ParagraphXSmall } from 'components/typography';
+import { ParagraphSmall, ParagraphXSmall } from '../typography';
 
 export enum TagSize {
   small = 'small',
