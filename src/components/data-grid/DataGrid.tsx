@@ -61,6 +61,7 @@ import {
   FilterType,
   RowModelType,
   DataGridColumnValueType,
+  CustomFilterTypes,
 } from './types';
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
@@ -84,7 +85,6 @@ import { border, borderRadius, padding } from '../../utils';
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
-const DATE_FORMAT = 'y-MM-dd';
 
 export const DataGrid = ({
   licenseKey,
@@ -146,6 +146,7 @@ export const DataGrid = ({
   const [selectedFilterIds, setSelectedFilterIds] = useState<SelectedFilterIds>({});
   const [rowsSelected, setRowsSelected] = useState<number>(0);
   const [isGridColumnApiLoaded, setIsGridColumnApiLoaded] = useState<boolean>(false);
+  const [filterModel, setFilterModel] = useState<{ [key: string]: any }>({});
 
   const { theme } = useTheme();
 
@@ -233,8 +234,7 @@ export const DataGrid = ({
         if (filter.filterType === 'set') {
           const setFilter = filter as SetFilterModel;
           if (setFilter.values) {
-            const values = setFilter.values.filter((value) => typeof value === 'string') as string[];
-            filterIds[filterName] = values;
+            filterIds[filterName] = setFilter.values;
           }
         }
 
@@ -262,8 +262,6 @@ export const DataGrid = ({
     (api: GridApi, columnApi: ColumnApi) => {
       columnApi.resetColumnState();
       columnApi.resetColumnGroupState();
-
-      const filterModel = api.getFilterModel();
       Object.keys(filterModel).forEach((filter) => {
         api.destroyFilter(filter);
       });
@@ -273,7 +271,7 @@ export const DataGrid = ({
         setDates(getInitialDateRange());
       }
     },
-    [setDates, setViewFilterIds],
+    [setDates, setViewFilterIds, filterModel],
   );
 
   const setViewState = useCallback(
@@ -323,10 +321,13 @@ export const DataGrid = ({
 
   const onFiltering = useCallback(
     (filters: FilterModel) => {
-      gridApi.setFilterModel(filters);
+      setFilterModel(filters);
       gridApi.onFilterChanged();
+      if (rowModelType === RowModelType.clientSide) {
+        gridApi.setFilterModel(filters);
+      }
     },
-    [gridApi],
+    [gridApi, rowModelType],
   );
 
   const createServerSideDatasource = (): IServerSideDatasource => {
@@ -334,13 +335,14 @@ export const DataGrid = ({
       getRows: async function (params: IServerSideGetRowsParams) {
         if (dataUrl) {
           try {
+            const body = { ...params.request, filterModel };
             const response = await fetch(dataUrl, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${accessToken}`,
               },
-              body: JSON.stringify(params.request),
+              body: JSON.stringify(body),
             });
 
             const data = (await response.json()) as DataGridResponse;
@@ -395,6 +397,13 @@ export const DataGrid = ({
     }
   };
 
+  useEffect(() => {
+    if (gridApi) {
+      gridApi.setServerSideDatasource(createServerSideDatasource());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterModel]);
+
   const getRowNodeId = (data: any) => {
     return data.hierarchy ?? data.id;
   };
@@ -405,6 +414,11 @@ export const DataGrid = ({
       c.rowGroup = rowGroups.includes(c.field);
     });
     setGridColumns(columns);
+  };
+
+  const clearFilterModel = (columnFilter: string) => {
+    setFilterModel((model) => ({ ...model, [columnFilter]: undefined }));
+    gridApi.onFilterChanged();
   };
 
   const getValueFormatter = (
@@ -446,8 +460,9 @@ export const DataGrid = ({
     if (!params) {
       return;
     }
-    let values: (string | boolean | null)[] = [];
+    let values: FilterValue['value'][] = [];
     const columnFilter = filters?.find((filter) => filter.columnField === columnField);
+
     if (columnFilter?.values) {
       const columnValues: (FilterValue | string)[] = columnFilter.values;
       values = columnValues.map((value: FilterValue | string) =>
@@ -478,7 +493,7 @@ export const DataGrid = ({
     setRowsSelected(selected.length);
   };
 
-  const getSetValues = (value: string | boolean | null, type: FilterType, values?: (string | boolean)[]) => {
+  const getSetValues = (value: FilterValue['value'], type: FilterType, values?: FilterValue['value'][]) => {
     if (!value) {
       return [];
     }
@@ -494,31 +509,46 @@ export const DataGrid = ({
   };
 
   const onSetFiltering = useCallback(
-    (columnField: string, type: FilterType, value: string | boolean | null) => {
-      const filterInstance = gridApi?.getFilterInstance(columnField);
-      const filterModel = gridApi?.getFilterModel();
-      const currentValues = filterInstance?.getModel()?.values;
-      const values = getSetValues(value, type, currentValues);
-
-      if (!values.length) {
-        gridApi.destroyFilter(columnField);
-        return gridApi.onFilterChanged();
+    (columnField: string, type: FilterType, value: FilterValue['value']) => {
+      let currentValues;
+      const filter = filters?.find((filter) => filter.columnField === columnField);
+      if (filter?.customGetValuerMap) {
+        currentValues = filter?.customGetValuerMap?.(filterModel?.[columnField]);
+      } else {
+        currentValues = filter?.byId ? filterModel?.[columnField]?.ids : filterModel?.[columnField]?.values;
       }
 
-      const setFilter = {
-        values,
-        type: 'set',
-      };
+      const values = getSetValues(value, type, currentValues);
+      if (!values.length) {
+        setFilterModel((model) => ({ ...model, [columnField]: undefined }));
+        return gridApi.onFilterChanged();
+      }
+      const filterObject = filters?.find((filter) => filter.columnField === columnField);
+
+      let setFilter;
+      if (filterObject?.customFilterMap) {
+        setFilter = filterObject?.customFilterMap(values);
+      } else if (filterObject?.byId) {
+        setFilter = {
+          ids: values,
+          filterType: CustomFilterTypes.ids,
+        };
+      } else {
+        setFilter = {
+          values,
+          filterType: CustomFilterTypes.set,
+        };
+      }
 
       filterModel[columnField] = setFilter;
 
       onFiltering(filterModel);
     },
-    [gridApi, onFiltering],
+    [gridApi, filters, filterModel, onFiltering],
   );
 
   const filterOnValue = useCallback(
-    (columnField: string, value: string | boolean | null, type: FilterType) => {
+    (columnField: string, value: FilterValue['value'], type: FilterType) => {
       onSetFiltering(columnField, type, value);
 
       setSelectedFilterIds((currentIds) => {
@@ -541,7 +571,7 @@ export const DataGrid = ({
   );
 
   // Date format that is send as part of the query request
-  const getDateFormat = (date: Date) => new TcDate(date).format(DATE_FORMAT);
+  const getDateFormat = useCallback((date: Date) => new TcDate(date).toISOString(), []);
 
   const filterOnDate = useCallback(
     (columnField: string, selectedDates: Date[]) => {
@@ -551,11 +581,11 @@ export const DataGrid = ({
         dateFrom: getDateFormat(selectedDates[0]),
         dateTo: getDateFormat(selectedDates[1]),
       };
-      const filterModel = gridApi.getFilterModel();
+
       filterModel[columnField] = dateFilter;
       onFiltering(filterModel);
     },
-    [gridApi, onFiltering],
+    [getDateFormat, filterModel, onFiltering],
   );
 
   const setFilterDefaultValues = useCallback(() => {
@@ -639,7 +669,7 @@ export const DataGrid = ({
         setDates={setDates}
         grouping={grouping}
         onGrouping={onGrouping}
-        onFiltering={onFiltering}
+        onFiltering={setFilterModel}
         translations={translations}
         searchColumns={searchColumns}
         dateFormat={formatSettings.dateFormat ?? (defaultFormatSettings.dateFormat as string)}
@@ -648,6 +678,7 @@ export const DataGrid = ({
         filterOnValue={filterOnValue}
         filterOnDate={filterOnDate}
         debouncedSearch={debouncedSearch}
+        clearFilterModel={clearFilterModel}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {showDataGridHeader && (

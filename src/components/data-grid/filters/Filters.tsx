@@ -6,6 +6,7 @@ import { SearchInput } from '../../input';
 import { FlexItem } from '../../flex-item';
 import { ColumnFilters } from './ColumnFilters';
 import { debounce } from '../../../utils';
+import { useTheme } from '../../../providers';
 
 const SEARCH_INPUT_TEST_ID = 'data-grid-search';
 
@@ -22,6 +23,14 @@ export const Filters = ({
   ...rest
 }: FiltersProps) => {
   const { searchBar } = translations;
+
+  const {
+    theme: {
+      current: {
+        sizing: { scale300 },
+      },
+    },
+  } = useTheme();
 
   const handleSearch = (searchTerm: string) => {
     const filterModel = api.getFilterModel();
@@ -40,7 +49,7 @@ export const Filters = ({
 
   return (
     <StyledDataGridFilters>
-      <FlexItem justifyContent="start" width="80%">
+      <FlexItem justifyContent="start" gap={scale300}>
         {filtering && (
           <StyledDataGridSearch>
             <SearchInput

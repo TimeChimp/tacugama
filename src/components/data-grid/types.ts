@@ -26,6 +26,12 @@ export enum RowModelType {
   serverSide = 'serverSide',
 }
 
+export enum CustomFilterTypes {
+  ids = 'ids',
+  text = 'text',
+  set = 'set',
+}
+
 export interface DataGridApi {
   getSelectedRows: () => any[];
   getSelectedRow: () => any;
@@ -84,7 +90,7 @@ export enum FilterType {
 }
 
 export interface FilterValue {
-  value: string | boolean | null;
+  value: string | boolean | number | null;
   label: string;
   icon?: JSX.Element;
 }
@@ -98,6 +104,10 @@ export interface Filter {
   icon?: ComponentType<IconProps>;
   searchPlaceholder?: string;
   hide?: boolean;
+  byId?: boolean;
+  clearable?: boolean;
+  customFilterMap?: (values: FilterValue['value'][]) => any;
+  customGetValuerMap?: (filterModel: any) => any;
 }
 
 export interface GetServerSideGroupKey {
@@ -238,7 +248,7 @@ export interface CreateViewInput {
 }
 
 export interface SelectedFilterIds {
-  [key: string]: (string | boolean | null)[];
+  [key: string]: FilterValue['value'][];
 }
 
 export interface FiltersProps {
@@ -256,9 +266,10 @@ export interface FiltersProps {
   dateFormat: string;
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
-  filterOnValue: (columnField: string, value: string | boolean | null, type: FilterType) => void;
+  filterOnValue: (columnField: string, value: FilterValue['value'], type: FilterType) => void;
   filterOnDate: (columnField: string, selectedDates: Date[]) => void;
   debouncedSearch?: boolean;
+  clearFilterModel: (columnFilter: string) => void;
 }
 
 export interface ColumnFiltersProps {
@@ -270,8 +281,9 @@ export interface ColumnFiltersProps {
   dateFormat: string;
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
-  filterOnValue: (columnField: string, value: string | boolean | null, type: FilterType) => void;
+  filterOnValue: (columnField: string, value: FilterValue['value'], type: FilterType) => void;
   filterOnDate: (columnField: string, selectedDates: Date[]) => void;
+  clearFilterModel: (columnFilter: string) => void;
 }
 export interface FooterRowCountProps {
   api: GridApi;

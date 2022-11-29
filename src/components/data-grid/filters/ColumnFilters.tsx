@@ -24,6 +24,7 @@ export const ColumnFilters = ({
   translations: { search, lessFilters, allFilters },
   filterOnValue,
   filterOnDate,
+  clearFilterModel,
 }: ColumnFiltersProps) => {
   const [showLessFilters, setShowLessFilters] = useState<boolean>(true);
   const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
@@ -50,7 +51,7 @@ export const ColumnFilters = ({
   }, [filters, validateFilters]);
 
   const isSelectValueActive = useCallback(
-    (columnField: string, filterValue: string | boolean | null, type: FilterType) => {
+    (columnField: string, filterValue: FilterValue['value'], type: FilterType) => {
       if (type !== FilterType.select) {
         return false;
       }
@@ -58,7 +59,7 @@ export const ColumnFilters = ({
       if (!filterIdsByColumn?.length) {
         return false;
       }
-      return filterIdsByColumn[0] === filterValue;
+      return filterIdsByColumn.includes(filterValue);
     },
     [selectedFilterIds],
   );
@@ -73,7 +74,7 @@ export const ColumnFilters = ({
         const filterLabel = value && typeof value === 'object' ? value.label : value;
         const item: DropdownItem = {
           ...(typeof value === 'object' ? value : {}),
-          id: filterLabel,
+          id: filterValue?.toString(),
           label: filterLabel,
           action: () => filterOnValue(columnField, filterValue, type),
           isBold: isSelectValueActive(columnField, filterValue, type),
@@ -167,19 +168,44 @@ export const ColumnFilters = ({
 
   const onSetFilterClear = (columnField: string) => {
     api.destroyFilter(columnField);
-    api.onFilterChanged();
     setSelectedFilterIds((currentIds) => {
       return {
         ...currentIds,
         [columnField]: [],
       };
     });
+    clearFilterModel(columnField);
+    api.onFilterChanged();
   };
 
-  const getSelectedFilterIds = (columnField: string) =>
-    selectedFilterIds[columnField]?.flatMap((value) => (value ? [value] : []));
+  const onSelectFilterClear = (columnField: string) => {
+    api.destroyFilter(columnField);
+    setSelectedFilterIds((currentIds) => {
+      return {
+        ...currentIds,
+        [columnField]: [],
+      };
+    });
+    clearFilterModel(columnField);
+  };
 
-  const Filter = ({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon: Icon }: Filter) => {
+  const getSelectedFilterIds = (columnField: string) => selectedFilterIds[columnField]?.map(String);
+
+  const getSelectHasValue = (columnField: string) =>
+    Array.isArray(selectedFilterIds[columnField])
+      ? !!selectedFilterIds[columnField].length
+      : !!selectedFilterIds[columnField];
+
+  const Filter = ({
+    title,
+    columnField,
+    type,
+    searchPlaceholder,
+    values,
+    valuesLoading,
+    icon: Icon,
+    clearable,
+  }: Filter) => {
     const filterTypes = {
       [FilterType.date]: (
         <>
@@ -234,6 +260,9 @@ export const ColumnFilters = ({
             startEnhancer={getSelectActiveItem(columnField, values).icon}
             size={SIZE.compact}
             arrows
+            onClear={clearable ? () => onSelectFilterClear(columnField) : undefined}
+            hasValue={getSelectHasValue(columnField)}
+            isActive={getSelectHasValue(columnField)}
           />
         </Dropdown>
       ),
@@ -246,19 +275,22 @@ export const ColumnFilters = ({
     <>
       {filters?.length && (
         <>
-          {getFilters()?.map(({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon }) => (
-            <FlexItem key={columnField} width="fit-content" marg1="0" marg2={scale300} marg3="0" marg4="0">
-              <Filter
-                title={title}
-                columnField={columnField}
-                type={type}
-                searchPlaceholder={searchPlaceholder}
-                values={values}
-                valuesLoading={valuesLoading}
-                icon={icon}
-              />
-            </FlexItem>
-          ))}
+          {getFilters()?.map(
+            ({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon, clearable }) => (
+              <FlexItem key={columnField} width="fit-content" marg1="0" marg2={scale300} marg3="0" marg4="0">
+                <Filter
+                  title={title}
+                  columnField={columnField}
+                  type={type}
+                  searchPlaceholder={searchPlaceholder}
+                  values={values}
+                  valuesLoading={valuesLoading}
+                  icon={icon}
+                  clearable={clearable}
+                />
+              </FlexItem>
+            ),
+          )}
           {filters?.length > 2 && (
             <>
               {showLessFilters ? (
