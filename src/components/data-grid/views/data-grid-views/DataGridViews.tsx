@@ -3,7 +3,7 @@ import { ParagraphSmall } from '../../../typography';
 import { useTheme } from '../../../../providers';
 import { DataGridViewsProps, DataGridView, CreateViewInput } from '../../types';
 import { StyledDataGridViews } from '../../styles';
-import { SecondaryButton, ActiveButton } from '../../../button';
+import { TertiaryButton, ActiveButton } from '../../../button';
 import { SIZE } from 'baseui/button';
 import { ConfirmationModal } from '../../../confirmation-modal';
 import { CreateViewModal } from '../create-view-modal';
@@ -12,7 +12,7 @@ import { SaveViewModal } from '../save-view-modal';
 import { RenameViewModal } from '../rename-view-modal';
 import { ConfirmationModalType } from '../../../../models';
 import { DataGridViewOptions } from '../data-grid-view-options';
-import { borderRadius } from '../../../../utils';
+import { borderRadius, border, padding } from '../../../../utils';
 
 const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
 
@@ -41,9 +41,10 @@ export const DataGridViews = ({
   const {
     theme: {
       current: {
-        sizing: { scale200, scale400, scale800 },
-        borders: { radius200 },
+        sizing: { scale200, scale300, scale400, scale800 },
+        borders: { radius200, border300 },
         colors: { primaryB },
+        customColors: { light2, light3 },
       },
     },
   } = useTheme();
@@ -168,7 +169,7 @@ export const DataGridViews = ({
                   <ParagraphSmall color={primaryB}>{view.name}</ParagraphSmall>
                 </ActiveButton>
               ) : (
-                <SecondaryButton
+                <TertiaryButton
                   onClick={() => handleActivateView(view.id)}
                   size={SIZE.mini}
                   overrides={{
@@ -176,12 +177,25 @@ export const DataGridViews = ({
                       style: {
                         height: scale800,
                         ...borderRadius(radius200),
+                        backgroundColor: light3,
+                        ...border({
+                          ...border300,
+                          borderColor: light2,
+                        }),
+                        ...padding(scale200, scale300),
+                        ':hover': {
+                          backgroundColor: light3,
+                          ...border({
+                            ...border300,
+                            borderColor: light2,
+                          }),
+                        },
                       },
                     },
                   }}
                 >
-                  <ParagraphSmall color={primaryB}>{view.name}</ParagraphSmall>
-                </SecondaryButton>
+                  <ParagraphSmall>{view.name}</ParagraphSmall>
+                </TertiaryButton>
               )}
             </FlexItem>
           ))}
