@@ -571,7 +571,7 @@ export const DataGrid = ({
   );
 
   // Date format that is send as part of the query request
-  const getDateFormat = useCallback((date: Date) => new TcDate(date).toISOString(), []);
+  const getDateFormat = useCallback((date: Date) => new TcDate(date).getDateWithoutTimeAsUTC().toISOString(), []);
 
   const filterOnDate = useCallback(
     (columnField: string, selectedDates: Date[]) => {
