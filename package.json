@@ -1,5 +1,5 @@
 {
-  "version": "3.3.8",
+  "version": "3.3.9",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -95,7 +95,7 @@
     "@ag-grid-enterprise/server-side-row-model": "25.0.1",
     "@ag-grid-enterprise/set-filter": "25.0.1",
     "@ag-grid-enterprise/status-bar": "25.0.1",
-    "@timechimp/timechimp-typescript-helpers": "^1.0.6",
+    "@timechimp/timechimp-typescript-helpers": "^2.0.1",
     "@types/bytes": "^3.1.1",
     "baseui": "^9.116.0",
     "bytes": "^3.1.0",
