@@ -3,18 +3,20 @@ import { NumberFormat } from '@timechimp/timechimp-typescript-helpers';
 import { NumberInputComponent } from './styles';
 import { NumberInputProps } from './types';
 
-const DEFAULT_NUMBER_FORMAT = '1,234.56';
+const DEFAULT_NUMBER_FORMAT = NumberFormat.Dot;
 const DEFAULT_TEST_ID = 'price-input';
 
 const getNumberSeparators = (numberFormat: NumberFormat) => {
   switch (numberFormat) {
-    case '1.234,56':
-      return { thousandSeparator: '.', decimalSeparator: ',' };
-    case '1 234,56':
-      return { thousandSeparator: ' ', decimalSeparator: ',' };
-    case '1,234.56':
-    default:
+    case NumberFormat.Comma:
       return { thousandSeparator: ',', decimalSeparator: '.' };
+    case NumberFormat.Space:
+      return { thousandSeparator: ' ', decimalSeparator: ',' };
+    case NumberFormat.Apostrophe:
+      return { thousandSeparator: "'", decimalSeparator: '.' };
+    case NumberFormat.Dot:
+    default:
+      return { thousandSeparator: '.', decimalSeparator: ',' };
   }
 };
 
