@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlexGrid } from 'baseui/flex-grid';
-import Button from 'components/button/Button';
-import { SecondaryButton } from 'components/button/secondary-button';
+import Button from '../button/Button';
+import { SecondaryButton } from '../button/secondary-button';
 
 const DEFAULT_OPTIONS = [
   {
