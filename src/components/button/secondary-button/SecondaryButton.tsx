@@ -14,7 +14,7 @@ import { SecondaryButtonProps } from './types';
 import { useTheme } from '../../../providers';
 
 export const SecondaryButton = forwardRef<HTMLButtonElement, SecondaryButtonProps>(
-  ({ children, ...rest }: SecondaryButtonProps, ref) => {
+  ({ children, rootOverrides, ...rest }: SecondaryButtonProps, ref) => {
     const {
       theme: {
         current: {
@@ -47,6 +47,7 @@ export const SecondaryButton = forwardRef<HTMLButtonElement, SecondaryButtonProp
                 backgroundColor: primary400,
                 color: primaryB,
               },
+              ...rootOverrides,
             },
           },
           StartEnhancer: {
