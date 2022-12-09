@@ -6,7 +6,7 @@ import { Dropdown, DropdownItem } from '../dropdown';
 import { DATA_TEST_ID } from '../../models';
 import { DataGridActionsProps } from './types';
 import { TrashFull, Download } from '../icons';
-import { FlexItem } from 'components/flex-item';
+import { FlexItem } from '../flex-item';
 import { exportExcel, exportPdf } from './export';
 import { ParagraphSmall } from '../typography';
 

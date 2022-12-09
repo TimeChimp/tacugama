@@ -90,7 +90,7 @@ describe('utils/colors', () => {
     it('should get a default color', () => {
       const buttonBackgroundColor = getButtonBackgroundColor(ButtonType.default, colors as any);
 
-      expect(buttonBackgroundColor).toBe(colors.primary400);
+      expect(buttonBackgroundColor).toBe('#6559D2');
     });
 
     it('should get a success color', () => {
@@ -110,10 +110,15 @@ describe('utils/colors', () => {
     const colors = {
       primary600: 'primary600',
     };
-    it('should get a default color', () => {
-      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.default, colors as any);
 
-      expect(buttonBackgroundColor).toBe(colors.primary600);
+    const customColors = {
+      purple1: 'purple1',
+    };
+
+    it('should get a default color', () => {
+      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.default, customColors as any);
+
+      expect(buttonBackgroundColor).toBe(customColors.purple1);
     });
 
     it('should get a success color', () => {

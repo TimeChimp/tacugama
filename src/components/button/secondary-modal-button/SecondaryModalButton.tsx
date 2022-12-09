@@ -1,10 +1,10 @@
 import React from 'react';
-import { ButtonProps } from 'baseui/button';
 import { border, borderRadius, margin, padding } from '../../../utils';
 import { useTheme } from '../../../providers';
 import { ModalButton } from 'baseui/modal';
+import { SecondaryModalButtonProps } from './types';
 
-export const SecondaryModalButton = ({ children, size = 'compact', ...rest }: ButtonProps) => {
+export const SecondaryModalButton = ({ children, size = 'compact', ...rest }: SecondaryModalButtonProps) => {
   const {
     theme: {
       current: {
