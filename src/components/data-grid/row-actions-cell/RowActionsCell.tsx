@@ -2,7 +2,7 @@ import React, { useMemo, useRef, useState } from 'react';
 import { useTheme } from '../../../providers';
 import { RowActionsCellProps } from '../types';
 import { Dropdown } from '../../dropdown';
-import { TertiaryButton } from '../../button';
+import { MinimalButton } from '../../button';
 import { ActionMenu, ActionMenuActive } from '../../icons';
 import { RowEditCell } from '../row-edit-cell';
 
@@ -12,7 +12,7 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
   const {
     theme: {
       current: {
-        sizing: { scale500 },
+        sizing: { scale500, scale900 },
       },
     },
   } = useTheme();
@@ -53,9 +53,9 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
         additionalProperties={api}
         {...props}
       >
-        <TertiaryButton type="button">
+        <MinimalButton isTransparent={true} height={scale900} type="button">
           {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
-        </TertiaryButton>
+        </MinimalButton>
       </Dropdown>
     </div>
   ) : (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ParagraphSmall, ParagraphXSmall } from 'baseui/typography';
 import { Box } from '../box';
-import { TertiaryButton } from '../button';
+import { MinimalButton } from '../button';
 import { FlexGrid, FlexGridItem } from '../flex-grid';
 import { Download, Attachment as PaperClip, Trash } from '../icons';
 import { Separator } from '../separator';
@@ -73,16 +73,16 @@ export const AttachmentsList = ({ attachments, onDownload, onDelete }: Attacheme
                 <ParagraphXSmall color={light0}>{bytes(attachment.fileSize as number)}</ParagraphXSmall>
               </FlexGrid>
             </FlexGridItem>
-            <FlexGridItem display="flex" justifyContent="flex-end">
-              <TertiaryButton
-                size="mini"
+            <FlexGridItem display="flex" justifyContent="flex-end" gridGap={scale600} paddingRight={scale300}>
+              <MinimalButton
+                isTransparent={true}
                 onClick={() => onDownload(attachment.id as string, attachment.customFileName as string)}
               >
                 <Download size={scale500} />
-              </TertiaryButton>
-              <TertiaryButton size="mini" onClick={() => onDelete(attachment.id as string)}>
+              </MinimalButton>
+              <MinimalButton isTransparent={true} onClick={() => onDelete(attachment.id as string)}>
                 <Trash size={scale500} color={dark0} />
-              </TertiaryButton>
+              </MinimalButton>
             </FlexGridItem>
           </FlexGrid>
           <Separator />

@@ -6,7 +6,7 @@ import { useTheme } from '../../../providers';
 import { HeaderColumnToggleProps } from '..';
 import { Column } from '@ag-grid-community/core';
 import { DATA_TEST_ID } from '../../../models';
-import { border, borderRadius, padding } from '../../../utils';
+import { padding } from '../../../utils';
 import { FlexItem } from '../../flex-item';
 
 export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnToggleProps) => {
@@ -17,10 +17,9 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
   const {
     theme: {
       current: {
-        sizing: { scale300, scale500, scale600, scale800 },
+        sizing: { scale300, scale500, scale600 },
         colors: { primary },
-        borders: { border300, radius200 },
-        customColors: { dark1, light2, light3 },
+        customColors: { dark1 },
       },
     },
   } = useTheme();
@@ -64,29 +63,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
   }, [gridApi, columnApi, setVisibleColumns, toggleColumn]);
 
   return (
-    <TertiaryButton
-      overrides={{
-        BaseButton: {
-          style: {
-            height: scale800,
-            backgroundColor: light3,
-            ...border({
-              ...border300,
-              borderColor: light2,
-            }),
-            ...borderRadius(radius200),
-            ...padding(scale300),
-            ':hover': {
-              backgroundColor: light3,
-              ...border({
-                ...border300,
-                borderColor: light2,
-              }),
-            },
-          },
-        },
-      }}
-    >
+    <TertiaryButton>
       <Dropdown
         onOpen={() => setActive(true)}
         onClose={() => setActive(false)}

@@ -6,7 +6,7 @@ import { Dropdown, DropdownItem } from '../dropdown';
 import { DATA_TEST_ID } from '../../models';
 import { DataGridActionsProps } from './types';
 import { TrashFull, Download } from '../icons';
-import { border, borderRadius, padding } from '../../utils';
+import { FlexItem } from 'components/flex-item';
 import { exportExcel, exportPdf } from './export';
 import { ParagraphSmall } from '../typography';
 
@@ -31,9 +31,8 @@ export const DataGridActions = ({
     theme: {
       current: {
         colors: { primaryA },
-        sizing: { scale300, scale400, scale500, scale800 },
-        customColors: { red3, light3, dark4, light2 },
-        borders: { border300, radius200 },
+        sizing: { scale300, scale400, scale500 },
+        customColors: { red3, dark4 },
       },
     },
   } = useTheme();
@@ -62,26 +61,7 @@ export const DataGridActions = ({
     <StyledDataGridActions>
       {!hideDelete && onBulkDelete ? (
         <>
-          <TertiaryButton
-            overrides={{
-              Root: {
-                style: {
-                  height: scale800,
-                  backgroundColor: light3,
-                  marginRight: scale400,
-                  ...border({
-                    ...border300,
-                    borderColor: light2,
-                  }),
-                  ...borderRadius(radius200),
-                  ...padding(scale300),
-                },
-              },
-            }}
-            disabled={!rowsSelected}
-            onClick={() => onBulkDelete()}
-            testId={DELETE_BUTTON_TEST_ID}
-          >
+          <TertiaryButton disabled={!rowsSelected} onClick={() => onBulkDelete()} testId={DELETE_BUTTON_TEST_ID}>
             <TrashFull color={rowsSelected ? red3 : dark4} size={scale500} />
             <ParagraphSmall color={rowsSelected ? red3 : dark4} paddingLeft={scale400}>
               {translations.delete}
@@ -89,39 +69,24 @@ export const DataGridActions = ({
           </TertiaryButton>
         </>
       ) : null}
-      {!hideDownload && (
-        <Dropdown
-          items={dropdownItems}
-          propOverrides={{
-            listProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTIONS_TEST_ID }),
-            optionProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTION_TEST_ID }),
-          }}
-        >
-          <TertiaryButton
-            overrides={{
-              Root: {
-                style: {
-                  height: scale800,
-                  backgroundColor: light3,
-                  ...border({
-                    ...border300,
-                    borderColor: light2,
-                  }),
-                  ...borderRadius(radius200),
-                  ...padding(scale300),
-                },
-              },
+      <FlexItem marg4={scale300}>
+        {!hideDownload && (
+          <Dropdown
+            items={dropdownItems}
+            propOverrides={{
+              listProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTIONS_TEST_ID }),
+              optionProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTION_TEST_ID }),
             }}
-            disabled={!rowsSelected}
-            testId={EXPORT_BUTTON_TEST_ID}
           >
-            <Download size={scale500} color={rowsSelected ? primaryA : dark4} />
-            <ParagraphSmall color={rowsSelected ? primaryA : dark4} paddingLeft={scale400}>
-              {translations.export}
-            </ParagraphSmall>
-          </TertiaryButton>
-        </Dropdown>
-      )}
+            <TertiaryButton disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
+              <Download size={scale500} color={rowsSelected ? primaryA : dark4} />
+              <ParagraphSmall color={rowsSelected ? primaryA : dark4} paddingLeft={scale400}>
+                {translations.export}
+              </ParagraphSmall>
+            </TertiaryButton>
+          </Dropdown>
+        )}
+      </FlexItem>
     </StyledDataGridActions>
   );
 };

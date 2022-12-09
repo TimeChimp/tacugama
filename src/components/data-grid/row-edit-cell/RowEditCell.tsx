@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from '../../../providers';
 import { Pencil } from '../../icons';
-import { TertiaryButton } from '../../button';
+import { MinimalButton } from '../../button';
 import { RowEditCellProps } from '../types';
 
 export const RowEditCell = ({ onClick, icon: Icon }: RowEditCellProps) => {
@@ -16,9 +16,9 @@ export const RowEditCell = ({ onClick, icon: Icon }: RowEditCellProps) => {
 
   return (
     <div className="ag-row-edit-cell" onClick={onClick}>
-      <TertiaryButton>
+      <MinimalButton>
         {Icon ? <Icon size={scale500} color={contentTertiary} /> : <Pencil size={scale500} color={contentTertiary} />}
-      </TertiaryButton>
+      </MinimalButton>
     </div>
   );
 };

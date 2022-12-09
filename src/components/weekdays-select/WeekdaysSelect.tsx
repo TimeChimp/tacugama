@@ -1,7 +1,7 @@
 import React from 'react';
 import { WeekdaysSelectProps } from './types';
 import { Container, SelectAllLink, WeekdayComponent, WeekdaysContainer } from './styles';
-import { ParagraphSmall, TransparentButton } from '..';
+import { ParagraphSmall, MinimalButton } from '..';
 import { useTheme } from '../../providers';
 
 export const WeekdaysSelect = ({
@@ -52,9 +52,9 @@ export const WeekdaysSelect = ({
         ))}
       </WeekdaysContainer>
       {withSelectAll && (
-        <TransparentButton type="button" onClick={handleSelectAllDays}>
+        <MinimalButton type="button" isTransparent={true} onClick={handleSelectAllDays}>
           <SelectAllLink>{selectAllLabel}</SelectAllLink>
-        </TransparentButton>
+        </MinimalButton>
       )}
     </Container>
   );

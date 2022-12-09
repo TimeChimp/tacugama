@@ -1,8 +1,8 @@
 import React from 'react';
 import { SnackbarElementPropsT as BaseSnackbarElementProps } from 'baseui/snackbar';
-import { LabelSmall } from '../typography';
+import { LabelSmall, ParagraphSmall } from '../typography';
 import { Delete } from '../icons';
-import { TertiaryButton } from '../button';
+import { MinimalButton } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDiv, StyledSnackbar, StyledSpan } from './SnackbarStyles';
 
@@ -17,7 +17,6 @@ export const Snackbar = ({ color, onClose, message, actionMessage, actionOnClick
     theme: {
       current: {
         colors: { primaryB },
-        typography: { ParagraphSmall },
       },
     },
   } = useTheme();
@@ -29,32 +28,13 @@ export const Snackbar = ({ color, onClose, message, actionMessage, actionOnClick
       </StyledDiv>
       <StyledDiv>
         {actionMessage && (
-          <TertiaryButton
-            overrides={{
-              Root: {
-                style: {
-                  color: primaryB,
-                  ...ParagraphSmall,
-                },
-              },
-            }}
-            onClick={actionOnClick}
-          >
-            {actionMessage}
-          </TertiaryButton>
+          <MinimalButton isTransparent={true} onClick={actionOnClick}>
+            <ParagraphSmall color={primaryB}>{actionMessage}</ParagraphSmall>
+          </MinimalButton>
         )}
-        <TertiaryButton
-          overrides={{
-            Root: {
-              style: {
-                color: primaryB,
-              },
-            },
-          }}
-          onClick={onClose}
-        >
-          <Delete />
-        </TertiaryButton>
+        <MinimalButton isTransparent={true} onClick={onClose}>
+          <Delete color={primaryB} />
+        </MinimalButton>
       </StyledDiv>
     </StyledSnackbar>
   );

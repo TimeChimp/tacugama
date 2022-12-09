@@ -1,6 +1,5 @@
 import React, { forwardRef } from 'react';
-import { SecondaryButton, SecondaryButtonProps, TransparentButton } from '../../button';
-import { border, borderRadius, padding } from '../../../utils';
+import { SecondaryButton, SecondaryButtonProps, MinimalButton } from '../../button';
 import { LabelSmall } from '../../typography';
 import { ArrowDown, Clear } from '../../icons';
 import { useTheme } from '../../../providers';
@@ -30,33 +29,13 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
       <SecondaryButton
         ref={ref}
         testId={testId ?? FILTER_BUTTON_TEST_ID}
-        overrides={{
-          BaseButton: {
-            style: ({ $theme }) => {
-              return {
-                ...border($theme.borders.border300),
-                boxSizing: 'border-box',
-                ...borderRadius($theme.borders.radius200),
-                ...padding('9px'), // NOTE: Values does not exist in theme
-                ':hover': {
-                  backgroundColor: $theme.colors.primaryB,
-                  boxShadow: $theme.lighting.shadow400,
-                },
-                ':active': {
-                  backgroundColor: $theme.colors.primaryB,
-                  boxShadow: $theme.lighting.shadow400,
-                },
-              };
-            },
-          },
-        }}
         endEnhancer={
           <>
             {arrows && <ArrowDown size={scale300} />}
             {hasValue && onClear && (
-              <TransparentButton onClick={onClear}>
+              <MinimalButton isTransparent={true} onClick={onClear}>
                 <Clear size={scale600} color={primaryA} />
-              </TransparentButton>
+              </MinimalButton>
             )}
           </>
         }

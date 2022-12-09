@@ -1,11 +1,11 @@
-import { Tag, TransparentButton } from '..';
+import { Tag, MinimalButton } from '..';
 import React from 'react';
 import { ClickableTagProps } from './types';
 
 export const ClickableTag = ({ onClick, label, tagProps = {}, buttonProps = {} }: ClickableTagProps) => {
   return (
-    <TransparentButton onClick={onClick} type="button" {...buttonProps}>
+    <MinimalButton onClick={onClick} type="button" isTransparent={true} {...buttonProps}>
       <Tag value={label} cursor="pointer" {...tagProps} />
-    </TransparentButton>
+    </MinimalButton>
   );
 };

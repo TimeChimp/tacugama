@@ -1,10 +1,9 @@
 import React from 'react';
 import { SnackbarElementPropsT as BaseSnackbarElementProps } from 'baseui/snackbar';
 import { LabelSmall } from '../typography';
-import { TertiaryButton } from '../button';
+import { MinimalButton } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDiv, StyledAlert, StyledSpan } from './AlertStyles';
-import { SIZE } from 'baseui/button';
 
 export interface AlertProps extends BaseSnackbarElementProps {
   color?: string;
@@ -17,7 +16,6 @@ export const Alert = ({ color, minWidth, message, actionMessage, actionOnClick, 
     theme: {
       current: {
         colors: { primaryB },
-        typography: { ParagraphSmall },
       },
     },
   } = useTheme();
@@ -29,20 +27,9 @@ export const Alert = ({ color, minWidth, message, actionMessage, actionOnClick, 
       </StyledDiv>
       <StyledDiv>
         {actionMessage && (
-          <TertiaryButton
-            overrides={{
-              Root: {
-                style: {
-                  color: primaryB,
-                  ...ParagraphSmall,
-                },
-              },
-            }}
-            size={SIZE.mini}
-            onClick={actionOnClick}
-          >
+          <MinimalButton isTransparent={true} color={primaryB} onClick={actionOnClick}>
             {actionMessage}
-          </TertiaryButton>
+          </MinimalButton>
         )}
       </StyledDiv>
     </StyledAlert>
