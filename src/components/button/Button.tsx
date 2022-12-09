@@ -20,6 +20,7 @@ export interface ButtonProps extends BaseButtonProps {
   kind?: KIND[keyof KIND];
   testId?: string;
   height?: string;
+  rootOverrides?: { [key: string]: number | string };
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -34,6 +35,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       kind = KIND.primary,
       size = SIZE.compact,
       testId,
+      rootOverrides,
       ...rest
     }: ButtonProps,
     ref,
@@ -97,6 +99,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   color: dark4,
                 },
               },
+              ...rootOverrides,
             },
           },
           StartEnhancer: {
