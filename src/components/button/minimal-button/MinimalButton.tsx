@@ -5,7 +5,7 @@ import { Button } from '../Button';
 import { MinimalButtonProps } from './types';
 
 export const MinimalButton = forwardRef<HTMLButtonElement, MinimalButtonProps>(
-  ({ children, isTransparent = false, height, color, ...rest }: MinimalButtonProps, ref) => {
+  ({ children, isTransparent, height, color, ...rest }: MinimalButtonProps, ref) => {
     const {
       theme: {
         current: {

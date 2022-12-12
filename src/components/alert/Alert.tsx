@@ -27,7 +27,7 @@ export const Alert = ({ color, minWidth, message, actionMessage, actionOnClick, 
       </StyledDiv>
       <StyledDiv>
         {actionMessage && (
-          <MinimalButton isTransparent={true} color={primaryB} onClick={actionOnClick}>
+          <MinimalButton isTransparent color={primaryB} onClick={actionOnClick}>
             {actionMessage}
           </MinimalButton>
         )}

@@ -130,7 +130,7 @@ export const DataGridViewOptions = ({
                 component: ({ item: { id, label } }: { item: DropdownItem }) => (
                   <StyledDataGridViewListItem>
                     <MinimalButton
-                      isTransparent={true}
+                      isTransparent
                       height={scale1400}
                       onClick={() => id && onViewSelect(id)}
                       startEnhancer={() => (
@@ -148,7 +148,7 @@ export const DataGridViewOptions = ({
                     </MinimalButton>
                     {id !== 'default' && (
                       <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
-                        <MinimalButton isTransparent={true}>
+                        <MinimalButton isTransparent>
                           <ActionMenuHorizontal size={scale400} color={primary} />
                         </MinimalButton>
                       </Dropdown>
@@ -161,7 +161,7 @@ export const DataGridViewOptions = ({
           <StyledViewOptionsFooter>
             <MinimalButton
               height={scale1400}
-              isTransparent={true}
+              isTransparent
               onClick={() => setCreateModalIsOpen(true)}
               startEnhancer={() => <Plus size={scale650} color={primary} />}
             >

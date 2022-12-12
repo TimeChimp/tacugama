@@ -53,7 +53,7 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
         additionalProperties={api}
         {...props}
       >
-        <MinimalButton isTransparent={true} height={scale900} type="button">
+        <MinimalButton isTransparent height={scale900} type="button">
           {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
         </MinimalButton>
       </Dropdown>

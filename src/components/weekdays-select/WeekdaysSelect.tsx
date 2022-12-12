@@ -52,7 +52,7 @@ export const WeekdaysSelect = ({
         ))}
       </WeekdaysContainer>
       {withSelectAll && (
-        <MinimalButton type="button" isTransparent={true} onClick={handleSelectAllDays}>
+        <MinimalButton type="button" isTransparent onClick={handleSelectAllDays}>
           <SelectAllLink>{selectAllLabel}</SelectAllLink>
         </MinimalButton>
       )}
