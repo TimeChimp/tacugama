@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, AlertProps } from '../Alert';
 import { useTheme } from '../../../providers';
-import { Check } from '../../icons';
+import { CheckIcon } from '../../icons';
 
 export interface SuccessAlertProps extends AlertProps {}
 
@@ -10,11 +10,10 @@ export const SuccessAlert = ({ ...rest }: SuccessAlertProps) => {
     theme: {
       current: {
         colors: { backgroundPositive },
-        sizing: { scale700 },
       },
     },
   } = useTheme();
-  return <Alert {...rest} color={backgroundPositive} startIcon={<Check size={scale700} />} />;
+  return <Alert {...rest} color={backgroundPositive} startIcon={<CheckIcon />} />;
 };
 
 export default SuccessAlert;

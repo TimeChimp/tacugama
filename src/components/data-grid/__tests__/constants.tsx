@@ -1,11 +1,12 @@
 import React from 'react';
 import { DataGridColumn, Filter, FilterType } from '../types';
-import { Account, Briefcase, Calendar, Documents, Tasks, Unlink } from '../../icons';
+
 import { Dot } from '../../dot';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { Avatar } from '../../avatar';
 import { ParagraphSmall } from 'baseui/typography';
 import { useTheme } from '../../../providers';
+import { CalendarIcon, BriefcaseIcon, NoteIcon, AvatarIcon, XmarkIcon } from '../../icons';
 import { DropdownItem } from 'components/dropdown';
 
 const CustomCellComponent = ({ data }: any) => {
@@ -97,7 +98,7 @@ export const FILTERS: Filter[] = [
     type: FilterType.date,
     title: 'Date',
     columnField: 'start',
-    icon: ({ ...props }) => <Calendar size="12px" {...props} />,
+    icon: ({ ...props }) => <CalendarIcon {...props} />,
   },
   {
     type: FilterType.select,
@@ -115,7 +116,7 @@ export const FILTERS: Filter[] = [
     title: 'Users',
     columnField: 'userName',
     values: ['Henkie', 'Baltus', 'Bob'],
-    icon: ({ ...props }) => <Account size="12px" {...props} />,
+    icon: ({ ...props }) => <AvatarIcon size="12px" {...props} />,
     searchPlaceholder: 'Search users',
     valuesLoading: true,
   },
@@ -125,7 +126,7 @@ export const FILTERS: Filter[] = [
     columnField: 'client',
     values: ['Apple', 'Microsoft', 'Amazon', 'Google'],
     searchPlaceholder: 'Search clients',
-    icon: ({ ...props }) => <Briefcase {...props} />,
+    icon: ({ ...props }) => <BriefcaseIcon {...props} />,
   },
   {
     type: FilterType.string,
@@ -133,7 +134,7 @@ export const FILTERS: Filter[] = [
     columnField: 'project',
     values: ['Workshop', 'Website redesign', 'Logo and branding'],
     searchPlaceholder: 'Search projects',
-    icon: ({ ...props }) => <Documents {...props} size="14px" />,
+    icon: ({ ...props }) => <NoteIcon {...props} size="14px" />,
   },
   {
     type: FilterType.string,
@@ -141,14 +142,14 @@ export const FILTERS: Filter[] = [
     columnField: 'task',
     values: ['Testing', 'Development', 'Design', 'Support'],
     searchPlaceholder: 'Search tasks',
-    icon: ({ ...props }) => <Tasks {...props} />,
+    icon: ({ ...props }) => <NoteIcon {...props} />,
   },
 ];
 
 export const ROW_ACTION_ITEMS: DropdownItem[] = [
   {
     label: 'Edit',
-    icon: <Unlink size="12px" />,
+    icon: <XmarkIcon size="12px" />,
     action: () => {},
   },
 ];

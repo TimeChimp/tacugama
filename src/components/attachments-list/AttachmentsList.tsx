@@ -3,7 +3,7 @@ import { ParagraphSmall, ParagraphXSmall } from 'baseui/typography';
 import { Box } from '../box';
 import { TertiaryButton } from '../button';
 import { FlexGrid, FlexGridItem } from '../flex-grid';
-import { Download, Attachment as PaperClip, Trash } from '../icons';
+import { AttachmentIcon, DownloadIcon, DeleteIcon } from '../icons';
 import { Separator } from '../separator';
 import { useTheme } from '../../providers';
 import bytes from 'bytes';
@@ -61,7 +61,7 @@ export const AttachmentsList = ({ attachments, onDownload, onDelete }: Attacheme
               }}
             >
               <FlexGrid alignItems="center">
-                <PaperClip />
+                <AttachmentIcon />
                 <ParagraphSmall alignSelf="center" marginLeft={scale600} marginRight={scale300}>
                   {attachment.customFileName}
                 </ParagraphSmall>
@@ -78,10 +78,10 @@ export const AttachmentsList = ({ attachments, onDownload, onDelete }: Attacheme
                 size="mini"
                 onClick={() => onDownload(attachment.id as string, attachment.customFileName as string)}
               >
-                <Download size={scale500} />
+                <DownloadIcon />
               </TertiaryButton>
               <TertiaryButton size="mini" onClick={() => onDelete(attachment.id as string)}>
-                <Trash size={scale500} color={dark0} />
+                <DeleteIcon color={dark0} />
               </TertiaryButton>
             </FlexGridItem>
           </FlexGrid>
