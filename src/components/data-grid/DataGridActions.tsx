@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TertiaryButton } from '../button';
+import { Button } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDataGridActions } from './styles';
 import { Dropdown, DropdownItem } from '../dropdown';
@@ -61,12 +61,17 @@ export const DataGridActions = ({
     <StyledDataGridActions>
       {!hideDelete && onBulkDelete ? (
         <>
-          <TertiaryButton disabled={!rowsSelected} onClick={() => onBulkDelete()} testId={DELETE_BUTTON_TEST_ID}>
+          <Button
+            kind="tertiary"
+            disabled={!rowsSelected}
+            onClick={() => onBulkDelete()}
+            testId={DELETE_BUTTON_TEST_ID}
+          >
             <TrashFull color={rowsSelected ? red3 : dark4} size={scale500} />
             <ParagraphSmall color={rowsSelected ? red3 : dark4} paddingLeft={scale400}>
               {translations.delete}
             </ParagraphSmall>
-          </TertiaryButton>
+          </Button>
         </>
       ) : null}
       <FlexItem marg4={scale300}>
@@ -78,12 +83,12 @@ export const DataGridActions = ({
               optionProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTION_TEST_ID }),
             }}
           >
-            <TertiaryButton disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
+            <Button kind="tertiary" disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
               <Download size={scale500} color={rowsSelected ? primaryA : dark4} />
               <ParagraphSmall color={rowsSelected ? primaryA : dark4} paddingLeft={scale400}>
                 {translations.export}
               </ParagraphSmall>
-            </TertiaryButton>
+            </Button>
           </Dropdown>
         )}
       </FlexItem>

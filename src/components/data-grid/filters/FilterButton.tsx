@@ -1,12 +1,12 @@
 import React, { forwardRef } from 'react';
-import { SecondaryButton, SecondaryButtonProps, MinimalButton } from '../../button';
+import { Button, ButtonProps } from '../../button';
 import { LabelSmall } from '../../typography';
 import { ArrowDown, Clear } from '../../icons';
 import { useTheme } from '../../../providers';
 
 const FILTER_BUTTON_TEST_ID = 'filter-button';
 
-export interface FilterButtonProps extends SecondaryButtonProps {
+export interface FilterButtonProps extends ButtonProps {
   title: string;
   isActive?: boolean;
   hasValue?: boolean;
@@ -26,16 +26,17 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
     } = useTheme();
 
     return (
-      <SecondaryButton
+      <Button
+        kind="secondary"
         ref={ref}
         testId={testId ?? FILTER_BUTTON_TEST_ID}
         endEnhancer={
           <>
             {arrows && <ArrowDown size={scale300} />}
             {hasValue && onClear && (
-              <MinimalButton isTransparent onClick={onClear}>
+              <Button kind="minimal" isTransparent onClick={onClear}>
                 <Clear size={scale600} color={primaryA} />
-              </MinimalButton>
+              </Button>
             )}
           </>
         }
@@ -52,7 +53,7 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
         >
           {title}
         </LabelSmall>
-      </SecondaryButton>
+      </Button>
     );
   },
 );

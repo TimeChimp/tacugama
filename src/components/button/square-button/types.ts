@@ -1,6 +1,6 @@
-import { TertiaryButtonProps } from '../tertiary-button';
+import { ButtonProps } from '../Button';
 
-export interface SquareButtonProps extends TertiaryButtonProps {
+export interface SquareButtonProps extends ButtonProps {
   backgroundColor?: string;
   borderColor?: string;
   textColor?: string;

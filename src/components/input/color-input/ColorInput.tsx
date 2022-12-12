@@ -1,7 +1,7 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { ColorResult, TwitterPicker } from 'react-color';
 import { Input } from '../Input';
-import { TertiaryButton } from '../../button';
+import { Button } from '../../button';
 import { ClickOutside } from '../../click-outside';
 import { margin, padding } from '../../../utils';
 import { ColorPickerContainer, StyledColorSwatch } from '../styles';
@@ -64,7 +64,8 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
     <>
       <Input
         startEnhancer={
-          <TertiaryButton
+          <Button
+            kind="tertiary"
             overrides={{
               BaseButton: {
                 style: ({ $theme }) => ({
@@ -86,7 +87,7 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
             onClick={() => setShowColorPicker(!showColorPicker)}
           >
             <StyledColorSwatch $color={value ?? contentInverseTertiary} />
-          </TertiaryButton>
+          </Button>
         }
         placeholder="#00000"
         onChange={(e: FormEvent<HTMLInputElement>) => onChange(e.currentTarget.value)}

@@ -77,7 +77,7 @@ import { GroupRowInnerRenderer } from './group-row-inner-renderer';
 import { GroupRowInnerTagRenderer } from './group-row-inner-tag-renderer';
 import { FlexItem } from '../flex-item';
 import { ParagraphSmall } from '../typography';
-import { TertiaryButton } from '../button';
+import { Button } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { ArrowDown, Pencil } from '../icons';
 
@@ -717,14 +717,14 @@ export const DataGrid = ({
                   <FlexItem width="auto">
                     <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
                     <Dropdown items={options}>
-                      <TertiaryButton>
+                      <Button kind="tertiary">
                         <ParagraphSmall $style={{ cursor: 'pointer' }} color={dark1}>
                           {selectedGroupOption?.label ?? translations.none}
                         </ParagraphSmall>
                         <FlexItem marg4={scale500}>
                           <ArrowDown size={scale300} color={dark1} />
                         </FlexItem>
-                      </TertiaryButton>
+                      </Button>
                     </Dropdown>
                   </FlexItem>
                 </>

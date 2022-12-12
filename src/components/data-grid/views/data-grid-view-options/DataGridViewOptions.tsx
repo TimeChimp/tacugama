@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PLACEMENT } from 'baseui/popover';
 import { SIZE } from 'baseui/button';
-import { MinimalButton, TertiaryButton } from '../../../button';
+import { Button } from '../../../button';
 import { DataGridViewOptionsProps } from '../../types';
 import { StyledViewOptionsFooter, StyledDataGridViewListItem } from '../../styles';
 import { StatefulPopover } from '../../../popover';
@@ -129,7 +129,8 @@ export const DataGridViewOptions = ({
               ListItem: {
                 component: ({ item: { id, label } }: { item: DropdownItem }) => (
                   <StyledDataGridViewListItem>
-                    <MinimalButton
+                    <Button
+                      kind="minimal"
                       isTransparent
                       height={scale1400}
                       onClick={() => id && onViewSelect(id)}
@@ -145,12 +146,12 @@ export const DataGridViewOptions = ({
                       >
                         {label}
                       </LabelXSmall>
-                    </MinimalButton>
+                    </Button>
                     {id !== 'default' && (
                       <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
-                        <MinimalButton isTransparent>
+                        <Button kind="minimal" isTransparent>
                           <ActionMenuHorizontal size={scale400} color={primary} />
-                        </MinimalButton>
+                        </Button>
                       </Dropdown>
                     )}
                   </StyledDataGridViewListItem>
@@ -159,7 +160,8 @@ export const DataGridViewOptions = ({
             }}
           />
           <StyledViewOptionsFooter>
-            <MinimalButton
+            <Button
+              kind="minimal"
               height={scale1400}
               isTransparent
               onClick={() => setCreateModalIsOpen(true)}
@@ -174,14 +176,14 @@ export const DataGridViewOptions = ({
               >
                 {translations.addView}
               </LabelXSmall>
-            </MinimalButton>
+            </Button>
           </StyledViewOptionsFooter>
         </>
       )}
     >
-      <TertiaryButton endEnhancer={() => <ArrowDown color={dark1} size={scale300} />}>
+      <Button kind="tertiary" endEnhancer={() => <ArrowDown color={dark1} size={scale300} />}>
         <ParagraphSmall color={dark1}>{translations.viewOptions}</ParagraphSmall>
-      </TertiaryButton>
+      </Button>
     </StatefulPopover>
   );
 };

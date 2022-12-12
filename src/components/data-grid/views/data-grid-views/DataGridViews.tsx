@@ -3,7 +3,7 @@ import { ParagraphSmall } from '../../../typography';
 import { useTheme } from '../../../../providers';
 import { DataGridViewsProps, DataGridView, CreateViewInput } from '../../types';
 import { StyledDataGridViews } from '../../styles';
-import { TertiaryButton, Button } from '../../../button';
+import { Button } from '../../../button';
 import { ConfirmationModal } from '../../../confirmation-modal';
 import { CreateViewModal } from '../create-view-modal';
 import { FlexItem } from '../../../flex-item';
@@ -165,9 +165,9 @@ export const DataGridViews = ({
                   <ParagraphSmall color={primaryB}>{view.name}</ParagraphSmall>
                 </Button>
               ) : (
-                <TertiaryButton onClick={() => handleActivateView(view.id)}>
+                <Button kind="tertiary" onClick={() => handleActivateView(view.id)}>
                   <ParagraphSmall>{view.name}</ParagraphSmall>
-                </TertiaryButton>
+                </Button>
               )}
             </FlexItem>
           ))}

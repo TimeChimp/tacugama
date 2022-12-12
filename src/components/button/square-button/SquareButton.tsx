@@ -1,8 +1,8 @@
 import React from 'react';
 import { border, borderRadius, padding } from '../../../utils';
 import { useTheme } from '../../../providers';
-import { TertiaryButton } from '../tertiary-button';
 import { SquareButtonProps } from './types';
+import Button from '../Button';
 
 export const SquareButton = ({ children, borderColor, backgroundColor, ...props }: SquareButtonProps) => {
   const {
@@ -17,8 +17,9 @@ export const SquareButton = ({ children, borderColor, backgroundColor, ...props 
   } = useTheme();
 
   return (
-    <TertiaryButton
+    <Button
       size="compact"
+      kind="tertiary"
       {...props}
       overrides={{
         BaseButton: {
@@ -48,6 +49,6 @@ export const SquareButton = ({ children, borderColor, backgroundColor, ...props 
       }}
     >
       {children}
-    </TertiaryButton>
+    </Button>
   );
 };

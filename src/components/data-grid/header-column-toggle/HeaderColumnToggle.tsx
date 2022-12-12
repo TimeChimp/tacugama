@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { ArrowDown, TableSettings } from '../../icons';
 import { Dropdown, DropdownItem } from '../../dropdown';
-import { TertiaryButton } from '../../button';
+import { Button } from '../../button';
 import { useTheme } from '../../../providers';
 import { HeaderColumnToggleProps } from '..';
 import { Column } from '@ag-grid-community/core';
@@ -63,7 +63,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
   }, [gridApi, columnApi, setVisibleColumns, toggleColumn]);
 
   return (
-    <TertiaryButton>
+    <Button kind="tertiary">
       <Dropdown
         onOpen={() => setActive(true)}
         onClose={() => setActive(false)}
@@ -75,7 +75,8 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
           optionProps: () => ({ [DATA_TEST_ID]: 'data-grid-column-toggle-option' }),
         }}
       >
-        <TertiaryButton
+        <Button
+          kind="tertiary"
           overrides={{
             BaseButton: {
               style: {
@@ -88,9 +89,9 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
           <FlexItem marg4={scale500}>
             <ArrowDown size={scale300} color={active ? primary : dark1} />
           </FlexItem>
-        </TertiaryButton>
+        </Button>
       </Dropdown>
-    </TertiaryButton>
+    </Button>
   );
 };
 

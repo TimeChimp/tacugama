@@ -1,7 +1,7 @@
 import React from 'react';
 import { ParagraphSmall } from 'baseui/typography';
 import { useTheme } from '../../providers';
-import { Block, Box, MinimalButton, StatefulTooltip, Copy } from '../../components';
+import { Block, Box, Button, StatefulTooltip, Copy } from '../../components';
 import { padding } from '../../utils';
 import { StyledCopyIcon } from './StyledCopyText';
 
@@ -52,9 +52,9 @@ export const CopyText = ({
       </ParagraphSmall>
       <StyledCopyIcon onClick={() => copyTextHandler(value)}>
         <StatefulTooltip triggerType="click" content={() => <Block>{copiedText}</Block>}>
-          <MinimalButton isTransparent>
+          <Button kind="minimal" isTransparent>
             <Copy size={scale550} />
-          </MinimalButton>
+          </Button>
         </StatefulTooltip>
       </StyledCopyIcon>
     </Box>

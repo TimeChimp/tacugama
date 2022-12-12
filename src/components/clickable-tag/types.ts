@@ -1,9 +1,9 @@
-import { TagProps, MinimalButtonProps } from '..';
+import { TagProps, ButtonProps } from '..';
 import { MouseEvent } from 'react';
 
 export interface ClickableTagProps {
   label: string;
   onClick: (e: MouseEvent<HTMLButtonElement>) => void;
   tagProps?: TagProps;
-  buttonProps?: MinimalButtonProps;
+  buttonProps?: ButtonProps;
 }
