@@ -19,14 +19,22 @@ export const NumberInputComponent = themedStyled<typeof NumberFormat, NumberInpu
     color: $theme.colors.contentPrimary,
     ...border({
       ...$theme.borders.border300,
-      borderColor: getInputBorderColor($error ?? false, false, $theme.colors, $theme.borders),
+      borderColor: getInputBorderColor({
+        error: $error ?? false,
+        colors: $theme.colors,
+        customColors: $theme.customColors,
+      }),
       borderWidth: $error ? $theme.sizing.scale0 : $theme.borders.border300.borderWidth,
     }),
     ...borderRadius($theme.borders.radius200),
     ':focus': {
       ...border({
         ...$theme.borders.border300,
-        borderColor: getInputBorderColor($error ?? false, true, $theme.colors, $theme.borders),
+        borderColor: getInputBorderColor({
+          error: $error ?? false,
+          colors: $theme.colors,
+          customColors: $theme.customColors,
+        }),
         borderWidth: $error ? $theme.sizing.scale0 : $theme.borders.border300.borderWidth,
       }),
     },

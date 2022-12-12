@@ -5,13 +5,13 @@ import { Input } from '..';
 
 const DEFAULT_DURATION_FORMAT = 'HH:mm';
 const SECONDS_IN_HOUR = 60 * 60;
+const HOURS_INPUT_WIDTH = '72px';
 
 export const HoursInput = ({
-  disabled,
-  endEnhancer,
   onSubmit,
   durationFormat = DEFAULT_DURATION_FORMAT,
   defaultValue,
+  ...rest
 }: HoursInputProps) => {
   const [inputIsValid, setInputIsValid] = useState(true);
   const [inputValue, setInputValue] = useState('');
@@ -52,14 +52,14 @@ export const HoursInput = ({
 
   return (
     <Input
-      disabled={disabled}
       value={inputValue}
       onChange={onChange}
       onBlur={onBlur}
       error={!inputIsValid}
-      endEnhancer={endEnhancer}
       autoComplete="off"
       placeholder={durationPlaceholder(durationFormat)}
+      width={HOURS_INPUT_WIDTH}
+      {...rest}
     />
   );
 };

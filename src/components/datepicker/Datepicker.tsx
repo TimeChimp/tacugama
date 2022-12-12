@@ -1,34 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { TetherPlacement } from 'baseui/layer';
 import {
   border,
   borderBottom,
   borderRadius,
   getInputBorderColor,
-  getInputContainerColors,
-  getInputPlaceholderTextColor,
+  getInputTextColor,
+  getInputBackgroundColor,
   margin,
   padding,
 } from '../../utils';
 import { useTheme } from '../../providers';
-import { DatepickerProps, DatePicker, DatepickerOverrides, SharedStylePropsT } from 'baseui/datepicker';
+import { DatePicker, DatepickerOverrides, SharedStylePropsT } from 'baseui/datepicker';
 import { Select } from '../select';
 import { DATA_TEST_ID } from '../../models';
 import { InputOverrides, InputProps } from 'baseui/input';
 import { Calendar } from '../icons';
-import { getDateLocale, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
-
-export interface DatePickerProps extends DatepickerProps {
-  placement?: TetherPlacement[keyof TetherPlacement];
-  locale?: SupportedLocale;
-  weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
-  testId?: string;
-  noBorder?: boolean;
-  iconColor?: string;
-  customValue: Date[];
-  setCustomValue: (date: Date[]) => any;
-  onChange: (date: { date: Date | Date[] }) => any;
-}
+import { getDateLocale } from '@timechimp/timechimp-typescript-helpers';
+import { DatePickerProps } from './types';
 
 export const Datepicker = ({
   customValue,
@@ -52,6 +40,7 @@ export const Datepicker = ({
         colors: { primaryA, contentTertiary },
         borders,
         colors,
+        customColors,
       },
     },
   } = useTheme();
@@ -73,14 +62,15 @@ export const Datepicker = ({
   const inputBaseOverrides: InputOverrides = {
     Input: {
       style: ({ $disabled, $isFocused, $theme }) => {
-        const { color, backgroundColor } = getInputContainerColors($theme.colors, $disabled);
+        const backgroundColor = getInputBackgroundColor({ disabled: $disabled, customColors, colors });
+        const color = getInputTextColor({ isFocused: $isFocused, hasValue: !!customValue, customColors, colors });
         return {
           backgroundColor,
           ...border(),
           ...padding('0', scale500),
           color,
           '::placeholder': {
-            color: getInputPlaceholderTextColor($disabled, $isFocused, colors),
+            color: customColors.dark4,
           },
           fontSize: $theme.typography.LabelSmall.fontSize,
         };
@@ -102,7 +92,12 @@ export const Datepicker = ({
           !noBorder
             ? {
                 ...border300,
-                borderColor: getInputBorderColor($error, $isFocused, colors, borders),
+                borderColor: getInputBorderColor({
+                  error: $error,
+                  isFocused: $isFocused,
+                  colors,
+                  customColors,
+                }),
               }
             : undefined,
         ),
@@ -113,13 +108,13 @@ export const Datepicker = ({
     },
     StartEnhancer: {
       style: ({ $disabled, $theme }) => ({
-        backgroundColor: getInputContainerColors(colors, $disabled).backgroundColor,
+        backgroundColor: getInputBackgroundColor({ disabled: $disabled, customColors, colors }),
         ...padding('0', $theme.sizing.scale0, '0', '0px'),
       }),
     },
     EndEnhancer: {
       style: ({ $disabled, $theme }) => ({
-        backgroundColor: getInputContainerColors(colors, $disabled).backgroundColor,
+        backgroundColor: getInputBackgroundColor({ disabled: $disabled, customColors, colors }),
         ...padding('0', '0', '0', $theme.sizing.scale0),
       }),
     },

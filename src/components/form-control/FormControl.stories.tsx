@@ -20,6 +20,13 @@ Default.args = {
   label: () => 'label',
 };
 
+Default.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=1511%3A17065&t=O4AS7sHF1cnZypM6-4',
+  },
+};
+
 export const WithCaption = Template.bind({});
 WithCaption.args = {
   label: () => 'label',

@@ -5,21 +5,34 @@ import {
   border,
   borderRadius,
   getInputBorderColor,
-  getInputContainerColors,
-  getInputPlaceholderTextColor,
+  getInputBackgroundColor,
+  getInputTextColor,
   margin,
   padding,
 } from '../../utils';
 import { DATA_TEST_ID } from '../../models';
 import { InputProps } from './types';
 
-export const Input = ({ testId, type, uppercase, noBorder = false, ...rest }: InputProps) => {
+export const Input = ({
+  value,
+  testId,
+  type,
+  uppercase,
+  noBorder = false,
+  success = false,
+  disabled,
+  width = '100%',
+  startEnhancer = null,
+  endEnhancer = null,
+  ...rest
+}: InputProps) => {
   const {
     theme: {
       current: {
-        sizing: { scale500, scale1000 },
+        sizing: { scale500, scale550, scale600 },
         borders,
         colors,
+        customColors,
       },
     },
   } = useTheme();
@@ -36,15 +49,16 @@ export const Input = ({ testId, type, uppercase, noBorder = false, ...rest }: In
   const baseOverrides: InputOverrides = {
     Input: {
       style: ({ $disabled, $isFocused, $theme }) => {
-        const { color, backgroundColor } = getInputContainerColors($theme.colors, $disabled);
+        const backgroundColor = getInputBackgroundColor({ disabled: $disabled, customColors, colors });
+        const color = getInputTextColor({ isFocused: $isFocused, hasValue: !!value, customColors, colors });
         return {
           backgroundColor,
           ...border(),
-          ...padding('0', scale500),
+          ...padding('0', !!endEnhancer ? scale500 : scale600, '0', !!startEnhancer ? scale500 : scale600),
           textTransform: uppercase ? 'uppercase' : 'inherit',
           color,
           '::placeholder': {
-            color: getInputPlaceholderTextColor($disabled, $isFocused, colors),
+            color: customColors.dark4,
           },
           fontSize: $theme.typography.LabelSmall.fontSize,
         };
@@ -61,12 +75,19 @@ export const Input = ({ testId, type, uppercase, noBorder = false, ...rest }: In
     },
     Root: {
       style: ({ $error, $isFocused }) => ({
-        height: scale1000,
+        height: '38px', // NOTE: Size does not exist in the theme
+        width,
         ...border(
           !noBorder
             ? {
                 ...border300,
-                borderColor: getInputBorderColor($error, $isFocused, colors, borders),
+                borderColor: getInputBorderColor({
+                  error: $error,
+                  success,
+                  isFocused: $isFocused,
+                  customColors,
+                  colors,
+                }),
               }
             : undefined,
         ),
@@ -74,27 +95,51 @@ export const Input = ({ testId, type, uppercase, noBorder = false, ...rest }: In
         backgroundColor: primaryB,
         ...margin('0'),
         ...rootPadding(),
+        ':hover': {
+          ...border({
+            ...border300,
+            borderColor: getInputBorderColor({
+              error: $error,
+              success,
+              isFocused: $isFocused,
+              customColors,
+              colors,
+              hover: true,
+              disabled,
+            }),
+          }),
+        },
       }),
     },
     StartEnhancer: {
-      style: ({ $disabled, $theme }) => ({
-        backgroundColor: getInputContainerColors(colors, $disabled).backgroundColor,
-        ...padding('0', $theme.sizing.scale0, '0', '14px'),
+      style: ({ $disabled }) => ({
+        backgroundColor: getInputBackgroundColor({ disabled: $disabled, customColors, colors }),
+        ...padding('0', '0', '0', scale600),
       }),
     },
     EndEnhancer: {
-      style: ({ $disabled, $theme }) => ({
-        backgroundColor: getInputContainerColors(colors, $disabled).backgroundColor,
-        ...padding('0', '14px', '0', $theme.sizing.scale0),
+      style: ({ $disabled }) => ({
+        backgroundColor: getInputBackgroundColor({ disabled: $disabled, customColors, colors }),
+        ...padding('0', scale600, '0', '0'),
       }),
     },
     MaskToggleButton: {
       style: {
-        ...padding('0', '0', '0', '14px'),
+        ...padding('0', '0', '0', scale550),
         outline: 'none',
       },
     },
   };
 
-  return <BaseInput overrides={baseOverrides} type={type} {...rest} />;
+  return (
+    <BaseInput
+      value={value}
+      disabled={disabled}
+      startEnhancer={startEnhancer}
+      endEnhancer={endEnhancer}
+      overrides={baseOverrides}
+      type={type}
+      {...rest}
+    />
+  );
 };
