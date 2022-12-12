@@ -54,3 +54,4 @@ export * from './weekdays-select';
 export * from './clickable-tag';
 export * from './icon';
 export * from './icons';
+export * from './button-switcher';
