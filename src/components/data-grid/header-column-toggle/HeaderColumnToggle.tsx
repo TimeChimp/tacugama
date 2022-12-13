@@ -8,6 +8,7 @@ import { Column } from '@ag-grid-community/core';
 import { DATA_TEST_ID } from '../../../models';
 import { padding } from '../../../utils';
 import { FlexItem } from '../../flex-item';
+import { KIND } from 'baseui/button';
 
 export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnToggleProps) => {
   const [active, setActive] = useState(false);
@@ -63,7 +64,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
   }, [gridApi, columnApi, setVisibleColumns, toggleColumn]);
 
   return (
-    <Button kind="tertiary">
+    <Button kind={KIND.tertiary}>
       <Dropdown
         onOpen={() => setActive(true)}
         onClose={() => setActive(false)}
@@ -76,7 +77,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
         }}
       >
         <Button
-          kind="tertiary"
+          kind={KIND.tertiary}
           overrides={{
             BaseButton: {
               style: {

@@ -27,12 +27,11 @@ export const ModalButton = ({
     theme: {
       current: {
         sizing: { scale0, scale200, scale600, scale950 },
-        colors,
+        colors: { primaryB, borderTransparent },
         customColors,
       },
     },
   } = useTheme();
-  const { primaryB, borderTransparent } = colors;
 
   return (
     <BaseModalButton
@@ -45,10 +44,10 @@ export const ModalButton = ({
             ...padding(scale200, scale600),
             fontWeight: 'normal',
             height: scale950,
-            backgroundColor: getButtonBackgroundColor(buttonType, colors),
+            backgroundColor: getButtonBackgroundColor(buttonType, customColors),
             ...border({
               ...$theme.borders.border300,
-              borderColor: getButtonBackgroundColor(buttonType, colors),
+              borderColor: getButtonBackgroundColor(buttonType, customColors),
             }),
             ':hover': {
               backgroundColor: getButtonBackgroundHoverColor(buttonType, customColors),

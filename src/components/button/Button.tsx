@@ -49,12 +49,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         current: {
           sizing: { scale0, scale200, scale300, scale400, scale500, scale600, scale750, scale950 },
           borders: { border100, border300, radius200 },
-          colors,
+          colors: { primaryB, borderTransparent },
           customColors,
         },
       },
     } = useTheme();
-    const { primaryB, borderTransparent } = colors;
     const { dark1, dark3, dark4, light2, light3, light4, light7, primaryMain } = customColors;
 
     const buttonOverrides = () => {
@@ -67,11 +66,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 ...padding(scale200, scale500),
                 ...border({
                   ...border100,
-                  borderColor: getButtonBackgroundColor(buttonType, colors),
+                  borderColor: getButtonBackgroundColor(buttonType, customColors),
                 }),
                 fontWeight: 'normal',
                 height: height ?? scale950,
-                backgroundColor: getButtonBackgroundColor(buttonType, colors),
+                backgroundColor: getButtonBackgroundColor(buttonType, customColors),
                 color: light4,
                 ':hover': {
                   backgroundColor: getButtonBackgroundHoverColor(buttonType, customColors),

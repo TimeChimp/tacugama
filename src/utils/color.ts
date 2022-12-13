@@ -127,11 +127,11 @@ export const getInputPlaceholderTextColor = (
   return contentTertiary;
 };
 
-export const getButtonBackgroundColor = (type: ButtonType, { backgroundPositive }: Colors) => {
+export const getButtonBackgroundColor = (type: ButtonType, { green1, purple2, red2 }: CustomColors) => {
   const colors = {
-    default: '#6559D2',
-    success: backgroundPositive,
-    error: '#FF5C5C',
+    default: purple2,
+    success: green1,
+    error: red2,
   };
 
   return colors[type];

@@ -3,6 +3,7 @@ import { Button, ButtonProps } from '../../button';
 import { LabelSmall } from '../../typography';
 import { ArrowDown, Clear } from '../../icons';
 import { useTheme } from '../../../providers';
+import { KIND } from 'baseui/button';
 
 const FILTER_BUTTON_TEST_ID = 'filter-button';
 
@@ -27,14 +28,14 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
 
     return (
       <Button
-        kind="secondary"
+        kind={KIND.secondary}
         ref={ref}
         testId={testId ?? FILTER_BUTTON_TEST_ID}
         endEnhancer={
           <>
             {arrows && <ArrowDown size={scale300} />}
             {hasValue && onClear && (
-              <Button kind="minimal" isTransparent onClick={onClear}>
+              <Button kind={KIND.minimal} isTransparent onClick={onClear}>
                 <Clear size={scale600} color={primaryA} />
               </Button>
             )}

@@ -9,6 +9,7 @@ import { TrashFull, Download } from '../icons';
 import { FlexItem } from '../flex-item';
 import { exportExcel, exportPdf } from './export';
 import { ParagraphSmall } from '../typography';
+import { KIND } from 'baseui/button';
 
 const DELETE_BUTTON_TEST_ID = 'delete-button';
 const EXPORT_BUTTON_TEST_ID = 'export-button';
@@ -62,7 +63,7 @@ export const DataGridActions = ({
       {!hideDelete && onBulkDelete ? (
         <>
           <Button
-            kind="tertiary"
+            kind={KIND.tertiary}
             disabled={!rowsSelected}
             onClick={() => onBulkDelete()}
             testId={DELETE_BUTTON_TEST_ID}
@@ -83,7 +84,7 @@ export const DataGridActions = ({
               optionProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTION_TEST_ID }),
             }}
           >
-            <Button kind="tertiary" disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
+            <Button kind={KIND.tertiary} disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
               <Download size={scale500} color={rowsSelected ? primaryA : dark4} />
               <ParagraphSmall color={rowsSelected ? primaryA : dark4} paddingLeft={scale400}>
                 {translations.export}

@@ -5,6 +5,7 @@ import { HeadingSmall, ParagraphSmall } from '../typography';
 import { Error } from '../icons';
 import { Button } from '../button';
 import { useTheme } from '../../providers';
+import { KIND } from 'baseui/button';
 
 export const ErrorPage = ({
   title,
@@ -51,7 +52,7 @@ export const ErrorPage = ({
         <ErrorButtonsBox>
           <Button onClick={onPrimaryButtonClick}>{primaryButtonText}</Button>
           {isSecondaryButtonShown ? (
-            <Button kind="secondary" onClick={onSecondaryButtonClick}>
+            <Button kind={KIND.secondary} onClick={onSecondaryButtonClick}>
               {secondaryButtonText}
             </Button>
           ) : null}

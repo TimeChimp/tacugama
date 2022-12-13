@@ -3,6 +3,7 @@ import { WeekdaysSelectProps } from './types';
 import { Container, SelectAllLink, WeekdayComponent, WeekdaysContainer } from './styles';
 import { ParagraphSmall, Button } from '..';
 import { useTheme } from '../../providers';
+import { KIND } from 'baseui/button';
 
 export const WeekdaysSelect = ({
   weekDays = [],
@@ -52,7 +53,7 @@ export const WeekdaysSelect = ({
         ))}
       </WeekdaysContainer>
       {withSelectAll && (
-        <Button kind="minimal" type="button" isTransparent onClick={handleSelectAllDays}>
+        <Button kind={KIND.minimal} type="button" isTransparent onClick={handleSelectAllDays}>
           <SelectAllLink>{selectAllLabel}</SelectAllLink>
         </Button>
       )}

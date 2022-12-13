@@ -5,6 +5,7 @@ import { Button, ButtonProps, SquareButton, SquareButtonProps } from './';
 import { ButtonType } from 'models';
 import { Search, TrashFull } from '../icons';
 import { Checkbox, CheckboxSize } from 'components/checkbox';
+import { KIND } from 'baseui/button';
 
 export default {
   title: 'Components/Button',
@@ -29,7 +30,7 @@ export const Primary = PrimaryButtonTemplate.bind({});
 Primary.args = {
   children: 'Button',
   buttonType: ButtonType.default,
-  kind: 'primary',
+  kind: KIND.primary,
   testId: 'test-button',
   disabled: false,
 };
@@ -44,7 +45,7 @@ export const PrimaryStartEnhancer = PrimaryButtonTemplate.bind({});
 PrimaryStartEnhancer.args = {
   children: 'Button',
   buttonType: ButtonType.default,
-  kind: 'primary',
+  kind: KIND.primary,
   testId: 'test-button',
   startEnhancer: <Search />,
   disabled: false,

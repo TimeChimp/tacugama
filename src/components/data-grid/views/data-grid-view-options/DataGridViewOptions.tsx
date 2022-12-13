@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PLACEMENT } from 'baseui/popover';
-import { SIZE } from 'baseui/button';
+import { KIND, SIZE } from 'baseui/button';
 import { Button } from '../../../button';
 import { DataGridViewOptionsProps } from '../../types';
 import { StyledViewOptionsFooter, StyledDataGridViewListItem } from '../../styles';
@@ -130,7 +130,7 @@ export const DataGridViewOptions = ({
                 component: ({ item: { id, label } }: { item: DropdownItem }) => (
                   <StyledDataGridViewListItem>
                     <Button
-                      kind="minimal"
+                      kind={KIND.minimal}
                       isTransparent
                       height={scale1400}
                       onClick={() => id && onViewSelect(id)}
@@ -149,7 +149,7 @@ export const DataGridViewOptions = ({
                     </Button>
                     {id !== 'default' && (
                       <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
-                        <Button kind="minimal" isTransparent>
+                        <Button kind={KIND.minimal} isTransparent>
                           <ActionMenuHorizontal size={scale400} color={primary} />
                         </Button>
                       </Dropdown>
@@ -161,7 +161,7 @@ export const DataGridViewOptions = ({
           />
           <StyledViewOptionsFooter>
             <Button
-              kind="minimal"
+              kind={KIND.minimal}
               height={scale1400}
               isTransparent
               onClick={() => setCreateModalIsOpen(true)}
@@ -181,7 +181,7 @@ export const DataGridViewOptions = ({
         </>
       )}
     >
-      <Button kind="tertiary" endEnhancer={() => <ArrowDown color={dark1} size={scale300} />}>
+      <Button kind={KIND.tertiary} endEnhancer={() => <ArrowDown color={dark1} size={scale300} />}>
         <ParagraphSmall color={dark1}>{translations.viewOptions}</ParagraphSmall>
       </Button>
     </StatefulPopover>

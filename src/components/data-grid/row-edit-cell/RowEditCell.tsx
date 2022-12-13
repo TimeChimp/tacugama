@@ -3,6 +3,7 @@ import { useTheme } from '../../../providers';
 import { Pencil } from '../../icons';
 import { Button } from '../../button';
 import { RowEditCellProps } from '../types';
+import { KIND } from 'baseui/button';
 
 export const RowEditCell = ({ onClick, icon: Icon }: RowEditCellProps) => {
   const {
@@ -16,7 +17,7 @@ export const RowEditCell = ({ onClick, icon: Icon }: RowEditCellProps) => {
 
   return (
     <div className="ag-row-edit-cell" onClick={onClick}>
-      <Button kind="minimal">
+      <Button kind={KIND.minimal}>
         {Icon ? <Icon size={scale500} color={contentTertiary} /> : <Pencil size={scale500} color={contentTertiary} />}
       </Button>
     </div>

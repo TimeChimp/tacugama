@@ -4,6 +4,7 @@ import { useTheme } from '../../providers';
 import { Block, Box, Button, StatefulTooltip, Copy } from '../../components';
 import { padding } from '../../utils';
 import { StyledCopyIcon } from './StyledCopyText';
+import { KIND } from 'baseui/button';
 
 export interface CopyTextProps {
   value: string;
@@ -52,7 +53,7 @@ export const CopyText = ({
       </ParagraphSmall>
       <StyledCopyIcon onClick={() => copyTextHandler(value)}>
         <StatefulTooltip triggerType="click" content={() => <Block>{copiedText}</Block>}>
-          <Button kind="minimal" isTransparent>
+          <Button kind={KIND.minimal} isTransparent>
             <Copy size={scale550} />
           </Button>
         </StatefulTooltip>

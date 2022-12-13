@@ -3,6 +3,7 @@ import { border, borderRadius, margin, padding } from '../../../utils';
 import { useTheme } from '../../../providers';
 import { ModalButton } from 'baseui/modal';
 import { SecondaryModalButtonProps } from './types';
+import { KIND } from 'baseui/button';
 
 export const SecondaryModalButton = ({ children, size = 'compact', ...rest }: SecondaryModalButtonProps) => {
   const {
@@ -17,7 +18,7 @@ export const SecondaryModalButton = ({ children, size = 'compact', ...rest }: Se
 
   return (
     <ModalButton
-      kind="secondary"
+      kind={KIND.secondary}
       size={size}
       {...rest}
       overrides={{

@@ -3,6 +3,7 @@ import { border, borderRadius, padding } from '../../../utils';
 import { useTheme } from '../../../providers';
 import { SquareButtonProps } from './types';
 import Button from '../Button';
+import { KIND } from 'baseui/button';
 
 export const SquareButton = ({ children, borderColor, backgroundColor, ...props }: SquareButtonProps) => {
   const {
@@ -19,7 +20,7 @@ export const SquareButton = ({ children, borderColor, backgroundColor, ...props 
   return (
     <Button
       size="compact"
-      kind="tertiary"
+      kind={KIND.tertiary}
       {...props}
       overrides={{
         BaseButton: {

@@ -5,6 +5,7 @@ import { Dropdown } from '../../dropdown';
 import { Button } from '../../button';
 import { ActionMenu, ActionMenuActive } from '../../icons';
 import { RowEditCell } from '../row-edit-cell';
+import { KIND } from 'baseui/button';
 
 export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
   const { onEdit, items, id, icon, api } = data;
@@ -53,7 +54,7 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
         additionalProperties={api}
         {...props}
       >
-        <Button kind="minimal" isTransparent height={scale900} type="button">
+        <Button kind={KIND.minimal} isTransparent height={scale900} type="button">
           {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
         </Button>
       </Dropdown>
