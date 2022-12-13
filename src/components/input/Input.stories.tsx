@@ -7,6 +7,7 @@ import { Search as SearchIcon } from '../icons';
 import { PriceInput, PriceInputProps } from './price-input';
 import { HoursInput, HoursInputProps } from './hours-input';
 import { NumberInput, NumberInputProps } from './number-input';
+import { PRICE_INPUT_PLACEHOLDER, PRICE_INPUT_PREFIX } from '../../models';
 
 export default {
   title: 'Components/Input',
@@ -122,11 +123,12 @@ Number.parameters = {
 
 export const Price = PriceTemplate.bind({});
 Price.args = {
-  placeholder: '€  0,00',
   testId: 'test-input',
   error: false,
   disabled: false,
   value: '',
+  prefix: PRICE_INPUT_PREFIX,
+  placeholder: PRICE_INPUT_PLACEHOLDER,
 };
 Price.parameters = {
   design: {
@@ -139,7 +141,6 @@ export const Hours = HoursTemplate.bind({});
 Hours.args = {
   defaultValue: undefined,
   timeFormat: 'HH:mm',
-  error: false,
   disabled: false,
 };
 Hours.parameters = {
