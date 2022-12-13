@@ -1,7 +1,7 @@
 import React from 'react';
 import { SnackbarElementPropsT as BaseSnackbarElementProps } from 'baseui/snackbar';
 import { LabelSmall, ParagraphSmall } from '../typography';
-import { Delete } from '../icons';
+import { ClearLineIcon } from '../icons';
 import { Button } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDiv, StyledSnackbar, StyledSpan } from './SnackbarStyles';
@@ -34,7 +34,7 @@ export const Snackbar = ({ color, onClose, message, actionMessage, actionOnClick
           </Button>
         )}
         <Button kind={KIND.minimal} isTransparent onClick={onClose}>
-          <Delete color={primaryB} />
+          <ClearLineIcon />
         </Button>
       </StyledDiv>
     </StyledSnackbar>

@@ -3,7 +3,7 @@ import { useTheme } from '../../../providers';
 import { RowActionsCellProps } from '../types';
 import { Dropdown } from '../../dropdown';
 import { Button } from '../../button';
-import { ActionMenu, ActionMenuActive } from '../../icons';
+import { MoreIcon } from '../../icons';
 import { RowEditCell } from '../row-edit-cell';
 import { KIND } from 'baseui/button';
 
@@ -13,7 +13,9 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
   const {
     theme: {
       current: {
-        sizing: { scale500, scale900 },
+        sizing: { scale900 },
+        customColors: { dark1 },
+        colors: { contentTertiary },
       },
     },
   } = useTheme();
@@ -55,7 +57,7 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
         {...props}
       >
         <Button kind={KIND.minimal} isTransparent height={scale900} type="button">
-          {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
+          <MoreIcon color={active ? dark1 : contentTertiary} />
         </Button>
       </Dropdown>
     </div>

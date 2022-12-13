@@ -79,7 +79,7 @@ import { FlexItem } from '../flex-item';
 import { ParagraphSmall } from '../typography';
 import { Button } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
-import { ArrowDown, Pencil } from '../icons';
+import { CaretDownIcon, EditIcon } from '../icons';
 import { KIND } from 'baseui/button';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
@@ -153,7 +153,7 @@ export const DataGrid = ({
   const {
     theme: {
       current: {
-        sizing: { scale300, scale500 },
+        sizing: { scale500 },
         customColors: { dark1 },
       },
     },
@@ -652,7 +652,7 @@ export const DataGrid = ({
       return {
         id: column.field,
         label: column.label || '',
-        icon: column.rowGroup ? <Pencil size={scale500} /> : <></>,
+        icon: column.rowGroup ? <EditIcon size={scale500} /> : <></>,
         action: () => handleGrouping(column.field),
       };
     });
@@ -723,7 +723,7 @@ export const DataGrid = ({
                           {selectedGroupOption?.label ?? translations.none}
                         </ParagraphSmall>
                         <FlexItem marg4={scale500}>
-                          <ArrowDown size={scale300} color={dark1} />
+                          <CaretDownIcon color={dark1} />
                         </FlexItem>
                       </Button>
                     </Dropdown>

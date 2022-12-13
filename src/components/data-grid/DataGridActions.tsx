@@ -5,7 +5,7 @@ import { StyledDataGridActions } from './styles';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { DATA_TEST_ID } from '../../models';
 import { DataGridActionsProps } from './types';
-import { TrashFull, Download } from '../icons';
+import { DownloadIcon, DeleteIcon } from '../icons';
 import { FlexItem } from '../flex-item';
 import { exportExcel, exportPdf } from './export';
 import { ParagraphSmall } from '../typography';
@@ -32,7 +32,7 @@ export const DataGridActions = ({
     theme: {
       current: {
         colors: { primaryA },
-        sizing: { scale300, scale400, scale500 },
+        sizing: { scale300, scale400 },
         customColors: { red3, dark4 },
       },
     },
@@ -68,7 +68,7 @@ export const DataGridActions = ({
             onClick={() => onBulkDelete()}
             testId={DELETE_BUTTON_TEST_ID}
           >
-            <TrashFull color={rowsSelected ? red3 : dark4} size={scale500} />
+            <DeleteIcon color={rowsSelected ? red3 : dark4} />
             <ParagraphSmall color={rowsSelected ? red3 : dark4} paddingLeft={scale400}>
               {translations.delete}
             </ParagraphSmall>
@@ -85,7 +85,7 @@ export const DataGridActions = ({
             }}
           >
             <Button kind={KIND.tertiary} disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
-              <Download size={scale500} color={rowsSelected ? primaryA : dark4} />
+              <DownloadIcon color={rowsSelected ? primaryA : dark4} />
               <ParagraphSmall color={rowsSelected ? primaryA : dark4} paddingLeft={scale400}>
                 {translations.export}
               </ParagraphSmall>

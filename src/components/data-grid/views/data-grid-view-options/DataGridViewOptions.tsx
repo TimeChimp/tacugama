@@ -5,7 +5,7 @@ import { Button } from '../../../button';
 import { DataGridViewOptionsProps } from '../../types';
 import { StyledViewOptionsFooter, StyledDataGridViewListItem } from '../../styles';
 import { StatefulPopover } from '../../../popover';
-import { Trash, Pin, Text, ActionMenuHorizontal, Views, Plus, ArrowDown } from '../../../icons';
+import { CaretDownIcon, AddLineIcon, DeleteIcon, PinIcon, ViewIcon, EditIcon, MoreIcon } from '../../../icons';
 import { Dropdown, DropdownItem } from '../../../dropdown';
 import { StatefulMenu } from '../../../menu';
 import { LabelXSmall, ParagraphSmall } from '../../../typography';
@@ -32,7 +32,7 @@ export const DataGridViewOptions = ({
     theme: {
       current: {
         colors: { primary, contentStateDisabled },
-        sizing: { scale300, scale400, scale600, scale650, scale1400 },
+        sizing: { scale400, scale600, scale1400 },
         customColors: { dark1 },
       },
     },
@@ -56,7 +56,7 @@ export const DataGridViewOptions = ({
     if (view) {
       items = [
         {
-          icon: <Pin color={contentStateDisabled} size={scale600} />,
+          icon: <PinIcon color={contentStateDisabled} />,
           label: view.pinned ? translations.unpinView : translations.pinView,
           action: () => {
             if (view.pinned && onUnpinView) {
@@ -67,7 +67,7 @@ export const DataGridViewOptions = ({
           },
         },
         {
-          icon: <Text color={contentStateDisabled} size={scale600} />,
+          icon: <EditIcon color={contentStateDisabled} size={scale600} />,
           label: translations.renameView,
           action: () => {
             setEditView(view);
@@ -75,7 +75,7 @@ export const DataGridViewOptions = ({
           },
         },
         {
-          icon: <Views color={contentStateDisabled} size={scale600} />,
+          icon: <ViewIcon color={contentStateDisabled} />,
           label: translations.saveView,
           action: () => {
             setEditView(view);
@@ -83,7 +83,7 @@ export const DataGridViewOptions = ({
           },
         },
         {
-          icon: <Trash color={contentStateDisabled} size={scale600} />,
+          icon: <DeleteIcon color={contentStateDisabled} size={scale600} />,
           label: translations.deleteView,
           action: () => {
             setEditView(view);
@@ -134,9 +134,7 @@ export const DataGridViewOptions = ({
                       isTransparent
                       height={scale1400}
                       onClick={() => id && onViewSelect(id)}
-                      startEnhancer={() => (
-                        <Views color={isActiveView(id!) ? primary : contentStateDisabled} size={scale600} />
-                      )}
+                      startEnhancer={() => <ViewIcon color={isActiveView(id!) ? primary : contentStateDisabled} />}
                     >
                       <LabelXSmall
                         marginTop={scale400}
@@ -150,7 +148,7 @@ export const DataGridViewOptions = ({
                     {id !== 'default' && (
                       <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
                         <Button kind={KIND.minimal} isTransparent>
-                          <ActionMenuHorizontal size={scale400} color={primary} />
+                          <MoreIcon color={primary} />
                         </Button>
                       </Dropdown>
                     )}
@@ -165,7 +163,7 @@ export const DataGridViewOptions = ({
               height={scale1400}
               isTransparent
               onClick={() => setCreateModalIsOpen(true)}
-              startEnhancer={() => <Plus size={scale650} color={primary} />}
+              startEnhancer={() => <AddLineIcon color={primary} />}
             >
               <LabelXSmall
                 color={primary}
@@ -181,7 +179,7 @@ export const DataGridViewOptions = ({
         </>
       )}
     >
-      <Button kind={KIND.tertiary} endEnhancer={() => <ArrowDown color={dark1} size={scale300} />}>
+      <Button kind={KIND.tertiary} endEnhancer={() => <CaretDownIcon color={dark1} />}>
         <ParagraphSmall color={dark1}>{translations.viewOptions}</ParagraphSmall>
       </Button>
     </StatefulPopover>

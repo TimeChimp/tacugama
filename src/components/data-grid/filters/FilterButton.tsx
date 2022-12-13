@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { Button, ButtonProps } from '../../button';
 import { LabelSmall } from '../../typography';
-import { ArrowDown, Clear } from '../../icons';
+import { CaretDownIcon, ClearLineIcon } from '../../icons';
 import { useTheme } from '../../../providers';
 import { KIND } from 'baseui/button';
 
@@ -20,7 +20,6 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
     const {
       theme: {
         current: {
-          sizing: { scale300, scale600 },
           colors: { primaryA },
         },
       },
@@ -33,10 +32,10 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
         testId={testId ?? FILTER_BUTTON_TEST_ID}
         endEnhancer={
           <>
-            {arrows && <ArrowDown size={scale300} />}
+            {arrows && <CaretDownIcon />}
             {hasValue && onClear && (
               <Button kind={KIND.minimal} isTransparent onClick={onClear}>
-                <Clear size={scale600} color={primaryA} />
+                <ClearLineIcon color={primaryA} />
               </Button>
             )}
           </>

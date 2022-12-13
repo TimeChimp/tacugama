@@ -3,7 +3,7 @@ import { ParagraphSmall, ParagraphXSmall } from 'baseui/typography';
 import { Box } from '../box';
 import { Button } from '../button';
 import { FlexGrid, FlexGridItem } from '../flex-grid';
-import { Download, Attachment as PaperClip, Trash } from '../icons';
+import { AttachmentIcon, DownloadIcon, DeleteIcon } from '../icons';
 import { Separator } from '../separator';
 import { useTheme } from '../../providers';
 import bytes from 'bytes';
@@ -29,7 +29,7 @@ export const AttachmentsList = ({ attachments, onDownload, onDelete }: Attacheme
   const {
     theme: {
       current: {
-        sizing: { scale300, scale500, scale600 },
+        sizing: { scale300, scale600 },
         customColors: { dark4, light0, dark0 },
       },
     },
@@ -62,7 +62,7 @@ export const AttachmentsList = ({ attachments, onDownload, onDelete }: Attacheme
               }}
             >
               <FlexGrid alignItems="center">
-                <PaperClip />
+                <AttachmentIcon />
                 <ParagraphSmall alignSelf="center" marginLeft={scale600} marginRight={scale300}>
                   {attachment.customFileName}
                 </ParagraphSmall>
@@ -80,10 +80,10 @@ export const AttachmentsList = ({ attachments, onDownload, onDelete }: Attacheme
                 isTransparent
                 onClick={() => onDownload(attachment.id as string, attachment.customFileName as string)}
               >
-                <Download size={scale500} />
+                <DownloadIcon />
               </Button>
               <Button kind={KIND.minimal} isTransparent onClick={() => onDelete(attachment.id as string)}>
-                <Trash size={scale500} color={dark0} />
+                <DeleteIcon color={dark0} />
               </Button>
             </FlexGridItem>
           </FlexGrid>

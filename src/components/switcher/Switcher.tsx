@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '../../providers';
-import { RightArrow, LeftArrow, Button } from '../../components';
+import { CaretRightIcon, CaretLeftIcon, Button } from '../../components';
 import { FlexGrid, FlexGridItem } from '../flex-grid';
 import { LabelMedium } from '../typography';
 
@@ -33,7 +33,7 @@ export const Switcher = ({ onPrev, onNext, value }: SwitcherProps) => {
           }}
           onClick={onPrev}
         >
-          <LeftArrow size={scale400} />
+          <CaretLeftIcon size={scale400} />
         </Button>
         <LabelMedium paddingLeft={scale500} paddingRight={scale500}>
           {value}
@@ -48,7 +48,7 @@ export const Switcher = ({ onPrev, onNext, value }: SwitcherProps) => {
           }}
           onClick={onNext}
         >
-          <RightArrow size={scale400} />
+          <CaretRightIcon size={scale400} />
         </Button>
       </FlexGridItem>
     </FlexGrid>

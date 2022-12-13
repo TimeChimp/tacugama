@@ -3,9 +3,10 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Button, ButtonProps, SquareButton, SquareButtonProps } from './';
 import { ButtonType } from 'models';
-import { Search, TrashFull } from '../icons';
+import { DeleteIcon } from '../icons';
 import { Checkbox, CheckboxSize } from 'components/checkbox';
 import { KIND } from 'baseui/button';
+import { Search } from 'baseui/icon';
 
 export default {
   title: 'Components/Button',
@@ -22,7 +23,7 @@ const SquareButtonCheckboxTemplate: Story<SquareButtonProps> = (args) => (
 
 const SquareButtonDeleteTemplate: Story<SquareButtonProps> = (args) => (
   <SquareButton {...args}>
-    <TrashFull size="14px" />
+    <DeleteIcon />
   </SquareButton>
 );
 

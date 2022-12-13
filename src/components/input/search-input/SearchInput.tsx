@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input } from '../Input';
-import { Search } from '../../icons';
+import { SearchIcon } from '../../icons';
 import { useTheme } from '../../../providers';
 import { InputProps } from '../types';
 
@@ -15,5 +15,5 @@ export const SearchInput = ({ ...rest }: SearchInputProps) => {
     },
   } = useTheme();
 
-  return <Input startEnhancer={<Search size={scale650} />} {...rest} />;
+  return <Input startEnhancer={<SearchIcon size={scale650} />} {...rest} />;
 };
