@@ -1,18 +1,14 @@
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { durationPlaceholder, formatDuration, TimeParser } from '@timechimp/timechimp-typescript-helpers';
+import { TcDate, TimeParser, timePlaceholder } from '@timechimp/timechimp-typescript-helpers';
 import { HoursInputProps } from './types';
 import { Input } from '..';
 
-const DEFAULT_DURATION_FORMAT = 'HH:mm';
+const DEFAULT_TIME_FORMAT = 'HH:mm';
 const SECONDS_IN_HOUR = 60 * 60;
-const HOURS_INPUT_WIDTH = '72px';
+const DEFAULT_HOURS_INPUT_WIDTH = '74px';
+const AM_PM_HOURS_INPUT_WIDTH = '94px';
 
-export const HoursInput = ({
-  onSubmit,
-  durationFormat = DEFAULT_DURATION_FORMAT,
-  defaultValue,
-  ...rest
-}: HoursInputProps) => {
+export const HoursInput = ({ onSubmit, timeFormat = DEFAULT_TIME_FORMAT, defaultValue, ...rest }: HoursInputProps) => {
   const [inputIsValid, setInputIsValid] = useState(true);
   const [inputValue, setInputValue] = useState('');
 
@@ -26,14 +22,14 @@ export const HoursInput = ({
   const formatInputValue = useCallback(
     (value: string) => {
       const { seconds } = new TimeParser(value).parse();
-      if (seconds || value) {
-        const formattedValue = formatDuration(seconds || 0, durationFormat);
+      if (seconds) {
+        const formattedValue = new TcDate(new Date(0, 0, 0)).add(seconds as number, 'seconds').format(timeFormat);
         setInputValue(formattedValue);
       }
 
       return seconds;
     },
-    [durationFormat],
+    [timeFormat],
   );
 
   useEffect(() => {
@@ -57,8 +53,8 @@ export const HoursInput = ({
       onBlur={onBlur}
       error={!inputIsValid}
       autoComplete="off"
-      placeholder={durationPlaceholder(durationFormat)}
-      width={HOURS_INPUT_WIDTH}
+      placeholder={timePlaceholder(timeFormat)}
+      width={timeFormat === 'h:mma' ? AM_PM_HOURS_INPUT_WIDTH : DEFAULT_HOURS_INPUT_WIDTH}
       {...rest}
     />
   );

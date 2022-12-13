@@ -45,8 +45,8 @@ Default.parameters = {
   },
 };
 
-export const StartEnhancer = Template.bind({});
-StartEnhancer.args = {
+export const WithStartEnhancer = Template.bind({});
+WithStartEnhancer.args = {
   placeholder: 'placeholder',
   startEnhancer: <SearchIcon size="18px" />,
   error: false,
@@ -55,15 +55,15 @@ StartEnhancer.args = {
   value: '',
   endEnhancer: '',
 };
-StartEnhancer.parameters = {
+WithStartEnhancer.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=2434%3A27286&t=N57j8nqiSc9cqSnt-4',
   },
 };
 
-export const EndEnhancer = Template.bind({});
-EndEnhancer.args = {
+export const WithEndEnhancer = Template.bind({});
+WithEndEnhancer.args = {
   placeholder: 'placeholder',
   endEnhancer: <SearchIcon size="18px" />,
   error: false,
@@ -72,7 +72,7 @@ EndEnhancer.args = {
   value: '',
   startEnhancer: '',
 };
-EndEnhancer.parameters = {
+WithEndEnhancer.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=2434%3A27384&t=N57j8nqiSc9cqSnt-4',
@@ -93,14 +93,10 @@ Password.parameters = {
 export const Color = ColorTemplate.bind({});
 Color.args = {
   onChange: (color) => console.log(color),
-  placeholder: 'placeholder',
   testId: 'test-input',
   error: false,
   success: false,
   disabled: false,
-  value: '',
-  startEnhancer: '',
-  endEnhancer: '',
 };
 Color.parameters = {
   design: {
@@ -111,7 +107,7 @@ Color.parameters = {
 
 export const Number = NumberTemplate.bind({});
 Number.args = {
-  placeholder: 'placeholder',
+  placeholder: '0',
   testId: 'test-input',
   error: false,
   disabled: false,
@@ -126,7 +122,7 @@ Number.parameters = {
 
 export const Price = PriceTemplate.bind({});
 Price.args = {
-  placeholder: 'placeholder',
+  placeholder: '€  0,00',
   testId: 'test-input',
   error: false,
   disabled: false,
@@ -142,6 +138,7 @@ Price.parameters = {
 export const Hours = HoursTemplate.bind({});
 Hours.args = {
   defaultValue: undefined,
+  timeFormat: 'HH:mm',
   error: false,
   disabled: false,
 };
