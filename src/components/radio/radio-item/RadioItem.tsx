@@ -27,7 +27,7 @@ const radioOverrides = ({
       ...padding($theme.sizing.scale300, $theme.sizing.scale400),
       backgroundColor: 'none',
       ...(colored && {
-        backgroundColor: $checked ? 'red' : 'green',
+        backgroundColor: $checked ? $theme.colors.primary100 : $theme.colors.primary50,
         ':hover': {
           backgroundColor: $checked ? undefined : $theme.colors.primary100,
         },
