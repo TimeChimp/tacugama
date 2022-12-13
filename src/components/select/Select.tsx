@@ -10,7 +10,7 @@ import {
   padding,
   margin,
 } from '../../utils';
-import { CaretDownIcon, TagIcon } from '..';
+import { CaretDownIcon, TagIcon } from '../icons';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
 
