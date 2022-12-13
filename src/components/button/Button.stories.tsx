@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Button, ButtonProps, SecondaryButton, SecondaryButtonProps, SquareButton, SquareButtonProps } from './';
 import { ButtonType } from 'models';
-import { Plus, TrashFull } from '../icons';
+import { AddLineIcon, DeleteIcon } from '../icons';
 import { Checkbox, CheckboxSize } from 'components/checkbox';
 
 export default {
@@ -21,7 +21,7 @@ const SquareButtonCheckboxTemplate: Story<SquareButtonProps> = (args) => (
 
 const SquareButtonDeleteTemplate: Story<SquareButtonProps> = (args) => (
   <SquareButton {...args}>
-    <TrashFull size="14px" />
+    <DeleteIcon />
   </SquareButton>
 );
 
@@ -39,7 +39,7 @@ StartEnhancer.args = {
   buttonType: ButtonType.default,
   kind: 'primary',
   testId: 'test-button',
-  startEnhancer: <Plus />,
+  startEnhancer: <AddLineIcon />,
 };
 
 export const Success = Template.bind({});

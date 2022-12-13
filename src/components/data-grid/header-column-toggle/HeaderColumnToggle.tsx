@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { ArrowDown, TableSettings } from '../../icons';
+import { CaretDownIcon, TableIcon } from '../../icons';
 import { Dropdown, DropdownItem } from '../../dropdown';
 import { TertiaryButton } from '../../button';
 import { useTheme } from '../../../providers';
@@ -17,7 +17,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
   const {
     theme: {
       current: {
-        sizing: { scale300, scale500, scale600, scale800 },
+        sizing: { scale300, scale500, scale800 },
         colors: { primary },
         borders: { border300, radius200 },
         customColors: { dark1, light2, light3 },
@@ -107,9 +107,9 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
             },
           }}
         >
-          <TableSettings size={scale600} color={active ? primary : dark1} />
+          <TableIcon color={active ? primary : dark1} />
           <FlexItem marg4={scale500}>
-            <ArrowDown size={scale300} color={active ? primary : dark1} />
+            <CaretDownIcon color={active ? primary : dark1} />
           </FlexItem>
         </TertiaryButton>
       </Dropdown>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Snackbar, SnackbarProps } from '../Snackbar';
 import { useTheme } from '../../../providers';
-import { Warning } from '../../icons';
+import { WarningIcon } from '../../icons';
 
 export interface ErrorSnackbarProps extends SnackbarProps {}
 
@@ -14,7 +14,7 @@ export const ErrorSnackbar = ({ ...rest }: ErrorSnackbarProps) => {
       },
     },
   } = useTheme();
-  return <Snackbar {...rest} color={backgroundNegative} startIcon={<Warning size={scale700} />} />;
+  return <Snackbar {...rest} color={backgroundNegative} startIcon={<WarningIcon size={scale700} />} />;
 };
 
 export default ErrorSnackbarProps;

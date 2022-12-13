@@ -1,7 +1,7 @@
 import React from 'react';
 import { Snackbar, SnackbarProps } from '../Snackbar';
 import { useTheme } from '../../../providers';
-import { Check } from '../../icons';
+import { CheckIcon } from '../../icons';
 
 export interface SuccessSnackbarProps extends SnackbarProps {}
 
@@ -10,11 +10,10 @@ export const SuccessSnackbar = ({ ...rest }: SuccessSnackbarProps) => {
     theme: {
       current: {
         colors: { backgroundPositive },
-        sizing: { scale700 },
       },
     },
   } = useTheme();
-  return <Snackbar {...rest} color={backgroundPositive} startIcon={<Check size={scale700} />} />;
+  return <Snackbar {...rest} color={backgroundPositive} startIcon={<CheckIcon />} />;
 };
 
 export default SuccessSnackbarProps;

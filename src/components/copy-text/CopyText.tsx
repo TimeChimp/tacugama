@@ -1,7 +1,7 @@
 import React from 'react';
 import { ParagraphSmall } from 'baseui/typography';
 import { useTheme } from '../../providers';
-import { Block, Box, TertiaryButton, StatefulTooltip, Copy } from '../../components';
+import { Block, Box, TertiaryButton, StatefulTooltip, CopyIcon } from '../../components';
 import { padding } from '../../utils';
 import { StyledCopyIcon } from './StyledCopyText';
 
@@ -61,7 +61,7 @@ export const CopyText = ({
               },
             }}
           >
-            <Copy size="14" />
+            <CopyIcon />
           </TertiaryButton>
         </StatefulTooltip>
       </StyledCopyIcon>

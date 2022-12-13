@@ -1,18 +1,19 @@
-import { useTheme } from '../../../providers';
+import { DEFAULT_ICON_SIZE } from '../.././../models';
 import React from 'react';
-import { Icon, SVGProps, defaultIconProps } from '../icon';
+import { useTheme } from '../../../providers';
+import { Icon, SVGProps } from '../..';
 
-export const Calendar = ({ title = 'Calendar', size = defaultIconProps.size, color }: SVGProps) => {
+export const CalendarIcon = ({ title = 'Calendar', size = DEFAULT_ICON_SIZE, color }: SVGProps) => {
   const { theme } = useTheme();
 
   return (
-    <Icon title={title} lineHeight="0">
-      <svg width={size} height={size} viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <Icon title={title}>
+      <svg width={size} height={size} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           fillRule="evenodd"
           clipRule="evenodd"
-          d="M16 2H15V0.5C15 0.223858 14.7761 0 14.5 0H13.5C13.2239 0 13 0.223858 13 0.5V2H5V0.5C5 0.223858 4.77614 0 4.5 0H3.5C3.22386 0 3 0.223858 3 0.5V2H2C0.89543 2 0 2.89543 0 4V17C0 18.1046 0.89543 19 2 19H16C17.1046 19 18 18.1046 18 17V4C18 2.89543 17.1046 2 16 2ZM16 17H2V6H16V17ZM9.5 10H8.5C8.22386 10 8 9.77614 8 9.5V8.5C8 8.22386 8.22386 8 8.5 8H9.5C9.77614 8 10 8.22386 10 8.5V9.5C10 9.77614 9.77614 10 9.5 10ZM13.5 10C13.7761 10 14 9.77614 14 9.5V8.5C14 8.22386 13.7761 8 13.5 8H12.5C12.2239 8 12 8.22386 12 8.5V9.5C12 9.77614 12.2239 10 12.5 10H13.5ZM6 9.5C6 9.77614 5.77614 10 5.5 10H4.5C4.22386 10 4 9.77614 4 9.5V8.5C4 8.22386 4.22386 8 4.5 8H5.5C5.77614 8 6 8.22386 6 8.5V9.5ZM8.5 14H9.5C9.77614 14 10 13.7761 10 13.5V12.5C10 12.2239 9.77614 12 9.5 12H8.5C8.22386 12 8 12.2239 8 12.5V13.5C8 13.7761 8.22386 14 8.5 14ZM6 13.5C6 13.7761 5.77614 14 5.5 14H4.5C4.22386 14 4 13.7761 4 13.5V12.5C4 12.2239 4.22386 12 4.5 12H5.5C5.77614 12 6 12.2239 6 12.5V13.5Z"
-          fill={color || theme.current.colors.contentTertiary}
+          d="M12 2.66659H12.6667C13.403 2.66659 14 3.26354 14 3.99992V12.6666C14 13.403 13.403 13.9999 12.6667 13.9999H3.33333C2.59695 13.9999 2 13.403 2 12.6666V3.99992C2 3.26354 2.59695 2.66659 3.33333 2.66659H4V1.66659C4 1.48249 4.14924 1.33325 4.33333 1.33325H5C5.18409 1.33325 5.33333 1.48249 5.33333 1.66659V2.66659H10.6667V1.66659C10.6667 1.48249 10.8159 1.33325 11 1.33325H11.6667C11.8508 1.33325 12 1.48249 12 1.66659V2.66659ZM3.33301 12.6666H12.6663V5.33325H3.33301V12.6666Z"
+          fill={color || theme.current.customColors.dark1}
         />
       </svg>
     </Icon>

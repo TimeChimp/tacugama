@@ -15,7 +15,7 @@ import {
 } from '@ag-grid-community/core';
 import { DurationFormat, NumberFormat, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DropdownItem } from '../dropdown';
-import { SVGProps as IconProps } from '../icons';
+import { SVGProps as IconProps } from '..';
 import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
 import { PageOrientation } from 'pdfmake/interfaces';
 import { Option } from '../select';

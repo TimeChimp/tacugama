@@ -3,7 +3,7 @@ import { useTheme } from '../../../providers';
 import { RowActionsCellProps } from '../types';
 import { Dropdown } from '../../dropdown';
 import { TertiaryButton } from '../../button';
-import { ActionMenu, ActionMenuActive } from '../../icons';
+import { MoreIcon } from '../../icons';
 import { RowEditCell } from '../row-edit-cell';
 
 export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
@@ -12,7 +12,8 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
   const {
     theme: {
       current: {
-        sizing: { scale500 },
+        customColors: { dark1 },
+        colors: { contentTertiary },
       },
     },
   } = useTheme();
@@ -54,7 +55,7 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
         {...props}
       >
         <TertiaryButton type="button">
-          {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
+          <MoreIcon color={active ? dark1 : contentTertiary} />
         </TertiaryButton>
       </Dropdown>
     </div>

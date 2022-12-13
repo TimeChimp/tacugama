@@ -4,7 +4,7 @@ import { InputProps } from './types';
 import { Input } from './Input';
 import { SearchInput, SearchInputProps } from './search-input';
 import { ColorInput, ColorInputProps } from './color-input';
-import { Search as SearchIcon } from '../icons';
+import { SearchIcon } from '../icons';
 import { CharCounter } from '../char-counter';
 import { PriceInput, PriceInputProps } from './price-input';
 import { HoursInput, HoursInputProps } from './hours-input';
