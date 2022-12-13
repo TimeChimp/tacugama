@@ -32,7 +32,7 @@ export const DataGridActions = ({
     theme: {
       current: {
         colors: { primaryA },
-        sizing: { scale300, scale400 },
+        sizing: { scale300, scale400, scale500 },
         customColors: { red3, dark4 },
       },
     },
@@ -68,7 +68,7 @@ export const DataGridActions = ({
             onClick={() => onBulkDelete()}
             testId={DELETE_BUTTON_TEST_ID}
           >
-            <DeleteIcon color={rowsSelected ? red3 : dark4} />
+            <DeleteIcon color={rowsSelected ? red3 : dark4} size={scale500} />
             <ParagraphSmall color={rowsSelected ? red3 : dark4} paddingLeft={scale400}>
               {translations.delete}
             </ParagraphSmall>
