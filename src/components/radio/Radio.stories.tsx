@@ -33,3 +33,13 @@ export const Colored = Template.bind({});
 Colored.args = {
   colored: true,
 };
+
+export const Small = Template.bind({});
+Small.args = {
+  small: true,
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
+};

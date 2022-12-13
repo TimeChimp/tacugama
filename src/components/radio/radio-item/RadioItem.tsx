@@ -9,13 +9,15 @@ export interface RadioProps extends BaseRadioProps {
   value: string;
   colored?: boolean;
   icon?: FunctionComponent<IconProps>;
+  small?: boolean;
 }
 
 const radioOverrides = ({
   icon,
   colored,
+  small,
   overrides,
-}: Pick<RadioProps, 'icon' | 'colored' | 'overrides'>): RadioOverrides => ({
+}: Pick<RadioProps, 'icon' | 'colored' | 'small' | 'overrides'>): RadioOverrides => ({
   Root: {
     style: ({ $theme, $checked }: { $theme: CustomThemeType; $checked: boolean }) => ({
       width: '100%',
@@ -25,7 +27,7 @@ const radioOverrides = ({
       ...padding($theme.sizing.scale300, $theme.sizing.scale400),
       backgroundColor: 'none',
       ...(colored && {
-        backgroundColor: $checked ? $theme.colors.primary100 : $theme.colors.primary50,
+        backgroundColor: $checked ? 'red' : 'green',
         ':hover': {
           backgroundColor: $checked ? undefined : $theme.colors.primary100,
         },
@@ -39,31 +41,47 @@ const radioOverrides = ({
   },
   RadioMarkOuter: {
     component: icon && RadioIcon(icon),
-    style: ({ $theme, $checked }: { $theme: CustomThemeType; $checked: boolean }) => ({
-      width: $theme.sizing.scale650,
-      height: $theme.sizing.scale650,
-      backgroundColor: 'transparent',
+    style: ({ $theme, $checked, $disabled }: { $theme: CustomThemeType; $checked: boolean; $disabled: boolean }) => ({
+      width: small ? $theme.sizing.scale500 : $theme.sizing.scale600,
+      height: small ? $theme.sizing.scale500 : $theme.sizing.scale600,
+      backgroundColor: $disabled ? $theme.customColors.light3 : 'transparent',
       ...border({
-        borderColor: $checked ? $theme.colors.primary400 : $theme.colors.contentTertiary,
+        borderColor: $disabled
+          ? $theme.customColors.dark4
+          : $checked
+          ? $theme.customColors.purple2
+          : $theme.customColors.dark4,
         borderStyle: 'solid',
-        borderWidth: $theme.borders.radius100,
+        borderWidth: '1px',
       }),
+      ':hover': {
+        ...border({
+          borderColor: $checked ? $theme.customColors.purple1 : $theme.customColors.purple2,
+          borderStyle: 'solid',
+          borderWidth: '1px',
+        }),
+      },
+      pointerEvents: $disabled ? 'none' : 'initial',
     }),
   },
   RadioMarkInner: {
     component: icon ? () => null : undefined,
-    style: ({ $theme, $checked }: { $theme: CustomThemeType; $checked: boolean }) => ({
-      width: $theme.sizing.scale400,
-      height: $theme.sizing.scale400,
-      backgroundColor: $checked ? $theme.colors.primary400 : 'transparent',
+    style: ({ $theme, $checked, $disabled }: { $theme: CustomThemeType; $checked: boolean; $disabled: boolean }) => ({
+      width: small ? $theme.sizing.scale300 : $theme.sizing.scale400,
+      height: small ? $theme.sizing.scale300 : $theme.sizing.scale400,
+      backgroundColor: $checked ? ($disabled ? $theme.customColors.dark4 : $theme.customColors.purple2) : 'transparent',
+      ':hover': {
+        backgroundColor: $checked ? $theme.customColors.purple1 : 'transparent',
+      },
+      pointerEvents: $disabled ? 'none' : 'initial',
     }),
   },
   ...overrides,
 });
 
-export const RadioItem = ({ icon, colored = false, children, overrides, ...rest }: RadioProps) => {
+export const RadioItem = ({ icon, colored = false, small = false, children, overrides, ...rest }: RadioProps) => {
   return (
-    <BaseRadio {...rest} overrides={radioOverrides({ icon, colored, overrides })}>
+    <BaseRadio {...rest} overrides={radioOverrides({ icon, colored, small, overrides })}>
       {children}
     </BaseRadio>
   );
