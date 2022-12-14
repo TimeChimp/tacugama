@@ -54,3 +54,5 @@ export * from './warning';
 export * from './xmark';
 export * from './pin';
 export * from './view';
+export * from './loader';
+export * from './company';
