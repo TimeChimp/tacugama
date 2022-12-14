@@ -23,6 +23,8 @@ export interface ButtonProps extends BaseButtonProps {
   color?: string;
   isTransparent?: boolean;
   rootOverrides?: { [key: string]: number | string };
+  backgroundColor?: string;
+  borderColor?: string;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -40,6 +42,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       rootOverrides,
       color,
       isTransparent,
+      backgroundColor,
+      borderColor,
       ...rest
     }: ButtonProps,
     ref,
@@ -209,28 +213,28 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             Root: {
               style: {
                 height: scale750,
-                backgroundColor: light3,
+                backgroundColor: backgroundColor ?? light3,
                 color: dark1,
                 ...border({
                   ...border300,
-                  borderColor: light2,
+                  borderColor: borderColor ?? light2,
                 }),
                 ...borderRadius(radius200),
                 ...padding(scale300),
                 ':hover': {
-                  backgroundColor: light3,
-                  borderColor: dark3,
+                  backgroundColor: backgroundColor ?? light3,
+                  borderColor: borderColor ?? dark3,
                 },
                 ':active': {
-                  backgroundColor: light3,
+                  backgroundColor: backgroundColor ?? light3,
                 },
                 ':disabled': {
-                  borderColor: light2,
-                  backgroundColor: light7,
+                  borderColor: borderColor ?? light2,
+                  backgroundColor: backgroundColor ?? light7,
                   color: dark4,
                   ':hover': {
-                    borderColor: light2,
-                    backgroundColor: light7,
+                    borderColor: borderColor ?? light2,
+                    backgroundColor: backgroundColor ?? light7,
                     color: dark4,
                   },
                 },

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Button, ButtonProps, SquareButton, SquareButtonProps } from './';
+import { Button, ButtonProps } from './';
 import { ButtonType } from 'models';
 import { DeleteIcon } from '../icons';
 import { Checkbox, CheckboxSize } from 'components/checkbox';
@@ -13,18 +13,21 @@ export default {
   component: Button,
 } as Meta;
 
+const red0 = '#E53535';
+const light4 = '#FFFFFF';
+
 const PrimaryButtonTemplate: Story<ButtonProps> = (args) => <Button {...args} />;
 
-const SquareButtonCheckboxTemplate: Story<SquareButtonProps> = (args) => (
-  <SquareButton {...args}>
+const SquareButtonCheckboxTemplate: Story<ButtonProps> = (args) => (
+  <Button kind={KIND.tertiary} {...args}>
     <Checkbox size={CheckboxSize.Small} />
-  </SquareButton>
+  </Button>
 );
 
-const SquareButtonDeleteTemplate: Story<SquareButtonProps> = (args) => (
-  <SquareButton {...args}>
-    <DeleteIcon />
-  </SquareButton>
+const SquareButtonDeleteTemplate: Story<ButtonProps> = (args) => (
+  <Button kind={KIND.tertiary} {...args}>
+    <DeleteIcon color={light4} />
+  </Button>
 );
 
 export const Primary = PrimaryButtonTemplate.bind({});
@@ -60,8 +63,6 @@ PrimaryStartEnhancer.parameters = {
 
 export const Square = SquareButtonCheckboxTemplate.bind({});
 Square.args = {};
-
-const red0 = '#E53535';
 
 export const SquareDelete = SquareButtonDeleteTemplate.bind({});
 SquareDelete.args = {
