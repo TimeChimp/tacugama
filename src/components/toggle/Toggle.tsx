@@ -20,7 +20,7 @@ export const Toggle = ({ checked, children, testId, size = ToggleSize.small, ...
       current: {
         sizing: { scale0, scale100, scale300, scale400, scale500, scale700, scale900 },
         colors: { primary400 },
-        customColors: { dark4, light4, primaryMain },
+        customColors: { dark4, light4 },
         typography: { LabelSmall },
       },
     },
