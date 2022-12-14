@@ -114,9 +114,9 @@ export const DataGrid = ({
   enableExport = false,
   getServerSideGroupKey,
   getDataPath,
-  onSelectionChangedHandler,
   onRowDataUpdated,
   onRowDataChanged,
+  onSelectionChangedHandler,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());

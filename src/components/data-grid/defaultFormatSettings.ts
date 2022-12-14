@@ -6,5 +6,5 @@ export const defaultFormatSettings: FormatSettings = {
   dateFormat: 'dd-MM-yyyy',
   currency: 'USD',
   numberFormat: '1,234.56',
-  language: 'en-US',
+  language: 'en',
 };
