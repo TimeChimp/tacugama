@@ -131,12 +131,12 @@ export const DataGrid = ({
   suppressRowClickSelection = false,
   getServerSideGroupKey,
   getDataPath,
+  onSelectionChangedHandler,
   onRowDataUpdated,
   onRowDataChanged,
   onModalClose,
   onModalOpen,
   debouncedSearch = false,
-  onSelectionChangedHandler,
 }: DataGridProps) => {
   const datagridRef = useRef<HTMLDivElement>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());

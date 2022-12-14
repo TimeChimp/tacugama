@@ -141,7 +141,7 @@ export const LineGraph = ({
 
   return (
     <VictoryChart
-      maxDomain={{ x: maxValue.x, y: maxValue.y }}
+      maxDomain={{ y: maxValue.y }}
       minDomain={{ y: 0 }}
       scale={{ x: 'time' }}
       width={width}
@@ -185,7 +185,7 @@ export const LineGraph = ({
           tickLabels: { fontSize: scale400, stroke: dark4 },
           grid: { stroke: 'none' },
         }}
-        tickValues={convertedData.map((data) => new Date(data?.date!))}
+        tickValues={xAxisRange}
         tickFormat={(t) =>
           formatAsDate ? new TcDate(new Date(t)).format('dd MMM') : `${horizontalAxisItemLabel} ${t?.split('-')[1]}`
         }
@@ -221,7 +221,7 @@ export const LineGraph = ({
       ) : null}
       {!!diagonalLineData.length ? (
         <VictoryArea
-          style={{ data: { fill: 'transparent', stroke: purple2, strokeWidth: 2, strokeDasharray: 10 } }}
+          style={{ data: { fill: 'transparent', stroke: purple3, strokeWidth: 2, strokeDasharray: 10 } }}
           interpolation="monotoneX"
           data={diagonalLineData}
           x={horizontalAxisValue}
@@ -243,9 +243,7 @@ export const LineGraph = ({
         x={horizontalAxisValue}
         y={verticalAxisValue}
         style={{ data: { fill: 'white', stroke: '#B8B8B8', strokeWidth: '1' } }}
-        size={({ active }) => {
-          return active ? 4 : 0;
-        }}
+        size={4}
       />
     </VictoryChart>
   );

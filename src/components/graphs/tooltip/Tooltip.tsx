@@ -50,7 +50,7 @@ export const FlyOutTooltip = ({
     <g style={{ pointerEvents: 'none' }}>
       <foreignObject x={calculateXOffset - 140} y={y - 170} width={flyOutWidth} height={flyOutHeight}>
         <Box padding={scale600}>
-          <LabelMedium marginBottom={scale500}>{new TcDate(datum.date).format('dd MMM yyyy')}</LabelMedium>
+          <LabelMedium marginBottom={scale500}>{headingLabel}</LabelMedium>
           <FlexGrid justifyContent="space-between">
             <ParagraphSmall margin={scale100} color={dark4}>
               {trackedText}:
