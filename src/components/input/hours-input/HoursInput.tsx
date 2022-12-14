@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { TcDate, TimeParser, timePlaceholder } from '@timechimp/timechimp-typescript-helpers';
 import { HoursInputProps } from './types';
-import { Input } from '..';
+import { Input } from '../Input';
 
 const DEFAULT_TIME_FORMAT = 'HH:mm';
 const SECONDS_IN_HOUR = 60 * 60;

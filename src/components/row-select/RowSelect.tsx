@@ -5,7 +5,8 @@ import { useTheme } from '../../providers';
 import { border, borderBottom, borderRadius, padding } from '../../utils';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
-import { CaretDownIcon, LockedIcon } from '../icons';
+import { CaretDownIcon } from '../icons/caret-down';
+import { LockedIcon } from '../icons/locked';
 import { FormInput, RowSelectProps } from './types';
 
 export const RowSelect = ({

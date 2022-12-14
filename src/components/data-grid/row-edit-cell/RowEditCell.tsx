@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '../../../providers';
-import { EditIcon } from '../../icons';
+import { EditIcon } from '../../icons/edit';
 import { TertiaryButton } from '../../button';
 import { RowEditCellProps } from '../types';
 

@@ -3,7 +3,7 @@ import { useTheme } from '../../../providers';
 import { RowActionsCellProps } from '../types';
 import { Dropdown } from '../../dropdown';
 import { TertiaryButton } from '../../button';
-import { MoreIcon } from '../../icons';
+import { MoreIcon } from '../../icons/more';
 import { RowEditCell } from '../row-edit-cell';
 
 export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {

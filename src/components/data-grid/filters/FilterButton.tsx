@@ -2,7 +2,8 @@ import React, { forwardRef } from 'react';
 import { SecondaryButton, SecondaryButtonProps, TransparentButton } from '../../button';
 import { border, borderRadius, padding } from '../../../utils';
 import { LabelSmall } from '../../typography';
-import { CaretDownIcon, ClearLineIcon } from '../../icons';
+import { CaretDownIcon } from '../../icons/caret-down';
+import { ClearLineIcon } from '../../icons/clear-line';
 import { useTheme } from '../../../providers';
 
 const FILTER_BUTTON_TEST_ID = 'filter-button';

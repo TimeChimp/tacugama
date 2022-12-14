@@ -14,7 +14,7 @@ import { DatePicker, DatepickerOverrides, SharedStylePropsT } from 'baseui/datep
 import { Select } from '../select';
 import { DATA_TEST_ID } from '../../models';
 import { InputOverrides, InputProps } from 'baseui/input';
-import { CalendarIcon } from '../icons';
+import { CalendarIcon } from '../icons/calendar';
 import { getDateLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DatePickerProps } from './types';
 

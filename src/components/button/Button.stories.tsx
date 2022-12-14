@@ -3,7 +3,8 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Button, ButtonProps, SecondaryButton, SecondaryButtonProps, SquareButton, SquareButtonProps } from './';
 import { ButtonType } from 'models';
-import { AddLineIcon, DeleteIcon } from '../icons';
+import { AddLineIcon } from '../icons/add-line';
+import { DeleteIcon } from '../icons/delete';
 import { Checkbox, CheckboxSize } from 'components/checkbox';
 
 export default {

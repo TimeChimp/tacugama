@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { ErrorButtonsBox, ErrorPageContent, ErrorPageWrapper } from './styles';
 import { ErrorPageProps } from './types';
 import { HeadingSmall, ParagraphSmall } from '../typography';
-import { ErrorIcon } from '../icons';
+import { ErrorIcon } from '../icons/error';
 import { Button, SecondaryButton } from '../button';
 import { useTheme } from '../../providers';
 

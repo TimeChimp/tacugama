@@ -2,9 +2,10 @@ import React from 'react';
 import { Select as BaseSelect, SelectProps as BaseSelectProps, Option, Value, OnChangeParams } from 'baseui/select';
 import { useTheme } from '../../providers';
 import { border, borderBottom, borderRadius, getInputBorderColor, padding, margin } from '../../utils';
-import { CaretDownIcon, TagIcon } from '../icons';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
+import { CaretDownIcon } from '../icons/caret-down';
+import { TagIcon } from '../icons/tag';
 
 interface CustomParams {
   value: any;

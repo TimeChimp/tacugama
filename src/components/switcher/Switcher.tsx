@@ -1,8 +1,10 @@
 import React from 'react';
+import { Button } from '../button';
+import { CaretLeftIcon } from '../icons/caret-left';
+import { CaretRightIcon } from '../icons/caret-right';
 import { useTheme } from '../../providers';
-import { CaretRightIcon, CaretLeftIcon, Button } from '../../components';
 import { FlexGrid, FlexGridItem } from '../flex-grid';
-import { LabelMedium } from '../typography';
+import { LabelMedium } from '../typography/label-medium';
 
 export interface SwitcherProps {
   onPrev: () => void;

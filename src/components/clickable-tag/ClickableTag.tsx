@@ -1,4 +1,5 @@
-import { Tag, TransparentButton } from '..';
+import { Tag } from '../tag';
+import { TransparentButton } from '../button/transparent-button';
 import React from 'react';
 import { ClickableTagProps } from './types';
 
