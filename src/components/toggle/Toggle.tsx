@@ -49,7 +49,7 @@ export const Toggle = ({ checked, children, testId, size = ToggleSize.small, ...
             height: size === ToggleSize.small ? scale500 : scale700,
             marginRight: 0,
             marginLeft: 0,
-            background: !!checked ? primaryMain : dark4,
+            backgroundColor: !!checked ? primary400 : dark4,
             ...borderRadius(scale400),
           },
         },
