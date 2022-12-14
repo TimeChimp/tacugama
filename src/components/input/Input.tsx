@@ -17,7 +17,7 @@ export const Input = ({ testId, type, uppercase, noBorder = false, ...rest }: In
   const {
     theme: {
       current: {
-        sizing: { scale500, scale1000 },
+        sizing: { scale500, scale950 },
         borders,
         colors,
       },
@@ -61,7 +61,7 @@ export const Input = ({ testId, type, uppercase, noBorder = false, ...rest }: In
     },
     Root: {
       style: ({ $error, $isFocused }) => ({
-        height: scale1000,
+        height: scale950,
         ...border(
           !noBorder
             ? {

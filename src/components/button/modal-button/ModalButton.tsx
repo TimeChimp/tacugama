@@ -1,6 +1,5 @@
 import React from 'react';
 import { ModalButton as BaseModalButton } from 'baseui/modal';
-import { ButtonProps as BaseButtonProps } from 'baseui/button';
 import {
   border,
   borderBottom,
@@ -15,11 +14,7 @@ import {
 } from '../../../utils';
 import { useTheme } from '../../../providers';
 import { ButtonType, CustomThemeProps } from '../../../models';
-
-export interface ModalButtonProps extends BaseButtonProps {
-  buttonType?: ButtonType;
-  testId?: string;
-}
+import { ModalButtonProps } from './types';
 
 export const ModalButton = ({
   children,
@@ -31,12 +26,12 @@ export const ModalButton = ({
   const {
     theme: {
       current: {
-        sizing: { scale0, scale200, scale600, scale900 },
-        colors,
+        sizing: { scale0, scale200, scale600, scale950 },
+        colors: { primaryB, borderTransparent },
+        customColors,
       },
     },
   } = useTheme();
-  const { primaryB, borderTransparent } = colors;
 
   return (
     <BaseModalButton
@@ -48,14 +43,14 @@ export const ModalButton = ({
             ...borderRadius($theme.borders.radius200),
             ...padding(scale200, scale600),
             fontWeight: 'normal',
-            height: scale900,
-            backgroundColor: getButtonBackgroundColor(buttonType, colors),
+            height: scale950,
+            backgroundColor: getButtonBackgroundColor(buttonType, customColors),
             ...border({
               ...$theme.borders.border300,
-              borderColor: getButtonBackgroundColor(buttonType, colors),
+              borderColor: getButtonBackgroundColor(buttonType, customColors),
             }),
             ':hover': {
-              backgroundColor: getButtonBackgroundHoverColor(buttonType, colors),
+              backgroundColor: getButtonBackgroundHoverColor(buttonType, customColors),
             },
             ':not(:last-child)': {
               ...margin('0', $theme.sizing.scale300, '0', '0'),
