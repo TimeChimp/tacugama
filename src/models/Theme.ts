@@ -23,6 +23,7 @@ export interface CustomColors {
   light4: string;
   light5: string;
   light6: string;
+  light7: string;
 
   // Red
   red0: string;
@@ -31,6 +32,7 @@ export interface CustomColors {
   red3: string;
   red4: string;
   red5: string;
+  red6: string;
 
   // Green
   green0: string;
@@ -65,6 +67,7 @@ export interface CustomColors {
   purple2: string;
   purple3: string;
   purple4: string;
+  purple5: string;
 
   // Outlines
   darkOutline: string;
@@ -110,4 +113,8 @@ export type CustomThemeType = Theme & CustomOverrideType;
 
 export interface ThemeProps {
   $theme: Theme;
+}
+
+export interface CustomThemeProps {
+  $theme: CustomThemeType;
 }

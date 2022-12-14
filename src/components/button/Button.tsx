@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import { useTheme } from '../../providers';
 import {
+  border,
   borderBottom,
   borderLeft,
   borderRadius,
@@ -9,6 +10,7 @@ import {
   getButtonBackgroundColor,
   getButtonBackgroundHoverColor,
   margin,
+  padding,
 } from '../../utils';
 import { Button as BaseButton, ButtonProps as BaseButtonProps, KIND, SIZE } from 'baseui/button';
 import { ButtonType } from '../../models';
@@ -17,6 +19,7 @@ export interface ButtonProps extends BaseButtonProps {
   buttonType?: ButtonType;
   kind?: KIND[keyof KIND];
   testId?: string;
+  rootOverrides?: { [key: string]: number | string };
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -26,9 +29,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       isLoading,
       disabled,
       buttonType = ButtonType.default,
+      type = 'submit',
       kind = KIND.primary,
       size = SIZE.compact,
       testId,
+      rootOverrides,
       ...rest
     }: ButtonProps,
     ref,
@@ -36,7 +41,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const {
       theme: {
         current: {
-          sizing: { scale0, scale100, scale600 },
+          sizing: { scale0, scale100, scale200, scale600, scale900 },
+          borders: { radius200, border100 },
           colors,
         },
       },
@@ -45,6 +51,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <BaseButton
+        type={type}
         ref={ref}
         kind={kind}
         size={size}
@@ -54,15 +61,27 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         overrides={{
           Root: {
             style: {
-              ...borderRadius(scale0),
+              ...borderRadius(radius200),
+              ...padding(scale200, scale600),
+              ...border({
+                ...border100,
+                borderColor: getButtonBackgroundColor(buttonType, colors),
+              }),
+              fontWeight: 'normal',
+              height: scale900,
               backgroundColor: getButtonBackgroundColor(buttonType, colors),
               ':hover': {
                 backgroundColor: getButtonBackgroundHoverColor(buttonType, colors),
+                ...border({
+                  ...border100,
+                  borderColor: getButtonBackgroundHoverColor(buttonType, colors),
+                }),
               },
               ':disabled': {
                 backgroundColor: primary300,
                 color: primaryB,
               },
+              ...rootOverrides,
             },
           },
           StartEnhancer: {

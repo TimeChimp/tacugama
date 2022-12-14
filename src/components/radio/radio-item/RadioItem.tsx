@@ -19,9 +19,11 @@ const radioOverrides = ({
   Root: {
     style: ({ $theme, $checked }: { $theme: CustomThemeType; $checked: boolean }) => ({
       width: '100%',
+      alignItems: 'start',
       borderRadius: $theme.borders.radius100,
       ...margin($theme.sizing.scale100, '0'),
       ...padding($theme.sizing.scale300, $theme.sizing.scale400),
+      backgroundColor: 'none',
       ...(colored && {
         backgroundColor: $checked ? $theme.colors.primary100 : $theme.colors.primary50,
         ':hover': {

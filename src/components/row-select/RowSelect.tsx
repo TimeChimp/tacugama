@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { Select as BaseSelect, Option, Value, OnChangeParams } from 'baseui/select';
 import { useTheme } from '../../providers';
 import { border, borderBottom, borderRadius, getInputPlaceholderTextColor, padding } from '../../utils';
-import { BottomArrow, LockFilled } from '../icons';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
+import { CaretDownIcon, LockedIcon } from '../icons';
 import { FormInput, RowSelectProps } from './types';
 
 export const RowSelect = ({
@@ -27,7 +27,7 @@ export const RowSelect = ({
         colors,
         customColors,
         borders,
-        sizing: { scale0, scale100, scale300, scale600, scale700, scale900 },
+        sizing: { scale0, scale100, scale300, scale700, scale900 },
         typography: { ParagraphSmall, LabelSmall },
       },
     },
@@ -42,7 +42,7 @@ export const RowSelect = ({
 
   const { selectOption = [defaultSelectOption!] } = watch();
 
-  const { border300, radius100 } = borders;
+  const { border300, radius200 } = borders;
   const { primary100, contentPrimary } = colors;
 
   const handleOnChange = (selectData: { value: Value }) => {
@@ -118,7 +118,7 @@ export const RowSelect = ({
             Dropdown: {
               style: {
                 ...padding('0'),
-                ...borderRadius(radius100),
+                ...borderRadius(radius200),
                 maxHeight: '300px', // NOTE: Value does not exist in theme
               },
             },
@@ -142,11 +142,7 @@ export const RowSelect = ({
             SelectArrow: {
               component: () => (
                 <FlexItem marg1="0" marg2="0" marg3="0" marg4={scale100} width="auto">
-                  {isLocked ? (
-                    <LockFilled color={contentPrimary} size={scale600} iconStyle={{ display: 'flex' }} />
-                  ) : (
-                    <BottomArrow />
-                  )}
+                  {isLocked ? <LockedIcon color={contentPrimary} iconStyle={{ display: 'flex' }} /> : <CaretDownIcon />}
                 </FlexItem>
               ),
             },

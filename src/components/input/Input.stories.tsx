@@ -1,10 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-
-import { Input, InputProps } from './Input';
+import { InputProps } from './types';
+import { Input } from './Input';
 import { SearchInput, SearchInputProps } from './search-input';
 import { ColorInput, ColorInputProps } from './color-input';
-import { Search as SearchIcon } from '../icons';
+import { SearchIcon } from '../icons';
 import { CharCounter } from '../char-counter';
 import { PriceInput, PriceInputProps } from './price-input';
 import { HoursInput, HoursInputProps } from './hours-input';
@@ -76,7 +76,9 @@ Password.args = {
 };
 
 export const Color = ColorTemplate.bind({});
-Color.args = {};
+Color.args = {
+  onChange: (color) => console.log(color),
+};
 
 export const EmptyColor = ColorTemplate.bind({});
 EmptyColor.args = {
@@ -90,4 +92,6 @@ export const Price = PriceTemplate.bind({});
 Price.args = {};
 
 export const Hours = HoursTemplate.bind({});
-Hours.args = {};
+Hours.args = {
+  defaultValue: undefined,
+};

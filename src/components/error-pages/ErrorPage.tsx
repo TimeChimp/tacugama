@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { ErrorButtonsBox, ErrorPageContent, ErrorPageWrapper } from './styles';
 import { ErrorPageProps } from './types';
 import { HeadingSmall, ParagraphSmall } from '../typography';
-import { Error } from '../icons';
+import { ErrorIcon } from '../icons';
 import { Button, SecondaryButton } from '../button';
 import { useTheme } from '../../providers';
 
@@ -18,7 +18,7 @@ export const ErrorPage = ({
     theme: {
       current: {
         sizing: { scale300, scale550, scale600, scale800 },
-        colors: { primary },
+        colors: { primary, negative },
       },
     },
   } = useTheme();
@@ -31,7 +31,7 @@ export const ErrorPage = ({
   return (
     <ErrorPageWrapper>
       <ErrorPageContent>
-        <Error />
+        <ErrorIcon color={negative} />
         <HeadingSmall marginTop={scale550} marginBottom={scale300} color={primary}>
           {title}
         </HeadingSmall>

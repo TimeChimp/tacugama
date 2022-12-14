@@ -4,20 +4,20 @@ import { Translations } from './types';
 export const defaultTranslations: Translations = {
   rowCountText: (count: number, totalCount: number) => (
     <>
-      Showing <strong>{count}</strong> of <strong>{totalCount}</strong> results
+      <strong>{count}</strong> of <strong>{totalCount}</strong> results
     </>
   ),
   rowCountSelectedText: (count: number) => (
     <>
-      <strong>{count}</strong> entries selected
+      <strong>{count}</strong> selected
     </>
   ),
   noRowsTitle: 'It`s a bit lonely in here',
   noRowsSubtext: 'Quick, add some items!',
-  groupBy: 'Group by',
+  groupBy: 'Group by:',
   search: 'Search',
   searchBar: 'Search for a description',
-  defaultView: 'Default view',
+  defaultView: 'Default',
   viewOptions: 'View options',
   addView: 'Add view',
   viewName: 'View name',
@@ -36,7 +36,7 @@ export const defaultTranslations: Translations = {
   defaultViewTooltip: 'Default view cannot be edited.',
   lessFilters: 'Less filters',
   allFilters: 'All filters',
-  showResultsBy: 'Show results by',
+  showResultsBy: 'Show',
   paginationPrevious: 'Prev',
   paginationNext: 'Next',
   paginationOutOf: 'Of',
@@ -47,4 +47,7 @@ export const defaultTranslations: Translations = {
       Are you sure you want to delete <strong>{count}</strong> results
     </>
   ),
+  delete: 'Delete',
+  export: 'Export',
+  none: 'None',
 };

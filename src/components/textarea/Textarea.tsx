@@ -21,7 +21,7 @@ export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps)
     },
   } = useTheme();
 
-  const { border300, radius100 } = borders;
+  const { border300, radius200 } = borders;
   const { contentSecondary, contentTertiary } = colors;
 
   return (
@@ -30,7 +30,7 @@ export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps)
       overrides={{
         Input: {
           style: ({ $theme, $error, $disabled, $isFocused }) => {
-            const { color, backgroundColor } = getInputContainerColors($theme.colors, $error, $disabled);
+            const { color, backgroundColor } = getInputContainerColors($theme.colors, $disabled);
             return {
               minHeight: scale2400,
               height: scale2400,
@@ -46,7 +46,7 @@ export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps)
                 ...border300,
                 borderColor: getInputBorderColor($error, $isFocused, colors, borders),
               }),
-              ...borderRadius(radius100),
+              ...borderRadius(radius200),
             };
           },
           props: {

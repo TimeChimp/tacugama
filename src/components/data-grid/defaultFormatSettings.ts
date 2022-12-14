@@ -1,10 +1,11 @@
+import { NumberFormat } from '@timechimp/timechimp-typescript-helpers';
 import { FormatSettings } from './types';
 
 export const defaultFormatSettings: FormatSettings = {
   timeFormat: 'HH:mm',
   durationFormat: 'HH:mm',
-  dateFormat: 'dd-MM-yyyy',
+  dateFormat: 'DD/MM/YYYY',
   currency: 'USD',
-  numberFormat: '1,234.56',
+  numberFormat: NumberFormat.Dot,
   language: 'en',
 };

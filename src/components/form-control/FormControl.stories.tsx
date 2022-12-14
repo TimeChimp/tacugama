@@ -18,5 +18,10 @@ const Template: Story<FormControlProps> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   label: () => 'label',
+};
+
+export const WithCaption = Template.bind({});
+WithCaption.args = {
+  label: () => 'label',
   caption: () => 'caption',
 };

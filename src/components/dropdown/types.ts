@@ -11,12 +11,13 @@ export interface DropdownItem {
   label: string;
   icon?: JSX.Element;
   iconEnd?: JSX.Element;
-  action?: (selectedIds?: string[]) => void;
+  action?: (selectedIds?: string[], additionalProperties?: any) => void;
   color?: string;
   checkbox?: boolean;
   isChecked?: boolean;
   isBold?: boolean;
   filterConditions?: ActionItemFilterCondition[];
+  context?: any;
 }
 
 export interface DropdownOptionProps {
@@ -37,8 +38,11 @@ export interface DropdownProps {
   footer?: JSX.Element;
   customOption?: React.ForwardRefExoticComponent<any & React.RefAttributes<any>>;
   propOverrides?: {
-    listProps: () => {};
-    optionProps: () => {};
+    listProps?: () => {};
+    optionProps?: () => {};
+    bodyProps?: () => {};
   };
   isLoading?: boolean;
+  // Additional properties to pass to the action function of a dropdown item i.e. a reference to the GridApi
+  additionalProperties?: any;
 }

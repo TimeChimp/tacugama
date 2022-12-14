@@ -1,11 +1,43 @@
 import React from 'react';
 import { Pagination as BasePagination, SIZE, PaginationProps as BasePaginationProps } from 'baseui/pagination';
 import { CustomThemeType } from '../../models';
-import { border } from '../../utils';
+import { border, borderRadius, padding } from '../../utils';
+import { Button } from '../button';
+import { CaretLeftIcon, CaretRightIcon } from '../icons';
+import { useTheme } from '../../providers';
 
 export interface PaginationProps extends BasePaginationProps {}
 
 export const Pagination = ({ ...rest }: PaginationProps) => {
+  const {
+    theme: {
+      current: {
+        sizing: { scale200, scale600 },
+        customColors: { dark2, light3 },
+        borders: { radius200, border100 },
+      },
+    },
+  } = useTheme();
+
+  const buttonOverrides = {
+    Root: {
+      style: {
+        ...borderRadius(radius200),
+        ...padding(scale200, scale600),
+        ...border({
+          ...border100,
+        }),
+        fontWeight: 'normal',
+        backgroundColor: light3,
+        ':hover': {
+          backgroundColor: light3,
+        },
+        ':active': {
+          backgroundColor: light3,
+        },
+      },
+    },
+  };
   return (
     <BasePagination
       size={SIZE.mini}
@@ -16,14 +48,18 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
           }),
         },
         NextButton: {
-          style: ({ $theme }: { $theme: CustomThemeType }) => ({
-            color: $theme.colors.primaryA,
-          }),
+          component: ({ onClick }: any) => (
+            <Button type="button" onClick={onClick} overrides={buttonOverrides}>
+              <CaretRightIcon color={dark2} />
+            </Button>
+          ),
         },
         PrevButton: {
-          style: ({ $theme }: { $theme: CustomThemeType }) => ({
-            color: $theme.colors.primaryA,
-          }),
+          component: ({ onClick }: any) => (
+            <Button type="button" onClick={onClick} overrides={buttonOverrides}>
+              <CaretLeftIcon color={dark2} />
+            </Button>
+          ),
         },
         Select: {
           props: {
@@ -36,7 +72,7 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
                 }),
               },
               ControlContainer: {
-                style: ({ $theme }: { $theme: CustomThemeType }) => ({
+                style: () => ({
                   backgroundColor: 'none',
                   ...border(),
                   outline: null,

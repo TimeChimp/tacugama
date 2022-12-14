@@ -6,6 +6,7 @@ export const StyledDropdownOption = themedStyled('div', ({ $theme }) => ({
   alignItems: 'center',
   ...padding($theme.sizing.scale400, $theme.sizing.scale600),
   minWidth: $theme.sizing.scale3200,
+  gap: $theme.sizing.scale500,
   cursor: 'pointer',
   ':hover': {
     background: $theme.colors.menuFillHover,
@@ -13,7 +14,7 @@ export const StyledDropdownOption = themedStyled('div', ({ $theme }) => ({
 }));
 
 export const StyledDropdownOptionIcon = themedStyled('div', ({ $theme }) => ({
-  ...margin('0', $theme.sizing.scale500, '0', '0'),
+  ...margin('0'),
   display: 'flex',
   alignItems: 'center',
 }));

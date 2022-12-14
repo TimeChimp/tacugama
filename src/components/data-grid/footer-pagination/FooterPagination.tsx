@@ -36,8 +36,6 @@ export const FooterPagination = ({ api: gridApi, translations }: FooterRowCountP
           handlePageChange(nextPage);
         }}
         labels={{
-          prevButton: translations.paginationPrevious,
-          nextButton: translations.paginationNext,
           preposition: translations.paginationOutOf,
         }}
       />

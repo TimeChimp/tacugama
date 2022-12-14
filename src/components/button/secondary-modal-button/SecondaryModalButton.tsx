@@ -1,31 +1,48 @@
 import React from 'react';
 import { ButtonProps } from 'baseui/button';
-import { border, borderRadius } from '../../../utils';
+import { border, borderRadius, margin, padding } from '../../../utils';
+import { useTheme } from '../../../providers';
 import { ModalButton } from 'baseui/modal';
 
-export const SecondaryModalButton = ({ children, size = 'compact', ...rest }: ButtonProps) => (
-  <ModalButton
-    kind="secondary"
-    size={size}
-    {...rest}
-    overrides={{
-      BaseButton: {
-        style: ({ $theme }) => {
-          return {
-            ...border($theme.borders.border300),
-            ...borderRadius($theme.borders.radius100),
-            boxSizing: 'border-box',
-            ':hover': {
-              backgroundColor: $theme.colors.primaryB,
-            },
-            ':active': {
-              backgroundColor: $theme.colors.primaryB,
-            },
-          };
-        },
+export const SecondaryModalButton = ({ children, size = 'compact', ...rest }: ButtonProps) => {
+  const {
+    theme: {
+      current: {
+        sizing: { scale200, scale600, scale900 },
       },
-    }}
-  >
-    {children}
-  </ModalButton>
-);
+    },
+  } = useTheme();
+
+  return (
+    <ModalButton
+      kind="secondary"
+      size={size}
+      {...rest}
+      overrides={{
+        BaseButton: {
+          style: ({ $theme }) => {
+            return {
+              ...border($theme.borders.border300),
+              ...borderRadius($theme.borders.radius200),
+              ...padding(scale200, scale600),
+              height: scale900,
+              fontWeight: 'normal',
+              boxSizing: 'border-box',
+              ':hover': {
+                backgroundColor: $theme.colors.primaryB,
+              },
+              ':active': {
+                backgroundColor: $theme.colors.primaryB,
+              },
+              ':not(:last-child)': {
+                ...margin('0', $theme.sizing.scale300, '0', '0'),
+              },
+            };
+          },
+        },
+      }}
+    >
+      {children}
+    </ModalButton>
+  );
+};

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View } from '../../../icons/view';
+import { ParagraphSmall } from '../../../typography';
 import { useTheme } from '../../../../providers';
 import { DataGridViewsProps, DataGridView, CreateViewInput } from '../../types';
-import { StyledDataGridViews, StyledDataGridDivider } from '../../styles';
-import { SecondaryButton, ActiveButton } from '../../../button';
+import { StyledDataGridViews } from '../../styles';
+import { TertiaryButton, ActiveButton } from '../../../button';
 import { SIZE } from 'baseui/button';
 import { ConfirmationModal } from '../../../confirmation-modal';
 import { CreateViewModal } from '../create-view-modal';
@@ -12,6 +12,7 @@ import { SaveViewModal } from '../save-view-modal';
 import { RenameViewModal } from '../rename-view-modal';
 import { ConfirmationModalType } from '../../../../models';
 import { DataGridViewOptions } from '../data-grid-view-options';
+import { borderRadius, border, padding } from '../../../../utils';
 
 const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
 
@@ -25,6 +26,8 @@ export const DataGridViews = ({
   onUnpinView,
   onSaveViewState,
   onActivateView,
+  onModalClose,
+  onModalOpen,
   gridApi,
   gridColumnApi,
 }: DataGridViewsProps) => {
@@ -38,8 +41,10 @@ export const DataGridViews = ({
   const {
     theme: {
       current: {
-        sizing: { scale200, scale400, scale600 },
-        colors: { primary },
+        sizing: { scale200, scale300, scale400, scale800 },
+        borders: { radius200, border300 },
+        colors: { primaryB },
+        customColors: { light2, light3 },
       },
     },
   } = useTheme();
@@ -87,6 +92,62 @@ export const DataGridViews = ({
     }
   };
 
+  const openDeleteModal = () => {
+    setDeleteModalIsOpen(true);
+    if (onModalOpen) {
+      onModalOpen();
+    }
+  };
+
+  const onDeleteModalClose = () => {
+    setDeleteModalIsOpen(false);
+    if (onModalClose) {
+      onModalClose();
+    }
+  };
+
+  const openCreateModal = () => {
+    setCreateModalIsOpen(true);
+    if (onModalOpen) {
+      onModalOpen();
+    }
+  };
+
+  const onCreateModalClose = () => {
+    setCreateModalIsOpen(false);
+    if (onModalClose) {
+      onModalClose();
+    }
+  };
+
+  const openRenameModal = () => {
+    setRenameModalIsOpen(true);
+    if (onModalOpen) {
+      onModalOpen();
+    }
+  };
+
+  const onRenameModalClose = () => {
+    setRenameModalIsOpen(false);
+    if (onModalClose) {
+      onModalClose();
+    }
+  };
+
+  const openSaveModal = () => {
+    setSaveModalIsOpen(true);
+    if (onModalOpen) {
+      onModalOpen();
+    }
+  };
+
+  const onSaveModalClose = () => {
+    setSaveModalIsOpen(false);
+    if (onModalClose) {
+      onModalClose();
+    }
+  };
+
   return (
     <>
       <StyledDataGridViews>
@@ -100,28 +161,52 @@ export const DataGridViews = ({
               marg2={scale400}
               marg3={scale200}
               marg4={scale400}
+              height={scale800}
               width="fit-content"
             >
               {isActiveView(view.id) ? (
-                <ActiveButton size={SIZE.mini} startEnhancer={() => <View color={primary} size={scale600} />}>
-                  {view.name}
+                <ActiveButton size={SIZE.mini}>
+                  <ParagraphSmall color={primaryB}>{view.name}</ParagraphSmall>
                 </ActiveButton>
               ) : (
-                <SecondaryButton onClick={() => handleActivateView(view.id)} size={SIZE.mini}>
-                  {view.name}
-                </SecondaryButton>
+                <TertiaryButton
+                  onClick={() => handleActivateView(view.id)}
+                  size={SIZE.mini}
+                  overrides={{
+                    BaseButton: {
+                      style: {
+                        height: scale800,
+                        ...borderRadius(radius200),
+                        backgroundColor: light3,
+                        ...border({
+                          ...border300,
+                          borderColor: light2,
+                        }),
+                        ...padding(scale200, scale300),
+                        ':hover': {
+                          backgroundColor: light3,
+                          ...border({
+                            ...border300,
+                            borderColor: light2,
+                          }),
+                        },
+                      },
+                    },
+                  }}
+                >
+                  <ParagraphSmall>{view.name}</ParagraphSmall>
+                </TertiaryButton>
               )}
             </FlexItem>
           ))}
-        <StyledDataGridDivider />
         <DataGridViewOptions
           translations={translations}
           views={views}
           setEditView={setEditView}
-          setDeleteModalIsOpen={setDeleteModalIsOpen}
-          setCreateModalIsOpen={setCreateModalIsOpen}
-          setRenameModalIsOpen={setRenameModalIsOpen}
-          setSaveModalIsOpen={setSaveModalIsOpen}
+          setDeleteModalIsOpen={openDeleteModal}
+          setCreateModalIsOpen={openCreateModal}
+          setRenameModalIsOpen={openRenameModal}
+          setSaveModalIsOpen={openSaveModal}
           onPinView={onPinView}
           onUnpinView={onUnpinView}
           handleActivateView={handleActivateView}
@@ -132,7 +217,7 @@ export const DataGridViews = ({
         description={translations.deleteViewConfirmation!}
         type={ConfirmationModalType.danger}
         isOpen={deleteModalIsOpen}
-        setIsOpen={setDeleteModalIsOpen}
+        onClose={onDeleteModalClose}
         submitLabel={translations.deleteView!}
         submitOnClick={handleViewDelete}
         cancelLabel={translations.cancel!}
@@ -140,7 +225,7 @@ export const DataGridViews = ({
       />
       <CreateViewModal
         isOpen={createModalIsOpen}
-        setIsOpen={setCreateModalIsOpen}
+        onClose={onCreateModalClose}
         handleCreateView={handleCreateView}
         translations={translations}
         gridApi={gridApi}
@@ -150,7 +235,7 @@ export const DataGridViews = ({
         <SaveViewModal
           view={editView}
           isOpen={saveModalIsOpen}
-          setIsOpen={setSaveModalIsOpen}
+          onClose={onSaveModalClose}
           handleSaveView={handleSaveViewState}
           translations={translations}
           gridApi={gridApi}
@@ -161,7 +246,7 @@ export const DataGridViews = ({
         <RenameViewModal
           view={editView}
           isOpen={renameModalIsOpen}
-          setIsOpen={setRenameModalIsOpen}
+          onClose={onRenameModalClose}
           handleRenameView={handleRenameView}
           translations={translations}
         />

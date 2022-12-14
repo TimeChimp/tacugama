@@ -11,4 +11,13 @@ export default {
 const Template: Story<PaginationProps> = (args) => <Pagination {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  numPages: 10,
+  currentPage: 1,
+};
+Default.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=1645%3A11897',
+  },
+};

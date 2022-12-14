@@ -27,6 +27,7 @@ export const Dropdown = ({
   customOption,
   placement = 'bottomRight',
   isLoading = false,
+  additionalProperties,
 }: DropdownProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>();
@@ -42,7 +43,15 @@ export const Dropdown = ({
 
   useEffect(() => {
     const dropDownItems = items
-      .filter((x) => !searchTerm || x.label.toLowerCase().includes(searchTerm.toLowerCase()))
+      .filter((x) => {
+        if (x.filterConditions?.length && x.context) {
+          return x.filterConditions?.every(({ value, name, comparator }: any) => {
+            return comparator(value, name, x.context);
+          });
+        }
+
+        return !searchTerm || x.label.toLowerCase().includes(searchTerm.toLowerCase());
+      })
       .map((x) => ({
         ...x,
         checkbox: selection,
@@ -62,6 +71,8 @@ export const Dropdown = ({
         Body: {
           style: {
             boxShadow: shadow600,
+            zIndex: 1001,
+            ...propOverrides?.bodyProps?.(),
           },
         },
       }}
@@ -108,7 +119,7 @@ export const Dropdown = ({
                     maxHeight: '300px',
                   },
                   props: {
-                    ...propOverrides?.listProps(),
+                    ...propOverrides?.listProps?.(),
                   },
                 },
                 Option: {
@@ -116,18 +127,18 @@ export const Dropdown = ({
                   props: {
                     onItemSelect: (item: DropdownItem) => {
                       if (item.action) {
-                        item.action(selectedIds);
+                        item.action(selectedIds, additionalProperties);
                       }
                       if (!selection) {
                         close();
                       }
                     },
-                    ...propOverrides?.optionProps(),
+                    ...propOverrides?.optionProps?.(),
                   },
                 },
                 ListItem: {
                   props: {
-                    ...propOverrides?.optionProps(),
+                    ...propOverrides?.optionProps?.(),
                   },
                 },
               }}

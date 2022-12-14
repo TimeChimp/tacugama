@@ -1,11 +1,18 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import fetch from 'isomorphic-unfetch';
-import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader } from './styles';
+import {
+  StyledDataGrid,
+  getGridThemeOverrides,
+  StyledDataGridHeader,
+  StyledAgGridReact,
+  StyledDataGridDivider,
+} from './styles';
 import { RowActionsCell } from './row-actions-cell';
 import { FooterRowCount } from './footer-row-count';
 import { FooterPagination } from './footer-pagination';
 import { FooterPageSize } from './footer-page-size';
 import { NoRowsTemplate } from './no-rows-template';
+import { HeaderComponentFramework } from './header-component-framework';
 import { HeaderCheckbox } from './header-checkbox';
 import { HeaderColumnToggle } from './header-column-toggle';
 import { LoadingCellTemplate } from './loading-cell-template';
@@ -14,8 +21,9 @@ import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
 import { StatusBarModule } from '@ag-grid-enterprise/status-bar';
 import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
 import { SetFilterModel, SetFilterModule } from '@ag-grid-enterprise/set-filter';
-import { AgGridColumn, AgGridReact } from '@ag-grid-community/react';
+import { AgGridColumn } from '@ag-grid-community/react';
 import { CsvExportModule } from '@ag-grid-community/csv-export';
+import { LicenseManager } from '@ag-grid-enterprise/core';
 import { ExcelExportModule } from '@ag-grid-enterprise/excel-export';
 import {
   GridApi,
@@ -53,6 +61,7 @@ import {
   FilterType,
   RowModelType,
   DataGridColumnValueType,
+  CustomFilterTypes,
 } from './types';
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
@@ -66,13 +75,19 @@ import { RowSelect } from '../row-select';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { GroupRowInnerRenderer } from './group-row-inner-renderer';
 import { GroupRowInnerTagRenderer } from './group-row-inner-tag-renderer';
+import { FlexItem } from '../flex-item';
+import { ParagraphSmall } from '../typography';
+import { TertiaryButton } from '../button';
+import { Dropdown, DropdownItem } from '../dropdown';
+import { CaretDownIcon, EditIcon } from '../icons';
+import { border, borderRadius, padding } from '../../utils';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
-const DATE_FORMAT = 'y-MM-dd';
 
 export const DataGrid = ({
+  licenseKey,
   rowData,
   columns,
   selection,
@@ -112,20 +127,49 @@ export const DataGrid = ({
   groupIncludeFooter = false,
   groupIncludeTotalFooter = false,
   enableExport = false,
+  suppressRowHoverHighlight = false,
+  suppressRowClickSelection = false,
   getServerSideGroupKey,
   getDataPath,
   onRowDataUpdated,
   onRowDataChanged,
+  onModalClose,
+  onModalOpen,
+  debouncedSearch = false,
   onSelectionChangedHandler,
 }: DataGridProps) => {
+  const datagridRef = useRef<HTMLDivElement>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
   const [allViews, setAllViews] = useState<DataGridView[]>([]);
   const [selectedFilterIds, setSelectedFilterIds] = useState<SelectedFilterIds>({});
   const [rowsSelected, setRowsSelected] = useState<number>(0);
+  const [isGridColumnApiLoaded, setIsGridColumnApiLoaded] = useState<boolean>(false);
+  const [filterModel, setFilterModel] = useState<{ [key: string]: any }>({});
 
   const { theme } = useTheme();
+
+  const {
+    theme: {
+      current: {
+        sizing: { scale300, scale500, scale800 },
+        borders: { border300, radius200 },
+        customColors: { light2, light3, dark1 },
+      },
+    },
+  } = useTheme();
+
+  // note: setting the license key is not working in use effect. Downside is that setLicenseKey is now called multiple times.
+  if (licenseKey) {
+    LicenseManager.setLicenseKey(licenseKey);
+  }
+
+  useEffect(() => {
+    if (licenseKey) {
+      LicenseManager.setLicenseKey(licenseKey);
+    }
+  }, [licenseKey]);
 
   useEffect(() => {
     const allViews = views ? sortBy<DataGridView>(views, [nameOf<DataGridView>('name')]) : [];
@@ -177,32 +221,34 @@ export const DataGrid = ({
   const refreshCells = (api: GridApi) => api.refreshCells();
 
   const onGridSizeChanged = () => {
-    gridApi.sizeColumnsToFit();
+    gridApi?.sizeColumnsToFit();
   };
 
-  const setViewFilterIds = (filterModel: FilterModel) => {
-    setSelectedFilterIds({});
+  const setViewFilterIds = useCallback(
+    (filterModel: FilterModel) => {
+      setSelectedFilterIds({});
 
-    let filterIds: SelectedFilterIds = {};
-    Object.keys(filterModel).forEach((filterName) => {
-      const filter = filterModel[filterName];
-      if (filter.filterType === 'set') {
-        const setFilter = filter as SetFilterModel;
-        if (setFilter.values) {
-          const values = setFilter.values.filter((value) => typeof value === 'string') as string[];
-          filterIds[filterName] = values;
+      let filterIds: SelectedFilterIds = {};
+      Object.keys(filterModel).forEach((filterName) => {
+        const filter = filterModel[filterName];
+        if (filter.filterType === 'set') {
+          const setFilter = filter as SetFilterModel;
+          if (setFilter.values) {
+            filterIds[filterName] = setFilter.values;
+          }
         }
-      }
 
-      if (filter.filterType === 'date') {
-        const { dateFrom, dateTo } = filter as DateFilterModel;
-        if (setDates && dateFrom && dateTo) {
-          setDates([new TcDate(dateFrom).toDate(), new TcDate(dateTo).toDate()]);
+        if (filter.filterType === 'date') {
+          const { dateFrom, dateTo } = filter as DateFilterModel;
+          if (setDates && dateFrom && dateTo) {
+            setDates([new TcDate(dateFrom).toDate(), new TcDate(dateTo).toDate()]);
+          }
         }
-      }
-    });
-    setSelectedFilterIds(filterIds);
-  };
+      });
+      setSelectedFilterIds(filterIds);
+    },
+    [setDates],
+  );
 
   const getInitialDateRange = () => {
     const tcDate = new TcDate();
@@ -212,36 +258,40 @@ export const DataGrid = ({
     return [startOfMonth, endOfMonth];
   };
 
-  const resetGrid = () => {
-    gridColumnApi.resetColumnState();
-    gridColumnApi.resetColumnGroupState();
+  const resetGrid = useCallback(
+    (api: GridApi, columnApi: ColumnApi) => {
+      columnApi.resetColumnState();
+      columnApi.resetColumnGroupState();
+      Object.keys(filterModel).forEach((filter) => {
+        api.destroyFilter(filter);
+      });
 
-    const filterModel = gridApi.getFilterModel();
-    Object.keys(filterModel).forEach((filter) => {
-      gridApi.destroyFilter(filter);
-    });
+      setViewFilterIds({});
+      if (setDates) {
+        setDates(getInitialDateRange());
+      }
+    },
+    [setDates, setViewFilterIds, filterModel],
+  );
 
-    setViewFilterIds({});
-    if (setDates) {
-      setDates(getInitialDateRange());
-    }
-  };
+  const setViewState = useCallback(
+    (api: GridApi, columnApi: ColumnApi, state: string | null) => {
+      if (state) {
+        const gridState: DataGridState = JSON.parse(state);
 
-  const setViewState = (state: string | null) => {
-    if (state) {
-      const gridState: DataGridState = JSON.parse(state);
+        columnApi.setColumnState(gridState.columnState);
+        columnApi.setColumnGroupState(gridState.columnGroupState);
+        api?.setFilterModel(gridState.filterModel);
+        setViewFilterIds(gridState.filterModel);
+      } else {
+        resetGrid(api, columnApi);
+      }
 
-      gridColumnApi.setColumnState(gridState.columnState);
-      gridColumnApi.setColumnGroupState(gridState.columnGroupState);
-      gridApi.setFilterModel(gridState.filterModel);
-      setViewFilterIds(gridState.filterModel);
-    } else {
-      resetGrid();
-    }
-
-    gridApi.onFilterChanged();
-    gridApi.sizeColumnsToFit();
-  };
+      api?.onFilterChanged();
+      api?.sizeColumnsToFit();
+    },
+    [setViewFilterIds, resetGrid],
+  );
 
   const handleActivateView = async (id: string) => {
     const view = allViews?.find((view) => view.id === id);
@@ -259,7 +309,7 @@ export const DataGrid = ({
         await onActivateView(view.id);
       }
 
-      setViewState(view.viewState!);
+      setViewState(gridApi, gridColumnApi, view.viewState!);
     }
   };
 
@@ -271,10 +321,13 @@ export const DataGrid = ({
 
   const onFiltering = useCallback(
     (filters: FilterModel) => {
-      gridApi.setFilterModel(filters);
+      setFilterModel(filters);
       gridApi.onFilterChanged();
+      if (rowModelType === RowModelType.clientSide) {
+        gridApi.setFilterModel(filters);
+      }
     },
-    [gridApi],
+    [gridApi, rowModelType],
   );
 
   const createServerSideDatasource = (): IServerSideDatasource => {
@@ -282,13 +335,14 @@ export const DataGrid = ({
       getRows: async function (params: IServerSideGetRowsParams) {
         if (dataUrl) {
           try {
+            const body = { ...params.request, filterModel };
             const response = await fetch(dataUrl, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${accessToken}`,
               },
-              body: JSON.stringify(params.request),
+              body: JSON.stringify(body),
             });
 
             const data = (await response.json()) as DataGridResponse;
@@ -310,7 +364,7 @@ export const DataGrid = ({
   };
 
   const createDataGridApi = useCallback(
-    (api: GridApi) => {
+    (api: GridApi, columnApi: ColumnApi) => {
       if (onReady) {
         const dataGridApi: DataGridApi = {
           getSelectedRows: () => getSelectedRows(api),
@@ -319,26 +373,36 @@ export const DataGrid = ({
           exportAsExcel: () => exportAsExcel(api),
           refreshStore: () => refreshStore(api),
           refreshCells: () => refreshCells(api),
+          setViewState: (state: string | null) => setViewState(api, columnApi, state),
+          datagridRef,
         };
         onReady(dataGridApi);
       }
     },
-    [onReady],
+    [onReady, setViewState],
   );
 
   const onGridReady = async ({ api, columnApi }: GridReadyEvent) => {
-    createDataGridApi(api);
+    createDataGridApi(api, columnApi);
 
     setGridApi(api);
     setGridColumnApi(columnApi);
+    setIsGridColumnApiLoaded(true);
 
-    api.sizeColumnsToFit();
+    api?.sizeColumnsToFit();
 
     if (rowModelType === RowModelType.serverSide) {
       const datasource = createServerSideDatasource();
       api.setServerSideDatasource(datasource);
     }
   };
+
+  useEffect(() => {
+    if (gridApi) {
+      gridApi.setServerSideDatasource(createServerSideDatasource());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterModel]);
 
   const getRowNodeId = (data: any) => {
     return data.hierarchy ?? data.id;
@@ -350,6 +414,11 @@ export const DataGrid = ({
       c.rowGroup = rowGroups.includes(c.field);
     });
     setGridColumns(columns);
+  };
+
+  const clearFilterModel = (columnFilter: string) => {
+    setFilterModel((model) => ({ ...model, [columnFilter]: undefined }));
+    gridApi.onFilterChanged();
   };
 
   const getValueFormatter = (
@@ -391,8 +460,9 @@ export const DataGrid = ({
     if (!params) {
       return;
     }
-    let values: (string | null)[] = [];
+    let values: FilterValue['value'][] = [];
     const columnFilter = filters?.find((filter) => filter.columnField === columnField);
+
     if (columnFilter?.values) {
       const columnValues: (FilterValue | string)[] = columnFilter.values;
       values = columnValues.map((value: FilterValue | string) =>
@@ -423,7 +493,7 @@ export const DataGrid = ({
     setRowsSelected(selected.length);
   };
 
-  const getSetValues = (value: string | null, type: FilterType, values?: string[]) => {
+  const getSetValues = (value: FilterValue['value'], type: FilterType, values?: FilterValue['value'][]) => {
     if (!value) {
       return [];
     }
@@ -439,31 +509,46 @@ export const DataGrid = ({
   };
 
   const onSetFiltering = useCallback(
-    (columnField: string, type: FilterType, value: string | null) => {
-      const filterInstance = gridApi?.getFilterInstance(columnField);
-      const filterModel = gridApi?.getFilterModel();
-      const currentValues = filterInstance?.getModel()?.values;
-      const values = getSetValues(value, type, currentValues);
-
-      if (!values.length) {
-        gridApi.destroyFilter(columnField);
-        return gridApi.onFilterChanged();
+    (columnField: string, type: FilterType, value: FilterValue['value']) => {
+      let currentValues;
+      const filter = filters?.find((filter) => filter.columnField === columnField);
+      if (filter?.customGetValuerMap) {
+        currentValues = filter?.customGetValuerMap?.(filterModel?.[columnField]);
+      } else {
+        currentValues = filter?.byId ? filterModel?.[columnField]?.ids : filterModel?.[columnField]?.values;
       }
 
-      const setFilter = {
-        values,
-        type: 'set',
-      };
+      const values = getSetValues(value, type, currentValues);
+      if (!values.length) {
+        setFilterModel((model) => ({ ...model, [columnField]: undefined }));
+        return gridApi.onFilterChanged();
+      }
+      const filterObject = filters?.find((filter) => filter.columnField === columnField);
+
+      let setFilter;
+      if (filterObject?.customFilterMap) {
+        setFilter = filterObject?.customFilterMap(values);
+      } else if (filterObject?.byId) {
+        setFilter = {
+          ids: values,
+          filterType: CustomFilterTypes.ids,
+        };
+      } else {
+        setFilter = {
+          values,
+          filterType: CustomFilterTypes.set,
+        };
+      }
 
       filterModel[columnField] = setFilter;
 
       onFiltering(filterModel);
     },
-    [gridApi, onFiltering],
+    [gridApi, filters, filterModel, onFiltering],
   );
 
   const filterOnValue = useCallback(
-    (columnField: string, value: string | null, type: FilterType) => {
+    (columnField: string, value: FilterValue['value'], type: FilterType) => {
       onSetFiltering(columnField, type, value);
 
       setSelectedFilterIds((currentIds) => {
@@ -486,7 +571,7 @@ export const DataGrid = ({
   );
 
   // Date format that is send as part of the query request
-  const getDateFormat = (date: Date) => new TcDate(date).format(DATE_FORMAT);
+  const getDateFormat = useCallback((date: Date) => new TcDate(date).getDateWithoutTimeAsUTC().toISOString(), []);
 
   const filterOnDate = useCallback(
     (columnField: string, selectedDates: Date[]) => {
@@ -496,11 +581,11 @@ export const DataGrid = ({
         dateFrom: getDateFormat(selectedDates[0]),
         dateTo: getDateFormat(selectedDates[1]),
       };
-      const filterModel = gridApi.getFilterModel();
+
       filterModel[columnField] = dateFilter;
       onFiltering(filterModel);
     },
-    [gridApi, onFiltering],
+    [getDateFormat, filterModel, onFiltering],
   );
 
   const setFilterDefaultValues = useCallback(() => {
@@ -523,7 +608,7 @@ export const DataGrid = ({
   const onFirstDataRendered = () => {
     const activeView = allViews?.find((view) => view.active);
     if (activeView && activeView.viewState) {
-      return setViewState(activeView.viewState);
+      return setViewState(gridApi, gridColumnApi, activeView.viewState);
     }
 
     return setFilterDefaultValues();
@@ -540,6 +625,39 @@ export const DataGrid = ({
     return '';
   }, [rowActionItems, onRowEdit]);
 
+  const showDataGridHeader = useMemo(() => viewing || (selection && !(hideDelete && hideDownload)), [
+    viewing,
+    selection,
+    hideDelete,
+    hideDownload,
+  ]);
+
+  const dataGridHeight = useMemo(() => {
+    const headerHeight = showDataGridHeader ? 45 : 0;
+    return `calc(100% - ${headerHeight}px)`;
+  }, [showDataGridHeader]);
+
+  const selectedGroupOption = columns.filter((x) => x.groupable).find((column) => column.rowGroup);
+
+  const handleGrouping = (field: string) => {
+    if (selectedGroupOption?.field === field) {
+      onGrouping([]);
+    } else {
+      onGrouping([field]);
+    }
+  };
+
+  const options: DropdownItem[] = columns
+    .filter((x) => x.groupable)
+    .map((column) => {
+      return {
+        id: column.field,
+        label: column.label || '',
+        icon: column.rowGroup ? <EditIcon size={scale500} /> : <></>,
+        action: () => handleGrouping(column.field),
+      };
+    });
+
   return (
     <>
       <Filters
@@ -551,7 +669,7 @@ export const DataGrid = ({
         setDates={setDates}
         grouping={grouping}
         onGrouping={onGrouping}
-        onFiltering={onFiltering}
+        onFiltering={setFilterModel}
         translations={translations}
         searchColumns={searchColumns}
         dateFormat={formatSettings.dateFormat ?? (defaultFormatSettings.dateFormat as string)}
@@ -559,25 +677,12 @@ export const DataGrid = ({
         setSelectedFilterIds={setSelectedFilterIds}
         filterOnValue={filterOnValue}
         filterOnDate={filterOnDate}
+        debouncedSearch={debouncedSearch}
+        clearFilterModel={clearFilterModel}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
-        {(viewing || selection) && (
+        {showDataGridHeader && (
           <StyledDataGridHeader $justifyContent={selection && !viewing ? 'flex-end' : 'space-between'}>
-            {viewing && (
-              <DataGridViews
-                views={allViews}
-                onCreateView={handleCreateView}
-                onDeleteView={onDeleteView}
-                onRenameView={onRenameView}
-                onPinView={onPinView}
-                onUnpinView={onUnpinView}
-                onSaveViewState={onSaveViewState}
-                onActivateView={handleActivateView}
-                translations={translations}
-                gridApi={gridApi}
-                gridColumnApi={gridColumnApi}
-              />
-            )}
             {(selection || enableExport) && (
               <DataGridActions
                 gridApi={gridApi}
@@ -590,10 +695,77 @@ export const DataGrid = ({
                 hideDelete={hideDelete}
               />
             )}
+            <FlexItem width="auto">
+              {viewing && (
+                <DataGridViews
+                  views={allViews}
+                  onCreateView={handleCreateView}
+                  onDeleteView={onDeleteView}
+                  onRenameView={onRenameView}
+                  onPinView={onPinView}
+                  onUnpinView={onUnpinView}
+                  onSaveViewState={onSaveViewState}
+                  onActivateView={handleActivateView}
+                  translations={translations}
+                  gridApi={gridApi}
+                  gridColumnApi={gridColumnApi}
+                  onModalClose={onModalClose}
+                  onModalOpen={onModalOpen}
+                />
+              )}
+              {grouping && (
+                <>
+                  <StyledDataGridDivider />
+                  <FlexItem width="auto">
+                    <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
+                    <Dropdown items={options}>
+                      <TertiaryButton
+                        size="mini"
+                        overrides={{
+                          BaseButton: {
+                            style: {
+                              height: scale800,
+                              backgroundColor: light3,
+                              ...border({
+                                ...border300,
+                                borderColor: light2,
+                              }),
+                              ...borderRadius(radius200),
+                              ...padding(scale300),
+                              ':hover': {
+                                backgroundColor: light3,
+                                ...border({
+                                  ...border300,
+                                  borderColor: light2,
+                                }),
+                              },
+                            },
+                          },
+                        }}
+                      >
+                        <ParagraphSmall $style={{ cursor: 'pointer' }} color={dark1}>
+                          {selectedGroupOption?.label ?? translations.none}
+                        </ParagraphSmall>
+                        <FlexItem marg4={scale500}>
+                          <CaretDownIcon color={dark1} />
+                        </FlexItem>
+                      </TertiaryButton>
+                    </Dropdown>
+                  </FlexItem>
+                </>
+              )}
+              <StyledDataGridDivider />
+              {isGridColumnApiLoaded && (
+                <HeaderColumnToggle api={gridApi} columnApi={gridColumnApi} translations={translations} />
+              )}
+            </FlexItem>
           </StyledDataGridHeader>
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
-        <AgGridReact
+        <StyledAgGridReact
+          $height={dataGridHeight}
+          // @ts-expect-error - ag-grid-react typings are wrong
+          ref={datagridRef}
           rowData={rowData}
           rowSelection="multiple"
           rowModelType={rowModelType}
@@ -621,6 +793,8 @@ export const DataGrid = ({
           pagination
           paginationPageSize={25}
           suppressPaginationPanel
+          suppressRowHoverHighlight={suppressRowHoverHighlight}
+          suppressRowClickSelection={suppressRowClickSelection}
           enableCellTextSelection
           onGridReady={onGridReady}
           onRowDataUpdated={onRowDataUpdated}
@@ -641,7 +815,6 @@ export const DataGrid = ({
             footerPageSize: FooterPageSize,
             noRowsTemplate: () => <NoRowsTemplate translations={translations} />,
             headerCheckbox: HeaderCheckbox,
-            headerColumnToggle: HeaderColumnToggle,
             loadingCellTemplate: LoadingCellTemplate,
             rowSelect: RowSelect,
             groupRowInnerRenderer: GroupRowInnerRenderer,
@@ -723,7 +896,7 @@ export const DataGrid = ({
                 cellRendererFramework={customComponent}
                 cellRenderer={!!rowSelectProps ? 'rowSelect' : undefined}
                 cellRendererParams={!!rowSelectProps ? { ...rowSelectProps } : undefined}
-                headerComponentFramework={customHeaderComponent}
+                headerComponentFramework={() => <HeaderComponentFramework label={label} />}
                 key={field}
                 headerName={label}
                 field={field}
@@ -744,12 +917,14 @@ export const DataGrid = ({
           <AgGridColumn
             headerName={''}
             field={''}
-            headerComponent={columnToggling ? 'headerColumnToggle' : ''}
+            headerComponent={''}
             headerComponentParams={{
               translations,
             }}
             cellRenderer={columnCellRenderer}
-            cellRendererParams={{ data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon } }}
+            cellRendererParams={{
+              data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon, api: gridApi },
+            }}
             type="rightAligned"
             minWidth={60}
             maxWidth={rowActionItems?.length || columnToggling ? 60 : 0}
@@ -757,7 +932,7 @@ export const DataGrid = ({
             resizable={false}
             pinned={'right'}
           />
-        </AgGridReact>
+        </StyledAgGridReact>
       </StyledDataGrid>
     </>
   );

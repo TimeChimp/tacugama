@@ -3,16 +3,17 @@ import { useTheme } from '../../../providers';
 import { RowActionsCellProps } from '../types';
 import { Dropdown } from '../../dropdown';
 import { TertiaryButton } from '../../button';
-import { ActionMenu, ActionMenuActive } from '../../icons';
+import { MoreIcon } from '../../icons';
 import { RowEditCell } from '../row-edit-cell';
 
-export const RowActionsCell = ({ data }: RowActionsCellProps) => {
-  const { onEdit, items, id, icon } = data;
+export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
+  const { onEdit, items, id, icon, api } = data;
   const [active, setActive] = useState(false);
   const {
     theme: {
       current: {
-        sizing: { scale500 },
+        customColors: { dark1 },
+        colors: { contentTertiary },
       },
     },
   } = useTheme();
@@ -43,16 +44,23 @@ export const RowActionsCell = ({ data }: RowActionsCellProps) => {
     });
   }, [items, data]);
 
-  return !!onEdit ? (
-    <RowEditCell onClick={handleEdit} icon={icon} />
-  ) : (
+  return !onEdit ? (
     <div ref={containerRef}>
-      <Dropdown onOpen={onOpen} onClose={() => setActive(false)} items={filteredItems} selectedIds={[id]}>
-        <TertiaryButton>
-          {active ? <ActionMenuActive size={scale500} /> : <ActionMenu size={scale500} />}
+      <Dropdown
+        onOpen={onOpen}
+        onClose={() => setActive(false)}
+        items={filteredItems}
+        selectedIds={[id]}
+        additionalProperties={api}
+        {...props}
+      >
+        <TertiaryButton type="button">
+          <MoreIcon color={active ? dark1 : contentTertiary} />
         </TertiaryButton>
       </Dropdown>
     </div>
+  ) : (
+    <RowEditCell onClick={handleEdit} icon={icon} />
   );
 };
 

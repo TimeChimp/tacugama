@@ -17,7 +17,7 @@ export const MyDashboardTooltip = ({
   const {
     theme: {
       current: {
-        sizing: { scale300 },
+        sizing: { scale300, scale500 },
         colors: { contentSecondary },
         customColors: { light4 },
       },
@@ -25,8 +25,9 @@ export const MyDashboardTooltip = ({
   } = useTheme();
 
   const convertHours = (value: number) => {
-    const hours = Math.floor(value);
-    const minutes = Math.round((value - Math.floor(value)) * 60);
+    const hours = Math.floor(value) || '00';
+    const minutes = Math.round((value - Math.floor(value)) * 60) || '00';
+
     return hours + ':' + minutes;
   };
 
@@ -34,7 +35,7 @@ export const MyDashboardTooltip = ({
     () => (isDefault ? convertHours(maxValue - datum.duration) : convertHours(datum[fieldName])),
     [isDefault, maxValue, fieldName, datum],
   );
-  console.log(datum.duration);
+
   return (
     <g style={{ pointerEvents: 'none' }}>
       <foreignObject x={x - width / 2} y={-10} width={width} height={height}>
@@ -46,6 +47,7 @@ export const MyDashboardTooltip = ({
                 background: contentSecondary,
                 color: light4,
                 textAlign: 'center',
+                fontSize: scale500,
               },
             },
           }}

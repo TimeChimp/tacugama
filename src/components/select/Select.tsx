@@ -10,7 +10,7 @@ import {
   padding,
   margin,
 } from '../../utils';
-import { BottomArrow, TagIcon } from '../icons';
+import { CaretDownIcon, TagIcon } from '../icons';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
 
@@ -22,6 +22,7 @@ interface CustomParams {
 
 export interface SelectProps extends BaseSelectProps {
   showSkeleton?: boolean;
+  disableSortOptions?: boolean;
   options: Option[];
   onChangeHandler: (params: OnChangeParams) => void;
   propOverrides?: {
@@ -38,6 +39,8 @@ export const Select = ({
   propOverrides,
   onChangeHandler,
   multi,
+  options,
+  disableSortOptions = false,
   ...rest
 }: SelectProps) => {
   const {
@@ -46,12 +49,12 @@ export const Select = ({
         colors,
         borders,
         customColors: { primarySubtle },
-        sizing: { scale0, scale100, scale550, scale700, scale900 },
+        sizing: { scale100, scale550, scale700, scale900 },
         typography: { ParagraphSmall, LabelSmall },
       },
     },
   } = useTheme();
-  const { border300, radius100 } = borders;
+  const { border300, radius200 } = borders;
   const { primaryB, primary100, contentPrimary } = colors;
 
   const handleOnChange = (params: CustomParams) => {
@@ -59,6 +62,16 @@ export const Select = ({
       return onChangeHandler(params);
     }
     return onChangeHandler({ ...params, value: params.value.length === 1 ? params.value[0] : params.value });
+  };
+
+  const alphabetizeOptions = (options: Option[], disableSortOptions?: boolean) => {
+    if (!options) {
+      return [];
+    }
+    if (disableSortOptions) {
+      return options;
+    }
+    return options.length > 1 ? [...options].sort((a, b) => a[labelKey]?.localeCompare(b[labelKey])) : options;
   };
 
   return (
@@ -72,19 +85,20 @@ export const Select = ({
           labelKey={labelKey}
           onChange={handleOnChange}
           multi={multi}
+          options={alphabetizeOptions(options, disableSortOptions)}
           {...rest}
           overrides={{
             ControlContainer: {
               style: {
                 backgroundColor: primaryB,
                 ...border(),
-                ...borderRadius(scale0),
+                ...borderRadius(radius200),
               },
             },
             Root: {
               style: ({ $error, $isFocused }) => ({
                 backgroundColor: primaryB,
-                ...borderRadius(scale0),
+                ...borderRadius(radius200),
                 ...border({
                   ...border300,
                   borderColor: getInputBorderColor($error, $isFocused, colors, borders),
@@ -102,7 +116,7 @@ export const Select = ({
             },
             DropdownContainer: {
               style: {
-                ...borderRadius(scale0),
+                ...borderRadius(radius200),
                 ...border(border300),
               },
             },
@@ -119,7 +133,7 @@ export const Select = ({
             Dropdown: {
               style: {
                 ...padding('0'),
-                ...borderRadius(radius100),
+                ...borderRadius(radius200),
                 maxHeight: '300px',
               },
             },
@@ -138,7 +152,7 @@ export const Select = ({
             SelectArrow: {
               component: () => (
                 <FlexItem marg1="0" marg2="0" marg3="0" marg4={scale100} width="auto">
-                  <BottomArrow />
+                  <CaretDownIcon />
                 </FlexItem>
               ),
             },
@@ -177,7 +191,7 @@ export const Select = ({
                   Root: {
                     style: {
                       backgroundColor: primarySubtle,
-                      ...borderRadius(radius100),
+                      ...borderRadius(radius200),
                       ...margin('0', scale100),
                     },
                   },

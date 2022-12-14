@@ -15,7 +15,7 @@ import {
 } from '@ag-grid-community/core';
 import { DurationFormat, NumberFormat, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DropdownItem } from '../dropdown';
-import { SVGProps as IconProps } from '../icons';
+import { SVGProps as IconProps } from '..';
 import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
 import { PageOrientation } from 'pdfmake/interfaces';
 import { Option } from '../select';
@@ -26,6 +26,12 @@ export enum RowModelType {
   serverSide = 'serverSide',
 }
 
+export enum CustomFilterTypes {
+  ids = 'ids',
+  text = 'text',
+  set = 'set',
+}
+
 export interface DataGridApi {
   getSelectedRows: () => any[];
   getSelectedRow: () => any;
@@ -33,6 +39,8 @@ export interface DataGridApi {
   exportAsExcel: () => void;
   refreshStore: () => void;
   refreshCells: () => void;
+  setViewState: (viewState: string | null) => void;
+  datagridRef: React.RefObject<HTMLDivElement>;
 }
 
 export type DataGridColumnValueType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'duration';
@@ -82,7 +90,7 @@ export enum FilterType {
 }
 
 export interface FilterValue {
-  value: string | null;
+  value: string | boolean | number | null;
   label: string;
   icon?: JSX.Element;
 }
@@ -90,12 +98,16 @@ export interface Filter {
   type: FilterType;
   columnField: string;
   values?: FilterValue[] | string[];
-  defaultValue?: string;
+  defaultValue?: string | boolean;
   valuesLoading?: boolean;
   title: string;
   icon?: ComponentType<IconProps>;
   searchPlaceholder?: string;
   hide?: boolean;
+  byId?: boolean;
+  clearable?: boolean;
+  customFilterMap?: (values: FilterValue['value'][]) => any;
+  customGetValuerMap?: (filterModel: any) => any;
 }
 
 export interface GetServerSideGroupKey {
@@ -161,9 +173,13 @@ export interface Translations {
   paginationOutOfLong: (currentPage: number, pageCount: number) => string;
   deleteEntries: string;
   deleteEntriesCount: (count: number) => JSX.Element;
+  delete: string;
+  export: string;
+  none: string;
 }
 
 export interface DataGridProps {
+  licenseKey?: string;
   rowModelType?: RowModelType;
   rowData?: any[] | undefined;
   columns: DataGridColumn[];
@@ -199,7 +215,7 @@ export interface DataGridProps {
   onUnpinView?: (id: string) => Promise<void>;
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
-  onBulkDelete?: (ids: string[]) => Promise<void>;
+  onBulkDelete?: () => Promise<void>;
   onRowEdit?: (data: RowActionsCellData) => void;
   onRowEditIcon?: ComponentType<IconProps>;
   onSelectionChangedHandler?: (data: RowNode[]) => void;
@@ -210,6 +226,11 @@ export interface DataGridProps {
   groupIncludeTotalFooter?: boolean;
   onRowDataChanged?: (e: RowDataUpdatedEvent) => void;
   onRowDataUpdated?: (e: RowDataUpdatedEvent) => void;
+  onModalOpen?: () => void;
+  onModalClose?: () => void;
+  suppressRowHoverHighlight?: boolean;
+  suppressRowClickSelection?: boolean;
+  debouncedSearch?: boolean;
 }
 
 export interface DataGridView {
@@ -227,7 +248,7 @@ export interface CreateViewInput {
 }
 
 export interface SelectedFilterIds {
-  [key: string]: (string | null)[];
+  [key: string]: FilterValue['value'][];
 }
 
 export interface FiltersProps {
@@ -245,8 +266,10 @@ export interface FiltersProps {
   dateFormat: string;
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
-  filterOnValue: (columnField: string, value: string | null, type: FilterType) => void;
+  filterOnValue: (columnField: string, value: FilterValue['value'], type: FilterType) => void;
   filterOnDate: (columnField: string, selectedDates: Date[]) => void;
+  debouncedSearch?: boolean;
+  clearFilterModel: (columnFilter: string) => void;
 }
 
 export interface ColumnFiltersProps {
@@ -258,8 +281,9 @@ export interface ColumnFiltersProps {
   dateFormat: string;
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
-  filterOnValue: (columnField: string, value: string | null, type: FilterType) => void;
+  filterOnValue: (columnField: string, value: FilterValue['value'], type: FilterType) => void;
   filterOnDate: (columnField: string, selectedDates: Date[]) => void;
+  clearFilterModel: (columnFilter: string) => void;
 }
 export interface FooterRowCountProps {
   api: GridApi;
@@ -276,6 +300,11 @@ export interface RowActionsCellProps {
   api?: GridApi;
   data: RowActionsCellData;
   icon?: ComponentType<IconProps>;
+  propOverrides?: {
+    listProps?: () => {};
+    optionProps?: () => {};
+    bodyProps?: () => {};
+  };
 }
 
 export interface RowEditCellProps {
@@ -322,6 +351,10 @@ export interface NoRowsTemplateProps {
   translations: Translations;
 }
 
+export interface HeaderComponentFrameworkProps {
+  label: string | undefined;
+}
+
 export interface DataGridViewsProps {
   translations: Translations;
   views?: DataGridView[];
@@ -332,13 +365,15 @@ export interface DataGridViewsProps {
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
   onActivateView?: (id: string) => void;
+  onModalOpen?: () => void;
+  onModalClose?: () => void;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
 }
 
 export interface CreateViewModalProps {
   isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
+  onClose: () => void;
   handleCreateView: (input: CreateViewInput) => Promise<void>;
   translations: Translations;
   gridApi: GridApi;
@@ -347,7 +382,7 @@ export interface CreateViewModalProps {
 
 export interface SaveViewModalProps {
   isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
+  onClose: () => void;
   handleSaveView: (id: string, viewState: string) => Promise<void>;
   translations: Translations;
   gridApi: GridApi;
@@ -357,7 +392,7 @@ export interface SaveViewModalProps {
 
 export interface RenameViewModalProps {
   isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
+  onClose: () => void;
   handleRenameView: (id: string, name: string) => Promise<void>;
   translations: Translations;
   view: DataGridView;
@@ -386,7 +421,7 @@ export interface DataGridActionsProps {
   columns: DataGridColumn[];
   rowsSelected: number;
   translations: Translations;
-  onBulkDelete?: (ids: string[]) => Promise<void>;
+  onBulkDelete?: () => Promise<void>;
   hideDownload?: boolean;
   hideDelete?: boolean;
 }

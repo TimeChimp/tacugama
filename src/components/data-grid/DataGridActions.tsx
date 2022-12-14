@@ -3,16 +3,15 @@ import { TertiaryButton } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDataGridActions } from './styles';
 import { Dropdown, DropdownItem } from '../dropdown';
-import { ConfirmationModalType, DATA_TEST_ID } from '../../models';
+import { DATA_TEST_ID } from '../../models';
 import { DataGridActionsProps } from './types';
-import { ConfirmationModal } from '../confirmation-modal';
-import { TrashFull, Download } from '../icons';
-import { padding } from '../../utils';
+import { DownloadIcon, DeleteIcon } from '../icons';
+import { border, borderRadius, padding } from '../../utils';
 import { exportExcel, exportPdf } from './export';
+import { ParagraphSmall } from '../typography';
 
 const DELETE_BUTTON_TEST_ID = 'delete-button';
 const EXPORT_BUTTON_TEST_ID = 'export-button';
-const DELETE_SUBMIT_BUTTON_TEST_ID = 'bulk-delete-confirmation-button';
 const EXPORT_OPTIONS_TEST_ID = 'data-grid-export-options';
 const EXPORT_OPTION_TEST_ID = 'data-grid-export-option';
 
@@ -27,29 +26,17 @@ export const DataGridActions = ({
   hideDelete,
 }: DataGridActionsProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
-  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
-  const { cancel, deleteEntries, deleteEntriesCount } = translations;
 
   const {
     theme: {
       current: {
-        colors: { contentStateDisabled, primaryA },
-        sizing: { scale200, scale400, scale500, scale600 },
-        customColors: { red3 },
+        colors: { primaryA },
+        sizing: { scale300, scale400, scale500, scale800 },
+        customColors: { red3, light3, dark4, light2 },
+        borders: { border300, radius200 },
       },
     },
   } = useTheme();
-
-  const handleBulkDelete = async () => {
-    if (onBulkDelete && gridApi) {
-      const selectedRows = gridApi.getSelectedRows();
-      if (selectedRows.length) {
-        const selectedIds = selectedRows.map((row) => row.id);
-        await onBulkDelete(selectedIds);
-        gridApi.deselectAll();
-      }
-    }
-  };
 
   useEffect(() => {
     if (gridApi && columns) {
@@ -73,6 +60,35 @@ export const DataGridActions = ({
 
   return (
     <StyledDataGridActions>
+      {!hideDelete && onBulkDelete ? (
+        <>
+          <TertiaryButton
+            overrides={{
+              Root: {
+                style: {
+                  height: scale800,
+                  backgroundColor: light3,
+                  marginRight: scale400,
+                  ...border({
+                    ...border300,
+                    borderColor: light2,
+                  }),
+                  ...borderRadius(radius200),
+                  ...padding(scale300),
+                },
+              },
+            }}
+            disabled={!rowsSelected}
+            onClick={() => onBulkDelete()}
+            testId={DELETE_BUTTON_TEST_ID}
+          >
+            <DeleteIcon color={rowsSelected ? red3 : dark4} size={scale500} />
+            <ParagraphSmall color={rowsSelected ? red3 : dark4} paddingLeft={scale400}>
+              {translations.delete}
+            </ParagraphSmall>
+          </TertiaryButton>
+        </>
+      ) : null}
       {!hideDownload && (
         <Dropdown
           items={dropdownItems}
@@ -81,50 +97,31 @@ export const DataGridActions = ({
             optionProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTION_TEST_ID }),
           }}
         >
-          <TertiaryButton disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
-            <Download size={scale600} color={rowsSelected ? primaryA : contentStateDisabled} />
-          </TertiaryButton>
-        </Dropdown>
-      )}
-
-      {!hideDelete ? (
-        <>
           <TertiaryButton
             overrides={{
               Root: {
                 style: {
-                  ...padding(scale400, scale200, scale400, scale500),
-                  ':hover': {
-                    backgroundColor: 'transparent',
-                  },
-                  ':active': {
-                    backgroundColor: 'transparent',
-                  },
-                  ':disabled': {
-                    backgroundColor: 'transparent',
-                  },
+                  height: scale800,
+                  backgroundColor: light3,
+                  ...border({
+                    ...border300,
+                    borderColor: light2,
+                  }),
+                  ...borderRadius(radius200),
+                  ...padding(scale300),
                 },
               },
             }}
             disabled={!rowsSelected}
-            onClick={() => setDeleteModalIsOpen(true)}
-            testId={DELETE_BUTTON_TEST_ID}
+            testId={EXPORT_BUTTON_TEST_ID}
           >
-            <TrashFull color={rowsSelected ? red3 : contentStateDisabled} size={scale600} />
+            <DownloadIcon color={rowsSelected ? primaryA : dark4} />
+            <ParagraphSmall color={rowsSelected ? primaryA : dark4} paddingLeft={scale400}>
+              {translations.export}
+            </ParagraphSmall>
           </TertiaryButton>
-          <ConfirmationModal
-            title={deleteEntries}
-            description={deleteEntriesCount(rowsSelected)}
-            type={ConfirmationModalType.danger}
-            isOpen={deleteModalIsOpen}
-            setIsOpen={setDeleteModalIsOpen}
-            submitLabel={deleteEntries}
-            submitOnClick={handleBulkDelete}
-            cancelLabel={cancel!}
-            submitButtonTestId={DELETE_SUBMIT_BUTTON_TEST_ID}
-          />
-        </>
-      ) : null}
+        </Dropdown>
+      )}
     </StyledDataGridActions>
   );
 };
