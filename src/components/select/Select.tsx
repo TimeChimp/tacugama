@@ -2,7 +2,7 @@ import React from 'react';
 import { Select as BaseSelect, SelectProps as BaseSelectProps, Option, Value, OnChangeParams } from 'baseui/select';
 import { useTheme } from '../../providers';
 import { border, borderBottom, borderRadius, getInputBorderColor, padding, margin } from '../../utils';
-import { BottomArrow, TagIcon } from '../icons';
+import { CaretDownIcon, TagIcon } from '../icons';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
 
@@ -150,7 +150,7 @@ export const Select = ({
             SelectArrow: {
               component: () => (
                 <FlexItem marg1="0" marg2="0" marg3="0" marg4={scale100} width="auto">
-                  <BottomArrow />
+                  <CaretDownIcon />
                 </FlexItem>
               ),
             },

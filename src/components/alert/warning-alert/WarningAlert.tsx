@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, AlertProps } from '../Alert';
 import { useTheme } from '../../../providers';
-import { Warning } from '../../icons';
+import { WarningIcon } from '../../icons';
 
 export interface WarningAlertProps extends AlertProps {}
 
@@ -10,11 +10,10 @@ export const WarningAlert = ({ ...rest }: WarningAlertProps) => {
     theme: {
       current: {
         colors: { backgroundWarning },
-        sizing: { scale700 },
       },
     },
   } = useTheme();
-  return <Alert {...rest} color={backgroundWarning} startIcon={<Warning size={scale700} />} />;
+  return <Alert {...rest} color={backgroundWarning} startIcon={<WarningIcon />} />;
 };
 
 export default WarningAlert;

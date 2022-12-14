@@ -3,7 +3,7 @@ import { ColumnFiltersProps, Filter, FilterType, FilterValue } from '../types';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { SIZE } from 'baseui/button';
 import { Dropdown, DropdownItem } from '../../dropdown';
-import { Dash, Plus } from '../../icons';
+import { MinusIcon, AddLineIcon } from '../../icons';
 import { FlexItem } from '../../flex-item';
 import { useTheme } from '../../../providers';
 import { DatepickerPopover } from '../../datepicker-popover';
@@ -298,7 +298,7 @@ export const ColumnFilters = ({
                   <FilterButton
                     testId={MORE_FILTERS_BUTTON_TEST_ID}
                     onClick={() => setShowLessFilters(false)}
-                    startEnhancer={<Plus />}
+                    startEnhancer={<AddLineIcon />}
                     size={SIZE.compact}
                     title={allFilters}
                   />
@@ -308,7 +308,7 @@ export const ColumnFilters = ({
                   <FilterButton
                     testId={LESS_FILTERS_BUTTON_TEST_ID}
                     onClick={() => setShowLessFilters(true)}
-                    startEnhancer={<Dash />}
+                    startEnhancer={<MinusIcon />}
                     size={SIZE.compact}
                     title={lessFilters}
                   />

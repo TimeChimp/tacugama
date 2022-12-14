@@ -3,7 +3,7 @@ import { Pagination as BasePagination, SIZE, PaginationProps as BasePaginationPr
 import { CustomThemeType } from '../../models';
 import { border, borderRadius, padding } from '../../utils';
 import { Button } from '../button';
-import { LeftArrow, RightArrow } from '../icons';
+import { CaretLeftIcon, CaretRightIcon } from '../icons';
 import { useTheme } from '../../providers';
 
 export interface PaginationProps extends BasePaginationProps {}
@@ -12,7 +12,7 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
   const {
     theme: {
       current: {
-        sizing: { scale200, scale400, scale600 },
+        sizing: { scale200, scale600 },
         customColors: { dark2, light3 },
         borders: { radius200, border100 },
       },
@@ -50,14 +50,14 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
         NextButton: {
           component: ({ onClick }: any) => (
             <Button type="button" onClick={onClick} overrides={buttonOverrides}>
-              <RightArrow size={scale400} color={dark2} />
+              <CaretRightIcon color={dark2} />
             </Button>
           ),
         },
         PrevButton: {
           component: ({ onClick }: any) => (
             <Button type="button" onClick={onClick} overrides={buttonOverrides}>
-              <LeftArrow size={scale400} color={dark2} />
+              <CaretLeftIcon color={dark2} />
             </Button>
           ),
         },

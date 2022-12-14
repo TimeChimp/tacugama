@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { Select as BaseSelect, Option, Value, OnChangeParams } from 'baseui/select';
 import { useTheme } from '../../providers';
 import { border, borderBottom, borderRadius, padding } from '../../utils';
-import { BottomArrow, LockFilled } from '../icons';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
+import { CaretDownIcon, LockedIcon } from '../icons';
 import { FormInput, RowSelectProps } from './types';
 
 export const RowSelect = ({
@@ -27,7 +27,7 @@ export const RowSelect = ({
         colors,
         customColors: { primarySubtle, dark4 },
         borders,
-        sizing: { scale0, scale100, scale300, scale600, scale700, scale900 },
+        sizing: { scale0, scale100, scale300, scale700, scale900 },
         typography: { ParagraphSmall, LabelSmall },
       },
     },
@@ -142,11 +142,7 @@ export const RowSelect = ({
             SelectArrow: {
               component: () => (
                 <FlexItem marg1="0" marg2="0" marg3="0" marg4={scale100} width="auto">
-                  {isLocked ? (
-                    <LockFilled color={contentPrimary} size={scale600} iconStyle={{ display: 'flex' }} />
-                  ) : (
-                    <BottomArrow />
-                  )}
+                  {isLocked ? <LockedIcon color={contentPrimary} iconStyle={{ display: 'flex' }} /> : <CaretDownIcon />}
                 </FlexItem>
               ),
             },

@@ -14,7 +14,7 @@ import { DatePicker, DatepickerOverrides, SharedStylePropsT } from 'baseui/datep
 import { Select } from '../select';
 import { DATA_TEST_ID } from '../../models';
 import { InputOverrides, InputProps } from 'baseui/input';
-import { Calendar } from '../icons';
+import { CalendarIcon } from '../icons';
 import { getDateLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DatePickerProps } from './types';
 
@@ -162,7 +162,7 @@ export const Datepicker = ({
     Input: {
       props: {
         overrides: inputBaseOverrides,
-        endEnhancer: <Calendar size={scale600} color={iconColor || contentTertiary} />,
+        endEnhancer: <CalendarIcon size={scale600} color={iconColor || contentTertiary} />,
       },
     },
     Popover: {

@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import { SecondaryButton, SecondaryButtonProps, TransparentButton } from '../../button';
 import { border, borderRadius, padding } from '../../../utils';
 import { LabelSmall } from '../../typography';
-import { ArrowDown, Clear } from '../../icons';
+import { CaretDownIcon, ClearLineIcon } from '../../icons';
 import { useTheme } from '../../../providers';
 
 const FILTER_BUTTON_TEST_ID = 'filter-button';
@@ -20,7 +20,6 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
     const {
       theme: {
         current: {
-          sizing: { scale300, scale600 },
           colors: { primaryA },
         },
       },
@@ -52,10 +51,10 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
         }}
         endEnhancer={
           <>
-            {arrows && <ArrowDown size={scale300} />}
+            {arrows && <CaretDownIcon />}
             {hasValue && onClear && (
               <TransparentButton onClick={onClear}>
-                <Clear size={scale600} color={primaryA} />
+                <ClearLineIcon color={primaryA} />
               </TransparentButton>
             )}
           </>
