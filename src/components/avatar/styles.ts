@@ -1,6 +1,6 @@
 import { themedStyled } from '../../theme';
 import { border } from '../../utils';
-import { AvatarType } from 'models';
+import { AvatarType } from '../../models';
 
 export interface AvatarWithIconProps {
   $type?: string;

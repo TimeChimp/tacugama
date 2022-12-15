@@ -3,7 +3,7 @@ import { Avatar as BaseAvatar, AvatarProps as BaseAvatarProps } from 'baseui/ava
 import { AvatarType, DATA_TEST_ID } from '../../models';
 import { useTheme } from '../../providers';
 import { AvatarWithIcon } from './styles';
-import { border } from 'utils';
+import { border } from '../../utils';
 
 export interface AvatarProps extends BaseAvatarProps {
   testId?: string;
