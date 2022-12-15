@@ -1,13 +1,13 @@
 import React, { forwardRef } from 'react';
-import { SecondaryButton, SecondaryButtonProps, TransparentButton } from '../../button';
-import { border, borderRadius, padding } from '../../../utils';
+import { Button, ButtonProps } from '../../button';
 import { LabelSmall } from '../../typography';
 import { CaretDownIcon, ClearLineIcon } from '../../icons';
 import { useTheme } from '../../../providers';
+import { KIND } from 'baseui/button';
 
 const FILTER_BUTTON_TEST_ID = 'filter-button';
 
-export interface FilterButtonProps extends SecondaryButtonProps {
+export interface FilterButtonProps extends ButtonProps {
   title: string;
   isActive?: boolean;
   hasValue?: boolean;
@@ -26,36 +26,17 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
     } = useTheme();
 
     return (
-      <SecondaryButton
+      <Button
+        kind={KIND.secondary}
         ref={ref}
         testId={testId ?? FILTER_BUTTON_TEST_ID}
-        overrides={{
-          BaseButton: {
-            style: ({ $theme }) => {
-              return {
-                ...border($theme.borders.border300),
-                boxSizing: 'border-box',
-                ...borderRadius($theme.borders.radius200),
-                ...padding('9px'), // NOTE: Values does not exist in theme
-                ':hover': {
-                  backgroundColor: $theme.colors.primaryB,
-                  boxShadow: $theme.lighting.shadow400,
-                },
-                ':active': {
-                  backgroundColor: $theme.colors.primaryB,
-                  boxShadow: $theme.lighting.shadow400,
-                },
-              };
-            },
-          },
-        }}
         endEnhancer={
           <>
             {arrows && <CaretDownIcon />}
             {hasValue && onClear && (
-              <TransparentButton onClick={onClear}>
+              <Button kind={KIND.minimal} isTransparent onClick={onClear}>
                 <ClearLineIcon color={primaryA} />
-              </TransparentButton>
+              </Button>
             )}
           </>
         }
@@ -72,7 +53,7 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
         >
           {title}
         </LabelSmall>
-      </SecondaryButton>
+      </Button>
     );
   },
 );

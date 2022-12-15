@@ -1,6 +1,6 @@
-import { DEFAULT_ICON_SIZE } from 'models';
 import React from 'react';
 import { Icon, SVGProps } from '../../icon';
+import { DEFAULT_ICON_SIZE } from '../../../models';
 
 export const LoaderIcon = ({ title = 'Loader', size = DEFAULT_ICON_SIZE, color = '#FFFFFF' }: SVGProps) => {
   return (
