@@ -20,7 +20,7 @@ const Template: Story<RadioProps> = ({ ...props }) => (
       Two
       <ParagraphXSmall>Much information. Very detailed</ParagraphXSmall>
     </RadioItem>
-    <RadioItem {...props} value="3">
+    <RadioItem {...props} value="3" disabled>
       Three
     </RadioItem>
   </RadioGroup>
@@ -32,4 +32,9 @@ Default.args = {};
 export const Colored = Template.bind({});
 Colored.args = {
   colored: true,
+};
+
+export const Small = Template.bind({});
+Small.args = {
+  small: true,
 };
