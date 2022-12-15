@@ -1,7 +1,7 @@
 import { DEFAULT_ICON_SIZE } from '../.././../models';
 import React from 'react';
 import { useTheme } from '../../../providers';
-import { Icon, SVGProps } from '../..';
+import { Icon, SVGProps } from '../../icon';
 
 export const DayIcon = ({ title = 'Day', size = DEFAULT_ICON_SIZE, color }: SVGProps) => {
   const { theme } = useTheme();
