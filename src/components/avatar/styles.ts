@@ -1,18 +1,37 @@
 import { themedStyled } from '../../theme';
-import { margin } from '../../utils';
+import { border } from '../../utils';
+import { AvatarType } from 'models';
 
-export const ButtonsContainer = themedStyled('div', ({ $theme }) => ({
-  display: 'flex',
-  flexWrap: 'wrap',
-  ...margin('0', '0', '0', `-${$theme.sizing.scale500}`),
-  alignContent: 'space-between',
-}));
+export interface AvatarWithIconProps {
+  $type?: string;
+}
 
-export const ButtonContainer = themedStyled('div', ({ $theme }) => ({
-  width: '100%',
-  ...margin('0', '0', '0', `-${$theme.sizing.scale200}`),
-}));
-
-export const AvatarContainer = themedStyled('div', ({ $theme }) => ({
-  display: 'flex',
+export const AvatarWithIcon = themedStyled<'div', AvatarWithIconProps>('div', ({ $theme, $type }) => ({
+  ...($type === AvatarType.default
+    ? {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: $theme.colors.primary,
+        height: $theme.sizing.scale750,
+        width: $theme.sizing.scale750,
+        borderRadius: '50%',
+        ...border({
+          ...$theme.borders.border100,
+        }),
+      }
+    : {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: $theme.customColors.light3,
+        height: $theme.sizing.scale750,
+        width: $theme.sizing.scale750,
+        borderRadius: '50%',
+        ...border({
+          ...$theme.borders.border300,
+          borderColor: $theme.customColors.dark1,
+          borderStyle: 'dashed',
+        }),
+      }),
 }));
