@@ -1,8 +1,7 @@
 import React, { useMemo } from 'react';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { useTheme } from '../../../providers';
-import { Box } from '../../../components';
-import { LabelMedium } from '../../../components/typography';
+import { LabelMedium, Box } from '../../../components';
 import { ParagraphSmall } from 'baseui/typography';
 import { FlexGrid } from '../../flex-grid';
 
@@ -21,6 +20,7 @@ export const FlyOutTooltip = ({
   width,
   formatAsDate,
   horizontalAxisItemLabel,
+  dateFormat = 'dd MMM yyyy',
 }: any) => {
   const {
     theme: {
@@ -43,7 +43,7 @@ export const FlyOutTooltip = ({
   }, [x, width, flyOutWidth]);
 
   const headingLabel = formatAsDate
-    ? new TcDate(datum.date).format('dd MMM yyyy')
+    ? new TcDate(datum.date).format(dateFormat)
     : `${horizontalAxisItemLabel} ${datum.date.split('-')[1]}`;
 
   return (

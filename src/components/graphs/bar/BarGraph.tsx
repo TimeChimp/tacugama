@@ -33,6 +33,7 @@ export interface BarGraphProps {
   isNonBillable?: boolean;
   flyOutWidth?: number;
   flyOutHeight?: number;
+  dateFormat?: string;
 }
 
 export const BarGraph = ({
@@ -54,6 +55,7 @@ export const BarGraph = ({
   isNonBillable = true,
   flyOutWidth = 270,
   flyOutHeight = 200,
+  dateFormat,
 }: BarGraphProps) => {
   const {
     theme: {
@@ -159,6 +161,7 @@ export const BarGraph = ({
                 flyOutTooltipHeight={flyOutHeight}
                 formatAsDate={formatAsDate}
                 horizontalAxisItemLabel={horizontalAxisItemLabel}
+                dateFormat={dateFormat}
               />
             }
           />
