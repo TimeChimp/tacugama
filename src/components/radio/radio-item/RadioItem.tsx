@@ -3,7 +3,7 @@ import { Radio as BaseRadio, RadioOverrides, RadioProps as BaseRadioProps } from
 import { IconProps } from 'baseui/icon';
 import { RadioIcon } from '../radio-icon';
 import { CustomThemeType } from 'models';
-import { border, margin, padding } from '../../../utils';
+import { border, margin, padding, getRadioBorderColor, getRadioBackgroundColor } from '../../../utils';
 
 export interface RadioProps extends BaseRadioProps {
   value: string;
@@ -46,11 +46,7 @@ const radioOverrides = ({
       height: small ? $theme.sizing.scale500 : $theme.sizing.scale600,
       backgroundColor: $disabled ? $theme.customColors.light3 : 'transparent',
       ...border({
-        borderColor: $disabled
-          ? $theme.customColors.dark4
-          : $checked
-          ? $theme.customColors.purple2
-          : $theme.customColors.dark4,
+        borderColor: getRadioBorderColor($disabled, $checked, $theme),
         borderStyle: 'solid',
         borderWidth: '1px',
       }),
@@ -69,7 +65,7 @@ const radioOverrides = ({
     style: ({ $theme, $checked, $disabled }: { $theme: CustomThemeType; $checked: boolean; $disabled: boolean }) => ({
       width: small ? $theme.sizing.scale300 : $theme.sizing.scale400,
       height: small ? $theme.sizing.scale300 : $theme.sizing.scale400,
-      backgroundColor: $checked ? ($disabled ? $theme.customColors.dark4 : $theme.customColors.purple2) : 'transparent',
+      backgroundColor: getRadioBackgroundColor($disabled, $checked, $theme),
       ':hover': {
         backgroundColor: $checked ? $theme.customColors.purple1 : 'transparent',
       },

@@ -1,5 +1,5 @@
 import { Borders, Colors } from 'baseui/theme';
-import { ButtonType, CustomColors } from '../models';
+import { ButtonType, CustomColors, CustomThemeType } from '../models';
 
 const padZeroRight = (input: string, length: number) => input + '0'.repeat(length - input.length);
 const padZeroLeft = (input: string, length: number) => ('0'.repeat(length) + input).slice(-length);
@@ -145,4 +145,24 @@ export const getButtonBackgroundHoverColor = (type: ButtonType, { purple1 }: Cus
   };
 
   return colors[type];
+};
+
+export const getRadioBorderColor = (disabled: boolean, checked: boolean, theme: CustomThemeType) => {
+  if (disabled) {
+    return theme.customColors.dark4;
+  }
+  if (checked) {
+    return theme.customColors.purple2;
+  }
+  return theme.customColors.dark4;
+};
+
+export const getRadioBackgroundColor = (disabled: boolean, checked: boolean, theme: CustomThemeType) => {
+  if (checked) {
+    if (disabled) {
+      return theme.customColors.dark4;
+    }
+    return theme.customColors.purple2;
+  }
+  return 'transparent';
 };
