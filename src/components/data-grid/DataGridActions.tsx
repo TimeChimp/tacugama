@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { TertiaryButton } from '../button';
+import { Button } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDataGridActions } from './styles';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { DATA_TEST_ID } from '../../models';
 import { DataGridActionsProps } from './types';
 import { DownloadIcon, DeleteIcon } from '../icons';
-import { border, borderRadius, padding } from '../../utils';
+import { FlexItem } from '../flex-item';
 import { exportExcel, exportPdf } from './export';
 import { ParagraphSmall } from '../typography';
+import { KIND } from 'baseui/button';
 
 const DELETE_BUTTON_TEST_ID = 'delete-button';
 const EXPORT_BUTTON_TEST_ID = 'export-button';
@@ -31,9 +32,8 @@ export const DataGridActions = ({
     theme: {
       current: {
         colors: { primaryA },
-        sizing: { scale300, scale400, scale500, scale800 },
-        customColors: { red3, light3, dark4, light2 },
-        borders: { border300, radius200 },
+        sizing: { scale300, scale400, scale500 },
+        customColors: { red3, dark4 },
       },
     },
   } = useTheme();
@@ -62,22 +62,8 @@ export const DataGridActions = ({
     <StyledDataGridActions>
       {!hideDelete && onBulkDelete ? (
         <>
-          <TertiaryButton
-            overrides={{
-              Root: {
-                style: {
-                  height: scale800,
-                  backgroundColor: light3,
-                  marginRight: scale400,
-                  ...border({
-                    ...border300,
-                    borderColor: light2,
-                  }),
-                  ...borderRadius(radius200),
-                  ...padding(scale300),
-                },
-              },
-            }}
+          <Button
+            kind={KIND.tertiary}
             disabled={!rowsSelected}
             onClick={() => onBulkDelete()}
             testId={DELETE_BUTTON_TEST_ID}
@@ -86,42 +72,27 @@ export const DataGridActions = ({
             <ParagraphSmall color={rowsSelected ? red3 : dark4} paddingLeft={scale400}>
               {translations.delete}
             </ParagraphSmall>
-          </TertiaryButton>
+          </Button>
         </>
       ) : null}
-      {!hideDownload && (
-        <Dropdown
-          items={dropdownItems}
-          propOverrides={{
-            listProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTIONS_TEST_ID }),
-            optionProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTION_TEST_ID }),
-          }}
-        >
-          <TertiaryButton
-            overrides={{
-              Root: {
-                style: {
-                  height: scale800,
-                  backgroundColor: light3,
-                  ...border({
-                    ...border300,
-                    borderColor: light2,
-                  }),
-                  ...borderRadius(radius200),
-                  ...padding(scale300),
-                },
-              },
+      <FlexItem marg4={scale300}>
+        {!hideDownload && (
+          <Dropdown
+            items={dropdownItems}
+            propOverrides={{
+              listProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTIONS_TEST_ID }),
+              optionProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTION_TEST_ID }),
             }}
-            disabled={!rowsSelected}
-            testId={EXPORT_BUTTON_TEST_ID}
           >
-            <DownloadIcon color={rowsSelected ? primaryA : dark4} />
-            <ParagraphSmall color={rowsSelected ? primaryA : dark4} paddingLeft={scale400}>
-              {translations.export}
-            </ParagraphSmall>
-          </TertiaryButton>
-        </Dropdown>
-      )}
+            <Button kind={KIND.tertiary} disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
+              <DownloadIcon color={rowsSelected ? primaryA : dark4} />
+              <ParagraphSmall color={rowsSelected ? primaryA : dark4} paddingLeft={scale400}>
+                {translations.export}
+              </ParagraphSmall>
+            </Button>
+          </Dropdown>
+        )}
+      </FlexItem>
     </StyledDataGridActions>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlexGrid } from 'baseui/flex-grid';
 import Button from '../button/Button';
-import { SecondaryButton } from '../button/secondary-button';
+import { KIND } from 'baseui/button';
 
 const DEFAULT_OPTIONS = [
   {
@@ -39,9 +39,9 @@ export const ButtonSwitcher = ({
     </Button>
   );
   const renderSecondaryButton = (option: ButtonSwitcherOption, radiuses: { [key: string]: string | number }) => (
-    <SecondaryButton rootOverrides={radiuses} onClick={() => onClick(option)}>
+    <Button kind={KIND.secondary} rootOverrides={radiuses} onClick={() => onClick(option)}>
       {option.label}
-    </SecondaryButton>
+    </Button>
   );
 
   return (
