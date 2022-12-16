@@ -1,10 +1,11 @@
 import React from 'react';
 import { Pagination as BasePagination, SIZE, PaginationProps as BasePaginationProps } from 'baseui/pagination';
 import { CustomThemeType } from '../../models';
-import { border, borderRadius, padding } from '../../utils';
+import { border, margin } from '../../utils';
 import { Button } from '../button';
 import { CaretLeftIcon, CaretRightIcon } from '../icons';
 import { useTheme } from '../../providers';
+import { KIND } from 'baseui/button';
 
 export interface PaginationProps extends BasePaginationProps {}
 
@@ -12,51 +13,41 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
   const {
     theme: {
       current: {
-        sizing: { scale200, scale600 },
-        customColors: { dark2, light3 },
-        borders: { radius200, border100 },
+        sizing: { scale400 },
+        customColors: { dark2 },
       },
     },
   } = useTheme();
 
-  const buttonOverrides = {
-    Root: {
-      style: {
-        ...borderRadius(radius200),
-        ...padding(scale200, scale600),
-        ...border({
-          ...border100,
-        }),
-        fontWeight: 'normal',
-        backgroundColor: light3,
-        ':hover': {
-          backgroundColor: light3,
-        },
-        ':active': {
-          backgroundColor: light3,
-        },
-      },
-    },
-  };
   return (
     <BasePagination
       size={SIZE.mini}
       overrides={{
         Root: {
           style: ({ $theme }: { $theme: CustomThemeType }) => ({
-            fontSize: $theme.typography.LabelXSmall.fontSize,
+            fontSize: $theme.typography.ParagraphXSmall.fontSize,
           }),
+        },
+        DropdownContainer: {
+          style: {
+            margin: '0',
+          },
+        },
+        MaxLabel: {
+          style: {
+            ...margin('0', scale400, '0', '0'),
+          },
         },
         NextButton: {
           component: ({ onClick }: any) => (
-            <Button type="button" onClick={onClick} overrides={buttonOverrides}>
+            <Button type="button" kind={KIND.tertiary} onClick={onClick}>
               <CaretRightIcon color={dark2} />
             </Button>
           ),
         },
         PrevButton: {
           component: ({ onClick }: any) => (
-            <Button type="button" onClick={onClick} overrides={buttonOverrides}>
+            <Button type="button" kind={KIND.tertiary} onClick={onClick}>
               <CaretLeftIcon color={dark2} />
             </Button>
           ),
@@ -66,17 +57,28 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
             overrides: {
               Root: {
                 style: ({ $theme }: { $theme: CustomThemeType }) => ({
-                  fontSize: $theme.typography.LabelXSmall.fontSize,
+                  fontSize: $theme.typography.ParagraphXSmall.fontSize,
                   fontWeight: 600,
                   outline: null,
                 }),
               },
+              ValueContainer: {
+                style: {
+                  padding: '0',
+                  ...margin('0', '0', '0', scale400),
+                },
+              },
               ControlContainer: {
-                style: () => ({
+                style: {
                   backgroundColor: 'none',
                   ...border(),
                   outline: null,
-                }),
+                },
+              },
+              IconsContainer: {
+                style: {
+                  padding: '0',
+                },
               },
             },
           },
