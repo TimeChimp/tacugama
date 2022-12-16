@@ -55,3 +55,4 @@ export * from './clickable-tag';
 export * from './icon';
 export * from './icons';
 export * from './button-switcher';
+export * from './action-button';
