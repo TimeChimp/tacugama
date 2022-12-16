@@ -16,7 +16,6 @@ const DashedTemplate: Story<AvatarProps> = (args) => <Avatar {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   name: 'John Doe',
-  type: AvatarType.default,
 };
 Default.parameters = {
   design: {
@@ -25,11 +24,12 @@ Default.parameters = {
   },
 };
 
+const light4 = '#FFFFFF';
+
 export const DefaultWithIcon = Template.bind({});
 DefaultWithIcon.args = {
   name: 'John Doe',
-  icon: <AvatarIcon size="14px" color="#FFFFFF" />,
-  type: AvatarType.default,
+  icon: <AvatarIcon size="14px" color={light4} />,
 };
 DefaultWithIcon.parameters = {
   design: {

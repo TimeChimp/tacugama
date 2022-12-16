@@ -11,13 +11,13 @@ export interface AvatarProps extends BaseAvatarProps {
   type?: AvatarType;
 }
 
-export const Avatar = ({ testId, icon, size, type, ...rest }: AvatarProps) => {
+export const Avatar = ({ testId, icon, size, type = AvatarType.default, ...rest }: AvatarProps) => {
   const {
     theme: {
       current: {
         sizing: { scale400, scale500, scale800, scale1000 },
-        colors: { primary, primaryA },
-        customColors: { dark1, light3 },
+        colors: { primary },
+        customColors: { dark1, light3, light4 },
         borders: { border300 },
       },
     },
@@ -52,7 +52,7 @@ export const Avatar = ({ testId, icon, size, type, ...rest }: AvatarProps) => {
           Initials: {
             style: {
               fontSize: getFontSize(),
-              color: primaryA,
+              color: light4,
             },
           },
         };
