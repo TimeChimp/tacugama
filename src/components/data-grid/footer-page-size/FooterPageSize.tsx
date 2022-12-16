@@ -3,7 +3,7 @@ import { FooterRowCountProps } from '../types';
 import { StyledFooterFooterPageSize } from '../styles';
 import { ParagraphSmall } from '../../typography';
 import { useTheme } from '../../../providers';
-import { Button, CaretDownIcon, Dropdown, FlexItem } from 'components';
+import { Button, CaretDownIcon, Dropdown, FlexItem } from '../../../components';
 import { KIND } from 'baseui/button';
 
 const EVENT_LISTENER = 'paginationChanged';
