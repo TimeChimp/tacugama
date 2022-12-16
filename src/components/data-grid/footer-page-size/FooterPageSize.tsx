@@ -45,7 +45,7 @@ export const FooterPageSize = ({ api: gridApi, translations }: FooterRowCountPro
     { label: '1000', id: '1000', action: () => handlePageSizeChange(1000) },
   ];
 
-  const selectedGroupOption = options.find((item) => item.label === pageSize.toString());
+  const selectedOption = options.find((item) => item.label === pageSize.toString());
 
   return (
     <StyledFooterFooterPageSize>
@@ -55,7 +55,7 @@ export const FooterPageSize = ({ api: gridApi, translations }: FooterRowCountPro
       <Dropdown items={options}>
         <Button kind={KIND.tertiary}>
           <ParagraphSmall $style={{ cursor: 'pointer' }} color={dark1}>
-            {selectedGroupOption?.label}
+            {selectedOption?.label}
           </ParagraphSmall>
           <FlexItem marg4={scale500}>
             <CaretDownIcon color={dark1} />
