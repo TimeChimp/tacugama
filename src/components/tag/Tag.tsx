@@ -1,32 +1,51 @@
-import React, { ReactNode } from 'react';
-import { Tag as TagComponent, TagProps as TagComponentProps } from 'baseui/tag';
+import React from 'react';
+import { Tag as TagComponent } from 'baseui/tag';
 import { useTheme } from '../../providers';
-import { border, borderRadius, margin, padding } from '../../utils';
+import { border, borderRadius, margin, padding, toRGBColor } from '../../utils';
 import { ParagraphSmall, ParagraphXSmall } from '../typography';
+import { TagProps, TagSize } from './types';
+import { customColors } from '../../theme/colors';
 
-export enum TagSize {
-  small = 'small',
-  large = 'large',
-}
-
-export interface TagProps extends TagComponentProps {
-  value?: string;
-  children?: ReactNode;
-  size?: TagSize;
-  closeable?: boolean;
-  cursor?: string;
-}
-
-export const Tag = ({ value, size = TagSize.small, closeable = false, cursor = 'default', ...rest }: TagProps) => {
+export const Tag = ({
+  value,
+  size = TagSize.small,
+  closeable = false,
+  cursor = 'default',
+  color = customColors.light7,
+  ...rest
+}: TagProps) => {
   const {
     theme: {
       current: {
         sizing: { scale100, scale200, scale400, scale750 },
         borders: { border300 },
-        customColors: { light2, dark1 },
+        customColors: { dark1, light7, light2 },
       },
     },
   } = useTheme();
+
+  const getBackgroundColor = () => {
+    if (color === light7) {
+      return light7;
+    }
+    const rgb = toRGBColor(color);
+    const opacity = 0.16;
+    return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`;
+  };
+
+  const getTextColor = () => {
+    if (color === light7) {
+      return dark1;
+    }
+    return color;
+  };
+
+  const getBorderColor = () => {
+    if (color === light7) {
+      return light2;
+    }
+    return color;
+  };
 
   return (
     <TagComponent
@@ -43,15 +62,19 @@ export const Tag = ({ value, size = TagSize.small, closeable = false, cursor = '
               ...margin('0px', scale100, '0px', '0px'),
               ...border({
                 ...border300,
-                borderColor: light2,
+                borderColor: getBorderColor(),
               }),
-              backgroundColor: '#F9FAFB', // NOTE: Value does not exist in theme
+              backgroundColor: getBackgroundColor(),
               cursor,
               height: scale750,
+              color: getTextColor(),
             }),
           },
           Text: {
             component: ParagraphXSmall,
+            style: () => ({
+              color: getTextColor(),
+            }),
           },
           Action: {
             style: () => ({
@@ -62,7 +85,7 @@ export const Tag = ({ value, size = TagSize.small, closeable = false, cursor = '
             style: () => ({
               height: scale400,
               width: scale400,
-              color: dark1,
+              color: getTextColor(),
             }),
           },
         }),
@@ -76,14 +99,18 @@ export const Tag = ({ value, size = TagSize.small, closeable = false, cursor = '
               ...margin('0px', scale100, '0px', '0px'),
               ...border({
                 ...border300,
-                borderColor: light2,
+                borderColor: getBorderColor(),
               }),
-              backgroundColor: '#F9FAFB', // NOTE: Value does not exist in theme
+              backgroundColor: getBackgroundColor(),
+              color: getTextColor(),
               cursor,
             }),
           },
           Text: {
             component: ParagraphSmall,
+            style: () => ({
+              color: getTextColor(),
+            }),
           },
           Action: {
             style: () => ({

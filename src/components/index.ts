@@ -43,7 +43,6 @@ export * from './copy-text';
 export * from './row-select';
 export * from './attachments-list';
 export * from './tag';
-export * from './status';
 export * from './toggle';
 export * from './graphs';
 export * from './table-grid';
