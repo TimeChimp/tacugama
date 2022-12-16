@@ -6,3 +6,4 @@ export * from './TextAlignProperty';
 export * from './PriceInputPrefixes';
 export * from './MaxInputLength';
 export * from './FlexWrapProperty';
+export * from './AvatarType';
