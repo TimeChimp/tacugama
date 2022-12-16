@@ -18,8 +18,8 @@ export const FooterRowCount = ({
   const {
     theme: {
       current: {
-        colors: { contentTertiary },
-        sizing: { scale400 },
+        customColors: { dark1 },
+        sizing: { scale0 },
       },
     },
   } = useTheme();
@@ -52,25 +52,13 @@ export const FooterRowCount = ({
 
   return (
     <StyledFooterRowCount>
-      <ParagraphSmall
-        marginTop={scale400}
-        marginBottom={scale400}
-        marginLeft={scale400}
-        marginRight={scale400}
-        color={contentTertiary}
-      >
+      <ParagraphSmall marginTop={scale0} color={dark1}>
         {rowCountText(count, totalCount)}
       </ParagraphSmall>
       {rowsSelected ? (
         <>
           <StyledDataGridDivider />
-          <ParagraphSmall
-            marginTop={scale400}
-            marginBottom={scale400}
-            marginLeft={scale400}
-            marginRight={scale400}
-            color={contentTertiary}
-          >
+          <ParagraphSmall marginTop={scale0} color={dark1}>
             {rowCountSelectedText(rowsSelected)}
           </ParagraphSmall>
         </>

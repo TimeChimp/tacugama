@@ -6,7 +6,6 @@ import { useTheme } from '../../../providers';
 import { HeaderColumnToggleProps } from '..';
 import { Column } from '@ag-grid-community/core';
 import { DATA_TEST_ID } from '../../../models';
-import { padding } from '../../../utils';
 import { FlexItem } from '../../flex-item';
 import { KIND } from 'baseui/button';
 
@@ -76,16 +75,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
           optionProps: () => ({ [DATA_TEST_ID]: 'data-grid-column-toggle-option' }),
         }}
       >
-        <Button
-          kind={KIND.tertiary}
-          overrides={{
-            BaseButton: {
-              style: {
-                ...padding('0'),
-              },
-            },
-          }}
-        >
+        <Button kind={KIND.minimal} isTransparent>
           <TableIcon color={active ? primary : dark1} />
           <FlexItem marg4={scale500}>
             <CaretDownIcon color={active ? primary : dark1} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pagination as BasePagination, SIZE, PaginationProps as BasePaginationProps } from 'baseui/pagination';
 import { CustomThemeType } from '../../models';
-import { border, margin } from '../../utils';
+import { border, margin, padding } from '../../utils';
 import { Button } from '../button';
 import { CaretLeftIcon, CaretRightIcon } from '../icons';
 import { useTheme } from '../../providers';
@@ -30,7 +30,7 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
         },
         DropdownContainer: {
           style: {
-            margin: '0',
+            ...margin('0'),
           },
         },
         MaxLabel: {
@@ -60,11 +60,17 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
                   fontSize: $theme.typography.ParagraphXSmall.fontSize,
                   fontWeight: 600,
                   outline: null,
+                  ...margin('0'),
                 }),
+              },
+              IconsContainer: {
+                style: {
+                  ...padding('0'),
+                },
               },
               ValueContainer: {
                 style: {
-                  padding: '0',
+                  ...padding('0'),
                   ...margin('0', '0', '0', scale400),
                 },
               },
@@ -73,11 +79,7 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
                   backgroundColor: 'none',
                   ...border(),
                   outline: null,
-                },
-              },
-              IconsContainer: {
-                style: {
-                  padding: '0',
+                  ...margin('0'),
                 },
               },
             },
