@@ -3,8 +3,9 @@ import { ErrorButtonsBox, ErrorPageContent, ErrorPageWrapper } from './styles';
 import { ErrorPageProps } from './types';
 import { HeadingSmall, ParagraphSmall } from '../typography';
 import { ErrorIcon } from '../icons/error';
-import { Button, SecondaryButton } from '../button';
+import { Button } from '../button';
 import { useTheme } from '../../providers';
+import { KIND } from 'baseui/button';
 
 export const ErrorPage = ({
   title,
@@ -51,7 +52,9 @@ export const ErrorPage = ({
         <ErrorButtonsBox>
           <Button onClick={onPrimaryButtonClick}>{primaryButtonText}</Button>
           {isSecondaryButtonShown ? (
-            <SecondaryButton onClick={onSecondaryButtonClick}>{secondaryButtonText}</SecondaryButton>
+            <Button kind={KIND.secondary} onClick={onSecondaryButtonClick}>
+              {secondaryButtonText}
+            </Button>
           ) : null}
         </ErrorButtonsBox>
       </ErrorPageContent>

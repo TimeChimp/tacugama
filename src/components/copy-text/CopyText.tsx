@@ -5,9 +5,10 @@ import { padding } from '../../utils';
 import { StyledCopyIcon } from './StyledCopyText';
 import { Box } from '../box';
 import { StatefulTooltip } from '../tooltip';
-import { TertiaryButton } from '../button/tertiary-button';
 import { Block } from '../block';
 import { CopyIcon } from '../icons/copy';
+import { Button } from '../button';
+import { KIND } from 'baseui/button';
 
 export interface CopyTextProps {
   value: string;
@@ -56,17 +57,9 @@ export const CopyText = ({
       </ParagraphSmall>
       <StyledCopyIcon onClick={() => copyTextHandler(value)}>
         <StatefulTooltip triggerType="click" content={() => <Block>{copiedText}</Block>}>
-          <TertiaryButton
-            overrides={{
-              Root: {
-                style: {
-                  ...padding(),
-                },
-              },
-            }}
-          >
+          <Button kind={KIND.minimal} isTransparent>
             <CopyIcon />
-          </TertiaryButton>
+          </Button>
         </StatefulTooltip>
       </StyledCopyIcon>
     </Box>

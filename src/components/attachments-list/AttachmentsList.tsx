@@ -1,7 +1,7 @@
 import React from 'react';
 import { ParagraphSmall, ParagraphXSmall } from 'baseui/typography';
 import { Box } from '../box';
-import { TertiaryButton } from '../button';
+import { Button } from '../button';
 import { FlexGrid, FlexGridItem } from '../flex-grid';
 import { AttachmentIcon } from '../icons/attachment';
 import { DownloadIcon } from '../icons/download';
@@ -10,6 +10,7 @@ import { Separator } from '../separator';
 import { useTheme } from '../../providers';
 import bytes from 'bytes';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
+import { KIND } from 'baseui/button';
 
 interface Attachment {
   id?: string;
@@ -30,7 +31,7 @@ export const AttachmentsList = ({ attachments, onDownload, onDelete }: Attacheme
   const {
     theme: {
       current: {
-        sizing: { scale300, scale500, scale600 },
+        sizing: { scale300, scale600 },
         customColors: { dark4, light0, dark0 },
       },
     },
@@ -75,16 +76,17 @@ export const AttachmentsList = ({ attachments, onDownload, onDelete }: Attacheme
                 <ParagraphXSmall color={light0}>{bytes(attachment.fileSize as number)}</ParagraphXSmall>
               </FlexGrid>
             </FlexGridItem>
-            <FlexGridItem display="flex" justifyContent="flex-end">
-              <TertiaryButton
-                size="mini"
+            <FlexGridItem display="flex" justifyContent="flex-end" gridGap={scale600} paddingRight={scale300}>
+              <Button
+                kind={KIND.minimal}
+                isTransparent
                 onClick={() => onDownload(attachment.id as string, attachment.customFileName as string)}
               >
                 <DownloadIcon />
-              </TertiaryButton>
-              <TertiaryButton size="mini" onClick={() => onDelete(attachment.id as string)}>
+              </Button>
+              <Button kind={KIND.minimal} isTransparent onClick={() => onDelete(attachment.id as string)}>
                 <DeleteIcon color={dark0} />
-              </TertiaryButton>
+              </Button>
             </FlexGridItem>
           </FlexGrid>
           <Separator />

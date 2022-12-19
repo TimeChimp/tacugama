@@ -2,13 +2,14 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { CaretDownIcon } from '../../icons/caret-down';
 import { TableIcon } from '../../icons/table';
 import { Dropdown, DropdownItem } from '../../dropdown';
-import { TertiaryButton } from '../../button';
+import { Button } from '../../button';
 import { useTheme } from '../../../providers';
 import { HeaderColumnToggleProps } from '..';
 import { Column } from '@ag-grid-community/core';
 import { DATA_TEST_ID } from '../../../models';
-import { border, borderRadius, padding } from '../../../utils';
+import { padding } from '../../../utils';
 import { FlexItem } from '../../flex-item';
+import { KIND } from 'baseui/button';
 
 export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnToggleProps) => {
   const [active, setActive] = useState(false);
@@ -18,10 +19,9 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
   const {
     theme: {
       current: {
-        sizing: { scale300, scale500, scale800 },
+        sizing: { scale500 },
         colors: { primary },
-        borders: { border300, radius200 },
-        customColors: { dark1, light2, light3 },
+        customColors: { dark1 },
       },
     },
   } = useTheme();
@@ -65,29 +65,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
   }, [gridApi, columnApi, setVisibleColumns, toggleColumn]);
 
   return (
-    <TertiaryButton
-      overrides={{
-        BaseButton: {
-          style: {
-            height: scale800,
-            backgroundColor: light3,
-            ...border({
-              ...border300,
-              borderColor: light2,
-            }),
-            ...borderRadius(radius200),
-            ...padding(scale300),
-            ':hover': {
-              backgroundColor: light3,
-              ...border({
-                ...border300,
-                borderColor: light2,
-              }),
-            },
-          },
-        },
-      }}
-    >
+    <Button kind={KIND.tertiary}>
       <Dropdown
         onOpen={() => setActive(true)}
         onClose={() => setActive(false)}
@@ -99,7 +77,8 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
           optionProps: () => ({ [DATA_TEST_ID]: 'data-grid-column-toggle-option' }),
         }}
       >
-        <TertiaryButton
+        <Button
+          kind={KIND.tertiary}
           overrides={{
             BaseButton: {
               style: {
@@ -112,9 +91,9 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
           <FlexItem marg4={scale500}>
             <CaretDownIcon color={active ? primary : dark1} />
           </FlexItem>
-        </TertiaryButton>
+        </Button>
       </Dropdown>
-    </TertiaryButton>
+    </Button>
   );
 };
 

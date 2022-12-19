@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PLACEMENT } from 'baseui/popover';
-import { SIZE } from 'baseui/button';
-import { TertiaryButton } from '../../../button';
+import { KIND, SIZE } from 'baseui/button';
+import { Button } from '../../../button';
 import { DataGridViewOptionsProps } from '../../types';
 import { StyledViewOptionsFooter, StyledDataGridViewListItem } from '../../styles';
 import { StatefulPopover } from '../../../popover';
@@ -18,7 +18,7 @@ import { LabelXSmall, ParagraphSmall } from '../../../typography';
 import { SearchInput } from '../../../input';
 import { StyledDropdownSearch } from '../../../dropdown/styles';
 import { useTheme } from '../../../../providers';
-import { border, borderRadius, padding } from '../../../../utils';
+import { padding } from '../../../../utils';
 
 export const DataGridViewOptions = ({
   translations,
@@ -38,9 +38,8 @@ export const DataGridViewOptions = ({
     theme: {
       current: {
         colors: { primary, contentStateDisabled },
-        sizing: { scale200, scale300, scale400, scale500, scale600, scale800 },
-        borders: { border300, radius200 },
-        customColors: { dark1, light2, light3 },
+        sizing: { scale400, scale600, scale1400 },
+        customColors: { dark1 },
       },
     },
   } = useTheme();
@@ -136,8 +135,10 @@ export const DataGridViewOptions = ({
               ListItem: {
                 component: ({ item: { id, label } }: { item: DropdownItem }) => (
                   <StyledDataGridViewListItem>
-                    <TertiaryButton
-                      size={SIZE.mini}
+                    <Button
+                      kind={KIND.minimal}
+                      isTransparent
+                      height={scale1400}
                       onClick={() => id && onViewSelect(id)}
                       startEnhancer={() => <ViewIcon color={isActiveView(id!) ? primary : contentStateDisabled} />}
                     >
@@ -149,20 +150,12 @@ export const DataGridViewOptions = ({
                       >
                         {label}
                       </LabelXSmall>
-                    </TertiaryButton>
+                    </Button>
                     {id !== 'default' && (
                       <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
-                        <TertiaryButton
-                          overrides={{
-                            BaseButton: {
-                              style: {
-                                transform: 'rotate(90deg)',
-                              },
-                            },
-                          }}
-                        >
+                        <Button kind={KIND.minimal} isTransparent>
                           <MoreIcon color={primary} />
-                        </TertiaryButton>
+                        </Button>
                       </Dropdown>
                     )}
                   </StyledDataGridViewListItem>
@@ -171,22 +164,12 @@ export const DataGridViewOptions = ({
             }}
           />
           <StyledViewOptionsFooter>
-            <TertiaryButton
+            <Button
+              kind={KIND.minimal}
+              height={scale1400}
+              isTransparent
               onClick={() => setCreateModalIsOpen(true)}
               startEnhancer={() => <AddLineIcon color={primary} />}
-              overrides={{
-                Root: {
-                  style: {
-                    ...padding(scale200, scale500),
-                    ':hover': {
-                      backgroundColor: 'transparent',
-                    },
-                    ':active': {
-                      backgroundColor: 'transparent',
-                    },
-                  },
-                },
-              }}
             >
               <LabelXSmall
                 color={primary}
@@ -197,38 +180,14 @@ export const DataGridViewOptions = ({
               >
                 {translations.addView}
               </LabelXSmall>
-            </TertiaryButton>
+            </Button>
           </StyledViewOptionsFooter>
         </>
       )}
     >
-      <TertiaryButton
-        overrides={{
-          BaseButton: {
-            style: {
-              height: scale800,
-              backgroundColor: light3,
-              ...border({
-                ...border300,
-                borderColor: light2,
-              }),
-              ...borderRadius(radius200),
-              ...padding(scale200, scale300),
-              ':hover': {
-                backgroundColor: light3,
-                ...border({
-                  ...border300,
-                  borderColor: light2,
-                }),
-              },
-            },
-          },
-        }}
-        size={SIZE.mini}
-        endEnhancer={() => <CaretDownIcon color={dark1} />}
-      >
+      <Button kind={KIND.tertiary} endEnhancer={() => <CaretDownIcon color={dark1} />}>
         <ParagraphSmall color={dark1}>{translations.viewOptions}</ParagraphSmall>
-      </TertiaryButton>
+      </Button>
     </StatefulPopover>
   );
 };

@@ -1,10 +1,11 @@
 import React from 'react';
 import { SnackbarElementPropsT as BaseSnackbarElementProps } from 'baseui/snackbar';
-import { LabelSmall } from '../typography';
+import { LabelSmall, ParagraphSmall } from '../typography';
 import { ClearLineIcon } from '../icons/clear-line';
-import { TertiaryButton } from '../button';
+import { Button } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDiv, StyledSnackbar, StyledSpan } from './SnackbarStyles';
+import { KIND } from 'baseui/button';
 
 export interface SnackbarProps extends BaseSnackbarElementProps {
   color?: string;
@@ -17,7 +18,6 @@ export const Snackbar = ({ color, onClose, message, actionMessage, actionOnClick
     theme: {
       current: {
         colors: { primaryB },
-        typography: { ParagraphSmall },
       },
     },
   } = useTheme();
@@ -29,32 +29,13 @@ export const Snackbar = ({ color, onClose, message, actionMessage, actionOnClick
       </StyledDiv>
       <StyledDiv>
         {actionMessage && (
-          <TertiaryButton
-            overrides={{
-              Root: {
-                style: {
-                  color: primaryB,
-                  ...ParagraphSmall,
-                },
-              },
-            }}
-            onClick={actionOnClick}
-          >
-            {actionMessage}
-          </TertiaryButton>
+          <Button kind={KIND.minimal} isTransparent onClick={actionOnClick}>
+            <ParagraphSmall color={primaryB}>{actionMessage}</ParagraphSmall>
+          </Button>
         )}
-        <TertiaryButton
-          overrides={{
-            Root: {
-              style: {
-                color: primaryB,
-              },
-            },
-          }}
-          onClick={onClose}
-        >
+        <Button kind={KIND.minimal} isTransparent onClick={onClose}>
           <ClearLineIcon />
-        </TertiaryButton>
+        </Button>
       </StyledDiv>
     </StyledSnackbar>
   );

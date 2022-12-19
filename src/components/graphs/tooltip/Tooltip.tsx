@@ -21,6 +21,7 @@ export const FlyOutTooltip = ({
   width,
   formatAsDate,
   horizontalAxisItemLabel,
+  dateFormat = 'dd MMM yyyy',
 }: any) => {
   const {
     theme: {
@@ -43,7 +44,7 @@ export const FlyOutTooltip = ({
   }, [x, width, flyOutWidth]);
 
   const headingLabel = formatAsDate
-    ? new TcDate(datum.date).format('dd MMM yyyy')
+    ? new TcDate(datum.date).format(dateFormat)
     : `${horizontalAxisItemLabel} ${datum.date.split('-')[1]}`;
 
   return (

@@ -77,11 +77,11 @@ import { GroupRowInnerRenderer } from './group-row-inner-renderer';
 import { GroupRowInnerTagRenderer } from './group-row-inner-tag-renderer';
 import { FlexItem } from '../flex-item';
 import { ParagraphSmall } from '../typography';
-import { TertiaryButton } from '../button';
+import { Button } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { CaretDownIcon } from '../icons/caret-down';
 import { EditIcon } from '../icons/edit';
-import { border, borderRadius, padding } from '../../utils';
+import { KIND } from 'baseui/button';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
@@ -154,9 +154,8 @@ export const DataGrid = ({
   const {
     theme: {
       current: {
-        sizing: { scale300, scale500, scale800 },
-        borders: { border300, radius200 },
-        customColors: { light2, light3, dark1 },
+        sizing: { scale500 },
+        customColors: { dark1 },
       },
     },
   } = useTheme();
@@ -720,37 +719,14 @@ export const DataGrid = ({
                   <FlexItem width="auto">
                     <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
                     <Dropdown items={options}>
-                      <TertiaryButton
-                        size="mini"
-                        overrides={{
-                          BaseButton: {
-                            style: {
-                              height: scale800,
-                              backgroundColor: light3,
-                              ...border({
-                                ...border300,
-                                borderColor: light2,
-                              }),
-                              ...borderRadius(radius200),
-                              ...padding(scale300),
-                              ':hover': {
-                                backgroundColor: light3,
-                                ...border({
-                                  ...border300,
-                                  borderColor: light2,
-                                }),
-                              },
-                            },
-                          },
-                        }}
-                      >
+                      <Button kind={KIND.tertiary}>
                         <ParagraphSmall $style={{ cursor: 'pointer' }} color={dark1}>
                           {selectedGroupOption?.label ?? translations.none}
                         </ParagraphSmall>
                         <FlexItem marg4={scale500}>
                           <CaretDownIcon color={dark1} />
                         </FlexItem>
-                      </TertiaryButton>
+                      </Button>
                     </Dropdown>
                   </FlexItem>
                 </>

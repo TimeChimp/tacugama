@@ -1,5 +1,5 @@
 import { Colors } from 'baseui/theme';
-import { ButtonType, CustomColors } from '../models';
+import { ButtonType, CustomColors, CustomThemeType } from '../models';
 
 const padZeroRight = (input: string, length: number) => input + '0'.repeat(length - input.length);
 const padZeroLeft = (input: string, length: number) => ('0'.repeat(length) + input).slice(-length);
@@ -131,22 +131,42 @@ export const getInputBorderColor = ({
   return light2;
 };
 
-export const getButtonBackgroundColor = (type: ButtonType, { primary400, backgroundPositive }: Colors) => {
+export const getButtonBackgroundColor = (type: ButtonType, { green1, purple2, red2 }: CustomColors) => {
   const colors = {
-    default: primary400,
-    success: backgroundPositive,
-    error: '#FF5C5C',
+    default: purple2,
+    success: green1,
+    error: red2,
   };
 
   return colors[type];
 };
 
-export const getButtonBackgroundHoverColor = (type: ButtonType, { primary600 }: Colors) => {
+export const getButtonBackgroundHoverColor = (type: ButtonType, { purple1 }: CustomColors) => {
   const colors = {
-    default: primary600,
+    default: purple1,
     success: '#06C270',
     error: '#FF3B3B',
   };
 
   return colors[type];
+};
+
+export const getRadioBorderColor = (disabled: boolean, checked: boolean, theme: CustomThemeType) => {
+  if (disabled) {
+    return theme.customColors.dark4;
+  }
+  if (checked) {
+    return theme.customColors.purple2;
+  }
+  return theme.customColors.dark4;
+};
+
+export const getRadioBackgroundColor = (disabled: boolean, checked: boolean, theme: CustomThemeType) => {
+  if (checked) {
+    if (disabled) {
+      return theme.customColors.dark4;
+    }
+    return theme.customColors.purple2;
+  }
+  return 'transparent';
 };

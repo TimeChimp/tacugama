@@ -35,7 +35,6 @@ export const Switcher = ({ onPrev, onNext, value }: SwitcherProps) => {
           }}
           onClick={onPrev}
         >
-          {' '}
           <CaretLeftIcon size={scale400} />
         </Button>
         <LabelMedium paddingLeft={scale500} paddingRight={scale500}>
