@@ -1,6 +1,6 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { EditIcon } from '../icons';
+import { EditIcon } from '../icons/edit';
 
 import { SideNav, SideNavItem, SideNavProps } from '.';
 

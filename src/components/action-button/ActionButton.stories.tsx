@@ -3,8 +3,8 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { ActionButton } from './';
 import { ActionButtonProps } from './ActionButton';
-import { Search } from 'baseui/icon';
 import { ButtonKind } from '../../models';
+import { SearchIcon } from '../icons/search';
 
 export default {
   title: 'Components/Action Button',
@@ -15,7 +15,7 @@ const Template: Story<ActionButtonProps> = (args) => <ActionButton {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  startEnhancer: <Search />,
+  startEnhancer: <SearchIcon />,
 };
 
 export const Secondary = Template.bind({});
@@ -45,6 +45,6 @@ Disabled.args = {
 
 export const WithoutLabel = Template.bind({});
 WithoutLabel.args = {
-  startEnhancer: <Search />,
+  startEnhancer: <SearchIcon />,
   withoutLabel: true,
 };

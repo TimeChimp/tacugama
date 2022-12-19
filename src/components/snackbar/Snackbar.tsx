@@ -1,7 +1,7 @@
 import React from 'react';
 import { SnackbarElementPropsT as BaseSnackbarElementProps } from 'baseui/snackbar';
 import { LabelSmall, ParagraphSmall } from '../typography';
-import { ClearLineIcon } from '../icons';
+import { ClearLineIcon } from '../icons/clear-line';
 import { Button } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDiv, StyledSnackbar, StyledSpan } from './SnackbarStyles';

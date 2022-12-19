@@ -6,7 +6,11 @@ import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { Avatar } from '../../avatar';
 import { ParagraphSmall } from 'baseui/typography';
 import { useTheme } from '../../../providers';
-import { CalendarIcon, BriefcaseIcon, NoteIcon, AvatarIcon, XmarkIcon } from '../../icons';
+import { CalendarIcon } from '../../icons/calendar';
+import { BriefcaseIcon } from '../../icons/briefcase';
+import { NoteIcon } from '../../icons/note';
+import { AvatarIcon } from '../../icons/avatar';
+import { XmarkIcon } from '../../icons/xmark';
 import { DropdownItem } from 'components/dropdown';
 
 const CustomCellComponent = ({ data }: any) => {

@@ -1,7 +1,8 @@
 import React, { forwardRef } from 'react';
 import { Button, ButtonProps } from '../../button';
 import { LabelSmall } from '../../typography';
-import { CaretDownIcon, ClearLineIcon } from '../../icons';
+import { CaretDownIcon } from '../../icons/caret-down';
+import { ClearLineIcon } from '../../icons/clear-line';
 import { useTheme } from '../../../providers';
 import { ButtonKind } from '../../../models';
 

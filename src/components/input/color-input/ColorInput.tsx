@@ -9,7 +9,7 @@ import { useTheme } from '../../../providers';
 import { InputProps } from '../types';
 import { ButtonKind } from '../../../models';
 
-export interface ColorInputProps extends Omit<InputProps, 'value' | 'uppercase' | 'onChange'> {
+export interface ColorInputProps extends Omit<InputProps, 'value' | 'uppercase' | 'onChange' | 'placeholder'> {
   onChange: (color: string) => void;
   value?: string;
   generateRandomColor?: boolean;

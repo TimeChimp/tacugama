@@ -2,10 +2,11 @@ import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { Select as BaseSelect, Option, Value, OnChangeParams } from 'baseui/select';
 import { useTheme } from '../../providers';
-import { border, borderBottom, borderRadius, getInputPlaceholderTextColor, padding } from '../../utils';
+import { border, borderBottom, borderRadius, padding } from '../../utils';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
-import { CaretDownIcon, LockedIcon } from '../icons';
+import { CaretDownIcon } from '../icons/caret-down';
+import { LockedIcon } from '../icons/locked';
 import { FormInput, RowSelectProps } from './types';
 
 export const RowSelect = ({
@@ -25,7 +26,7 @@ export const RowSelect = ({
     theme: {
       current: {
         colors,
-        customColors,
+        customColors: { primarySubtle, dark4 },
         borders,
         sizing: { scale0, scale100, scale300, scale700, scale900 },
         typography: { ParagraphSmall, LabelSmall },
@@ -75,7 +76,7 @@ export const RowSelect = ({
           overrides={{
             ControlContainer: {
               style: {
-                backgroundColor: customColors.primarySubtle,
+                backgroundColor: primarySubtle,
                 ...border(),
                 ...borderRadius(scale0),
                 pointerEvents: isLocked ? 'none' : 'unset',
@@ -83,7 +84,7 @@ export const RowSelect = ({
             },
             Root: {
               style: () => ({
-                backgroundColor: customColors.primarySubtle,
+                backgroundColor: primarySubtle,
                 ...borderRadius(scale0),
                 minWidth: '175px', // NOTE: Value does not exist in theme
               }),
@@ -92,10 +93,10 @@ export const RowSelect = ({
               },
             },
             Placeholder: {
-              style: ({ $disabled, $isFocused }: { $disabled: boolean; $isFocused: boolean }) => ({
+              style: {
                 ...ParagraphSmall,
-                color: getInputPlaceholderTextColor($disabled, $isFocused, colors),
-              }),
+                color: dark4,
+              },
             },
             DropdownContainer: {
               style: {
