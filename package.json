@@ -97,7 +97,7 @@
     "@ag-grid-enterprise/status-bar": "25.0.1",
     "@timechimp/timechimp-typescript-helpers": "^2.0.1",
     "@types/bytes": "^3.1.1",
-    "baseui": "^9.116.0",
+    "baseui": "^12.2.0",
     "bytes": "^3.1.0",
     "core-js": "^3.18.3",
     "date-fns": "^2.17.0",
