@@ -80,7 +80,7 @@ import { ParagraphSmall } from '../typography';
 import { Button } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { CaretDownIcon, EditIcon } from '../icons';
-import { KIND } from 'baseui/button';
+import { ButtonKind } from '../../models';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
@@ -718,7 +718,7 @@ export const DataGrid = ({
                   <FlexItem width="auto">
                     <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
                     <Dropdown items={options}>
-                      <Button kind={KIND.tertiary}>
+                      <Button buttonKind={ButtonKind.tertiary}>
                         <ParagraphSmall $style={{ cursor: 'pointer' }} color={dark1}>
                           {selectedGroupOption?.label ?? translations.none}
                         </ParagraphSmall>

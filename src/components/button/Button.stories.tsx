@@ -5,7 +5,7 @@ import { Button, ButtonProps } from './';
 import { ButtonType } from 'models';
 import { DeleteIcon } from '../icons';
 import { Checkbox, CheckboxSize } from 'components/checkbox';
-import { KIND } from 'baseui/button';
+import { ButtonKind } from '../../models';
 import { Search } from 'baseui/icon';
 
 export default {
@@ -19,13 +19,13 @@ const light4 = '#FFFFFF';
 const PrimaryButtonTemplate: Story<ButtonProps> = (args) => <Button {...args} />;
 
 const SquareButtonCheckboxTemplate: Story<ButtonProps> = (args) => (
-  <Button kind={KIND.tertiary} {...args}>
+  <Button buttonKind={ButtonKind.tertiary} {...args}>
     <Checkbox size={CheckboxSize.Small} />
   </Button>
 );
 
 const SquareButtonDeleteTemplate: Story<ButtonProps> = (args) => (
-  <Button kind={KIND.tertiary} {...args}>
+  <Button buttonKind={ButtonKind.tertiary} {...args}>
     <DeleteIcon color={light4} />
   </Button>
 );
@@ -34,7 +34,7 @@ export const Primary = PrimaryButtonTemplate.bind({});
 Primary.args = {
   children: 'Button',
   buttonType: ButtonType.default,
-  kind: KIND.primary,
+  buttonKind: ButtonKind.primary,
   testId: 'test-button',
   disabled: false,
 };
@@ -49,7 +49,7 @@ export const PrimaryStartEnhancer = PrimaryButtonTemplate.bind({});
 PrimaryStartEnhancer.args = {
   children: 'Button',
   buttonType: ButtonType.default,
-  kind: KIND.primary,
+  buttonKind: ButtonKind.primary,
   testId: 'test-button',
   startEnhancer: <Search />,
   disabled: false,

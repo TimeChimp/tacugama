@@ -7,7 +7,7 @@ import { margin, padding } from '../../../utils';
 import { ColorPickerContainer, StyledColorSwatch } from '../styles';
 import { useTheme } from '../../../providers';
 import { InputProps } from '../types';
-import { KIND } from 'baseui/button';
+import { ButtonKind } from '../../../models';
 
 export interface ColorInputProps extends Omit<InputProps, 'value' | 'uppercase' | 'onChange'> {
   onChange: (color: string) => void;
@@ -66,7 +66,7 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
       <Input
         startEnhancer={
           <Button
-            kind={KIND.tertiary}
+            buttonKind={ButtonKind.tertiary}
             overrides={{
               BaseButton: {
                 style: ({ $theme }) => ({

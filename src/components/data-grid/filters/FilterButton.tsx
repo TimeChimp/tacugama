@@ -3,7 +3,7 @@ import { Button, ButtonProps } from '../../button';
 import { LabelSmall } from '../../typography';
 import { CaretDownIcon, ClearLineIcon } from '../../icons';
 import { useTheme } from '../../../providers';
-import { KIND } from 'baseui/button';
+import { ButtonKind } from '../../../models';
 
 const FILTER_BUTTON_TEST_ID = 'filter-button';
 
@@ -27,14 +27,14 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
 
     return (
       <Button
-        kind={KIND.secondary}
+        buttonKind={ButtonKind.secondary}
         ref={ref}
         testId={testId ?? FILTER_BUTTON_TEST_ID}
         endEnhancer={
           <>
             {arrows && <CaretDownIcon />}
             {hasValue && onClear && (
-              <Button kind={KIND.minimal} isTransparent onClick={onClear}>
+              <Button buttonKind={ButtonKind.minimal} isTransparent onClick={onClear}>
                 <ClearLineIcon color={primaryA} />
               </Button>
             )}

@@ -1,9 +1,10 @@
 import React from 'react';
-import { KIND, SHAPE } from 'baseui/button';
+import { SHAPE } from 'baseui/button';
 import { TriangleDown } from 'baseui/icon';
-import { Dropdown, Block } from '../../components';
+import { Dropdown, Block, DropdownProps } from '../../components';
 import { useTheme } from '../../providers';
 import Button from '../button/Button';
+import { ButtonKind as Kind } from '../../models';
 
 const DEFAULT_OPTIONS = [
   {
@@ -21,10 +22,9 @@ interface ActionButtonOption {
   id: string;
 }
 
-export interface ActionButtonProps {
-  options: ActionButtonOption[];
+export interface ActionButtonProps extends DropdownProps {
   selectedOption: ActionButtonOption;
-  kind?: KIND[keyof KIND];
+  kind?: Kind;
   shape?: SHAPE[keyof SHAPE];
   startEnhancer?: React.ReactNode;
   disabled?: boolean;
@@ -33,9 +33,9 @@ export interface ActionButtonProps {
 }
 
 export const ActionButton = ({
-  options = DEFAULT_OPTIONS,
+  items = DEFAULT_OPTIONS,
   selectedOption = DEFAULT_OPTIONS[0],
-  kind = KIND.primary,
+  kind = Kind.primary,
   shape = SHAPE.default,
   startEnhancer,
   disabled = false,
@@ -46,43 +46,18 @@ export const ActionButton = ({
     theme: {
       current: {
         sizing: { scale500, scale700 },
-        customColors: { dark1, dark4, light4, purple2 },
       },
     },
   } = useTheme();
 
-  const getTriangleIconColor = () => {
-    if (disabled) {
-      return dark4;
-    }
-    if (selectedOption && kind !== KIND.minimal) {
-      return light4;
-    }
-    if (kind === KIND.secondary || kind === KIND.tertiary) {
-      return dark1;
-    }
-    if (kind === KIND.minimal) {
-      return purple2;
-    }
-    return light4;
-  };
-
-  const isSelectedKind = selectedOption && kind !== KIND.minimal;
-
   const label = selectedOption?.label || placeholder;
 
   return (
-    <Dropdown items={options}>
-      <Button
-        size="compact"
-        kind={isSelectedKind ? KIND.primary : kind}
-        shape={shape}
-        startEnhancer={startEnhancer}
-        disabled={disabled}
-      >
+    <Dropdown items={items}>
+      <Button size="compact" buttonKind={kind} shape={shape} startEnhancer={startEnhancer} disabled={disabled}>
         <Block display="flex" gridColumnGap={scale500} alignItems="center">
           {!withoutLabel ? label : null}
-          <TriangleDown color={getTriangleIconColor()} size={scale700} />
+          <TriangleDown size={scale700} />
         </Block>
       </Button>
     </Dropdown>

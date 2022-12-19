@@ -5,10 +5,8 @@ import { Button } from '../../button';
 import { useTheme } from '../../../providers';
 import { HeaderColumnToggleProps } from '..';
 import { Column } from '@ag-grid-community/core';
-import { DATA_TEST_ID } from '../../../models';
-import { padding } from '../../../utils';
+import { DATA_TEST_ID, ButtonKind } from '../../../models';
 import { FlexItem } from '../../flex-item';
-import { KIND } from 'baseui/button';
 
 export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnToggleProps) => {
   const [active, setActive] = useState(false);
@@ -64,7 +62,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
   }, [gridApi, columnApi, setVisibleColumns, toggleColumn]);
 
   return (
-    <Button kind={KIND.tertiary}>
+    <Button buttonKind={ButtonKind.tertiary}>
       <Dropdown
         onOpen={() => setActive(true)}
         onClose={() => setActive(false)}
@@ -76,16 +74,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
           optionProps: () => ({ [DATA_TEST_ID]: 'data-grid-column-toggle-option' }),
         }}
       >
-        <Button
-          kind={KIND.tertiary}
-          overrides={{
-            BaseButton: {
-              style: {
-                ...padding('0'),
-              },
-            },
-          }}
-        >
+        <Button buttonKind={ButtonKind.tertiary}>
           <TableIcon color={active ? primary : dark1} />
           <FlexItem marg4={scale500}>
             <CaretDownIcon color={active ? primary : dark1} />

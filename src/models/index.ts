@@ -7,3 +7,4 @@ export * from './PriceInputPrefixes';
 export * from './MaxInputLength';
 export * from './FlexWrapProperty';
 export * from './AvatarType';
+export * from './ButtonKind';
