@@ -1,9 +1,13 @@
 import React from 'react';
 import { ParagraphSmall } from 'baseui/typography';
 import { useTheme } from '../../providers';
-import { Block, Box, Button, StatefulTooltip, CopyIcon } from '../../components';
 import { padding } from '../../utils';
 import { StyledCopyIcon } from './StyledCopyText';
+import { Box } from '../box';
+import { StatefulTooltip } from '../tooltip';
+import { Block } from '../block';
+import { CopyIcon } from '../icons/copy';
+import { Button } from '../button';
 import { KIND } from 'baseui/button';
 
 export interface CopyTextProps {

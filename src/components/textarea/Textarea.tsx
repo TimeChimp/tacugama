@@ -1,22 +1,18 @@
-// @ts-nocheck - Need to override textarea root property but type is missing
 import React from 'react';
 import { useTheme } from '../../providers';
-import { Textarea as BaseTextArea, TextareaProps as BaseTextareaProps } from 'baseui/textarea';
-import { border, borderRadius, getInputBorderColor, getInputContainerColors } from '../../utils';
+import { Textarea as BaseTextArea } from 'baseui/textarea';
+import { border, borderRadius, getInputBorderColor, getInputBackgroundColor, getInputTextColor } from '../../utils';
 import { DATA_TEST_ID } from '../../models';
+import { TextareaProps } from './types';
 
-export interface TextareaProps extends BaseTextareaProps {
-  resizeable?: boolean;
-  testId?: string;
-}
-
-export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps) => {
+export const Textarea = ({ testId, value, success, resizeable = false, ...rest }: TextareaProps) => {
   const {
     theme: {
       current: {
         sizing: { scale550, scale2400 },
         borders,
         colors,
+        customColors,
       },
     },
   } = useTheme();
@@ -26,11 +22,13 @@ export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps)
 
   return (
     <BaseTextArea
+      value={value}
       {...rest}
       overrides={{
         Input: {
           style: ({ $theme, $error, $disabled, $isFocused }) => {
-            const { color, backgroundColor } = getInputContainerColors($theme.colors, $disabled);
+            const backgroundColor = getInputBackgroundColor({ disabled: $disabled, customColors, colors });
+            const color = getInputTextColor({ isFocused: $isFocused, hasValue: !!value, customColors, colors });
             return {
               minHeight: scale2400,
               height: scale2400,
@@ -44,7 +42,13 @@ export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps)
               },
               ...border({
                 ...border300,
-                borderColor: getInputBorderColor($error, $isFocused, colors, borders),
+                borderColor: getInputBorderColor({
+                  error: $error,
+                  success,
+                  isFocused: $isFocused,
+                  customColors,
+                  colors,
+                }),
               }),
               ...borderRadius(radius200),
             };
@@ -53,6 +57,7 @@ export const Textarea = ({ testId, resizeable = false, ...rest }: TextareaProps)
             [DATA_TEST_ID]: testId,
           },
         },
+        // @ts-expect-error - The type definition for TextareaOverrides is incorrect
         Root: {
           style: {
             ...border(),

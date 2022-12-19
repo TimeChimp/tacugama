@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, AlertProps } from '../Alert';
 import { useTheme } from '../../../providers';
-import { InfoIcon } from '../../icons';
+import { InfoIcon } from '../../icons/info';
 
 export interface InfoAlertProps extends AlertProps {}
 

@@ -1,4 +1,4 @@
-import { Borders, Colors } from 'baseui/theme';
+import { Colors } from 'baseui/theme';
 import { ButtonType, CustomColors, CustomThemeType } from '../models';
 
 const padZeroRight = (input: string, length: number) => input + '0'.repeat(length - input.length);
@@ -77,54 +77,58 @@ export const invertHexColor = (hex: string, options?: HexColorInverseOptions) =>
   return newHex;
 };
 
-export function getInputContainerColors(colors: Colors, $disabled: boolean = false) {
-  /**
-   * This helper is based on BaseWeb's internal helper, which can be used more dynamically.
-   * Source: https://github.com/uber/baseweb/blob/eebaf24fecc2d0b54133af41d31604fc54b6b3e3/src/input/styled-components.js#L329
-   */
-
-  if ($disabled) {
-    return {
-      color: colors.contentStateDisabled,
-      backgroundColor: colors.backgroundPrimary,
-    };
-  }
-
-  return {
-    color: colors.contentPrimary,
-    backgroundColor: colors.backgroundPrimary,
-  };
+interface GetInputColorParams {
+  error?: boolean;
+  success?: boolean;
+  isFocused?: boolean;
+  hover?: boolean;
+  disabled?: boolean;
+  customColors: CustomColors;
+  colors: Colors;
+  hasValue?: boolean;
 }
 
-export const getInputBorderColor = (
-  error: boolean,
-  isFocused: boolean,
-  { borderError, primary }: Colors,
-  { border300: { borderColor } }: Borders,
-) => {
-  if (error) {
-    return borderError;
+export function getInputBackgroundColor({
+  disabled,
+  customColors: { light3 },
+  colors: { backgroundPrimary },
+}: GetInputColorParams) {
+  if (disabled) {
+    return light3;
   }
-  if (isFocused) {
-    return primary;
+
+  return backgroundPrimary;
+}
+
+export const getInputTextColor = ({ isFocused, hasValue, customColors: { dark1, dark4 } }: GetInputColorParams) => {
+  if (isFocused || hasValue) {
+    return dark1;
   }
-  return borderColor;
+
+  return dark4;
 };
 
-export const getInputPlaceholderTextColor = (
-  disabled: boolean,
-  isFocused: boolean,
-  { contentSecondary, contentTertiary, contentStateDisabled }: Colors,
-) => {
+export const getInputBorderColor = ({
+  error,
+  success,
+  disabled,
+  isFocused,
+  hover,
+  customColors: { red0, green0, purple2, light2 },
+}: GetInputColorParams) => {
   if (disabled) {
-    return contentStateDisabled;
+    return light2;
   }
-
-  if (isFocused) {
-    return contentSecondary;
+  if (error) {
+    return red0;
   }
-
-  return contentTertiary;
+  if (success) {
+    return green0;
+  }
+  if (isFocused || hover) {
+    return purple2;
+  }
+  return light2;
 };
 
 export const getButtonBackgroundColor = (type: ButtonType, { green1, purple2, red2 }: CustomColors) => {

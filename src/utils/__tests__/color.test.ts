@@ -2,81 +2,153 @@ import { ButtonType } from '../../models';
 import {
   getButtonBackgroundColor,
   getButtonBackgroundHoverColor,
+  getInputBackgroundColor,
   getInputBorderColor,
-  getInputContainerColors,
-  getInputPlaceholderTextColor,
+  getInputTextColor,
 } from '../color';
 
+const COLORS: any = {
+  contentPrimary: 'contentPrimary',
+  backgroundPrimary: 'backgroundPrimary',
+  inputFillError: 'inputFillError',
+  contentStateDisabled: 'contentStateDisabled',
+};
+
+const CUSTOM_COLORS: any = {
+  dark1: 'dark1',
+  dark4: 'dark4',
+};
+
 describe('utils/colors', () => {
-  describe('getInputContainerColors', () => {
-    const colors = {
-      contentPrimary: 'contentPrimary',
-      backgroundPrimary: 'backgroundPrimary',
-      inputFillError: 'inputFillError',
-      contentStateDisabled: 'contentStateDisabled',
-    };
+  describe('getInputTextColor', () => {
+    it('should get a default', () => {
+      const textColor = getInputTextColor({
+        isFocused: false,
+        hasValue: false,
+        customColors: CUSTOM_COLORS,
+        colors: COLORS,
+      });
 
-    it('should get normal colors', () => {
-      const inputColors = getInputContainerColors(colors as any);
-
-      expect(inputColors.backgroundColor).toBe(colors.backgroundPrimary);
-      expect(inputColors.color).toBe(colors.contentPrimary);
+      expect(textColor).toBe(CUSTOM_COLORS.dark4);
     });
 
-    it('should get disabled colors', () => {
-      const inputColors = getInputContainerColors(colors as any, true);
+    it('should get active colors', () => {
+      const textColor = getInputTextColor({
+        isFocused: true,
+        hasValue: true,
+        customColors: CUSTOM_COLORS,
+        colors: COLORS,
+      });
 
-      expect(inputColors.backgroundColor).toBe(colors.backgroundPrimary);
-      expect(inputColors.color).toBe(colors.contentStateDisabled);
+      expect(textColor).toBe(CUSTOM_COLORS.dark1);
     });
   });
 
   describe('getInputBorderColor', () => {
-    const colors = { borderError: 'borderError', primary: 'primary' };
-    const borders = { border300: { borderColor: 'borderColor' } };
+    it('should get a default color', () => {
+      const inputBorderColor = getInputBorderColor({
+        error: false,
+        success: false,
+        disabled: false,
+        isFocused: false,
+        hover: false,
+        customColors: CUSTOM_COLORS,
+        colors: COLORS,
+      });
 
-    it('should get a normal color', () => {
-      const inputBorderColor = getInputBorderColor(false, false, colors as any, borders as any);
-
-      expect(inputBorderColor).toBe(borders.border300.borderColor);
-    });
-
-    it('should get a focused color', () => {
-      const inputBorderColor = getInputBorderColor(false, true, colors as any, borders as any);
-
-      expect(inputBorderColor).toBe(colors.primary);
-    });
-
-    it('should get an error color', () => {
-      const inputBorderColor = getInputBorderColor(true, true, colors as any, borders as any);
-
-      expect(inputBorderColor).toBe(colors.borderError);
-    });
-  });
-
-  describe('getInputPlaceholderTextColor', () => {
-    const colors = {
-      contentSecondary: 'contentSecondary',
-      contentTertiary: 'contentTertiary',
-      contentStateDisabled: 'contentStateDisabled',
-    };
-
-    it('should get a normal color', () => {
-      const inputBorderColor = getInputPlaceholderTextColor(false, false, colors as any);
-
-      expect(inputBorderColor).toBe(colors.contentTertiary);
-    });
-
-    it('should get a focused color', () => {
-      const inputBorderColor = getInputPlaceholderTextColor(false, true, colors as any);
-
-      expect(inputBorderColor).toBe(colors.contentSecondary);
+      expect(inputBorderColor).toBe(CUSTOM_COLORS.light2);
     });
 
     it('should get a disabled color', () => {
-      const inputBorderColor = getInputPlaceholderTextColor(true, false, colors as any);
+      const inputBorderColor = getInputBorderColor({
+        error: false,
+        success: false,
+        disabled: true,
+        isFocused: false,
+        hover: false,
+        customColors: CUSTOM_COLORS,
+        colors: COLORS,
+      });
 
-      expect(inputBorderColor).toBe(colors.contentStateDisabled);
+      expect(inputBorderColor).toBe(CUSTOM_COLORS.light2);
+    });
+
+    it('should get an error color', () => {
+      const inputBorderColor = getInputBorderColor({
+        error: true,
+        success: false,
+        disabled: false,
+        isFocused: false,
+        hover: false,
+        customColors: CUSTOM_COLORS,
+        colors: COLORS,
+      });
+
+      expect(inputBorderColor).toBe(CUSTOM_COLORS.red0);
+    });
+
+    it('should get a success color', () => {
+      const inputBorderColor = getInputBorderColor({
+        error: false,
+        success: true,
+        disabled: false,
+        isFocused: false,
+        hover: false,
+        customColors: CUSTOM_COLORS,
+        colors: COLORS,
+      });
+
+      expect(inputBorderColor).toBe(CUSTOM_COLORS.green0);
+    });
+
+    it('should get a focused color', () => {
+      const inputBorderColor = getInputBorderColor({
+        error: false,
+        success: false,
+        disabled: false,
+        isFocused: true,
+        hover: false,
+        customColors: CUSTOM_COLORS,
+        colors: COLORS,
+      });
+
+      expect(inputBorderColor).toBe(CUSTOM_COLORS.purple2);
+    });
+
+    it('should get a hover color', () => {
+      const inputBorderColor = getInputBorderColor({
+        error: false,
+        success: false,
+        disabled: false,
+        isFocused: false,
+        hover: true,
+        customColors: CUSTOM_COLORS,
+        colors: COLORS,
+      });
+
+      expect(inputBorderColor).toBe(CUSTOM_COLORS.purple2);
+    });
+  });
+
+  describe('getInputBackgroundColor', () => {
+    it('should get a default color', () => {
+      const inputBorderColor = getInputBackgroundColor({
+        disabled: false,
+        customColors: CUSTOM_COLORS,
+        colors: COLORS,
+      });
+
+      expect(inputBorderColor).toBe(COLORS.backgroundPrimary);
+    });
+
+    it('should get a disabled color', () => {
+      const inputBorderColor = getInputBackgroundColor({
+        disabled: true,
+        customColors: CUSTOM_COLORS,
+        colors: COLORS,
+      });
+
+      expect(inputBorderColor).toBe(CUSTOM_COLORS.light3);
     });
   });
 

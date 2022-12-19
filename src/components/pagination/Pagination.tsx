@@ -3,7 +3,8 @@ import { Pagination as BasePagination, SIZE, PaginationProps as BasePaginationPr
 import { CustomThemeType } from '../../models';
 import { border, margin, padding } from '../../utils';
 import { Button } from '../button';
-import { CaretLeftIcon, CaretRightIcon } from '../icons';
+import { CaretLeftIcon } from '../icons/caret-left';
+import { CaretRightIcon } from '../icons/caret-right';
 import { useTheme } from '../../providers';
 import { KIND } from 'baseui/button';
 

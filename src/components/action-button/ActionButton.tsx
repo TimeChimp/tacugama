@@ -1,9 +1,10 @@
 import React from 'react';
 import { KIND, SHAPE } from 'baseui/button';
-import { TriangleDown } from 'baseui/icon';
-import { Dropdown, Block } from '../../components';
+import { Button } from '../button';
+import { Dropdown } from '../dropdown';
+import { Block } from '../block';
 import { useTheme } from '../../providers';
-import Button from '../button/Button';
+import { CaretDownIcon } from '../icons/caret-down';
 
 const DEFAULT_OPTIONS = [
   {
@@ -82,7 +83,7 @@ export const ActionButton = ({
       >
         <Block display="flex" gridColumnGap={scale500} alignItems="center">
           {!withoutLabel ? label : null}
-          <TriangleDown color={getTriangleIconColor()} size={scale700} />
+          <CaretDownIcon color={getTriangleIconColor()} size={scale700} />
         </Block>
       </Button>
     </Dropdown>

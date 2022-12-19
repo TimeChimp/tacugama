@@ -2,8 +2,8 @@ import React, { useMemo, useRef, useState } from 'react';
 import { useTheme } from '../../../providers';
 import { RowActionsCellProps } from '../types';
 import { Dropdown } from '../../dropdown';
+import { MoreIcon } from '../../icons/more';
 import { Button } from '../../button';
-import { MoreIcon } from '../../icons';
 import { RowEditCell } from '../row-edit-cell';
 import { KIND } from 'baseui/button';
 
