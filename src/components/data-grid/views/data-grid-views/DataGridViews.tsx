@@ -39,7 +39,7 @@ export const DataGridViews = ({
   const {
     theme: {
       current: {
-        sizing: { scale200, scale400, scale750, scale800 },
+        sizing: { scale200, scale400, scale800 },
         colors: { primaryB },
       },
     },
@@ -161,7 +161,7 @@ export const DataGridViews = ({
               width="fit-content"
             >
               {isActiveView(view.id) ? (
-                <Button height={scale750}>
+                <Button buttonKind={ButtonKind.quarternary}>
                   <ParagraphSmall color={primaryB}>{view.name}</ParagraphSmall>
                 </Button>
               ) : (

@@ -63,26 +63,24 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
   }, [gridApi, columnApi, setVisibleColumns, toggleColumn]);
 
   return (
-    <Button buttonKind={ButtonKind.tertiary}>
-      <Dropdown
-        onOpen={() => setActive(true)}
-        onClose={() => setActive(false)}
-        items={dropdownItems}
-        selection
-        selectedIds={visibleColumnIds}
-        propOverrides={{
-          listProps: () => ({ [DATA_TEST_ID]: 'data-grid-column-toggle-options' }),
-          optionProps: () => ({ [DATA_TEST_ID]: 'data-grid-column-toggle-option' }),
-        }}
-      >
-        <Button buttonKind={ButtonKind.tertiary}>
-          <TableIcon color={active ? primary : dark1} />
-          <FlexItem marg4={scale500}>
-            <CaretDownIcon color={active ? primary : dark1} />
-          </FlexItem>
-        </Button>
-      </Dropdown>
-    </Button>
+    <Dropdown
+      onOpen={() => setActive(true)}
+      onClose={() => setActive(false)}
+      items={dropdownItems}
+      selection
+      selectedIds={visibleColumnIds}
+      propOverrides={{
+        listProps: () => ({ [DATA_TEST_ID]: 'data-grid-column-toggle-options' }),
+        optionProps: () => ({ [DATA_TEST_ID]: 'data-grid-column-toggle-option' }),
+      }}
+    >
+      <Button buttonKind={ButtonKind.tertiary}>
+        <TableIcon color={active ? primary : dark1} />
+        <FlexItem marg4={scale500}>
+          <CaretDownIcon color={active ? primary : dark1} />
+        </FlexItem>
+      </Button>
+    </Dropdown>
   );
 };
 
