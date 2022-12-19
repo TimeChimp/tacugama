@@ -1,7 +1,7 @@
 import React from 'react';
 import { Snackbar, SnackbarProps } from '../Snackbar';
 import { useTheme } from '../../../providers';
-import { CheckIcon } from '../../icons';
+import { CheckIcon } from '../../icons/check';
 
 export interface InfoSnackbarProps extends SnackbarProps {}
 

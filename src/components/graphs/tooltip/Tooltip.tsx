@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { useTheme } from '../../../providers';
-import { LabelMedium, Box } from '../../../components';
-import { ParagraphSmall } from 'baseui/typography';
+import { Box } from '../../../components/box';
+import { LabelMedium } from '../../../components/typography/label-medium';
+import { ParagraphSmall } from '../../../components/typography/paragraph-small';
 import { FlexGrid } from '../../flex-grid';
 
 export const FlyOutTooltip = ({

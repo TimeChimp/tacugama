@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input } from '../Input';
-import { SearchIcon } from '../../icons';
+import { SearchIcon } from '../../icons/search';
 import { useTheme } from '../../../providers';
 import { InputProps } from '../types';
 

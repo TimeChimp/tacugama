@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import { ErrorButtonsBox, ErrorPageContent, ErrorPageWrapper } from './styles';
 import { ErrorPageProps } from './types';
 import { HeadingSmall, ParagraphSmall } from '../typography';
+import { ErrorIcon } from '../icons/error';
 import { Button } from '../button';
-import { ErrorIcon } from '../icons';
 import { useTheme } from '../../providers';
 import { KIND } from 'baseui/button';
 
