@@ -3,18 +3,16 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Button, ButtonProps } from './';
 import { ButtonType } from 'models';
-import { DeleteIcon } from '../icons';
+import { DeleteIcon } from '../icons/delete';
 import { Checkbox, CheckboxSize } from 'components/checkbox';
 import { KIND } from 'baseui/button';
 import { Search } from 'baseui/icon';
+import { customColors } from '../../theme/colors';
 
 export default {
   title: 'Components/Button',
   component: Button,
 } as Meta;
-
-const red0 = '#E53535';
-const light4 = '#FFFFFF';
 
 const PrimaryButtonTemplate: Story<ButtonProps> = (args) => <Button {...args} />;
 
@@ -26,7 +24,7 @@ const SquareButtonCheckboxTemplate: Story<ButtonProps> = (args) => (
 
 const SquareButtonDeleteTemplate: Story<ButtonProps> = (args) => (
   <Button kind={KIND.tertiary} {...args}>
-    <DeleteIcon color={light4} />
+    <DeleteIcon color={customColors.light4} />
   </Button>
 );
 
@@ -66,6 +64,6 @@ Square.args = {};
 
 export const SquareDelete = SquareButtonDeleteTemplate.bind({});
 SquareDelete.args = {
-  backgroundColor: red0,
-  borderColor: red0,
+  backgroundColor: customColors.red0,
+  borderColor: customColors.red0,
 };

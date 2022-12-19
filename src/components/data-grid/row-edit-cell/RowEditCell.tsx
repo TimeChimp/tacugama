@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from '../../../providers';
+import { EditIcon } from '../../icons/edit';
 import { Button } from '../../button';
-import { EditIcon } from '../../icons';
 import { RowEditCellProps } from '../types';
 import { KIND } from 'baseui/button';
 

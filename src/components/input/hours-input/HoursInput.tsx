@@ -1,18 +1,14 @@
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { durationPlaceholder, formatDuration, TimeParser } from '@timechimp/timechimp-typescript-helpers';
+import { TcDate, TimeParser, timePlaceholder } from '@timechimp/timechimp-typescript-helpers';
 import { HoursInputProps } from './types';
-import { Input } from '..';
+import { Input } from '../Input';
 
-const DEFAULT_DURATION_FORMAT = 'HH:mm';
+const DEFAULT_TIME_FORMAT = 'HH:mm';
 const SECONDS_IN_HOUR = 60 * 60;
+const DEFAULT_HOURS_INPUT_WIDTH = '74px';
+const AM_PM_HOURS_INPUT_WIDTH = '94px';
 
-export const HoursInput = ({
-  disabled,
-  endEnhancer,
-  onSubmit,
-  durationFormat = DEFAULT_DURATION_FORMAT,
-  defaultValue,
-}: HoursInputProps) => {
+export const HoursInput = ({ onSubmit, timeFormat = DEFAULT_TIME_FORMAT, defaultValue, ...rest }: HoursInputProps) => {
   const [inputIsValid, setInputIsValid] = useState(true);
   const [inputValue, setInputValue] = useState('');
 
@@ -26,14 +22,14 @@ export const HoursInput = ({
   const formatInputValue = useCallback(
     (value: string) => {
       const { seconds } = new TimeParser(value).parse();
-      if (seconds || value) {
-        const formattedValue = formatDuration(seconds || 0, durationFormat);
+      if (seconds) {
+        const formattedValue = new TcDate(new Date(0, 0, 0)).add(seconds as number, 'seconds').format(timeFormat);
         setInputValue(formattedValue);
       }
 
       return seconds;
     },
-    [durationFormat],
+    [timeFormat],
   );
 
   useEffect(() => {
@@ -52,14 +48,14 @@ export const HoursInput = ({
 
   return (
     <Input
-      disabled={disabled}
       value={inputValue}
       onChange={onChange}
       onBlur={onBlur}
       error={!inputIsValid}
-      endEnhancer={endEnhancer}
       autoComplete="off"
-      placeholder={durationPlaceholder(durationFormat)}
+      placeholder={timePlaceholder(timeFormat)}
+      width={timeFormat === 'h:mma' ? AM_PM_HOURS_INPUT_WIDTH : DEFAULT_HOURS_INPUT_WIDTH}
+      {...rest}
     />
   );
 };

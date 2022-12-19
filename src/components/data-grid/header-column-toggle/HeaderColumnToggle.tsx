@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { CaretDownIcon, TableIcon } from '../../icons';
+import { CaretDownIcon } from '../../icons/caret-down';
+import { TableIcon } from '../../icons/table';
 import { Dropdown, DropdownItem } from '../../dropdown';
 import { Button } from '../../button';
 import { useTheme } from '../../../providers';
