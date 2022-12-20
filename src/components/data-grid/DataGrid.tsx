@@ -79,7 +79,8 @@ import { FlexItem } from '../flex-item';
 import { ParagraphSmall } from '../typography';
 import { Button } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
-import { CaretDownIcon, EditIcon } from '../icons';
+import { CaretDownIcon } from '../icons/caret-down';
+import { EditIcon } from '../icons/edit';
 import { KIND } from 'baseui/button';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];

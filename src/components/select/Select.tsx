@@ -1,18 +1,11 @@
 import React from 'react';
 import { Select as BaseSelect, SelectProps as BaseSelectProps, Option, Value, OnChangeParams } from 'baseui/select';
 import { useTheme } from '../../providers';
-import {
-  border,
-  borderBottom,
-  borderRadius,
-  getInputBorderColor,
-  getInputPlaceholderTextColor,
-  padding,
-  margin,
-} from '../../utils';
-import { CaretDownIcon, TagIcon } from '../icons';
+import { border, borderBottom, borderRadius, getInputBorderColor, padding, margin } from '../../utils';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
+import { CaretDownIcon } from '../icons/caret-down';
+import { TagIcon } from '../icons/tag';
 
 interface CustomParams {
   value: any;
@@ -48,7 +41,7 @@ export const Select = ({
       current: {
         colors,
         borders,
-        customColors: { primarySubtle },
+        customColors,
         sizing: { scale100, scale550, scale700, scale900 },
         typography: { ParagraphSmall, LabelSmall },
       },
@@ -56,6 +49,7 @@ export const Select = ({
   } = useTheme();
   const { border300, radius200 } = borders;
   const { primaryB, primary100, contentPrimary } = colors;
+  const { primarySubtle, dark4 } = customColors;
 
   const handleOnChange = (params: CustomParams) => {
     if (multi) {
@@ -101,7 +95,12 @@ export const Select = ({
                 ...borderRadius(radius200),
                 ...border({
                   ...border300,
-                  borderColor: getInputBorderColor($error, $isFocused, colors, borders),
+                  borderColor: getInputBorderColor({
+                    error: $error,
+                    isFocused: $isFocused,
+                    colors,
+                    customColors,
+                  }),
                 }),
               }),
               props: {
@@ -109,10 +108,10 @@ export const Select = ({
               },
             },
             Placeholder: {
-              style: ({ $disabled, $isFocused }) => ({
+              style: {
                 ...ParagraphSmall,
-                color: getInputPlaceholderTextColor($disabled, $isFocused, colors),
-              }),
+                color: dark4,
+              },
             },
             DropdownContainer: {
               style: {
