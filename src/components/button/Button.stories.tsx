@@ -60,10 +60,13 @@ PrimaryStartEnhancer.parameters = {
 };
 
 export const Square = SquareButtonCheckboxTemplate.bind({});
-Square.args = {};
+Square.args = {
+  isSquare: true,
+};
 
 export const SquareDelete = SquareButtonDeleteTemplate.bind({});
 SquareDelete.args = {
+  isSquare: true,
   backgroundColor: customColors.red0,
   borderColor: customColors.red0,
 };

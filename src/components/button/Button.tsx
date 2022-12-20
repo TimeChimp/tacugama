@@ -22,6 +22,7 @@ export interface ButtonProps extends BaseButtonProps {
   height?: string;
   color?: string;
   isTransparent?: boolean;
+  isSquare?: boolean;
   rootOverrides?: { [key: string]: number | string };
   backgroundColor?: string;
   borderColor?: string;
@@ -38,6 +39,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       type = 'submit',
       buttonKind = ButtonKind.primary,
       size = SIZE.compact,
+      isSquare,
       testId,
       rootOverrides,
       color,
@@ -51,7 +53,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const {
       theme: {
         current: {
-          sizing: { scale0, scale200, scale300, scale400, scale500, scale600, scale750, scale950 },
+          sizing: { scale0, scale200, scale300, scale400, scale500, scale600, scale750, scale800, scale950 },
           borders: { border100, border300, radius200 },
           colors: { primaryB, borderTransparent },
           customColors,
@@ -59,6 +61,22 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       },
     } = useTheme();
     const { dark1, dark3, dark4, light2, light3, light4, light7, primaryMain } = customColors;
+
+    const getButtonHeight = () => {
+      if (buttonKind === ButtonKind.primary || buttonKind === ButtonKind.secondary) {
+        if (isSquare) {
+          return scale950;
+        } else {
+          return height ?? scale950;
+        }
+      } else {
+        if (isSquare) {
+          return scale800;
+        } else {
+          return height ?? scale750;
+        }
+      }
+    };
 
     const buttonOverrides = () => {
       switch (buttonKind) {
@@ -73,7 +91,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   borderColor: getButtonBackgroundColor(buttonType, customColors),
                 }),
                 fontWeight: 'normal',
-                height: height ?? scale950,
+                height: getButtonHeight(),
+                ...(isSquare && {
+                  width: scale950,
+                }),
                 backgroundColor: backgroundColor ?? getButtonBackgroundColor(buttonType, customColors),
                 color: color ?? light4,
                 ':hover': {
@@ -146,7 +167,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 ...padding(scale200, scale500),
                 fontWeight: 'normal',
                 backgroundColor: backgroundColor ?? light4,
-                height: height ?? scale950,
+                height: getButtonHeight(),
+                ...(isSquare && {
+                  width: scale950,
+                }),
                 ...border({
                   ...border300,
                   borderColor: light2,
@@ -212,7 +236,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           return {
             Root: {
               style: {
-                height: height ?? scale750,
+                height: getButtonHeight(),
+                ...(isSquare && {
+                  width: scale800,
+                }),
                 backgroundColor: backgroundColor ?? light3,
                 color: color ?? dark1,
                 ...border({
@@ -293,7 +320,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           return {
             Root: {
               style: {
-                height: height ?? scale750,
+                height: getButtonHeight(),
+                ...(isSquare && {
+                  width: scale800,
+                }),
                 ...borderRadius(radius200),
                 ...padding(scale300),
                 ...border({
