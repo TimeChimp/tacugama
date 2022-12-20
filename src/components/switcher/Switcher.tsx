@@ -16,7 +16,6 @@ export const Switcher = ({ onPrev, onNext, value }: SwitcherProps) => {
   const {
     theme: {
       current: {
-        colors: { primaryB },
         sizing: { scale400, scale500 },
       },
     },
@@ -25,31 +24,13 @@ export const Switcher = ({ onPrev, onNext, value }: SwitcherProps) => {
   return (
     <FlexGrid>
       <FlexGridItem display="flex" alignItems="center">
-        <Button
-          overrides={{
-            BaseButton: {
-              style: {
-                backgroundColor: primaryB,
-              },
-            },
-          }}
-          onClick={onPrev}
-        >
+        <Button onClick={onPrev}>
           <CaretLeftIcon size={scale400} />
         </Button>
         <LabelMedium paddingLeft={scale500} paddingRight={scale500}>
           {value}
         </LabelMedium>
-        <Button
-          overrides={{
-            BaseButton: {
-              style: {
-                backgroundColor: primaryB,
-              },
-            },
-          }}
-          onClick={onNext}
-        >
+        <Button onClick={onNext}>
           <CaretRightIcon size={scale400} />
         </Button>
       </FlexGridItem>
