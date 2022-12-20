@@ -30,8 +30,8 @@ export const Avatar = ({
     theme: {
       current: {
         sizing: { scale400, scale500, scale800, scale1000 },
-        colors: { primary, primaryA },
-        customColors: { dark1, light3 },
+        colors: { primary },
+        customColors: { dark1, light3, light4 },
         borders: { border300 },
       },
     },
@@ -66,7 +66,7 @@ export const Avatar = ({
           Initials: {
             style: {
               fontSize: getFontSize(),
-              color: color ?? primaryA,
+              color: color ?? light4,
             },
           },
         };
