@@ -34,12 +34,12 @@ export const ButtonSwitcher = ({
   const rightButtonRadiuses = { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 };
 
   const renderPrimaryButton = (option: ButtonSwitcherOption, radiuses: { [key: string]: string | number }) => (
-    <Button rootOverrides={radiuses} onClick={() => onClick(option)}>
+    <Button rootOverrides={radiuses} onClick={() => onClick(option)} type="button">
       {option.label}
     </Button>
   );
   const renderSecondaryButton = (option: ButtonSwitcherOption, radiuses: { [key: string]: string | number }) => (
-    <Button buttonKind={ButtonKind.secondary} rootOverrides={radiuses} onClick={() => onClick(option)}>
+    <Button buttonKind={ButtonKind.secondary} rootOverrides={radiuses} onClick={() => onClick(option)} type="button">
       {option.label}
     </Button>
   );
