@@ -9,9 +9,8 @@ import { CreateViewModal } from '../create-view-modal';
 import { FlexItem } from '../../../flex-item';
 import { SaveViewModal } from '../save-view-modal';
 import { RenameViewModal } from '../rename-view-modal';
-import { ConfirmationModalType } from '../../../../models';
+import { ConfirmationModalType, ButtonKind } from '../../../../models';
 import { DataGridViewOptions } from '../data-grid-view-options';
-import { KIND } from 'baseui/button';
 
 const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
 
@@ -40,7 +39,7 @@ export const DataGridViews = ({
   const {
     theme: {
       current: {
-        sizing: { scale200, scale400, scale750, scale800 },
+        sizing: { scale200, scale400, scale800 },
         colors: { primaryB },
       },
     },
@@ -162,11 +161,11 @@ export const DataGridViews = ({
               width="fit-content"
             >
               {isActiveView(view.id) ? (
-                <Button height={scale750}>
+                <Button buttonKind={ButtonKind.quarternary}>
                   <ParagraphSmall color={primaryB}>{view.name}</ParagraphSmall>
                 </Button>
               ) : (
-                <Button kind={KIND.tertiary} onClick={() => handleActivateView(view.id)}>
+                <Button buttonKind={ButtonKind.tertiary} onClick={() => handleActivateView(view.id)}>
                   <ParagraphSmall>{view.name}</ParagraphSmall>
                 </Button>
               )}

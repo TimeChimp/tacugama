@@ -12,12 +12,12 @@ import {
   margin,
   padding,
 } from '../../utils';
-import { Button as BaseButton, ButtonProps as BaseButtonProps, KIND, SIZE } from 'baseui/button';
-import { ButtonType } from '../../models';
+import { Button as BaseButton, ButtonProps as BaseButtonProps, SIZE } from 'baseui/button';
+import { ButtonKind, ButtonType } from '../../models';
 
 export interface ButtonProps extends BaseButtonProps {
   buttonType?: ButtonType;
-  kind?: KIND[keyof KIND];
+  buttonKind?: ButtonKind;
   testId?: string;
   height?: string;
   color?: string;
@@ -36,7 +36,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled,
       buttonType = ButtonType.default,
       type = 'submit',
-      kind = KIND.primary,
+      buttonKind = ButtonKind.primary,
       size = SIZE.compact,
       testId,
       rootOverrides,
@@ -61,8 +61,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const { dark1, dark3, dark4, light2, light3, light4, light7, primaryMain } = customColors;
 
     const buttonOverrides = () => {
-      switch (kind) {
-        case KIND.primary:
+      switch (buttonKind) {
+        case ButtonKind.primary:
           return {
             Root: {
               style: {
@@ -74,17 +74,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 }),
                 fontWeight: 'normal',
                 height: height ?? scale950,
-                backgroundColor: getButtonBackgroundColor(buttonType, customColors),
-                color: light4,
+                backgroundColor: backgroundColor ?? getButtonBackgroundColor(buttonType, customColors),
+                color: color ?? light4,
                 ':hover': {
-                  backgroundColor: getButtonBackgroundHoverColor(buttonType, customColors),
+                  backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, customColors),
                   ...border({
                     ...border100,
                     borderColor: getButtonBackgroundHoverColor(buttonType, customColors),
                   }),
                 },
                 ':active': {
-                  backgroundColor: getButtonBackgroundHoverColor(buttonType, customColors),
+                  backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, customColors),
                   ...border({
                     ...border100,
                     borderColor: getButtonBackgroundHoverColor(buttonType, customColors),
@@ -92,12 +92,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 },
                 ':disabled': {
                   borderColor: light2,
-                  backgroundColor: light7,
-                  color: dark4,
+                  backgroundColor: backgroundColor ?? light7,
+                  color: color ?? dark4,
                   ':hover': {
                     borderColor: light2,
-                    backgroundColor: light7,
-                    color: dark4,
+                    backgroundColor: backgroundColor ?? light7,
+                    color: color ?? dark4,
                   },
                 },
                 ...rootOverrides,
@@ -138,37 +138,37 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               },
             },
           };
-        case KIND.secondary:
+        case ButtonKind.secondary:
           return {
             Root: {
               style: {
                 ...borderRadius(radius200),
                 ...padding(scale200, scale500),
                 fontWeight: 'normal',
-                backgroundColor: light4,
-                height: scale950,
+                backgroundColor: backgroundColor ?? light4,
+                height: height ?? scale950,
                 ...border({
                   ...border300,
                   borderColor: light2,
                 }),
-                color: dark1,
+                color: color ?? dark1,
                 ':hover': {
                   borderColor: dark3,
-                  backgroundColor: light4,
+                  backgroundColor: backgroundColor ?? light4,
                 },
                 ':disabled': {
                   borderColor: light2,
-                  backgroundColor: light7,
-                  color: dark4,
+                  backgroundColor: backgroundColor ?? light7,
+                  color: color ?? dark4,
                   ':hover': {
                     borderColor: light2,
-                    backgroundColor: light7,
-                    color: dark4,
+                    backgroundColor: backgroundColor ?? light7,
+                    color: color ?? dark4,
                   },
                 },
                 ':active': {
                   borderColor: dark3,
-                  backgroundColor: light4,
+                  backgroundColor: backgroundColor ?? light4,
                 },
                 ...rootOverrides,
               },
@@ -208,34 +208,34 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               },
             },
           };
-        case KIND.tertiary:
+        case ButtonKind.tertiary:
           return {
             Root: {
               style: {
-                height: scale750,
+                height: height ?? scale750,
                 backgroundColor: backgroundColor ?? light3,
-                color: dark1,
+                color: color ?? dark1,
                 ...border({
                   ...border300,
-                  borderColor: borderColor ?? light2,
+                  borderColor: light2,
                 }),
                 ...borderRadius(radius200),
                 ...padding(scale300),
                 ':hover': {
                   backgroundColor: backgroundColor ?? light3,
-                  borderColor: borderColor ?? dark3,
+                  borderColor: dark3,
                 },
                 ':active': {
                   backgroundColor: backgroundColor ?? light3,
                 },
                 ':disabled': {
-                  borderColor: borderColor ?? light2,
+                  borderColor: light2,
                   backgroundColor: backgroundColor ?? light7,
-                  color: dark4,
+                  color: color ?? dark4,
                   ':hover': {
-                    borderColor: borderColor ?? light2,
+                    borderColor: light2,
                     backgroundColor: backgroundColor ?? light7,
-                    color: dark4,
+                    color: color ?? dark4,
                   },
                 },
               },
@@ -249,7 +249,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               },
             },
           };
-        case KIND.minimal:
+        case ButtonKind.minimal:
           return {
             Root: {
               style: {
@@ -271,13 +271,63 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 ':disabled': {
                   backgroundColor: 'transparent',
                   borderColor: light2,
-                  color: dark4,
+                  color: color ?? dark4,
                   ':hover': {
                     backgroundColor: 'transparent',
                     borderColor: 'transparent',
-                    color: dark4,
+                    color: color ?? dark4,
                   },
                 },
+              },
+            },
+            StartEnhancer: {
+              style: {
+                ...margin('0', scale400, '0', '0'),
+                ':disabled': {
+                  color: dark4,
+                },
+              },
+            },
+          };
+        case ButtonKind.quarternary:
+          return {
+            Root: {
+              style: {
+                height: height ?? scale750,
+                ...borderRadius(radius200),
+                ...padding(scale300),
+                ...border({
+                  ...border100,
+                  borderColor: getButtonBackgroundColor(buttonType, customColors),
+                }),
+                fontWeight: 'normal',
+                backgroundColor: backgroundColor ?? getButtonBackgroundColor(buttonType, customColors),
+                color: color ?? light4,
+                ':hover': {
+                  backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, customColors),
+                  ...border({
+                    ...border100,
+                    borderColor: getButtonBackgroundHoverColor(buttonType, customColors),
+                  }),
+                },
+                ':active': {
+                  backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, customColors),
+                  ...border({
+                    ...border100,
+                    borderColor: getButtonBackgroundHoverColor(buttonType, customColors),
+                  }),
+                },
+                ':disabled': {
+                  borderColor: light2,
+                  backgroundColor: backgroundColor ?? light7,
+                  color: color ?? dark4,
+                  ':hover': {
+                    borderColor: light2,
+                    backgroundColor: backgroundColor ?? light7,
+                    color: color ?? dark4,
+                  },
+                },
+                ...rootOverrides,
               },
             },
             StartEnhancer: {
@@ -296,7 +346,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <BaseButton
         type={type}
         ref={ref}
-        kind={kind}
         size={size}
         data-test-id={testId}
         isLoading={isLoading}

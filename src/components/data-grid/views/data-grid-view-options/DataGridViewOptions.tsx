@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PLACEMENT } from 'baseui/popover';
-import { KIND, SIZE } from 'baseui/button';
+import { SIZE } from 'baseui/button';
 import { Button } from '../../../button';
 import { DataGridViewOptionsProps } from '../../types';
 import { StyledViewOptionsFooter, StyledDataGridViewListItem } from '../../styles';
@@ -19,6 +19,7 @@ import { SearchInput } from '../../../input';
 import { StyledDropdownSearch } from '../../../dropdown/styles';
 import { useTheme } from '../../../../providers';
 import { padding } from '../../../../utils';
+import { ButtonKind } from '../../../../models';
 
 export const DataGridViewOptions = ({
   translations,
@@ -136,7 +137,7 @@ export const DataGridViewOptions = ({
                 component: ({ item: { id, label } }: { item: DropdownItem }) => (
                   <StyledDataGridViewListItem>
                     <Button
-                      kind={KIND.minimal}
+                      buttonKind={ButtonKind.minimal}
                       isTransparent
                       height={scale1400}
                       onClick={() => id && onViewSelect(id)}
@@ -153,7 +154,7 @@ export const DataGridViewOptions = ({
                     </Button>
                     {id !== 'default' && (
                       <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
-                        <Button kind={KIND.minimal} isTransparent>
+                        <Button buttonKind={ButtonKind.minimal} isTransparent>
                           <MoreIcon color={primary} />
                         </Button>
                       </Dropdown>
@@ -165,7 +166,7 @@ export const DataGridViewOptions = ({
           />
           <StyledViewOptionsFooter>
             <Button
-              kind={KIND.minimal}
+              buttonKind={ButtonKind.minimal}
               height={scale1400}
               isTransparent
               onClick={() => setCreateModalIsOpen(true)}
@@ -185,7 +186,7 @@ export const DataGridViewOptions = ({
         </>
       )}
     >
-      <Button kind={KIND.tertiary} endEnhancer={() => <CaretDownIcon color={dark1} />}>
+      <Button buttonKind={ButtonKind.tertiary} endEnhancer={() => <CaretDownIcon color={dark1} />}>
         <ParagraphSmall color={dark1}>{translations.viewOptions}</ParagraphSmall>
       </Button>
     </StatefulPopover>
