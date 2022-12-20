@@ -101,7 +101,9 @@ export const Avatar = ({
   return (
     <>
       {icon ? (
-        <AvatarWithIcon $type={type}>{icon}</AvatarWithIcon>
+        <AvatarWithIcon $type={type} $height={height} $backgroundColor={backgroundColor} $borderColor={borderColor}>
+          {icon}
+        </AvatarWithIcon>
       ) : (
         <BaseAvatar overrides={avatarOverrides()} {...rest} size={size} />
       )}
