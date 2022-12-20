@@ -12,6 +12,7 @@ export const Tag = ({
   closeable = false,
   cursor = 'default',
   color = customColors.light7,
+  width = 'auto',
   ...rest
 }: TagProps) => {
   const {
@@ -56,6 +57,7 @@ export const Tag = ({
         ...(size === TagSize.small && {
           Root: {
             style: () => ({
+              width,
               display: 'inline-flex',
               ...padding('0px', scale200),
               ...borderRadius(scale100),
@@ -74,6 +76,8 @@ export const Tag = ({
             component: ParagraphXSmall,
             style: () => ({
               color: getTextColor(),
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
             }),
           },
           Action: {
@@ -92,6 +96,7 @@ export const Tag = ({
         ...(size === TagSize.large && {
           Root: {
             style: () => ({
+              width,
               display: 'inline-flex',
               height: scale750,
               ...padding('0', scale200),
@@ -110,6 +115,8 @@ export const Tag = ({
             component: ParagraphSmall,
             style: () => ({
               color: getTextColor(),
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
             }),
           },
           Action: {

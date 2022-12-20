@@ -14,4 +14,5 @@ export interface TagProps extends TagComponentProps {
   cursor?: string;
   color?: string;
   backgroundColor?: string;
+  width?: string;
 }
