@@ -4,7 +4,7 @@ import { StyledFooterFooterPageSize } from '../styles';
 import { ParagraphSmall } from '../../typography';
 import { useTheme } from '../../../providers';
 import { Button, CaretDownIcon, Dropdown, FlexItem } from '../../../components';
-import { KIND } from 'baseui/button';
+import { ButtonKind } from '../../../models';
 
 const EVENT_LISTENER = 'paginationChanged';
 
@@ -53,7 +53,7 @@ export const FooterPageSize = ({ api: gridApi, translations }: FooterRowCountPro
         {translations.showResultsBy}
       </ParagraphSmall>
       <Dropdown items={options}>
-        <Button kind={KIND.tertiary}>
+        <Button buttonKind={ButtonKind.tertiary}>
           <ParagraphSmall $style={{ cursor: 'pointer' }} color={dark1}>
             {selectedOption?.label}
           </ParagraphSmall>

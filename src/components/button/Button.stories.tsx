@@ -23,7 +23,7 @@ const SquareButtonCheckboxTemplate: Story<ButtonProps> = (args) => (
 );
 
 const SquareButtonDeleteTemplate: Story<ButtonProps> = (args) => (
-  <Button kind={ButtonKind.tertiary} {...args}>
+  <Button buttonKind={ButtonKind.tertiary} {...args}>
     <DeleteIcon color={customColors.light4} />
   </Button>
 );

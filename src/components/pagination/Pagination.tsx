@@ -1,12 +1,11 @@
 import React from 'react';
 import { Pagination as BasePagination, SIZE, PaginationProps as BasePaginationProps } from 'baseui/pagination';
-import { CustomThemeType } from '../../models';
+import { ButtonKind, CustomThemeType } from '../../models';
 import { border, margin, padding } from '../../utils';
 import { Button } from '../button';
 import { CaretLeftIcon } from '../icons/caret-left';
 import { CaretRightIcon } from '../icons/caret-right';
 import { useTheme } from '../../providers';
-import { KIND } from 'baseui/button';
 
 export interface PaginationProps extends BasePaginationProps {}
 
@@ -41,14 +40,14 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
         },
         NextButton: {
           component: ({ onClick }: any) => (
-            <Button type="button" kind={KIND.tertiary} onClick={onClick}>
+            <Button type="button" buttonKind={ButtonKind.tertiary} onClick={onClick}>
               <CaretRightIcon color={dark2} />
             </Button>
           ),
         },
         PrevButton: {
           component: ({ onClick }: any) => (
-            <Button type="button" kind={KIND.tertiary} onClick={onClick}>
+            <Button type="button" buttonKind={ButtonKind.tertiary} onClick={onClick}>
               <CaretLeftIcon color={dark2} />
             </Button>
           ),
