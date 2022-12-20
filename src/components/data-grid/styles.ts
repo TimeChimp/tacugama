@@ -103,19 +103,17 @@ export const StyledDataGridSearch = themedStyled('div', ({ $theme }) => ({
 }));
 
 export const StyledFooterRowCount = themedStyled('div', ({ $theme }) => ({
+  ...margin($theme.sizing.scale300, '0'),
   display: 'flex',
-  ...padding($theme.sizing.scale200, '0px'),
 }));
 
 export const StyledFooterPagination = themedStyled('div', ({ $theme }) => ({
-  ...padding($theme.sizing.scale300, '0px'),
-  position: 'absolute',
-  left: ' 50%',
-  transform: 'translateX(-50%)',
+  ...margin($theme.sizing.scale300, '0'),
+  display: 'flex',
 }));
 
 export const StyledFooterFooterPageSize = themedStyled('div', ({ $theme }) => ({
-  ...padding($theme.sizing.scale300, $theme.sizing.scale200),
+  ...margin($theme.sizing.scale300, '0'),
   display: 'flex',
   whiteSpace: 'nowrap',
   alignItems: 'center',
