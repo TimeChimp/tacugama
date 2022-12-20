@@ -47,7 +47,7 @@ export const ActionButton = ({
   const {
     theme: {
       current: {
-        sizing: { scale500, scale700 },
+        sizing: { scale500, scale600 },
         customColors: { dark1, dark4, light4, purple2 },
       },
     },
@@ -76,7 +76,7 @@ export const ActionButton = ({
       <Button size="compact" buttonKind={kind} shape={shape} startEnhancer={startEnhancer} disabled={disabled}>
         <Block display="flex" gridColumnGap={scale500} alignItems="center">
           {!withoutLabel ? label : null}
-          <CaretDownIcon color={getTriangleIconColor()} size={scale700} />
+          <CaretDownIcon color={getTriangleIconColor()} size={scale600} />
         </Block>
       </Button>
     </Dropdown>
