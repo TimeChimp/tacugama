@@ -1,7 +1,8 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { DatepickerPopover, DatepickerPopoverProps } from '.';
+import { DatepickerPopover } from '.';
+import { DatepickerPopoverProps } from './types';
 
 export default {
   title: 'Components/DatepickerPopover',
