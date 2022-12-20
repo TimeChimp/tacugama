@@ -1,5 +1,6 @@
 import React from 'react';
-import { KIND, SHAPE } from 'baseui/button';
+import { ButtonKind as Kind } from '../../models';
+import { SHAPE } from 'baseui/button';
 import { Button } from '../button';
 import { Dropdown } from '../dropdown';
 import { Block } from '../block';
@@ -25,7 +26,7 @@ interface ActionButtonOption {
 export interface ActionButtonProps {
   options: ActionButtonOption[];
   selectedOption: ActionButtonOption;
-  kind?: KIND[keyof KIND];
+  kind?: Kind;
   shape?: SHAPE[keyof SHAPE];
   startEnhancer?: React.ReactNode;
   disabled?: boolean;
@@ -36,7 +37,7 @@ export interface ActionButtonProps {
 export const ActionButton = ({
   options = DEFAULT_OPTIONS,
   selectedOption = DEFAULT_OPTIONS[0],
-  kind = KIND.primary,
+  kind = Kind.primary,
   shape = SHAPE.default,
   startEnhancer,
   disabled = false,
@@ -56,31 +57,23 @@ export const ActionButton = ({
     if (disabled) {
       return dark4;
     }
-    if (selectedOption && kind !== KIND.minimal) {
+    if (selectedOption && kind !== Kind.minimal) {
       return light4;
     }
-    if (kind === KIND.secondary || kind === KIND.tertiary) {
+    if (kind === Kind.secondary || kind === Kind.tertiary) {
       return dark1;
     }
-    if (kind === KIND.minimal) {
+    if (kind === Kind.minimal) {
       return purple2;
     }
     return light4;
   };
 
-  const isSelectedKind = selectedOption && kind !== KIND.minimal;
-
   const label = selectedOption?.label || placeholder;
 
   return (
     <Dropdown items={options}>
-      <Button
-        size="compact"
-        kind={isSelectedKind ? KIND.primary : kind}
-        shape={shape}
-        startEnhancer={startEnhancer}
-        disabled={disabled}
-      >
+      <Button size="compact" buttonKind={kind} shape={shape} startEnhancer={startEnhancer} disabled={disabled}>
         <Block display="flex" gridColumnGap={scale500} alignItems="center">
           {!withoutLabel ? label : null}
           <CaretDownIcon color={getTriangleIconColor()} size={scale700} />

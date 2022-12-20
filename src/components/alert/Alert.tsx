@@ -4,7 +4,7 @@ import { LabelSmall } from '../typography';
 import { Button } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDiv, StyledAlert, StyledSpan } from './AlertStyles';
-import { KIND } from 'baseui/button';
+import { ButtonKind } from '../../models';
 
 export interface AlertProps extends BaseSnackbarElementProps {
   color?: string;
@@ -28,7 +28,7 @@ export const Alert = ({ color, minWidth, message, actionMessage, actionOnClick, 
       </StyledDiv>
       <StyledDiv>
         {actionMessage && (
-          <Button kind={KIND.minimal} isTransparent color={primaryB} onClick={actionOnClick}>
+          <Button buttonKind={ButtonKind.minimal} isTransparent onClick={actionOnClick}>
             {actionMessage}
           </Button>
         )}
