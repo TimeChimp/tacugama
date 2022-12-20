@@ -19,7 +19,7 @@ export const Avatar = ({
   testId,
   icon,
   height,
-  type,
+  type = AvatarType.default,
   backgroundColor,
   borderColor,
   size,
