@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlexGrid } from 'baseui/flex-grid';
-import { Button, ButtonKind } from '../button';
+import Button from '../button/Button';
+import { ButtonKind } from '../../models';
 
 const DEFAULT_OPTIONS = [
   {
@@ -33,12 +34,12 @@ export const ButtonSwitcher = ({
   const rightButtonRadiuses = { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 };
 
   const renderPrimaryButton = (option: ButtonSwitcherOption, radiuses: { [key: string]: string | number }) => (
-    <Button rootOverrides={radiuses} onClick={() => onClick(option)}>
+    <Button rootOverrides={radiuses} onClick={() => onClick(option)} type="button">
       {option.label}
     </Button>
   );
   const renderSecondaryButton = (option: ButtonSwitcherOption, radiuses: { [key: string]: string | number }) => (
-    <Button kind={ButtonKind.Secondary} rootOverrides={radiuses} onClick={() => onClick(option)}>
+    <Button kind={ButtonKind.secondary} rootOverrides={radiuses} onClick={() => onClick(option)}>
       {option.label}
     </Button>
   );

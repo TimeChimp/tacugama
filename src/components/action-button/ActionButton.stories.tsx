@@ -2,10 +2,10 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { ActionButton } from './';
-import { ActionButtonProps } from './ActionButton';
-
+import { ButtonKind } from '../../models';
 import { SearchIcon } from '../icons/search';
-import { ButtonKind } from '../button';
+import { customColors } from '../../theme/colors';
+import { ActionButtonProps } from './types';
 
 export default {
   title: 'Components/Action Button',
@@ -16,22 +16,27 @@ const Template: Story<ActionButtonProps> = (args) => <ActionButton {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <SearchIcon color={customColors.light4} />,
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  kind: ButtonKind.Primary,
+  kind: ButtonKind.secondary,
 };
 
 export const Tertiary = Template.bind({});
 Tertiary.args = {
-  kind: ButtonKind.Tertiary,
+  kind: ButtonKind.tertiary,
 };
 
 export const Minimal = Template.bind({});
 Minimal.args = {
-  kind: ButtonKind.Minimal,
+  kind: ButtonKind.minimal,
+};
+
+export const Quarternary = Template.bind({});
+Quarternary.args = {
+  kind: ButtonKind.quarternary,
 };
 
 export const Disabled = Template.bind({});
@@ -41,6 +46,6 @@ Disabled.args = {
 
 export const WithoutLabel = Template.bind({});
 WithoutLabel.args = {
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <SearchIcon color={customColors.light4} />,
   withoutLabel: true,
 };

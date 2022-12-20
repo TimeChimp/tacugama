@@ -9,15 +9,29 @@ export interface AvatarProps extends BaseAvatarProps {
   testId?: string;
   icon?: JSX.Element;
   type?: AvatarType;
+  backgroundColor?: string;
+  borderColor?: string;
+  color?: string;
+  height?: string;
 }
 
-export const Avatar = ({ testId, icon, size, type, ...rest }: AvatarProps) => {
+export const Avatar = ({
+  testId,
+  icon,
+  height,
+  type = AvatarType.default,
+  backgroundColor,
+  borderColor,
+  size,
+  color,
+  ...rest
+}: AvatarProps) => {
   const {
     theme: {
       current: {
         sizing: { scale400, scale500, scale800, scale1000 },
-        colors: { primary, primaryA },
-        customColors: { dark1, light3 },
+        colors: { primary },
+        customColors: { dark1, light3, light4 },
         borders: { border300 },
       },
     },
@@ -41,9 +55,9 @@ export const Avatar = ({ testId, icon, size, type, ...rest }: AvatarProps) => {
         return {
           Root: {
             style: {
-              backgroundColor: primary,
-              height: scale800,
-              width: scale800,
+              backgroundColor: backgroundColor ?? primary,
+              height: height ?? scale800,
+              width: height ?? scale800,
             },
             props: {
               [DATA_TEST_ID]: testId,
@@ -52,7 +66,7 @@ export const Avatar = ({ testId, icon, size, type, ...rest }: AvatarProps) => {
           Initials: {
             style: {
               fontSize: getFontSize(),
-              color: primaryA,
+              color: color ?? light4,
             },
           },
         };
@@ -60,15 +74,15 @@ export const Avatar = ({ testId, icon, size, type, ...rest }: AvatarProps) => {
         return {
           Root: {
             style: {
-              backgroundColor: light3,
-              height: scale800,
-              width: scale800,
+              backgroundColor: backgroundColor ?? light3,
+              height: height ?? scale800,
+              width: height ?? scale800,
               borderRadius: '50%',
               ...border({
                 ...border300,
-                borderColor: dark1,
-                borderStyle: 'dashed',
               }),
+              borderColor: borderColor ?? dark1,
+              borderStyle: 'dashed',
             },
             props: {
               [DATA_TEST_ID]: testId,
@@ -77,7 +91,7 @@ export const Avatar = ({ testId, icon, size, type, ...rest }: AvatarProps) => {
           Initials: {
             style: {
               fontSize: getFontSize(),
-              color: dark1,
+              color: color ?? dark1,
             },
           },
         };
@@ -87,7 +101,9 @@ export const Avatar = ({ testId, icon, size, type, ...rest }: AvatarProps) => {
   return (
     <>
       {icon ? (
-        <AvatarWithIcon $type={type}>{icon}</AvatarWithIcon>
+        <AvatarWithIcon $type={type} $height={height} $backgroundColor={backgroundColor} $borderColor={borderColor}>
+          {icon}
+        </AvatarWithIcon>
       ) : (
         <BaseAvatar overrides={avatarOverrides()} {...rest} size={size} />
       )}

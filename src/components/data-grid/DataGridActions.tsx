@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, ButtonKind } from '../button';
+import { Button } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDataGridActions } from './styles';
 import { Dropdown, DropdownItem } from '../dropdown';
-import { DATA_TEST_ID } from '../../models';
+import { DATA_TEST_ID, ButtonKind } from '../../models';
 import { DataGridActionsProps } from './types';
 import { DownloadIcon } from '../icons/download';
 import { DeleteIcon } from '../icons/delete';
@@ -63,7 +63,7 @@ export const DataGridActions = ({
       {!hideDelete && onBulkDelete ? (
         <>
           <Button
-            kind={ButtonKind.Tertiary}
+            kind={ButtonKind.tertiary}
             disabled={!rowsSelected}
             onClick={() => onBulkDelete()}
             testId={DELETE_BUTTON_TEST_ID}
@@ -84,7 +84,7 @@ export const DataGridActions = ({
               optionProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTION_TEST_ID }),
             }}
           >
-            <Button kind={ButtonKind.Tertiary} disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
+            <Button kind={ButtonKind.tertiary} disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
               <DownloadIcon color={rowsSelected ? primaryA : dark4} />
               <ParagraphSmall color={rowsSelected ? primaryA : dark4} paddingLeft={scale400}>
                 {translations.export}

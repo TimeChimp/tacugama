@@ -2,13 +2,13 @@ import React, { forwardRef } from 'react';
 import { Button } from '../Button';
 import { borderRadius, padding } from '../../../utils';
 import { RoundButtonProps } from './types';
-import { ButtonKind } from '../types';
+import { ButtonKind } from '../../../models';
 
 export const RoundButton = forwardRef<HTMLButtonElement, RoundButtonProps>(
   ({ children, ...rest }: RoundButtonProps, ref) => (
     <Button
       ref={ref}
-      kind={ButtonKind.Secondary}
+      kind={ButtonKind.secondary}
       overrides={{
         BaseButton: {
           style: ({ $theme }) => ({

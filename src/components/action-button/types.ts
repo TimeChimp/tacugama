@@ -1,6 +1,6 @@
 import React from 'react';
 import { SHAPE } from 'baseui/button';
-import { ButtonKind } from '../button';
+import { ButtonKind } from '../../models';
 
 export const DEFAULT_OPTIONS = [
   {

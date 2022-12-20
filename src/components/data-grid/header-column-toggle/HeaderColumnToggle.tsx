@@ -2,12 +2,11 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { CaretDownIcon } from '../../icons/caret-down';
 import { TableIcon } from '../../icons/table';
 import { Dropdown, DropdownItem } from '../../dropdown';
-import { Button, ButtonKind } from '../../button';
+import { Button } from '../../button';
 import { useTheme } from '../../../providers';
 import { HeaderColumnToggleProps } from '..';
 import { Column } from '@ag-grid-community/core';
-import { DATA_TEST_ID } from '../../../models';
-import { padding } from '../../../utils';
+import { DATA_TEST_ID, ButtonKind } from '../../../models';
 import { FlexItem } from '../../flex-item';
 
 export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnToggleProps) => {
@@ -64,35 +63,24 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
   }, [gridApi, columnApi, setVisibleColumns, toggleColumn]);
 
   return (
-    <Button kind={ButtonKind.Tertiary}>
-      <Dropdown
-        onOpen={() => setActive(true)}
-        onClose={() => setActive(false)}
-        items={dropdownItems}
-        selection
-        selectedIds={visibleColumnIds}
-        propOverrides={{
-          listProps: () => ({ [DATA_TEST_ID]: 'data-grid-column-toggle-options' }),
-          optionProps: () => ({ [DATA_TEST_ID]: 'data-grid-column-toggle-option' }),
-        }}
-      >
-        <Button
-          kind={ButtonKind.Tertiary}
-          overrides={{
-            BaseButton: {
-              style: {
-                ...padding('0'),
-              },
-            },
-          }}
-        >
-          <TableIcon color={active ? primary : dark1} />
-          <FlexItem marg4={scale500}>
-            <CaretDownIcon color={active ? primary : dark1} />
-          </FlexItem>
-        </Button>
-      </Dropdown>
-    </Button>
+    <Dropdown
+      onOpen={() => setActive(true)}
+      onClose={() => setActive(false)}
+      items={dropdownItems}
+      selection
+      selectedIds={visibleColumnIds}
+      propOverrides={{
+        listProps: () => ({ [DATA_TEST_ID]: 'data-grid-column-toggle-options' }),
+        optionProps: () => ({ [DATA_TEST_ID]: 'data-grid-column-toggle-option' }),
+      }}
+    >
+      <Button kind={ButtonKind.tertiary}>
+        <TableIcon color={active ? primary : dark1} />
+        <FlexItem marg4={scale500}>
+          <CaretDownIcon color={active ? primary : dark1} />
+        </FlexItem>
+      </Button>
+    </Dropdown>
   );
 };
 

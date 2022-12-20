@@ -3,11 +3,12 @@ import { ParagraphSmall } from 'baseui/typography';
 import { useTheme } from '../../providers';
 import { padding } from '../../utils';
 import { StyledCopyIcon } from './StyledCopyText';
+import { ButtonKind } from '../../models';
 import { Box } from '../box';
 import { StatefulTooltip } from '../tooltip';
 import { Block } from '../block';
 import { CopyIcon } from '../icons/copy';
-import { Button, ButtonKind } from '../button';
+import { Button } from '../button';
 
 export interface CopyTextProps {
   value: string;
@@ -56,7 +57,7 @@ export const CopyText = ({
       </ParagraphSmall>
       <StyledCopyIcon onClick={() => copyTextHandler(value)}>
         <StatefulTooltip triggerType="click" content={() => <Block>{copiedText}</Block>}>
-          <Button kind={ButtonKind.Minimal} isTransparent>
+          <Button kind={ButtonKind.minimal} isTransparent>
             <CopyIcon />
           </Button>
         </StatefulTooltip>

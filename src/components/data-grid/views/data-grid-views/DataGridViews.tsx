@@ -3,13 +3,13 @@ import { ParagraphSmall } from '../../../typography';
 import { useTheme } from '../../../../providers';
 import { DataGridViewsProps, DataGridView, CreateViewInput } from '../../types';
 import { StyledDataGridViews } from '../../styles';
-import { Button, ButtonKind } from '../../../button';
+import { Button } from '../../../button';
 import { ConfirmationModal } from '../../../confirmation-modal';
 import { CreateViewModal } from '../create-view-modal';
 import { FlexItem } from '../../../flex-item';
 import { SaveViewModal } from '../save-view-modal';
 import { RenameViewModal } from '../rename-view-modal';
-import { ConfirmationModalType } from '../../../../models';
+import { ConfirmationModalType, ButtonKind } from '../../../../models';
 import { DataGridViewOptions } from '../data-grid-view-options';
 
 const DELETE_VIEW_SUBMIT_BUTTON_TEST_ID = 'delete-view-confirmation-button';
@@ -39,7 +39,7 @@ export const DataGridViews = ({
   const {
     theme: {
       current: {
-        sizing: { scale200, scale400, scale750, scale800 },
+        sizing: { scale200, scale400, scale800 },
         colors: { primaryB },
       },
     },
@@ -161,11 +161,11 @@ export const DataGridViews = ({
               width="fit-content"
             >
               {isActiveView(view.id) ? (
-                <Button height={scale750}>
+                <Button kind={ButtonKind.quarternary}>
                   <ParagraphSmall color={primaryB}>{view.name}</ParagraphSmall>
                 </Button>
               ) : (
-                <Button kind={ButtonKind.Tertiary} onClick={() => handleActivateView(view.id)}>
+                <Button kind={ButtonKind.tertiary} onClick={() => handleActivateView(view.id)}>
                   <ParagraphSmall>{view.name}</ParagraphSmall>
                 </Button>
               )}

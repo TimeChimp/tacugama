@@ -15,4 +15,5 @@ export interface SelectProps extends BaseSelectProps {
     dropdownListItemProps?: () => {};
     rootProps?: () => {};
   };
+  success?: boolean;
 }

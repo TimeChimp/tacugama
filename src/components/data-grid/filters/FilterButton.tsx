@@ -1,9 +1,10 @@
 import React, { forwardRef } from 'react';
-import { Button, ButtonKind, ButtonProps } from '../../button';
+import { Button, ButtonProps } from '../../button';
 import { LabelSmall } from '../../typography';
 import { CaretDownIcon } from '../../icons/caret-down';
 import { ClearLineIcon } from '../../icons/clear-line';
 import { useTheme } from '../../../providers';
+import { ButtonKind } from '../../../models';
 
 const FILTER_BUTTON_TEST_ID = 'filter-button';
 
@@ -27,14 +28,14 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
 
     return (
       <Button
-        kind={ButtonKind.Secondary}
+        kind={ButtonKind.secondary}
         ref={ref}
         testId={testId ?? FILTER_BUTTON_TEST_ID}
         endEnhancer={
           <>
             {arrows && <CaretDownIcon />}
             {hasValue && onClear && (
-              <Button kind={ButtonKind.Minimal} isTransparent onClick={onClear}>
+              <Button kind={ButtonKind.minimal} isTransparent onClick={onClear}>
                 <ClearLineIcon color={primaryA} />
               </Button>
             )}

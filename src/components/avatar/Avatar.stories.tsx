@@ -25,38 +25,28 @@ Default.parameters = {
   },
 };
 
-export const DefaultWithIcon = Template.bind({});
-DefaultWithIcon.args = {
+const light4 = '#FFFFFF';
+
+export const WithIcon = Template.bind({});
+WithIcon.args = {
   name: 'John Doe',
-  icon: <AvatarIcon size="14px" color="#FFFFFF" />,
+  icon: <AvatarIcon size="14px" color={light4} />,
   type: AvatarType.default,
 };
-DefaultWithIcon.parameters = {
+WithIcon.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=1608%3A11213&t=7EmOO4pnv2bAngen-4',
   },
 };
 
-export const DefaultDashed = DashedTemplate.bind({});
-DefaultDashed.args = {
-  name: 'John Doe',
-  type: AvatarType.dashed,
-};
-DefaultDashed.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=1608%3A11213&t=7EmOO4pnv2bAngen-4',
-  },
-};
-
-export const DefaultDashedWithIcon = DashedTemplate.bind({});
-DefaultDashedWithIcon.args = {
+export const DashedWithIcon = DashedTemplate.bind({});
+DashedWithIcon.args = {
   name: 'John Doe',
   icon: <AvatarIcon size="14px" color="#2E2E2E" />,
   type: AvatarType.dashed,
 };
-DefaultDashedWithIcon.parameters = {
+DashedWithIcon.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=1608%3A11213&t=7EmOO4pnv2bAngen-4',

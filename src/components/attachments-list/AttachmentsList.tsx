@@ -1,7 +1,7 @@
 import React from 'react';
 import { ParagraphSmall, ParagraphXSmall } from 'baseui/typography';
 import { Box } from '../box';
-import { Button, ButtonKind } from '../button';
+import { Button } from '../button';
 import { FlexGrid, FlexGridItem } from '../flex-grid';
 import { AttachmentIcon } from '../icons/attachment';
 import { DownloadIcon } from '../icons/download';
@@ -10,6 +10,7 @@ import { Separator } from '../separator';
 import { useTheme } from '../../providers';
 import bytes from 'bytes';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
+import { ButtonKind } from '../../models';
 
 interface Attachment {
   id?: string;
@@ -77,13 +78,13 @@ export const AttachmentsList = ({ attachments, onDownload, onDelete }: Attacheme
             </FlexGridItem>
             <FlexGridItem display="flex" justifyContent="flex-end" gridGap={scale600} paddingRight={scale300}>
               <Button
-                kind={ButtonKind.Minimal}
+                kind={ButtonKind.minimal}
                 isTransparent
                 onClick={() => onDownload(attachment.id as string, attachment.customFileName as string)}
               >
                 <DownloadIcon />
               </Button>
-              <Button kind={ButtonKind.Minimal} isTransparent onClick={() => onDelete(attachment.id as string)}>
+              <Button kind={ButtonKind.minimal} isTransparent onClick={() => onDelete(attachment.id as string)}>
                 <DeleteIcon color={dark0} />
               </Button>
             </FlexGridItem>

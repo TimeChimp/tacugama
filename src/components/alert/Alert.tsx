@@ -1,9 +1,10 @@
 import React from 'react';
 import { SnackbarElementProps as BaseSnackbarElementProps } from 'baseui/snackbar';
 import { LabelSmall } from '../typography';
-import { Button, ButtonKind } from '../button';
+import { Button } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDiv, StyledAlert, StyledSpan } from './AlertStyles';
+import { ButtonKind } from '../../models';
 
 export interface AlertProps extends BaseSnackbarElementProps {
   color?: string;
@@ -27,7 +28,7 @@ export const Alert = ({ color, minWidth, message, actionMessage, actionOnClick, 
       </StyledDiv>
       <StyledDiv>
         {actionMessage && (
-          <Button kind={ButtonKind.Minimal} isTransparent color={primaryB} onClick={actionOnClick}>
+          <Button kind={ButtonKind.minimal} isTransparent color={primaryB} onClick={actionOnClick}>
             {actionMessage}
           </Button>
         )}

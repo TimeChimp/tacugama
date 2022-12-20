@@ -1,3 +1,4 @@
+import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
 
 interface StyledColorSwatchProps {
@@ -6,10 +7,10 @@ interface StyledColorSwatchProps {
 
 export const StyledColorSwatch = themedStyled<'div', StyledColorSwatchProps>(
   'div',
-  ({ $color }: { $color: string }) => {
+  ({ $theme, $color }: { $theme?: CustomThemeType; $color: string }) => {
     return {
-      width: '24px',
-      height: '24px',
+      width: $theme?.sizing.scale800,
+      height: $theme?.sizing.scale800,
       display: 'inline-block',
       backgroundColor: $color,
       verticalAlign: 'baseline',

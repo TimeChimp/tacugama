@@ -1,12 +1,5 @@
 import { ButtonProps as BaseButtonProps } from 'baseui/button';
-import { ButtonType } from '../../models';
-
-export enum ButtonKind {
-  Primary = 'primary',
-  Secondary = 'secondary',
-  Tertiary = 'tertiary',
-  Minimal = 'minimal',
-}
+import { ButtonKind, ButtonType } from '../../models';
 
 export interface ButtonProps extends Omit<BaseButtonProps, 'kind'> {
   buttonType?: ButtonType;

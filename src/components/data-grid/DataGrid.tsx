@@ -77,8 +77,9 @@ import { GroupRowInnerRenderer } from './group-row-inner-renderer';
 import { GroupRowInnerTagRenderer } from './group-row-inner-tag-renderer';
 import { FlexItem } from '../flex-item';
 import { ParagraphSmall } from '../typography';
-import { Button, ButtonKind } from '../button';
+import { Button } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
+import { ButtonKind } from '../../models';
 import { CaretDownIcon } from '../icons/caret-down';
 import { EditIcon } from '../icons/edit';
 
@@ -718,10 +719,8 @@ export const DataGrid = ({
                   <FlexItem width="auto">
                     <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
                     <Dropdown items={options}>
-                      <Button kind={ButtonKind.Tertiary}>
-                        <Button kind={ButtonKind.Minimal} color={dark1}>
-                          {selectedGroupOption?.label ?? translations.none}
-                        </Button>
+                      <Button kind={ButtonKind.tertiary}>
+                        {selectedGroupOption?.label ?? translations.none}
                         <FlexItem marg4={scale500}>
                           <CaretDownIcon color={dark1} />
                         </FlexItem>

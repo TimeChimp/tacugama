@@ -1,7 +1,15 @@
 import React from 'react';
 import { Select as BaseSelect, Option, Value, OnChangeParams } from 'baseui/select';
 import { useTheme } from '../../providers';
-import { border, borderBottom, borderRadius, getInputBorderColor, padding, margin } from '../../utils';
+import {
+  border,
+  borderBottom,
+  borderRadius,
+  getInputBorderColor,
+  getInputBackgroundColor,
+  padding,
+  margin,
+} from '../../utils';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
 import { CaretDownIcon } from '../icons/caret-down';
@@ -17,7 +25,10 @@ export const Select = ({
   onChangeHandler,
   multi,
   options,
+  success = false,
   disableSortOptions = false,
+  disabled = false,
+  error = false,
   ...rest
 }: SelectProps) => {
   const {
@@ -26,13 +37,13 @@ export const Select = ({
         colors,
         borders,
         customColors,
-        sizing: { scale100, scale550, scale700, scale900 },
-        typography: { ParagraphSmall, LabelSmall },
+        sizing: { scale100, scale550, scale600, scale700, scale900, scale950 },
+        typography: { ParagraphSmall },
       },
     },
   } = useTheme();
   const { border300, radius200 } = borders;
-  const { primaryB, primary100, contentPrimary } = colors;
+  const { primary100, contentPrimary } = colors;
   const { primarySubtle, dark4 } = customColors;
 
   const handleOnChange = (params: OnChangeParams) => {
@@ -63,30 +74,48 @@ export const Select = ({
           valueKey={valueKey}
           labelKey={labelKey}
           onChange={handleOnChange}
+          disabled={disabled}
+          error={error}
           multi={multi}
           options={alphabetizeOptions(options, disableSortOptions)}
           {...rest}
           overrides={{
             ControlContainer: {
               style: {
-                backgroundColor: primaryB,
+                backgroundColor: getInputBackgroundColor({ disabled, customColors, colors }),
                 ...border(),
                 ...borderRadius(radius200),
+                height: scale950,
               },
             },
             Root: {
               style: ({ $error, $isFocused }) => ({
-                backgroundColor: primaryB,
+                backgroundColor: getInputBackgroundColor({ disabled, customColors, colors }),
                 ...borderRadius(radius200),
                 ...border({
                   ...border300,
                   borderColor: getInputBorderColor({
                     error: $error,
+                    success,
                     isFocused: $isFocused,
-                    colors,
                     customColors,
+                    colors,
                   }),
                 }),
+                ':hover': {
+                  ...border({
+                    ...border300,
+                    borderColor: getInputBorderColor({
+                      error: $error,
+                      success,
+                      isFocused: $isFocused,
+                      customColors,
+                      colors,
+                      hover: true,
+                      disabled,
+                    }),
+                  }),
+                },
               }),
               props: {
                 ...propOverrides?.rootProps?.apply(propOverrides),
@@ -106,12 +135,14 @@ export const Select = ({
             },
             Input: {
               style: {
-                ...LabelSmall,
+                '::placeholder': {
+                  color: customColors.dark4,
+                },
               },
             },
             ValueContainer: {
               style: {
-                ...LabelSmall,
+                ...padding('0', scale600),
               },
             },
             Dropdown: {
@@ -195,6 +226,11 @@ export const Select = ({
             },
             SearchIcon: {
               component: () => <TagIcon size={scale550} />,
+            },
+            SingleValue: {
+              style: {
+                lineHeight: scale950,
+              },
             },
           }}
         />
