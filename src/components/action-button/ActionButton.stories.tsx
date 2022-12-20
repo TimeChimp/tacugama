@@ -5,6 +5,7 @@ import { ActionButton } from './';
 import { ActionButtonProps } from './ActionButton';
 import { ButtonKind } from '../../models';
 import { SearchIcon } from '../icons/search';
+import { customColors } from '../../theme/colors';
 
 export default {
   title: 'Components/Action Button',
@@ -15,7 +16,7 @@ const Template: Story<ActionButtonProps> = (args) => <ActionButton {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <SearchIcon color={customColors.light4} />,
 };
 
 export const Secondary = Template.bind({});
@@ -45,6 +46,6 @@ Disabled.args = {
 
 export const WithoutLabel = Template.bind({});
 WithoutLabel.args = {
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <SearchIcon color={customColors.light4} />,
   withoutLabel: true,
 };
