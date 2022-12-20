@@ -1,5 +1,6 @@
-import { TagProps, ButtonProps } from '..';
+import { ButtonProps } from '..';
 import { MouseEvent } from 'react';
+import { TagProps } from '../tag/types';
 
 export interface ClickableTagProps {
   label: string;
