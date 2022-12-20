@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PLACEMENT } from 'baseui/popover';
-import { KIND, SIZE } from 'baseui/button';
-import { Button } from '../../../button';
+import { SIZE } from 'baseui/button';
+import { Button, ButtonKind } from '../../../button';
 import { DataGridViewOptionsProps } from '../../types';
 import { StyledViewOptionsFooter, StyledDataGridViewListItem } from '../../styles';
 import { StatefulPopover } from '../../../popover';
@@ -136,7 +136,7 @@ export const DataGridViewOptions = ({
                 component: ({ item: { id, label } }: { item: DropdownItem }) => (
                   <StyledDataGridViewListItem>
                     <Button
-                      kind={KIND.minimal}
+                      kind={ButtonKind.Minimal}
                       isTransparent
                       height={scale1400}
                       onClick={() => id && onViewSelect(id)}
@@ -153,7 +153,7 @@ export const DataGridViewOptions = ({
                     </Button>
                     {id !== 'default' && (
                       <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
-                        <Button kind={KIND.minimal} isTransparent>
+                        <Button kind={ButtonKind.Minimal} isTransparent>
                           <MoreIcon color={primary} />
                         </Button>
                       </Dropdown>
@@ -165,7 +165,7 @@ export const DataGridViewOptions = ({
           />
           <StyledViewOptionsFooter>
             <Button
-              kind={KIND.minimal}
+              kind={ButtonKind.Minimal}
               height={scale1400}
               isTransparent
               onClick={() => setCreateModalIsOpen(true)}
@@ -185,7 +185,7 @@ export const DataGridViewOptions = ({
         </>
       )}
     >
-      <Button kind={KIND.tertiary} endEnhancer={() => <CaretDownIcon color={dark1} />}>
+      <Button kind={ButtonKind.Tertiary} endEnhancer={() => <CaretDownIcon color={dark1} />}>
         <ParagraphSmall color={dark1}>{translations.viewOptions}</ParagraphSmall>
       </Button>
     </StatefulPopover>

@@ -3,9 +3,8 @@ import { useTheme } from '../../../providers';
 import { RowActionsCellProps } from '../types';
 import { Dropdown } from '../../dropdown';
 import { MoreIcon } from '../../icons/more';
-import { Button } from '../../button';
+import { Button, ButtonKind } from '../../button';
 import { RowEditCell } from '../row-edit-cell';
-import { KIND } from 'baseui/button';
 
 export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
   const { onEdit, items, id, icon, api } = data;
@@ -56,7 +55,7 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
         additionalProperties={api}
         {...props}
       >
-        <Button kind={KIND.minimal} isTransparent height={scale900} type="button">
+        <Button kind={ButtonKind.Minimal} isTransparent height={scale900} type="button">
           <MoreIcon color={active ? dark1 : contentTertiary} />
         </Button>
       </Dropdown>

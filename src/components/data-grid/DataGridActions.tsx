@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from '../button';
+import { Button, ButtonKind } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDataGridActions } from './styles';
 import { Dropdown, DropdownItem } from '../dropdown';
@@ -10,7 +10,6 @@ import { DeleteIcon } from '../icons/delete';
 import { FlexItem } from '../flex-item';
 import { exportExcel, exportPdf } from './export';
 import { ParagraphSmall } from '../typography';
-import { KIND } from 'baseui/button';
 
 const DELETE_BUTTON_TEST_ID = 'delete-button';
 const EXPORT_BUTTON_TEST_ID = 'export-button';
@@ -64,7 +63,7 @@ export const DataGridActions = ({
       {!hideDelete && onBulkDelete ? (
         <>
           <Button
-            kind={KIND.tertiary}
+            kind={ButtonKind.Tertiary}
             disabled={!rowsSelected}
             onClick={() => onBulkDelete()}
             testId={DELETE_BUTTON_TEST_ID}
@@ -85,7 +84,7 @@ export const DataGridActions = ({
               optionProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTION_TEST_ID }),
             }}
           >
-            <Button kind={KIND.tertiary} disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
+            <Button kind={ButtonKind.Tertiary} disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
               <DownloadIcon color={rowsSelected ? primaryA : dark4} />
               <ParagraphSmall color={rowsSelected ? primaryA : dark4} paddingLeft={scale400}>
                 {translations.export}

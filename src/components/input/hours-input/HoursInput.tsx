@@ -12,8 +12,8 @@ export const HoursInput = ({ onSubmit, timeFormat = DEFAULT_TIME_FORMAT, default
   const [inputIsValid, setInputIsValid] = useState(true);
   const [inputValue, setInputValue] = useState('');
 
-  const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const { value } = evt.target;
+  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { value } = e.target;
     const { isValid } = new TimeParser(value).parse();
     setInputIsValid(isValid);
     setInputValue(value);

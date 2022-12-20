@@ -3,7 +3,7 @@ import { DatepickerProps } from 'baseui/datepicker';
 import { TetherPlacement } from 'baseui/layer';
 
 export interface DatePickerProps extends DatepickerProps {
-  placement?: TetherPlacement[keyof TetherPlacement];
+  placement?: TetherPlacement;
   locale?: SupportedLocale;
   weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
   testId?: string;
@@ -11,5 +11,4 @@ export interface DatePickerProps extends DatepickerProps {
   iconColor?: string;
   customValue: Date[];
   setCustomValue: (date: Date[]) => any;
-  onChange: (date: { date: Date | Date[] }) => any;
 }

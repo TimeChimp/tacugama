@@ -1,28 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Popover } from '../popover';
-import { TetherPlacement } from 'baseui/layer';
 import { borderBottom } from '../../utils';
 import { useTheme } from '../../providers';
-import { CalendarProps, Calendar } from 'baseui/datepicker';
+import { Calendar } from 'baseui/datepicker';
 import { Select } from '../select';
-import { getDateLocale, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
-
-export interface DatepickerPopoverProps extends CalendarProps {
-  date?: Date | Date[];
-  placement?: TetherPlacement[keyof TetherPlacement];
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => any;
-  onChange?: (args: { date: Date | Date[] }) => any;
-  locale?: SupportedLocale;
-  weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
-}
+import { getDateLocale } from '@timechimp/timechimp-typescript-helpers';
+import { DatepickerPopoverProps } from './types';
 
 export const DatepickerPopover = ({
   date,
   placement = 'bottomLeft',
   setIsOpen,
   isOpen,
-  onChange,
   locale,
   weekStartDay,
   overrides,
@@ -68,7 +57,6 @@ export const DatepickerPopover = ({
         <Calendar
           value={date}
           locale={localeObj}
-          onChange={onChange}
           overrides={{
             CalendarHeader: {
               style: {

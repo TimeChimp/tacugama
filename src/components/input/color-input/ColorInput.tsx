@@ -1,13 +1,12 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ColorResult, TwitterPicker } from 'react-color';
 import { Input } from '../Input';
-import { Button } from '../../button';
+import { Button, ButtonKind } from '../../button';
 import { ClickOutside } from '../../click-outside';
 import { margin, padding } from '../../../utils';
 import { ColorPickerContainer, StyledColorSwatch } from '../styles';
 import { useTheme } from '../../../providers';
 import { InputProps } from '../types';
-import { KIND } from 'baseui/button';
 
 export interface ColorInputProps extends Omit<InputProps, 'value' | 'uppercase' | 'onChange' | 'placeholder'> {
   onChange: (color: string) => void;
@@ -66,7 +65,7 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
       <Input
         startEnhancer={
           <Button
-            kind={KIND.tertiary}
+            kind={ButtonKind.Tertiary}
             overrides={{
               BaseButton: {
                 style: ({ $theme }) => ({
@@ -91,7 +90,7 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
           </Button>
         }
         placeholder="#00000"
-        onChange={(e: FormEvent<HTMLInputElement>) => onChange(e.currentTarget.value)}
+        onChange={(e) => onChange(e.currentTarget.value)}
         value={value}
         uppercase
         {...rest}

@@ -1,11 +1,10 @@
 import React from 'react';
-import { SnackbarElementPropsT as BaseSnackbarElementProps } from 'baseui/snackbar';
+import { SnackbarElementProps as BaseSnackbarElementProps } from 'baseui/snackbar';
 import { LabelSmall, ParagraphSmall } from '../typography';
 import { ClearLineIcon } from '../icons/clear-line';
-import { Button } from '../button';
+import { Button, ButtonKind } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDiv, StyledSnackbar, StyledSpan } from './SnackbarStyles';
-import { KIND } from 'baseui/button';
 
 export interface SnackbarProps extends BaseSnackbarElementProps {
   color?: string;
@@ -29,11 +28,11 @@ export const Snackbar = ({ color, onClose, message, actionMessage, actionOnClick
       </StyledDiv>
       <StyledDiv>
         {actionMessage && (
-          <Button kind={KIND.minimal} isTransparent onClick={actionOnClick}>
+          <Button kind={ButtonKind.Minimal} isTransparent onClick={actionOnClick}>
             <ParagraphSmall color={primaryB}>{actionMessage}</ParagraphSmall>
           </Button>
         )}
-        <Button kind={KIND.minimal} isTransparent onClick={onClose}>
+        <Button kind={ButtonKind.Minimal} isTransparent onClick={onClose}>
           <ClearLineIcon />
         </Button>
       </StyledDiv>

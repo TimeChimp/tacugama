@@ -3,8 +3,9 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { ActionButton } from './';
 import { ActionButtonProps } from './ActionButton';
-import { KIND } from 'baseui/button';
+
 import { SearchIcon } from '../icons/search';
+import { ButtonKind } from '../button';
 
 export default {
   title: 'Components/Action Button',
@@ -20,17 +21,17 @@ Default.args = {
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  kind: KIND.secondary,
+  kind: ButtonKind.Primary,
 };
 
 export const Tertiary = Template.bind({});
 Tertiary.args = {
-  kind: KIND.tertiary,
+  kind: ButtonKind.Tertiary,
 };
 
 export const Minimal = Template.bind({});
 Minimal.args = {
-  kind: KIND.minimal,
+  kind: ButtonKind.Minimal,
 };
 
 export const Disabled = Template.bind({});

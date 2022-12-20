@@ -1,9 +1,9 @@
 import { TagProps, ButtonProps } from '..';
-import { MouseEvent } from 'react';
+import { SyntheticEvent } from 'react';
 
 export interface ClickableTagProps {
   label: string;
-  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
+  onClick: (e: SyntheticEvent<HTMLButtonElement, Event>) => void;
   tagProps?: TagProps;
   buttonProps?: ButtonProps;
 }

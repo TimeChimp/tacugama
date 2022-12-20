@@ -12,20 +12,9 @@ import {
   margin,
   padding,
 } from '../../utils';
-import { Button as BaseButton, ButtonProps as BaseButtonProps, KIND, SIZE } from 'baseui/button';
+import { Button as BaseButton, SIZE } from 'baseui/button';
 import { ButtonType } from '../../models';
-
-export interface ButtonProps extends BaseButtonProps {
-  buttonType?: ButtonType;
-  kind?: KIND[keyof KIND];
-  testId?: string;
-  height?: string;
-  color?: string;
-  isTransparent?: boolean;
-  rootOverrides?: { [key: string]: number | string };
-  backgroundColor?: string;
-  borderColor?: string;
-}
+import { ButtonKind, ButtonProps } from './types';
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -36,7 +25,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled,
       buttonType = ButtonType.default,
       type = 'submit',
-      kind = KIND.primary,
+      kind = ButtonKind.Primary,
       size = SIZE.compact,
       testId,
       rootOverrides,
@@ -62,7 +51,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const buttonOverrides = () => {
       switch (kind) {
-        case KIND.primary:
+        case ButtonKind.Primary:
           return {
             Root: {
               style: {
@@ -138,7 +127,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               },
             },
           };
-        case KIND.secondary:
+        case ButtonKind.Secondary:
           return {
             Root: {
               style: {
@@ -208,7 +197,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               },
             },
           };
-        case KIND.tertiary:
+        case ButtonKind.Tertiary:
           return {
             Root: {
               style: {
@@ -249,7 +238,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               },
             },
           };
-        case KIND.minimal:
+        case ButtonKind.Minimal:
           return {
             Root: {
               style: {
@@ -296,7 +285,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <BaseButton
         type={type}
         ref={ref}
-        kind={kind}
         size={size}
         data-test-id={testId}
         isLoading={isLoading}

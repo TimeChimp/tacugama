@@ -3,7 +3,6 @@ import {
   FileUploader as BaseFileUploader,
   FileUploaderOverrides as BaseFileUploaderOverrides,
   FileUploaderProps as BaseFileUploaderProps,
-  StyleProps,
 } from 'baseui/file-uploader';
 import { FileUploadInstruction } from './file-upload-instruction';
 import { FileUploadPreview } from './file-upload-preview';
@@ -92,7 +91,7 @@ export const FileUpload = ({
     buttonText: string,
     preview?: string,
     error?: boolean,
-  ): BaseFileUploaderOverrides<StyleProps> => ({
+  ): BaseFileUploaderOverrides => ({
     FileDragAndDrop: {
       style: {
         margin: '0',

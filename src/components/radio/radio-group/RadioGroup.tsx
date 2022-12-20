@@ -1,16 +1,14 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import {
   RadioGroup as BaseRadioGroup,
-  ALIGN,
   RadioGroupProps as BaseRadioGroupProps,
   RadioGroupOverrides,
+  Align,
 } from 'baseui/radio';
-import { RadioProps } from '../radio-item';
 
 interface RadioGroupProps extends BaseRadioGroupProps {
   value: string;
-  align?: ALIGN[keyof ALIGN];
-  children: ReactElement<RadioProps> | ReactElement<RadioProps>[];
+  align?: Align;
 }
 
 const radioGroupOverrides: RadioGroupOverrides = {
@@ -21,7 +19,7 @@ const radioGroupOverrides: RadioGroupOverrides = {
   },
 };
 
-export const RadioGroup = ({ align = ALIGN.vertical, children, ...rest }: RadioGroupProps) => {
+export const RadioGroup = ({ align = 'vertical', children, ...rest }: RadioGroupProps) => {
   return (
     <BaseRadioGroup overrides={radioGroupOverrides} align={align} {...rest}>
       {children}

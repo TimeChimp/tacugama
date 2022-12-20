@@ -1,42 +1,16 @@
 import React from 'react';
-import { KIND, SHAPE } from 'baseui/button';
-import { Button } from '../button';
+import { SHAPE } from 'baseui/button';
+import { Button, ButtonKind } from '../button';
 import { Dropdown } from '../dropdown';
 import { Block } from '../block';
 import { useTheme } from '../../providers';
 import { CaretDownIcon } from '../icons/caret-down';
-
-const DEFAULT_OPTIONS = [
-  {
-    label: 'Option 1',
-    id: 'option-1',
-  },
-  {
-    label: 'Option 2',
-    id: 'option-2',
-  },
-];
-
-interface ActionButtonOption {
-  label: string;
-  id: string;
-}
-
-export interface ActionButtonProps {
-  options: ActionButtonOption[];
-  selectedOption: ActionButtonOption;
-  kind?: KIND[keyof KIND];
-  shape?: SHAPE[keyof SHAPE];
-  startEnhancer?: React.ReactNode;
-  disabled?: boolean;
-  placeholder?: string;
-  withoutLabel?: boolean;
-}
+import { ActionButtonProps, DEFAULT_OPTIONS } from './types';
 
 export const ActionButton = ({
   options = DEFAULT_OPTIONS,
   selectedOption = DEFAULT_OPTIONS[0],
-  kind = KIND.primary,
+  kind = ButtonKind.Primary,
   shape = SHAPE.default,
   startEnhancer,
   disabled = false,
@@ -56,19 +30,19 @@ export const ActionButton = ({
     if (disabled) {
       return dark4;
     }
-    if (selectedOption && kind !== KIND.minimal) {
+    if (selectedOption && kind !== ButtonKind.Minimal) {
       return light4;
     }
-    if (kind === KIND.secondary || kind === KIND.tertiary) {
+    if (kind === ButtonKind.Secondary || kind === ButtonKind.Tertiary) {
       return dark1;
     }
-    if (kind === KIND.minimal) {
+    if (kind === ButtonKind.Minimal) {
       return purple2;
     }
     return light4;
   };
 
-  const isSelectedKind = selectedOption && kind !== KIND.minimal;
+  const isSelectedKind = selectedOption && kind !== ButtonKind.Minimal;
 
   const label = selectedOption?.label || placeholder;
 
@@ -76,7 +50,7 @@ export const ActionButton = ({
     <Dropdown items={options}>
       <Button
         size="compact"
-        kind={isSelectedKind ? KIND.primary : kind}
+        kind={isSelectedKind ? ButtonKind.Primary : kind}
         shape={shape}
         startEnhancer={startEnhancer}
         disabled={disabled}

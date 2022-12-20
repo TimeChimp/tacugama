@@ -77,11 +77,10 @@ import { GroupRowInnerRenderer } from './group-row-inner-renderer';
 import { GroupRowInnerTagRenderer } from './group-row-inner-tag-renderer';
 import { FlexItem } from '../flex-item';
 import { ParagraphSmall } from '../typography';
-import { Button } from '../button';
+import { Button, ButtonKind } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { CaretDownIcon } from '../icons/caret-down';
 import { EditIcon } from '../icons/edit';
-import { KIND } from 'baseui/button';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
@@ -719,10 +718,10 @@ export const DataGrid = ({
                   <FlexItem width="auto">
                     <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
                     <Dropdown items={options}>
-                      <Button kind={KIND.tertiary}>
-                        <ParagraphSmall $style={{ cursor: 'pointer' }} color={dark1}>
+                      <Button kind={ButtonKind.Tertiary}>
+                        <Button kind={ButtonKind.Minimal} color={dark1}>
                           {selectedGroupOption?.label ?? translations.none}
-                        </ParagraphSmall>
+                        </Button>
                         <FlexItem marg4={scale500}>
                           <CaretDownIcon color={dark1} />
                         </FlexItem>
@@ -739,9 +738,9 @@ export const DataGrid = ({
           </StyledDataGridHeader>
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
+        {/* @ts-expect-error */}
         <StyledAgGridReact
           $height={dataGridHeight}
-          // @ts-expect-error - ag-grid-react typings are wrong
           ref={datagridRef}
           rowData={rowData}
           rowSelection="multiple"
@@ -799,9 +798,9 @@ export const DataGrid = ({
           }}
           icons={{
             sortAscending: () =>
-              ReactDOMServer.renderToStaticMarkup(<SortAscendingIcon color={theme.current.colors.colorPrimary} />),
+              ReactDOMServer.renderToStaticMarkup(<SortAscendingIcon color={theme.current.colors.primaryA} />),
             sortDescending: () =>
-              ReactDOMServer.renderToStaticMarkup(<SortDescendingIcon color={theme.current.colors.colorPrimary} />),
+              ReactDOMServer.renderToStaticMarkup(<SortDescendingIcon color={theme.current.colors.primaryA} />),
           }}
           modules={[
             ClientSideRowModelModule,

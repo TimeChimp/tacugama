@@ -22,7 +22,6 @@ export const ThemeProvider = ({ children, theme: themeOptions }: ThemeProviderPr
   }
 
   return (
-    // @ts-expect-error
     <StyletronProvider value={styletron} debugAfterHydration>
       <ThemeContext.Provider value={themeContext}>
         <BaseProvider

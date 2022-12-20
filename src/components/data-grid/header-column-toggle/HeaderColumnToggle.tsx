@@ -2,14 +2,13 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { CaretDownIcon } from '../../icons/caret-down';
 import { TableIcon } from '../../icons/table';
 import { Dropdown, DropdownItem } from '../../dropdown';
-import { Button } from '../../button';
+import { Button, ButtonKind } from '../../button';
 import { useTheme } from '../../../providers';
 import { HeaderColumnToggleProps } from '..';
 import { Column } from '@ag-grid-community/core';
 import { DATA_TEST_ID } from '../../../models';
 import { padding } from '../../../utils';
 import { FlexItem } from '../../flex-item';
-import { KIND } from 'baseui/button';
 
 export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnToggleProps) => {
   const [active, setActive] = useState(false);
@@ -65,7 +64,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
   }, [gridApi, columnApi, setVisibleColumns, toggleColumn]);
 
   return (
-    <Button kind={KIND.tertiary}>
+    <Button kind={ButtonKind.Tertiary}>
       <Dropdown
         onOpen={() => setActive(true)}
         onClose={() => setActive(false)}
@@ -78,7 +77,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
         }}
       >
         <Button
-          kind={KIND.tertiary}
+          kind={ButtonKind.Tertiary}
           overrides={{
             BaseButton: {
               style: {
