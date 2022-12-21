@@ -1,8 +1,8 @@
 import { ModalHeader } from 'baseui/modal';
-import { themedStyled } from '../../../theme';
+import { themedWithStyle } from '../../../theme';
 import { borderBottom, margin, padding } from '../../../utils';
 
-export const StyledModalHeader = themedStyled(ModalHeader, ({ $theme }) => ({
+export const StyledModalHeader = themedWithStyle(ModalHeader, ({ $theme }) => ({
   ...margin('0'),
   ...padding($theme.sizing.scale550, $theme.sizing.scale1200),
   ...borderBottom({

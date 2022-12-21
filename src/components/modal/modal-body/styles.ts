@@ -1,8 +1,8 @@
 import { ModalBody } from 'baseui/modal';
-import { themedStyled } from '../../../theme';
+import { themedWithStyle } from '../../../theme';
 import { margin, padding } from '../../../utils';
 
-export const StyledModalBody = themedStyled(ModalBody, ({ $theme }) => ({
+export const StyledModalBody = themedWithStyle(ModalBody, ({ $theme }) => ({
   ...margin('0'),
   overflow: 'auto',
   maxHeight: 'calc(100vh - 200px)',
