@@ -1,4 +1,4 @@
-import { ButtonProps } from '..';
+import { ButtonProps } from '../button';
 import { MouseEvent } from 'react';
 import { TagProps } from '../tag/types';
 

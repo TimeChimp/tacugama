@@ -18,7 +18,7 @@ export const SecondaryModalButton = ({ children, size = 'compact', ...rest }: Se
 
   return (
     <ModalButton
-      buttonKind={ButtonKind.secondary}
+      kind={ButtonKind.secondary}
       size={size}
       {...rest}
       overrides={{

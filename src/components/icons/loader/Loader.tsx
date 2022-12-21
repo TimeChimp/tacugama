@@ -14,7 +14,7 @@ export const LoaderIcon = ({ title = 'Loader', size = DEFAULT_ICON_SIZE, color =
           r="10"
           stroke={color}
           strokeWidth="3"
-          fill="none"
+          fill={color}
           strokeDasharray="73"
           strokeDashoffset="20"
         >
