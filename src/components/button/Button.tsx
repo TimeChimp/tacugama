@@ -41,7 +41,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const {
       theme: {
         current: {
-          sizing: { scale0, scale200, scale300, scale400, scale500, scale600, scale800, scale950 },
+          sizing: { scale0, scale200, scale300, scale400, scale500, scale600, scale800 },
           borders: { border100, border300, radius200 },
           colors: { primaryB, borderTransparent },
           customColors,
@@ -52,9 +52,22 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const getButtonHeight = () => {
       if (buttonKind === ButtonKind.primary || buttonKind === ButtonKind.secondary) {
-        return height ?? scale950;
+        return height ?? '38px'; // NOTE: Value does not exist in theme
       }
       return height ?? scale800;
+    };
+
+    const getPadding = () => {
+      if (buttonKind === ButtonKind.primary || buttonKind === ButtonKind.secondary) {
+        if (shape === 'square') {
+          return padding(scale400);
+        }
+        return padding(scale200, scale500);
+      }
+      if (shape === 'square') {
+        return padding('3px'); // NOTE: Value does not exist in theme
+      }
+      return padding(scale300);
     };
 
     const buttonOverrides = () => {
@@ -64,7 +77,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             Root: {
               style: {
                 ...borderRadius(radius200),
-                ...padding(scale200, scale500),
+                ...getPadding(),
                 ...border({
                   ...border100,
                   borderColor: getButtonBackgroundColor(buttonType, customColors),
@@ -140,7 +153,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             Root: {
               style: {
                 ...borderRadius(radius200),
-                ...padding(scale200, scale500),
+                ...getPadding(),
                 fontWeight: 'normal',
                 backgroundColor: backgroundColor ?? light4,
                 height: getButtonHeight(),
@@ -217,7 +230,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   borderColor: light2,
                 }),
                 ...borderRadius(radius200),
-                ...padding(scale300),
+                ...getPadding(),
                 ':hover': {
                   backgroundColor: backgroundColor ?? light3,
                   borderColor: dark3,
@@ -292,7 +305,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               style: {
                 height: getButtonHeight(),
                 ...borderRadius(radius200),
-                ...padding(scale300),
+                ...getPadding(),
                 ...border({
                   ...border100,
                   borderColor: getButtonBackgroundColor(buttonType, customColors),
