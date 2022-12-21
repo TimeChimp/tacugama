@@ -6,33 +6,7 @@ import { Dropdown } from '../dropdown';
 import { Block } from '../block';
 import { useTheme } from '../../providers';
 import { CaretDownIcon } from '../icons/caret-down';
-
-const DEFAULT_OPTIONS = [
-  {
-    label: 'Option 1',
-    id: 'option-1',
-  },
-  {
-    label: 'Option 2',
-    id: 'option-2',
-  },
-];
-
-interface ActionButtonOption {
-  label: string;
-  id: string;
-}
-
-export interface ActionButtonProps {
-  options: ActionButtonOption[];
-  selectedOption: ActionButtonOption;
-  kind?: Kind;
-  shape?: SHAPE[keyof SHAPE];
-  startEnhancer?: React.ReactNode;
-  disabled?: boolean;
-  placeholder?: string;
-  withoutLabel?: boolean;
-}
+import { DEFAULT_OPTIONS, ActionButtonProps } from './types';
 
 export const ActionButton = ({
   options = DEFAULT_OPTIONS,
@@ -42,41 +16,23 @@ export const ActionButton = ({
   startEnhancer,
   disabled = false,
   placeholder = 'Action Button',
-  withoutLabel = false,
 }: ActionButtonProps) => {
   const {
     theme: {
       current: {
         sizing: { scale500, scale600 },
-        customColors: { dark1, dark4, light4, purple2 },
       },
     },
   } = useTheme();
 
-  const getTriangleIconColor = () => {
-    if (disabled) {
-      return dark4;
-    }
-    if (selectedOption && kind !== Kind.minimal) {
-      return light4;
-    }
-    if (kind === Kind.secondary || kind === Kind.tertiary) {
-      return dark1;
-    }
-    if (kind === Kind.minimal) {
-      return purple2;
-    }
-    return light4;
-  };
-
-  const label = selectedOption?.label || placeholder;
+  const label = shape !== 'square' ? selectedOption?.label || placeholder : null;
 
   return (
     <Dropdown items={options}>
       <Button size="compact" buttonKind={kind} shape={shape} startEnhancer={startEnhancer} disabled={disabled}>
         <Block display="flex" gridColumnGap={scale500} alignItems="center">
-          {!withoutLabel ? label : null}
-          <CaretDownIcon color={getTriangleIconColor()} size={scale600} />
+          {label}
+          <CaretDownIcon size={scale600} />
         </Block>
       </Button>
     </Dropdown>

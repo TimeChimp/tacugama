@@ -50,8 +50,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     } = useTheme();
     const { dark1, dark3, dark4, light2, light3, light4, light7, primaryMain } = customColors;
 
-    const isSquare = shape === 'square';
-
     const getButtonHeight = () => {
       if (buttonKind === ButtonKind.primary || buttonKind === ButtonKind.secondary) {
         return height ?? scale950;
@@ -73,9 +71,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 }),
                 fontWeight: 'normal',
                 height: getButtonHeight(),
-                ...(isSquare && {
-                  width: scale950,
-                }),
                 backgroundColor: backgroundColor ?? getButtonBackgroundColor(buttonType, customColors),
                 color: color ?? light4,
                 ':hover': {
@@ -149,9 +144,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 fontWeight: 'normal',
                 backgroundColor: backgroundColor ?? light4,
                 height: getButtonHeight(),
-                ...(isSquare && {
-                  width: scale950,
-                }),
                 ...border({
                   ...border300,
                   borderColor: light2,
@@ -218,9 +210,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             Root: {
               style: {
                 height: getButtonHeight(),
-                ...(isSquare && {
-                  width: scale800,
-                }),
                 backgroundColor: backgroundColor ?? light3,
                 color: color ?? dark1,
                 ...border({
@@ -302,9 +291,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             Root: {
               style: {
                 height: getButtonHeight(),
-                ...(isSquare && {
-                  width: scale800,
-                }),
                 ...borderRadius(radius200),
                 ...padding(scale300),
                 ...border({
