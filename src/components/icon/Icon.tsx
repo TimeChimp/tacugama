@@ -10,8 +10,6 @@ export interface SVGProps {
   };
 }
 
-export const defaultIconProps: SVGProps = { color: '#000', size: '24' };
-
 interface IconProps {
   title: string;
   lineHeight?: string;

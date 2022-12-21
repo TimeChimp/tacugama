@@ -12,21 +12,9 @@ import {
   margin,
   padding,
 } from '../../utils';
-import { Button as BaseButton, ButtonProps as BaseButtonProps, SIZE } from 'baseui/button';
+import { Button as BaseButton, SIZE } from 'baseui/button';
 import { ButtonKind, ButtonType } from '../../models';
-
-export interface ButtonProps extends BaseButtonProps {
-  buttonType?: ButtonType;
-  buttonKind?: ButtonKind;
-  testId?: string;
-  height?: string;
-  color?: string;
-  isTransparent?: boolean;
-  isSquare?: boolean;
-  rootOverrides?: { [key: string]: number | string };
-  backgroundColor?: string;
-  borderColor?: string;
-}
+import { ButtonProps } from './types';
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -39,7 +27,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       type = 'submit',
       buttonKind = ButtonKind.primary,
       size = SIZE.compact,
-      isSquare,
+      shape = 'default',
       testId,
       rootOverrides,
       color,
@@ -53,7 +41,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const {
       theme: {
         current: {
-          sizing: { scale0, scale200, scale300, scale400, scale500, scale600, scale750, scale800, scale950 },
+          sizing: { scale0, scale200, scale300, scale400, scale500, scale600, scale800, scale950 },
           borders: { border100, border300, radius200 },
           colors: { primaryB, borderTransparent },
           customColors,
@@ -62,20 +50,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     } = useTheme();
     const { dark1, dark3, dark4, light2, light3, light4, light7, primaryMain } = customColors;
 
+    const isSquare = shape === 'square';
+
     const getButtonHeight = () => {
       if (buttonKind === ButtonKind.primary || buttonKind === ButtonKind.secondary) {
-        if (isSquare) {
-          return scale950;
-        } else {
-          return height ?? scale950;
-        }
-      } else {
-        if (isSquare) {
-          return scale800;
-        } else {
-          return height ?? scale750;
-        }
+        return height ?? scale950;
       }
+      return height ?? scale800;
     };
 
     const buttonOverrides = () => {
