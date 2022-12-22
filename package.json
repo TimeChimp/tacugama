@@ -54,7 +54,7 @@
     "@storybook/addons": "^6.5.15",
     "@storybook/react": "^6.5.15",
     "@storybook/theming": "^6.5.15",
-    "@testing-library/dom": "^7.28.1",
+    "@testing-library/dom": "^8.19.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^13.1.9",
@@ -75,15 +75,15 @@
     "eslint-plugin-react": "7.22.0",
     "eslint-plugin-storybook": "^0.6.8",
     "husky": "^8.0.2",
-    "msw": "^0.28.0",
+    "msw": "^0.49.2",
     "msw-storybook-addon": "^1.6.3",
     "prettier": "2.2.1",
     "react-dom": "^16.14.0",
     "size-limit": "^4.6.0",
     "storybook-addon-designs": "^6.3.1",
     "tsdx": "^0.14.1",
-    "tslib": "^2.2.0",
-    "typescript": "^4.2.4"
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.4"
   },
   "dependencies": {
     "@ag-grid-community/client-side-row-model": "25.0.1",
