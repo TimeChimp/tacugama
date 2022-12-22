@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon, SVGProps } from '../../icon';
 import { DEFAULT_ICON_SIZE } from '../../../models';
 
-export const LoaderIcon = ({ title = 'Loader', size = DEFAULT_ICON_SIZE, color = '#FFFFFF' }: SVGProps) => {
+export const LoaderIcon = ({ title = 'Loader', size = DEFAULT_ICON_SIZE, color = '#000' }: SVGProps) => {
   return (
     <Icon title={title} lineHeight="0">
       <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -14,7 +14,7 @@ export const LoaderIcon = ({ title = 'Loader', size = DEFAULT_ICON_SIZE, color =
           r="10"
           stroke={color}
           strokeWidth="3"
-          fill={color}
+          fill="none"
           strokeDasharray="73"
           strokeDashoffset="20"
         >
