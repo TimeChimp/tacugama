@@ -6,7 +6,6 @@ import { Input } from '../Input';
 
 const DEFAULT_NUMBER_FORMAT = NumberFormat.Dot;
 const DEFAULT_TEST_ID = 'price-input';
-const DEFAULT_WIDTH = '175px';
 
 const getNumberSeparators = (numberFormat: NumberFormat) => {
   switch (numberFormat) {
@@ -56,7 +55,6 @@ export const NumberInput = ({
       data-test-id={testId}
       onFocus={onFocus}
       customInput={Input}
-      width={DEFAULT_WIDTH}
       error={error}
     />
   );
