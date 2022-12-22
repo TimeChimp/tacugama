@@ -5,7 +5,7 @@ import { border, borderRadius, margin, padding, toRGBColor } from '../../utils';
 import { ParagraphSmall, ParagraphXSmall } from '../typography';
 import { TagProps, TagSize } from './types';
 import { customColors } from '../../theme/colors';
-import { ClearLineIcon } from 'components/icons';
+import { ClearLineIcon } from '../icons/clear-line';
 
 export const Tag = ({
   value,
