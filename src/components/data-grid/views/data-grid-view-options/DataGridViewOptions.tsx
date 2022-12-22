@@ -137,7 +137,7 @@ export const DataGridViewOptions = ({
                 component: ({ item: { id, label } }: { item: DropdownItem }) => (
                   <StyledDataGridViewListItem>
                     <Button
-                      buttonKind={ButtonKind.minimal}
+                      kind={ButtonKind.minimal}
                       isTransparent
                       height={scale1400}
                       onClick={() => id && onViewSelect(id)}
@@ -154,7 +154,7 @@ export const DataGridViewOptions = ({
                     </Button>
                     {id !== 'default' && (
                       <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
-                        <Button buttonKind={ButtonKind.minimal} isTransparent>
+                        <Button kind={ButtonKind.minimal} isTransparent>
                           <MoreIcon color={primary} />
                         </Button>
                       </Dropdown>
@@ -166,7 +166,7 @@ export const DataGridViewOptions = ({
           />
           <StyledViewOptionsFooter>
             <Button
-              buttonKind={ButtonKind.minimal}
+              kind={ButtonKind.minimal}
               height={scale1400}
               isTransparent
               onClick={() => setCreateModalIsOpen(true)}
@@ -186,7 +186,7 @@ export const DataGridViewOptions = ({
         </>
       )}
     >
-      <Button buttonKind={ButtonKind.tertiary} endEnhancer={() => <CaretDownIcon color={dark1} />}>
+      <Button kind={ButtonKind.tertiary} endEnhancer={() => <CaretDownIcon color={dark1} />}>
         <ParagraphSmall color={dark1}>{translations.viewOptions}</ParagraphSmall>
       </Button>
     </StatefulPopover>

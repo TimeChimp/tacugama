@@ -218,6 +218,7 @@ export const ColumnFilters = ({
             arrows
           />
           <DatepickerPopover
+            // @ts-expect-error - TODO: fix date type
             onChange={({ date }) => onDateSelect({ date, columnField })}
             date={internalDates.length ? internalDates : dates}
             isOpen={datepickerIsOpen}
@@ -233,7 +234,6 @@ export const ColumnFilters = ({
           showSearch
           selection
           items={getAllColumnValues(columnField, FilterType.string, values)}
-          // @ts-ignore
           selectedIds={getSelectedFilterIds(columnField)}
           searchPlaceholder={searchPlaceholder || search}
           isLoading={valuesLoading}
@@ -252,7 +252,6 @@ export const ColumnFilters = ({
       [FilterType.select]: (
         <Dropdown
           items={getAllColumnValues(columnField, FilterType.select, values)}
-          // @ts-ignore
           selectedIds={getSelectedFilterIds(columnField)}
           isLoading={valuesLoading}
         >

@@ -10,7 +10,7 @@ import {
   padding,
 } from '../../utils';
 import { useTheme } from '../../providers';
-import { DatePicker, DatepickerOverrides, SharedStylePropsT } from 'baseui/datepicker';
+import { DatePicker, DatepickerOverrides } from 'baseui/datepicker';
 import { Select } from '../select';
 import { DATA_TEST_ID } from '../../models';
 import { InputOverrides, InputProps } from 'baseui/input';
@@ -21,7 +21,6 @@ import { DatePickerProps } from './types';
 export const Datepicker = ({
   customValue,
   setCustomValue,
-  onChange,
   placement = 'bottomLeft',
   locale,
   weekStartDay,
@@ -126,7 +125,7 @@ export const Datepicker = ({
     },
   };
 
-  const datepickerBaseOverrides: DatepickerOverrides<SharedStylePropsT> = {
+  const datepickerBaseOverrides: DatepickerOverrides = {
     CalendarHeader: {
       style: {
         backgroundColor: primaryB,
@@ -193,7 +192,6 @@ export const Datepicker = ({
   return (
     <DatePicker
       value={customValue}
-      onChange={onChange}
       locale={localeObj}
       overrides={{
         ...datepickerBaseOverrides,

@@ -74,7 +74,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
         optionProps: () => ({ [DATA_TEST_ID]: 'data-grid-column-toggle-option' }),
       }}
     >
-      <Button buttonKind={ButtonKind.tertiary}>
+      <Button kind={ButtonKind.tertiary}>
         <TableIcon color={active ? primary : dark1} />
         <FlexItem marg4={scale500}>
           <CaretDownIcon color={active ? primary : dark1} />

@@ -28,7 +28,7 @@ export interface DropdownOptionProps {
 export interface DropdownProps {
   children?: React.ReactNode;
   items: DropdownItem[];
-  placement?: TetherPlacement[keyof TetherPlacement];
+  placement?: TetherPlacement;
   showSearch?: boolean;
   searchPlaceholder?: string;
   onClose?: () => any;

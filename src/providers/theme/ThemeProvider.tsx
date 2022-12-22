@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { BaseProvider } from 'baseui';
 import { ThemeOptionsProps, getTheme } from '../../theme';
-import { debug, styletron, StyletronProvider } from '../styletron/StyletronProvider';
+import { styletron, StyletronProvider } from '../styletron/StyletronProvider';
 import { defaultThemeContextProps, ThemeContext, ThemeProviderProps } from './types';
 
 export const ThemeProvider = ({ children, theme: themeOptions }: ThemeProviderProps) => {
@@ -13,7 +13,7 @@ export const ThemeProvider = ({ children, theme: themeOptions }: ThemeProviderPr
       ...state,
       setTheme,
     }));
-  }, []); // eslint-disable-line
+  }, []);
 
   function setTheme(options?: ThemeOptionsProps) {
     const theme = getTheme(options);
@@ -22,7 +22,7 @@ export const ThemeProvider = ({ children, theme: themeOptions }: ThemeProviderPr
   }
 
   return (
-    <StyletronProvider value={styletron} debug={debug} debugAfterHydration>
+    <StyletronProvider value={styletron} debugAfterHydration>
       <ThemeContext.Provider value={themeContext}>
         <BaseProvider
           theme={currentTheme}

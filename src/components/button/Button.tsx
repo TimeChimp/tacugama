@@ -25,7 +25,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled,
       buttonType = ButtonType.default,
       type = 'submit',
-      buttonKind = ButtonKind.primary,
+      kind = ButtonKind.primary,
       size = SIZE.compact,
       shape = 'default',
       testId,
@@ -51,14 +51,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const { dark1, dark3, dark4, light2, light3, light4, light7, primaryMain } = customColors;
 
     const getButtonHeight = () => {
-      if (buttonKind === ButtonKind.primary || buttonKind === ButtonKind.secondary) {
+      if (kind === ButtonKind.primary || kind === ButtonKind.secondary) {
         return height ?? '38px'; // NOTE: Value does not exist in theme
       }
       return height ?? scale800;
     };
 
     const getPadding = () => {
-      if (buttonKind === ButtonKind.primary || buttonKind === ButtonKind.secondary) {
+      if (kind === ButtonKind.primary || kind === ButtonKind.secondary) {
         if (shape === 'square') {
           return padding(scale400);
         }
@@ -71,7 +71,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const buttonOverrides = () => {
-      switch (buttonKind) {
+      switch (kind) {
         case ButtonKind.primary:
           return {
             Root: {

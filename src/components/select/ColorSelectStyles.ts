@@ -1,7 +1,11 @@
 import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
 
-export const StyledColorSwatch = themedStyled(
+interface StyledColorSwatchProps {
+  $color: string;
+}
+
+export const StyledColorSwatch = themedStyled<'div', StyledColorSwatchProps>(
   'div',
   ({ $theme, $color }: { $theme?: CustomThemeType; $color: string }) => {
     return {
