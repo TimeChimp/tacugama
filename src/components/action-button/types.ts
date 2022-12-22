@@ -26,5 +26,4 @@ export interface ActionButtonProps {
   startEnhancer?: React.ReactNode;
   disabled?: boolean;
   placeholder?: string;
-  withoutLabel?: boolean;
 }

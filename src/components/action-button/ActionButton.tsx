@@ -16,41 +16,23 @@ export const ActionButton = ({
   startEnhancer,
   disabled = false,
   placeholder = 'Action Button',
-  withoutLabel = false,
 }: ActionButtonProps) => {
   const {
     theme: {
       current: {
         sizing: { scale500, scale600 },
-        customColors: { dark1, dark4, light4, purple2 },
       },
     },
   } = useTheme();
 
-  const getTriangleIconColor = () => {
-    if (disabled) {
-      return dark4;
-    }
-    if (selectedOption && kind !== ButtonKind.minimal) {
-      return light4;
-    }
-    if (kind === ButtonKind.secondary || kind === ButtonKind.tertiary) {
-      return dark1;
-    }
-    if (kind === ButtonKind.minimal) {
-      return purple2;
-    }
-    return light4;
-  };
-
-  const label = selectedOption?.label || placeholder;
+  const label = shape !== 'square' ? selectedOption?.label || placeholder : null;
 
   return (
     <Dropdown items={options}>
       <Button size="compact" kind={kind} shape={shape} startEnhancer={startEnhancer} disabled={disabled}>
         <Block display="flex" gridColumnGap={scale500} alignItems="center">
-          {!withoutLabel ? label : null}
-          <CaretDownIcon color={getTriangleIconColor()} size={scale600} />
+          {label}
+          <CaretDownIcon size={scale600} />
         </Block>
       </Button>
     </Dropdown>
