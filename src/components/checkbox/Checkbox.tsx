@@ -96,6 +96,9 @@ export const Checkbox = ({
           props: {
             [DATA_TEST_ID]: testId,
           },
+          style: {
+            alignItems: 'center',
+          },
         },
         Label: {
           style: {
