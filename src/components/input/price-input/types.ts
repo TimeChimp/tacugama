@@ -1,3 +1,4 @@
+import { KeyboardEvent, FocusEvent } from 'react';
 import { NumberFormat } from '@timechimp/timechimp-typescript-helpers';
 import { NumberFormatProps } from 'react-number-format';
 
@@ -12,4 +13,9 @@ export interface PriceInputProps extends Omit<NumberFormatProps, OmitValues> {
   onChange: (value: string) => void;
   numberFormat?: NumberFormat;
   testId?: string;
+  onKeyPress?: ((event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void) | undefined;
+  onBlur?:
+    | (((e: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => void) &
+        ((e: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => void))
+    | undefined;
 }

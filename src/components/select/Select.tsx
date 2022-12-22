@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select as BaseSelect, SelectProps as BaseSelectProps, Option, Value, OnChangeParams } from 'baseui/select';
+import { Select as BaseSelect, Option, Value, OnChangeParams } from 'baseui/select';
 import { useTheme } from '../../providers';
 import {
   border,
@@ -14,26 +14,7 @@ import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
 import { CaretDownIcon } from '../icons/caret-down';
 import { TagIcon } from '../icons/tag';
-
-interface CustomParams {
-  value: any;
-  option?: Option;
-  type?: any;
-}
-
-export interface SelectProps extends BaseSelectProps {
-  showSkeleton?: boolean;
-  disableSortOptions?: boolean;
-  options: Option[];
-  onChangeHandler: (params: OnChangeParams) => void;
-  propOverrides?: {
-    dropdownListItemProps?: () => {};
-    rootProps?: () => {};
-  };
-  success?: boolean;
-  disabled?: boolean;
-  error?: boolean;
-}
+import { SelectProps } from './types';
 
 export const Select = ({
   size = 'compact',
@@ -65,11 +46,12 @@ export const Select = ({
   const { primary100, contentPrimary } = colors;
   const { primarySubtle, dark4 } = customColors;
 
-  const handleOnChange = (params: CustomParams) => {
+  const handleOnChange = (params: OnChangeParams) => {
     if (multi) {
       return onChangeHandler(params);
     }
-    return onChangeHandler({ ...params, value: params.value.length === 1 ? params.value[0] : params.value });
+    const { value } = params;
+    return onChangeHandler({ ...params, value: value?.length === 1 ? value[0] : value });
   };
 
   const alphabetizeOptions = (options: Option[], disableSortOptions?: boolean) => {

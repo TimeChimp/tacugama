@@ -1,6 +1,6 @@
 import React from 'react';
-import { ButtonKind as Kind } from '../../models';
 import { SHAPE } from 'baseui/button';
+import { ButtonKind } from '../../models';
 
 export const DEFAULT_OPTIONS = [
   {
@@ -21,8 +21,8 @@ interface ActionButtonOption {
 export interface ActionButtonProps {
   options: ActionButtonOption[];
   selectedOption: ActionButtonOption;
-  kind?: Kind;
-  shape?: SHAPE[keyof SHAPE];
+  kind?: ButtonKind;
+  shape?: keyof typeof SHAPE;
   startEnhancer?: React.ReactNode;
   disabled?: boolean;
   placeholder?: string;

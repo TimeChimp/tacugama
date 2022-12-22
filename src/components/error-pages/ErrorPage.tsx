@@ -52,7 +52,7 @@ export const ErrorPage = ({
         <ErrorButtonsBox>
           <Button onClick={onPrimaryButtonClick}>{primaryButtonText}</Button>
           {isSecondaryButtonShown ? (
-            <Button buttonKind={ButtonKind.secondary} onClick={onSecondaryButtonClick}>
+            <Button kind={ButtonKind.secondary} onClick={onSecondaryButtonClick}>
               {secondaryButtonText}
             </Button>
           ) : null}

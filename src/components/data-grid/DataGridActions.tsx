@@ -63,7 +63,7 @@ export const DataGridActions = ({
       {!hideDelete && onBulkDelete ? (
         <>
           <Button
-            buttonKind={ButtonKind.tertiary}
+            kind={ButtonKind.tertiary}
             disabled={!rowsSelected}
             onClick={() => onBulkDelete()}
             testId={DELETE_BUTTON_TEST_ID}
@@ -84,7 +84,7 @@ export const DataGridActions = ({
               optionProps: () => ({ [DATA_TEST_ID]: EXPORT_OPTION_TEST_ID }),
             }}
           >
-            <Button buttonKind={ButtonKind.tertiary} disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
+            <Button kind={ButtonKind.tertiary} disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
               <DownloadIcon color={rowsSelected ? primaryA : dark4} />
               <ParagraphSmall color={rowsSelected ? primaryA : dark4} paddingLeft={scale400}>
                 {translations.export}

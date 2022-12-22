@@ -6,7 +6,8 @@ require('core-js/stable');
 
 configure({ testIdAttribute: DATA_TEST_ID });
 
-const Providers: FC = ({ children }) => {
+// @ts-expect-error - TODO: fix this
+const Providers: FC = ({ children }: { children: any }) => {
   return <ThemeProvider>{children}</ThemeProvider>;
 };
 

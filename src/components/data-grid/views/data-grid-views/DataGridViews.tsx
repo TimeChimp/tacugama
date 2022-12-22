@@ -161,11 +161,11 @@ export const DataGridViews = ({
               width="fit-content"
             >
               {isActiveView(view.id) ? (
-                <Button buttonKind={ButtonKind.quarternary}>
+                <Button kind={ButtonKind.quarternary}>
                   <ParagraphSmall color={primaryB}>{view.name}</ParagraphSmall>
                 </Button>
               ) : (
-                <Button buttonKind={ButtonKind.tertiary} onClick={() => handleActivateView(view.id)}>
+                <Button kind={ButtonKind.tertiary} onClick={() => handleActivateView(view.id)}>
                   <ParagraphSmall>{view.name}</ParagraphSmall>
                 </Button>
               )}

@@ -3,7 +3,10 @@ import { FooterRowCountProps } from '../types';
 import { StyledFooterFooterPageSize } from '../styles';
 import { ParagraphSmall } from '../../typography';
 import { useTheme } from '../../../providers';
-import { Button, CaretDownIcon, Dropdown, FlexItem } from '../../../components';
+import { Button } from '../../../components/button';
+import { CaretDownIcon } from '../../../components/icons';
+import { Dropdown } from '../../../components/dropdown';
+import { FlexItem } from '../../../components/flex-item';
 import { ButtonKind } from '../../../models';
 
 const EVENT_LISTENER = 'paginationChanged';
@@ -53,10 +56,8 @@ export const FooterPageSize = ({ api: gridApi, translations }: FooterRowCountPro
         {translations.showResultsBy}
       </ParagraphSmall>
       <Dropdown items={options}>
-        <Button buttonKind={ButtonKind.tertiary}>
-          <ParagraphSmall $style={{ cursor: 'pointer' }} color={dark1}>
-            {selectedOption?.label}
-          </ParagraphSmall>
+        <Button kind={ButtonKind.tertiary}>
+          <ParagraphSmall color={dark1}>{selectedOption?.label}</ParagraphSmall>
           <FlexItem marg4={scale500}>
             <CaretDownIcon color={dark1} />
           </FlexItem>
