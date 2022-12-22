@@ -9,7 +9,7 @@ import {
 
 const COLORS: any = {
   contentPrimary: 'contentPrimary',
-  backgroundPrimary: 'backgroundPrimary',
+  primaryB: 'primaryB',
   inputFillError: 'inputFillError',
   contentStateDisabled: 'contentStateDisabled',
 };
@@ -138,7 +138,7 @@ describe('utils/colors', () => {
         colors: COLORS,
       });
 
-      expect(inputBorderColor).toBe(COLORS.backgroundPrimary);
+      expect(inputBorderColor).toBe(COLORS.primaryB);
     });
 
     it('should get a disabled color', () => {

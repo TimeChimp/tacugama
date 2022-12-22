@@ -96,18 +96,22 @@ export const Input = ({
         ...margin('0'),
         ...rootPadding(),
         ':hover': {
-          ...border({
-            ...border300,
-            borderColor: getInputBorderColor({
-              error: $error,
-              success,
-              isFocused: $isFocused,
-              customColors,
-              colors,
-              hover: true,
-              disabled,
-            }),
-          }),
+          ...border(
+            !noBorder
+              ? {
+                  ...border300,
+                  borderColor: getInputBorderColor({
+                    error: $error,
+                    success,
+                    isFocused: $isFocused,
+                    customColors,
+                    colors,
+                    hover: true,
+                    disabled,
+                  }),
+                }
+              : undefined,
+          ),
         },
       }),
     },

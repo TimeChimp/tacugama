@@ -5,6 +5,7 @@ import { border, borderRadius, margin, padding, toRGBColor } from '../../utils';
 import { ParagraphSmall, ParagraphXSmall } from '../typography';
 import { TagProps, TagSize } from './types';
 import { customColors } from '../../theme/colors';
+import { ClearLineIcon } from '../icons/clear-line';
 
 export const Tag = ({
   value,
@@ -18,7 +19,7 @@ export const Tag = ({
   const {
     theme: {
       current: {
-        sizing: { scale100, scale200, scale400, scale750 },
+        sizing: { scale100, scale200, scale550, scale600, scale750 },
         borders: { border300 },
         customColors: { dark1, light7, light2 },
       },
@@ -86,11 +87,7 @@ export const Tag = ({
             }),
           },
           ActionIcon: {
-            style: () => ({
-              height: scale400,
-              width: scale400,
-              color: getTextColor(),
-            }),
+            component: () => <ClearLineIcon size={scale550} />,
           },
         }),
         ...(size === TagSize.large && {
@@ -125,11 +122,7 @@ export const Tag = ({
             }),
           },
           ActionIcon: {
-            style: () => ({
-              height: scale400,
-              width: scale400,
-              color: dark1,
-            }),
+            component: () => <ClearLineIcon size={scale600} />,
           },
         }),
       }}

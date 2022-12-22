@@ -5,8 +5,6 @@ import { Input } from '../Input';
 
 const DEFAULT_TIME_FORMAT = 'HH:mm';
 const SECONDS_IN_HOUR = 60 * 60;
-const DEFAULT_HOURS_INPUT_WIDTH = '74px';
-const AM_PM_HOURS_INPUT_WIDTH = '94px';
 
 export const HoursInput = ({ onSubmit, timeFormat = DEFAULT_TIME_FORMAT, defaultValue, ...rest }: HoursInputProps) => {
   const [inputIsValid, setInputIsValid] = useState(true);
@@ -54,7 +52,6 @@ export const HoursInput = ({ onSubmit, timeFormat = DEFAULT_TIME_FORMAT, default
       error={!inputIsValid}
       autoComplete="off"
       placeholder={timePlaceholder(timeFormat)}
-      width={timeFormat === 'h:mma' ? AM_PM_HOURS_INPUT_WIDTH : DEFAULT_HOURS_INPUT_WIDTH}
       {...rest}
     />
   );

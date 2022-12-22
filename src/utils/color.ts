@@ -1,4 +1,4 @@
-import { Colors } from 'baseui/theme';
+import { ColorTokens } from 'baseui/themes';
 import { ButtonType, CustomColors, CustomThemeType } from '../models';
 
 const padZeroRight = (input: string, length: number) => input + '0'.repeat(length - input.length);
@@ -84,20 +84,20 @@ interface GetInputColorParams {
   hover?: boolean;
   disabled?: boolean;
   customColors: CustomColors;
-  colors: Colors;
+  colors: ColorTokens;
   hasValue?: boolean;
 }
 
 export function getInputBackgroundColor({
   disabled,
   customColors: { light3 },
-  colors: { backgroundPrimary },
+  colors: { primaryB },
 }: GetInputColorParams) {
   if (disabled) {
     return light3;
   }
 
-  return backgroundPrimary;
+  return primaryB;
 }
 
 export const getInputTextColor = ({ isFocused, hasValue, customColors: { dark1, dark4 } }: GetInputColorParams) => {
