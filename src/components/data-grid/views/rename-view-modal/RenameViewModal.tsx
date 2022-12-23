@@ -13,7 +13,13 @@ interface FormInput {
 }
 
 export const RenameViewModal = ({ isOpen, onClose, handleRenameView, translations, view }: RenameViewModalProps) => {
-  const { errors, handleSubmit, setValue, reset, control } = useForm<FormInput>({
+  const {
+    handleSubmit,
+    setValue,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm<FormInput>({
     mode: 'onChange',
   });
   const [loading, setLoading] = useState<boolean>(false);

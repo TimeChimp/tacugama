@@ -14,11 +14,7 @@ export default {
 const Template: Story<SelectProps> = (args) => {
   const [selectedValue, setSelectedValue] = useState<Value>([]);
   return (
-    <Select
-      {...args}
-      onChangeHandler={({ option }) => setSelectedValue(option ? [option] : [])}
-      value={selectedValue}
-    />
+    <Select {...args} onChangeHandler={({ value }) => setSelectedValue(value ? [value] : [])} value={selectedValue} />
   );
 };
 Template.parameters = {

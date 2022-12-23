@@ -135,6 +135,7 @@ export const Select = ({
             },
             Input: {
               style: {
+                ...ParagraphSmall,
                 '::placeholder': {
                   color: customColors.dark4,
                 },
@@ -142,6 +143,7 @@ export const Select = ({
             },
             ValueContainer: {
               style: {
+                ...ParagraphSmall,
                 ...padding('0', scale600),
               },
             },

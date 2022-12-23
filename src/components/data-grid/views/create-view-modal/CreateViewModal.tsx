@@ -21,7 +21,13 @@ export const CreateViewModal = ({
   gridApi,
   gridColumnApi,
 }: CreateViewModalProps) => {
-  const { errors, handleSubmit, setValue, reset, control } = useForm<FormInput>({
+  const {
+    handleSubmit,
+    setValue,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm<FormInput>({
     mode: 'onChange',
   });
   const [loading, setLoading] = useState<boolean>(false);
