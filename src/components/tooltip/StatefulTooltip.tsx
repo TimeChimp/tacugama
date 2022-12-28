@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { StatefulTooltipProps, StatefulTooltip as BaseStatefulTooltip } from 'baseui/tooltip';
 import { useTheme } from '../../providers';
-import { border, borderRadius, padding } from 'utils';
+import { border, borderRadius, padding } from '../../utils';
 
 export const StatefulTooltip = forwardRef<any, StatefulTooltipProps>(
   ({ children, ...rest }: StatefulTooltipProps, ref) => {
