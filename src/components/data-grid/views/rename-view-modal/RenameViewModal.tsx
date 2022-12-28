@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { MAX_NAME_INPUT_LENGTH } from '../../../../models';
 import { ModalFooter, ModalBody, ModalHeader, Modal } from '../../../modal';
 import { ModalButton, SecondaryModalButton } from '../../../button';
@@ -13,7 +13,13 @@ interface FormInput {
 }
 
 export const RenameViewModal = ({ isOpen, onClose, handleRenameView, translations, view }: RenameViewModalProps) => {
-  const { errors, handleSubmit, register, setValue, reset } = useForm<FormInput>({
+  const {
+    handleSubmit,
+    setValue,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm<FormInput>({
     mode: 'onChange',
   });
   const [loading, setLoading] = useState<boolean>(false);
@@ -39,17 +45,20 @@ export const RenameViewModal = ({ isOpen, onClose, handleRenameView, translation
         </ModalHeader>
         <ModalBody>
           <FormControl label={translations.viewName}>
-            <Input
-              inputRef={register({
-                required: true,
-                maxLength: MAX_NAME_INPUT_LENGTH,
-              })}
-              testId="view-name-input"
+            <Controller
               name="name"
-              size="compact"
-              error={!!errors.name}
-              autoComplete="off"
-              placeholder={translations.viewName}
+              control={control}
+              rules={{ required: true, maxLength: MAX_NAME_INPUT_LENGTH }}
+              render={() => (
+                <Input
+                  testId="view-name-input"
+                  name="name"
+                  size="compact"
+                  error={!!errors.name}
+                  autoComplete="off"
+                  placeholder={translations.viewName}
+                />
+              )}
             />
           </FormControl>
         </ModalBody>

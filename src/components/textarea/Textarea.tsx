@@ -26,7 +26,7 @@ export const Textarea = ({ testId, value, success, resizeable = false, ...rest }
       {...rest}
       overrides={{
         Input: {
-          style: ({ $theme, $error, $disabled, $isFocused }) => {
+          style: ({ $error, $disabled, $isFocused }) => {
             const backgroundColor = getInputBackgroundColor({ disabled: $disabled, customColors, colors });
             const color = getInputTextColor({ isFocused: $isFocused, hasValue: !!value, customColors, colors });
             return {
@@ -57,7 +57,6 @@ export const Textarea = ({ testId, value, success, resizeable = false, ...rest }
             [DATA_TEST_ID]: testId,
           },
         },
-        // @ts-expect-error - The type definition for TextareaOverrides is incorrect
         Root: {
           style: {
             ...border(),

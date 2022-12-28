@@ -1,6 +1,5 @@
 import React from 'react';
-import { ModalHeader as BaseModalHeader } from 'baseui/modal';
-import { modalHeaderStyle } from '../ModalStyles';
+import { StyledModalHeader } from './styles';
 import { HeadingXSmall } from '../../typography';
 
 export interface ModalHeaderProps {
@@ -9,8 +8,8 @@ export interface ModalHeaderProps {
 
 export const ModalHeader = ({ children }: ModalHeaderProps) => {
   return (
-    <BaseModalHeader $style={modalHeaderStyle}>
+    <StyledModalHeader>
       <HeadingXSmall>{children}</HeadingXSmall>
-    </BaseModalHeader>
+    </StyledModalHeader>
   );
 };

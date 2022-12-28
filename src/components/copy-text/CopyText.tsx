@@ -57,7 +57,7 @@ export const CopyText = ({
       </ParagraphSmall>
       <StyledCopyIcon onClick={() => copyTextHandler(value)}>
         <StatefulTooltip triggerType="click" content={() => <Block>{copiedText}</Block>}>
-          <Button buttonKind={ButtonKind.minimal} isTransparent>
+          <Button kind={ButtonKind.minimal} isTransparent>
             <CopyIcon />
           </Button>
         </StatefulTooltip>

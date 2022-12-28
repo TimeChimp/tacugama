@@ -13,4 +13,9 @@ export interface NumberInputProps extends Omit<NumberFormatProps, OmitValues> {
   numberFormat?: NumberFormat;
   testId?: string;
   onFocus?: (value: any) => void;
+  onKeyPress?: ((e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void) | undefined;
+  onBlur?:
+    | (((e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => void) &
+        ((e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => void))
+    | undefined;
 }

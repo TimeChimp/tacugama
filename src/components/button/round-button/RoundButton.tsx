@@ -8,7 +8,7 @@ export const RoundButton = forwardRef<HTMLButtonElement, RoundButtonProps>(
   ({ children, ...rest }: RoundButtonProps, ref) => (
     <Button
       ref={ref}
-      buttonKind={ButtonKind.secondary}
+      kind={ButtonKind.secondary}
       overrides={{
         BaseButton: {
           style: ({ $theme }) => ({

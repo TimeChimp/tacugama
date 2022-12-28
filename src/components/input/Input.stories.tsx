@@ -14,11 +14,7 @@ export default {
   component: Input,
 } as Meta;
 
-const Template: Story<InputProps> = (args) => (
-  <>
-    <Input {...args} />
-  </>
-);
+const Template: Story<InputProps> = (args) => <Input {...args} />;
 
 const ColorTemplate: Story<ColorInputProps> = (args) => <ColorInput {...args} />;
 
@@ -93,7 +89,7 @@ Password.parameters = {
 
 export const Color = ColorTemplate.bind({});
 Color.args = {
-  onChange: (color) => console.log(color),
+  onChange: (color: string) => console.log(color),
   testId: 'test-input',
   error: false,
   success: false,
@@ -144,6 +140,20 @@ Hours.args = {
   disabled: false,
 };
 Hours.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=2434%3A28364&t=N57j8nqiSc9cqSnt-4',
+  },
+};
+
+export const NoBorderSearch = Template.bind({});
+NoBorderSearch.args = {
+  noBorder: true,
+  startEnhancer: <SearchIcon size="18px" />,
+  placeholder: 'Type to search',
+  disabled: false,
+};
+NoBorderSearch.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=2434%3A28364&t=N57j8nqiSc9cqSnt-4',

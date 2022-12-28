@@ -1,10 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Button } from './';
+import { Button } from './Button';
+import { ButtonProps } from './types';
 import { ButtonType } from 'models';
 import { ButtonKind } from '../../models';
-import { ButtonProps } from './types';
 import { SearchIcon } from '../icons/search';
 
 export default {
@@ -15,7 +15,7 @@ export default {
 const ButtonTemplate: Story<ButtonProps> = (args) => <Button {...args} />;
 
 const SquareButtonTemplate: Story<ButtonProps> = (args) => (
-  <Button buttonKind={ButtonKind.tertiary} {...args}>
+  <Button kind={ButtonKind.tertiary} {...args}>
     <SearchIcon />
   </Button>
 );
@@ -24,7 +24,7 @@ export const PrimaryStartEnhancer = ButtonTemplate.bind({});
 PrimaryStartEnhancer.args = {
   children: 'Button',
   buttonType: ButtonType.default,
-  buttonKind: ButtonKind.primary,
+  kind: ButtonKind.primary,
   disabled: false,
   startEnhancer: <SearchIcon />,
 };
@@ -39,7 +39,7 @@ export const SecondaryStartEnhancer = ButtonTemplate.bind({});
 SecondaryStartEnhancer.args = {
   children: 'Button',
   buttonType: ButtonType.default,
-  buttonKind: ButtonKind.secondary,
+  kind: ButtonKind.secondary,
   startEnhancer: <SearchIcon />,
   disabled: false,
 };
@@ -54,7 +54,7 @@ export const TertiaryStartEnhancer = ButtonTemplate.bind({});
 TertiaryStartEnhancer.args = {
   children: 'Button',
   buttonType: ButtonType.default,
-  buttonKind: ButtonKind.tertiary,
+  kind: ButtonKind.tertiary,
   startEnhancer: <SearchIcon />,
   disabled: false,
 };
@@ -69,7 +69,7 @@ export const QuaternaryStartEnhancer = ButtonTemplate.bind({});
 QuaternaryStartEnhancer.args = {
   children: 'Button',
   buttonType: ButtonType.default,
-  buttonKind: ButtonKind.quarternary,
+  kind: ButtonKind.quarternary,
   startEnhancer: <SearchIcon />,
   disabled: false,
 };
@@ -84,7 +84,7 @@ export const MinimalStartEnhancer = ButtonTemplate.bind({});
 MinimalStartEnhancer.args = {
   children: 'Button',
   buttonType: ButtonType.default,
-  buttonKind: ButtonKind.minimal,
+  kind: ButtonKind.minimal,
   startEnhancer: <SearchIcon />,
   disabled: false,
 };
@@ -99,7 +99,7 @@ export const Primary = ButtonTemplate.bind({});
 Primary.args = {
   children: 'Button',
   buttonType: ButtonType.default,
-  buttonKind: ButtonKind.primary,
+  kind: ButtonKind.primary,
   disabled: false,
 };
 Primary.parameters = {
@@ -113,7 +113,7 @@ export const Secondary = ButtonTemplate.bind({});
 Secondary.args = {
   children: 'Button',
   buttonType: ButtonType.default,
-  buttonKind: ButtonKind.secondary,
+  kind: ButtonKind.secondary,
   disabled: false,
 };
 Secondary.parameters = {
@@ -127,7 +127,7 @@ export const Tertiary = ButtonTemplate.bind({});
 Tertiary.args = {
   children: 'Button',
   buttonType: ButtonType.default,
-  buttonKind: ButtonKind.tertiary,
+  kind: ButtonKind.tertiary,
   disabled: false,
 };
 Tertiary.parameters = {
@@ -141,7 +141,7 @@ export const Quaternary = ButtonTemplate.bind({});
 Quaternary.args = {
   children: 'Button',
   buttonType: ButtonType.default,
-  buttonKind: ButtonKind.quarternary,
+  kind: ButtonKind.quarternary,
   disabled: false,
 };
 Quaternary.parameters = {
@@ -155,7 +155,7 @@ export const Minimal = ButtonTemplate.bind({});
 Minimal.args = {
   children: 'Button',
   buttonType: ButtonType.default,
-  buttonKind: ButtonKind.minimal,
+  kind: ButtonKind.minimal,
   disabled: false,
 };
 Minimal.parameters = {
@@ -168,7 +168,7 @@ Minimal.parameters = {
 export const PrimaryIcon = SquareButtonTemplate.bind({});
 PrimaryIcon.args = {
   buttonType: ButtonType.default,
-  buttonKind: ButtonKind.primary,
+  kind: ButtonKind.primary,
   shape: 'square',
   disabled: false,
 };
@@ -182,7 +182,7 @@ PrimaryIcon.parameters = {
 export const SecondaryIcon = SquareButtonTemplate.bind({});
 SecondaryIcon.args = {
   buttonType: ButtonType.default,
-  buttonKind: ButtonKind.secondary,
+  kind: ButtonKind.secondary,
   shape: 'square',
   disabled: false,
 };
@@ -196,7 +196,7 @@ SecondaryIcon.parameters = {
 export const TertiaryIcon = SquareButtonTemplate.bind({});
 TertiaryIcon.args = {
   buttonType: ButtonType.default,
-  buttonKind: ButtonKind.tertiary,
+  kind: ButtonKind.tertiary,
   shape: 'square',
   disabled: false,
 };
@@ -210,7 +210,7 @@ TertiaryIcon.parameters = {
 export const QuaternaryIcon = SquareButtonTemplate.bind({});
 QuaternaryIcon.args = {
   buttonType: ButtonType.default,
-  buttonKind: ButtonKind.quarternary,
+  kind: ButtonKind.quarternary,
   shape: 'square',
   disabled: false,
 };

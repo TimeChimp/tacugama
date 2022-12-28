@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ColorResult, TwitterPicker } from 'react-color';
 import { Input } from '../Input';
 import { Button } from '../../button';
@@ -6,34 +6,8 @@ import { ClickOutside } from '../../click-outside';
 import { margin, padding } from '../../../utils';
 import { ColorPickerContainer, StyledColorSwatch } from '../styles';
 import { useTheme } from '../../../providers';
-import { InputProps } from '../types';
 import { ButtonKind } from '../../../models';
-
-export interface ColorInputProps extends Omit<InputProps, 'value' | 'uppercase' | 'onChange' | 'placeholder'> {
-  onChange: (color: string) => void;
-  value?: string;
-  generateRandomColor?: boolean;
-}
-
-const colors = [
-  '#eccc68',
-  '#ffa502',
-  '#ff7f50',
-  '#ff6348',
-  '#ff6b81',
-  '#ff4757',
-  '#7bed9f',
-  '#2ed573',
-  '#70a1ff',
-  '#1e90ff',
-  '#5352ed',
-  '#3742fa',
-  '#6559D2',
-  '#a4b0be',
-  '#747d8c',
-  '#57606f',
-  '#2f3542',
-];
+import { ColorInputProps, colors } from './types';
 
 export const ColorInput = ({ onChange, value, generateRandomColor = true, ...rest }: ColorInputProps) => {
   const [showColorPicker, setShowColorPicker] = useState<boolean>(false);
@@ -66,10 +40,10 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
       <Input
         startEnhancer={
           <Button
-            buttonKind={ButtonKind.tertiary}
             overrides={{
               BaseButton: {
                 style: ({ $theme }) => ({
+                  backgroundColor: 'transparent',
                   ':hover': {
                     backgroundColor: 'transparent',
                   },
@@ -91,7 +65,7 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
           </Button>
         }
         placeholder="#00000"
-        onChange={(e: FormEvent<HTMLInputElement>) => onChange(e.currentTarget.value)}
+        onChange={(e) => onChange(e.currentTarget.value)}
         value={value}
         uppercase
         {...rest}

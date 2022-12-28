@@ -1,5 +1,5 @@
 import React from 'react';
-import { SnackbarElementPropsT as BaseSnackbarElementProps } from 'baseui/snackbar';
+import { SnackbarElementProps as BaseSnackbarElementProps } from 'baseui/snackbar';
 import { LabelSmall, ParagraphSmall } from '../typography';
 import { ClearLineIcon } from '../icons/clear-line';
 import { Button } from '../button';
@@ -29,11 +29,11 @@ export const Snackbar = ({ color, onClose, message, actionMessage, actionOnClick
       </StyledDiv>
       <StyledDiv>
         {actionMessage && (
-          <Button buttonKind={ButtonKind.minimal} isTransparent onClick={actionOnClick}>
+          <Button kind={ButtonKind.minimal} isTransparent onClick={actionOnClick}>
             <ParagraphSmall color={primaryB}>{actionMessage}</ParagraphSmall>
           </Button>
         )}
-        <Button buttonKind={ButtonKind.minimal} isTransparent onClick={onClose}>
+        <Button kind={ButtonKind.minimal} isTransparent onClick={onClose}>
           <ClearLineIcon />
         </Button>
       </StyledDiv>

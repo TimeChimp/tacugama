@@ -70,13 +70,7 @@ export const Modal = ({
   });
 
   return (
-    <BaseModal
-      autoFocus={false}
-      unstable_ModalBackdropScroll={true} // prop will be removed in the next major version but implemented as the default behavior
-      overrides={mergedOverrides}
-      size="default"
-      {...rest}
-    >
+    <BaseModal autoFocus={false} overrides={mergedOverrides} size="default" {...rest}>
       {onStateChange && <MountStateNotifier onStateChange={onStateChange} />}
       {children}
     </BaseModal>

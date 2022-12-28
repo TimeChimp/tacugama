@@ -1,5 +1,6 @@
 import React from 'react';
-import { Select as BaseSelect, SelectProps as BaseSelectProps, OnChangeParams } from '../Select';
+import { Select as BaseSelect, OnChangeParams } from '../Select';
+import { SelectProps as BaseSelectProps } from '../types';
 
 import { ColorOption } from '../color-option';
 
@@ -11,7 +12,7 @@ export interface ColorOptionProps {
 type ParamOptionValue = ReadonlyArray<ColorOptionProps>;
 interface ParamOptionsProps extends OnChangeParams {
   value: ParamOptionValue;
-  option?: ColorOptionProps;
+  option: ColorOptionProps;
 }
 
 export interface ColorSelectProps extends Omit<BaseSelectProps, 'options' | 'onChange' | 'value'> {

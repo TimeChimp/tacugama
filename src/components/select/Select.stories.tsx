@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Select, SelectProps, Value } from './Select';
+import { Select, Value } from './Select';
 import { ColorSelect, ColorSelectProps } from './color-select';
 import { OPTIONS } from './test-data';
+import { SelectProps } from './types';
 
 export default {
   title: 'Components/Select',
@@ -13,11 +14,7 @@ export default {
 const Template: Story<SelectProps> = (args) => {
   const [selectedValue, setSelectedValue] = useState<Value>([]);
   return (
-    <Select
-      {...args}
-      onChangeHandler={({ option }) => setSelectedValue(option ? [option] : [])}
-      value={selectedValue}
-    />
+    <Select {...args} onChangeHandler={({ value }) => setSelectedValue(value ? [value] : [])} value={selectedValue} />
   );
 };
 Template.parameters = {
