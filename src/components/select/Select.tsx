@@ -37,7 +37,7 @@ export const Select = ({
         colors,
         borders,
         customColors,
-        sizing: { scale100, scale550, scale600, scale700, scale900, scale950 },
+        sizing: { scale0, scale100, scale550, scale600, scale700, scale900, scale950 },
         typography: { ParagraphSmall },
       },
     },
@@ -125,6 +125,7 @@ export const Select = ({
               style: {
                 ...ParagraphSmall,
                 color: dark4,
+                ...margin('0', '0', '0', `-${scale0}`),
               },
             },
             DropdownContainer: {
