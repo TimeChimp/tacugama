@@ -9,7 +9,7 @@ export const FormControl = ({ overrides, error, success, caption, ...rest }: For
     theme: {
       current: {
         typography: { ParagraphSmall, ParagraphXSmall },
-        sizing: { scale100 },
+        sizing: { scale550 },
         customColors: { red0, green0, dark2 },
       },
     },
@@ -47,7 +47,8 @@ export const FormControl = ({ overrides, error, success, caption, ...rest }: For
         Label: {
           style: {
             ...ParagraphSmall,
-            ...margin('0', '0', scale100, '0'),
+            lineHeight: scale550, // Fix: Because of the bug in baseui (can't override the span around the label)
+            ...margin('0'),
           },
         },
         Caption: {
