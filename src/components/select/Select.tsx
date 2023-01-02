@@ -209,7 +209,7 @@ export const Select = ({
                     style: {
                       backgroundColor: primarySubtle,
                       ...borderRadius(radius200),
-                      ...margin('0', scale100),
+                      ...margin('0'),
                     },
                   },
                   Text: {
