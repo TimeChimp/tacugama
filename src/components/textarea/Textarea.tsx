@@ -60,6 +60,7 @@ export const Textarea = ({ testId, value, success, resizeable = false, ...rest }
         Root: {
           style: {
             ...border(),
+            ...borderRadius(radius200),
           },
         },
       }}
