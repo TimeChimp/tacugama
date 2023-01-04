@@ -265,6 +265,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               style: {
                 ...padding('0px'),
                 ...borderRadius('0'),
+                ...borderBottom({
+                  ...border100,
+                  borderStyle: 'solid',
+                  borderColor: 'transparent',
+                }),
                 backgroundColor: 'transparent',
                 color: color ?? primaryMain,
                 height: height,
