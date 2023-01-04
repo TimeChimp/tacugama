@@ -14,6 +14,7 @@ export const Tag = ({
   cursor = 'default',
   color = customColors.light7,
   width = 'auto',
+  maxWidth = 'auto',
   ...rest
 }: TagProps) => {
   const {
@@ -59,6 +60,7 @@ export const Tag = ({
           Root: {
             style: () => ({
               width,
+              maxWidth,
               display: 'inline-flex',
               ...padding('0px', scale200),
               ...borderRadius(scale100),
@@ -79,6 +81,7 @@ export const Tag = ({
               color: getTextColor(),
               overflow: 'hidden',
               textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
             }),
           },
           Action: {
