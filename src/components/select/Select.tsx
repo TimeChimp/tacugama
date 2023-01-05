@@ -13,7 +13,6 @@ import {
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
 import { CaretDownIcon } from '../icons/caret-down';
-import { TagIcon } from '../icons/tag';
 import { SelectProps } from './types';
 
 export const Select = ({
@@ -37,7 +36,7 @@ export const Select = ({
         colors,
         borders,
         customColors,
-        sizing: { scale0, scale100, scale550, scale600, scale700, scale900, scale950 },
+        sizing: { scale0, scale100, scale600, scale700, scale900, scale950 },
         typography: { ParagraphSmall },
       },
     },
@@ -77,6 +76,7 @@ export const Select = ({
           disabled={disabled}
           error={error}
           multi={multi}
+          type="select"
           options={alphabetizeOptions(options, disableSortOptions)}
           {...rest}
           overrides={{
@@ -226,9 +226,6 @@ export const Select = ({
                   },
                 },
               },
-            },
-            SearchIcon: {
-              component: () => <TagIcon size={scale550} />,
             },
             SingleValue: {
               style: {
