@@ -1,6 +1,6 @@
 import React from 'react';
 import { Block, BlockProps } from 'baseui/block';
-import { ThemeProps } from 'models';
+import { CustomThemeProps } from 'models';
 import { border, borderRadius } from '../../utils';
 
 export interface BoxProps extends BlockProps {
@@ -13,8 +13,15 @@ export const Box = ({ noBorder = false, ...rest }: BoxProps) => {
       {...rest}
       overrides={{
         Block: {
-          style: ({ $theme }: ThemeProps) => ({
-            ...border(!noBorder ? $theme.borders.border300 : undefined),
+          style: ({ $theme }: CustomThemeProps) => ({
+            ...border(
+              !noBorder
+                ? {
+                    ...$theme.borders.border300,
+                    borderColor: $theme.customColors.light2,
+                  }
+                : undefined,
+            ),
             ...borderRadius($theme.borders.radius200),
             background: $theme.colors.primaryB,
           }),
