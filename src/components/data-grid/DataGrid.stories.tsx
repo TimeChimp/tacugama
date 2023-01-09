@@ -132,16 +132,20 @@ Default.args = {
 export const Client = Template.bind({});
 Client.args = {
   columnToggling: true,
-  selection: false,
+  selection: true,
   grouping: false,
   viewing: true,
   columns: COLUMNS,
-  dataUrl: DATA_URL,
   accessToken: ACCESS_TOKEN,
   height: 'calc(100vh - 200px)',
   translations: defaultTranslations,
   searchColumns: SEARCH_COLUMNS,
   rowModelType: RowModelType.clientSide,
   rowData: TIME_ENTRIES,
-  rowActionItems: [],
+  rowActionItems: [
+    {
+      action: (selectedIds, additionalProps) => console.log(selectedIds, additionalProps),
+      label: 'Test',
+    },
+  ],
 };

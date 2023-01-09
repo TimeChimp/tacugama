@@ -57,7 +57,7 @@ const CustomCellComponent = ({ data }: any) => {
 };
 
 export const ACCESS_TOKEN = '';
-export const DATA_URL = '';
+export const DATA_URL = '/timeentries';
 export const COLUMNS: DataGridColumn[] = [
   {
     field: 'start',
