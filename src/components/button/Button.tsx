@@ -264,6 +264,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             Root: {
               style: {
                 ...padding('0px'),
+                ...borderRadius('0'),
+                ...borderBottom({
+                  ...border100,
+                  borderStyle: 'solid',
+                  borderColor: 'transparent',
+                }),
                 backgroundColor: 'transparent',
                 color: color ?? primaryMain,
                 height: height,
@@ -276,6 +282,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                       borderColor: primaryMain,
                     }),
                   }),
+                },
+
+                ':active': {
+                  backgroundColor: 'transparent',
                 },
 
                 ':disabled': {

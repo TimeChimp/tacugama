@@ -6,7 +6,6 @@ import { ClickOutside } from '../../click-outside';
 import { margin, padding } from '../../../utils';
 import { ColorPickerContainer, StyledColorSwatch } from '../styles';
 import { useTheme } from '../../../providers';
-import { ButtonKind } from '../../../models';
 import { ColorInputProps, colors } from './types';
 
 export const ColorInput = ({ onChange, value, generateRandomColor = true, ...rest }: ColorInputProps) => {

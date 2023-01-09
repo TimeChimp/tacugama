@@ -1,8 +1,13 @@
 import { themedStyled } from '../../theme';
-import { border } from '../../utils';
+import { border, margin } from '../../utils';
 
-export const Seperator = themedStyled('hr', ({ $theme }) => ({
+export interface StyledSeparatorProps {
+  $noMargin?: boolean;
+}
+
+export const Seperator = themedStyled<'hr', StyledSeparatorProps>('hr', ({ $theme, $noMargin }) => ({
   backgroundColor: $theme.customColors.light2,
   ...border(),
   height: '1px',
+  ...(!!$noMargin ? margin('0') : margin($theme.sizing.scale300, '0')),
 }));

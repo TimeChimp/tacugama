@@ -15,4 +15,5 @@ export interface TagProps extends TagComponentProps {
   color?: string;
   backgroundColor?: string;
   width?: string;
+  maxWidth?: string;
 }

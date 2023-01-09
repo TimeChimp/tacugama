@@ -6,7 +6,7 @@ interface CustomParams {
   type?: any;
 }
 
-export interface SelectProps extends BaseSelectProps {
+export interface SelectProps extends Omit<BaseSelectProps, 'type'> {
   showSkeleton?: boolean;
   disableSortOptions?: boolean;
   options: Option[];

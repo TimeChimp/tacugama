@@ -1,2 +1,2 @@
-export { StatefulTooltip } from 'baseui/tooltip';
+export * from './StatefulTooltip';
 export type { TooltipProps } from 'baseui/tooltip';
