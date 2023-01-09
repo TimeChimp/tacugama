@@ -8,6 +8,7 @@ import { PriceInput, PriceInputProps } from './price-input';
 import { HoursInput, HoursInputProps } from './hours-input';
 import { NumberInput, NumberInputProps } from './number-input';
 import { PRICE_INPUT_PLACEHOLDER, PRICE_INPUT_PREFIX } from '../../models';
+import { SearchInput, SearchInputProps } from './search-input';
 
 export default {
   title: 'Components/Input',
@@ -15,6 +16,8 @@ export default {
 } as Meta;
 
 const Template: Story<InputProps> = (args) => <Input {...args} />;
+
+const SearchTemplate: Story<SearchInputProps> = (args) => <SearchInput {...args} />;
 
 const ColorTemplate: Story<ColorInputProps> = (args) => <ColorInput {...args} />;
 
@@ -36,6 +39,23 @@ Default.args = {
   endEnhancer: '',
 };
 Default.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=2434%3A25687&t=CngHCgPvvPNqKbFU-4',
+  },
+};
+
+export const Search = SearchTemplate.bind({});
+Search.args = {
+  placeholder: 'Type to search',
+  testId: 'test-input',
+  error: false,
+  success: false,
+  disabled: false,
+  value: '',
+  endEnhancer: '',
+};
+Search.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=2434%3A25687&t=CngHCgPvvPNqKbFU-4',
