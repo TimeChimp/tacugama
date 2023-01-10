@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { FiltersProps } from '../types';
 import { StyledDataGridFilters, StyledDataGridSearch } from '../styles';
 import { TextFilterModel } from '@ag-grid-community/core';
@@ -33,21 +33,29 @@ export const Filters = ({
     },
   } = useTheme();
 
-  const handleSearch = (searchTerm: string) => {
-    const filterModel = api.getFilterModel();
-    searchColumns?.forEach((searchColumn) => {
-      const textFilter: TextFilterModel = {
-        filter: searchTerm,
-        filterType: 'text',
-        type: 'contains',
-      };
-      filterModel[searchColumn] = textFilter;
-    });
-    onFiltering(filterModel);
-    setSearchValue(searchTerm);
-  };
+  const handleSearch = useCallback(
+    (searchTerm: string) => {
+      const filterModel = api.getFilterModel();
+      searchColumns?.forEach((searchColumn) => {
+        const textFilter: TextFilterModel = {
+          filter: searchTerm,
+          filterType: 'text',
+          type: 'contains',
+        };
+        filterModel[searchColumn] = textFilter;
+      });
+      onFiltering(filterModel);
+    },
+    [api, onFiltering, searchColumns],
+  );
 
-  const debouncedHandler = useCallback(debounce(handleSearch), [handleSearch]);
+  const debouncedHandler = useMemo(() => debounce(handleSearch), [handleSearch]);
+
+  const onSearchChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const searchTerm = e.currentTarget.value;
+    setSearchValue(searchTerm);
+    debouncedSearch ? debouncedHandler(searchTerm) : handleSearch(searchTerm);
+  };
 
   return (
     <StyledDataGridFilters>
@@ -58,9 +66,7 @@ export const Filters = ({
               testId={SEARCH_INPUT_TEST_ID}
               size="mini"
               placeholder={searchBar}
-              onChange={(e) => {
-                debouncedSearch ? debouncedHandler(e.currentTarget.value) : handleSearch(e.currentTarget.value);
-              }}
+              onChange={onSearchChange}
               value={searchValue}
             />
           </StyledDataGridSearch>
