@@ -18,7 +18,7 @@ import { LabelXSmall, ParagraphSmall } from '../../../typography';
 import { SearchInput } from '../../../input';
 import { StyledDropdownSearch } from '../../../dropdown/styles';
 import { useTheme } from '../../../../providers';
-import { padding } from '../../../../utils';
+import { borderRadius, padding } from '../../../../utils';
 import { ButtonKind } from '../../../../models';
 
 export const DataGridViewOptions = ({
@@ -114,6 +114,7 @@ export const DataGridViewOptions = ({
               size={SIZE.compact}
               placeholder={translations.search}
               onChange={(event) => setViewSearchTerm(event.currentTarget.value)}
+              value={viewSearchTerm}
             />
           </StyledDropdownSearch>
           <StatefulMenu
@@ -131,6 +132,7 @@ export const DataGridViewOptions = ({
                   paddingInlineStart: '0',
                   boxShadow: 'none',
                   outline: 'none',
+                  ...borderRadius('0'),
                 },
               },
               ListItem: {

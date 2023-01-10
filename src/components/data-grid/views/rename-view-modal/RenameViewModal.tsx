@@ -49,7 +49,7 @@ export const RenameViewModal = ({ isOpen, onClose, handleRenameView, translation
               name="name"
               control={control}
               rules={{ required: true, maxLength: MAX_NAME_INPUT_LENGTH }}
-              render={() => (
+              render={({ field: { value, onBlur, onChange } }) => (
                 <Input
                   testId="view-name-input"
                   name="name"
@@ -57,6 +57,9 @@ export const RenameViewModal = ({ isOpen, onClose, handleRenameView, translation
                   error={!!errors.name}
                   autoComplete="off"
                   placeholder={translations.viewName}
+                  value={value}
+                  onBlur={onBlur}
+                  onChange={onChange}
                 />
               )}
             />

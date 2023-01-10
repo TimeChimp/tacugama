@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { FiltersProps } from '../types';
 import { StyledDataGridFilters, StyledDataGridSearch } from '../styles';
 import { TextFilterModel } from '@ag-grid-community/core';
@@ -23,6 +23,7 @@ export const Filters = ({
   ...rest
 }: FiltersProps) => {
   const { searchBar } = translations;
+  const [searchValue, setSearchValue] = useState('');
 
   const {
     theme: {
@@ -43,6 +44,7 @@ export const Filters = ({
       filterModel[searchColumn] = textFilter;
     });
     onFiltering(filterModel);
+    setSearchValue(searchTerm);
   };
 
   const debouncedHandler = useCallback(debounce(handleSearch), [handleSearch]);
@@ -59,6 +61,7 @@ export const Filters = ({
               onChange={(e) => {
                 debouncedSearch ? debouncedHandler(e.currentTarget.value) : handleSearch(e.currentTarget.value);
               }}
+              value={searchValue}
             />
           </StyledDataGridSearch>
         )}

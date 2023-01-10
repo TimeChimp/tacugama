@@ -76,7 +76,7 @@ export const CreateViewModal = ({
               name="name"
               control={control}
               rules={{ required: true, maxLength: MAX_NAME_INPUT_LENGTH }}
-              render={() => (
+              render={({ field: { value, onChange, onBlur } }) => (
                 <Input
                   testId="view-name-input"
                   name="name"
@@ -84,6 +84,9 @@ export const CreateViewModal = ({
                   error={!!errors.name}
                   autoComplete="off"
                   placeholder={translations.viewName}
+                  value={value}
+                  onChange={onChange}
+                  onBlur={onBlur}
                 />
               )}
             />
