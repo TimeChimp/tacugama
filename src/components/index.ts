@@ -55,3 +55,4 @@ export * from './icon';
 export * from './icons';
 export * from './button-switcher';
 export * from './action-button';
+export * from './basic-table';
