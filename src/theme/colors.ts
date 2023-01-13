@@ -105,6 +105,8 @@ export const lightColors: DeepPartial<Theme['colors']> = {
   inputFillError: customColors.red4,
 
   accent: customColors.primaryMain,
+
+  borderAccent: customColors.light2,
 };
 
 export const darkColors: DeepPartial<Theme['colors']> = {
