@@ -7,7 +7,7 @@ export const lightBorders: DeepPartial<Theme['borders']> = {
     // @ts-ignore - For some reason, the type definition for borderColor is not correct
     borderColor: customColors.light2,
     borderStyle: 'solid',
-    // @ts-ignore - For some reason, the type definition for borderColor is not correct
+    // @ts-ignore - For some reason, the type definition for borderWidth is not correct
     borderWidth: '1px',
   },
 };
