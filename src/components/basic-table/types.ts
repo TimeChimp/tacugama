@@ -6,13 +6,13 @@ export enum BasicTableColumnType {
 }
 
 export interface BasicTableColumn {
-  title: string;
+  label: string;
   type: BasicTableColumnType;
-  dataKey: string;
+  field: string;
 }
 
 export interface BasicTableRow {
-  [dataKey: string]: any;
+  [field: string]: any;
 }
 
 type OmittedTableProps = 'columns' | 'data';
