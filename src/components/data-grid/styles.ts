@@ -3,6 +3,8 @@ import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
 import { margin, padding, borderTop, borderRight, borderLeft, borderBottom } from '../../utils';
 
+export const PAGINATION_SELECTED_ROWS_WIDTH = 215;
+
 export const getGridThemeOverrides = (theme: CustomThemeType) => {
   return `
     :root {
@@ -42,8 +44,8 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
     }
 
     .ag-theme-alpine .ag-status-bar {
-      padding-right: ${theme.sizing.scale300};
-      padding-left: ${theme.sizing.scale300};
+      padding-right: ${theme.sizing.scale600};
+      padding-left: ${theme.sizing.scale600};
     }
 
     .ag-theme-alpine .ag-root-wrapper {
@@ -105,6 +107,7 @@ export const StyledDataGridSearch = themedStyled('div', ({ $theme }) => ({
 export const StyledFooterRowCount = themedStyled('div', ({ $theme }) => ({
   ...margin($theme.sizing.scale300, '0'),
   display: 'flex',
+  width: `${PAGINATION_SELECTED_ROWS_WIDTH}px`,
 }));
 
 export const StyledFooterPagination = themedStyled('div', ({ $theme }) => ({
@@ -146,7 +149,7 @@ interface StyledDataGridHeaderProps {
 export const StyledDataGridHeader = themedStyled<'div', StyledDataGridHeaderProps>(
   'div',
   ({ $theme, $justifyContent = 'space-between' }) => ({
-    ...padding($theme.sizing.scale100, $theme.sizing.scale300),
+    ...padding($theme.sizing.scale100, $theme.sizing.scale600),
     display: 'flex',
     alignItems: 'center',
     height: $theme.sizing.scale1000,
@@ -170,6 +173,7 @@ export const StyledDataGridViews = themedStyled('div', ({ $theme }) => ({
   alignItems: 'center',
   flexWrap: 'wrap',
   background: $theme.colors.primaryB,
+  gap: $theme.sizing.scale300,
 }));
 
 export const StyledDataGridViewListItem = themedStyled('li', ({ $theme }) => ({

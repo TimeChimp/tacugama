@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pagination as BasePagination, SIZE, PaginationProps as BasePaginationProps } from 'baseui/pagination';
 import { ButtonKind, CustomThemeType } from '../../models';
-import { border, margin, padding } from '../../utils';
+import { border, borderRadius, margin, padding } from '../../utils';
 import { Button } from '../button';
 import { CaretLeftIcon } from '../icons/caret-left';
 import { CaretRightIcon } from '../icons/caret-right';
@@ -13,7 +13,7 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
   const {
     theme: {
       current: {
-        sizing: { scale400 },
+        sizing: { scale400, scale1400 },
         customColors: { dark2 },
       },
     },
@@ -61,6 +61,12 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
                   fontWeight: 600,
                   outline: null,
                   ...margin('0'),
+                  width: scale1400,
+                }),
+              },
+              Dropdown: {
+                style: ({ $theme }: { $theme: CustomThemeType }) => ({
+                  ...borderRadius($theme.borders.radius200),
                 }),
               },
               IconsContainer: {

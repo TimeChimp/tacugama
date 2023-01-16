@@ -625,12 +625,10 @@ export const DataGrid = ({
     return '';
   }, [rowActionItems, onRowEdit]);
 
-  const showDataGridHeader = useMemo(() => viewing || (selection && !(hideDelete && hideDownload)), [
-    viewing,
-    selection,
-    hideDelete,
-    hideDownload,
-  ]);
+  const showDataGridHeader = useMemo(
+    () => viewing || (selection && !(hideDelete && hideDownload)),
+    [viewing, selection, hideDelete, hideDownload],
+  );
 
   const dataGridHeight = useMemo(() => {
     const headerHeight = showDataGridHeader ? 45 : 0;
