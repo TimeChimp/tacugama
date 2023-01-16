@@ -10,19 +10,19 @@ import { BasicTableColumnType } from "../types";
 export const COLUMNS = [{
     title: "Name",
     type: BasicTableColumnType.Text,
-    dataKey: "name",
+    field: "name",
   }, {
     title: "Age",
     type: BasicTableColumnType.Text,
-    dataKey: "age",
+    field: "age",
   }, {
     title: "Address",
     type: BasicTableColumnType.Text,
-    dataKey: "address",
+    field: "address",
   }, {
     title: "Actions",
     type: BasicTableColumnType.Custom,
-    dataKey: "actions",
+    field: "actions",
   }];
 
 export const DATA = [

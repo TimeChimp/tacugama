@@ -10,8 +10,8 @@ const CellWrapper = ({ children }: { children: React.ReactNode }) => (
 )
 
 export const renderCell = (row: BasicTableRow, column: BasicTableColumn) => {
-  const { type, dataKey } = column;
-  const value = row[dataKey];
+  const { type, field } = column;
+  const value = row[field];
 
   const map = {
     [BasicTableColumnType.Text]: () => <CellWrapper><ParagraphSmall>{value}</ParagraphSmall></CellWrapper>,
