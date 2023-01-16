@@ -8,19 +8,19 @@ import React from "react";
 import { BasicTableColumnType } from "../types";
 
 export const COLUMNS = [{
-    title: "Name",
+    label: "Name",
     type: BasicTableColumnType.Text,
     field: "name",
   }, {
-    title: "Age",
+    label: "Age",
     type: BasicTableColumnType.Text,
     field: "age",
   }, {
-    title: "Address",
+    label: "Address",
     type: BasicTableColumnType.Text,
     field: "address",
   }, {
-    title: "Actions",
+    label: "Actions",
     type: BasicTableColumnType.Custom,
     field: "actions",
   }];

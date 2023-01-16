@@ -63,7 +63,7 @@ export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
       {columns.map((column) => (
         <TableBuilderColumn<BasicTableRow>
           key={column.field}
-          header={column.title}
+          header={column.label}
         >
           {(row) => renderCell(row, column)}
       </TableBuilderColumn>

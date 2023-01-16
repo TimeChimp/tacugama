@@ -6,7 +6,7 @@ export enum BasicTableColumnType {
 }
 
 export interface BasicTableColumn {
-  title: string;
+  label: string;
   type: BasicTableColumnType;
   field: string;
 }
