@@ -39,7 +39,7 @@ export const DataGridViews = ({
   const {
     theme: {
       current: {
-        sizing: { scale200, scale400, scale800 },
+        sizing: { scale800 },
         colors: { primaryB },
       },
     },
@@ -151,15 +151,7 @@ export const DataGridViews = ({
           ?.filter((view) => view.pinned)
           .sort((a, b) => a.name.localeCompare(b.name))
           .map((view) => (
-            <FlexItem
-              key={view.id}
-              marg1={scale200}
-              marg2={scale400}
-              marg3={scale200}
-              marg4={scale400}
-              height={scale800}
-              width="fit-content"
-            >
+            <FlexItem key={view.id} height={scale800} width="fit-content">
               {isActiveView(view.id) ? (
                 <Button kind={ButtonKind.quarternary}>
                   <ParagraphSmall color={primaryB}>{view.name}</ParagraphSmall>
