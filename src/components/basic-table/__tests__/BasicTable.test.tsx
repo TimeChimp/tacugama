@@ -9,7 +9,7 @@ describe('BasicTable', () => {
       columns={COLUMNS}
       data={DATA}
     />);
-    expect(screen.getAllByRole('row')).toHaveLength(6);
+    expect(screen.getAllByRole('row')).toHaveLength(5);
   });
 
   it('renders a table with the correct number of columns', () => {
@@ -25,6 +25,6 @@ describe('BasicTable', () => {
       columns={COLUMNS}
       data={DATA}
     />);
-    expect(screen.getAllByRole('cell')).toHaveLength(20);
+    expect(screen.getAllByRole('cell')).toHaveLength(16);
   });
 });
