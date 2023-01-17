@@ -8,6 +8,7 @@ import {
 } from 'baseui/table-semantic';
 import { renderCell } from "./Cell";
 
+const TABLE_ROW_HEIGHT = '49px';
 
 export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
   const {
@@ -45,7 +46,7 @@ export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
         },
         TableBodyRow: {
           style: {
-            height: '49px', // NOTE: Does not exist in theme
+            height: TABLE_ROW_HEIGHT,
             ':hover': {
               backgroundColor: primaryB,
             },
@@ -54,7 +55,8 @@ export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
         TableBodyCell: {
           style: {
             ...padding('0', scale600),
-            height: '100%',
+            height: TABLE_ROW_HEIGHT,
+            verticalAlign: 'middle',
           },
         },
       }}
