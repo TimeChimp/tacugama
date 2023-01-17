@@ -3,7 +3,7 @@ import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
 import { margin, padding, borderTop, borderRight, borderLeft, borderBottom } from '../../utils';
 
-export const PAGINATION_SELECTED_ROWS_WIDTH = 215;
+export const PAGINATION_SELECTED_ROWS_WIDTH = 285;
 
 export const getGridThemeOverrides = (theme: CustomThemeType) => {
   return `
