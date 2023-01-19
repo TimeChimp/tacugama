@@ -56,7 +56,7 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
         additionalProperties={api}
         {...props}
       >
-        <Button kind={ButtonKind.minimal} isTransparent height={scale900} type="button">
+        <Button kind={ButtonKind.minimal} height={scale900} type="button">
           <MoreIcon color={active ? dark1 : contentTertiary} />
         </Button>
       </Dropdown>

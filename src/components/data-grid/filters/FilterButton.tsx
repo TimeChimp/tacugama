@@ -35,7 +35,7 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
           <>
             {arrows && <CaretDownIcon />}
             {hasValue && onClear && (
-              <Button kind={ButtonKind.minimal} isTransparent onClick={onClear}>
+              <Button kind={ButtonKind.minimal} onClick={onClear}>
                 <ClearLineIcon color={primaryA} />
               </Button>
             )}

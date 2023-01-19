@@ -29,11 +29,11 @@ export const Snackbar = ({ color, onClose, message, actionMessage, actionOnClick
       </StyledDiv>
       <StyledDiv>
         {actionMessage && (
-          <Button kind={ButtonKind.minimal} isTransparent onClick={actionOnClick}>
+          <Button kind={ButtonKind.minimal} onClick={actionOnClick}>
             <ParagraphSmall color={primaryB}>{actionMessage}</ParagraphSmall>
           </Button>
         )}
-        <Button kind={ButtonKind.minimal} isTransparent onClick={onClose}>
+        <Button kind={ButtonKind.minimal} onClick={onClose}>
           <ClearLineIcon />
         </Button>
       </StyledDiv>
