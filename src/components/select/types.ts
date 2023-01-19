@@ -9,7 +9,7 @@ interface CustomParams {
 export interface SelectProps extends Omit<BaseSelectProps, 'type'> {
   showSkeleton?: boolean;
   disableSortOptions?: boolean;
-  options: Option[];
+  options: Option[] | { [key: string]: Option[] };
   onChangeHandler: (params: CustomParams) => void;
   propOverrides?: {
     dropdownListItemProps?: () => {};
