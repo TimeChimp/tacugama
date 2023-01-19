@@ -53,12 +53,18 @@ export const Select = ({
     return onChangeHandler({ ...params, value: value?.length === 1 ? value[0] : value });
   };
 
-  const alphabetizeOptions = (options: Option[], disableSortOptions?: boolean) => {
+  const alphabetizeOptions = (options: Option[] | { [key: string]: Option[] }, disableSortOptions?: boolean) => {
     if (!options) {
       return [];
     }
     if (disableSortOptions) {
       return options;
+    }
+    if (!Array.isArray(options)) {
+      return Object.entries(options).reduce((acc, [key, value]) => ({
+        ...acc,
+        [key]: value.length > 1 ? [...value].sort((a, b) => a[labelKey]?.localeCompare(b[labelKey])) : value,
+      })) as Option[];
     }
     return options.length > 1 ? [...options].sort((a, b) => a[labelKey]?.localeCompare(b[labelKey])) : options;
   };
