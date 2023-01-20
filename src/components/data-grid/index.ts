@@ -12,6 +12,3 @@ export * from './loading-cell-template';
 export * from './no-rows-template';
 export * from './row-actions-cell';
 export * from './row-edit-cell';
-export * from './sort-ascending-icon';
-export * from './sort-descending-icon';
-export * from './header-component-framework';
