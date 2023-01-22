@@ -12,7 +12,6 @@ import { FooterRowCount } from './footer-row-count';
 import { FooterPagination } from './footer-pagination';
 import { FooterPageSize } from './footer-page-size';
 import { NoRowsTemplate } from './no-rows-template';
-import { HeaderComponentFramework } from './header-component-framework';
 import { HeaderCheckbox } from './header-checkbox';
 import { HeaderColumnToggle } from './header-column-toggle';
 import { LoadingCellTemplate } from './loading-cell-template';
@@ -67,8 +66,6 @@ import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
 import { defaultTranslations } from './defaultTranslations';
 import { DataGridViews } from './views/data-grid-views';
-import { SortAscendingIcon } from './sort-ascending-icon';
-import { SortDescendingIcon } from './sort-descending-icon';
 import ReactDOMServer from 'react-dom/server';
 import DataGridActions from './DataGridActions';
 import { RowSelect } from '../row-select';
@@ -80,8 +77,7 @@ import { ParagraphSmall } from '../typography';
 import { Button } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { ButtonKind } from '../../models';
-import { CaretDownIcon } from '../icons/caret-down';
-import { EditIcon } from '../icons/edit';
+import { CaretDownIcon, CaretUpIcon, EditIcon } from '../icons';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
@@ -625,10 +621,12 @@ export const DataGrid = ({
     return '';
   }, [rowActionItems, onRowEdit]);
 
-  const showDataGridHeader = useMemo(
-    () => viewing || (selection && !(hideDelete && hideDownload)),
-    [viewing, selection, hideDelete, hideDownload],
-  );
+  const showDataGridHeader = useMemo(() => viewing || (selection && !(hideDelete && hideDownload)), [
+    viewing,
+    selection,
+    hideDelete,
+    hideDownload,
+  ]);
 
   const dataGridHeight = useMemo(() => {
     const headerHeight = showDataGridHeader ? 45 : 0;
@@ -795,9 +793,9 @@ export const DataGrid = ({
           }}
           icons={{
             sortAscending: () =>
-              ReactDOMServer.renderToStaticMarkup(<SortAscendingIcon color={theme.current.colors.primaryA} />),
+              ReactDOMServer.renderToStaticMarkup(<CaretDownIcon color={theme.current.colors.primaryA} />),
             sortDescending: () =>
-              ReactDOMServer.renderToStaticMarkup(<SortDescendingIcon color={theme.current.colors.primaryA} />),
+              ReactDOMServer.renderToStaticMarkup(<CaretUpIcon color={theme.current.colors.primaryA} />),
           }}
           modules={[
             ClientSideRowModelModule,
@@ -869,7 +867,6 @@ export const DataGrid = ({
                 cellRendererFramework={customComponent}
                 cellRenderer={!!rowSelectProps ? 'rowSelect' : undefined}
                 cellRendererParams={!!rowSelectProps ? { ...rowSelectProps } : undefined}
-                headerComponentFramework={() => <HeaderComponentFramework label={label} />}
                 key={field}
                 headerName={label}
                 field={field}

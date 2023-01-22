@@ -33,6 +33,17 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       font-size: ${theme.sizing.scale650};
       line-height: ${theme.sizing.scale650};
     }
+  
+    .ag-theme-alpine .ag-header-cell {
+      font-size: ${theme.typography.ParagraphSmall.fontSize};
+      line-height: ${theme.typography.ParagraphSmall.lineHeight};
+      font-weight: ${theme.typography.ParagraphSmall.fontWeight};
+      color: ${theme.customColors.dark1}
+    }
+
+    .ag-theme-alpine .ag-header-cell div[title^='CaretUp'], div[title^='CaretDown'] {
+      display: flex;
+    }
 
     .ag-header-icon.ag-header-cell-menu-button {
       display: none;
