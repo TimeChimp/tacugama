@@ -31,7 +31,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       testId,
       rootOverrides,
       color,
-      isTransparent,
+      isLink,
       backgroundColor,
       borderColor,
       ...rest
@@ -275,7 +275,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 height: height,
                 ':hover': {
                   backgroundColor: 'transparent',
-                  ...(!isTransparent && {
+                  ...(isLink && {
                     ...borderBottom({
                       ...border100,
                       borderStyle: 'solid',
@@ -290,13 +290,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
                 ':disabled': {
                   backgroundColor: 'transparent',
-                  borderColor: light2,
+                  borderColor: 'transparent',
                   color: color ?? dark4,
-                  ':hover': {
-                    backgroundColor: 'transparent',
-                    borderColor: 'transparent',
-                    color: color ?? dark4,
-                  },
                 },
               },
             },
