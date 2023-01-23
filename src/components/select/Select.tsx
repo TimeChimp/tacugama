@@ -15,6 +15,8 @@ import { FlexItem } from '../flex-item';
 import { CaretDownIcon } from '../icons/caret-down';
 import { SelectProps } from './types';
 
+const SELECT_HEIGHT = '38px';
+
 export const Select = ({
   size = 'compact',
   valueKey = 'id',
@@ -72,7 +74,7 @@ export const Select = ({
   return (
     <>
       {showSkeleton ? (
-        <Skeleton width="100%" height={scale900} animation />
+        <Skeleton width="100%" height={SELECT_HEIGHT} animation />
       ) : (
         <BaseSelect
           size={size}
