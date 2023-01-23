@@ -38,7 +38,7 @@ export const Select = ({
         colors,
         borders,
         customColors,
-        sizing: { scale0, scale100, scale600, scale700, scale900, scale950 },
+        sizing: { scale0, scale100, scale600, scale700, scale950 },
         typography: { ParagraphSmall },
       },
     },
