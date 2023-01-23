@@ -2,7 +2,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { FormControl } from './';
-import { Input } from 'components';
+import { Input, SearchIcon } from 'components';
 import { FormControlProps } from './types';
 
 export default {
@@ -18,10 +18,11 @@ const Template: Story<FormControlProps> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  label: () => 'This is a label',
-  caption: () => 'This is a caption',
+  label: 'This is a label',
+  caption: 'This is a caption',
   error: 'This is an error caption',
   success: '',
+  labelEndEnhancer: <SearchIcon />,
 };
 Default.parameters = {
   design: {
