@@ -1,16 +1,18 @@
 import React from 'react';
 import { FormControl as BaseFormControl } from 'baseui/form-control';
 import { useTheme } from '../../providers';
+import { ParagraphXSmall as ParagraphXSmallComponent } from '../typography';
 import { margin } from '../../utils';
 import { FormControlProps } from './types';
+import { Block } from '../block';
 
-export const FormControl = ({ overrides, error, success, caption, ...rest }: FormControlProps) => {
+export const FormControl = ({ overrides, error, success, caption, children, ...rest }: FormControlProps) => {
   const {
     theme: {
       current: {
         typography: { ParagraphSmall, ParagraphXSmall },
-        sizing: { scale550 },
-        customColors: { red0, green0, dark2 },
+        sizing: { scale100, scale500, scale550 },
+        customColors: { red0, green0, dark3 },
       },
     },
   } = useTheme();
@@ -22,8 +24,6 @@ export const FormControl = ({ overrides, error, success, caption, ...rest }: For
     if (success) {
       return success;
     }
-
-    return caption;
   };
 
   const getCaptionColor = () => {
@@ -35,7 +35,7 @@ export const FormControl = ({ overrides, error, success, caption, ...rest }: For
       return green0;
     }
 
-    return dark2;
+    return dark3;
   };
 
   return (
@@ -51,15 +51,39 @@ export const FormControl = ({ overrides, error, success, caption, ...rest }: For
             ...margin('0'),
           },
         },
+        LabelEndEnhancer: {
+          style: {
+            ...margin('0', scale100, '0', '0'),
+            width: 'auto',
+          },
+        },
         Caption: {
           style: {
             ...ParagraphXSmall,
-            ...margin('0'),
+            ...margin(scale100, '0', '0', '0'),
             textAlign: !!error || !!success ? 'right' : 'left',
             color: getCaptionColor(),
           },
         },
       }}
-    />
+    >
+      <>
+        {
+          !!caption ? (
+            <Block marginBottom={scale500}>
+              <ParagraphXSmallComponent color={dark3} overrides={{
+                Block: {
+                  style: {
+                    lineHeight: scale550,
+                    fontSize: scale550,
+                  },
+                },
+              }}>{caption}</ParagraphXSmallComponent>
+            </Block>
+          ) : null
+        }
+        {children}
+      </>
+    </BaseFormControl>
   );
 };
