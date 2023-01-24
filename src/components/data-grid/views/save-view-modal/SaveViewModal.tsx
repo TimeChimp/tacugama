@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { ModalFooter, ModalBody, Modal, ModalHeader } from '../../../modal';
-import { ModalButton, SecondaryModalButton } from '../../../button';
+import { Button } from '../../../button';
 import { HeadingSmall } from '../../../typography';
 import { FormControl } from '../../../form-control';
 import { SaveViewModalProps, DataGridState } from '../../types';
 import { Checkbox } from '../../../checkbox';
+import { ButtonKind } from 'models';
 
 export const SaveViewModal = ({
   isOpen,
@@ -68,12 +69,12 @@ export const SaveViewModal = ({
         </FormControl>
       </ModalBody>
       <ModalFooter>
-        <SecondaryModalButton type="button" onClick={() => onClose()}>
+        <Button kind={ButtonKind.secondary} onClick={() => onClose()}>
           {translations.cancel}
-        </SecondaryModalButton>
-        <ModalButton onClick={onSubmit} testId="save-view-modal-submit" isLoading={loading}>
+        </Button>
+        <Button onClick={onSubmit} testId="save-view-modal-submit" isLoading={loading}>
           {translations.saveView}
-        </ModalButton>
+        </Button>
       </ModalFooter>
     </Modal>
   );
