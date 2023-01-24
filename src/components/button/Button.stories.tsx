@@ -27,7 +27,6 @@ PrimaryStartEnhancer.args = {
   kind: ButtonKind.primary,
   disabled: false,
   startEnhancer: <SearchIcon />,
-  isLoading: true,
 };
 PrimaryStartEnhancer.parameters = {
   design: {
