@@ -5,7 +5,7 @@ import { HeadingSmall } from '../../../typography';
 import { FormControl } from '../../../form-control';
 import { SaveViewModalProps, DataGridState } from '../../types';
 import { Checkbox } from '../../../checkbox';
-import { ButtonKind } from 'models';
+import { ButtonKind } from '../../../../models';
 
 export const SaveViewModal = ({
   isOpen,
