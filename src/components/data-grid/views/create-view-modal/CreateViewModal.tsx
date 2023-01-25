@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { MAX_NAME_INPUT_LENGTH } from '../../../../models';
+import { ButtonKind, MAX_NAME_INPUT_LENGTH } from '../../../../models';
 import { ModalFooter, ModalBody, Modal, ModalHeader } from '../../../modal';
-import { ModalButton, SecondaryModalButton } from '../../../button';
+import { Button } from '../../../button';
 import { HeadingSmall } from '../../../typography';
 import { FormControl } from '../../../form-control';
 import { Input } from '../../../input';
@@ -108,12 +108,12 @@ export const CreateViewModal = ({
           </FormControl>
         </ModalBody>
         <ModalFooter>
-          <SecondaryModalButton type="button" onClick={() => onClose()}>
+          <Button kind={ButtonKind.secondary} onClick={() => onClose()}>
             {translations.cancel}
-          </SecondaryModalButton>
-          <ModalButton testId="create-view-modal-submit" isLoading={loading} type="submit">
+          </Button>
+          <Button testId="create-view-modal-submit" isLoading={loading} type="submit">
             {translations.addView}
-          </ModalButton>
+          </Button>
         </ModalFooter>
       </form>
     </Modal>

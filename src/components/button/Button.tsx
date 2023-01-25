@@ -180,6 +180,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   borderColor: dark3,
                   backgroundColor: backgroundColor ?? light4,
                 },
+                ':not(:last-child)': {
+                  ...margin('0', scale300, '0', '0'),
+                },
                 ...rootOverrides,
               },
             },
@@ -364,7 +367,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         size={size}
         data-test-id={testId}
         isLoading={isLoading}
-        disabled={disabled || isLoading}
+        disabled={disabled}
         overrides={buttonOverrides()}
         {...rest}
       >
