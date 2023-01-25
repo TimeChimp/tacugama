@@ -49,12 +49,12 @@ export const FormControl = ({ overrides, error, success, caption, children, ...r
             ...ParagraphSmall,
             lineHeight: scale550, // Fix: Because of the bug in baseui (can't override the span around the label)
             ...margin('0'),
+            width: 'auto',
           },
         },
         LabelEndEnhancer: {
           style: {
-            ...margin('0', scale100, '0', '0'),
-            width: 'auto',
+            ...margin('0', '0', '0', scale100),
           },
         },
         Caption: {
