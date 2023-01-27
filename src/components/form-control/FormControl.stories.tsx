@@ -11,9 +11,14 @@ export default {
 } as Meta;
 
 const Template: Story<FormControlProps> = (args) => (
-  <FormControl {...args}>
+  <>
+    <FormControl {...args}>
     <Input placeholder="Zero state with placeholder" />
   </FormControl>
+    <FormControl {...args}>
+    <Input placeholder="Zero state with placeholder" />
+  </FormControl>
+  </>
 );
 
 export const Default = Template.bind({});
