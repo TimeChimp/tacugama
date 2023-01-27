@@ -23,21 +23,29 @@ export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
     },
   } = useTheme();
 
+  const tableHeadCellStyles = {
+      backgroundColor: light7,
+      ...padding('0', scale600),
+      ':first-child': {
+        borderTopLeftRadius: radius200,
+      },
+      ':last-child': {
+        borderTopRightRadius: radius200,
+      },
+      ...ParagraphSmall,
+    };
+
+  const tableBodyCellStyles = {
+    ...padding('0', scale600),
+    height: TABLE_ROW_HEIGHT,
+    verticalAlign: 'middle',
+  }
+
   return (
     <TableBuilder
       overrides={{
         TableHeadCell: {
-          style: {
-            backgroundColor: light7,
-            ...padding('0', scale600),
-            ':first-child': {
-              borderTopLeftRadius: radius200,
-            },
-            ':last-child': {
-              borderTopRightRadius: radius200,
-            },
-            ...ParagraphSmall,
-          },
+          style: tableHeadCellStyles,
         },
         TableHeadRow: {
           style: {
@@ -53,11 +61,7 @@ export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
           },
         },
         TableBodyCell: {
-          style: {
-            ...padding('0', scale600),
-            height: TABLE_ROW_HEIGHT,
-            verticalAlign: 'middle',
-          },
+          style: tableBodyCellStyles,
         },
       }}
       {...props}
@@ -69,11 +73,13 @@ export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
           overrides={{
             TableHeadCell: {
               style: {
+                ...tableHeadCellStyles,
                 width: column.width ?? 'auto',
               },
             },
             TableBodyCell: {
               style: {
+                ...tableBodyCellStyles,
                 width: column.width ?? 'auto',
               },
             },
