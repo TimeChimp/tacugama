@@ -18,5 +18,5 @@ export const renderCell = (row: BasicTableRow, column: BasicTableColumn) => {
     [BasicTableColumnType.Custom]: () => <CellWrapper>{value}</CellWrapper>,
   };
 
-  return map[type]();
+  return map[type ?? BasicTableColumnType.Text]();
 };
