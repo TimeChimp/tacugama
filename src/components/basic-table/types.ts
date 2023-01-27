@@ -7,8 +7,9 @@ export enum BasicTableColumnType {
 
 export interface BasicTableColumn {
   label: string;
-  type: BasicTableColumnType;
   field: string;
+  type?: BasicTableColumnType;
+  width?: string;
 }
 
 export interface BasicTableRow {

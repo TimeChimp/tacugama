@@ -7,12 +7,12 @@ import { BasicTableColumnType } from "../types";
 
 export const COLUMNS = [{
     label: "Name",
-    type: BasicTableColumnType.Text,
     field: "name",
   }, {
     label: "Age",
     type: BasicTableColumnType.Text,
     field: "age",
+    width: "50px",
   }, {
     label: "Address",
     type: BasicTableColumnType.Text,

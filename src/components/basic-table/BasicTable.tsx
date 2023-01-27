@@ -66,6 +66,18 @@ export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
         <TableBuilderColumn<BasicTableRow>
           key={column.field}
           header={column.label}
+          overrides={{
+            TableHeadCell: {
+              style: {
+                width: column.width ?? 'auto',
+              },
+            },
+            TableBodyCell: {
+              style: {
+                width: column.width ?? 'auto',
+              },
+            },
+          }}
         >
           {(row) => renderCell(row, column)}
       </TableBuilderColumn>
