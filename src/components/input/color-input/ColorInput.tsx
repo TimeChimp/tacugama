@@ -24,7 +24,7 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
     return colors[randomNumber];
   };
 
-  const selectColor = (color: ColorResult) => onChange(color.hex);
+  const selectColor = (color: ColorResult) => color && onChange(color.hex);
 
   useEffect(() => {
     if (generateRandomColor) {
