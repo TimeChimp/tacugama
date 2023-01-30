@@ -43,11 +43,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         current: {
           sizing: { scale0, scale200, scale300, scale400, scale500, scale600, scale800 },
           borders: { border100, border300, radius200 },
-          colors: { primaryB, borderTransparent },
+          colors,
           customColors,
         },
       },
     } = useTheme();
+    const { primaryB, borderTransparent } = colors;
     const { dark1, dark3, dark4, light2, light3, light4, light7, primaryMain } = customColors;
 
     const getButtonHeight = () => {
@@ -80,24 +81,24 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 ...getPadding(),
                 ...border({
                   ...border100,
-                  borderColor: getButtonBackgroundColor(buttonType, customColors),
+                  borderColor: getButtonBackgroundColor(buttonType, customColors, colors),
                 }),
                 fontWeight: 'normal',
                 height: getButtonHeight(),
-                backgroundColor: backgroundColor ?? getButtonBackgroundColor(buttonType, customColors),
+                backgroundColor: backgroundColor ?? getButtonBackgroundColor(buttonType, customColors, colors),
                 color: color ?? light4,
                 ':hover': {
-                  backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, customColors),
+                  backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, colors),
                   ...border({
                     ...border100,
-                    borderColor: getButtonBackgroundHoverColor(buttonType, customColors),
+                    borderColor: getButtonBackgroundHoverColor(buttonType, colors),
                   }),
                 },
                 ':active': {
-                  backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, customColors),
+                  backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, colors),
                   ...border({
                     ...border100,
-                    borderColor: getButtonBackgroundHoverColor(buttonType, customColors),
+                    borderColor: getButtonBackgroundHoverColor(buttonType, colors),
                   }),
                 },
                 ':disabled': {
@@ -316,23 +317,23 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 ...getPadding(),
                 ...border({
                   ...border100,
-                  borderColor: getButtonBackgroundColor(buttonType, customColors),
+                  borderColor: getButtonBackgroundColor(buttonType, customColors, colors),
                 }),
                 fontWeight: 'normal',
-                backgroundColor: backgroundColor ?? getButtonBackgroundColor(buttonType, customColors),
+                backgroundColor: backgroundColor ?? getButtonBackgroundColor(buttonType, customColors, colors),
                 color: color ?? light4,
                 ':hover': {
-                  backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, customColors),
+                  backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, colors),
                   ...border({
                     ...border100,
-                    borderColor: getButtonBackgroundHoverColor(buttonType, customColors),
+                    borderColor: getButtonBackgroundHoverColor(buttonType, colors),
                   }),
                 },
                 ':active': {
-                  backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, customColors),
+                  backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, colors),
                   ...border({
                     ...border100,
-                    borderColor: getButtonBackgroundHoverColor(buttonType, customColors),
+                    borderColor: getButtonBackgroundHoverColor(buttonType, colors),
                   }),
                 },
                 ':disabled': {

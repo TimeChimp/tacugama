@@ -20,7 +20,8 @@ export const Checkbox = ({
         sizing: { scale0, scale550, scale650 },
         borders: { border100, radius100 },
         typography: { LabelSmall },
-        customColors: { dark4, light3, purple2, purple1 },
+        customColors: { dark4, light3 },
+        colors: { primary },
       },
     },
   } = useTheme();
@@ -32,7 +33,7 @@ export const Checkbox = ({
       return dark4;
     }
     if (isCheckedOrIndeterminate) {
-      return purple2;
+      return primary;
     }
     if (disabled) {
       return light3;
@@ -42,32 +43,9 @@ export const Checkbox = ({
 
   const getBorderColor = () => {
     if (isCheckedOrIndeterminate && !disabled) {
-      return purple2;
+      return primary;
     }
     return dark4;
-  };
-
-  const getHoverBackgroundColor = () => {
-    if (disabled && isCheckedOrIndeterminate) {
-      return dark4;
-    }
-    if (disabled) {
-      return light3;
-    }
-    if (isCheckedOrIndeterminate) {
-      return purple1;
-    }
-    return 'transparent';
-  };
-
-  const getHoverBorderColor = () => {
-    if (disabled) {
-      return dark4;
-    }
-    if (isCheckedOrIndeterminate) {
-      return purple1;
-    }
-    return purple2;
   };
 
   return (
@@ -102,14 +80,6 @@ export const Checkbox = ({
             }),
             backgroundColor: getBackgroundColor(),
             ...borderRadius(radius100),
-            ':hover': {
-              ...border({
-                ...border100,
-                borderWidth: scale0,
-                borderColor: getHoverBorderColor(),
-              }),
-              backgroundColor: getHoverBackgroundColor(),
-            },
           },
         },
       }}

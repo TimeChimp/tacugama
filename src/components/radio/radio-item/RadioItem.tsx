@@ -50,13 +50,6 @@ const radioOverrides = ({
         borderStyle: 'solid',
         borderWidth: '1px',
       }),
-      ':hover': {
-        ...border({
-          borderColor: $checked ? $theme.customColors.purple1 : $theme.customColors.purple2,
-          borderStyle: 'solid',
-          borderWidth: '1px',
-        }),
-      },
       pointerEvents: $disabled ? 'none' : 'initial',
     }),
   },

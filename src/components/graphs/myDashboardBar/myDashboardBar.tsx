@@ -47,8 +47,8 @@ export const MyDashboardBar = ({
   const {
     theme: {
       current: {
-        customColors: { light6, purple2, red5 },
-        colors: { contentInverseTertiary },
+        customColors: { light6, red5 },
+        colors: { contentInverseTertiary, primary },
         sizing: { scale400 },
       },
     },
@@ -138,7 +138,7 @@ export const MyDashboardBar = ({
           labels={({ datum }) => datum.y}
           style={{
             data: {
-              fill: purple2,
+              fill: primary,
             },
           }}
           data={barData}

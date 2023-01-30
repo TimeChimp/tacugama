@@ -12,6 +12,8 @@ const COLORS: any = {
   primaryB: 'primaryB',
   inputFillError: 'inputFillError',
   contentStateDisabled: 'contentStateDisabled',
+  primary: 'primary',
+  primary600: 'primary600',
 };
 
 const CUSTOM_COLORS: any = {
@@ -112,7 +114,7 @@ describe('utils/colors', () => {
         colors: COLORS,
       });
 
-      expect(inputBorderColor).toBe(CUSTOM_COLORS.purple2);
+      expect(inputBorderColor).toBe(COLORS.primary);
     });
 
     it('should get a hover color', () => {
@@ -126,7 +128,7 @@ describe('utils/colors', () => {
         colors: COLORS,
       });
 
-      expect(inputBorderColor).toBe(CUSTOM_COLORS.purple2);
+      expect(inputBorderColor).toBe(COLORS.primary);
     });
   });
 
@@ -160,47 +162,39 @@ describe('utils/colors', () => {
     };
 
     it('should get a default color', () => {
-      const buttonBackgroundColor = getButtonBackgroundColor(ButtonType.default, customColors as any);
+      const buttonBackgroundColor = getButtonBackgroundColor(ButtonType.default, customColors as any, COLORS);
 
-      expect(buttonBackgroundColor).toBe(customColors.purple2);
+      expect(buttonBackgroundColor).toBe(COLORS.primary);
     });
 
     it('should get a success color', () => {
-      const buttonBackgroundColor = getButtonBackgroundColor(ButtonType.success, customColors as any);
+      const buttonBackgroundColor = getButtonBackgroundColor(ButtonType.success, customColors as any, COLORS);
 
       expect(buttonBackgroundColor).toBe(customColors.green1);
     });
 
     it('should get an error color', () => {
-      const buttonBackgroundColor = getButtonBackgroundColor(ButtonType.error, customColors as any);
+      const buttonBackgroundColor = getButtonBackgroundColor(ButtonType.error, customColors as any, COLORS);
 
       expect(buttonBackgroundColor).toBe(customColors.red2);
     });
   });
 
   describe('getButtonBackgroundHoverColor', () => {
-    const colors = {
-      primary600: 'primary600',
-    };
-
-    const customColors = {
-      purple1: 'purple1',
-    };
-
     it('should get a default color', () => {
-      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.default, customColors as any);
+      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.default, COLORS as any);
 
-      expect(buttonBackgroundColor).toBe(customColors.purple1);
+      expect(buttonBackgroundColor).toBe(COLORS.primary);
     });
 
     it('should get a success color', () => {
-      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.success, colors as any);
+      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.success, COLORS as any);
 
       expect(buttonBackgroundColor).toBe('#06C270');
     });
 
     it('should get an error color', () => {
-      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.error, colors as any);
+      const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.error, COLORS as any);
 
       expect(buttonBackgroundColor).toBe('#FF3B3B');
     });
