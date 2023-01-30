@@ -48,8 +48,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         },
       },
     } = useTheme();
-    const { primaryB, borderTransparent } = colors;
-    const { dark1, dark3, dark4, light2, light3, light4, light7, primaryMain } = customColors;
+    const { primaryB, borderTransparent, primary } = colors;
+    const { dark1, dark3, dark4, light2, light3, light4, light7 } = customColors;
 
     const getButtonHeight = () => {
       if (kind === ButtonKind.primary || kind === ButtonKind.secondary) {
@@ -275,7 +275,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   borderColor: 'transparent',
                 }),
                 backgroundColor: 'transparent',
-                color: color ?? primaryMain,
+                color: color ?? primary,
                 height: height,
                 ':hover': {
                   backgroundColor: 'transparent',
@@ -283,7 +283,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                     ...borderBottom({
                       ...border100,
                       borderStyle: 'solid',
-                      borderColor: primaryMain,
+                      borderColor: primary,
                     }),
                   }),
                 },

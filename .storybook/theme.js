@@ -7,7 +7,7 @@ export default create({
   colorPrimary: '#10c7a2',
   colorSecondary: '#6559d2',
 
-  brandTitle: 'TimeChimp Caesar',
+  brandTitle: 'TimeChimp',
   brandUrl: 'https://timechimp.com',
   brandImage: logo,
 });
