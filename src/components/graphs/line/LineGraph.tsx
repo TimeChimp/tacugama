@@ -74,7 +74,8 @@ export const LineGraph = ({
   const {
     theme: {
       current: {
-        customColors: { primarySubtle, dark0, dark4, light2, purple2, purple3 },
+        colors: { primary },
+        customColors: { primarySubtle, dark0, dark4, light2 },
         sizing: { scale400, scale600 },
       },
     },
@@ -212,7 +213,7 @@ export const LineGraph = ({
       />
       {!!lineData.length ? (
         <VictoryArea
-          style={{ data: { fill: 'transparent', stroke: purple2, strokeWidth: 2 } }}
+          style={{ data: { fill: 'transparent', stroke: primary, strokeWidth: 2 } }}
           interpolation="monotoneX"
           data={lineData}
           x={horizontalAxisValue}
@@ -221,7 +222,7 @@ export const LineGraph = ({
       ) : null}
       {!!diagonalLineData.length ? (
         <VictoryArea
-          style={{ data: { fill: 'transparent', stroke: purple3, strokeWidth: 2, strokeDasharray: 10 } }}
+          style={{ data: { fill: 'transparent', stroke: primary, strokeWidth: 2, strokeDasharray: 10 } }}
           interpolation="monotoneX"
           data={diagonalLineData}
           x={horizontalAxisValue}
