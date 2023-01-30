@@ -19,7 +19,7 @@ import { ButtonProps } from './types';
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      children, 
+      children,
       height,
       isLoading,
       disabled,
