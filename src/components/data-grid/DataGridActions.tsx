@@ -8,7 +8,7 @@ import { DataGridActionsProps } from './types';
 import { DownloadIcon } from '../icons/download';
 import { DeleteIcon } from '../icons/delete';
 import { FlexItem } from '../flex-item';
-import { exportExcel, exportPdf } from './export';
+import { exportExcel, exportPdf, exportCSV } from './export';
 import { ParagraphSmall } from '../typography';
 
 const DELETE_BUTTON_TEST_ID = 'delete-button';
@@ -44,6 +44,10 @@ export const DataGridActions = ({
         {
           label: 'Excel',
           action: () => exportExcel(gridApi, columns),
+        },
+        {
+          label: 'CSV',
+          action: () => exportCSV(gridApi, columns),
         },
         {
           label: 'Pdf',

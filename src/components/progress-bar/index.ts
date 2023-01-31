@@ -1,2 +1,2 @@
-export { ProgressBar } from 'baseui/progress-bar';
+export * from './ProgressBar';
 export type { ProgressBarProps } from 'baseui/progress-bar';
