@@ -462,3 +462,13 @@ export interface PdfHeaderCell extends PdfCell {
 }
 
 export interface PdfRow {}
+
+export interface ProcessCellForExportParams {
+  value: any;
+  node?: RowNode | null;
+  column: any;
+  api: GridApi | null | undefined;
+  columnApi: ColumnApi | null | undefined;
+  context: any;
+  type: string;
+}
