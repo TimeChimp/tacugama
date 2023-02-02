@@ -105,7 +105,7 @@ export const FILTERS: Filter[] = [
     icon: ({ ...props }) => <CalendarIcon {...props} />,
   },
   {
-    type: FilterType.select,
+    type: FilterType.single,
     title: 'Status',
     columnField: 'state',
     values: [
@@ -116,7 +116,7 @@ export const FILTERS: Filter[] = [
     defaultValue: 'active',
   },
   {
-    type: FilterType.id,
+    type: FilterType.multi,
     title: 'Users',
     columnField: 'userName',
     values: [{ value: 1, label: 'Henkie'},{ value: 2, label: 'Baltus'}, { value: 3, label: 'Bob'}],
@@ -124,7 +124,7 @@ export const FILTERS: Filter[] = [
     searchPlaceholder: 'Search users',
   },
   {
-    type: FilterType.string,
+    type: FilterType.multi,
     title: 'Clients',
     columnField: 'client',
     values: ['Apple', 'Microsoft', 'Amazon', 'Google'],
@@ -132,7 +132,7 @@ export const FILTERS: Filter[] = [
     icon: ({ ...props }) => <BriefcaseIcon {...props} />,
   },
   {
-    type: FilterType.string,
+    type: FilterType.multi,
     title: 'Projects',
     columnField: 'project',
     values: ['Workshop', 'Website redesign', 'Logo and branding'],
@@ -141,7 +141,7 @@ export const FILTERS: Filter[] = [
 
   },
   {
-    type: FilterType.string,
+    type: FilterType.multi,
     title: 'Tasks',
     columnField: 'task',
     values: ['Testing', 'Development', 'Design', 'Support'],

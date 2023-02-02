@@ -494,7 +494,7 @@ export const DataGrid = ({
       return [];
     }
 
-    if (!values || type === FilterType.select) {
+    if (!values || type === FilterType.single) {
       return [value];
     }
 
@@ -548,7 +548,7 @@ export const DataGrid = ({
       onSetFiltering(columnField, type, value);
 
       setSelectedFilterIds((currentIds) => {
-        if (!currentIds[columnField] || type === FilterType.select) {
+        if (!currentIds[columnField] || type === FilterType.single) {
           return {
             ...currentIds,
             [columnField]: [value],

@@ -51,7 +51,7 @@ export const ColumnFilters = ({
 
   const isSelectValueActive = useCallback(
     (columnField: string, filterValue: FilterValue['value'], type: FilterType) => {
-      if (type !== FilterType.select) {
+      if (type !== FilterType.single) {
         return false;
       }
       const filterIdsByColumn = selectedFilterIds[columnField];
@@ -227,11 +227,11 @@ export const ColumnFilters = ({
           />
         </>
       ),
-      [FilterType.string]: (
+      [FilterType.multi]: (
         <Dropdown
           showSearch
           selection
-          items={getAllColumnValues(columnField, FilterType.string, values)}
+          items={getAllColumnValues(columnField, FilterType.multi, values)}
           selectedIds={getSelectedFilterIds(columnField)}
           searchPlaceholder={searchPlaceholder || search}
           isLoading={valuesLoading}
@@ -247,9 +247,9 @@ export const ColumnFilters = ({
           />
         </Dropdown>
       ),
-      [FilterType.select]: (
+      [FilterType.single]: (
         <Dropdown
-          items={getAllColumnValues(columnField, FilterType.select, values)}
+          items={getAllColumnValues(columnField, FilterType.single, values)}
           selectedIds={getSelectedFilterIds(columnField)}
           isLoading={valuesLoading}
         >
@@ -261,26 +261,6 @@ export const ColumnFilters = ({
             onClear={clearable ? () => onSelectFilterClear(columnField) : undefined}
             hasValue={getSelectHasValue(columnField)}
             isActive={getSelectHasValue(columnField)}
-          />
-        </Dropdown>
-      ),
-      [FilterType.id]: (
-        <Dropdown
-          showSearch
-          selection
-          items={getAllColumnValues(columnField, FilterType.id, values)}
-          selectedIds={getSelectedFilterIds(columnField)}
-          searchPlaceholder={searchPlaceholder || search}
-          isLoading={valuesLoading}
-        >
-          <FilterButton
-            title={getSetTitle(columnField, title)}
-            startEnhancer={Icon && <Icon color={getSetIconColor(columnField)} />}
-            size={SIZE.compact}
-            isActive={isSetFilterActive(columnField)}
-            onClear={() => onSetFilterClear(columnField)}
-            hasValue={isSetFilterActive(columnField)}
-            arrows
           />
         </Dropdown>
       ),

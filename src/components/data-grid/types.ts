@@ -85,9 +85,8 @@ export type IFilterType =
 
 export enum FilterType {
   date = 'date',
-  string = 'string',
-  select = 'select',
-  id = 'id',
+  multi = 'multi',
+  single = 'single',
 }
 
 export interface FilterValue {
