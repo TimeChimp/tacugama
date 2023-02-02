@@ -6,15 +6,12 @@ import { SearchInput } from '../../input';
 import { FlexItem } from '../../flex-item';
 import { ColumnFilters } from './ColumnFilters';
 import { debounce } from '../../../utils';
-import { useTheme } from '../../../providers';
 
 const SEARCH_INPUT_TEST_ID = 'data-grid-search';
 
 export const Filters = ({
   columns,
-  grouping,
   filtering,
-  onGrouping,
   onFiltering,
   api,
   searchColumns,
@@ -24,14 +21,6 @@ export const Filters = ({
 }: FiltersProps) => {
   const { searchBar } = translations;
   const [searchValue, setSearchValue] = useState('');
-
-  const {
-    theme: {
-      current: {
-        sizing: { scale300 },
-      },
-    },
-  } = useTheme();
 
   const handleSearch = useCallback(
     (searchTerm: string) => {

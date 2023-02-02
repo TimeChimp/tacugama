@@ -258,9 +258,7 @@ export interface FiltersProps {
   filters?: Filter[];
   dates?: Date[];
   setDates?: (dates: Date[]) => void;
-  grouping?: boolean;
   filtering?: boolean;
-  onGrouping: (rowGroups: string[]) => void;
   onFiltering: (filters: FilterModel) => void;
   translations: Translations;
   searchColumns?: string[];
