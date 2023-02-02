@@ -116,13 +116,12 @@ export const FILTERS: Filter[] = [
     defaultValue: 'active',
   },
   {
-    type: FilterType.string,
+    type: FilterType.id,
     title: 'Users',
     columnField: 'userName',
-    values: ['Henkie', 'Baltus', 'Bob'],
+    values: [{ value: 1, label: 'Henkie'},{ value: 2, label: 'Baltus'}, { value: 3, label: 'Bob'}],
     icon: ({ ...props }) => <AvatarIcon size="12px" {...props} />,
     searchPlaceholder: 'Search users',
-    valuesLoading: true,
   },
   {
     type: FilterType.string,
@@ -139,6 +138,7 @@ export const FILTERS: Filter[] = [
     values: ['Workshop', 'Website redesign', 'Logo and branding'],
     searchPlaceholder: 'Search projects',
     icon: ({ ...props }) => <NoteIcon {...props} size="14px" />,
+
   },
   {
     type: FilterType.string,
@@ -147,6 +147,7 @@ export const FILTERS: Filter[] = [
     values: ['Testing', 'Development', 'Design', 'Support'],
     searchPlaceholder: 'Search tasks',
     icon: ({ ...props }) => <NoteIcon {...props} />,
+    valuesLoading: true,
   },
 ];
 
@@ -159,7 +160,32 @@ export const ROW_ACTION_ITEMS: DropdownItem[] = [
 ];
 
 const getTimeEntries = () => {
-  const timeEntries: any[] = [];
+  const timeEntries: any[] = [
+    {
+      id:'BCC-BBB-CCC-DDD-EEE-1',
+      name: 'Analysis',
+      description: 'This is a description',
+      client: 'Apple',
+      project: 'Logo and branding',
+      task: 'Testing',
+      start: new TcDate().toDate(),
+      userName: 'Henkie',
+      userId: 1,
+      state: 'active',
+    },
+    {
+      id: 'BCC-BBB-CCC-DDD-EEE-2',
+      name: 'Analysis',
+      description: 'This is a description',
+      client: 'Apple',
+      project: 'Logo and branding',
+      task: 'Testing',
+      start: new TcDate().toDate(),
+      userName: 'Baltus',
+      userId: 2,
+      state: 'active',
+    }
+  ];
   for (let i = 0; i < 999; i++) {
     timeEntries.push({
       id: `ACC-BBB-CCC-DDD-EEE-${i}`,
@@ -170,6 +196,7 @@ const getTimeEntries = () => {
       task: 'Testing',
       start: new TcDate().add(i, 'd').toDate(),
       userName: 'Bob',
+      userId: 3,
       state: 'active',
     });
   }

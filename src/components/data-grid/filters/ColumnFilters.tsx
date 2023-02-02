@@ -266,6 +266,26 @@ export const ColumnFilters = ({
           />
         </Dropdown>
       ),
+      [FilterType.id]: (
+        <Dropdown
+          showSearch
+          selection
+          items={getAllColumnValues(columnField, FilterType.id, values)}
+          selectedIds={getSelectedFilterIds(columnField)}
+          searchPlaceholder={searchPlaceholder || search}
+          isLoading={valuesLoading}
+        >
+          <FilterButton
+            title={getSetTitle(columnField, title)}
+            startEnhancer={Icon && <Icon color={getSetIconColor(columnField)} />}
+            size={SIZE.compact}
+            isActive={isSetFilterActive(columnField)}
+            onClear={() => onSetFilterClear(columnField)}
+            hasValue={isSetFilterActive(columnField)}
+            arrows
+          />
+        </Dropdown>
+      ),
     };
 
     return filterTypes[type];
