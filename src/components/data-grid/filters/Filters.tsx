@@ -59,7 +59,7 @@ export const Filters = ({
 
   return (
     <StyledDataGridFilters>
-      <FlexItem justifyContent="start" gap={scale300}>
+      <FlexItem justifyContent="start">
         {filtering && (
           <StyledDataGridSearch>
             <SearchInput
