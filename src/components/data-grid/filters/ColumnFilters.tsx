@@ -276,6 +276,7 @@ export const ColumnFilters = ({
           {getFilters()?.map(
             ({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon, clearable }) => (
                 <Filter
+                  key={columnField}
                   title={title}
                   columnField={columnField}
                   type={type}
