@@ -31,6 +31,7 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
         kind={ButtonKind.secondary}
         ref={ref}
         testId={testId ?? FILTER_BUTTON_TEST_ID}
+        type="button"
         endEnhancer={
           <>
             {arrows && <CaretDownIcon />}

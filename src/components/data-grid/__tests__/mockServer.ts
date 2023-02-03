@@ -8,11 +8,11 @@ const getLastRowIndex = (startRow: number, endRow: number, results: any): number
     return 0;
   }
   const currentLastRow = startRow + results.length;
-  return currentLastRow < endRow ? currentLastRow : 0;
+  return currentLastRow <= endRow ? currentLastRow : 0;
 };
 
 export const getTimeEntriesQueryMock = rest.post(DATA_URL, async (req, res, ctx) => {
-  const { startRow, endRow } = req.body as DataGridRequest;
+  const { startRow, endRow } = (await req.json()) as DataGridRequest;
 
   const rowsForBlock = TIME_ENTRIES.slice(startRow, endRow);
   const lastRow = getLastRowIndex(startRow, endRow, rowsForBlock);

@@ -77,7 +77,7 @@ import { ParagraphSmall } from '../typography';
 import { Button } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { ButtonKind } from '../../models';
-import { CaretDownIcon, CaretUpIcon, EditIcon } from '../icons';
+import { CaretDownIcon, CaretUpIcon } from '../icons';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
@@ -494,7 +494,7 @@ export const DataGrid = ({
       return [];
     }
 
-    if (!values || type === FilterType.select) {
+    if (!values || type === FilterType.single) {
       return [value];
     }
 
@@ -548,7 +548,7 @@ export const DataGrid = ({
       onSetFiltering(columnField, type, value);
 
       setSelectedFilterIds((currentIds) => {
-        if (!currentIds[columnField] || type === FilterType.select) {
+        if (!currentIds[columnField] || type === FilterType.single) {
           return {
             ...currentIds,
             [columnField]: [value],
@@ -649,7 +649,7 @@ export const DataGrid = ({
       return {
         id: column.field,
         label: column.label || '',
-        icon: column.rowGroup ? <EditIcon size={scale500} /> : <></>,
+        isBold: column.rowGroup,
         action: () => handleGrouping(column.field),
       };
     });
@@ -663,8 +663,6 @@ export const DataGrid = ({
         filters={filters}
         dates={dates}
         setDates={setDates}
-        grouping={grouping}
-        onGrouping={onGrouping}
         onFiltering={setFilterModel}
         translations={translations}
         searchColumns={searchColumns}
