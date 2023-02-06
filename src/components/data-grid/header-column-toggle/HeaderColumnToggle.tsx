@@ -40,7 +40,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
       columnApi.setColumnVisible(colId, isVisible);
 
       setVisibleColumns();
-      gridApi.sizeColumnsToFit();
+      // gridApi.sizeColumnsToFit();
     },
     [columnApi, gridApi, setVisibleColumns],
   );

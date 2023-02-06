@@ -216,9 +216,9 @@ export const DataGrid = ({
 
   const refreshCells = (api: GridApi) => api.refreshCells();
 
-  const onGridSizeChanged = () => {
-    gridApi?.sizeColumnsToFit();
-  };
+  // const onGridSizeChanged = () => {
+  //   gridApi?.sizeColumnsToFit();
+  // };
 
   const setViewFilterIds = useCallback(
     (filterModel: FilterModel) => {
@@ -284,7 +284,7 @@ export const DataGrid = ({
       }
 
       api?.onFilterChanged();
-      api?.sizeColumnsToFit();
+      // api?.sizeColumnsToFit();
     },
     [setViewFilterIds, resetGrid],
   );
@@ -385,7 +385,7 @@ export const DataGrid = ({
     setGridColumnApi(columnApi);
     setIsGridColumnApiLoaded(true);
 
-    api?.sizeColumnsToFit();
+    // api?.sizeColumnsToFit();
 
     if (rowModelType === RowModelType.serverSide) {
       const datasource = createServerSideDatasource();
@@ -770,7 +770,7 @@ export const DataGrid = ({
           onRowDataChanged={onRowDataChanged}
           getRowNodeId={getRowNodeId}
           onFirstDataRendered={onFirstDataRendered}
-          onGridSizeChanged={onGridSizeChanged}
+          // onGridSizeChanged={onGridSizeChanged}
           onSelectionChanged={onSelectionChanged}
           suppressDragLeaveHidesColumns
           cacheBlockSize={1000}
