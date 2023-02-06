@@ -82,6 +82,7 @@ import { CaretDownIcon, CaretUpIcon } from '../icons';
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
+const PINNED_COLUMN_WIDTH = 54;
 
 export const DataGrid = ({
   licenseKey,
@@ -838,11 +839,12 @@ export const DataGrid = ({
             field={''}
             checkboxSelection={selection}
             headerComponent={selection ? 'headerCheckbox' : ''}
-            minWidth={40}
-            maxWidth={40}
+            minWidth={PINNED_COLUMN_WIDTH}
+            maxWidth={PINNED_COLUMN_WIDTH}
             sortable={false}
             resizable={false}
             lockPosition
+            pinned={'left'}
           />
           {gridColumns.map(
             ({
@@ -894,8 +896,8 @@ export const DataGrid = ({
               data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon, api: gridApi },
             }}
             type="rightAligned"
-            minWidth={60}
-            maxWidth={rowActionItems?.length || columnToggling ? 60 : 0}
+            minWidth={PINNED_COLUMN_WIDTH}
+            maxWidth={rowActionItems?.length || columnToggling ? PINNED_COLUMN_WIDTH : 0}
             sortable={false}
             resizable={false}
             pinned={'right'}

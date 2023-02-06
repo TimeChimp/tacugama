@@ -49,11 +49,6 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       display: none;
     }
 
-    .ag-theme-alpine .ag-pinned-right-header,
-    .ag-theme-alpine .ag-cell.ag-cell-first-right-pinned:not(.ag-cell-range-left):not(.ag-cell-range-single-cell) {
-      border-left: none;
-    }
-
     .ag-theme-alpine .ag-status-bar {
       padding-right: ${theme.sizing.scale600};
       padding-left: ${theme.sizing.scale600};

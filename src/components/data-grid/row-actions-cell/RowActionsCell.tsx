@@ -13,7 +13,7 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
   const {
     theme: {
       current: {
-        sizing: { scale900 },
+        sizing: { scale650 },
         customColors: { dark1 },
         colors: { contentTertiary },
       },
@@ -56,8 +56,8 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
         additionalProperties={api}
         {...props}
       >
-        <Button kind={ButtonKind.minimal} height={scale900} type="button">
-          <MoreIcon color={active ? dark1 : contentTertiary} />
+        <Button kind={ButtonKind.minimal} type="button">
+          <MoreIcon color={active ? dark1 : contentTertiary} size={scale650} />
         </Button>
       </Dropdown>
     </div>
