@@ -11,4 +11,5 @@ export interface ButtonProps extends Omit<BaseButtonProps, 'kind'> {
   rootOverrides?: { [key: string]: number | string };
   backgroundColor?: string;
   borderColor?: string;
+  isNotModalButton?: boolean;
 }
