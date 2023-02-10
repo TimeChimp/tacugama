@@ -51,7 +51,7 @@ export const Dropdown = ({
           });
         }
 
-        return !searchTerm || x.label?.toLowerCase().includes(searchTerm.toLowerCase());
+        return !searchTerm || x.label?.toLowerCase().includes(searchTerm?.toLowerCase());
       })
       .map((x) => ({
         ...x,
