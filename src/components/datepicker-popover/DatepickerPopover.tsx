@@ -148,7 +148,7 @@ export const DatepickerPopover = ({
               },
             },
             QuickSelect: {
-              component: (props: any) => <Select {...props} disableSortOptions onChangeHandler={({ value }) => onChange && onChange(value)} />,
+              component: (props: any) => <Select {...props} disableSortOptions onChangeHandler={({ value }) => onChange && onChange({ date: value })} />,
             },
             ...overrides,
           }}
