@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Popover } from '../popover';
 import { borderBottom } from '../../utils';
 import { useTheme } from '../../providers';
-import { Calendar } from 'baseui/datepicker';
+import { Calendar, QuickSelectOption } from 'baseui/datepicker';
 import { Select } from '../select';
-import { getDateLocale } from '@timechimp/timechimp-typescript-helpers';
+import { getDateLocale, TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerPopoverProps } from './types';
 
 export const DatepickerPopover = ({
@@ -15,6 +15,8 @@ export const DatepickerPopover = ({
   locale,
   weekStartDay,
   overrides,
+  translations,
+  onChange,
   ...rest
 }: DatepickerPopoverProps) => {
   const [localeObj, setLocaleObj] = useState<Locale>();
@@ -39,6 +41,61 @@ export const DatepickerPopover = ({
     }
   }, [locale, weekStartDay]);
 
+
+  const quickSelectOptions: QuickSelectOption<Date>[] = [
+    {
+      id: translations?.today ?? 'Today',
+      beginDate: new Date(),
+      endDate: new Date(),
+    },
+    {
+      id: translations?.yesterday ?? 'Yesterday',
+      beginDate: new TcDate().subtract(1, 'day').toDate(),
+      endDate: new TcDate().subtract(1, 'day').toDate(),
+    },
+    {
+      id: translations?.thisWeek ?? 'This week',
+      beginDate: new TcDate().startOf('week').toDate(),
+      endDate: new TcDate().endOf('week').toDate(),
+    },
+    {
+      id: translations?.thisMonth ?? 'This month',
+      beginDate: new TcDate().startOf('month').toDate(),
+      endDate: new TcDate().endOf('month').toDate(),
+    },
+    {
+      id: translations?.thisQuarter ?? 'This quarter',
+      beginDate: new TcDate().startOf('quarter').toDate(),
+      endDate: new TcDate().endOf('quarter').toDate(),
+    },
+    {
+      id: translations?.thisYear ?? 'This year',
+      beginDate: new TcDate().startOf('year').toDate(),
+      endDate: new TcDate().endOf('year').toDate(),
+    },
+    {
+      id: translations?.previousWeek ?? 'Previous week',
+      beginDate: new TcDate().subtract(1, 'week').startOf('week').toDate(),
+      endDate: new TcDate().subtract(1, 'week').endOf('week').toDate(),
+    },
+    {
+      id: translations?.previousMonth ?? 'Previous month',
+      beginDate: new TcDate().subtract(1, 'month').startOf('month').toDate(),
+      endDate: new TcDate().subtract(1, 'month').endOf('month').toDate(),
+    },
+    {
+      id: translations?.previousQuarter ?? 'Previous quarter',
+      beginDate: new TcDate().subtract(1, 'quarter').startOf('quarter').toDate(),
+      endDate: new TcDate().subtract(1, 'quarter').endOf('quarter').toDate(),
+    },
+    {
+      id: translations?.previousYear ?? 'Previous year',
+      beginDate: new TcDate().subtract(1, 'year').startOf('year').toDate(),
+      endDate: new TcDate().subtract(1, 'year').endOf('year').toDate(),
+    },
+  ];
+
+
   return (
     <Popover
       isOpen={isOpen}
@@ -56,7 +113,10 @@ export const DatepickerPopover = ({
       content={() => (
         <Calendar
           value={date}
+          onChange={onChange}
           locale={localeObj}
+          quickSelect
+          quickSelectOptions={quickSelectOptions}
           overrides={{
             CalendarHeader: {
               style: {
@@ -88,7 +148,7 @@ export const DatepickerPopover = ({
               },
             },
             QuickSelect: {
-              component: (props: any) => <Select {...props} />,
+              component: (props: any) => <Select {...props} disableSortOptions onChangeHandler={({ value }) => onChange && onChange(value)} />,
             },
             ...overrides,
           }}

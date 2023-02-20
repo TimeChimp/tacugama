@@ -2,6 +2,19 @@ import { SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerProps } from 'baseui/datepicker';
 import { TetherPlacement } from 'baseui/layer';
 
+export interface DatepickerRangeTranslations {
+  today?: string;
+  yesterday?: string;
+  thisWeek?: string;
+  thisMonth?: string;
+  thisQuarter?: string;
+  thisYear?: string;
+  previousWeek?: string;
+  previousMonth?: string;
+  previousQuarter?: string;
+  previousYear?: string;
+}
+
 export interface DatePickerProps extends DatepickerProps {
   placement?: TetherPlacement;
   locale?: SupportedLocale;
@@ -11,4 +24,5 @@ export interface DatePickerProps extends DatepickerProps {
   iconColor?: string;
   customValue: Date[];
   setCustomValue: (date: Date[]) => any;
+  translations?: DatepickerRangeTranslations;
 }
