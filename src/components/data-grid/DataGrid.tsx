@@ -118,6 +118,7 @@ export const DataGrid = ({
   searchColumns = DEFAULT_SEARCH_COLUMNS,
   formatSettings = defaultFormatSettings,
   translations = defaultTranslations,
+  datepickerTranslations,
   height = DEFAULT_HEIGHT,
   hideDownload = false,
   hideDelete = false,
@@ -666,6 +667,7 @@ export const DataGrid = ({
         setDates={setDates}
         onFiltering={setFilterModel}
         translations={translations}
+        datepickerTranslations={datepickerTranslations}
         searchColumns={searchColumns}
         dateFormat={formatSettings.dateFormat ?? (defaultFormatSettings.dateFormat as string)}
         selectedFilterIds={selectedFilterIds}

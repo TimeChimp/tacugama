@@ -20,6 +20,7 @@ import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
 import { PageOrientation } from 'pdfmake/interfaces';
 import { Option } from '../select';
 import { AgGridColumnProps } from '@ag-grid-community/react';
+import { DatepickerRangeTranslations } from '../datepicker';
 
 export enum RowModelType {
   clientSide = 'clientSide',
@@ -200,6 +201,7 @@ export interface DataGridProps {
   resizeableColumns?: boolean;
   formatSettings?: FormatSettings;
   translations?: Translations;
+  datepickerTranslations?: DatepickerRangeTranslations;
   views?: DataGridView[];
   height?: string;
   dates?: Date[];
@@ -260,6 +262,7 @@ export interface FiltersProps {
   filtering?: boolean;
   onFiltering: (filters: FilterModel) => void;
   translations: Translations;
+  datepickerTranslations?: DatepickerRangeTranslations;
   searchColumns?: string[];
   dateFormat: string;
   selectedFilterIds: SelectedFilterIds;
@@ -276,6 +279,7 @@ export interface ColumnFiltersProps {
   setDates?: (dates: Date[]) => void;
   api: GridApi;
   translations: Translations;
+  datepickerTranslations?: DatepickerRangeTranslations;
   dateFormat: string;
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;

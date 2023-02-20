@@ -22,6 +22,7 @@ export const ColumnFilters = ({
   setSelectedFilterIds,
   selectedFilterIds,
   translations: { search, lessFilters, allFilters },
+  datepickerTranslations,
   filterOnValue,
   filterOnDate,
   clearFilterModel,
@@ -224,6 +225,7 @@ export const ColumnFilters = ({
             monthsShown={2}
             range
             quickSelect
+            translations={datepickerTranslations}
           />
         </>
       ),
