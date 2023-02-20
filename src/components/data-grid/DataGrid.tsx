@@ -886,7 +886,7 @@ export const DataGrid = ({
               />
             ),
           )}
-          {/* <AgGridColumn
+          <AgGridColumn
             headerName={''}
             field={''}
             headerComponent={''}
@@ -903,7 +903,7 @@ export const DataGrid = ({
             sortable={false}
             resizable={false}
             pinned={'right'}
-          /> */}
+          />
         </StyledAgGridReact>
       </StyledDataGrid>
     </>
