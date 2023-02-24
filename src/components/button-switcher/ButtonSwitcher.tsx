@@ -39,7 +39,13 @@ export const ButtonSwitcher = ({
     </Button>
   );
   const renderSecondaryButton = (option: ButtonSwitcherOption, radiuses: { [key: string]: string | number }) => (
-    <Button kind={ButtonKind.secondary} rootOverrides={radiuses} onClick={() => onClick(option)} isNotModalButton>
+    <Button
+      kind={ButtonKind.secondary}
+      rootOverrides={radiuses}
+      onClick={() => onClick(option)}
+      type="button"
+      isNotModalButton
+    >
       {option.label}
     </Button>
   );
