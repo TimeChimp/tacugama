@@ -18,6 +18,13 @@ export const StyledColorSwatch = themedStyled<'div', StyledColorSwatchProps>('di
 
 export const ColorPickerContainer = themedStyled('div', () => {
   return {
+    zIndex: 1001,
     position: 'absolute',
+  };
+});
+
+export const ColorPickerWrapper = themedStyled('div', () => {
+  return {
+    position: 'relative',
   };
 });
