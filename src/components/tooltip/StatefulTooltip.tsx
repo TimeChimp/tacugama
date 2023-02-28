@@ -27,18 +27,21 @@ export const StatefulTooltip = forwardRef<any, StatefulTooltipProps>(
                 ...border300,
                 borderColor: dark1,
               }),
+              ...(rest?.overrides?.Body?.style || {})
             }),
           },
           Inner: {
             style: () => ({
               ...ParagraphSmall,
               ...padding(scale100, scale300),
+              ...(rest?.overrides?.Inner?.style || {})
             }),
           },
           Arrow: {
             style: () => ({
               width: scale600,
               height: scale600,
+              ...(rest?.overrides?.Arrow?.style || {})
             }),
           },
         }}
