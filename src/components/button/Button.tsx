@@ -24,7 +24,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       isLoading,
       disabled,
       buttonType = ButtonType.default,
-      type = 'submit',
+      type = 'button',
       kind = ButtonKind.primary,
       size = SIZE.compact,
       shape = 'default',
