@@ -58,3 +58,4 @@ export * from './timesheet';
 export * from './play';
 export * from './day-calendar';
 export * from './day';
+export * from './blocked';
