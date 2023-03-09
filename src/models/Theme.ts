@@ -82,6 +82,15 @@ export interface CustomColors {
   brand700: string;
 }
 
+export interface CustomSizing {
+  scale825: string;
+  scale1250: string;
+  scale2500: string;
+  scale5000: string;
+  scale7500: string;
+  scale8750: string;
+}
+
 interface App {
   background?: string;
 }
@@ -105,6 +114,7 @@ export interface CustomOverridesProps {
   app: App;
   components: Components;
   customColors: CustomColors;
+  customSizing: CustomSizing;
 }
 
 export type CustomOverrideType = DeepPartial<Theme> & CustomOverridesProps;

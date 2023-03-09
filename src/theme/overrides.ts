@@ -1,5 +1,6 @@
 import { CustomOverrideType } from 'models';
 import { customColors } from './colors';
+import { customSizing } from './sizing';
 import { typography } from './typography';
 
 const baseOverrides: CustomOverrideType = {
@@ -9,6 +10,7 @@ const baseOverrides: CustomOverrideType = {
   typography,
   app: {},
   customColors,
+  customSizing,
   components: {
     appHeader: {
       height: {
