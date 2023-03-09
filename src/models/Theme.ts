@@ -85,6 +85,7 @@ export interface CustomColors {
 export interface CustomSizing {
   scale825: string;
   scale1250: string;
+  scale2500: string;
   scale5000: string;
   scale7500: string;
   scale8750: string;
