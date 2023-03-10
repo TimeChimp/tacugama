@@ -20,6 +20,7 @@ export const ErrorPage = ({
       current: {
         sizing: { scale300, scale550, scale600, scale800 },
         colors: { primary, negative },
+        customSizing: { scale11250 }
       },
     },
   } = useTheme();
@@ -42,7 +43,7 @@ export const ErrorPage = ({
             Block: {
               style: {
                 lineHeight: scale800,
-                maxWidth: '450px', // NOTE: Value does not exist in theme
+                maxWidth: scale11250,
               },
             },
           }}

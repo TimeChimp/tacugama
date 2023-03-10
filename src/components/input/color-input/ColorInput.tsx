@@ -14,6 +14,7 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
     theme: {
       current: {
         colors: { contentInverseTertiary },
+        customSizing: { scale0250 }
       },
     },
   } = useTheme();
@@ -53,8 +54,7 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
                     backgroundColor: 'transparent',
                   },
                   ...padding($theme.sizing.scale400, '0', $theme.sizing.scale400, '0'),
-                  // NOTE: Value does not exist in theme
-                  ...margin('0', '0', '0', '-7px'),
+                  ...margin('0', '0', '0', scale0250),
                 }),
               },
             }}

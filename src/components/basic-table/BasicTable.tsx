@@ -19,6 +19,7 @@ export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
         customColors: { light7 },
         borders: { radius200 },
         typography: { ParagraphSmall },
+        customSizing: { scale1025 }
       },
     },
   } = useTheme();
@@ -49,7 +50,7 @@ export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
         },
         TableHeadRow: {
           style: {
-            height: '41px', // NOTE: Does not exist in theme
+            height: scale1025,
           },
         },
         TableBodyRow: {
