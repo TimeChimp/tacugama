@@ -23,6 +23,7 @@ export interface DatePickerProps extends DatepickerProps {
   noBorder?: boolean;
   iconColor?: string;
   customValue: Date[];
-  setCustomValue: (date: Date[]) => any;
+  setCustomValue?: (date: Date[]) => any;
+  onChange: ({ date }: { date: any }) => void;
   translations?: DatepickerRangeTranslations;
 }
