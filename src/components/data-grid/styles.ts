@@ -1,4 +1,4 @@
-import { AgGridReact } from '@ag-grid-community/react';
+import { AgGridReact } from '@ag-grid-community/react/lib/agGridReact';
 import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
 import { margin, padding, borderTop, borderRight, borderLeft, borderBottom } from '../../utils';
