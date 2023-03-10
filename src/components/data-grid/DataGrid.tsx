@@ -17,6 +17,7 @@ import { HeaderColumnToggle } from './header-column-toggle';
 import { LoadingCellTemplate } from './loading-cell-template';
 import { Filters } from './filters';
 import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
+import { AgGridReact } from '@ag-grid-community/react/lib/agGridReact';
 import { StatusBarModule } from '@ag-grid-enterprise/status-bar';
 import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
 import { SetFilterModel, SetFilterModule } from '@ag-grid-enterprise/set-filter';
@@ -137,7 +138,7 @@ export const DataGrid = ({
   onModalOpen,
   debouncedSearch = false,
 }: DataGridProps) => {
-  const datagridRef = useRef<HTMLDivElement>(null);
+  const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
@@ -734,7 +735,6 @@ export const DataGrid = ({
           </StyledDataGridHeader>
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
-        {/* @ts-expect-error */}
         <StyledAgGridReact
           $height={dataGridHeight}
           ref={datagridRef}

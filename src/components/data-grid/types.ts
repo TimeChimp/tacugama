@@ -21,6 +21,7 @@ import { PageOrientation } from 'pdfmake/interfaces';
 import { Option } from '../select';
 import { AgGridColumnProps } from '@ag-grid-community/react';
 import { DatepickerRangeTranslations } from '../datepicker';
+import { AgGridReact } from '@ag-grid-community/react/lib/agGridReact';
 
 export enum RowModelType {
   clientSide = 'clientSide',
@@ -41,7 +42,7 @@ export interface DataGridApi {
   refreshStore: () => void;
   refreshCells: () => void;
   setViewState: (viewState: string | null) => void;
-  datagridRef: React.RefObject<HTMLDivElement>;
+  datagridRef: React.RefObject<AgGridReact>;
 }
 
 export type DataGridColumnValueType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'duration';
