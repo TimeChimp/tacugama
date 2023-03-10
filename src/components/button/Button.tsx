@@ -46,6 +46,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           borders: { border100, border300, radius200 },
           colors,
           customColors,
+          customSizing: { scale50, scale975 }
         },
       },
     } = useTheme();
@@ -54,7 +55,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const getButtonHeight = () => {
       if (kind === ButtonKind.primary || kind === ButtonKind.secondary) {
-        return height ?? '38px'; // NOTE: Value does not exist in theme
+        return height ?? scale975;
       }
       return height ?? scale800;
     };
@@ -67,7 +68,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         return padding(scale200, scale500);
       }
       if (shape === 'square') {
-        return padding('3px'); // NOTE: Value does not exist in theme
+        return padding(scale50);
       }
       return padding(scale300);
     };

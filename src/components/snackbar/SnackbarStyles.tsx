@@ -13,7 +13,7 @@ export const StyledSnackbar = themedStyled<'div', StyledSnackbarProps>('div', ({
   ...borderRadius($theme.sizing.scale0),
   ...margin($theme.sizing.scale600, '0', '0', $theme.sizing.scale600),
   ...padding($theme.sizing.scale550),
-  width: '301px', // NOTE: Value does not exist in theme
+  width: $theme.customSizing.scale7525,
   boxShadow: $theme.lighting.shadow500,
 }));
 

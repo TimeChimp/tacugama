@@ -83,12 +83,19 @@ export interface CustomColors {
 }
 
 export interface CustomSizing {
+  scale0250: string;
+  scale50: string;
   scale825: string;
+  scale975: string;
+  scale1025: string;
   scale1250: string;
   scale2500: string;
+  scale4375: string;
   scale5000: string;
   scale7500: string;
+  scale7525: string;
   scale8750: string;
+  scale11250: string;
 }
 
 interface App {

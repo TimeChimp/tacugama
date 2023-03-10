@@ -30,6 +30,7 @@ export const RowSelect = ({
         borders,
         sizing: { scale0, scale100, scale300, scale700, scale900 },
         typography: { ParagraphSmall, LabelSmall },
+        customSizing: { scale4375, scale7500 }
       },
     },
   } = useTheme();
@@ -86,7 +87,7 @@ export const RowSelect = ({
               style: () => ({
                 backgroundColor: primarySubtle,
                 ...borderRadius(scale0),
-                minWidth: '175px', // NOTE: Value does not exist in theme
+                minWidth: scale4375,
               }),
               props: {
                 ...propOverrides?.rootProps?.apply(propOverrides),
@@ -120,7 +121,7 @@ export const RowSelect = ({
               style: {
                 ...padding('0'),
                 ...borderRadius(radius200),
-                maxHeight: '300px', // NOTE: Value does not exist in theme
+                maxHeight: scale7500,
               },
             },
             DropdownListItem: {
