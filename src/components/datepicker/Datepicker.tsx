@@ -13,7 +13,7 @@ import { useTheme } from '../../providers';
 import { DatePicker, DatepickerOverrides, QuickSelectOption } from 'baseui/datepicker';
 import { Select } from '../select';
 import { DATA_TEST_ID } from '../../models';
-import { InputOverrides, InputProps } from 'baseui/input';
+import { InputOverrides } from 'baseui/input';
 import { CalendarIcon } from '../icons/calendar';
 import { getDateLocale, TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { DatePickerProps } from './types';
@@ -30,7 +30,7 @@ export const Datepicker = ({
   iconColor,
   translations,
   ...rest
-}: DatePickerProps & InputProps) => {
+}: DatePickerProps) => {
   const [localeObj, setLocaleObj] = useState<Locale>();
 
   const {
