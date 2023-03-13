@@ -72,7 +72,7 @@ export const DataGridActions = ({
             onClick={() => onBulkDelete()}
             testId={DELETE_BUTTON_TEST_ID}
           >
-            <ParagraphSmall color={!rowsSelected ? dark4 : white}>{translations.delete}</ParagraphSmall>
+            <ParagraphSmall color={rowsSelected ? white : dark4}>{translations.delete}</ParagraphSmall>
           </Button>
         </>
       ) : null}
