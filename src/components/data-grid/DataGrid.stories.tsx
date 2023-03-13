@@ -10,6 +10,7 @@ import { DataGridView, CreateViewInput, RowModelType } from './types';
 import { getTimeEntriesQueryMock } from './__tests__/mockServer';
 import { ACCESS_TOKEN, COLUMNS, DATA_URL, FILTERS, SEARCH_COLUMNS, TIME_ENTRIES } from './__tests__/constants';
 import { defaultTranslations } from './defaultTranslations';
+import { MoreIcon } from 'components/icons';
 
 export default {
   title: 'Components/Data Grid',
@@ -102,6 +103,7 @@ const Template: Story<DataGridProps> = (args) => {
       onCreateView={(input: CreateViewInput) => handleCreateView(input)}
       onSaveViewState={(id: string, viewState: string) => handleSaveView(id, viewState)}
       onReady={(data: any) => console.log(data)}
+      onRowEditIcon={MoreIcon}
     />
   );
 };
