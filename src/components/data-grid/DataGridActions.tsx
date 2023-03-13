@@ -5,11 +5,10 @@ import { StyledDataGridActions } from './styles';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { DATA_TEST_ID, ButtonKind } from '../../models';
 import { DataGridActionsProps } from './types';
-import { DownloadIcon } from '../icons/download';
-import { DeleteIcon } from '../icons/delete';
 import { FlexItem } from '../flex-item';
 import { exportExcel, exportPdf, exportCSV } from './export';
 import { ParagraphSmall } from '../typography';
+import { ButtonType } from '../../models';
 
 const DELETE_BUTTON_TEST_ID = 'delete-button';
 const EXPORT_BUTTON_TEST_ID = 'export-button';
@@ -31,9 +30,9 @@ export const DataGridActions = ({
   const {
     theme: {
       current: {
-        colors: { primaryA },
+        colors: { primaryA, white },
         sizing: { scale300, scale400, scale500 },
-        customColors: { red3, dark4 },
+        customColors: { red3, red0, dark4, light4, light0 },
       },
     },
   } = useTheme();
@@ -67,15 +66,13 @@ export const DataGridActions = ({
       {!hideDelete && onBulkDelete ? (
         <>
           <Button
-            kind={ButtonKind.tertiary}
+            buttonType={ButtonType.error}
+            kind={ButtonKind.quarternary}
             disabled={!rowsSelected}
             onClick={() => onBulkDelete()}
             testId={DELETE_BUTTON_TEST_ID}
           >
-            <DeleteIcon color={rowsSelected ? red3 : dark4} size={scale500} />
-            <ParagraphSmall color={rowsSelected ? red3 : dark4} paddingLeft={scale400}>
-              {translations.delete}
-            </ParagraphSmall>
+            <ParagraphSmall color={!rowsSelected ? dark4 : white}>{translations.delete}</ParagraphSmall>
           </Button>
         </>
       ) : null}
@@ -89,10 +86,7 @@ export const DataGridActions = ({
             }}
           >
             <Button kind={ButtonKind.tertiary} disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
-              <DownloadIcon color={rowsSelected ? primaryA : dark4} />
-              <ParagraphSmall color={rowsSelected ? primaryA : dark4} paddingLeft={scale400}>
-                {translations.export}
-              </ParagraphSmall>
+              <ParagraphSmall color={rowsSelected ? primaryA : dark4}>{translations.export}</ParagraphSmall>
             </Button>
           </Dropdown>
         )}

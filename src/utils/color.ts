@@ -134,13 +134,13 @@ export const getInputBorderColor = ({
 
 export const getButtonBackgroundColor = (
   type: ButtonType,
-  { green1, red2 }: CustomColors,
+  { green1, red0 }: CustomColors,
   { primary }: ColorTokens,
 ) => {
   const colors = {
     default: primary,
     success: green1,
-    error: red2,
+    error: red0,
   };
 
   return colors[type];
@@ -150,7 +150,7 @@ export const getButtonBackgroundHoverColor = (type: ButtonType, { primary }: Col
   const colors = {
     default: primary,
     success: '#06C270',
-    error: '#FF3B3B',
+    error: '#bf2828',
   };
 
   return colors[type];

@@ -154,7 +154,7 @@ export const DataGrid = ({
     theme: {
       current: {
         sizing: { scale500 },
-        customColors: { dark1 },
+        customColors: { dark1, red0 },
       },
     },
   } = useTheme();
@@ -624,12 +624,10 @@ export const DataGrid = ({
     return '';
   }, [rowActionItems, onRowEdit]);
 
-  const showDataGridHeader = useMemo(() => viewing || (selection && !(hideDelete && hideDownload)), [
-    viewing,
-    selection,
-    hideDelete,
-    hideDownload,
-  ]);
+  const showDataGridHeader = useMemo(
+    () => viewing || (selection && !(hideDelete && hideDownload)),
+    [viewing, selection, hideDelete, hideDownload],
+  );
 
   const dataGridHeight = useMemo(() => {
     const headerHeight = showDataGridHeader ? 45 : 0;
@@ -779,7 +777,8 @@ export const DataGrid = ({
           cacheBlockSize={1000}
           maxBlocksInCache={10}
           blockLoadDebounceMillis={100}
-          headerHeight={36}
+          headerHeight={40}
+          rowHeight={40}
           frameworkComponents={{
             moreActionsCell: RowActionsCell,
             footerRowCount: FooterRowCount,
@@ -886,7 +885,7 @@ export const DataGrid = ({
               />
             ),
           )}
-          <AgGridColumn
+          {/* <AgGridColumn
             headerName={''}
             field={''}
             headerComponent={''}
@@ -903,7 +902,7 @@ export const DataGrid = ({
             sortable={false}
             resizable={false}
             pinned={'right'}
-          />
+          /> */}
         </StyledAgGridReact>
       </StyledDataGrid>
     </>
