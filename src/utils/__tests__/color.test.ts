@@ -159,6 +159,7 @@ describe('utils/colors', () => {
       purple2: 'purple2',
       green1: 'green1',
       red2: 'red2',
+      red0: 'red0',
     };
 
     it('should get a default color', () => {
@@ -176,7 +177,7 @@ describe('utils/colors', () => {
     it('should get an error color', () => {
       const buttonBackgroundColor = getButtonBackgroundColor(ButtonType.error, customColors as any, COLORS);
 
-      expect(buttonBackgroundColor).toBe(customColors.red2);
+      expect(buttonBackgroundColor).toBe(customColors.red0);
     });
   });
 
@@ -196,7 +197,7 @@ describe('utils/colors', () => {
     it('should get an error color', () => {
       const buttonBackgroundColor = getButtonBackgroundHoverColor(ButtonType.error, COLORS as any);
 
-      expect(buttonBackgroundColor).toBe('#FF3B3B');
+      expect(buttonBackgroundColor).toBe('#BF2828');
     });
   });
 });

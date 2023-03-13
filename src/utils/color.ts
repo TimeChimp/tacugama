@@ -150,7 +150,7 @@ export const getButtonBackgroundHoverColor = (type: ButtonType, { primary }: Col
   const colors = {
     default: primary,
     success: '#06C270',
-    error: '#bf2828',
+    error: '#BF2828',
   };
 
   return colors[type];
