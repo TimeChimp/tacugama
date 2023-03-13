@@ -68,7 +68,7 @@ export interface DataGridColumn extends AgGridColumnProps {
   sortable?: boolean;
   hide?: boolean;
   customMap?: (value: any) => any;
-  customComponent?: React.FunctionComponent;
+  customComponent?: React.FunctionComponent<{data: any, value: any}>;
   customHeaderComponent?: React.FunctionComponent;
   rowSelectProps?: DataGridRowSelectProps;
 }
