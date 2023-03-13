@@ -5,7 +5,7 @@ import { HeaderColumnSettingsProps } from '..';
 import { ButtonKind } from '../../../models';
 import { SettingsIcon } from '../../icons';
 import { useTheme } from '../../../providers';
-import { Dropdown } from 'components/dropdown';
+import { Dropdown } from '../../dropdown';
 import { MenuOption } from './MenuOption';
 
 export const HeaderColumnSettings = ({ settings }: HeaderColumnSettingsProps) => {

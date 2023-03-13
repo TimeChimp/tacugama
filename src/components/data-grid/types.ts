@@ -225,8 +225,6 @@ export interface DataGridProps {
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
   onBulkDelete?: () => Promise<void>;
-  onRowEdit?: (data: RowActionsCellData) => void;
-  onRowEditIcon?: ComponentType<IconProps>;
   onSelectionChangedHandler?: (data: RowNode[]) => void;
   treeData?: boolean;
   getServerSideGroupKey?: GetServerSideGroupKey | undefined;
@@ -301,15 +299,12 @@ export interface FooterRowCountProps {
 }
 export interface RowActionsCellData {
   items: DropdownItem[];
-  onEdit?: (data: RowActionsCellData) => void;
-  icon?: ComponentType<IconProps>;
   id: string;
   [key: string]: any;
 }
 export interface RowActionsCellProps {
   api?: GridApi;
   data: RowActionsCellData;
-  icon?: ComponentType<IconProps>;
   propOverrides?: {
     listProps?: () => {};
     optionProps?: () => {};

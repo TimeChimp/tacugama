@@ -114,8 +114,6 @@ export const DataGrid = ({
   onUnpinView,
   onSaveViewState,
   onBulkDelete,
-  onRowEdit,
-  onRowEditIcon,
   rowModelType = DEFAULT_ROW_MODEL_TYPE,
   searchColumns = DEFAULT_SEARCH_COLUMNS,
   formatSettings = defaultFormatSettings,
@@ -619,11 +617,11 @@ export const DataGrid = ({
   };
 
   const columnCellRenderer = useMemo(() => {
-    if (rowActionItems || !!onRowEdit) {
+    if (rowActionItems?.length) {
       return 'moreActionsCell';
     }
     return '';
-  }, [rowActionItems, onRowEdit]);
+  }, [rowActionItems]);
 
   const showDataGridHeader = useMemo(() => viewing || settings?.length || (selection && !(hideDelete && hideDownload)), [
     viewing,
@@ -733,7 +731,7 @@ export const DataGrid = ({
               )}
               {
                 settings?.length && (
-                  <HeaderColumnSettings api={gridApi} columnApi={gridColumnApi} settings={settings} />
+                  <HeaderColumnSettings settings={settings} />
               )}
             </FlexItem>
           </StyledDataGridHeader>
@@ -890,7 +888,7 @@ export const DataGrid = ({
               />
             ),
           )}
-          {/* <AgGridColumn
+          <AgGridColumn
             headerName={''}
             field={''}
             headerComponent={''}
@@ -899,7 +897,7 @@ export const DataGrid = ({
             }}
             cellRenderer={columnCellRenderer}
             cellRendererParams={{
-              data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon, api: gridApi },
+              data: { items: rowActionItems, api: gridApi },
             }}
             type="rightAligned"
             minWidth={PINNED_COLUMN_WIDTH}
@@ -907,7 +905,7 @@ export const DataGrid = ({
             sortable={false}
             resizable={false}
             pinned={'right'}
-          /> */}
+          />
         </StyledAgGridReact>
       </StyledDataGrid>
     </>
