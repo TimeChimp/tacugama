@@ -121,6 +121,14 @@ Default.args = {
   translations: defaultTranslations,
   searchColumns: SEARCH_COLUMNS,
   dates: [new Date(2020, 3, 20), new Date(2020, 3, 21)],
+  settings: [
+    {
+      id: 'test',
+      label: 'Test',
+      action: () => alert('test'),
+      value: true
+    },
+  ],
   rowActionItems: [
     {
       action: (selectedIds, additionalProps) => console.log(selectedIds, additionalProps),

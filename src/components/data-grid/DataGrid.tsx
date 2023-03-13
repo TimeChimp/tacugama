@@ -5,7 +5,6 @@ import {
   getGridThemeOverrides,
   StyledDataGridHeader,
   StyledAgGridReact,
-  StyledDataGridDivider,
 } from './styles';
 import { RowActionsCell } from './row-actions-cell';
 import { FooterRowCount } from './footer-row-count';
@@ -79,6 +78,7 @@ import { Button } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { ButtonKind } from '../../models';
 import { CaretDownIcon, CaretUpIcon } from '../icons';
+import { HeaderColumnSettings } from './header-column-settings';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
@@ -102,6 +102,7 @@ export const DataGrid = ({
   accessToken,
   sortableColumns,
   views,
+  settings,
   dates,
   setDates,
   onDeactivateView,
@@ -153,7 +154,7 @@ export const DataGrid = ({
   const {
     theme: {
       current: {
-        sizing: { scale500 },
+        sizing: { scale300, scale500 },
         customColors: { dark1 },
       },
     },
@@ -624,11 +625,12 @@ export const DataGrid = ({
     return '';
   }, [rowActionItems, onRowEdit]);
 
-  const showDataGridHeader = useMemo(() => viewing || (selection && !(hideDelete && hideDownload)), [
+  const showDataGridHeader = useMemo(() => viewing || settings?.length || (selection && !(hideDelete && hideDownload)), [
     viewing,
     selection,
     hideDelete,
     hideDownload,
+    settings,
   ]);
 
   const dataGridHeight = useMemo(() => {
@@ -693,7 +695,7 @@ export const DataGrid = ({
                 hideDelete={hideDelete}
               />
             )}
-            <FlexItem width="auto">
+            <FlexItem width="auto" gap={scale300}>
               {viewing && (
                 <DataGridViews
                   views={allViews}
@@ -713,7 +715,6 @@ export const DataGrid = ({
               )}
               {grouping && (
                 <>
-                  <StyledDataGridDivider />
                   <FlexItem width="auto">
                     <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
                     <Dropdown items={options}>
@@ -727,9 +728,12 @@ export const DataGrid = ({
                   </FlexItem>
                 </>
               )}
-              <StyledDataGridDivider />
               {isGridColumnApiLoaded && (
-                <HeaderColumnToggle api={gridApi} columnApi={gridColumnApi} translations={translations} />
+                <HeaderColumnToggle api={gridApi} columnApi={gridColumnApi} />
+              )}
+              {
+                settings?.length && (
+                  <HeaderColumnSettings api={gridApi} columnApi={gridColumnApi} settings={settings} />
               )}
             </FlexItem>
           </StyledDataGridHeader>
@@ -886,7 +890,7 @@ export const DataGrid = ({
               />
             ),
           )}
-          <AgGridColumn
+          {/* <AgGridColumn
             headerName={''}
             field={''}
             headerComponent={''}
@@ -903,7 +907,7 @@ export const DataGrid = ({
             sortable={false}
             resizable={false}
             pinned={'right'}
-          />
+          /> */}
         </StyledAgGridReact>
       </StyledDataGrid>
     </>

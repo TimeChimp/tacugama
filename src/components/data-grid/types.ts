@@ -180,6 +180,12 @@ export interface Translations {
   none: string;
 }
 
+export interface DataGridSetting {
+  id: string;
+  label: string;
+  action?: () => void;
+  value?: boolean;
+}
 export interface DataGridProps {
   licenseKey?: string;
   rowModelType?: RowModelType;
@@ -234,6 +240,7 @@ export interface DataGridProps {
   suppressRowHoverHighlight?: boolean;
   suppressRowClickSelection?: boolean;
   debouncedSearch?: boolean;
+  settings?: DataGridSetting[];
 }
 
 export interface DataGridView {
@@ -323,7 +330,9 @@ export interface HeaderCheckboxProps {
 export interface HeaderColumnToggleProps {
   api: GridApi;
   columnApi: ColumnApi;
-  translations: Translations;
+}
+export interface HeaderColumnSettingsProps {
+  settings: DataGridSetting[];
 }
 
 export interface DataGridRequest {
