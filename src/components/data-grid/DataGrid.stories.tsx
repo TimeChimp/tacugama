@@ -103,7 +103,6 @@ const Template: Story<DataGridProps> = (args) => {
       onCreateView={(input: CreateViewInput) => handleCreateView(input)}
       onSaveViewState={(id: string, viewState: string) => handleSaveView(id, viewState)}
       onReady={(data: any) => console.log(data)}
-      onRowEditIcon={MoreIcon}
     />
   );
 };

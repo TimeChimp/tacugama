@@ -68,7 +68,7 @@ export interface DataGridColumn extends AgGridColumnProps {
   sortable?: boolean;
   hide?: boolean;
   customMap?: (value: any) => any;
-  customComponent?: React.FunctionComponent<{data: any, value: any}>;
+  customComponent?: React.FunctionComponent<{ data: any; value: any }>;
   customHeaderComponent?: React.FunctionComponent;
   rowSelectProps?: DataGridRowSelectProps;
 }
@@ -143,7 +143,6 @@ export interface Translations {
   rowCountSelectedText: (count: number) => JSX.Element;
   rowActionItems?: DropdownItem[];
   onRowEdit?: (data: RowActionsCellData) => void;
-  onRowEditIcon?: ComponentType<IconProps>;
   noRowsTitle: string;
   noRowsSubtext: string;
   groupBy: string;
