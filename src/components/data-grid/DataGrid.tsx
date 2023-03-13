@@ -5,7 +5,6 @@ import {
   getGridThemeOverrides,
   StyledDataGridHeader,
   StyledAgGridReact,
-  StyledDataGridDivider,
 } from './styles';
 import { RowActionsCell } from './row-actions-cell';
 import { FooterRowCount } from './footer-row-count';
@@ -79,6 +78,7 @@ import { Button } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { ButtonKind } from '../../models';
 import { CaretDownIcon, CaretUpIcon } from '../icons';
+import { HeaderColumnSettings } from './header-column-settings';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
@@ -102,6 +102,7 @@ export const DataGrid = ({
   accessToken,
   sortableColumns,
   views,
+  settings,
   dates,
   setDates,
   onDeactivateView,
@@ -113,8 +114,6 @@ export const DataGrid = ({
   onUnpinView,
   onSaveViewState,
   onBulkDelete,
-  onRowEdit,
-  onRowEditIcon,
   rowModelType = DEFAULT_ROW_MODEL_TYPE,
   searchColumns = DEFAULT_SEARCH_COLUMNS,
   formatSettings = defaultFormatSettings,
@@ -153,8 +152,8 @@ export const DataGrid = ({
   const {
     theme: {
       current: {
-        sizing: { scale500 },
-        customColors: { dark1, red0 },
+        customColors: { dark1 },
+        sizing: { scale300, scale500 }
       },
     },
   } = useTheme();
@@ -618,16 +617,20 @@ export const DataGrid = ({
   };
 
   const columnCellRenderer = useMemo(() => {
-    if (rowActionItems || !!onRowEdit) {
+    if (rowActionItems?.length) {
       return 'moreActionsCell';
     }
     return '';
-  }, [rowActionItems, onRowEdit]);
+  }, [rowActionItems]);
 
-  const showDataGridHeader = useMemo(
-    () => viewing || (selection && !(hideDelete && hideDownload)),
-    [viewing, selection, hideDelete, hideDownload],
-  );
+  const showDataGridHeader = useMemo(() => viewing || settings?.length || (selection && !(hideDelete && hideDownload)), [
+    viewing,
+    selection,
+    hideDelete,
+    hideDownload,
+    settings,
+  ]);
+
 
   const dataGridHeight = useMemo(() => {
     const headerHeight = showDataGridHeader ? 45 : 0;
@@ -691,7 +694,7 @@ export const DataGrid = ({
                 hideDelete={hideDelete}
               />
             )}
-            <FlexItem width="auto">
+            <FlexItem width="auto" gap={scale300}>
               {viewing && (
                 <DataGridViews
                   views={allViews}
@@ -711,7 +714,6 @@ export const DataGrid = ({
               )}
               {grouping && (
                 <>
-                  <StyledDataGridDivider />
                   <FlexItem width="auto">
                     <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
                     <Dropdown items={options}>
@@ -725,9 +727,12 @@ export const DataGrid = ({
                   </FlexItem>
                 </>
               )}
-              <StyledDataGridDivider />
               {isGridColumnApiLoaded && (
-                <HeaderColumnToggle api={gridApi} columnApi={gridColumnApi} translations={translations} />
+                <HeaderColumnToggle api={gridApi} columnApi={gridColumnApi} />
+              )}
+              {
+                settings?.length && (
+                  <HeaderColumnSettings settings={settings} />
               )}
             </FlexItem>
           </StyledDataGridHeader>
@@ -897,7 +902,7 @@ export const DataGrid = ({
             }}
             cellRenderer={columnCellRenderer}
             cellRendererParams={{
-              data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon, api: gridApi },
+              data: { items: rowActionItems, api: gridApi },
             }}
             type="rightAligned"
             minWidth={PINNED_COLUMN_WIDTH}

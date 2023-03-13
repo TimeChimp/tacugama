@@ -11,4 +11,3 @@ export * from './header-column-toggle';
 export * from './loading-cell-template';
 export * from './no-rows-template';
 export * from './row-actions-cell';
-export * from './row-edit-cell';
