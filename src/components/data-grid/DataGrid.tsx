@@ -833,6 +833,7 @@ export const DataGrid = ({
           }}
           tooltipShowDelay={0}
           colResizeDefault="shift"
+          
         >
           <AgGridColumn
             hide={!selection}
@@ -846,6 +847,7 @@ export const DataGrid = ({
             resizable={false}
             lockPosition
             pinned={'left'}
+          
           />
           {gridColumns.map(
             ({
@@ -881,11 +883,12 @@ export const DataGrid = ({
                 aggFunc={aggFunc}
                 sortable={sortable ?? sortableColumns}
                 resizable
+            
                 {...rest}
               />
             ),
           )}
-          {/* <AgGridColumn
+          <AgGridColumn
             headerName={''}
             field={''}
             headerComponent={''}
@@ -902,7 +905,7 @@ export const DataGrid = ({
             sortable={false}
             resizable={false}
             pinned={'right'}
-          /> */}
+          />
         </StyledAgGridReact>
       </StyledDataGrid>
     </>
