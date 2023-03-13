@@ -68,7 +68,7 @@ export interface DataGridColumn extends AgGridColumnProps {
   sortable?: boolean;
   hide?: boolean;
   customMap?: (value: any) => any;
-  customComponent?: React.FunctionComponent<{data: any, value: any}>;
+  customComponent?: React.FunctionComponent<{ data: any; value: any }>;
   customHeaderComponent?: React.FunctionComponent;
   rowSelectProps?: DataGridRowSelectProps;
 }
@@ -143,7 +143,6 @@ export interface Translations {
   rowCountSelectedText: (count: number) => JSX.Element;
   rowActionItems?: DropdownItem[];
   onRowEdit?: (data: RowActionsCellData) => void;
-  onRowEditIcon?: ComponentType<IconProps>;
   noRowsTitle: string;
   noRowsSubtext: string;
   groupBy: string;
@@ -180,6 +179,12 @@ export interface Translations {
   none: string;
 }
 
+export interface DataGridSetting {
+  id: string;
+  label: string;
+  action?: () => void;
+  value?: boolean;
+}
 export interface DataGridProps {
   licenseKey?: string;
   rowModelType?: RowModelType;
@@ -219,8 +224,6 @@ export interface DataGridProps {
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
   onBulkDelete?: () => Promise<void>;
-  onRowEdit?: (data: RowActionsCellData) => void;
-  onRowEditIcon?: ComponentType<IconProps>;
   onSelectionChangedHandler?: (data: RowNode[]) => void;
   treeData?: boolean;
   getServerSideGroupKey?: GetServerSideGroupKey | undefined;
@@ -234,6 +237,7 @@ export interface DataGridProps {
   suppressRowHoverHighlight?: boolean;
   suppressRowClickSelection?: boolean;
   debouncedSearch?: boolean;
+  settings?: DataGridSetting[];
 }
 
 export interface DataGridView {
@@ -294,15 +298,12 @@ export interface FooterRowCountProps {
 }
 export interface RowActionsCellData {
   items: DropdownItem[];
-  onEdit?: (data: RowActionsCellData) => void;
-  icon?: ComponentType<IconProps>;
   id: string;
   [key: string]: any;
 }
 export interface RowActionsCellProps {
   api?: GridApi;
   data: RowActionsCellData;
-  icon?: ComponentType<IconProps>;
   propOverrides?: {
     listProps?: () => {};
     optionProps?: () => {};
@@ -323,7 +324,9 @@ export interface HeaderCheckboxProps {
 export interface HeaderColumnToggleProps {
   api: GridApi;
   columnApi: ColumnApi;
-  translations: Translations;
+}
+export interface HeaderColumnSettingsProps {
+  settings: DataGridSetting[];
 }
 
 export interface DataGridRequest {
