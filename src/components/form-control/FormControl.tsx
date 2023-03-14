@@ -44,12 +44,24 @@ export const FormControl = ({ overrides, error, success, caption, children, ...r
       {...rest}
       overrides={{
         ...overrides,
+        LabelContainer: {
+          style: {
+            width: '100px',
+          },
+        },
+        ControlContainer: {
+          style: {
+            display: 'inline-flex',
+            gap: '1rem',
+          },
+        },
         Label: {
           style: {
             ...ParagraphSmall,
             lineHeight: scale550, // Fix: Because of the bug in baseui (can't override the span around the label)
             ...margin('0'),
             width: 'auto',
+            flexBasis: '300px',
           },
         },
         LabelEndEnhancer: {
@@ -68,20 +80,23 @@ export const FormControl = ({ overrides, error, success, caption, children, ...r
       }}
     >
       <>
-        {
-          !!caption ? (
-            <Block marginBottom={scale500}>
-              <ParagraphXSmallComponent color={dark3} overrides={{
+        {!!caption ? (
+          <Block marginBottom={scale500}>
+            <ParagraphXSmallComponent
+              color={dark3}
+              overrides={{
                 Block: {
                   style: {
                     lineHeight: scale550,
                     fontSize: scale550,
                   },
                 },
-              }}>{caption}</ParagraphXSmallComponent>
-            </Block>
-          ) : null
-        }
+              }}
+            >
+              {caption}
+            </ParagraphXSmallComponent>
+          </Block>
+        ) : null}
         {children}
       </>
     </BaseFormControl>
