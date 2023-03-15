@@ -15,7 +15,7 @@ import { FlexItem } from '../flex-item';
 import { CaretDownIcon } from '../icons/caret-down';
 import { SelectProps } from './types';
 import { Button } from '../button';
-import { ButtonKind } from 'models';
+import { ButtonKind } from '../../models';
 import { AddLineIcon } from '../icons';
 
 const SELECT_HEIGHT = '38px';
