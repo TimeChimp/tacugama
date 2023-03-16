@@ -1,11 +1,10 @@
 {
-  "version": "5.1.1",
+  "version": "5.1.2",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "engines": {
     "node": ">=10"
@@ -43,6 +42,16 @@
   "publishConfig": {
     "access": "public"
   },
+  "size-limit": [
+    {
+      "path": "dist/tacugama.cjs.production.min.js",
+      "limit": "1.8 MB"
+    },
+    {
+      "path": "dist/tacugama.esm.js",
+      "limit": "1.8 MB"
+    }
+  ],
   "module": "dist/tacugama.esm.js",
   "devDependencies": {
     "@babel/core": "^7.20.7",
