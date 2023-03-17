@@ -11,7 +11,7 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       --ag-alpine-active-color: ${theme.colors.primary};
       --ag-foreground-color: ${theme.colors.primaryA};
       --ag-secondary-foreground-color: ${theme.customColors.dark4};
-      --ag-row-hover-color: ${theme.colors.primary}0f;
+      --ag-row-hover-color: ${theme.colors.primary50};
       --ag-selected-row-background-color: ${theme.colors.primary100};
       --ag-font-family: ${theme.typography.ParagraphSmall.fontFamily};
       --ag-font-size: ${theme.typography.ParagraphSmall.fontSize};
