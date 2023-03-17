@@ -152,8 +152,8 @@ export const DataGrid = ({
   const {
     theme: {
       current: {
-        sizing: { scale300, scale500 },
         customColors: { dark1 },
+        sizing: { scale300, scale500 }
       },
     },
   } = useTheme();
@@ -631,6 +631,7 @@ export const DataGrid = ({
     settings,
   ]);
 
+
   const dataGridHeight = useMemo(() => {
     const headerHeight = showDataGridHeader ? 45 : 0;
     return `calc(100% - ${headerHeight}px)`;
@@ -781,7 +782,8 @@ export const DataGrid = ({
           cacheBlockSize={1000}
           maxBlocksInCache={10}
           blockLoadDebounceMillis={100}
-          headerHeight={36}
+          headerHeight={40}
+          rowHeight={40}
           frameworkComponents={{
             moreActionsCell: RowActionsCell,
             footerRowCount: FooterRowCount,
@@ -836,6 +838,7 @@ export const DataGrid = ({
           }}
           tooltipShowDelay={0}
           colResizeDefault="shift"
+          
         >
           <AgGridColumn
             hide={!selection}
@@ -849,6 +852,7 @@ export const DataGrid = ({
             resizable={false}
             lockPosition
             pinned={'left'}
+          
           />
           {gridColumns.map(
             ({
@@ -884,6 +888,7 @@ export const DataGrid = ({
                 aggFunc={aggFunc}
                 sortable={sortable ?? sortableColumns}
                 resizable
+            
                 {...rest}
               />
             ),
