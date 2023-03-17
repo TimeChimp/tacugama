@@ -78,7 +78,7 @@ import { ParagraphSmall } from '../typography';
 import { Button } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { ButtonKind } from '../../models';
-import { CaretDownIcon, CaretUpIcon } from '../icons';
+import { CaretDownIcon, CaretUpIcon, MoreIcon } from '../icons';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
