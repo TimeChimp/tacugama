@@ -11,12 +11,7 @@ export default {
   component: Select,
 } as Meta;
 
-const Template: Story<SelectProps> = (args) => {
-  const [selectedValue, setSelectedValue] = useState<Value>([]);
-  return (
-    <Select {...args} onChangeHandler={({ value }) => setSelectedValue(value ? [value] : [])} value={selectedValue} />
-  );
-};
+const Template: Story<SelectProps> = (args) => <Select {...args} />;
 Template.parameters = {
   design: {
     type: 'figma',
@@ -43,6 +38,7 @@ Multi.args = {
   options: OPTIONS,
   placeholder: 'Placeholder',
   multi: true,
+  value: [OPTIONS[0], OPTIONS[1]],
 };
 Multi.parameters = {
   design: {

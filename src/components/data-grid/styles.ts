@@ -11,18 +11,18 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       --ag-alpine-active-color: ${theme.colors.primary};
       --ag-foreground-color: ${theme.colors.primaryA};
       --ag-secondary-foreground-color: ${theme.customColors.dark4};
-      --ag-row-hover-color: ${theme.colors.primary100};
-      --ag-selected-row-background-color: ${theme.colors.primary200};
+      --ag-row-hover-color: ${theme.colors.primary50};
+      --ag-selected-row-background-color: ${theme.colors.primary100};
       --ag-font-family: ${theme.typography.ParagraphSmall.fontFamily};
       --ag-font-size: ${theme.typography.ParagraphSmall.fontSize};
-      --ag-header-background-color: ${theme.colors.primaryB};
+      --ag-header-background-color: ${theme.customColors.light7};
       --ag-odd-row-background-color: ${theme.colors.primaryB};
       --ag-border-color: ${theme.borders.border300.borderColor};
       --ag-secondary-border-color: ${theme.borders.border300.borderColor};
       --ag-range-selection-border-color: transparent;
       --ag-checkbox-unchecked-color: ${theme.customColors.dark4};
     }
-
+  
     .ag-theme-alpine {
       font-family: ${theme.typography.ParagraphSmall.fontFamily};
     }
@@ -35,11 +35,14 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
     }
   
     .ag-theme-alpine .ag-header-cell {
-      font-size: ${theme.typography.ParagraphSmall.fontSize};
-      line-height: ${theme.typography.ParagraphSmall.lineHeight};
-      font-weight: ${theme.typography.ParagraphSmall.fontWeight};
-      color: ${theme.customColors.dark1}
+      font-weight: ${theme.typography.LabelSmall.fontWeight};
+      font-size: ${theme.typography.LabelSmall.fontSize};
+      line-height: ${theme.typography.LabelSmall.lineHeight};
+      color: ${theme.customColors.dark3}
     }
+
+    .ag-theme-alpine .ag-row {
+      color: ${theme.customColors.dark1};
 
     .ag-theme-alpine .ag-header-cell div[title^='CaretUp'], div[title^='CaretDown'] {
       display: flex;

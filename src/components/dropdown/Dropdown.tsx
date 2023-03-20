@@ -38,6 +38,7 @@ export const Dropdown = ({
         sizing: { scale700, scale1000 },
         lighting: { shadow600 },
         borders: { radius200 },
+        colors: { primaryB },
       },
     },
   } = useTheme();
@@ -74,6 +75,11 @@ export const Dropdown = ({
             boxShadow: shadow600,
             zIndex: 1001,
             ...propOverrides?.bodyProps?.(),
+          },
+        },
+        Arrow: {
+          style: {
+            backgroundColor: primaryB,
           },
         },
       }}
