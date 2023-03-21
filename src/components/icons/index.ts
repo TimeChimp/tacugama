@@ -59,3 +59,4 @@ export * from './play';
 export * from './day-calendar';
 export * from './day';
 export * from './blocked';
+export * from './stop';
