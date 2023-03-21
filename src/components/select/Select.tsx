@@ -33,6 +33,8 @@ export const Select = ({
   disableSortOptions = false,
   disabled = false,
   error = false,
+  stickyButtonText,
+  stickyButtonOnClick,
   ...rest
 }: SelectProps) => {
   const {
@@ -73,6 +75,8 @@ export const Select = ({
     }
     return options.length > 1 ? [...options].sort((a, b) => a[labelKey]?.localeCompare(b[labelKey])) : options;
   };
+
+  const showStickButton = stickyButtonText && stickyButtonOnClick;
 
   return (
     <>
@@ -145,17 +149,19 @@ export const Select = ({
                 ...border(border300),
                 background: primaryB
               },
-              props: ({ children, ...rest}) => ({
-                ...rest,
-                children: (
-                  <>
-                    {children}
-                    <FlexItem marg1={scale300} marg2={scale600} justifyContent='start'>
-                      <Button kind={ButtonKind.minimal} startEnhancer={AddLineIcon} onClick={() => alert('Let us add someting')}>Add something!</Button>
-                    </FlexItem>
-                  </>
-                ),
-              }),
+              ...(showStickButton && {
+                props: ({ children, ...rest}) => ({
+                    ...rest,
+                    children: (
+                      <>
+                        {children}
+                        <FlexItem marg1={scale300} marg2={scale600} justifyContent='start'>
+                          <Button kind={ButtonKind.minimal} startEnhancer={AddLineIcon} onClick={stickyButtonOnClick}>{stickyButtonText}</Button>
+                        </FlexItem>
+                      </>
+                    ),
+                  })
+              })
             },
             Input: {
               style: {
