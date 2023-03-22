@@ -14,6 +14,11 @@ import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
 import { CaretDownIcon } from '../icons/caret-down';
 import { SelectProps } from './types';
+import { Button } from '../button';
+import { ButtonKind } from '../../models';
+import { AddLineIcon } from '../icons';
+
+const SELECT_HEIGHT = '38px';
 
 export const Select = ({
   size = 'compact',
@@ -28,6 +33,8 @@ export const Select = ({
   disableSortOptions = false,
   disabled = false,
   error = false,
+  stickyButtonText,
+  stickyButtonOnClick,
   ...rest
 }: SelectProps) => {
   const {
@@ -36,13 +43,13 @@ export const Select = ({
         colors,
         borders,
         customColors,
-        sizing: { scale0, scale100, scale600, scale700, scale900, scale950 },
+        sizing: { scale0, scale100, scale300, scale600, scale700, scale950 },
         typography: { ParagraphSmall },
       },
     },
   } = useTheme();
   const { border300, radius200 } = borders;
-  const { primary100, contentPrimary } = colors;
+  const { primary100, contentPrimary, primaryB } = colors;
   const { primarySubtle, dark4 } = customColors;
 
   const handleOnChange = (params: OnChangeParams) => {
@@ -53,20 +60,28 @@ export const Select = ({
     return onChangeHandler({ ...params, value: value?.length === 1 ? value[0] : value });
   };
 
-  const alphabetizeOptions = (options: Option[], disableSortOptions?: boolean) => {
+  const alphabetizeOptions = (options: Option[] | { [key: string]: Option[] }, disableSortOptions?: boolean) => {
     if (!options) {
       return [];
     }
     if (disableSortOptions) {
       return options;
     }
+    if (!Array.isArray(options)) {
+      return Object.entries(options).reduce((acc, [key, value]) => ({
+        ...acc,
+        [key]: value.length > 1 ? [...value].sort((a, b) => a[labelKey]?.localeCompare(b[labelKey])) : value,
+      })) as Option[];
+    }
     return options.length > 1 ? [...options].sort((a, b) => a[labelKey]?.localeCompare(b[labelKey])) : options;
   };
+
+  const showStickButton = stickyButtonText && stickyButtonOnClick;
 
   return (
     <>
       {showSkeleton ? (
-        <Skeleton width="100%" height={scale900} animation />
+        <Skeleton width="100%" height={SELECT_HEIGHT} animation />
       ) : (
         <BaseSelect
           size={size}
@@ -132,7 +147,21 @@ export const Select = ({
               style: {
                 ...borderRadius(radius200),
                 ...border(border300),
+                background: primaryB
               },
+              ...(showStickButton && {
+                props: ({ children, ...rest}) => ({
+                    ...rest,
+                    children: (
+                      <>
+                        {children}
+                        <FlexItem marg1={scale300} marg2={scale600} justifyContent='start'>
+                          <Button kind={ButtonKind.minimal} startEnhancer={AddLineIcon} onClick={stickyButtonOnClick}>{stickyButtonText}</Button>
+                        </FlexItem>
+                      </>
+                    ),
+                  })
+              })
             },
             Input: {
               style: {
@@ -146,6 +175,7 @@ export const Select = ({
               style: {
                 ...ParagraphSmall,
                 ...padding('0', scale600),
+                gap: scale300,
               },
             },
             Dropdown: {
@@ -153,6 +183,7 @@ export const Select = ({
                 ...padding('0'),
                 ...borderRadius(radius200),
                 maxHeight: '300px',
+                boxShadow: 'none',
               },
             },
             DropdownListItem: {
@@ -200,7 +231,7 @@ export const Select = ({
                       zIndex: 99999,
                     },
                   },
-                },
+                }
               },
             },
             Tag: {

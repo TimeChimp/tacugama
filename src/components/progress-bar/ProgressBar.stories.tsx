@@ -8,7 +8,7 @@ export default {
   component: ProgressBar,
 } as Meta;
 
-let value = 87;
+const value = 87;
 
 const Template: Story<ProgressBarProps> = (args) => <ProgressBar {...args} />;
 

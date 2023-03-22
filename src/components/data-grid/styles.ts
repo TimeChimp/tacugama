@@ -1,7 +1,9 @@
-import { AgGridReact } from '@ag-grid-community/react';
+import { AgGridReact } from '@ag-grid-community/react/lib/agGridReact';
 import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
 import { margin, padding, borderTop, borderRight, borderLeft, borderBottom } from '../../utils';
+
+export const PAGINATION_SELECTED_ROWS_WIDTH = 285;
 
 export const getGridThemeOverrides = (theme: CustomThemeType) => {
   return `
@@ -9,18 +11,18 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       --ag-alpine-active-color: ${theme.colors.primary};
       --ag-foreground-color: ${theme.colors.primaryA};
       --ag-secondary-foreground-color: ${theme.customColors.dark4};
-      --ag-row-hover-color: ${theme.colors.primary100};
-      --ag-selected-row-background-color: ${theme.colors.primary200};
+      --ag-row-hover-color: ${theme.colors.primary50};
+      --ag-selected-row-background-color: ${theme.colors.primary100};
       --ag-font-family: ${theme.typography.ParagraphSmall.fontFamily};
       --ag-font-size: ${theme.typography.ParagraphSmall.fontSize};
-      --ag-header-background-color: ${theme.colors.primaryB};
+      --ag-header-background-color: ${theme.customColors.light7};
       --ag-odd-row-background-color: ${theme.colors.primaryB};
       --ag-border-color: ${theme.borders.border300.borderColor};
       --ag-secondary-border-color: ${theme.borders.border300.borderColor};
       --ag-range-selection-border-color: transparent;
       --ag-checkbox-unchecked-color: ${theme.customColors.dark4};
     }
-
+  
     .ag-theme-alpine {
       font-family: ${theme.typography.ParagraphSmall.fontFamily};
     }
@@ -31,19 +33,28 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       font-size: ${theme.sizing.scale650};
       line-height: ${theme.sizing.scale650};
     }
+  
+    .ag-theme-alpine .ag-header-cell {
+      font-weight: ${theme.typography.LabelSmall.fontWeight};
+      font-size: ${theme.typography.LabelSmall.fontSize};
+      line-height: ${theme.typography.LabelSmall.lineHeight};
+      color: ${theme.customColors.dark3}
+    }
+
+    .ag-theme-alpine .ag-row {
+      color: ${theme.customColors.dark1};
+
+    .ag-theme-alpine .ag-header-cell div[title^='CaretUp'], div[title^='CaretDown'] {
+      display: flex;
+    }
 
     .ag-header-icon.ag-header-cell-menu-button {
       display: none;
     }
 
-    .ag-theme-alpine .ag-pinned-right-header,
-    .ag-theme-alpine .ag-cell.ag-cell-first-right-pinned:not(.ag-cell-range-left):not(.ag-cell-range-single-cell) {
-      border-left: none;
-    }
-
     .ag-theme-alpine .ag-status-bar {
-      padding-right: ${theme.sizing.scale300};
-      padding-left: ${theme.sizing.scale300};
+      padding-right: ${theme.sizing.scale600};
+      padding-left: ${theme.sizing.scale600};
     }
 
     .ag-theme-alpine .ag-root-wrapper {
@@ -105,6 +116,7 @@ export const StyledDataGridSearch = themedStyled('div', ({ $theme }) => ({
 export const StyledFooterRowCount = themedStyled('div', ({ $theme }) => ({
   ...margin($theme.sizing.scale300, '0'),
   display: 'flex',
+  width: `${PAGINATION_SELECTED_ROWS_WIDTH}px`,
 }));
 
 export const StyledFooterPagination = themedStyled('div', ({ $theme }) => ({
@@ -146,8 +158,9 @@ interface StyledDataGridHeaderProps {
 export const StyledDataGridHeader = themedStyled<'div', StyledDataGridHeaderProps>(
   'div',
   ({ $theme, $justifyContent = 'space-between' }) => ({
-    ...padding($theme.sizing.scale100, $theme.sizing.scale300),
+    ...padding($theme.sizing.scale100, $theme.sizing.scale600),
     display: 'flex',
+    alignItems: 'center',
     height: $theme.sizing.scale1000,
     justifyContent: $justifyContent,
     ...borderTop($theme.borders.border300),
@@ -169,6 +182,7 @@ export const StyledDataGridViews = themedStyled('div', ({ $theme }) => ({
   alignItems: 'center',
   flexWrap: 'wrap',
   background: $theme.colors.primaryB,
+  gap: $theme.sizing.scale300,
 }));
 
 export const StyledDataGridViewListItem = themedStyled('li', ({ $theme }) => ({

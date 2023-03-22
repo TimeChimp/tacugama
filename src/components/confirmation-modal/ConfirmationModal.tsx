@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { ModalHeader, ModalFooter, ModalBody, Modal } from '../modal';
 import { HeadingSmall, ParagraphSmall } from '../typography';
-import { ModalButton, SecondaryModalButton } from '../button';
-import { ButtonType, ConfirmationModalType } from '../../models';
+import { Button } from '../button';
+import { ButtonKind, ButtonType, ConfirmationModalType } from '../../models';
 
 export interface ConfirmationModalProps {
   title: string;
@@ -78,15 +78,17 @@ export const ConfirmationModal = ({
         <ParagraphSmall>{description}</ParagraphSmall>
       </ModalBody>
       <ModalFooter>
-        <SecondaryModalButton onClick={handleCancel}>{cancelLabel}</SecondaryModalButton>
-        <ModalButton
+        <Button kind={ButtonKind.secondary} onClick={handleCancel}>
+          {cancelLabel}
+        </Button>
+        <Button
           buttonType={getButtonType()}
           isLoading={loading}
           onClick={handleSubmit}
           testId={submitButtonTestId}
         >
           {submitLabel}
-        </ModalButton>
+        </Button>
       </ModalFooter>
     </Modal>
   );

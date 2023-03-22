@@ -10,6 +10,7 @@ import { DataGridView, CreateViewInput, RowModelType } from './types';
 import { getTimeEntriesQueryMock } from './__tests__/mockServer';
 import { ACCESS_TOKEN, COLUMNS, DATA_URL, FILTERS, SEARCH_COLUMNS, TIME_ENTRIES } from './__tests__/constants';
 import { defaultTranslations } from './defaultTranslations';
+import { MoreIcon } from 'components/icons';
 
 export default {
   title: 'Components/Data Grid',
@@ -121,6 +122,14 @@ Default.args = {
   translations: defaultTranslations,
   searchColumns: SEARCH_COLUMNS,
   dates: [new Date(2020, 3, 20), new Date(2020, 3, 21)],
+  settings: [
+    {
+      id: 'test',
+      label: 'Test',
+      action: () => alert('test'),
+      value: true
+    },
+  ],
   rowActionItems: [
     {
       action: (selectedIds, additionalProps) => console.log(selectedIds, additionalProps),
@@ -132,16 +141,20 @@ Default.args = {
 export const Client = Template.bind({});
 Client.args = {
   columnToggling: true,
-  selection: false,
+  selection: true,
   grouping: false,
   viewing: true,
   columns: COLUMNS,
-  dataUrl: DATA_URL,
   accessToken: ACCESS_TOKEN,
   height: 'calc(100vh - 200px)',
   translations: defaultTranslations,
   searchColumns: SEARCH_COLUMNS,
   rowModelType: RowModelType.clientSide,
   rowData: TIME_ENTRIES,
-  rowActionItems: [],
+  rowActionItems: [
+    {
+      action: (selectedIds, additionalProps) => console.log(selectedIds, additionalProps),
+      label: 'Test',
+    },
+  ],
 };

@@ -5,7 +5,6 @@ import { SIZE } from 'baseui/button';
 import { Dropdown, DropdownItem } from '../../dropdown';
 import { MinusIcon } from '../../icons/minus';
 import { AddLineIcon } from '../../icons/add-line';
-import { FlexItem } from '../../flex-item';
 import { useTheme } from '../../../providers';
 import { DatepickerPopover } from '../../datepicker-popover';
 import { FilterButton } from './FilterButton';
@@ -23,6 +22,7 @@ export const ColumnFilters = ({
   setSelectedFilterIds,
   selectedFilterIds,
   translations: { search, lessFilters, allFilters },
+  datepickerTranslations,
   filterOnValue,
   filterOnDate,
   clearFilterModel,
@@ -34,7 +34,6 @@ export const ColumnFilters = ({
   const {
     theme: {
       current: {
-        sizing: { scale300 },
         colors: { primary, contentSecondary },
       },
     },
@@ -53,7 +52,7 @@ export const ColumnFilters = ({
 
   const isSelectValueActive = useCallback(
     (columnField: string, filterValue: FilterValue['value'], type: FilterType) => {
-      if (type !== FilterType.select) {
+      if (type !== FilterType.single) {
         return false;
       }
       const filterIdsByColumn = selectedFilterIds[columnField];
@@ -226,14 +225,15 @@ export const ColumnFilters = ({
             monthsShown={2}
             range
             quickSelect
+            translations={datepickerTranslations}
           />
         </>
       ),
-      [FilterType.string]: (
+      [FilterType.multi]: (
         <Dropdown
           showSearch
           selection
-          items={getAllColumnValues(columnField, FilterType.string, values)}
+          items={getAllColumnValues(columnField, FilterType.multi, values)}
           selectedIds={getSelectedFilterIds(columnField)}
           searchPlaceholder={searchPlaceholder || search}
           isLoading={valuesLoading}
@@ -249,9 +249,9 @@ export const ColumnFilters = ({
           />
         </Dropdown>
       ),
-      [FilterType.select]: (
+      [FilterType.single]: (
         <Dropdown
-          items={getAllColumnValues(columnField, FilterType.select, values)}
+          items={getAllColumnValues(columnField, FilterType.single, values)}
           selectedIds={getSelectedFilterIds(columnField)}
           isLoading={valuesLoading}
         >
@@ -277,8 +277,8 @@ export const ColumnFilters = ({
         <>
           {getFilters()?.map(
             ({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon, clearable }) => (
-              <FlexItem key={columnField} width="fit-content" marg1="0" marg2={scale300} marg3="0" marg4="0">
                 <Filter
+                  key={columnField}
                   title={title}
                   columnField={columnField}
                   type={type}
@@ -288,13 +288,11 @@ export const ColumnFilters = ({
                   icon={icon}
                   clearable={clearable}
                 />
-              </FlexItem>
             ),
           )}
           {filters?.length > 2 && (
             <>
               {showLessFilters ? (
-                <FlexItem width="fit-content" marg1="0" marg2={scale300} marg3="0" marg4="0">
                   <FilterButton
                     testId={MORE_FILTERS_BUTTON_TEST_ID}
                     onClick={() => setShowLessFilters(false)}
@@ -302,9 +300,7 @@ export const ColumnFilters = ({
                     size={SIZE.compact}
                     title={allFilters}
                   />
-                </FlexItem>
               ) : (
-                <FlexItem width="fit-content" marg1="0" marg2={scale300} marg3="0" marg4="0">
                   <FilterButton
                     testId={LESS_FILTERS_BUTTON_TEST_ID}
                     onClick={() => setShowLessFilters(true)}
@@ -312,7 +308,6 @@ export const ColumnFilters = ({
                     size={SIZE.compact}
                     title={lessFilters}
                   />
-                </FlexItem>
               )}
             </>
           )}

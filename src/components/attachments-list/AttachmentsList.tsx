@@ -79,12 +79,11 @@ export const AttachmentsList = ({ attachments, onDownload, onDelete }: Attacheme
             <FlexGridItem display="flex" justifyContent="flex-end" gridGap={scale600} paddingRight={scale300}>
               <Button
                 kind={ButtonKind.minimal}
-                isTransparent
                 onClick={() => onDownload(attachment.id as string, attachment.customFileName as string)}
               >
                 <DownloadIcon />
               </Button>
-              <Button kind={ButtonKind.minimal} isTransparent onClick={() => onDelete(attachment.id as string)}>
+              <Button kind={ButtonKind.minimal} onClick={() => onDelete(attachment.id as string)}>
                 <DeleteIcon color={dark0} />
               </Button>
             </FlexGridItem>

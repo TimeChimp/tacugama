@@ -30,7 +30,7 @@ export const SelectAllLink = themedStyled('div', () => ({
 }));
 
 export const WeekdayComponent = themedStyled<'div', StyledWeekdayProps>('div', ({ $theme, $active, $isDisabled }) => {
-  const borderColor = !$active || $isDisabled ? $theme.customColors.light2 : $theme.customColors.primaryMain;
+  const borderColor = !$active || $isDisabled ? $theme.customColors.light2 : $theme.colors.primary;
   return {
     backgroundColor: getBackgroundColor({ $active, $isDisabled, $theme }),
     boxSizing: 'border-box',

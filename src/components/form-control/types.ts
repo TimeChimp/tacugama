@@ -1,6 +1,9 @@
 import { FormControlProps as BaseFormControlProps } from 'baseui/form-control';
 
-export interface FormControlProps extends BaseFormControlProps {
+type OmittedProps = 'caption' | 'counter';
+
+export interface FormControlProps extends Omit<BaseFormControlProps, OmittedProps> {
   error?: string;
   success?: string;
+  caption?: string;
 }

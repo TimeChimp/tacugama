@@ -31,11 +31,12 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
         kind={ButtonKind.secondary}
         ref={ref}
         testId={testId ?? FILTER_BUTTON_TEST_ID}
+        type="button"
         endEnhancer={
           <>
             {arrows && <CaretDownIcon />}
             {hasValue && onClear && (
-              <Button kind={ButtonKind.minimal} isTransparent onClick={onClear}>
+              <Button kind={ButtonKind.minimal} onClick={onClear}>
                 <ClearLineIcon color={primaryA} />
               </Button>
             )}

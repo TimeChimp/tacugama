@@ -20,6 +20,8 @@ import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
 import { PageOrientation } from 'pdfmake/interfaces';
 import { Option } from '../select';
 import { AgGridColumnProps } from '@ag-grid-community/react';
+import { DatepickerRangeTranslations } from '../datepicker';
+import { AgGridReact } from '@ag-grid-community/react/lib/agGridReact';
 
 export enum RowModelType {
   clientSide = 'clientSide',
@@ -40,7 +42,7 @@ export interface DataGridApi {
   refreshStore: () => void;
   refreshCells: () => void;
   setViewState: (viewState: string | null) => void;
-  datagridRef: React.RefObject<HTMLDivElement>;
+  datagridRef: React.RefObject<AgGridReact>;
 }
 
 export type DataGridColumnValueType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'duration';
@@ -66,7 +68,7 @@ export interface DataGridColumn extends AgGridColumnProps {
   sortable?: boolean;
   hide?: boolean;
   customMap?: (value: any) => any;
-  customComponent?: React.FunctionComponent;
+  customComponent?: React.FunctionComponent<{ data: any; value: any }>;
   customHeaderComponent?: React.FunctionComponent;
   rowSelectProps?: DataGridRowSelectProps;
 }
@@ -85,8 +87,8 @@ export type IFilterType =
 
 export enum FilterType {
   date = 'date',
-  string = 'string',
-  select = 'select',
+  multi = 'multi',
+  single = 'single',
 }
 
 export interface FilterValue {
@@ -141,7 +143,6 @@ export interface Translations {
   rowCountSelectedText: (count: number) => JSX.Element;
   rowActionItems?: DropdownItem[];
   onRowEdit?: (data: RowActionsCellData) => void;
-  onRowEditIcon?: ComponentType<IconProps>;
   noRowsTitle: string;
   noRowsSubtext: string;
   groupBy: string;
@@ -178,6 +179,12 @@ export interface Translations {
   none: string;
 }
 
+export interface DataGridSetting {
+  id: string;
+  label: string;
+  action?: () => void;
+  value?: boolean;
+}
 export interface DataGridProps {
   licenseKey?: string;
   rowModelType?: RowModelType;
@@ -200,6 +207,7 @@ export interface DataGridProps {
   resizeableColumns?: boolean;
   formatSettings?: FormatSettings;
   translations?: Translations;
+  datepickerTranslations?: DatepickerRangeTranslations;
   views?: DataGridView[];
   height?: string;
   dates?: Date[];
@@ -216,8 +224,6 @@ export interface DataGridProps {
   onRenameView?: (id: string, name: string) => Promise<void>;
   onSaveViewState?: (id: string, state: string) => Promise<void>;
   onBulkDelete?: () => Promise<void>;
-  onRowEdit?: (data: RowActionsCellData) => void;
-  onRowEditIcon?: ComponentType<IconProps>;
   onSelectionChangedHandler?: (data: RowNode[]) => void;
   treeData?: boolean;
   getServerSideGroupKey?: GetServerSideGroupKey | undefined;
@@ -231,6 +237,7 @@ export interface DataGridProps {
   suppressRowHoverHighlight?: boolean;
   suppressRowClickSelection?: boolean;
   debouncedSearch?: boolean;
+  settings?: DataGridSetting[];
 }
 
 export interface DataGridView {
@@ -257,11 +264,10 @@ export interface FiltersProps {
   filters?: Filter[];
   dates?: Date[];
   setDates?: (dates: Date[]) => void;
-  grouping?: boolean;
   filtering?: boolean;
-  onGrouping: (rowGroups: string[]) => void;
   onFiltering: (filters: FilterModel) => void;
   translations: Translations;
+  datepickerTranslations?: DatepickerRangeTranslations;
   searchColumns?: string[];
   dateFormat: string;
   selectedFilterIds: SelectedFilterIds;
@@ -278,6 +284,7 @@ export interface ColumnFiltersProps {
   setDates?: (dates: Date[]) => void;
   api: GridApi;
   translations: Translations;
+  datepickerTranslations?: DatepickerRangeTranslations;
   dateFormat: string;
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
@@ -291,15 +298,12 @@ export interface FooterRowCountProps {
 }
 export interface RowActionsCellData {
   items: DropdownItem[];
-  onEdit?: (data: RowActionsCellData) => void;
-  icon?: ComponentType<IconProps>;
   id: string;
   [key: string]: any;
 }
 export interface RowActionsCellProps {
   api?: GridApi;
   data: RowActionsCellData;
-  icon?: ComponentType<IconProps>;
   propOverrides?: {
     listProps?: () => {};
     optionProps?: () => {};
@@ -320,7 +324,9 @@ export interface HeaderCheckboxProps {
 export interface HeaderColumnToggleProps {
   api: GridApi;
   columnApi: ColumnApi;
-  translations: Translations;
+}
+export interface HeaderColumnSettingsProps {
+  settings: DataGridSetting[];
 }
 
 export interface DataGridRequest {
@@ -462,3 +468,13 @@ export interface PdfHeaderCell extends PdfCell {
 }
 
 export interface PdfRow {}
+
+export interface ProcessCellForExportParams {
+  value: any;
+  node?: RowNode | null;
+  column: any;
+  api: GridApi | null | undefined;
+  columnApi: ColumnApi | null | undefined;
+  context: any;
+  type: string;
+}

@@ -114,7 +114,8 @@ export const getInputBorderColor = ({
   disabled,
   isFocused,
   hover,
-  customColors: { red0, green0, purple2, light2 },
+  customColors: { red0, green0, light2 },
+  colors: { primary },
 }: GetInputColorParams) => {
   if (disabled) {
     return light2;
@@ -126,26 +127,30 @@ export const getInputBorderColor = ({
     return green0;
   }
   if (isFocused || hover) {
-    return purple2;
+    return primary;
   }
   return light2;
 };
 
-export const getButtonBackgroundColor = (type: ButtonType, { green1, purple2, red2 }: CustomColors) => {
+export const getButtonBackgroundColor = (
+  type: ButtonType,
+  { green1, red0 }: CustomColors,
+  { primary }: ColorTokens,
+) => {
   const colors = {
-    default: purple2,
+    default: primary,
     success: green1,
-    error: red2,
+    error: red0,
   };
 
   return colors[type];
 };
 
-export const getButtonBackgroundHoverColor = (type: ButtonType, { purple1 }: CustomColors) => {
+export const getButtonBackgroundHoverColor = (type: ButtonType, { primary }: ColorTokens) => {
   const colors = {
-    default: purple1,
+    default: primary,
     success: '#06C270',
-    error: '#FF3B3B',
+    error: '#BF2828',
   };
 
   return colors[type];
@@ -156,7 +161,7 @@ export const getRadioBorderColor = (disabled: boolean, checked: boolean, theme: 
     return theme.customColors.dark4;
   }
   if (checked) {
-    return theme.customColors.purple2;
+    return theme.colors.primary;
   }
   return theme.customColors.dark4;
 };
@@ -166,7 +171,7 @@ export const getRadioBackgroundColor = (disabled: boolean, checked: boolean, the
     if (disabled) {
       return theme.customColors.dark4;
     }
-    return theme.customColors.purple2;
+    return theme.colors.primary;
   }
   return 'transparent';
 };

@@ -8,11 +8,12 @@ import { ButtonKind } from '../../models';
 
 export interface AlertProps extends BaseSnackbarElementProps {
   color?: string;
+  textColor?: string;
   minWidth?: string;
   startIcon?: JSX.Element;
 }
 
-export const Alert = ({ color, minWidth, message, actionMessage, actionOnClick, startIcon }: AlertProps) => {
+export const Alert = ({ color, textColor, minWidth, message, actionMessage, actionOnClick, startIcon }: AlertProps) => {
   const {
     theme: {
       current: {
@@ -24,11 +25,11 @@ export const Alert = ({ color, minWidth, message, actionMessage, actionOnClick, 
     <StyledAlert $color={color} $minWidth={minWidth}>
       <StyledDiv>
         <StyledSpan>{startIcon}</StyledSpan>
-        <LabelSmall color={primaryB}>{message}</LabelSmall>
+        <LabelSmall color={textColor || primaryB}>{message}</LabelSmall>
       </StyledDiv>
       <StyledDiv>
         {actionMessage && (
-          <Button kind={ButtonKind.minimal} isTransparent color={primaryB} onClick={actionOnClick}>
+          <Button kind={ButtonKind.minimal} color={primaryB} onClick={actionOnClick}>
             {actionMessage}
           </Button>
         )}

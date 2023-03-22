@@ -18,7 +18,7 @@ import { LabelXSmall, ParagraphSmall } from '../../../typography';
 import { SearchInput } from '../../../input';
 import { StyledDropdownSearch } from '../../../dropdown/styles';
 import { useTheme } from '../../../../providers';
-import { padding } from '../../../../utils';
+import { borderRadius, padding } from '../../../../utils';
 import { ButtonKind } from '../../../../models';
 
 export const DataGridViewOptions = ({
@@ -114,6 +114,7 @@ export const DataGridViewOptions = ({
               size={SIZE.compact}
               placeholder={translations.search}
               onChange={(event) => setViewSearchTerm(event.currentTarget.value)}
+              value={viewSearchTerm}
             />
           </StyledDropdownSearch>
           <StatefulMenu
@@ -131,6 +132,7 @@ export const DataGridViewOptions = ({
                   paddingInlineStart: '0',
                   boxShadow: 'none',
                   outline: 'none',
+                  ...borderRadius('0'),
                 },
               },
               ListItem: {
@@ -138,7 +140,6 @@ export const DataGridViewOptions = ({
                   <StyledDataGridViewListItem>
                     <Button
                       kind={ButtonKind.minimal}
-                      isTransparent
                       height={scale1400}
                       onClick={() => id && onViewSelect(id)}
                       startEnhancer={() => <ViewIcon color={isActiveView(id!) ? primary : contentStateDisabled} />}
@@ -154,7 +155,7 @@ export const DataGridViewOptions = ({
                     </Button>
                     {id !== 'default' && (
                       <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
-                        <Button kind={ButtonKind.minimal} isTransparent>
+                        <Button kind={ButtonKind.minimal}>
                           <MoreIcon color={primary} />
                         </Button>
                       </Dropdown>
@@ -168,7 +169,6 @@ export const DataGridViewOptions = ({
             <Button
               kind={ButtonKind.minimal}
               height={scale1400}
-              isTransparent
               onClick={() => setCreateModalIsOpen(true)}
               startEnhancer={() => <AddLineIcon color={primary} />}
             >

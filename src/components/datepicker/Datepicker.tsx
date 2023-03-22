@@ -10,12 +10,12 @@ import {
   padding,
 } from '../../utils';
 import { useTheme } from '../../providers';
-import { DatePicker, DatepickerOverrides } from 'baseui/datepicker';
+import { DatePicker, DatepickerOverrides, QuickSelectOption } from 'baseui/datepicker';
 import { Select } from '../select';
 import { DATA_TEST_ID } from '../../models';
-import { InputOverrides, InputProps } from 'baseui/input';
+import { InputOverrides } from 'baseui/input';
 import { CalendarIcon } from '../icons/calendar';
-import { getDateLocale } from '@timechimp/timechimp-typescript-helpers';
+import { getDateLocale, TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { DatePickerProps } from './types';
 
 export const Datepicker = ({
@@ -28,8 +28,9 @@ export const Datepicker = ({
   noBorder,
   testId,
   iconColor,
+  translations,
   ...rest
-}: DatePickerProps & InputProps) => {
+}: DatePickerProps) => {
   const [localeObj, setLocaleObj] = useState<Locale>();
 
   const {
@@ -57,6 +58,60 @@ export const Datepicker = ({
       setLocaleObj(localeObj);
     }
   }, [locale, weekStartDay]);
+
+  const quickSelectOptions: QuickSelectOption<Date>[] = [
+    {
+      id: translations?.today ?? 'Today',
+      beginDate: new Date(),
+      endDate: new Date(),
+    },
+    {
+      id: translations?.yesterday ?? 'Yesterday',
+      beginDate: new TcDate().subtract(1, 'day').toDate(),
+      endDate: new TcDate().subtract(1, 'day').toDate(),
+    },
+    {
+      id: translations?.thisWeek ?? 'This week',
+      beginDate: new TcDate().startOf('week').toDate(),
+      endDate: new TcDate().endOf('week').toDate(),
+    },
+    {
+      id: translations?.thisMonth ?? 'This month',
+      beginDate: new TcDate().startOf('month').toDate(),
+      endDate: new TcDate().endOf('month').toDate(),
+    },
+    {
+      id: translations?.thisQuarter ?? 'This quarter',
+      beginDate: new TcDate().startOf('quarter').toDate(),
+      endDate: new TcDate().endOf('quarter').toDate(),
+    },
+    {
+      id: translations?.thisYear ?? 'This year',
+      beginDate: new TcDate().startOf('year').toDate(),
+      endDate: new TcDate().endOf('year').toDate(),
+    },
+    {
+      id: translations?.previousWeek ?? 'Previous week',
+      beginDate: new TcDate().subtract(1, 'week').startOf('week').toDate(),
+      endDate: new TcDate().subtract(1, 'week').endOf('week').toDate(),
+    },
+    {
+      id: translations?.previousMonth ?? 'Previous month',
+      beginDate: new TcDate().subtract(1, 'month').startOf('month').toDate(),
+      endDate: new TcDate().subtract(1, 'month').endOf('month').toDate(),
+    },
+    {
+      id: translations?.previousQuarter ?? 'Previous quarter',
+      beginDate: new TcDate().subtract(1, 'quarter').startOf('quarter').toDate(),
+      endDate: new TcDate().subtract(1, 'quarter').endOf('quarter').toDate(),
+    },
+    {
+      id: translations?.previousYear ?? 'Previous year',
+      beginDate: new TcDate().subtract(1, 'year').startOf('year').toDate(),
+      endDate: new TcDate().subtract(1, 'year').endOf('year').toDate(),
+    },
+  ];
+
 
   const inputBaseOverrides: InputOverrides = {
     Input: {
@@ -156,7 +211,7 @@ export const Datepicker = ({
       },
     },
     QuickSelect: {
-      component: (props: any) => <Select {...props} />,
+      component: (props: any) => <Select {...props} disableSortOptions />,
     },
     Input: {
       props: {
@@ -193,6 +248,7 @@ export const Datepicker = ({
     <DatePicker
       value={customValue}
       locale={localeObj}
+      quickSelectOptions={quickSelectOptions}
       overrides={{
         ...datepickerBaseOverrides,
         ...overrides,

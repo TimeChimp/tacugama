@@ -4,4 +4,5 @@ export interface TextareaProps extends BaseTextareaProps {
   resizeable?: boolean;
   testId?: string;
   success?: boolean;
+  value: string;
 }

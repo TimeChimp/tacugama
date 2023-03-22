@@ -13,5 +13,17 @@ const Template: Story<TextareaProps> = (args) => <Textarea {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  placeholder: 'Controlled Input',
+  placeholder: 'placeholder',
+  testId: 'test-textarea',
+  error: false,
+  success: false,
+  disabled: false,
+  value: '',
+};
+
+Default.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=3761%3A27384&t=c28Ps0sNpq5pvFV4-4',
+  },
 };

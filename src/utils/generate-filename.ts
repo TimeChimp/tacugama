@@ -13,7 +13,5 @@ export const generateFilename = (gridApi: GridApi): string => {
     minDate = updatedMinDate;
   });
 
-  return `${new TcDate(minDate).format('yyyyMMdd')}-${new TcDate(maxDate).format(
-    'yyyyMMdd',
-  )}_Timechimp-Registration-Export`;
+  return `${new TcDate(minDate).format('yyyyMMdd')}-${new TcDate(maxDate).format('yyyyMMdd')}_Timechimp-Export`;
 };

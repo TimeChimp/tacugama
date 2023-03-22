@@ -4,7 +4,7 @@ import { Input } from '../Input';
 import { Button } from '../../button';
 import { ClickOutside } from '../../click-outside';
 import { margin, padding } from '../../../utils';
-import { ColorPickerContainer, StyledColorSwatch } from '../styles';
+import { ColorPickerContainer, StyledColorSwatch, ColorPickerWrapper } from '../styles';
 import { useTheme } from '../../../providers';
 import { ColorInputProps, colors } from './types';
 
@@ -14,6 +14,7 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
     theme: {
       current: {
         colors: { contentInverseTertiary },
+        customSizing: { scale0250 }
       },
     },
   } = useTheme();
@@ -24,7 +25,7 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
     return colors[randomNumber];
   };
 
-  const selectColor = (color: ColorResult) => onChange(color.hex);
+  const selectColor = (color: ColorResult) => color && onChange(color.hex);
 
   useEffect(() => {
     if (generateRandomColor) {
@@ -35,7 +36,7 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
   }, []);
 
   return (
-    <>
+    <ColorPickerWrapper>
       <Input
         startEnhancer={
           <Button
@@ -53,8 +54,7 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
                     backgroundColor: 'transparent',
                   },
                   ...padding($theme.sizing.scale400, '0', $theme.sizing.scale400, '0'),
-                  // NOTE: Value does not exist in theme
-                  ...margin('0', '0', '0', '-7px'),
+                  ...margin('0', '0', '0', scale0250),
                 }),
               },
             }}
@@ -81,6 +81,6 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
           </ClickOutside>
         </ColorPickerContainer>
       ) : null}
-    </>
+    </ColorPickerWrapper>
   );
 };

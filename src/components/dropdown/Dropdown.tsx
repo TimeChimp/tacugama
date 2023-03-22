@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StatefulMenu } from '../menu';
 import { StatefulPopover } from '../popover';
-import { padding } from '../../utils';
+import { borderRadius, padding } from '../../utils';
 import { StyledDropdownSearch, StyledDropdownFooter } from './styles';
 import { SearchInput } from '../input';
 import { useTheme } from '../../providers';
@@ -37,6 +37,8 @@ export const Dropdown = ({
       current: {
         sizing: { scale700, scale1000 },
         lighting: { shadow600 },
+        borders: { radius200 },
+        colors: { primaryB },
       },
     },
   } = useTheme();
@@ -50,7 +52,7 @@ export const Dropdown = ({
           });
         }
 
-        return !searchTerm || x.label.toLowerCase().includes(searchTerm.toLowerCase());
+        return !searchTerm || x.label?.toLowerCase().includes(searchTerm?.toLowerCase());
       })
       .map((x) => ({
         ...x,
@@ -73,6 +75,11 @@ export const Dropdown = ({
             boxShadow: shadow600,
             zIndex: 1001,
             ...propOverrides?.bodyProps?.(),
+          },
+        },
+        Arrow: {
+          style: {
+            backgroundColor: primaryB,
           },
         },
       }}
@@ -113,6 +120,7 @@ export const Dropdown = ({
                 List: {
                   style: {
                     ...padding(),
+                    ...borderRadius(showSearch ? '0' : radius200),
                     paddingInlineStart: '0',
                     boxShadow: 'none',
                     outline: 'none',

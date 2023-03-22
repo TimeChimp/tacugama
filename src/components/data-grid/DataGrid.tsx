@@ -5,19 +5,18 @@ import {
   getGridThemeOverrides,
   StyledDataGridHeader,
   StyledAgGridReact,
-  StyledDataGridDivider,
 } from './styles';
 import { RowActionsCell } from './row-actions-cell';
 import { FooterRowCount } from './footer-row-count';
 import { FooterPagination } from './footer-pagination';
 import { FooterPageSize } from './footer-page-size';
 import { NoRowsTemplate } from './no-rows-template';
-import { HeaderComponentFramework } from './header-component-framework';
 import { HeaderCheckbox } from './header-checkbox';
 import { HeaderColumnToggle } from './header-column-toggle';
 import { LoadingCellTemplate } from './loading-cell-template';
 import { Filters } from './filters';
 import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
+import { AgGridReact } from '@ag-grid-community/react/lib/agGridReact';
 import { StatusBarModule } from '@ag-grid-enterprise/status-bar';
 import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
 import { SetFilterModel, SetFilterModule } from '@ag-grid-enterprise/set-filter';
@@ -67,8 +66,6 @@ import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
 import { defaultTranslations } from './defaultTranslations';
 import { DataGridViews } from './views/data-grid-views';
-import { SortAscendingIcon } from './sort-ascending-icon';
-import { SortDescendingIcon } from './sort-descending-icon';
 import ReactDOMServer from 'react-dom/server';
 import DataGridActions from './DataGridActions';
 import { RowSelect } from '../row-select';
@@ -80,12 +77,13 @@ import { ParagraphSmall } from '../typography';
 import { Button } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { ButtonKind } from '../../models';
-import { CaretDownIcon } from '../icons/caret-down';
-import { EditIcon } from '../icons/edit';
+import { CaretDownIcon, CaretUpIcon } from '../icons';
+import { HeaderColumnSettings } from './header-column-settings';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
+const PINNED_COLUMN_WIDTH = 54;
 
 export const DataGrid = ({
   licenseKey,
@@ -104,6 +102,7 @@ export const DataGrid = ({
   accessToken,
   sortableColumns,
   views,
+  settings,
   dates,
   setDates,
   onDeactivateView,
@@ -115,12 +114,11 @@ export const DataGrid = ({
   onUnpinView,
   onSaveViewState,
   onBulkDelete,
-  onRowEdit,
-  onRowEditIcon,
   rowModelType = DEFAULT_ROW_MODEL_TYPE,
   searchColumns = DEFAULT_SEARCH_COLUMNS,
   formatSettings = defaultFormatSettings,
   translations = defaultTranslations,
+  datepickerTranslations,
   height = DEFAULT_HEIGHT,
   hideDownload = false,
   hideDelete = false,
@@ -139,7 +137,7 @@ export const DataGrid = ({
   onModalOpen,
   debouncedSearch = false,
 }: DataGridProps) => {
-  const datagridRef = useRef<HTMLDivElement>(null);
+  const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
@@ -154,8 +152,8 @@ export const DataGrid = ({
   const {
     theme: {
       current: {
-        sizing: { scale500 },
         customColors: { dark1 },
+        sizing: { scale300, scale500 }
       },
     },
   } = useTheme();
@@ -220,9 +218,9 @@ export const DataGrid = ({
 
   const refreshCells = (api: GridApi) => api.refreshCells();
 
-  const onGridSizeChanged = () => {
-    gridApi?.sizeColumnsToFit();
-  };
+  // const onGridSizeChanged = () => {
+  //   gridApi?.sizeColumnsToFit();
+  // };
 
   const setViewFilterIds = useCallback(
     (filterModel: FilterModel) => {
@@ -288,7 +286,7 @@ export const DataGrid = ({
       }
 
       api?.onFilterChanged();
-      api?.sizeColumnsToFit();
+      // api?.sizeColumnsToFit();
     },
     [setViewFilterIds, resetGrid],
   );
@@ -389,7 +387,7 @@ export const DataGrid = ({
     setGridColumnApi(columnApi);
     setIsGridColumnApiLoaded(true);
 
-    api?.sizeColumnsToFit();
+    // api?.sizeColumnsToFit();
 
     if (rowModelType === RowModelType.serverSide) {
       const datasource = createServerSideDatasource();
@@ -498,7 +496,7 @@ export const DataGrid = ({
       return [];
     }
 
-    if (!values || type === FilterType.select) {
+    if (!values || type === FilterType.single) {
       return [value];
     }
 
@@ -552,7 +550,7 @@ export const DataGrid = ({
       onSetFiltering(columnField, type, value);
 
       setSelectedFilterIds((currentIds) => {
-        if (!currentIds[columnField] || type === FilterType.select) {
+        if (!currentIds[columnField] || type === FilterType.single) {
           return {
             ...currentIds,
             [columnField]: [value],
@@ -619,18 +617,20 @@ export const DataGrid = ({
   };
 
   const columnCellRenderer = useMemo(() => {
-    if (rowActionItems || !!onRowEdit) {
+    if (rowActionItems?.length) {
       return 'moreActionsCell';
     }
     return '';
-  }, [rowActionItems, onRowEdit]);
+  }, [rowActionItems]);
 
-  const showDataGridHeader = useMemo(() => viewing || (selection && !(hideDelete && hideDownload)), [
+  const showDataGridHeader = useMemo(() => viewing || settings?.length || (selection && !(hideDelete && hideDownload)), [
     viewing,
     selection,
     hideDelete,
     hideDownload,
+    settings,
   ]);
+
 
   const dataGridHeight = useMemo(() => {
     const headerHeight = showDataGridHeader ? 45 : 0;
@@ -653,7 +653,7 @@ export const DataGrid = ({
       return {
         id: column.field,
         label: column.label || '',
-        icon: column.rowGroup ? <EditIcon size={scale500} /> : <></>,
+        isBold: column.rowGroup,
         action: () => handleGrouping(column.field),
       };
     });
@@ -667,10 +667,9 @@ export const DataGrid = ({
         filters={filters}
         dates={dates}
         setDates={setDates}
-        grouping={grouping}
-        onGrouping={onGrouping}
         onFiltering={setFilterModel}
         translations={translations}
+        datepickerTranslations={datepickerTranslations}
         searchColumns={searchColumns}
         dateFormat={formatSettings.dateFormat ?? (defaultFormatSettings.dateFormat as string)}
         selectedFilterIds={selectedFilterIds}
@@ -695,7 +694,7 @@ export const DataGrid = ({
                 hideDelete={hideDelete}
               />
             )}
-            <FlexItem width="auto">
+            <FlexItem width="auto" gap={scale300}>
               {viewing && (
                 <DataGridViews
                   views={allViews}
@@ -715,7 +714,6 @@ export const DataGrid = ({
               )}
               {grouping && (
                 <>
-                  <StyledDataGridDivider />
                   <FlexItem width="auto">
                     <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
                     <Dropdown items={options}>
@@ -729,15 +727,17 @@ export const DataGrid = ({
                   </FlexItem>
                 </>
               )}
-              <StyledDataGridDivider />
               {isGridColumnApiLoaded && (
-                <HeaderColumnToggle api={gridApi} columnApi={gridColumnApi} translations={translations} />
+                <HeaderColumnToggle api={gridApi} columnApi={gridColumnApi} />
+              )}
+              {
+                settings?.length && (
+                  <HeaderColumnSettings settings={settings} />
               )}
             </FlexItem>
           </StyledDataGridHeader>
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
-        {/* @ts-expect-error */}
         <StyledAgGridReact
           $height={dataGridHeight}
           ref={datagridRef}
@@ -776,13 +776,14 @@ export const DataGrid = ({
           onRowDataChanged={onRowDataChanged}
           getRowNodeId={getRowNodeId}
           onFirstDataRendered={onFirstDataRendered}
-          onGridSizeChanged={onGridSizeChanged}
+          // onGridSizeChanged={onGridSizeChanged}
           onSelectionChanged={onSelectionChanged}
           suppressDragLeaveHidesColumns
           cacheBlockSize={1000}
           maxBlocksInCache={10}
           blockLoadDebounceMillis={100}
-          headerHeight={36}
+          headerHeight={40}
+          rowHeight={40}
           frameworkComponents={{
             moreActionsCell: RowActionsCell,
             footerRowCount: FooterRowCount,
@@ -797,9 +798,9 @@ export const DataGrid = ({
           }}
           icons={{
             sortAscending: () =>
-              ReactDOMServer.renderToStaticMarkup(<SortAscendingIcon color={theme.current.colors.primaryA} />),
+              ReactDOMServer.renderToStaticMarkup(<CaretDownIcon color={theme.current.colors.primaryA} />),
             sortDescending: () =>
-              ReactDOMServer.renderToStaticMarkup(<SortDescendingIcon color={theme.current.colors.primaryA} />),
+              ReactDOMServer.renderToStaticMarkup(<CaretUpIcon color={theme.current.colors.primaryA} />),
           }}
           modules={[
             ClientSideRowModelModule,
@@ -837,6 +838,7 @@ export const DataGrid = ({
           }}
           tooltipShowDelay={0}
           colResizeDefault="shift"
+          
         >
           <AgGridColumn
             hide={!selection}
@@ -844,11 +846,13 @@ export const DataGrid = ({
             field={''}
             checkboxSelection={selection}
             headerComponent={selection ? 'headerCheckbox' : ''}
-            minWidth={40}
-            maxWidth={40}
+            minWidth={PINNED_COLUMN_WIDTH}
+            maxWidth={PINNED_COLUMN_WIDTH}
             sortable={false}
             resizable={false}
             lockPosition
+            pinned={'left'}
+          
           />
           {gridColumns.map(
             ({
@@ -871,7 +875,6 @@ export const DataGrid = ({
                 cellRendererFramework={customComponent}
                 cellRenderer={!!rowSelectProps ? 'rowSelect' : undefined}
                 cellRendererParams={!!rowSelectProps ? { ...rowSelectProps } : undefined}
-                headerComponentFramework={() => <HeaderComponentFramework label={label} />}
                 key={field}
                 headerName={label}
                 field={field}
@@ -885,6 +888,7 @@ export const DataGrid = ({
                 aggFunc={aggFunc}
                 sortable={sortable ?? sortableColumns}
                 resizable
+            
                 {...rest}
               />
             ),
@@ -898,11 +902,11 @@ export const DataGrid = ({
             }}
             cellRenderer={columnCellRenderer}
             cellRendererParams={{
-              data: { items: rowActionItems, onEdit: onRowEdit, icon: onRowEditIcon, api: gridApi },
+              data: { items: rowActionItems, api: gridApi },
             }}
             type="rightAligned"
-            minWidth={60}
-            maxWidth={rowActionItems?.length || columnToggling ? 60 : 0}
+            minWidth={PINNED_COLUMN_WIDTH}
+            maxWidth={rowActionItems?.length || columnToggling ? PINNED_COLUMN_WIDTH : 0}
             sortable={false}
             resizable={false}
             pinned={'right'}

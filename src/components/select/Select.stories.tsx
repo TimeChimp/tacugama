@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Select, Value } from './Select';
+import { Select } from './Select';
 import { ColorSelect, ColorSelectProps } from './color-select';
 import { OPTIONS } from './test-data';
 import { SelectProps } from './types';
@@ -11,12 +11,7 @@ export default {
   component: Select,
 } as Meta;
 
-const Template: Story<SelectProps> = (args) => {
-  const [selectedValue, setSelectedValue] = useState<Value>([]);
-  return (
-    <Select {...args} onChangeHandler={({ value }) => setSelectedValue(value ? [value] : [])} value={selectedValue} />
-  );
-};
+const Template: Story<SelectProps> = (args) => <Select {...args} />;
 Template.parameters = {
   design: {
     type: 'figma',
@@ -43,8 +38,23 @@ Multi.args = {
   options: OPTIONS,
   placeholder: 'Placeholder',
   multi: true,
+  value: [OPTIONS[0], OPTIONS[1]],
 };
 Multi.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=1733%3A11543&t=NbmXDJ7K9Ilt6afV-4',
+  },
+};
+
+export const WithStickyButton = Template.bind({});
+WithStickyButton.args = {
+  options: OPTIONS,
+  placeholder: 'Placeholder',
+  stickyButtonText: 'Add new item',
+  stickyButtonOnClick: () => alert('Add new item'),
+};
+WithStickyButton.parameters = {
   design: {
     type: 'figma',
     url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=1733%3A11543&t=NbmXDJ7K9Ilt6afV-4',

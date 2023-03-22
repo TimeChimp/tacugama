@@ -2,8 +2,8 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Modal, ModalHeader, ModalBody, ModalFooter, ModalProps, ModalSize } from './';
-import { ModalButton, SecondaryModalButton } from 'components';
-import { ButtonType } from 'models';
+import { Button } from 'components';
+import { ButtonKind, ButtonType } from 'models';
 
 export default {
   title: 'Components/Modal',
@@ -28,8 +28,8 @@ const Template: Story<ModalProps> = (args) => (
       Nulla ornare faucibus ex, non facilisis nisl. Maecenas aliquet mauris ut tempus.
     </ModalBody>
     <ModalFooter>
-      <SecondaryModalButton>Cancel</SecondaryModalButton>
-      <ModalButton buttonType={ButtonType.default}>Okay</ModalButton>
+      <Button kind={ButtonKind.secondary}>Cancel</Button>
+      <Button>Okay</Button>
     </ModalFooter>
   </Modal>
 );

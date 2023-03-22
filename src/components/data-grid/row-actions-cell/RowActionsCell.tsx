@@ -4,16 +4,15 @@ import { RowActionsCellProps } from '../types';
 import { Dropdown } from '../../dropdown';
 import { MoreIcon } from '../../icons/more';
 import { Button } from '../../button';
-import { RowEditCell } from '../row-edit-cell';
 import { ButtonKind } from '../../../models';
 
 export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
-  const { onEdit, items, id, icon, api } = data;
+  const { items, id, api } = data;
   const [active, setActive] = useState(false);
   const {
     theme: {
       current: {
-        sizing: { scale900 },
+        sizing: { scale650 },
         customColors: { dark1 },
         colors: { contentTertiary },
       },
@@ -28,12 +27,6 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
     containerRef.current?.click();
   };
 
-  const handleEdit = () => {
-    if (onEdit) {
-      onEdit(data);
-    }
-  };
-
   const filteredItems = useMemo(() => {
     return items?.filter((item: any) => {
       if (item.filterConditions?.length) {
@@ -46,7 +39,7 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
     });
   }, [items, data]);
 
-  return !onEdit ? (
+  return (
     <div ref={containerRef}>
       <Dropdown
         onOpen={onOpen}
@@ -56,14 +49,12 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
         additionalProperties={api}
         {...props}
       >
-        <Button kind={ButtonKind.minimal} isTransparent height={scale900} type="button">
-          <MoreIcon color={active ? dark1 : contentTertiary} />
+        <Button kind={ButtonKind.minimal} type="button">
+          <MoreIcon color={active ? dark1 : contentTertiary} size={scale650} />
         </Button>
       </Dropdown>
     </div>
-  ) : (
-    <RowEditCell onClick={handleEdit} icon={icon} />
-  );
+  )
 };
 
 export default RowActionsCell;

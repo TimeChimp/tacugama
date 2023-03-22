@@ -12,6 +12,7 @@ import { default as baseOverrides } from './overrides';
 import { lightColors, darkColors, customColors } from './colors';
 import { lightBorders, darkBorders } from './borders';
 import { lightLighting, darkLighting } from './lighting';
+import { customSizing } from './sizing';
 
 import { toRGBColor, formatHexColor } from '../utils';
 import { ThemePrimitives } from 'baseui/theme';
@@ -70,6 +71,7 @@ export const getTheme = (options: ThemeOptionsProps = defaultTheme): Theme => {
   const lightOverrides: CustomOverrideType = {
     ...baseOverrides,
     colors: lightColors,
+    customSizing,
     borders: lightBorders,
     lighting: lightLighting,
     app: {
@@ -80,6 +82,7 @@ export const getTheme = (options: ThemeOptionsProps = defaultTheme): Theme => {
   const darkOverrides: CustomOverrideType = {
     ...baseOverrides,
     customColors: darkCustomColors,
+    customSizing,
     colors: darkColors,
     borders: darkBorders,
     lighting: darkLighting,
