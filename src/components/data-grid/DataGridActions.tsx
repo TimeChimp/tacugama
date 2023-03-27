@@ -76,7 +76,7 @@ export const DataGridActions = ({
           </Button>
         </>
       ) : null}
-      <FlexItem marg4={scale300}>
+      <FlexItem marg4={!hideDelete && onBulkDelete ? scale300 : '0px'}>
         {!hideDownload && (
           <Dropdown
             items={dropdownItems}
