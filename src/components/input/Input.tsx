@@ -9,6 +9,7 @@ import {
   getInputTextColor,
   margin,
   padding,
+  getStyleOverrides,
 } from '../../utils';
 import { DATA_TEST_ID } from '../../models';
 import { InputProps } from './types';
@@ -24,6 +25,7 @@ export const Input = ({
   width = '100%',
   startEnhancer = null,
   endEnhancer = null,
+  overrides,
   ...rest
 }: InputProps) => {
   const {
@@ -45,22 +47,33 @@ export const Input = ({
       return { ...padding() };
     }
   };
+  const {
+    Root: RootOverrides,
+    StartEnhancer: StartEnhancerOverrides,
+    EndEnhancer: EndEnhancerOverrides,
+    MaskToggleButton: MaskToggleButtonOverrides,
+    Input: InputOverrides,
+    InputContainer: InputContainerOverrides,
+    ...styleOverrides
+  } = overrides ?? {};
 
   const baseOverrides: InputOverrides = {
     Input: {
-      style: ({ $disabled, $isFocused, $theme }) => {
+      style: (opts) => {
+        const { $disabled, $isFocused, $theme } = opts;
         const backgroundColor = getInputBackgroundColor({ disabled: $disabled, customColors, colors });
         const color = getInputTextColor({ isFocused: $isFocused, hasValue: !!value, customColors, colors });
         return {
           backgroundColor,
           ...border(),
-          ...padding('0', !!endEnhancer ? scale500 : scale600, '0', !!startEnhancer ? scale500 : scale600),
+          ...padding('0', endEnhancer ? scale500 : scale600, '0', startEnhancer ? scale500 : scale600),
           textTransform: uppercase ? 'uppercase' : 'inherit',
           color,
           '::placeholder': {
             color: customColors.dark4,
           },
           fontSize: $theme.typography.LabelSmall.fontSize,
+          ...getStyleOverrides(opts, InputOverrides?.style),
         };
       },
       props: {
@@ -68,34 +81,18 @@ export const Input = ({
       },
     },
     InputContainer: {
-      style: {
+      style: (opts) => ({
         ...border(),
         backgroundColor: primaryB,
-      },
+        ...getStyleOverrides(opts, InputContainerOverrides?.style),
+      }),
     },
     Root: {
-      style: ({ $error, $isFocused }) => ({
-        height: '38px', // NOTE: Size does not exist in the theme
-        width,
-        ...border(
-          !noBorder
-            ? {
-                ...border300,
-                borderColor: getInputBorderColor({
-                  error: $error,
-                  success,
-                  isFocused: $isFocused,
-                  customColors,
-                  colors,
-                }),
-              }
-            : undefined,
-        ),
-        ...borderRadius(borders.radius200),
-        backgroundColor: primaryB,
-        ...margin('0'),
-        ...rootPadding(),
-        ':hover': {
+      style: (opts) => {
+        const { $error, $isFocused } = opts;
+        return {
+          height: '38px', // NOTE: Size does not exist in the theme
+          width,
           ...border(
             !noBorder
               ? {
@@ -106,33 +103,66 @@ export const Input = ({
                     isFocused: $isFocused,
                     customColors,
                     colors,
-                    hover: true,
-                    disabled,
                   }),
                 }
               : undefined,
           ),
-        },
-      }),
-    },
-    StartEnhancer: {
-      style: ({ $disabled }) => ({
-        backgroundColor: getInputBackgroundColor({ disabled: $disabled, customColors, colors }),
-        ...padding('0', '0', '0', scale600),
-      }),
-    },
-    EndEnhancer: {
-      style: ({ $disabled }) => ({
-        backgroundColor: getInputBackgroundColor({ disabled: $disabled, customColors, colors }),
-        ...padding('0', scale600, '0', '0'),
-      }),
-    },
-    MaskToggleButton: {
-      style: {
-        ...padding('0', '0', '0', scale550),
-        outline: 'none',
+          ...borderRadius(borders.radius200),
+          backgroundColor: primaryB,
+          ...margin('0'),
+          ...rootPadding(),
+          ':hover': {
+            ...border(
+              !noBorder
+                ? {
+                    ...border300,
+                    borderColor: getInputBorderColor({
+                      error: $error,
+                      success,
+                      isFocused: $isFocused,
+                      customColors,
+                      colors,
+                      hover: true,
+                      disabled,
+                    }),
+                  }
+                : undefined,
+            ),
+          },
+          ...getStyleOverrides(opts, RootOverrides?.style),
+        };
       },
     },
+    StartEnhancer: {
+      style: (opts) => {
+        const { $disabled } = opts;
+        return {
+          backgroundColor: getInputBackgroundColor({ disabled: $disabled, customColors, colors }),
+          ...padding('0', '0', '0', scale600),
+          ...getStyleOverrides(opts, StartEnhancerOverrides?.style),
+        };
+      },
+    },
+    EndEnhancer: {
+      style: (opts) => {
+        const { $disabled } = opts;
+        return {
+          backgroundColor: getInputBackgroundColor({ disabled: $disabled, customColors, colors }),
+          ...padding('0', scale600, '0', '0'),
+          ...getStyleOverrides(opts, EndEnhancerOverrides?.style),
+        };
+      },
+    },
+    MaskToggleButton: {
+      style: (opts) => {
+        return {
+          ...padding('0', '0', '0', scale550),
+          outline: 'none',
+          ...getStyleOverrides(opts, MaskToggleButtonOverrides?.style),
+        };
+      },
+    },
+    ...styleOverrides,
   };
 
   return (
