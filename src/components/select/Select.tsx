@@ -17,6 +17,7 @@ import { SelectProps } from './types';
 import { Button } from '../button';
 import { ButtonKind } from '../../models';
 import { AddLineIcon } from '../icons';
+import { DropdownButtonWrapper } from './styles';
 
 const SELECT_HEIGHT = '38px';
 
@@ -34,6 +35,8 @@ export const Select = ({
   disabled = false,
   error = false,
   stickyButtonText,
+  stickyButtonWidth,
+  stickyPopoverWidth,
   stickyButtonOnClick,
   ...rest
 }: SelectProps) => {
@@ -144,24 +147,18 @@ export const Select = ({
               },
             },
             DropdownContainer: {
-              style: {
-                ...borderRadius(radius200),
-                ...border(border300),
-                background: primaryB
-              },
               ...(showStickButton && {
-                props: ({ children, ...rest}) => ({
-                    ...rest,
-                    children: (
-                      <>
-                        {children}
-                        <FlexItem marg1={scale300} marg2={scale600} justifyContent='start'>
-                          <Button kind={ButtonKind.minimal} startEnhancer={AddLineIcon} onClick={stickyButtonOnClick}>{stickyButtonText}</Button>
-                        </FlexItem>
-                      </>
-                    ),
-                  })
-              })
+                component: ({ children }) => (
+                  <>
+                    {children}
+                    <DropdownButtonWrapper $width={stickyButtonWidth}>
+                      <Button kind={ButtonKind.minimal} startEnhancer={AddLineIcon} onClick={stickyButtonOnClick}>
+                        {stickyButtonText}
+                      </Button>
+                    </DropdownButtonWrapper>
+                  </>
+                ),
+              }),
             },
             Input: {
               style: {
@@ -229,9 +226,12 @@ export const Select = ({
                   Body: {
                     style: {
                       zIndex: 99999,
+                      ...(showStickButton && {
+                        width: stickyPopoverWidth,
+                      }),
                     },
                   },
-                }
+                },
               },
             },
             Tag: {
