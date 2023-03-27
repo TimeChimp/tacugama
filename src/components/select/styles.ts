@@ -1,6 +1,5 @@
-import { themedStyled } from "theme";
-import { borderRadius } from "utils";
-
+import { themedStyled } from '../../theme';
+import { borderRadius } from '../../utils';
 
 export interface DropdownButtonWrapperProps {
   $width?: string;
