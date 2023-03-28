@@ -128,6 +128,7 @@ export const DataGrid = ({
   enableExport = false,
   suppressRowHoverHighlight = false,
   suppressRowClickSelection = false,
+  hideActionWithNoItems = false,
   getServerSideGroupKey,
   getDataPath,
   onSelectionChangedHandler,
@@ -785,7 +786,7 @@ export const DataGrid = ({
           headerHeight={40}
           rowHeight={40}
           frameworkComponents={{
-            moreActionsCell: RowActionsCell,
+            moreActionsCell: (props: any) => <RowActionsCell {...props} hideWithNoItems={hideActionWithNoItems} />,
             footerRowCount: FooterRowCount,
             footerPagination: FooterPagination,
             footerPageSize: FooterPageSize,
