@@ -10,12 +10,11 @@ import {
   padding,
   margin,
 } from '../../utils';
+import { ParagraphSmall as ParagraphSmallComponent } from 'baseui/typography';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
 import { CaretDownIcon } from '../icons/caret-down';
 import { SelectProps } from './types';
-import { Button } from '../button';
-import { ButtonKind } from '../../models';
 import { AddLineIcon } from '../icons';
 import { DropdownButtonWrapper } from './styles';
 
@@ -50,7 +49,7 @@ export const Select = ({
     },
   } = useTheme();
   const { border300, radius200 } = borders;
-  const { primary100, contentPrimary, primaryB } = colors;
+  const { primary100, contentPrimary, primary } = colors;
   const { primarySubtle, dark4 } = customColors;
 
   const handleOnChange = (params: OnChangeParams) => {
@@ -150,9 +149,8 @@ export const Select = ({
                     {children}
                     {stickyButtonText && stickyButtonOnClick && (
                       <DropdownButtonWrapper onClick={stickyButtonOnClick}>
-                        <Button kind={ButtonKind.minimal} startEnhancer={AddLineIcon}>
-                          {stickyButtonText}
-                        </Button>
+                        <AddLineIcon color={primary} />
+                        <ParagraphSmallComponent color={primary}>{stickyButtonText}</ParagraphSmallComponent>
                       </DropdownButtonWrapper>
                     )}
                   </StyledDropdownContainer>
