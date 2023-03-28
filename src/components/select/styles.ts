@@ -1,11 +1,7 @@
 import { themedStyled } from '../../theme';
 import { borderRadius } from '../../utils';
 
-export interface DropdownButtonWrapperProps {
-  $width?: string;
-}
-
-export const DropdownButtonWrapper = themedStyled<'div', DropdownButtonWrapperProps>('div', ({ $theme }) => ({
+export const DropdownButtonWrapper = themedStyled('div', ({ $theme }) => ({
   height: $theme.sizing.scale1000,
   display: 'flex',
   justifyContent: 'start',
