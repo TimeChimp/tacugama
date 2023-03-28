@@ -305,7 +305,7 @@ export interface RowActionsCellData {
 export interface RowActionsCellProps {
   api?: GridApi;
   data: RowActionsCellData;
-  hideWithNoItems: boolean;
+  hideWithNoItems?: boolean;
   propOverrides?: {
     listProps?: () => {};
     optionProps?: () => {};
