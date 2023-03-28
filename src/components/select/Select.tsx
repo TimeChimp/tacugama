@@ -35,6 +35,8 @@ export const Select = ({
   disabled = false,
   error = false,
   stickyButtonText,
+  stickyButtonWidth,
+  stickyPopoverWidth,
   stickyButtonOnClick,
   ...rest
 }: SelectProps) => {
@@ -225,6 +227,9 @@ export const Select = ({
                   Body: {
                     style: {
                       zIndex: 99999,
+                      ...(showStickButton && {
+                        width: stickyPopoverWidth,
+                      }),
                     },
                   },
                 },
