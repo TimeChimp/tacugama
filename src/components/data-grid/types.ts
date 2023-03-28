@@ -213,6 +213,7 @@ export interface DataGridProps {
   dates?: Date[];
   hideDownload?: boolean;
   hideDelete?: boolean;
+  hideActionWithNoItems?: boolean;
   setDates?: (dates: Date[]) => void;
   onDeactivateView?: (id: string) => Promise<void>;
   onActivateView?: (id: string) => Promise<void>;
@@ -304,6 +305,7 @@ export interface RowActionsCellData {
 export interface RowActionsCellProps {
   api?: GridApi;
   data: RowActionsCellData;
+  hideWithNoItems: boolean;
   propOverrides?: {
     listProps?: () => {};
     optionProps?: () => {};
