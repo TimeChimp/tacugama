@@ -52,8 +52,6 @@ WithStickyButton.args = {
   options: OPTIONS,
   placeholder: 'Placeholder',
   stickyButtonText: 'Add new item',
-  stickyButtonWidth: '99%',
-  stickyPopoverWidth: '98%',
   stickyButtonOnClick: () => alert('Add new item'),
 };
 WithStickyButton.parameters = {

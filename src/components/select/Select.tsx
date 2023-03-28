@@ -35,8 +35,6 @@ export const Select = ({
   disabled = false,
   error = false,
   stickyButtonText,
-  stickyButtonWidth,
-  stickyPopoverWidth,
   stickyButtonOnClick,
   ...rest
 }: SelectProps) => {
