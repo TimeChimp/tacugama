@@ -203,6 +203,7 @@ export interface DataGridProps {
   state?: string;
   dataUrl?: string;
   accessToken?: string;
+  customHeaders?: HeadersInit;
   sortableColumns?: boolean;
   resizeableColumns?: boolean;
   formatSettings?: FormatSettings;
