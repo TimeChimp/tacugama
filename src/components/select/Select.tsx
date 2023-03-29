@@ -144,7 +144,6 @@ export const Select = ({
             DropdownContainer: {
               component: (props) => {
                 const { children, ...otherProps } = props;
-                delete otherProps['data-no-focus-lock'];
                 return (
                   <StyledDropdownContainer {...otherProps}>
                     {children}
