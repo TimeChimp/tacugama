@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select as BaseSelect, Option, Value, OnChangeParams } from 'baseui/select';
+import { Select as BaseSelect, Option, Value, OnChangeParams, StyledDropdownContainer } from 'baseui/select';
 import { useTheme } from '../../providers';
 import {
   border,
@@ -10,12 +10,11 @@ import {
   padding,
   margin,
 } from '../../utils';
+import { ParagraphSmall as ParagraphSmallComponent } from 'baseui/typography';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
 import { CaretDownIcon } from '../icons/caret-down';
 import { SelectProps } from './types';
-import { Button } from '../button';
-import { ButtonKind } from '../../models';
 import { AddLineIcon } from '../icons';
 import { DropdownButtonWrapper } from './styles';
 
@@ -35,8 +34,6 @@ export const Select = ({
   disabled = false,
   error = false,
   stickyButtonText,
-  stickyButtonWidth,
-  stickyPopoverWidth,
   stickyButtonOnClick,
   ...rest
 }: SelectProps) => {
@@ -52,7 +49,7 @@ export const Select = ({
     },
   } = useTheme();
   const { border300, radius200 } = borders;
-  const { primary100, contentPrimary, primaryB } = colors;
+  const { primary100, contentPrimary, primary } = colors;
   const { primarySubtle, dark4 } = customColors;
 
   const handleOnChange = (params: OnChangeParams) => {
@@ -78,8 +75,6 @@ export const Select = ({
     }
     return options.length > 1 ? [...options].sort((a, b) => a[labelKey]?.localeCompare(b[labelKey])) : options;
   };
-
-  const showStickButton = stickyButtonText && stickyButtonOnClick;
 
   return (
     <>
@@ -147,18 +142,20 @@ export const Select = ({
               },
             },
             DropdownContainer: {
-              ...(showStickButton && {
-                component: ({ children }) => (
-                  <>
+              component: (props) => {
+                const { children, ...otherProps } = props;
+                return (
+                  <StyledDropdownContainer {...otherProps}>
                     {children}
-                    <DropdownButtonWrapper $width={stickyButtonWidth}>
-                      <Button kind={ButtonKind.minimal} startEnhancer={AddLineIcon} onClick={stickyButtonOnClick}>
-                        {stickyButtonText}
-                      </Button>
-                    </DropdownButtonWrapper>
-                  </>
-                ),
-              }),
+                    {stickyButtonText && stickyButtonOnClick && (
+                      <DropdownButtonWrapper onClick={stickyButtonOnClick}>
+                        <AddLineIcon color={primary} />
+                        <ParagraphSmallComponent color={primary}>{stickyButtonText}</ParagraphSmallComponent>
+                      </DropdownButtonWrapper>
+                    )}
+                  </StyledDropdownContainer>
+                );
+              },
             },
             Input: {
               style: {
@@ -226,9 +223,6 @@ export const Select = ({
                   Body: {
                     style: {
                       zIndex: 99999,
-                      ...(showStickButton && {
-                        width: stickyPopoverWidth,
-                      }),
                     },
                   },
                 },
