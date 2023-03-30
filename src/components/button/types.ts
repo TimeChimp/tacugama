@@ -6,6 +6,7 @@ export interface ButtonProps extends Omit<BaseButtonProps, 'kind'> {
   kind?: ButtonKind;
   testId?: string;
   height?: string;
+  width?: string;
   color?: string;
   isLink?: boolean;
   rootOverrides?: { [key: string]: number | string };

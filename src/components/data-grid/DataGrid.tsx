@@ -100,6 +100,7 @@ export const DataGrid = ({
   rowActionItems,
   columnToggling,
   accessToken,
+  customHeaders,
   sortableColumns,
   views,
   settings,
@@ -335,12 +336,21 @@ export const DataGrid = ({
         if (dataUrl) {
           try {
             const body = { ...params.request, filterModel };
+            let headers: HeadersInit = {
+              'Content-Type': 'application/json',
+            }
+
+            if (accessToken) {
+              headers['Authorization'] = `Bearer ${accessToken}`;
+            }
+
+            if (customHeaders) {
+              headers = { ...headers, ...customHeaders }
+            }
+
             const response = await fetch(dataUrl, {
               method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${accessToken}`,
-              },
+              headers,
               body: JSON.stringify(body),
             });
 
