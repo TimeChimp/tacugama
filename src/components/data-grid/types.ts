@@ -45,7 +45,7 @@ export interface DataGridApi {
   datagridRef: React.RefObject<AgGridReact>;
 }
 
-export type DataGridColumnValueType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'duration';
+export type DataGridColumnValueType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'datetime' | 'duration';
 export type DataGridAggFunc = 'sum';
 
 export interface DataGridRowSelectProps {
