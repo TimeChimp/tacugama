@@ -1,11 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import fetch from 'isomorphic-unfetch';
-import {
-  StyledDataGrid,
-  getGridThemeOverrides,
-  StyledDataGridHeader,
-  StyledAgGridReact,
-} from './styles';
+import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader, StyledAgGridReact } from './styles';
 import { RowActionsCell } from './row-actions-cell';
 import { FooterRowCount } from './footer-row-count';
 import { FooterPagination } from './footer-pagination';
@@ -155,7 +150,7 @@ export const DataGrid = ({
     theme: {
       current: {
         customColors: { dark1 },
-        sizing: { scale300, scale500 }
+        sizing: { scale300, scale500 },
       },
     },
   } = useTheme();
@@ -338,14 +333,14 @@ export const DataGrid = ({
             const body = { ...params.request, filterModel };
             let headers: HeadersInit = {
               'Content-Type': 'application/json',
-            }
+            };
 
             if (accessToken) {
               headers['Authorization'] = `Bearer ${accessToken}`;
             }
 
             if (customHeaders) {
-              headers = { ...headers, ...customHeaders }
+              headers = { ...headers, ...customHeaders };
             }
 
             const response = await fetch(dataUrl, {
@@ -494,7 +489,7 @@ export const DataGrid = ({
 
     const isSearchColumn = checkIfSearchColumn(columnField);
     if (isSearchColumn) {
-      return 'agTextColumnFilter';
+      return 'agMultiColumnFilter';
     }
 
     return 'agSetColumnFilter';
@@ -638,14 +633,10 @@ export const DataGrid = ({
     return '';
   }, [rowActionItems]);
 
-  const showDataGridHeader = useMemo(() => viewing || settings?.length || (selection && !(hideDelete && hideDownload)), [
-    viewing,
-    selection,
-    hideDelete,
-    hideDownload,
-    settings,
-  ]);
-
+  const showDataGridHeader = useMemo(
+    () => viewing || settings?.length || (selection && !(hideDelete && hideDownload)),
+    [viewing, selection, hideDelete, hideDownload, settings],
+  );
 
   const dataGridHeight = useMemo(() => {
     const headerHeight = showDataGridHeader ? 45 : 0;
@@ -742,13 +733,8 @@ export const DataGrid = ({
                   </FlexItem>
                 </>
               )}
-              {isGridColumnApiLoaded && (
-                <HeaderColumnToggle api={gridApi} columnApi={gridColumnApi} />
-              )}
-              {
-                settings?.length && (
-                  <HeaderColumnSettings settings={settings} />
-              )}
+              {isGridColumnApiLoaded && <HeaderColumnToggle api={gridApi} columnApi={gridColumnApi} />}
+              {settings?.length && <HeaderColumnSettings settings={settings} />}
             </FlexItem>
           </StyledDataGridHeader>
         )}
@@ -853,7 +839,6 @@ export const DataGrid = ({
           }}
           tooltipShowDelay={0}
           colResizeDefault="shift"
-          
         >
           <AgGridColumn
             hide={!selection}
@@ -867,7 +852,6 @@ export const DataGrid = ({
             resizable={false}
             lockPosition
             pinned={'left'}
-          
           />
           {gridColumns.map(
             ({
@@ -903,7 +887,6 @@ export const DataGrid = ({
                 aggFunc={aggFunc}
                 sortable={sortable ?? sortableColumns}
                 resizable
-            
                 {...rest}
               />
             ),
