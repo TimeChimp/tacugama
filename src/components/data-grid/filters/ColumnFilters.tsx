@@ -27,7 +27,6 @@ export const ColumnFilters = ({
   filterOnDate,
   clearFilterModel,
 }: ColumnFiltersProps) => {
-  console.log('ColumnFilters', filters);
   const [showLessFilters, setShowLessFilters] = useState<boolean>(true);
   const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
   const [internalDates, setInternalDates] = useState<Date[]>([]);

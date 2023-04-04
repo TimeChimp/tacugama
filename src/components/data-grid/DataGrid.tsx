@@ -75,7 +75,7 @@ import { ButtonKind } from '../../models';
 import { CaretDownIcon, CaretUpIcon } from '../icons';
 import { HeaderColumnSettings } from './header-column-settings';
 
-const DEFAULT_SEARCH_COLUMNS = ['name', 'client'];
+const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
 const PINNED_COLUMN_WIDTH = 54;
@@ -492,7 +492,7 @@ export const DataGrid = ({
       return 'agTextColumnFilter';
     }
 
-    return 'agMultiColumnFilter';
+    return 'agSetColumnFilter';
   };
 
   const onSelectionChanged = (event: SelectionChangedEvent) => {
@@ -684,7 +684,7 @@ export const DataGrid = ({
         filters={filters}
         dates={dates}
         setDates={setDates}
-        onFiltering={onFiltering}
+        onFiltering={setFilterModel}
         translations={translations}
         datepickerTranslations={datepickerTranslations}
         searchColumns={searchColumns}

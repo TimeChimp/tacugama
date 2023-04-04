@@ -1,7 +1,6 @@
-import React, { ChangeEvent, useCallback, useMemo, useState, useEffect } from 'react';
+import React, { ChangeEvent, useMemo, useState } from 'react';
 import { FiltersProps } from '../types';
 import { StyledDataGridFilters, StyledDataGridSearch } from '../styles';
-import { TextFilterModel } from '@ag-grid-community/core';
 import { SearchInput } from '../../input';
 import { FlexItem } from '../../flex-item';
 import { ColumnFilters } from './ColumnFilters';
