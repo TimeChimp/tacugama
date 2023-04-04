@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
+import React, { ChangeEvent, useCallback, useMemo, useState, useEffect } from 'react';
 import { FiltersProps } from '../types';
 import { StyledDataGridFilters, StyledDataGridSearch } from '../styles';
 import { TextFilterModel } from '@ag-grid-community/core';
@@ -17,26 +17,17 @@ export const Filters = ({
   searchColumns,
   translations,
   debouncedSearch,
+  onSearch,
   ...rest
 }: FiltersProps) => {
   const { searchBar } = translations;
   const [searchValue, setSearchValue] = useState('');
 
-  const handleSearch = useCallback(
-    (searchTerm: string) => {
-      const filterModel = api.getFilterModel();
-      searchColumns?.forEach((searchColumn) => {
-        const textFilter: TextFilterModel = {
-          filter: searchTerm,
-          filterType: 'text',
-          type: 'contains',
-        };
-        filterModel[searchColumn] = textFilter;
-      });
-      onFiltering(filterModel);
-    },
-    [api, onFiltering, searchColumns],
-  );
+  const handleSearch = (searchTerm: string) => {
+    if (onSearch) {
+      onSearch(searchTerm);
+    }
+  };
 
   const debouncedHandler = useMemo(() => debounce(handleSearch), [handleSearch]);
 

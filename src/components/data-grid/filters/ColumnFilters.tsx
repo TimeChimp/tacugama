@@ -27,6 +27,7 @@ export const ColumnFilters = ({
   filterOnDate,
   clearFilterModel,
 }: ColumnFiltersProps) => {
+  console.log('ColumnFilters', filters);
   const [showLessFilters, setShowLessFilters] = useState<boolean>(true);
   const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
   const [internalDates, setInternalDates] = useState<Date[]>([]);
@@ -277,37 +278,37 @@ export const ColumnFilters = ({
         <>
           {getFilters()?.map(
             ({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon, clearable }) => (
-                <Filter
-                  key={columnField}
-                  title={title}
-                  columnField={columnField}
-                  type={type}
-                  searchPlaceholder={searchPlaceholder}
-                  values={values}
-                  valuesLoading={valuesLoading}
-                  icon={icon}
-                  clearable={clearable}
-                />
+              <Filter
+                key={columnField}
+                title={title}
+                columnField={columnField}
+                type={type}
+                searchPlaceholder={searchPlaceholder}
+                values={values}
+                valuesLoading={valuesLoading}
+                icon={icon}
+                clearable={clearable}
+              />
             ),
           )}
           {filters?.length > 2 && (
             <>
               {showLessFilters ? (
-                  <FilterButton
-                    testId={MORE_FILTERS_BUTTON_TEST_ID}
-                    onClick={() => setShowLessFilters(false)}
-                    startEnhancer={<AddLineIcon />}
-                    size={SIZE.compact}
-                    title={allFilters}
-                  />
+                <FilterButton
+                  testId={MORE_FILTERS_BUTTON_TEST_ID}
+                  onClick={() => setShowLessFilters(false)}
+                  startEnhancer={<AddLineIcon />}
+                  size={SIZE.compact}
+                  title={allFilters}
+                />
               ) : (
-                  <FilterButton
-                    testId={LESS_FILTERS_BUTTON_TEST_ID}
-                    onClick={() => setShowLessFilters(true)}
-                    startEnhancer={<MinusIcon />}
-                    size={SIZE.compact}
-                    title={lessFilters}
-                  />
+                <FilterButton
+                  testId={LESS_FILTERS_BUTTON_TEST_ID}
+                  onClick={() => setShowLessFilters(true)}
+                  startEnhancer={<MinusIcon />}
+                  size={SIZE.compact}
+                  title={lessFilters}
+                />
               )}
             </>
           )}

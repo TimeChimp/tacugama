@@ -75,7 +75,7 @@ import { ButtonKind } from '../../models';
 import { CaretDownIcon, CaretUpIcon } from '../icons';
 import { HeaderColumnSettings } from './header-column-settings';
 
-const DEFAULT_SEARCH_COLUMNS = ['name'];
+const DEFAULT_SEARCH_COLUMNS = ['name', 'client'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
 const PINNED_COLUMN_WIDTH = 54;
@@ -489,10 +489,10 @@ export const DataGrid = ({
 
     const isSearchColumn = checkIfSearchColumn(columnField);
     if (isSearchColumn) {
-      return 'agMultiColumnFilter';
+      return 'agTextColumnFilter';
     }
 
-    return 'agSetColumnFilter';
+    return 'agMultiColumnFilter';
   };
 
   const onSelectionChanged = (event: SelectionChangedEvent) => {
@@ -514,6 +514,17 @@ export const DataGrid = ({
       return values.filter((x) => x !== value);
     }
     return [...values, value];
+  };
+
+  const onSearch = (searchTerm: string) => {
+    searchColumns?.forEach((columnField) => {
+      filterModel[columnField] = {
+        filterType: 'text',
+        type: 'contains',
+        filter: searchTerm,
+      };
+    });
+    onFiltering(filterModel);
   };
 
   const onSetFiltering = useCallback(
@@ -673,7 +684,7 @@ export const DataGrid = ({
         filters={filters}
         dates={dates}
         setDates={setDates}
-        onFiltering={setFilterModel}
+        onFiltering={onFiltering}
         translations={translations}
         datepickerTranslations={datepickerTranslations}
         searchColumns={searchColumns}
@@ -684,6 +695,7 @@ export const DataGrid = ({
         filterOnDate={filterOnDate}
         debouncedSearch={debouncedSearch}
         clearFilterModel={clearFilterModel}
+        onSearch={onSearch}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {showDataGridHeader && (
