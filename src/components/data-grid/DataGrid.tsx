@@ -489,7 +489,7 @@ export const DataGrid = ({
 
     const isSearchColumn = checkIfSearchColumn(columnField);
     if (isSearchColumn) {
-      return 'agTextColumnFilter';
+      return 'agMultiColumnFilter';
     }
 
     return 'agSetColumnFilter';
