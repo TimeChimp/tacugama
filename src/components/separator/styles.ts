@@ -7,7 +7,7 @@ export interface StyledSeparatorProps {
 }
 
 export const Seperator = themedStyled<'hr', StyledSeparatorProps>('hr', ({ $theme, $noMargin, $margin }) => ({
-  backgroundColor: $theme.customColors.light2,
+  backgroundColor: $theme.customColors.light3,
   ...border(),
   height: '1px',
   ...(!!$noMargin ? margin('0') : margin($margin || $theme.sizing.scale300, '0')),
