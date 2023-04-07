@@ -278,6 +278,7 @@ export interface FiltersProps {
   filterOnDate: (columnField: string, selectedDates: Date[]) => void;
   debouncedSearch?: boolean;
   clearFilterModel: (columnFilter: string) => void;
+  onSearch?: (searchTerm: string) => void;
 }
 
 export interface ColumnFiltersProps {

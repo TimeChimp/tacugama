@@ -516,6 +516,17 @@ export const DataGrid = ({
     return [...values, value];
   };
 
+  const onSearch = (searchTerm: string) => {
+    searchColumns?.forEach((columnField) => {
+      filterModel[columnField] = {
+        filterType: 'text',
+        type: 'contains',
+        filter: searchTerm,
+      };
+    });
+    onFiltering(filterModel);
+  };
+
   const onSetFiltering = useCallback(
     (columnField: string, type: FilterType, value: FilterValue['value']) => {
       let currentValues;
@@ -684,6 +695,7 @@ export const DataGrid = ({
         filterOnDate={filterOnDate}
         debouncedSearch={debouncedSearch}
         clearFilterModel={clearFilterModel}
+        onSearch={onSearch}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {showDataGridHeader && (
