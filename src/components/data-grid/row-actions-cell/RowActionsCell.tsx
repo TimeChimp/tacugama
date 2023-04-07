@@ -6,7 +6,7 @@ import { MoreIcon } from '../../icons/more';
 import { Button } from '../../button';
 import { ButtonKind } from '../../../models';
 
-export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
+export const RowActionsCell = ({ data, hideWithNoItems, ...props }: RowActionsCellProps) => {
   const { items, id, api } = data;
   const [active, setActive] = useState(false);
   const {
@@ -39,22 +39,26 @@ export const RowActionsCell = ({ data, ...props }: RowActionsCellProps) => {
     });
   }, [items, data]);
 
+  const hide = useMemo(() => !filteredItems?.length && hideWithNoItems, [hideWithNoItems, filteredItems?.length]);
+
   return (
     <div ref={containerRef}>
-      <Dropdown
-        onOpen={onOpen}
-        onClose={() => setActive(false)}
-        items={filteredItems}
-        selectedIds={[id]}
-        additionalProperties={api}
-        {...props}
-      >
-        <Button kind={ButtonKind.minimal} type="button">
-          <MoreIcon color={active ? dark1 : contentTertiary} size={scale650} />
-        </Button>
-      </Dropdown>
+      {!hide ? (
+        <Dropdown
+          onOpen={onOpen}
+          onClose={() => setActive(false)}
+          items={filteredItems}
+          selectedIds={[id]}
+          additionalProperties={api}
+          {...props}
+        >
+          <Button kind={ButtonKind.minimal} type="button">
+            <MoreIcon color={active ? dark1 : contentTertiary} size={scale650} />
+          </Button>
+        </Dropdown>
+      ) : null}
     </div>
-  )
+  );
 };
 
 export default RowActionsCell;

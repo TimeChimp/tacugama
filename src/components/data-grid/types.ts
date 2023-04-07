@@ -45,7 +45,7 @@ export interface DataGridApi {
   datagridRef: React.RefObject<AgGridReact>;
 }
 
-export type DataGridColumnValueType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'duration';
+export type DataGridColumnValueType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'datetime' | 'duration';
 export type DataGridAggFunc = 'sum';
 
 export interface DataGridRowSelectProps {
@@ -203,6 +203,7 @@ export interface DataGridProps {
   state?: string;
   dataUrl?: string;
   accessToken?: string;
+  customHeaders?: HeadersInit;
   sortableColumns?: boolean;
   resizeableColumns?: boolean;
   formatSettings?: FormatSettings;
@@ -213,6 +214,7 @@ export interface DataGridProps {
   dates?: Date[];
   hideDownload?: boolean;
   hideDelete?: boolean;
+  hideActionWithNoItems?: boolean;
   setDates?: (dates: Date[]) => void;
   onDeactivateView?: (id: string) => Promise<void>;
   onActivateView?: (id: string) => Promise<void>;
@@ -304,6 +306,7 @@ export interface RowActionsCellData {
 export interface RowActionsCellProps {
   api?: GridApi;
   data: RowActionsCellData;
+  hideWithNoItems?: boolean;
   propOverrides?: {
     listProps?: () => {};
     optionProps?: () => {};

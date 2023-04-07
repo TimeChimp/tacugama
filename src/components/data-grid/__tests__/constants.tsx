@@ -62,7 +62,7 @@ export const COLUMNS: DataGridColumn[] = [
   {
     field: 'start',
     label: 'Date',
-    type: 'date',
+    valueType: 'datetime',
   },
   {
     field: 'state',

@@ -118,6 +118,7 @@ Default.args = {
   filters: FILTERS,
   dataUrl: DATA_URL,
   accessToken: ACCESS_TOKEN,
+  customHeaders: {'Token': '123'},
   height: 'calc(100vh - 200px)',
   translations: defaultTranslations,
   searchColumns: SEARCH_COLUMNS,
