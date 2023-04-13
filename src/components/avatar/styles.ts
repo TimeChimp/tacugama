@@ -23,8 +23,8 @@ export const AvatarWithIcon = themedStyled<'div', AvatarWithIconProps>(
           borderRadius: '50%',
           ...border({
             ...$theme.borders.border100,
+            borderColor: $borderColor ?? $theme.colors.primary,
           }),
-          borderColor: $borderColor ?? $theme.colors.primary,
         }
       : {
           display: 'flex',
@@ -36,9 +36,9 @@ export const AvatarWithIcon = themedStyled<'div', AvatarWithIconProps>(
           borderRadius: '50%',
           ...border({
             ...$theme.borders.border300,
+            borderColor: $borderColor ?? $theme.customColors.dark1,
+            borderStyle: 'dashed',
           }),
-          borderColor: $borderColor ?? $theme.customColors.dark1,
-          borderStyle: 'dashed',
         }),
   }),
 );
