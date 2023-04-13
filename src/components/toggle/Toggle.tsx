@@ -20,7 +20,6 @@ export const Toggle = ({ checked, children, testId, size = ToggleSize.large, dis
       current: {
         sizing: {
           scale0,
-
           scale500,
           scale600,
           scale700,
@@ -37,6 +36,7 @@ export const Toggle = ({ checked, children, testId, size = ToggleSize.large, dis
     <Checkbox
       checked={checked}
       checkmarkType={STYLE_TYPE.toggle_round}
+      disabled={disabled}
       overrides={{
         Root: {
           props: {
