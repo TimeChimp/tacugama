@@ -3,7 +3,7 @@ import { Avatar as BaseAvatar, AvatarProps as BaseAvatarProps } from 'baseui/ava
 import { AvatarType, DATA_TEST_ID } from '../../models';
 import { useTheme } from '../../providers';
 import { AvatarWithIcon } from './styles';
-import { border } from '../../utils';
+import { border, borderRadius } from '../../utils';
 
 export interface AvatarProps extends BaseAvatarProps {
   testId?: string;
@@ -77,7 +77,7 @@ export const Avatar = ({
               backgroundColor: backgroundColor ?? light3,
               height: height ?? scale800,
               width: height ?? scale800,
-              borderRadius: '50%',
+              ...borderRadius('50%'),
               ...border({
                 ...border300,
                 borderColor: borderColor ?? dark1,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { themedStyled } from '../../theme';
 import { CustomThemeType } from '../../models';
+import { borderRadius } from '../../utils';
 
 export interface DotProps {
   color: string;
@@ -12,7 +13,7 @@ const StyledDot = themedStyled<'div', DotProps>(
     backgroundColor: color ? color : $theme.colors.backgroundPositive,
     height: $theme.sizing.scale400,
     width: $theme.sizing.scale400,
-    borderRadius: '50%',
+    ...borderRadius('50%'),
     display: 'inline-block',
   }),
 );
