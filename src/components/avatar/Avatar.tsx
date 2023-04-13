@@ -80,9 +80,9 @@ export const Avatar = ({
               borderRadius: '50%',
               ...border({
                 ...border300,
+                borderColor: borderColor ?? dark1,
+                borderStyle: 'dashed',
               }),
-              borderColor: borderColor ?? dark1,
-              borderStyle: 'dashed',
             },
             props: {
               [DATA_TEST_ID]: testId,
