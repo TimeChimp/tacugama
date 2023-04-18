@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select as BaseSelect, Option, Value, OnChangeParams, StyledDropdownContainer } from 'baseui/select';
+import { Select as BaseSelect, Option, Value, OnChangeParams } from 'baseui/select';
 import { useTheme } from '../../providers';
 import {
   border,
@@ -10,13 +10,13 @@ import {
   padding,
   margin,
 } from '../../utils';
-import { ParagraphSmall as ParagraphSmallComponent } from 'baseui/typography';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
 import { CaretDownIcon } from '../icons/caret-down';
 import { SelectProps } from './types';
 import { AddLineIcon } from '../icons';
-import { DropdownButtonWrapper } from './styles';
+import { Button } from '../button';
+import { ButtonKind } from '../../models';
 
 const SELECT_HEIGHT = '38px';
 
@@ -75,6 +75,8 @@ export const Select = ({
     }
     return options.length > 1 ? [...options].sort((a, b) => a[labelKey]?.localeCompare(b[labelKey])) : options;
   };
+
+  const showStickButton = stickyButtonText && stickyButtonOnClick;
 
   return (
     <>
@@ -142,20 +144,21 @@ export const Select = ({
               },
             },
             DropdownContainer: {
-              component: (props) => {
-                const { children, ...otherProps } = props;
-                return (
-                  <StyledDropdownContainer {...otherProps}>
-                    {children}
-                    {stickyButtonText && stickyButtonOnClick && (
-                      <DropdownButtonWrapper onClick={stickyButtonOnClick}>
-                        <AddLineIcon color={primary} />
-                        <ParagraphSmallComponent color={primary}>{stickyButtonText}</ParagraphSmallComponent>
-                      </DropdownButtonWrapper>
-                    )}
-                  </StyledDropdownContainer>
-                );
-              },
+              ...(showStickButton && {
+                props: ({ children, ...rest }) => ({
+                  ...rest,
+                  children: (
+                    <>
+                      {children}
+                      <FlexItem marg1={scale300} marg2={scale600} justifyContent="start">
+                        <Button kind={ButtonKind.minimal} startEnhancer={AddLineIcon} onClick={stickyButtonOnClick}>
+                          {stickyButtonText}
+                        </Button>
+                      </FlexItem>
+                    </>
+                  ),
+                }),
+              }),
             },
             Input: {
               style: {

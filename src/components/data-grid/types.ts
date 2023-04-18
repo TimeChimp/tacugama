@@ -45,7 +45,7 @@ export interface DataGridApi {
   datagridRef: React.RefObject<AgGridReact>;
 }
 
-export type DataGridColumnValueType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'duration';
+export type DataGridColumnValueType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'datetime' | 'duration';
 export type DataGridAggFunc = 'sum';
 
 export interface DataGridRowSelectProps {
@@ -278,6 +278,7 @@ export interface FiltersProps {
   filterOnDate: (columnField: string, selectedDates: Date[]) => void;
   debouncedSearch?: boolean;
   clearFilterModel: (columnFilter: string) => void;
+  onSearch?: (searchTerm: string) => void;
 }
 
 export interface ColumnFiltersProps {

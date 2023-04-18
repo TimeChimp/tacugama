@@ -1,5 +1,5 @@
 import { themedStyled } from '../../theme';
-import { border } from '../../utils';
+import { border, borderRadius } from '../../utils';
 import { AvatarType } from '../../models';
 
 export interface AvatarWithIconProps {
@@ -20,11 +20,11 @@ export const AvatarWithIcon = themedStyled<'div', AvatarWithIconProps>(
           backgroundColor: $backgroundColor ?? $theme.colors.primary,
           height: $height ?? $theme.sizing.scale750,
           width: $height ?? $theme.sizing.scale750,
-          borderRadius: '50%',
+          ...borderRadius('50%'),
           ...border({
             ...$theme.borders.border100,
+            borderColor: $borderColor ?? $theme.colors.primary,
           }),
-          borderColor: $borderColor ?? $theme.colors.primary,
         }
       : {
           display: 'flex',
@@ -33,12 +33,12 @@ export const AvatarWithIcon = themedStyled<'div', AvatarWithIconProps>(
           backgroundColor: $backgroundColor ?? $theme.customColors.light3,
           height: $height ?? $theme.sizing.scale750,
           width: $height ?? $theme.sizing.scale750,
-          borderRadius: '50%',
+          ...borderRadius('50%'),
           ...border({
             ...$theme.borders.border300,
+            borderColor: $borderColor ?? $theme.customColors.dark1,
+            borderStyle: 'dashed',
           }),
-          borderColor: $borderColor ?? $theme.customColors.dark1,
-          borderStyle: 'dashed',
         }),
   }),
 );
