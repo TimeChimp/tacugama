@@ -699,7 +699,7 @@ export const DataGrid = ({
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {showDataGridHeader && (
-          <StyledDataGridHeader $justifyContent={selection && !viewing ? 'flex-end' : 'space-between'}>
+          <StyledDataGridHeader $justifyContent={!selection ? 'flex-end' : 'space-between'}>
             {(selection || enableExport) && (
               <DataGridActions
                 gridApi={gridApi}
