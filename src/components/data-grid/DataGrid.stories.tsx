@@ -10,7 +10,6 @@ import { DataGridView, CreateViewInput, RowModelType } from './types';
 import { getTimeEntriesQueryMock } from './__tests__/mockServer';
 import { ACCESS_TOKEN, COLUMNS, DATA_URL, FILTERS, SEARCH_COLUMNS, TIME_ENTRIES } from './__tests__/constants';
 import { defaultTranslations } from './defaultTranslations';
-import { MoreIcon } from 'components/icons';
 
 export default {
   title: 'Components/Data Grid',
@@ -118,7 +117,7 @@ Default.args = {
   filters: FILTERS,
   dataUrl: DATA_URL,
   accessToken: ACCESS_TOKEN,
-  customHeaders: {'Token': '123'},
+  customHeaders: { Token: '123' },
   height: 'calc(100vh - 200px)',
   translations: defaultTranslations,
   searchColumns: SEARCH_COLUMNS,
@@ -128,7 +127,7 @@ Default.args = {
       id: 'test',
       label: 'Test',
       action: () => alert('test'),
-      value: true
+      value: true,
     },
   ],
   rowActionItems: [

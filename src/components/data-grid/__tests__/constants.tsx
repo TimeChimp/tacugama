@@ -93,6 +93,11 @@ export const COLUMNS: DataGridColumn[] = [
     label: 'Task',
     groupable: true,
   },
+  {
+    field: 'currency',
+    label: 'Currency',
+    valueType: 'currency',
+  },
 ];
 
 export const SEARCH_COLUMNS = ['description'];
@@ -119,7 +124,11 @@ export const FILTERS: Filter[] = [
     type: FilterType.multi,
     title: 'Users',
     columnField: 'userName',
-    values: [{ value: 1, label: 'Henkie'},{ value: 2, label: 'Baltus'}, { value: 3, label: 'Bob'}],
+    values: [
+      { value: 1, label: 'Henkie' },
+      { value: 2, label: 'Baltus' },
+      { value: 3, label: 'Bob' },
+    ],
     icon: ({ ...props }) => <AvatarIcon size="12px" {...props} />,
     searchPlaceholder: 'Search users',
   },
@@ -138,7 +147,6 @@ export const FILTERS: Filter[] = [
     values: ['Workshop', 'Website redesign', 'Logo and branding'],
     searchPlaceholder: 'Search projects',
     icon: ({ ...props }) => <NoteIcon {...props} size="14px" />,
-
   },
   {
     type: FilterType.multi,
@@ -162,7 +170,7 @@ export const ROW_ACTION_ITEMS: DropdownItem[] = [
 const getTimeEntries = () => {
   const timeEntries: any[] = [
     {
-      id:'BCC-BBB-CCC-DDD-EEE-1',
+      id: 'BCC-BBB-CCC-DDD-EEE-1',
       name: 'Analysis',
       description: 'This is a description',
       client: 'Google',
@@ -173,6 +181,7 @@ const getTimeEntries = () => {
       userName: 'Henkie',
       userId: 1,
       state: 'active',
+      currency: '€75.00',
     },
     {
       id: 'BCC-BBB-CCC-DDD-EEE-2',
@@ -186,7 +195,8 @@ const getTimeEntries = () => {
       userName: 'Baltus',
       userId: 2,
       state: 'active',
-    }
+      currency: '€15.00',
+    },
   ];
   for (let i = 0; i < 999; i++) {
     timeEntries.push({
@@ -201,6 +211,7 @@ const getTimeEntries = () => {
       userName: 'Bob',
       userId: 3,
       state: 'active',
+      currency: '',
     });
   }
   return timeEntries;

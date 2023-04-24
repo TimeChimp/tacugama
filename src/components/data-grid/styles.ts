@@ -33,7 +33,8 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       font-size: ${theme.sizing.scale650};
       line-height: ${theme.sizing.scale650};
     }
-  
+
+
     .ag-theme-alpine .ag-header-cell {
       font-weight: ${theme.typography.LabelSmall.fontWeight};
       font-size: ${theme.typography.LabelSmall.fontSize};
