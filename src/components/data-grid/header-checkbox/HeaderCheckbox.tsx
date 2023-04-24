@@ -3,7 +3,6 @@ import { HeaderCheckboxProps } from '..';
 import { StyledHeaderCheckbox, StyledHeaderCheckboxValue } from '../styles';
 import { Checkbox } from '../../checkbox';
 import { RowNode } from '@ag-grid-community/core';
-import { isInteractive } from 'baseui/select/select-component';
 
 const CHECKBOX_TEST_ID = 'data-grid-select-all';
 const MODEL_UPDATED_EVENT = 'modelUpdated';
@@ -53,7 +52,7 @@ export const HeaderCheckbox = ({ api: gridApi, displayName }: HeaderCheckboxProp
         setChecked(false);
       }
 
-      if (selectedRows.length > 0 && !allSelected) {
+      if (selectedRows?.length && !allSelected) {
         setIsIndeterminate(true);
       } else {
         setIsIndeterminate(false);
