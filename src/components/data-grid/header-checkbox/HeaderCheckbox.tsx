@@ -72,7 +72,6 @@ export const HeaderCheckbox = ({ api: gridApi, displayName }: HeaderCheckboxProp
   }, [gridApi, checked, getPageIndices, allAreSelected]);
 
   const onChange = () => {
-    //console.log('aaaasdffffff', checked, isIndeterminate);
     const { startIndex, endIndex } = getPageIndices();
     for (let i = startIndex; i < endIndex; i++) {
       gridApi.getDisplayedRowAtIndex(i)?.setSelected(!checked && !isIndeterminate);
