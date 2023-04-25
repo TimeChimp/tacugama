@@ -17,7 +17,6 @@ import { DurationFormat, NumberFormat, SupportedLocale } from '@timechimp/timech
 import { DropdownItem } from '../dropdown';
 import { SVGProps as IconProps } from '..';
 import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
-import { PageOrientation } from 'pdfmake/interfaces';
 import { Option } from '../select';
 import { AgGridColumnProps } from '@ag-grid-community/react';
 import { DatepickerRangeTranslations } from '../datepicker';
@@ -37,6 +36,8 @@ export enum CustomFilterTypes {
 export interface DataGridApi {
   getSelectedRows: () => any[];
   getSelectedRow: () => any;
+  deselectAll: () => void;
+  sizeColumnsToFit: () => void;
   exportAsCsv: () => void;
   exportAsExcel: () => void;
   refreshStore: () => void;
@@ -436,6 +437,8 @@ export interface DataGridActionsProps {
   hideDelete?: boolean;
 }
 
+export type PageOrientation = 'portrait' | 'landscape';
+
 export interface PrintParams {
   PDF_HEADER_COLOR?: string;
   PDF_INNER_BORDER_COLOR?: string;
@@ -482,3 +485,7 @@ export interface ProcessCellForExportParams {
   context: any;
   type: string;
 }
+
+export type Margins = number | [number, number] | [number, number, number, number];
+
+export type Alignment = 'left' | 'right' | 'justify' | 'center';
