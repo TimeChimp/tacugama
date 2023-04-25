@@ -908,6 +908,7 @@ export const DataGrid = ({
                 valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, valueType, customMap)}
                 aggFunc={aggFunc}
                 sortable={sortable ?? sortableColumns}
+                cellClass={valueType === 'currency' ? 'ag-right-aligned-cell' : ''}
                 resizable
                 {...rest}
               />
