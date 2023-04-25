@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Checkbox, CheckboxProps, STYLE_TYPE } from 'baseui/checkbox';
 import { useTheme } from '../../providers';
 import { borderRadius, margin } from '../../utils';
 import { DATA_TEST_ID } from '../../models';
+import { isDisabled } from '@testing-library/user-event/dist/utils';
 
 export interface ToggleProps extends CheckboxProps {
   testId?: string;
@@ -26,11 +27,27 @@ export const Toggle = ({ checked, children, testId, size = ToggleSize.large, dis
           scale950,
         },
         colors: { primary400 },
-        customColors: { light3, light4, light7 },
+        customColors: { dark4, light2, light3, light4, light6, light7 },
         typography: { LabelSmall },
       },
     },
   } = useTheme();
+
+  const toggleBackgroundColor = useMemo(() => {
+    if (!!checked) {
+      if (disabled) {
+      return light2
+      } else {
+        return primary400
+      }
+    }
+
+    if (disabled) {
+      return light3
+    }
+
+    return light6
+  }, [checked, disabled])
 
   return (
     <Checkbox
@@ -60,8 +77,8 @@ export const Toggle = ({ checked, children, testId, size = ToggleSize.large, dis
             marginRight: 0,
             marginLeft: 0,
             marginTop: 0,
-            backgroundColor: !!checked && !disabled ? primary400 : light3,
             ...borderRadius(scale500),
+            backgroundColor: toggleBackgroundColor,
           },
         },
         Toggle: {
