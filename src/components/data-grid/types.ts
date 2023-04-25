@@ -37,6 +37,8 @@ export enum CustomFilterTypes {
 export interface DataGridApi {
   getSelectedRows: () => any[];
   getSelectedRow: () => any;
+  deselectAll: () => void;
+  sizeColumnsToFit: () => void;
   exportAsCsv: () => void;
   exportAsExcel: () => void;
   refreshStore: () => void;
