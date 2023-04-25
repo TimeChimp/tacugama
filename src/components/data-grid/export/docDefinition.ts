@@ -31,7 +31,7 @@ export const getDocDefinition = (
 
     const rowsToExport = getRowsToExport(columnsToExport);
 
-    const body = columnGroupsToExport
+    const body: PdfTableCell[][] = columnGroupsToExport
       ? [columnGroupsToExport, columnsToExport, ...rowsToExport]
       : [columnsToExport, ...rowsToExport];
 
@@ -171,8 +171,8 @@ export const getDocDefinition = (
     return columnsToExport;
   }
 
-  function getRowsToExport(columnsToExport: any[]) {
-    const rowsToExport: any[] = [];
+  function getRowsToExport(columnsToExport: PdfHeaderCell[]) {
+    const rowsToExport: PdfTableCell[][] = [];
 
     const selectedRows = gridApi.getSelectedRows();
 
