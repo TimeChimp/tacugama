@@ -1,7 +1,6 @@
 import { ColumnApi, GridApi, ValueFormatterParams } from '@ag-grid-community/core';
 import { DEFAULT_PDF_HEADER_HEIGHT, DEFAULT_PDF_ROW_HEIGHT } from '../../../models';
-import { Content, Margins, TableCell, TDocumentDefinitions } from 'pdfmake/interfaces';
-import { PdfHeaderCell, PdfTableCell, PrintParams, Translations } from '../types';
+import { Alignment, Margins, PdfHeaderCell, PdfTableCell, PrintParams, Translations } from '../types';
 
 export const getDocDefinition = (
   gridApi: GridApi,
@@ -32,26 +31,27 @@ export const getDocDefinition = (
 
     const rowsToExport = getRowsToExport(columnsToExport);
 
-    const body: TableCell[][] = columnGroupsToExport
+    const body: PdfTableCell[][] = columnGroupsToExport
       ? [columnGroupsToExport, columnsToExport, ...rowsToExport]
       : [columnsToExport, ...rowsToExport];
 
     const headerRows = columnGroupsToExport ? 2 : 1;
 
-    const header: Content | undefined = PDF_WITH_HEADER_IMAGE
+    const header = PDF_WITH_HEADER_IMAGE
       ? {
           image: 'ag-grid-logo',
           width: 150,
-          alignment: 'center',
-          margin: [0, 10, 0, 10],
+          alignment: 'center' as Alignment,
+          margin: [0, 10, 0, 10] as Margins,
         }
       : undefined;
 
     const getFooter = PDF_WITH_FOOTER_PAGE_COUNT
       ? (currentPage: number, pageCount: number) => {
-          const footer: Content = {
+          const footer = {
             text: translations.paginationOutOfLong(currentPage, pageCount),
-            margin: [20, 20, 20, 20],
+            margin: [20, 20, 20, 20] as Margins,
+            tocItem: true,
           };
           return footer;
         }
@@ -78,7 +78,7 @@ export const getDocDefinition = (
     const getVLineColor = (i: number, node: any) =>
       i === 0 || i === node.table.widths.length ? PDF_OUTER_BORDER_COLOR : PDF_INNER_BORDER_COLOR;
 
-    const docDefinition: TDocumentDefinitions = {
+    const docDefinition = {
       pageOrientation: PDF_PAGE_ORIENTATION,
       header,
       footer: getFooter,
@@ -105,11 +105,11 @@ export const getDocDefinition = (
       },
       styles: {
         myTable: {
-          margin: [0, 0, 0, 0],
+          margin: [0, 0, 0, 0] as Margins,
         },
         tableHeader: {
           bold: true,
-          margin: [0, PDF_HEADER_HEIGHT / 3, 0, 0],
+          margin: [0, PDF_HEADER_HEIGHT / 3, 0, 0] as Margins,
         },
       },
       pageMargins,
@@ -172,7 +172,7 @@ export const getDocDefinition = (
   }
 
   function getRowsToExport(columnsToExport: PdfHeaderCell[]) {
-    const rowsToExport: TableCell[][] = [];
+    const rowsToExport: PdfTableCell[][] = [];
 
     const selectedRows = gridApi.getSelectedRows();
 
