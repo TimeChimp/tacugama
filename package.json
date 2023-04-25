@@ -78,7 +78,7 @@
     "@typescript-eslint/parser": "4.18.0",
     "babel-loader": "^8.2.2",
     "chromatic": "^6.11.4",
-    "eslint": "7.22.0",
+    "eslint": "8.39.0",
     "eslint-config-prettier": "7.2.0",
     "eslint-plugin-baseui": "12.2.0",
     "eslint-plugin-prettier": "4.2.1",
