@@ -11,6 +11,7 @@ const PAGINATION_CHANGED_EVENT = 'paginationChanged';
 
 export const HeaderCheckbox = ({ api: gridApi, displayName }: HeaderCheckboxProps) => {
   const [checked, setChecked] = useState(false);
+  const [isIndeterminate, setIsIndeterminate] = useState(false);
 
   const getPageIndices = useCallback(() => {
     const currentPage = gridApi.paginationGetCurrentPage();
@@ -43,11 +44,18 @@ export const HeaderCheckbox = ({ api: gridApi, displayName }: HeaderCheckboxProp
 
   useEffect(() => {
     function handleChangeEvent() {
+      const selectedRows: RowNode[] = gridApi.getSelectedRows();
       const allSelected = allAreSelected();
       if (!checked && allSelected) {
         setChecked(true);
       } else if (checked && !allSelected) {
         setChecked(false);
+      }
+
+      if (selectedRows?.length && !allSelected) {
+        setIsIndeterminate(true);
+      } else {
+        setIsIndeterminate(false);
       }
     }
 
@@ -65,13 +73,13 @@ export const HeaderCheckbox = ({ api: gridApi, displayName }: HeaderCheckboxProp
   const onChange = () => {
     const { startIndex, endIndex } = getPageIndices();
     for (let i = startIndex; i < endIndex; i++) {
-      gridApi.getDisplayedRowAtIndex(i)?.setSelected(!checked);
+      gridApi.getDisplayedRowAtIndex(i)?.setSelected(!checked && !isIndeterminate);
     }
   };
 
   return (
     <StyledHeaderCheckbox>
-      <Checkbox testId={CHECKBOX_TEST_ID} checked={checked} onChange={onChange} />
+      <Checkbox testId={CHECKBOX_TEST_ID} isIndeterminate={isIndeterminate} checked={checked} onChange={onChange} />
       <StyledHeaderCheckboxValue className="ag-cell-value">{displayName}</StyledHeaderCheckboxValue>
     </StyledHeaderCheckbox>
   );

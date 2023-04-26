@@ -188,6 +188,14 @@ export const DataGrid = ({
     return api.getSelectedRows();
   };
 
+  const deselectAll = (api: GridApi) => {
+    return api.deselectAll();
+  };
+
+  const sizeColumnsToFit = (api: GridApi) => {
+    return api.sizeColumnsToFit();
+  };
+
   const getSelectedRow = (api: GridApi) => {
     const rows = api.getSelectedRows();
     if (rows.length === 0) {
@@ -373,6 +381,8 @@ export const DataGrid = ({
         const dataGridApi: DataGridApi = {
           getSelectedRows: () => getSelectedRows(api),
           getSelectedRow: () => getSelectedRow(api),
+          deselectAll: () => deselectAll(api),
+          sizeColumnsToFit: () => sizeColumnsToFit(api),
           exportAsCsv: () => exportAsCsv(api),
           exportAsExcel: () => exportAsExcel(api),
           refreshStore: () => refreshStore(api),
@@ -898,6 +908,7 @@ export const DataGrid = ({
                 valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, valueType, customMap)}
                 aggFunc={aggFunc}
                 sortable={sortable ?? sortableColumns}
+                cellClass={valueType === 'currency' ? 'ag-right-aligned-cell' : ''}
                 resizable
                 {...rest}
               />
