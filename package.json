@@ -1,10 +1,10 @@
 {
-  "version": "5.7.2",
+  "version": "6.0.0-beta.1",
   "license": "MIT",
   "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "engines": {
     "node": ">=10"
@@ -14,12 +14,17 @@
     "url": "git+https://github.com/TimeChimp/tacugama.git"
   },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests",
-    "lint": "tsdx lint",
-    "lint:fix": "tsdx lint --fix",
-    "prepare": "tsdx build",
+    "start": "tsc --watch",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "build:esm": "tsc --module esnext --outDir dist/esm",
+    "build:copy-files": "node scripts/copyFiles.mjs",
+    "build": "npm run build:cjs && npm run build:esm && npm run build:copy-files",
+    "test": "jest --passWithNoTests",
+    "lint": "npx eslint --ext .ts,.tsx src/",
+    "lint:fix": "npm run lint -- --fix",
+    "prepare": "tsc",
     "size": "size-limit",
     "analyze": "size-limit --why",
     "storybook": "start-storybook -s public -p 6006",
@@ -42,17 +47,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "size-limit": [
-    {
-      "path": "dist/tacugama.cjs.production.min.js",
-      "limit": "1.8 MB"
-    },
-    {
-      "path": "dist/tacugama.esm.js",
-      "limit": "1.8 MB"
-    }
-  ],
-  "module": "dist/tacugama.esm.js",
+  "module": "esm/index.js",
   "sideEffects": false,
   "devDependencies": {
     "@babel/core": "^7.20.7",
@@ -89,9 +84,9 @@
     "msw-storybook-addon": "^1.6.3",
     "prettier": "2.8.8",
     "react-dom": "^16.14.0",
+    "rimraf": "^5.0.0",
     "size-limit": "^4.6.0",
     "storybook-addon-designs": "^6.3.1",
-    "tsdx": "^0.14.1",
     "tslib": "^2.4.1",
     "typescript": "^4.9.4"
   },
@@ -128,7 +123,6 @@
   "bugs": {
     "url": "https://github.com/TimeChimp/tacugama/issues"
   },
-  "readme": "ERROR: No README data found!",
-  "homepage": "https://github.com/TimeChimp/tacugama#readme",
-  "_id": "@timechimp/tacugama@3.2.0"
+  "readme": "README.md",
+  "homepage": "https://github.com/TimeChimp/tacugama#readme"
 }

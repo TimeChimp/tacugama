@@ -1,6 +1,6 @@
 {
   "plugins": ["prettier", "baseui"],
-  "extends": ["react-app", "prettier/@typescript-eslint", "plugin:prettier/recommended"],
+  "extends": ["prettier/@typescript-eslint", "plugin:prettier/recommended"],
   "rules": {
     "prettier/prettier": "error",
     "@typescript-eslint/explicit-function-return-type": "off",
@@ -13,5 +13,10 @@
     "no-nested-ternary": "warn",
     "curly": "error"
   },
-  "ignorePatterns": ["assets/"]
+  "ignorePatterns": ["assets/"],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "sourceType": "module",
+    "ecmaVersion": 2018
+  }
 }
