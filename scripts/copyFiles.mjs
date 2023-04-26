@@ -97,9 +97,9 @@ async function createPackageFile() {
       : {}),
   };
 
-  const typeDefinitionsFilePath = path.resolve(buildPath, './index.d.ts');
+  const typeDefinitionsFilePath = path.resolve(buildPath, './cjs/index.d.ts');
   if (await fse.pathExists(typeDefinitionsFilePath)) {
-    newPackageData.types = './index.d.ts';
+    newPackageData.types = './cjs/index.d.ts';
   }
 
   const targetPath = path.resolve(buildPath, './package.json');
