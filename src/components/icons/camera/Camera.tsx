@@ -2,7 +2,7 @@ import { DEFAULT_ICON_SIZE } from '../.././../models';
 import React from 'react';
 import { Icon, SVGProps } from '../../icon';
 
-export const Camera = ({ title = 'Camera', size = DEFAULT_ICON_SIZE, color }: SVGProps) => (
+export const CameraIcon = ({ title = 'Camera', size = DEFAULT_ICON_SIZE, color }: SVGProps) => (
   <Icon title={title}>
     <svg width={size} height={size} viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
