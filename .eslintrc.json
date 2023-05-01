@@ -10,7 +10,7 @@
     "no-nested-ternary": "warn",
     "curly": "error"
   },
-  "ignorePatterns": ["assets/"],
+  "ignorePatterns": ["assets/", "dist/", "node_modules/", "*.test.*"],
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 2018

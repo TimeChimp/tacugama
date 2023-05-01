@@ -12,8 +12,8 @@ export interface SelectProps extends Omit<BaseSelectProps, 'type'> {
   options: Option[] | { [key: string]: Option[] };
   onChangeHandler: (params: CustomParams) => void;
   propOverrides?: {
-    dropdownListItemProps?: () => void;
-    rootProps?: () => void;
+    dropdownListItemProps?: () => object;
+    rootProps?: () => object;
   };
   success?: boolean;
   stickyButtonText?: string;

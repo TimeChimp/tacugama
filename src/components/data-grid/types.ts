@@ -310,9 +310,9 @@ export interface RowActionsCellProps {
   data: RowActionsCellData;
   hideWithNoItems?: boolean;
   propOverrides?: {
-    listProps?: () => void;
-    optionProps?: () => void;
-    bodyProps?: () => void;
+    listProps?: () => object;
+    optionProps?: () => object;
+    bodyProps?: () => object;
   };
 }
 

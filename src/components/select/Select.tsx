@@ -49,7 +49,7 @@ export const Select = ({
     },
   } = useTheme();
   const { border300, radius200 } = borders;
-  const { primary100, contentPrimary, primary } = colors;
+  const { primary100, contentPrimary } = colors;
   const { primarySubtle, dark4 } = customColors;
 
   const handleOnChange = (params: OnChangeParams) => {
