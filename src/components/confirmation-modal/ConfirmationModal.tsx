@@ -81,12 +81,7 @@ export const ConfirmationModal = ({
         <Button kind={ButtonKind.secondary} onClick={handleCancel}>
           {cancelLabel}
         </Button>
-        <Button
-          buttonType={getButtonType()}
-          isLoading={loading}
-          onClick={handleSubmit}
-          testId={submitButtonTestId}
-        >
+        <Button buttonType={getButtonType()} isLoading={loading} onClick={handleSubmit} testId={submitButtonTestId}>
           {submitLabel}
         </Button>
       </ModalFooter>

@@ -3,7 +3,7 @@ import { Alert, AlertProps } from '../Alert';
 import { useTheme } from '../../../providers';
 import { WarningIcon } from '../../icons/warning';
 
-export interface ErrorAlertProps extends AlertProps {}
+export type ErrorAlertProps = AlertProps;
 
 export const ErrorAlert = ({ ...rest }: ErrorAlertProps) => {
   const {

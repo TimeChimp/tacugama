@@ -38,9 +38,9 @@ export interface DropdownProps {
   footer?: JSX.Element;
   customOption?: React.ForwardRefExoticComponent<any & React.RefAttributes<any>>;
   propOverrides?: {
-    listProps?: () => {};
-    optionProps?: () => {};
-    bodyProps?: () => {};
+    listProps?: () => void;
+    optionProps?: () => void;
+    bodyProps?: () => void;
   };
   isLoading?: boolean;
   // Additional properties to pass to the action function of a dropdown item i.e. a reference to the GridApi

@@ -1,5 +1,3 @@
-
-
 import React, { forwardRef } from 'react';
 import { Block } from '../../block';
 import { Button } from '../../button';
@@ -14,7 +12,6 @@ export interface MenuOptionProps {
   item: DropdownItem;
   onItemSelect: (item: DropdownItem) => void;
 }
-
 
 export const MenuOption = forwardRef<any, MenuOptionProps>(({ item, onItemSelect }: MenuOptionProps, ref) => {
   const {

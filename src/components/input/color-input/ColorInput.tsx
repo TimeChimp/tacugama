@@ -14,7 +14,7 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
     theme: {
       current: {
         colors: { contentInverseTertiary },
-        customSizing: { scale0250 }
+        customSizing: { scale0250 },
       },
     },
   } = useTheme();
@@ -32,7 +32,6 @@ export const ColorInput = ({ onChange, value, generateRandomColor = true, ...res
       const color = getRandomBackgroundColor();
       onChange(color);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

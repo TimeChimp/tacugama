@@ -3,7 +3,7 @@ import { Snackbar, SnackbarProps } from '../Snackbar';
 import { useTheme } from '../../../providers';
 import { WarningIcon } from '../../icons/warning';
 
-export interface ErrorSnackbarProps extends SnackbarProps {}
+export type ErrorSnackbarProps = SnackbarProps;
 
 export const ErrorSnackbar = ({ ...rest }: ErrorSnackbarProps) => {
   const {

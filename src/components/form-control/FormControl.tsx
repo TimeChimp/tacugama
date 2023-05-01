@@ -68,20 +68,23 @@ export const FormControl = ({ overrides, error, success, caption, children, ...r
       }}
     >
       <>
-        {
-          !!caption ? (
-            <Block marginBottom={scale500}>
-              <ParagraphXSmallComponent color={dark3} overrides={{
+        {caption ? (
+          <Block marginBottom={scale500}>
+            <ParagraphXSmallComponent
+              color={dark3}
+              overrides={{
                 Block: {
                   style: {
                     lineHeight: scale550,
                     fontSize: scale550,
                   },
                 },
-              }}>{caption}</ParagraphXSmallComponent>
-            </Block>
-          ) : null
-        }
+              }}
+            >
+              {caption}
+            </ParagraphXSmallComponent>
+          </Block>
+        ) : null}
         {children}
       </>
     </BaseFormControl>

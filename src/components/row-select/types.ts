@@ -8,8 +8,8 @@ export interface RowSelectProps extends BaseSelectProps {
   isLockedIconDisplayedFunc?: (data: any) => boolean;
   options: Option[];
   propOverrides?: {
-    dropdownListItemProps?: () => {};
-    rootProps?: () => {};
+    dropdownListItemProps?: () => void;
+    rootProps?: () => void;
   };
   placeholder: string;
   labelKey: string;

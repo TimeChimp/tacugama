@@ -310,9 +310,9 @@ export interface RowActionsCellProps {
   data: RowActionsCellData;
   hideWithNoItems?: boolean;
   propOverrides?: {
-    listProps?: () => {};
-    optionProps?: () => {};
-    bodyProps?: () => {};
+    listProps?: () => void;
+    optionProps?: () => void;
+    bodyProps?: () => void;
   };
 }
 
@@ -456,7 +456,7 @@ export interface PrintParams {
   PDF_LOGO?: string;
 }
 
-interface PdfCell {
+export interface PdfCell {
   text?: string;
   style?: string;
   link?: string;
@@ -464,7 +464,7 @@ interface PdfCell {
   decoration?: string;
 }
 
-export interface PdfTableCell extends PdfCell {}
+export type PdfTableCell = PdfCell;
 
 export interface PdfHeaderCell extends PdfCell {
   valueFormatter?: string | ((params: ValueFormatterParams) => string) | undefined;
@@ -473,8 +473,6 @@ export interface PdfHeaderCell extends PdfCell {
   colId: string | null;
   sort?: string;
 }
-
-export interface PdfRow {}
 
 export interface ProcessCellForExportParams {
   value: any;

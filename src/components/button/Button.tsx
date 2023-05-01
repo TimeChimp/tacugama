@@ -47,7 +47,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           borders: { border100, border300, radius200 },
           colors,
           customColors,
-          customSizing: { scale50, scale975 }
+          customSizing: { scale50, scale975 },
         },
       },
     } = useTheme();
@@ -88,7 +88,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 }),
                 fontWeight: 'normal',
                 height: getButtonHeight(),
-                ...(width && {width}),
+                ...(width && { width }),
                 backgroundColor: backgroundColor ?? getButtonBackgroundColor(buttonType, customColors, colors),
                 color: color ?? light4,
                 ':hover': {
@@ -162,7 +162,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 fontWeight: 'normal',
                 backgroundColor: backgroundColor ?? light4,
                 height: getButtonHeight(),
-                ...(width && {width}),
+                ...(width && { width }),
                 ...border({
                   ...border300,
                   borderColor: light2,
@@ -234,7 +234,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             Root: {
               style: {
                 height: getButtonHeight(),
-                ...(width && {width}),
+                ...(width && { width }),
                 backgroundColor: backgroundColor ?? light3,
                 color: color ?? dark1,
                 ...border({
@@ -275,7 +275,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           return {
             Root: {
               style: {
-                ...(width && {width}),
+                ...(width && { width }),
                 ...padding('0px'),
                 ...borderRadius('0'),
                 ...borderBottom({
@@ -322,7 +322,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             Root: {
               style: {
                 height: getButtonHeight(),
-                ...(width && {width}),
+                ...(width && { width }),
                 ...borderRadius(radius200),
                 ...getPadding(),
                 ...border({

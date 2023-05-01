@@ -17,7 +17,7 @@ export const Portal = ({ id, children }: PortalProps) => {
     }
     return () => {
       if (dynamic && current.parentElement) {
-        // @ts-ignore - removeChild is not in the type definition
+        // @ts-expect-error - removeChild is not in the type definition
         current?.parentElement?.removeChild(current);
       }
     };
