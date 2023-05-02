@@ -18,4 +18,5 @@ export interface NumberInputProps extends Omit<NumberFormatProps, OmitValues> {
     | (((e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => void) &
         ((e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => void))
     | undefined;
+  showSkeleton?: boolean;
 }
