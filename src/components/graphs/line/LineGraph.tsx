@@ -13,50 +13,15 @@ import {
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { FlyOutTooltip } from '../tooltip';
 import { calculateDateAxisRange } from '../utils';
-
-interface LineGraphData {
-  date?: Date | string;
-  trackedDuration?: number;
-  billableDuration?: number;
-  nonBillableDuration?: number;
-  label?: string;
-}
-interface LegendData {
-  name: string;
-  symbol: { fill: string; type: string };
-}
-
-export interface LineGraphProps {
-  data: LineGraphData[];
-  horizontalAxisLabel: string;
-  verticalAxisLabel: string;
-  horizontalAxisValue?: string;
-  verticalAxisValue?: string;
-  width?: number;
-  height?: number;
-  formatAsDate?: boolean;
-  horizontalAxisItemLabel?: string;
-  trackedText?: string;
-  hoursText?: string;
-  billableText?: string;
-  nonBillableText?: string;
-  limit?: number;
-  isBillable?: boolean;
-  isNonBillable?: boolean;
-  flyOutWidth?: number;
-  flyOutHeight?: number;
-  legendData?: LegendData[];
-  dateFormat?: string;
-}
+import { LineGraphData, LineGraphProps } from './types';
+import { SECONDS_IN_HOUR } from '../../../models';
 
 export const LineGraph = ({
   data,
-  horizontalAxisLabel,
   verticalAxisLabel,
   horizontalAxisValue = 'date',
   verticalAxisValue = 'trackedDuration',
   width = 1400,
-  height = 350,
   formatAsDate = true,
   horizontalAxisItemLabel = 'Week',
   trackedText,
@@ -83,12 +48,18 @@ export const LineGraph = ({
 
   const convertedData: LineGraphData[] = useMemo(
     () =>
-      data.map((graphDataItem: LineGraphData) => ({
-        ...graphDataItem,
-        trackedDuration: graphDataItem.trackedDuration! / 3600,
-        billableDuration: graphDataItem.billableDuration! / 3600,
-        nonBillableDuration: graphDataItem.nonBillableDuration! / 3600,
-      })),
+      data.map((graphDataItem: LineGraphData) => {
+        if (!graphDataItem) {
+          return graphDataItem;
+        }
+        const { trackedDuration, billableDuration, nonBillableDuration } = graphDataItem;
+        return {
+          ...graphDataItem,
+          trackedDuration: trackedDuration ? trackedDuration / SECONDS_IN_HOUR : 0,
+          billableDuration: billableDuration ? billableDuration / SECONDS_IN_HOUR : 0,
+          nonBillableDuration: nonBillableDuration ? nonBillableDuration / SECONDS_IN_HOUR : 0,
+        };
+      }),
     [data],
   );
 
@@ -97,7 +68,7 @@ export const LineGraph = ({
       convertedData
         .map((item) => ({
           ...item,
-          trackedDuration: limit / 3600,
+          trackedDuration: limit / SECONDS_IN_HOUR,
         }))
         .filter((_, idx) => idx === 0 || idx === convertedData.length - 1) || []
     );
@@ -113,16 +84,16 @@ export const LineGraph = ({
   }, [lineData]);
 
   const maxValue = useMemo(() => {
-    let max: number = 0;
-    let maxDate: number = 0;
+    let max = 0;
+    let maxDate = 0;
     convertedData.forEach((graphDataItem: LineGraphData) => {
       const { trackedDuration, date } = graphDataItem;
-      if (trackedDuration! > max) {
-        max = trackedDuration!;
+      if (trackedDuration && trackedDuration > max) {
+        max = trackedDuration;
       }
-      const formattedDate = date?.valueOf();
+      const formattedDate = Number(date?.valueOf());
 
-      if (formattedDate! > maxDate) {
+      if (formattedDate && formattedDate > maxDate) {
         maxDate = formattedDate as number;
       }
     });
@@ -133,7 +104,7 @@ export const LineGraph = ({
   const xAxisRange = useMemo(() => {
     if (convertedData.length && formatAsDate) {
       const dates = convertedData.map((convertedData: LineGraphData) => {
-        return new Date(convertedData?.date!);
+        return new TcDate(convertedData?.date).toDate();
       });
 
       return calculateDateAxisRange(dates);
@@ -211,7 +182,7 @@ export const LineGraph = ({
         x={horizontalAxisValue}
         y={verticalAxisValue}
       />
-      {!!lineData.length ? (
+      {lineData.length ? (
         <VictoryArea
           style={{ data: { fill: 'transparent', stroke: primary, strokeWidth: 2 } }}
           interpolation="monotoneX"
@@ -220,7 +191,7 @@ export const LineGraph = ({
           y={verticalAxisValue}
         />
       ) : null}
-      {!!diagonalLineData.length ? (
+      {diagonalLineData.length ? (
         <VictoryArea
           style={{ data: { fill: 'transparent', stroke: primary, strokeWidth: 2, strokeDasharray: 10 } }}
           interpolation="monotoneX"

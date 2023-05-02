@@ -7,7 +7,7 @@ import { CaretLeftIcon } from '../icons/caret-left';
 import { CaretRightIcon } from '../icons/caret-right';
 import { useTheme } from '../../providers';
 
-export interface PaginationProps extends BasePaginationProps {}
+export type PaginationProps = BasePaginationProps;
 
 export const Pagination = ({ ...rest }: PaginationProps) => {
   const {

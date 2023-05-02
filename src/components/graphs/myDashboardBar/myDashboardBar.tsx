@@ -10,6 +10,7 @@ import {
 } from 'victory';
 import { useTheme } from '../../../providers';
 import { MyDashboardTooltip } from '../tooltip';
+import { SECONDS_IN_HOUR } from '../../../models';
 
 export interface MyDashboardBarData {
   isoWeek: number;
@@ -57,16 +58,13 @@ export const MyDashboardBar = ({
   const barData = useMemo(() => {
     return data.map((item) => ({
       ...item,
-      duration: item.duration / 3600,
-      absence: item.absence / 3600,
+      duration: item.duration / SECONDS_IN_HOUR,
+      absence: item.absence / SECONDS_IN_HOUR,
     }));
   }, [data]);
 
   const maxValue = useMemo(() => {
-    const maxValueDataItem = Math.max.apply(
-      Math,
-      barData.map((dataItem: MyDashboardBarData) => dataItem.duration + dataItem.absence),
-    );
+    const maxValueDataItem = Math.max(...barData.map((item) => item.duration + item.absence));
 
     if (maxValueDataItem < 40) {
       return 40;
@@ -79,14 +77,14 @@ export const MyDashboardBar = ({
     () =>
       barData.map((data: MyDashboardBarData) => ({
         isoWeek: data.isoWeek,
-        duration: maxValue! - data.duration - data.absence,
+        duration: maxValue - data.duration - data.absence,
       })),
     [barData, maxValue],
   );
 
   const yTickValues = useMemo(() => {
     let counter = 10;
-    let result = [];
+    const result = [];
     while (counter <= maxValue) {
       result.push(counter);
 

@@ -20,15 +20,15 @@ export const ErrorPage = ({
       current: {
         sizing: { scale300, scale550, scale600, scale800 },
         colors: { primary, negative },
-        customSizing: { scale11250 }
+        customSizing: { scale11250 },
       },
     },
   } = useTheme();
 
-  const isSecondaryButtonShown = useMemo(() => !!onSecondaryButtonClick && !!secondaryButtonText, [
-    onSecondaryButtonClick,
-    secondaryButtonText,
-  ]);
+  const isSecondaryButtonShown = useMemo(
+    () => !!onSecondaryButtonClick && !!secondaryButtonText,
+    [onSecondaryButtonClick, secondaryButtonText],
+  );
 
   return (
     <ErrorPageWrapper>

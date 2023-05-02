@@ -3,7 +3,7 @@ import { Snackbar, SnackbarProps } from '../Snackbar';
 import { useTheme } from '../../../providers';
 import { CheckIcon } from '../../icons/check';
 
-export interface SuccessSnackbarProps extends SnackbarProps {}
+export type SuccessSnackbarProps = SnackbarProps;
 
 export const SuccessSnackbar = ({ ...rest }: SuccessSnackbarProps) => {
   const {

@@ -231,7 +231,7 @@ export const DataGrid = ({
     (filterModel: FilterModel) => {
       setSelectedFilterIds({});
 
-      let filterIds: SelectedFilterIds = {};
+      const filterIds: SelectedFilterIds = {};
       Object.keys(filterModel).forEach((filterName) => {
         const filter = filterModel[filterName];
         if (filter.filterType === 'set') {
@@ -415,7 +415,6 @@ export const DataGrid = ({
     if (gridApi) {
       gridApi.setServerSideDatasource(createServerSideDatasource());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterModel]);
 
   const getRowNodeId = (data: any) => {
@@ -423,7 +422,7 @@ export const DataGrid = ({
   };
 
   const onGrouping = (rowGroups: string[]) => {
-    let columns = [...gridColumns];
+    const columns = [...gridColumns];
     columns.forEach((c) => {
       c.rowGroup = rowGroups.includes(c.field);
     });
@@ -453,6 +452,9 @@ export const DataGrid = ({
       return '';
     }
 
+    const date = new TcDate(params.value).format(dateFormat ?? defaultDateFormat, language ?? defaultLanguage);
+    const time = new TcDate(params.value).format(timeFormat ?? defaultTimeFormat, language ?? defaultLanguage);
+
     switch (type) {
       case 'currency':
         return formatCurrency(params.value, currency, numberFormat);
@@ -465,8 +467,6 @@ export const DataGrid = ({
       case 'time':
         return new TcDate(params.value).format(timeFormat ?? defaultTimeFormat, language ?? defaultLanguage);
       case 'datetime':
-        const date = new TcDate(params.value).format(dateFormat ?? defaultDateFormat, language ?? defaultLanguage);
-        const time = new TcDate(params.value).format(timeFormat ?? defaultTimeFormat, language ?? defaultLanguage);
         return `${date} ${time}`;
       case 'duration':
         return formatDuration(params.value, durationFormat, numberFormat);
@@ -894,8 +894,8 @@ export const DataGrid = ({
             }) => (
               <AgGridColumn
                 cellRendererFramework={customComponent}
-                cellRenderer={!!rowSelectProps ? 'rowSelect' : undefined}
-                cellRendererParams={!!rowSelectProps ? { ...rowSelectProps } : undefined}
+                cellRenderer={rowSelectProps ? 'rowSelect' : undefined}
+                cellRendererParams={rowSelectProps ? { ...rowSelectProps } : undefined}
                 key={field}
                 headerName={label}
                 field={field}

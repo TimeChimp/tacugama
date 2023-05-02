@@ -66,7 +66,7 @@ export const Checkbox = ({
           style: {
             ...LabelSmall,
             fontWeight: 400,
-            display: !!children ? 'inline-block' : 'none',
+            display: children ? 'inline-block' : 'none',
           },
         },
         Checkmark: {

@@ -25,7 +25,7 @@ export const HeaderCheckbox = ({ api: gridApi, displayName }: HeaderCheckboxProp
 
   const allAreSelected = useCallback(() => {
     const { startIndex, endIndex } = getPageIndices();
-    let pageRows: RowNode[] = [];
+    const pageRows: RowNode[] = [];
     for (let i = startIndex; i < endIndex; i++) {
       const row = gridApi.getDisplayedRowAtIndex(i);
       if (row) {
