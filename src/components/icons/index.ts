@@ -63,3 +63,4 @@ export * from './stop';
 export * from './eye';
 export * from './email';
 export * from './radio-line';
+export * from './camera';
