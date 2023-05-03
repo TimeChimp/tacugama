@@ -1,5 +1,5 @@
 {
-  "version": "6.1.4",
+  "version": "6.1.7",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -120,7 +120,7 @@
   "bugs": {
     "url": "https://github.com/TimeChimp/tacugama/issues"
   },
-  "readme": "README.md",
+  "readme": "https://github.com/TimeChimp/tacugama#readme",
   "homepage": "https://github.com/TimeChimp/tacugama#readme",
   "lint-staged": {
     "*.{ts,tsx}": "eslint --cache --fix",

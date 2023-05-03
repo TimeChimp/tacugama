@@ -2,6 +2,8 @@
 import path from 'path';
 import fse from 'fs-extra';
 import glob from 'fast-glob';
+import process from 'node:process';
+import console from 'node:console';
 
 const packagePath = process.cwd();
 const buildPath = path.join(packagePath, './dist');
@@ -39,7 +41,7 @@ async function createModulePackages({ from, to }) {
         types: './index.d.ts',
       };
 
-      const [typingsEntryExist, moduleEntryExists, mainEntryExists] = await Promise.all([
+      const [typingsEntryExist, moduleEntryExists] = await Promise.all([
         fse.pathExists(path.resolve(path.dirname(packageJsonPath), packageJson.types)),
         fse.pathExists(path.resolve(path.dirname(packageJsonPath), packageJson.module)),
         // fse.pathExists(path.resolve(path.dirname(packageJsonPath), packageJson.main)),
@@ -85,6 +87,7 @@ async function createPackageFile() {
   const newPackageData = {
     ...packageDataOther,
     private: false,
+    files: ['cjs', 'esm'],
     ...(packageDataOther.main
       ? {
           main: fse.existsSync(path.resolve(buildPath, './cjs/index.js'))
