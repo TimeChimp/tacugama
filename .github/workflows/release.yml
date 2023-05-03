@@ -31,6 +31,7 @@ jobs:
     - name: Publish
       id: publish
       run: |
+        cd dist
         npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
         npm publish --access public
         echo "::set-output name=version::$(node -p "require('./package.json').version")"
