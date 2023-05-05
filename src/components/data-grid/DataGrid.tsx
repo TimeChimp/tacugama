@@ -133,6 +133,7 @@ export const DataGrid = ({
   onModalClose,
   onModalOpen,
   debouncedSearch = false,
+  hideColumnToggle = false,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -755,7 +756,9 @@ export const DataGrid = ({
                   </FlexItem>
                 </>
               )}
-              {isGridColumnApiLoaded && <HeaderColumnToggle api={gridApi} columnApi={gridColumnApi} />}
+              {isGridColumnApiLoaded && !hideColumnToggle && (
+                <HeaderColumnToggle api={gridApi} columnApi={gridColumnApi} />
+              )}
               {settings?.length && <HeaderColumnSettings settings={settings} />}
             </FlexItem>
           </StyledDataGridHeader>
@@ -887,7 +890,6 @@ export const DataGrid = ({
               valueType,
               aggFunc,
               customMap,
-              customHeaderComponent,
               customComponent,
               rowSelectProps,
               ...rest
@@ -909,6 +911,7 @@ export const DataGrid = ({
                 aggFunc={aggFunc}
                 sortable={sortable ?? sortableColumns}
                 cellClass={valueType === 'currency' ? 'ag-right-aligned-cell' : ''}
+                headerClass={valueType === 'currency' ? 'ag-right-aligned-header' : ''}
                 resizable
                 {...rest}
               />

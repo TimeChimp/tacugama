@@ -241,6 +241,7 @@ export interface DataGridProps {
   suppressRowClickSelection?: boolean;
   debouncedSearch?: boolean;
   settings?: DataGridSetting[];
+  hideColumnToggle?: boolean;
 }
 
 export interface DataGridView {
