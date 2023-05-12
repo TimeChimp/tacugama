@@ -134,10 +134,11 @@ export const DataGrid = ({
   onModalOpen,
   debouncedSearch = false,
   hideColumnToggle = false,
-  isPagination = true,
+  showPagination = true,
   paginationPageSize = 25,
-  isPaginationPanel = true,
-  isFooterRowCount = true,
+  hasPaginationPanel = true,
+  hasFooterRowCount = true,
+  isRowDragManaged = false,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -769,7 +770,7 @@ export const DataGrid = ({
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
         <StyledAgGridReact
-          rowDragManaged
+          rowDragManaged={isRowDragManaged}
           $height={dataGridHeight}
           ref={datagridRef}
           rowData={rowData}
@@ -796,9 +797,9 @@ export const DataGrid = ({
           groupIncludeFooter={groupIncludeFooter}
           groupIncludeTotalFooter={groupIncludeTotalFooter}
           groupSelectsChildren={!treeData && true}
-          pagination={isPagination}
+          pagination={showPagination}
           paginationPageSize={paginationPageSize}
-          suppressPaginationPanel={isPaginationPanel}
+          suppressPaginationPanel={hasPaginationPanel}
           suppressRowHoverHighlight={suppressRowHoverHighlight}
           suppressRowClickSelection={suppressRowClickSelection}
           enableCellTextSelection
@@ -817,8 +818,8 @@ export const DataGrid = ({
           rowHeight={40}
           frameworkComponents={{
             moreActionsCell: (props: any) => <RowActionsCell {...props} hideWithNoItems={hideActionWithNoItems} />,
-            footerRowCount: isFooterRowCount ? FooterRowCount : null,
-            footerPagination: isPagination ? FooterPagination : null,
+            footerRowCount: hasFooterRowCount ? FooterRowCount : null,
+            footerPagination: showPagination ? FooterPagination : null,
             footerPageSize: paginationPageSize ? FooterPageSize : null,
             noRowsTemplate: () => <NoRowsTemplate translations={translations} />,
             headerCheckbox: HeaderCheckbox,
@@ -845,7 +846,7 @@ export const DataGrid = ({
           ]}
           statusBar={{
             statusPanels: [
-              ...(isFooterRowCount
+              ...(hasFooterRowCount
                 ? [
                     {
                       statusPanel: 'footerRowCount',
@@ -856,7 +857,7 @@ export const DataGrid = ({
                     },
                   ]
                 : []),
-              ...(isPagination
+              ...(showPagination
                 ? [
                     {
                       statusPanel: 'footerPagination',
