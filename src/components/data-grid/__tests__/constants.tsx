@@ -60,6 +60,12 @@ export const ACCESS_TOKEN = '';
 export const DATA_URL = '/timeentries';
 export const COLUMNS: DataGridColumn[] = [
   {
+    field: '',
+    label: '',
+    rowDrag: true,
+    maxWidth: 30,
+  },
+  {
     field: 'start',
     label: 'Date',
     valueType: 'datetime',

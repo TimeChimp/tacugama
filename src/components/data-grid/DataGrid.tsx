@@ -72,7 +72,7 @@ import { ParagraphSmall } from '../typography';
 import { Button } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { ButtonKind } from '../../models';
-import { CaretDownIcon, CaretUpIcon } from '../icons';
+import { CaretDownIcon, CaretUpIcon, DragDropIcon } from '../icons';
 import { HeaderColumnSettings } from './header-column-settings';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
@@ -134,6 +134,11 @@ export const DataGrid = ({
   onModalOpen,
   debouncedSearch = false,
   hideColumnToggle = false,
+  showPagination = true,
+  paginationPageSize = 25,
+  hasPaginationPanel = true,
+  hasFooterRowCount = true,
+  isRowDragManaged = false,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -765,6 +770,7 @@ export const DataGrid = ({
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
         <StyledAgGridReact
+          rowDragManaged={isRowDragManaged}
           $height={dataGridHeight}
           ref={datagridRef}
           rowData={rowData}
@@ -791,9 +797,9 @@ export const DataGrid = ({
           groupIncludeFooter={groupIncludeFooter}
           groupIncludeTotalFooter={groupIncludeTotalFooter}
           groupSelectsChildren={!treeData && true}
-          pagination
-          paginationPageSize={25}
-          suppressPaginationPanel
+          pagination={showPagination}
+          paginationPageSize={paginationPageSize}
+          suppressPaginationPanel={hasPaginationPanel}
           suppressRowHoverHighlight={suppressRowHoverHighlight}
           suppressRowClickSelection={suppressRowClickSelection}
           enableCellTextSelection
@@ -812,9 +818,9 @@ export const DataGrid = ({
           rowHeight={40}
           frameworkComponents={{
             moreActionsCell: (props: any) => <RowActionsCell {...props} hideWithNoItems={hideActionWithNoItems} />,
-            footerRowCount: FooterRowCount,
-            footerPagination: FooterPagination,
-            footerPageSize: FooterPageSize,
+            footerRowCount: hasFooterRowCount ? FooterRowCount : null,
+            footerPagination: showPagination ? FooterPagination : null,
+            footerPageSize: paginationPageSize ? FooterPageSize : null,
             noRowsTemplate: () => <NoRowsTemplate translations={translations} />,
             headerCheckbox: HeaderCheckbox,
             loadingCellTemplate: LoadingCellTemplate,
@@ -823,6 +829,7 @@ export const DataGrid = ({
             groupRowInnerTagRenderer: GroupRowInnerTagRenderer,
           }}
           icons={{
+            rowDrag: () => ReactDOMServer.renderToStaticMarkup(<DragDropIcon color={theme.current.colors.primaryA} />),
             sortAscending: () =>
               ReactDOMServer.renderToStaticMarkup(<CaretDownIcon color={theme.current.colors.primaryA} />),
             sortDescending: () =>
@@ -839,27 +846,39 @@ export const DataGrid = ({
           ]}
           statusBar={{
             statusPanels: [
-              {
-                statusPanel: 'footerRowCount',
-                statusPanelParams: {
-                  translations,
-                },
-                align: 'left',
-              },
-              {
-                statusPanel: 'footerPagination',
-                statusPanelParams: {
-                  translations,
-                },
-                align: 'center',
-              },
-              {
-                statusPanel: 'footerPageSize',
-                statusPanelParams: {
-                  translations,
-                },
-                align: 'right',
-              },
+              ...(hasFooterRowCount
+                ? [
+                    {
+                      statusPanel: 'footerRowCount',
+                      statusPanelParams: {
+                        translations,
+                      },
+                      align: 'left',
+                    },
+                  ]
+                : []),
+              ...(showPagination
+                ? [
+                    {
+                      statusPanel: 'footerPagination',
+                      statusPanelParams: {
+                        translations,
+                      },
+                      align: 'center',
+                    },
+                  ]
+                : []),
+              ...(paginationPageSize
+                ? [
+                    {
+                      statusPanel: 'footerPageSize',
+                      statusPanelParams: {
+                        translations,
+                      },
+                      align: 'right',
+                    },
+                  ]
+                : []),
             ],
           }}
           tooltipShowDelay={0}
