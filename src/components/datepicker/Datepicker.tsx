@@ -39,6 +39,7 @@ export const Datepicker = ({
     theme: {
       current: {
         sizing: { scale500, scale600, scale1000 },
+        customSizing: { scale975 },
         colors: { primaryA, contentTertiary },
         borders,
         colors,
@@ -246,7 +247,7 @@ export const Datepicker = ({
   };
 
   if (showSkeleton) {
-    return <Skeleton animation height="38px" />;
+    return <Skeleton animation height={scale975} />;
   }
 
   return (
