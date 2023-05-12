@@ -242,6 +242,11 @@ export interface DataGridProps {
   debouncedSearch?: boolean;
   settings?: DataGridSetting[];
   hideColumnToggle?: boolean;
+  showPagination?: boolean;
+  paginationPageSize?: number;
+  hasPaginationPanel?: boolean;
+  hasFooterRowCount?: boolean;
+  isRowDragManaged?: boolean;
 }
 
 export interface DataGridView {
