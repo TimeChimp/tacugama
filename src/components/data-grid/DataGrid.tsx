@@ -665,11 +665,6 @@ export const DataGrid = ({
     [viewing, selection, hideDelete, hideDownload, settings],
   );
 
-  const dataGridHeight = useMemo(() => {
-    const headerHeight = showDataGridHeader ? 45 : 0;
-    return `calc(100% - ${headerHeight}px)`;
-  }, [showDataGridHeader]);
-
   const selectedGroupOption = columns.filter((x) => x.groupable).find((column) => column.rowGroup);
 
   const handleGrouping = (field: string) => {
@@ -771,7 +766,6 @@ export const DataGrid = ({
         <style>{getGridThemeOverrides(theme.current)}</style>
         <StyledAgGridReact
           rowDragManaged={isRowDragManaged}
-          $height={dataGridHeight}
           ref={datagridRef}
           rowData={rowData}
           rowSelection="multiple"
