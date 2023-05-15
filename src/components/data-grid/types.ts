@@ -241,7 +241,6 @@ export interface DataGridProps {
   suppressRowClickSelection?: boolean;
   debouncedSearch?: boolean;
   settings?: DataGridSetting[];
-  hideColumnToggle?: boolean;
   showPagination?: boolean;
   paginationPageSize?: number;
   hasPaginationPanel?: boolean;
