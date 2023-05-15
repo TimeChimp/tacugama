@@ -190,6 +190,7 @@ export const DataGrid = ({
       resizable: true,
       minWidth: 150,
       flex: 1,
+      suppressMenu: true,
     };
   }, []);
 
@@ -320,7 +321,7 @@ export const DataGrid = ({
         await onActivateView(view.id);
       }
 
-      setViewState(gridApi, gridColumnApi, view.viewState!);
+      setViewState(gridApi, gridColumnApi, view.viewState);
     }
   };
 
@@ -410,7 +411,6 @@ export const DataGrid = ({
     setGridApi(api);
     setGridColumnApi(columnApi);
     setIsGridColumnApiLoaded(true);
-    api?.hidePopupMenu();
 
     if (rowModelType === RowModelType.serverSide) {
       const datasource = createServerSideDatasource();
