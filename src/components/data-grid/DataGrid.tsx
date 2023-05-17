@@ -78,6 +78,7 @@ import { HeaderColumnSettings } from './header-column-settings';
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
+const DEFAULT_ROW_HEIGHT = 40;
 const PINNED_COLUMN_WIDTH = 54;
 
 export const DataGrid = ({
@@ -138,6 +139,8 @@ export const DataGrid = ({
   hasPaginationPanel = true,
   hasFooterRowCount = true,
   isRowDragManaged = false,
+  rowHeight = DEFAULT_ROW_HEIGHT,
+  getRowHeight,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -810,7 +813,8 @@ export const DataGrid = ({
           maxBlocksInCache={10}
           blockLoadDebounceMillis={100}
           headerHeight={40}
-          rowHeight={40}
+          rowHeight={rowHeight}
+          getRowHeight={getRowHeight}
           frameworkComponents={{
             moreActionsCell: (props: any) => <RowActionsCell {...props} hideWithNoItems={hideActionWithNoItems} />,
             footerRowCount: hasFooterRowCount ? FooterRowCount : null,

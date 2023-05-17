@@ -246,6 +246,8 @@ export interface DataGridProps {
   hasPaginationPanel?: boolean;
   hasFooterRowCount?: boolean;
   isRowDragManaged?: boolean;
+  rowHeight?: number;
+  getRowHeight?: (params: any) => number;
 }
 
 export interface DataGridView {
