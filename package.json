@@ -109,7 +109,7 @@
     "pdfmake": "^0.1.71",
     "react-color": "^2.19.3",
     "react-hook-form": "^7.41.0",
-    "react-number-format": "^4.7.3",
+    "react-number-format": "^5.2.1",
     "styletron-engine-atomic": "1.4.7",
     "styletron-react": "^6.1.0",
     "victory": "^36.0.1"
