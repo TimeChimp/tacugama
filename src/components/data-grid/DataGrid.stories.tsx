@@ -144,6 +144,11 @@ Client.args = {
   selection: true,
   grouping: false,
   viewing: true,
+  showPagination: false,
+  paginationPageSize: 0,
+  hasPaginationPanel: false,
+  hasFooterRowCount: false,
+  isRowDragManaged: true,
   columns: COLUMNS,
   accessToken: ACCESS_TOKEN,
   height: 'calc(100vh - 200px)',
@@ -157,4 +162,33 @@ Client.args = {
       label: 'Test',
     },
   ],
+};
+
+export const Draggable = Template.bind({});
+Draggable.args = {
+  columnToggling: false,
+  selection: false,
+  filtering: false,
+  grouping: false,
+  viewing: false,
+  showPagination: false,
+  paginationPageSize: 0,
+  hasPaginationPanel: false,
+  hasFooterRowCount: false,
+  isRowDragManaged: true,
+  columns: [
+    {
+      field: '',
+      label: '',
+      rowDrag: true,
+      maxWidth: 30,
+    },
+    ...COLUMNS,
+  ],
+  accessToken: ACCESS_TOKEN,
+  height: 'calc(100vh - 200px)',
+  translations: defaultTranslations,
+  searchColumns: SEARCH_COLUMNS,
+  rowModelType: RowModelType.clientSide,
+  rowData: TIME_ENTRIES,
 };

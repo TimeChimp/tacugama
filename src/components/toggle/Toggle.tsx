@@ -19,13 +19,7 @@ export const Toggle = ({ checked, children, testId, size = ToggleSize.large, dis
   const {
     theme: {
       current: {
-        sizing: {
-          scale0,
-          scale500,
-          scale600,
-          scale700,
-          scale950,
-        },
+        sizing: { scale0, scale500, scale600, scale700, scale950 },
         colors: { primary400 },
         customColors: { dark4, light2, light3, light4, light6, light7 },
         typography: { LabelSmall },
@@ -34,20 +28,20 @@ export const Toggle = ({ checked, children, testId, size = ToggleSize.large, dis
   } = useTheme();
 
   const toggleBackgroundColor = useMemo(() => {
-    if (!!checked) {
+    if (checked) {
       if (disabled) {
-      return light2
+        return light2;
       } else {
-        return primary400
+        return primary400;
       }
     }
 
     if (disabled) {
-      return light3
+      return light3;
     }
 
-    return light6
-  }, [checked, disabled])
+    return light6;
+  }, [checked, disabled]);
 
   return (
     <Checkbox

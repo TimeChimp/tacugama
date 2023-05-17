@@ -3,12 +3,11 @@ import { Button } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDataGridActions } from './styles';
 import { Dropdown, DropdownItem } from '../dropdown';
-import { DATA_TEST_ID, ButtonKind } from '../../models';
+import { DATA_TEST_ID, ButtonKind, ButtonType } from '../../models';
 import { DataGridActionsProps } from './types';
 import { FlexItem } from '../flex-item';
 import { exportExcel, exportPdf, exportCSV } from './export';
 import { ParagraphSmall } from '../typography';
-import { ButtonType } from '../../models';
 
 const DELETE_BUTTON_TEST_ID = 'delete-button';
 const EXPORT_BUTTON_TEST_ID = 'export-button';

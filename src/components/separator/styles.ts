@@ -10,5 +10,5 @@ export const Seperator = themedStyled<'hr', StyledSeparatorProps>('hr', ({ $them
   backgroundColor: $theme.customColors.light3,
   ...border(),
   height: '1px',
-  ...(!!$noMargin ? margin('0') : margin($margin || $theme.sizing.scale300, '0')),
+  ...($noMargin ? margin('0') : margin($margin || $theme.sizing.scale300, '0')),
 }));

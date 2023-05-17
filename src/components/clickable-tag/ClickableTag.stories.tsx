@@ -13,5 +13,6 @@ const Template: Story<ClickableTagProps> = (args) => <ClickableTag {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   label: 'Tag',
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onClick: () => {},
 };

@@ -13,6 +13,7 @@ import {
 } from '../../utils';
 import { DATA_TEST_ID } from '../../models';
 import { InputProps } from './types';
+import { Skeleton } from '../skeleton';
 
 export const Input = ({
   value,
@@ -26,6 +27,7 @@ export const Input = ({
   startEnhancer = null,
   endEnhancer = null,
   overrides,
+  showSkeleton = false,
   ...rest
 }: InputProps) => {
   const {
@@ -165,7 +167,9 @@ export const Input = ({
     ...styleOverrides,
   };
 
-  return (
+  return showSkeleton ? (
+    <Skeleton animation height="38px" width={width} />
+  ) : (
     <BaseInput
       value={value}
       disabled={disabled}

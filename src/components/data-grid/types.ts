@@ -241,6 +241,11 @@ export interface DataGridProps {
   suppressRowClickSelection?: boolean;
   debouncedSearch?: boolean;
   settings?: DataGridSetting[];
+  showPagination?: boolean;
+  paginationPageSize?: number;
+  hasPaginationPanel?: boolean;
+  hasFooterRowCount?: boolean;
+  isRowDragManaged?: boolean;
 }
 
 export interface DataGridView {
@@ -310,9 +315,9 @@ export interface RowActionsCellProps {
   data: RowActionsCellData;
   hideWithNoItems?: boolean;
   propOverrides?: {
-    listProps?: () => {};
-    optionProps?: () => {};
-    bodyProps?: () => {};
+    listProps?: () => object;
+    optionProps?: () => object;
+    bodyProps?: () => object;
   };
 }
 
@@ -456,7 +461,7 @@ export interface PrintParams {
   PDF_LOGO?: string;
 }
 
-interface PdfCell {
+export interface PdfCell {
   text?: string;
   style?: string;
   link?: string;
@@ -464,7 +469,7 @@ interface PdfCell {
   decoration?: string;
 }
 
-export interface PdfTableCell extends PdfCell {}
+export type PdfTableCell = PdfCell;
 
 export interface PdfHeaderCell extends PdfCell {
   valueFormatter?: string | ((params: ValueFormatterParams) => string) | undefined;
@@ -473,8 +478,6 @@ export interface PdfHeaderCell extends PdfCell {
   colId: string | null;
   sort?: string;
 }
-
-export interface PdfRow {}
 
 export interface ProcessCellForExportParams {
   value: any;

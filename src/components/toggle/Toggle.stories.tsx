@@ -10,13 +10,15 @@ export default {
 } as Meta;
 
 const Template: Story<ToggleProps> = (args) => {
-return (
-<>
-<Toggle {...args} />
-<Toggle checked={false} />
-<Toggle {...args} disabled />
-<Toggle {...args} checked={false} disabled />
-</>)};
+  return (
+    <>
+      <Toggle {...args} />
+      <Toggle checked={false} />
+      <Toggle {...args} disabled />
+      <Toggle {...args} checked={false} disabled />
+    </>
+  );
+};
 
 export const Default = Template.bind({});
 Default.args = {

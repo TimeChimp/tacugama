@@ -40,7 +40,6 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
       columnApi.setColumnVisible(colId, isVisible);
 
       setVisibleColumns();
-      // gridApi.sizeColumnsToFit();
     },
     [columnApi, gridApi, setVisibleColumns],
   );
@@ -48,7 +47,8 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
   useEffect(() => {
     const dropdownItems = columnApi
       .getAllColumns()
-      ?.filter((column) => column.getColDef().headerName)
+      // skip the first two columns (checkbox and first column, which is always visible)
+      ?.filter((column, index) => index > 1 && column.getColDef().headerName)
       .map(
         (column) =>
           ({

@@ -15,7 +15,7 @@ export const MountStateNotifier = ({ onStateChange }: MountStateNotifierProps) =
     return () => {
       onStateChange('unmounted');
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return null;
 };

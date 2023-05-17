@@ -121,6 +121,7 @@ export const getDocDefinition = (
   function getColumnGroupsToExport() {
     const displayedColumnGroups = columnApi.getAllDisplayedColumnGroups();
 
+    // eslint-disable-next-line no-prototype-builtins
     const isColumnGrouping = displayedColumnGroups?.some((col) => col.hasOwnProperty('children'));
 
     if (!isColumnGrouping) {
@@ -180,7 +181,7 @@ export const getDocDefinition = (
       const rowToExport = columnsToExport.map((column: any) => {
         let cellValue = '';
 
-        if (!!column.colDef) {
+        if (column.colDef) {
           cellValue = node[column.colDef.field];
           const valueFormatterParams: ValueFormatterParams = {
             api: gridApi,
@@ -214,6 +215,7 @@ export const getDocDefinition = (
       colId: null,
     };
 
+    // eslint-disable-next-line no-prototype-builtins
     const isColGroup = col.hasOwnProperty('children');
 
     if (isColGroup) {

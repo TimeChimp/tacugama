@@ -17,7 +17,6 @@ export const HeaderColumnSettings = ({ settings }: HeaderColumnSettingsProps) =>
     },
   } = useTheme();
 
-
   const toggledSettings = settings.filter(({ value }) => value).map(({ id }) => id);
 
   return (

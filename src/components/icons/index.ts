@@ -60,6 +60,8 @@ export * from './day-calendar';
 export * from './day';
 export * from './blocked';
 export * from './stop';
-export * from './eye'
-export * from './email'
+export * from './eye';
+export * from './email';
 export * from './radio-line';
+export * from './camera';
+export * from './dragdrop';
