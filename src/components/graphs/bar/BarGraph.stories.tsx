@@ -1,7 +1,8 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { BarGraph, BarGraphProps } from '.';
+import { BarGraph } from '.';
+import { BarGraphProps } from './types';
 
 export default {
   title: 'Components/Graphs',

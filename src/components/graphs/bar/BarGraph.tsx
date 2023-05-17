@@ -4,37 +4,10 @@ import { VictoryAxis, VictoryBar, VictoryChart, VictoryTheme, VictoryTooltip } f
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { FlyOutTooltip } from '../tooltip';
 import { calculateDateAxisRange } from '../utils';
+import { SECONDS_IN_HOUR } from '../../../models';
+import { BarGraphData, BarGraphProps } from './types';
 
 const SINGLE_BAR_WIDTH = 50;
-
-interface BarGraphData {
-  date?: Date | string;
-  trackedDuration?: number;
-  billableDuration?: number;
-  nonBillableDuration?: number;
-}
-
-export interface BarGraphProps {
-  data: BarGraphData[];
-  horizontalAxisLabel: string;
-  verticalAxisLabel: string;
-  horizontalAxisValue?: string;
-  verticalAxisValue?: string;
-  width?: number;
-  height?: number;
-  formatAsDate?: boolean;
-  horizontalAxisItemLabel?: string;
-  trackedText?: string;
-  hoursText?: string;
-  barRatio?: number;
-  billableText?: string;
-  nonBillableText?: string;
-  isBillable?: boolean;
-  isNonBillable?: boolean;
-  flyOutWidth?: number;
-  flyOutHeight?: number;
-  dateFormat?: string;
-}
 
 export const BarGraph = ({
   data,
@@ -69,21 +42,27 @@ export const BarGraph = ({
 
   const convertedData: BarGraphData[] = useMemo(
     () =>
-      data.map((graphDataItem: BarGraphData) => ({
-        ...graphDataItem,
-        trackedDuration: graphDataItem.trackedDuration! / 3600,
-        billableDuration: graphDataItem.billableDuration! / 3600,
-        nonBillableDuration: graphDataItem.nonBillableDuration! / 3600,
-      })),
+      data.map((graphDataItem: BarGraphData) => {
+        if (!graphDataItem) {
+          return graphDataItem;
+        }
+        const { trackedDuration, billableDuration, nonBillableDuration } = graphDataItem;
+        return {
+          ...graphDataItem,
+          trackedDuration: trackedDuration ? trackedDuration / SECONDS_IN_HOUR : 0,
+          billableDuration: billableDuration ? billableDuration / SECONDS_IN_HOUR : 0,
+          nonBillableDuration: nonBillableDuration ? nonBillableDuration / SECONDS_IN_HOUR : 0,
+        };
+      }),
     [data],
   );
 
   const maxValue = useMemo(() => {
-    let max: number = 0;
+    let max = 0;
     convertedData.forEach((graphDataItem: BarGraphData) => {
       const { trackedDuration } = graphDataItem;
-      if (trackedDuration! > max) {
-        max = trackedDuration!;
+      if (trackedDuration && trackedDuration > max) {
+        max = trackedDuration;
       }
     });
     return max * 2.1;
@@ -92,7 +71,7 @@ export const BarGraph = ({
   const xAxisRange = useMemo(() => {
     if (convertedData.length && formatAsDate) {
       const dates = convertedData.map((convertedData: BarGraphData) => {
-        return new Date(convertedData?.date!);
+        return new TcDate(convertedData?.date).toDate();
       });
 
       return calculateDateAxisRange(dates);

@@ -112,7 +112,6 @@ export const Datepicker = ({
     },
   ];
 
-
   const inputBaseOverrides: InputOverrides = {
     Input: {
       style: ({ $disabled, $isFocused, $theme }) => {

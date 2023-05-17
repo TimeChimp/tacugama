@@ -1,7 +1,8 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { LineGraph, LineGraphProps } from '.';
+import { LineGraph } from '.';
+import { LineGraphProps } from './types';
 
 export default {
   title: 'Components/Graphs',

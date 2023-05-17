@@ -30,7 +30,7 @@ export const RowSelect = ({
         borders,
         sizing: { scale0, scale100, scale300, scale700, scale900 },
         typography: { ParagraphSmall, LabelSmall },
-        customSizing: { scale4375, scale7500 }
+        customSizing: { scale4375, scale7500 },
       },
     },
   } = useTheme();

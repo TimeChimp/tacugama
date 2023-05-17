@@ -35,6 +35,7 @@ export const NumberInput = ({
   onBlur,
   value,
   onFocus,
+  showSkeleton = false,
 }: NumberInputProps) => {
   const { thousandSeparator, decimalSeparator } = getNumberSeparators(numberFormat);
   return (
@@ -56,6 +57,7 @@ export const NumberInput = ({
       onFocus={onFocus}
       customInput={Input}
       error={error}
+      showSkeleton={showSkeleton}
     />
   );
 };

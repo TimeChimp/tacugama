@@ -25,6 +25,7 @@ test('it shows actions when selection is enabled', () => {
       dataUrl={DATA_URL}
       columns={COLUMNS}
       accessToken={ACCESS_TOKEN}
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       onBulkDelete={async () => {}}
     />,
   );
@@ -40,6 +41,7 @@ test('actions are disabled when no selection is made', () => {
       dataUrl={DATA_URL}
       columns={COLUMNS}
       accessToken={ACCESS_TOKEN}
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       onBulkDelete={async () => {}}
     />,
   );

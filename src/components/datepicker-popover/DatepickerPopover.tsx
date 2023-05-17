@@ -41,7 +41,6 @@ export const DatepickerPopover = ({
     }
   }, [locale, weekStartDay]);
 
-
   const quickSelectOptions: QuickSelectOption<Date>[] = [
     {
       id: translations?.today ?? 'Today',
@@ -95,7 +94,6 @@ export const DatepickerPopover = ({
     },
   ];
 
-
   return (
     <Popover
       isOpen={isOpen}
@@ -148,7 +146,13 @@ export const DatepickerPopover = ({
               },
             },
             QuickSelect: {
-              component: (props: any) => <Select {...props} disableSortOptions onChangeHandler={({ value }) => onChange && onChange({ date: value })} />,
+              component: (props: any) => (
+                <Select
+                  {...props}
+                  disableSortOptions
+                  onChangeHandler={({ value }) => onChange && onChange({ date: value })}
+                />
+              ),
             },
             ...overrides,
           }}

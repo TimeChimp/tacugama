@@ -163,6 +163,7 @@ export const ROW_ACTION_ITEMS: DropdownItem[] = [
   {
     label: 'Edit',
     icon: <XmarkIcon size="12px" />,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     action: () => {},
   },
 ];

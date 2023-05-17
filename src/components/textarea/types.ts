@@ -5,4 +5,5 @@ export interface TextareaProps extends BaseTextareaProps {
   testId?: string;
   success?: boolean;
   value: string;
+  showSkeleton?: boolean;
 }

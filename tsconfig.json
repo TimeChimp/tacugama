@@ -16,13 +16,14 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react",
     "baseUrl": "src",
+    "outDir": "dist",
+    "sourceMap": true,
     "downlevelIteration": true,
+    "declaration": true,
     "paths": {
-      "test-utils": ["./src/test-utils"]
+      "test-utils": ["./src/test-utils"],
     }
   },
   "include": [
@@ -31,6 +32,9 @@
   ],
   "exclude": [
     "node_modules",
-    "build"
+    "build",
+    "src/components/**/*.stories.tsx",
+    "src/utils/test-utils.tsx",
+    "**/*.test.tsx",
   ]
 }

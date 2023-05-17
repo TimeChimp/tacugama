@@ -11,8 +11,16 @@ import {
 } from '../../utils';
 import { DATA_TEST_ID } from '../../models';
 import { TextareaProps } from './types';
+import { Skeleton } from '../skeleton';
 
-export const Textarea = ({ testId, value, success, resizeable = false, ...rest }: TextareaProps) => {
+export const Textarea = ({
+  testId,
+  value,
+  success,
+  resizeable = false,
+  showSkeleton = false,
+  ...rest
+}: TextareaProps) => {
   const {
     theme: {
       current: {
@@ -28,7 +36,9 @@ export const Textarea = ({ testId, value, success, resizeable = false, ...rest }
   const { border300, radius200 } = borders;
   const { contentSecondary, contentTertiary } = colors;
 
-  return (
+  return showSkeleton ? (
+    <Skeleton animation height={scale2400} width="100%" />
+  ) : (
     <BaseTextArea
       value={value}
       {...rest}

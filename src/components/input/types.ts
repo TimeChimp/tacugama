@@ -6,4 +6,5 @@ export interface InputProps extends BaseInputProps {
   noBorder?: boolean;
   success?: boolean;
   width?: string;
+  showSkeleton?: boolean;
 }
