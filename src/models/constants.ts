@@ -6,3 +6,4 @@ export const MIN_DAYS_TO_GRAPH_AXIS_TICK = 2;
 export const MAX_DAYS_TO_GRAPH_AXIS_TICK = -5;
 export const DEFAULT_ICON_SIZE = '16';
 export const SECONDS_IN_HOUR = 3600;
+export const TABLE_ROW_HEIGHT = '49px';

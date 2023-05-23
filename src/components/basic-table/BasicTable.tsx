@@ -4,8 +4,7 @@ import { useTheme } from '../../providers';
 import { padding } from '../../utils';
 import { TableBuilder, TableBuilderColumn } from 'baseui/table-semantic';
 import { renderCell } from './Cell';
-
-const TABLE_ROW_HEIGHT = '49px';
+import { TABLE_ROW_HEIGHT } from '../../models';
 
 export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
   const {
