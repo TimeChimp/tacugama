@@ -1,6 +1,6 @@
 import { BasicTableProps, BasicTableRow } from 'components/basic-table';
 import { renderCell } from 'components/basic-table/Cell';
-import { TABLE_ROW_HEIGHT } from 'models';
+import { TABLE_ROW_HEIGHT } from '../../models';
 import { useTheme } from 'providers';
 import * as React from 'react';
 import { List, arrayMove } from 'react-movable';
