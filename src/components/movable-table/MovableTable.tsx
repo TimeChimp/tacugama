@@ -9,6 +9,10 @@ export const MovableTable = ({ columns, data }: BasicTableProps) => {
   const [widths, setWidths] = React.useState<string[]>([]);
   const [items, setItems] = React.useState(data);
 
+  React.useEffect(() => {
+    setItems(data);
+  }, [data]);
+
   const {
     theme: {
       current: {
