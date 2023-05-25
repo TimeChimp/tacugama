@@ -5,13 +5,8 @@ import * as React from 'react';
 import { List, arrayMove } from 'react-movable';
 import { borderBottom, padding } from '../../utils';
 
-export const MovableTable = ({ columns, data }: BasicTableProps) => {
+export const MovableTable = ({ columns, data, setData }: BasicTableProps) => {
   const [widths, setWidths] = React.useState<string[]>([]);
-  const [items, setItems] = React.useState(data);
-
-  React.useEffect(() => {
-    setItems(data);
-  }, [data]);
 
   const {
     theme: {
@@ -52,7 +47,7 @@ export const MovableTable = ({ columns, data }: BasicTableProps) => {
   };
 
   const tableBodyRowStyles = {
-    height: TABLE_ROW_HEIGHT,
+    // height: TABLE_ROW_HEIGHT,
     ':hover': {
       backgroundColor: primaryB,
     },
@@ -71,8 +66,8 @@ export const MovableTable = ({ columns, data }: BasicTableProps) => {
           const widths = cells.map((cell) => window.getComputedStyle(cell).width);
           setWidths(widths);
         }}
-        values={items}
-        onChange={({ oldIndex, newIndex }) => setItems(arrayMove(items, oldIndex, newIndex))}
+        values={data}
+        onChange={({ oldIndex, newIndex }) => setData && setData(arrayMove(data, oldIndex, newIndex))}
         renderList={({ children, props, isDragged }) => (
           <table
             style={{

@@ -21,4 +21,5 @@ type OmittedTableProps = 'columns' | 'data';
 export interface BasicTableProps extends Omit<TableProps, OmittedTableProps> {
   columns: BasicTableColumn[];
   data: BasicTableRow[];
+  setData?: (data: BasicTableRow[]) => void;
 }
