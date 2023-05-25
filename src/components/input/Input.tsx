@@ -34,6 +34,7 @@ export const Input = ({
     theme: {
       current: {
         sizing: { scale500, scale550, scale600 },
+        customSizing: { scale975 },
         borders,
         colors,
         customColors,
@@ -93,7 +94,7 @@ export const Input = ({
       style: (opts) => {
         const { $error, $isFocused } = opts;
         return {
-          height: '38px', // NOTE: Size does not exist in the theme
+          height: scale975,
           width,
           ...border(
             !noBorder
@@ -168,7 +169,7 @@ export const Input = ({
   };
 
   return showSkeleton ? (
-    <Skeleton animation height="38px" width={width} />
+    <Skeleton animation height={scale975} width={width} />
   ) : (
     <BaseInput
       value={value}
