@@ -57,7 +57,6 @@ export const MovableTable = ({ columns, data }: BasicTableProps) => {
   return (
     <div
       style={{
-        padding: '3em',
         display: 'flex',
         justifyContent: 'center',
       }}
