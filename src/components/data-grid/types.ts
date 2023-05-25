@@ -248,6 +248,7 @@ export interface DataGridProps {
   isRowDragManaged?: boolean;
   rowHeight?: number;
   getRowHeight?: (params: any) => number;
+  onFilterModelChange?: (filterModel: { [key: string]: any }) => void;
 }
 
 export interface DataGridView {
