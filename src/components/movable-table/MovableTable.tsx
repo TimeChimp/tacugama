@@ -7,6 +7,13 @@ import { borderBottom, padding } from '../../utils';
 
 export const MovableTable = ({ columns, data, setData }: BasicTableProps) => {
   const [widths, setWidths] = React.useState<string[]>([]);
+  const [items, setItems] = React.useState(data);
+
+  React.useEffect(() => {
+    if (data) {
+      setItems(data);
+    }
+  }, [data]);
 
   const {
     theme: {
@@ -52,11 +59,20 @@ export const MovableTable = ({ columns, data, setData }: BasicTableProps) => {
     },
   };
 
+  const onChange = (oldIndex: number, newIndex: number) => {
+    const newData = arrayMove(data, oldIndex, newIndex);
+
+    if (setData) {
+      setData(newData);
+    }
+    setItems(newData);
+  };
+    
   return (
     <div
       style={{
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'stretch',
       }}
     >
       <List
@@ -65,13 +81,14 @@ export const MovableTable = ({ columns, data, setData }: BasicTableProps) => {
           const widths = cells.map((cell) => window.getComputedStyle(cell).width);
           setWidths(widths);
         }}
-        values={data}
-        onChange={({ oldIndex, newIndex }) => setData && setData(arrayMove(data, oldIndex, newIndex))}
+        values={items}
+        onChange={({ oldIndex, newIndex }) => onChange(oldIndex, newIndex)}
         renderList={({ children, props, isDragged }) => (
           <table
             style={{
               ...tableStyles,
               cursor: isDragged ? 'grabbing' : undefined,
+              width: '100%',
             }}
           >
             <thead>
@@ -104,7 +121,7 @@ export const MovableTable = ({ columns, data, setData }: BasicTableProps) => {
             </tr>
           );
           return isDragged ? (
-            <table style={{ ...props.style, borderSpacing: 0 }}>
+            <table style={{ ...props.style, borderSpacing: 0, width: '100%' }}>
               <tbody>{row}</tbody>
             </table>
           ) : (
