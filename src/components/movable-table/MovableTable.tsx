@@ -60,7 +60,7 @@ export const MovableTable = ({ columns, data, setData }: BasicTableProps) => {
   };
 
   const onChange = (oldIndex: number, newIndex: number) => {
-    const newData = arrayMove(data, oldIndex, newIndex);
+    const newData = arrayMove(items, oldIndex, newIndex);
 
     if (setData) {
       setData(newData);
