@@ -9,6 +9,10 @@ export const MovableTable = ({ columns, data }: BasicTableProps) => {
   const [widths, setWidths] = React.useState<string[]>([]);
   const [items, setItems] = React.useState(data);
 
+  React.useEffect(() => {
+    setItems(data);
+  }, [data]);
+
   const {
     theme: {
       current: {
@@ -57,7 +61,6 @@ export const MovableTable = ({ columns, data }: BasicTableProps) => {
   return (
     <div
       style={{
-        padding: '3em',
         display: 'flex',
         justifyContent: 'center',
       }}
