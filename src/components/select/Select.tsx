@@ -18,8 +18,6 @@ import { AddLineIcon } from '../icons';
 import { Button } from '../button';
 import { ButtonKind } from '../../models';
 
-const SELECT_HEIGHT = '38px';
-
 export const Select = ({
   size = 'compact',
   valueKey = 'id',
@@ -44,6 +42,7 @@ export const Select = ({
         borders,
         customColors,
         sizing: { scale0, scale100, scale300, scale600, scale700, scale950 },
+        customSizing: { scale975 },
         typography: { ParagraphSmall },
       },
     },
@@ -81,7 +80,7 @@ export const Select = ({
   return (
     <>
       {showSkeleton ? (
-        <Skeleton width="100%" height={SELECT_HEIGHT} animation />
+        <Skeleton width="100%" height={scale975} animation />
       ) : (
         <BaseSelect
           size={size}

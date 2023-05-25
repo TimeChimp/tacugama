@@ -1,14 +1,17 @@
-import { BasicTableProps, BasicTableRow } from 'components/basic-table';
-import { renderCell } from 'components/basic-table/Cell';
+import { BasicTableProps, BasicTableRow, renderCell } from '../basic-table';
 import { TABLE_ROW_HEIGHT } from '../../models';
-import { useTheme } from 'providers';
+import { useTheme } from '../../providers';
 import * as React from 'react';
 import { List, arrayMove } from 'react-movable';
-import { borderBottom, padding } from 'utils';
+import { borderBottom, padding } from '../../utils';
 
 export const MovableTable = ({ columns, data }: BasicTableProps) => {
   const [widths, setWidths] = React.useState<string[]>([]);
   const [items, setItems] = React.useState(data);
+
+  React.useEffect(() => {
+    setItems(data);
+  }, [data]);
 
   const {
     theme: {
@@ -58,7 +61,6 @@ export const MovableTable = ({ columns, data }: BasicTableProps) => {
   return (
     <div
       style={{
-        padding: '3em',
         display: 'flex',
         justifyContent: 'center',
       }}

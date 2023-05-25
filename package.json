@@ -1,9 +1,9 @@
 {
-  "version": "7.3.0",
+  "version": "7.3.3",
   "license": "MIT",
-  "main": "dist/cjs/index.js",
+  "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/cjs/index.d.ts",
+  "types": "dist/esm/index.d.ts",
   "files": [
     "dist"
   ],
@@ -21,7 +21,7 @@
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "build:esm": "tsc --module esnext --outDir dist/esm",
     "build:copy-files": "node scripts/copyFiles.mjs",
-    "build": "npm run build:cjs && npm run build:esm && npm run build:copy-files",
+    "build": "npm run build:esm && npm run build:copy-files",
     "test": "jest --passWithNoTests",
     "lint": "npx eslint --ext .ts,.tsx src/",
     "lint:fix": "npm run lint -- --fix",
