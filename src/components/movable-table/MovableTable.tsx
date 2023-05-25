@@ -67,7 +67,7 @@ export const MovableTable = ({ columns, data, setData }: BasicTableProps) => {
     }
     setItems(newData);
   };
-
+    
   return (
     <div
       style={{
