@@ -26,4 +26,5 @@ export interface DatePickerProps extends DatepickerProps {
   setCustomValue?: (date: Date[]) => any;
   onChange: ({ date }: { date: any }) => void;
   translations?: DatepickerRangeTranslations;
+  showSkeleton?: boolean;
 }
