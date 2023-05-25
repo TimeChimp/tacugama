@@ -47,7 +47,6 @@ export const MovableTable = ({ columns, data, setData }: BasicTableProps) => {
   };
 
   const tableBodyRowStyles = {
-    // height: TABLE_ROW_HEIGHT,
     ':hover': {
       backgroundColor: primaryB,
     },
