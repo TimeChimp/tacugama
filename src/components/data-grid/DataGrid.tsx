@@ -78,6 +78,7 @@ import { HeaderColumnSettings } from './header-column-settings';
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
+const DEFAULT_ROW_HEIGHT = 40;
 const PINNED_COLUMN_WIDTH = 54;
 
 export const DataGrid = ({
@@ -133,12 +134,13 @@ export const DataGrid = ({
   onModalClose,
   onModalOpen,
   debouncedSearch = false,
-  hideColumnToggle = false,
   showPagination = true,
   paginationPageSize = 25,
   hasPaginationPanel = true,
   hasFooterRowCount = true,
   isRowDragManaged = false,
+  rowHeight = DEFAULT_ROW_HEIGHT,
+  getRowHeight,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -186,6 +188,15 @@ export const DataGrid = ({
     setAllViews(allViews);
   }, [views, translations]);
 
+  const defaultColDef = useMemo(() => {
+    return {
+      resizable: true,
+      minWidth: 150,
+      flex: 1,
+      suppressMenu: true,
+    };
+  }, []);
+
   const getGridThemeClassName = () => {
     return theme.current === theme.dark ? 'ag-theme-alpine-dark' : 'ag-theme-alpine';
   };
@@ -228,10 +239,6 @@ export const DataGrid = ({
   };
 
   const refreshCells = (api: GridApi) => api.refreshCells();
-
-  // const onGridSizeChanged = () => {
-  //   gridApi?.sizeColumnsToFit();
-  // };
 
   const setViewFilterIds = useCallback(
     (filterModel: FilterModel) => {
@@ -297,7 +304,6 @@ export const DataGrid = ({
       }
 
       api?.onFilterChanged();
-      // api?.sizeColumnsToFit();
     },
     [setViewFilterIds, resetGrid],
   );
@@ -318,7 +324,7 @@ export const DataGrid = ({
         await onActivateView(view.id);
       }
 
-      setViewState(gridApi, gridColumnApi, view.viewState!);
+      setViewState(gridApi, gridColumnApi, view.viewState);
     }
   };
 
@@ -331,9 +337,9 @@ export const DataGrid = ({
   const onFiltering = useCallback(
     (filters: FilterModel) => {
       setFilterModel(filters);
-      gridApi.onFilterChanged();
+      gridApi?.onFilterChanged();
       if (rowModelType === RowModelType.clientSide) {
-        gridApi.setFilterModel(filters);
+        gridApi?.setFilterModel(filters);
       }
     },
     [gridApi, rowModelType],
@@ -409,11 +415,9 @@ export const DataGrid = ({
     setGridColumnApi(columnApi);
     setIsGridColumnApiLoaded(true);
 
-    // api?.sizeColumnsToFit();
-
     if (rowModelType === RowModelType.serverSide) {
       const datasource = createServerSideDatasource();
-      api.setServerSideDatasource(datasource);
+      api?.setServerSideDatasource(datasource);
     }
   };
 
@@ -437,7 +441,7 @@ export const DataGrid = ({
 
   const clearFilterModel = (columnFilter: string) => {
     setFilterModel((model) => ({ ...model, [columnFilter]: undefined }));
-    gridApi.onFilterChanged();
+    gridApi?.onFilterChanged();
   };
 
   const getValueFormatter = (
@@ -556,7 +560,7 @@ export const DataGrid = ({
       const values = getSetValues(value, type, currentValues);
       if (!values.length) {
         setFilterModel((model) => ({ ...model, [columnField]: undefined }));
-        return gridApi.onFilterChanged();
+        return gridApi?.onFilterChanged();
       }
       const filterObject = filters?.find((filter) => filter.columnField === columnField);
 
@@ -665,11 +669,6 @@ export const DataGrid = ({
     [viewing, selection, hideDelete, hideDownload, settings],
   );
 
-  const dataGridHeight = useMemo(() => {
-    const headerHeight = showDataGridHeader ? 45 : 0;
-    return `calc(100% - ${headerHeight}px)`;
-  }, [showDataGridHeader]);
-
   const selectedGroupOption = columns.filter((x) => x.groupable).find((column) => column.rowGroup);
 
   const handleGrouping = (field: string) => {
@@ -761,7 +760,7 @@ export const DataGrid = ({
                   </FlexItem>
                 </>
               )}
-              {isGridColumnApiLoaded && !hideColumnToggle && (
+              {isGridColumnApiLoaded && columnToggling && (
                 <HeaderColumnToggle api={gridApi} columnApi={gridColumnApi} />
               )}
               {settings?.length && <HeaderColumnSettings settings={settings} />}
@@ -770,14 +769,14 @@ export const DataGrid = ({
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
         <StyledAgGridReact
-          rowDragManaged={isRowDragManaged}
-          $height={dataGridHeight}
           ref={datagridRef}
           rowData={rowData}
           rowSelection="multiple"
           rowModelType={rowModelType}
           immutableData={rowModelType === RowModelType.clientSide}
           serverSideStoreType={ServerSideStoreType.Partial}
+          defaultColDef={defaultColDef}
+          rowDragManaged={isRowDragManaged}
           treeData={treeData}
           isServerSideGroup={isServerSideGroup}
           getServerSideGroupKey={getServerSideGroupKey}
@@ -808,14 +807,14 @@ export const DataGrid = ({
           onRowDataChanged={onRowDataChanged}
           getRowNodeId={getRowNodeId}
           onFirstDataRendered={onFirstDataRendered}
-          // onGridSizeChanged={onGridSizeChanged}
           onSelectionChanged={onSelectionChanged}
           suppressDragLeaveHidesColumns
           cacheBlockSize={1000}
           maxBlocksInCache={10}
           blockLoadDebounceMillis={100}
           headerHeight={40}
-          rowHeight={40}
+          rowHeight={rowHeight}
+          getRowHeight={getRowHeight}
           frameworkComponents={{
             moreActionsCell: (props: any) => <RowActionsCell {...props} hideWithNoItems={hideActionWithNoItems} />,
             footerRowCount: hasFooterRowCount ? FooterRowCount : null,

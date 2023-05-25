@@ -241,12 +241,13 @@ export interface DataGridProps {
   suppressRowClickSelection?: boolean;
   debouncedSearch?: boolean;
   settings?: DataGridSetting[];
-  hideColumnToggle?: boolean;
   showPagination?: boolean;
   paginationPageSize?: number;
   hasPaginationPanel?: boolean;
   hasFooterRowCount?: boolean;
   isRowDragManaged?: boolean;
+  rowHeight?: number;
+  getRowHeight?: (params: any) => number;
 }
 
 export interface DataGridView {
