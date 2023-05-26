@@ -1,9 +1,9 @@
 {
-  "version": "7.3.8",
+  "version": "7.3.9",
   "license": "MIT",
   "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
   "files": [
     "dist"
   ],
