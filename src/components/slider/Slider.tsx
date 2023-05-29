@@ -29,7 +29,7 @@ export const Slider = ({ value = [0], onChange, ...rest }: SliderProps) => (
       TickBar: () => null,
       Track: {
         style: ({ $theme }) => ({
-          ...padding($theme.sizing.scale600, '0'),
+          ...padding($theme.sizing.scale600, $theme.sizing.scale200),
         }),
       },
     }}
