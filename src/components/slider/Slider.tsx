@@ -1,5 +1,6 @@
 import React from 'react';
 import { Slider as SliderComponent, SliderProps } from 'baseui/slider';
+import { padding } from '../../utils';
 
 export const Slider = ({ value = [0], onChange, ...rest }: SliderProps) => (
   <SliderComponent
@@ -26,6 +27,11 @@ export const Slider = ({ value = [0], onChange, ...rest }: SliderProps) => (
         }),
       },
       TickBar: () => null,
+      Track: {
+        style: ({ $theme }) => ({
+          ...padding($theme.sizing.scale600, '0'),
+        }),
+      },
     }}
   />
 );
