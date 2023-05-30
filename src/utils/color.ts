@@ -41,6 +41,11 @@ export const toRGBColor = (hex: string): RGBColor => {
   };
 };
 
+export const toRGBAColorString = (hex: string, opacity: number) => {
+  const rgb = toRGBColor(hex);
+  return `rgba(${rgb.r},${rgb.g},${rgb.b},${opacity})`;
+};
+
 interface HexColorInverseOptions {
   blackWhite?: boolean;
   lightColor?: string;
