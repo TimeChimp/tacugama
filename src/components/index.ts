@@ -58,3 +58,4 @@ export * from './action-button';
 export * from './basic-table';
 export * from './drawer';
 export * from './movable-table';
+export * from './slider';
