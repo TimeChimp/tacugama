@@ -1,19 +1,13 @@
-import { BasicTableProps, BasicTableRow, renderCell } from '../basic-table';
+import { BasicTableRow, renderCell } from '../basic-table';
 import { TABLE_ROW_HEIGHT } from '../../models';
 import { useTheme } from '../../providers';
 import * as React from 'react';
 import { List, arrayMove } from 'react-movable';
 import { borderBottom, padding } from '../../utils';
+import { MovableTableProps } from './types';
 
-export const MovableTable = ({ columns, data, setData }: BasicTableProps) => {
+export const MovableTable = ({ columns, data, setData, entityRows }: MovableTableProps) => {
   const [widths, setWidths] = React.useState<string[]>([]);
-  const [items, setItems] = React.useState(data);
-
-  React.useEffect(() => {
-    if (data) {
-      setItems(data);
-    }
-  }, [data]);
 
   const {
     theme: {
@@ -60,12 +54,11 @@ export const MovableTable = ({ columns, data, setData }: BasicTableProps) => {
   };
 
   const onChange = (oldIndex: number, newIndex: number) => {
-    const newData = arrayMove(items, oldIndex, newIndex);
+    const newData = arrayMove(entityRows, oldIndex, newIndex);
 
     if (setData) {
       setData(newData);
     }
-    setItems(newData);
   };
 
   return (
@@ -81,7 +74,9 @@ export const MovableTable = ({ columns, data, setData }: BasicTableProps) => {
           const widths = cells.map((cell) => window.getComputedStyle(cell).width);
           setWidths(widths);
         }}
-        values={items}
+        lockVertically
+        transitionDuration={0}
+        values={data}
         onChange={({ oldIndex, newIndex }) => onChange(oldIndex, newIndex)}
         renderList={({ children, props, isDragged }) => (
           <table
