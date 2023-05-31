@@ -133,6 +133,7 @@ export const DataGrid = ({
   onRowDataChanged,
   onModalClose,
   onModalOpen,
+  onFilterModelChange,
   debouncedSearch = false,
   showPagination = true,
   paginationPageSize = 25,
@@ -173,6 +174,12 @@ export const DataGrid = ({
       LicenseManager.setLicenseKey(licenseKey);
     }
   }, [licenseKey]);
+
+  useEffect(() => {
+    if (onFilterModelChange) {
+      onFilterModelChange(filterModel);
+    }
+  }, [filterModel, Object.keys(filterModel), Object.values(filterModel)]);
 
   useEffect(() => {
     const allViews = views ? sortBy<DataGridView>(views, [nameOf<DataGridView>('name')]) : [];

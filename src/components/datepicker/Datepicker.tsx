@@ -17,6 +17,7 @@ import { InputOverrides } from 'baseui/input';
 import { CalendarIcon } from '../icons/calendar';
 import { getDateLocale, TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { DatePickerProps } from './types';
+import { Skeleton } from '../skeleton';
 
 export const Datepicker = ({
   customValue,
@@ -29,6 +30,7 @@ export const Datepicker = ({
   testId,
   iconColor,
   translations,
+  showSkeleton = false,
   ...rest
 }: DatePickerProps) => {
   const [localeObj, setLocaleObj] = useState<Locale>();
@@ -37,6 +39,7 @@ export const Datepicker = ({
     theme: {
       current: {
         sizing: { scale500, scale600, scale1000 },
+        customSizing: { scale975 },
         colors: { primaryA, contentTertiary },
         borders,
         colors,
@@ -242,6 +245,10 @@ export const Datepicker = ({
       },
     },
   };
+
+  if (showSkeleton) {
+    return <Skeleton animation height={scale975} />;
+  }
 
   return (
     <DatePicker

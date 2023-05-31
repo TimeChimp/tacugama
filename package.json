@@ -1,5 +1,5 @@
 {
-  "version": "7.3.6",
+  "version": "7.4.3",
   "license": "MIT",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
@@ -109,7 +109,7 @@
     "pdfmake": "^0.1.71",
     "react-color": "^2.19.3",
     "react-hook-form": "^7.41.0",
-    "react-movable": "^3.0.4",
+    "react-movable": "2.5.4",
     "react-number-format": "^4.7.3",
     "styletron-engine-atomic": "1.4.7",
     "styletron-react": "^6.1.0",
