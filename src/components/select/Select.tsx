@@ -91,9 +91,6 @@ export const Select = ({
           error={error}
           multi={multi}
           type="select"
-          onOpen={() => console.log('12')}
-          openOnClick
-          data-movable-handle={false}
           options={alphabetizeOptions(options, disableSortOptions)}
           {...rest}
           overrides={{
