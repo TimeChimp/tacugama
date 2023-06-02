@@ -4,8 +4,8 @@ import { Toggle, ToggleSize } from '../../toggle';
 import { Input } from '../../input';
 import React from 'react';
 import { BasicTableColumnType } from '../types';
-import { OPTIONS } from 'components/select/test-data';
-import { Select } from 'components';
+import { OPTIONS } from '../../select/test-data';
+import { Select } from '../../select';
 
 export const COLUMNS = [
   {

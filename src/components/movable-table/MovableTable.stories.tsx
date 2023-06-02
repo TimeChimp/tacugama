@@ -14,7 +14,6 @@ export const Default = Template.bind({});
 Default.args = {
   columns: COLUMNS,
   data: DATA,
-  entityRows: [],
 };
 Default.parameters = {
   design: {
