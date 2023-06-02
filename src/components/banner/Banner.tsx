@@ -11,7 +11,7 @@ export const Banner = ({ type = BannerType.info, text }: BannerProps) => {
     theme: {
       current: {
         colors: { primary },
-        customColors: { red0, green0, yellow0 },
+        customColors: { red0, green0, yellow5 },
         sizing: { scale0 },
       },
     },
@@ -21,7 +21,7 @@ export const Banner = ({ type = BannerType.info, text }: BannerProps) => {
     const map = {
       [BannerType.success]: green0,
       [BannerType.error]: red0,
-      [BannerType.warning]: yellow0,
+      [BannerType.warning]: yellow5,
       [BannerType.info]: primary,
     };
 
