@@ -36,6 +36,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       backgroundColor,
       borderColor,
       isNotModalButton = false,
+      cursorType,
       ...rest
     }: ButtonProps,
     ref,
@@ -150,6 +151,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   borderStyle: 'solid',
                   borderColor: borderTransparent,
                 }),
+                cursor: cursorType ?? 'pointer',
               },
             },
           };
@@ -191,6 +193,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                     ...margin('0', scale300, '0', '0'),
                   },
                 }),
+                cursor: cursorType ?? 'pointer',
                 ...rootOverrides,
               },
             },
@@ -260,6 +263,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                     color: color ?? dark4,
                   },
                 },
+                cursor: cursorType ?? 'pointer',
               },
             },
             StartEnhancer: {
@@ -306,6 +310,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   borderColor: 'transparent',
                   color: color ?? dark4,
                 },
+                cursor: cursorType ?? 'pointer',
               },
             },
             StartEnhancer: {
@@ -357,6 +362,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   },
                 },
                 ...rootOverrides,
+                cursor: cursorType ?? 'pointer',
               },
             },
             StartEnhancer: {

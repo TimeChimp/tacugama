@@ -1,15 +1,14 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { MovableTable } from '.';
+import { MovableTable, MovableTableProps } from '.';
 import { COLUMNS, DATA } from '../basic-table/__tests__/constants';
-import { BasicTableProps } from '../basic-table/types';
 
 export default {
   title: 'Components/MovableTable',
   component: MovableTable,
 } as Meta;
 
-const Template: Story<BasicTableProps> = (args) => <MovableTable {...args} />;
+const Template: Story<MovableTableProps> = (args) => <MovableTable {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
