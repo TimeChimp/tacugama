@@ -13,4 +13,5 @@ export interface ButtonProps extends Omit<BaseButtonProps, 'kind'> {
   backgroundColor?: string;
   borderColor?: string;
   isNotModalButton?: boolean;
+  cursorType?: string;
 }

@@ -4,6 +4,8 @@ import { Toggle, ToggleSize } from '../../toggle';
 import { Input } from '../../input';
 import React from 'react';
 import { BasicTableColumnType } from '../types';
+import { OPTIONS } from 'components/select/test-data';
+import { Select } from 'components';
 
 export const COLUMNS = [
   {
@@ -52,5 +54,11 @@ export const DATA = [
     age: 40,
     address: '100 Baker St., Dallas, Texas',
     actions: <Checkbox />,
+  },
+  {
+    name: 'Hank Smith',
+    age: 40,
+    address: '100 Baker St., Dallas, Texas',
+    actions: <Select options={OPTIONS} onChangeHandler={() => null} />,
   },
 ];

@@ -103,9 +103,10 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
               {...props}
               style={{
                 ...props.style,
-                cursor: isDragged ? 'grabbing' : 'grab',
+                cursor: isDragged ? 'grabbing' : undefined,
                 backgroundColor: isDragged || isSelected ? light6 : light4,
                 ...tableBodyRowStyles,
+                ...borderBottom(props.key === entityRows.length - 1 ? undefined : border300),
               }}
             >
               {columns.map((column, index) => (
@@ -115,6 +116,7 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
               ))}
             </tr>
           );
+
           return isDragged ? (
             <table style={{ ...props.style, borderSpacing: 0, width: '100%' }}>
               <tbody>{row}</tbody>
