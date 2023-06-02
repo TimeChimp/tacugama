@@ -4,7 +4,7 @@ import { useTheme } from '../../providers';
 import { StyledBanner, StyledContainer } from './styles';
 import { CheckIcon, ClearIcon, InfoIcon, WarningIcon } from '../icons';
 import { BannerType, BannerProps } from './types';
-import { Block } from 'baseui/block';
+import { Block } from '../block';
 
 export const Banner = ({ type = BannerType.info, text }: BannerProps) => {
   const {
