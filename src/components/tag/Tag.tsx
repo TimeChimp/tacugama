@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tag as TagComponent } from 'baseui/tag';
 import { useTheme } from '../../providers';
-import { border, borderRadius, margin, padding, toRGBColor } from '../../utils';
+import { border, borderRadius, margin, padding } from '../../utils';
 import { ParagraphSmall, ParagraphXSmall } from '../typography';
 import { TagProps, TagSize } from './types';
 import { customColors } from '../../theme/colors';
@@ -20,35 +20,12 @@ export const Tag = ({
   const {
     theme: {
       current: {
-        sizing: { scale100, scale200, scale550, scale600, scale750 },
+        sizing: { scale0, scale100, scale200, scale550, scale600, scale750 },
         borders: { border300 },
-        customColors: { dark1, light7, light2 },
+        customColors: { light4 },
       },
     },
   } = useTheme();
-
-  const getBackgroundColor = () => {
-    if (color === light7) {
-      return light7;
-    }
-    const rgb = toRGBColor(color);
-    const opacity = 0.16;
-    return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`;
-  };
-
-  const getTextColor = () => {
-    if (color === light7) {
-      return dark1;
-    }
-    return color;
-  };
-
-  const getBorderColor = () => {
-    if (color === light7) {
-      return light2;
-    }
-    return color;
-  };
 
   return (
     <TagComponent
@@ -63,22 +40,22 @@ export const Tag = ({
               maxWidth,
               display: 'inline-flex',
               ...padding('0px', scale200),
-              ...borderRadius(scale100),
+              ...borderRadius(scale0),
               ...margin('0px', scale100, '0px', '0px'),
               ...border({
                 ...border300,
-                borderColor: getBorderColor(),
+                borderColor: color,
               }),
-              backgroundColor: getBackgroundColor(),
+              backgroundColor: color,
               cursor,
               height: scale750,
-              color: getTextColor(),
+              color: light4,
             }),
           },
           Text: {
             component: ParagraphXSmall,
             style: () => ({
-              color: getTextColor(),
+              color: light4,
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',
@@ -100,21 +77,21 @@ export const Tag = ({
               display: 'inline-flex',
               height: scale750,
               ...padding('0', scale200),
-              ...borderRadius(scale100),
+              ...borderRadius(scale0),
               ...margin('0px', scale100, '0px', '0px'),
               ...border({
                 ...border300,
-                borderColor: getBorderColor(),
+                borderColor: color,
               }),
-              backgroundColor: getBackgroundColor(),
-              color: getTextColor(),
+              backgroundColor: color,
+              color: light4,
               cursor,
             }),
           },
           Text: {
             component: ParagraphSmall,
             style: () => ({
-              color: getTextColor(),
+              color: light4,
               overflow: 'hidden',
               textOverflow: 'ellipsis',
             }),

@@ -14,6 +14,7 @@ export interface CustomColors {
   dark2: string;
   dark3: string;
   dark4: string;
+  dark5: string;
 
   // Light
   light0: string;
@@ -50,6 +51,7 @@ export interface CustomColors {
   blue3: string;
   blue4: string;
   blue5: string;
+  blue6: string;
 
   // Yellow
   yellow0: string;
