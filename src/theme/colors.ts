@@ -15,6 +15,7 @@ export const customColors: CustomColors = {
   dark2: '#595959',
   dark3: '#858D9F',
   dark4: '#A2AABD',
+  dark5: '#42536E',
 
   // Light
   light0: '#CCCCCC',
@@ -51,6 +52,7 @@ export const customColors: CustomColors = {
   blue3: '#9DBFF9',
   blue4: '#E5F0FF',
   blue5: '#5B91F5',
+  blue6: '#00A4BF',
 
   // Yellow
   yellow0: '#E5B800',

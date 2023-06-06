@@ -27,7 +27,7 @@ Default.parameters = {
 export const Approved = Template.bind({});
 Approved.args = {
   value: 'Approved',
-  color: customColors.green0,
+  color: customColors.green1,
 };
 Approved.parameters = {
   design: {
@@ -63,7 +63,7 @@ Rejected.parameters = {
 export const Open = Template.bind({});
 Open.args = {
   value: 'Open',
-  color: customColors.dark2,
+  color: customColors.dark5,
 };
 Open.parameters = {
   design: {
@@ -75,7 +75,7 @@ Open.parameters = {
 export const WrittenOff = Template.bind({});
 WrittenOff.args = {
   value: 'Written off',
-  color: customColors.purple2,
+  color: customColors.blue1,
 };
 WrittenOff.parameters = {
   design: {
@@ -87,7 +87,7 @@ WrittenOff.parameters = {
 export const Invoiced = Template.bind({});
 Invoiced.args = {
   value: 'Invoiced',
-  color: customColors.blue1,
+  color: customColors.blue6,
 };
 Invoiced.parameters = {
   design: {
