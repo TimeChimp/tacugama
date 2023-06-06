@@ -8,6 +8,8 @@ import { AddLineIcon } from '../../icons/add-line';
 import { useTheme } from '../../../providers';
 import { DatepickerPopover } from '../../datepicker-popover';
 import { FilterButton } from './FilterButton';
+import { Button } from '../../button';
+import { ButtonKind } from '../../../models';
 
 const LESS_FILTERS_BUTTON_TEST_ID = 'less-filters-button';
 const MORE_FILTERS_BUTTON_TEST_ID = 'more-filters-button';
@@ -21,11 +23,12 @@ export const ColumnFilters = ({
   setDates,
   setSelectedFilterIds,
   selectedFilterIds,
-  translations: { search, lessFilters, allFilters },
+  translations: { search, lessFilters, allFilters, clearFilters },
   datepickerTranslations,
   filterOnValue,
   filterOnDate,
   clearFilterModel,
+  showClearFilters,
 }: ColumnFiltersProps) => {
   const [showLessFilters, setShowLessFilters] = useState<boolean>(true);
   const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
@@ -271,6 +274,11 @@ export const ColumnFilters = ({
     return filterTypes[type];
   };
 
+  const onClearFiltersClick = () => {
+    const visibleFilters = getFilters();
+    visibleFilters?.map((filter) => onSetFilterClear(filter.columnField));
+  };
+
   return (
     <>
       {filters?.length && (
@@ -310,6 +318,11 @@ export const ColumnFilters = ({
                 />
               )}
             </>
+          )}
+          {showClearFilters && (
+            <Button kind={ButtonKind.minimal} onClick={() => onClearFiltersClick()}>
+              {clearFilters}
+            </Button>
           )}
         </>
       )}

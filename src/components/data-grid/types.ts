@@ -178,6 +178,7 @@ export interface Translations {
   delete: string;
   export: string;
   none: string;
+  clearFilters: string;
 }
 
 export interface DataGridSetting {
@@ -249,6 +250,7 @@ export interface DataGridProps {
   rowHeight?: number;
   getRowHeight?: (params: any) => number;
   onFilterModelChange?: (filterModel: { [key: string]: any }) => void;
+  showClearFilters?: boolean;
 }
 
 export interface DataGridView {
@@ -288,6 +290,7 @@ export interface FiltersProps {
   debouncedSearch?: boolean;
   clearFilterModel: (columnFilter: string) => void;
   onSearch?: (searchTerm: string) => void;
+  showClearFilters?: boolean;
 }
 
 export interface ColumnFiltersProps {
@@ -303,6 +306,7 @@ export interface ColumnFiltersProps {
   filterOnValue: (columnField: string, value: FilterValue['value'], type: FilterType) => void;
   filterOnDate: (columnField: string, selectedDates: Date[]) => void;
   clearFilterModel: (columnFilter: string) => void;
+  showClearFilters?: boolean;
 }
 export interface FooterRowCountProps {
   api: GridApi;
