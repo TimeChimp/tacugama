@@ -50,4 +50,5 @@ export const defaultTranslations: Translations = {
   delete: 'Delete',
   export: 'Export',
   none: 'None',
+  clearFilters: 'Clear filters',
 };

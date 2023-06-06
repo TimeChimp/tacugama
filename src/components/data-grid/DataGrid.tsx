@@ -142,6 +142,7 @@ export const DataGrid = ({
   isRowDragManaged = false,
   rowHeight = DEFAULT_ROW_HEIGHT,
   getRowHeight,
+  showClearFilters = true,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -718,6 +719,7 @@ export const DataGrid = ({
         debouncedSearch={debouncedSearch}
         clearFilterModel={clearFilterModel}
         onSearch={onSearch}
+        showClearFilters={showClearFilters}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {showDataGridHeader && (
