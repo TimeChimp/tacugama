@@ -34,7 +34,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       color,
       isLink,
       backgroundColor,
-      borderColor,
       isNotModalButton = false,
       cursorType,
       ...rest
