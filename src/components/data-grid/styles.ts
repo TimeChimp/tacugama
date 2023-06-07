@@ -110,7 +110,7 @@ export const StyledDataGridFilters = themedStyled('div', ({ $theme }) => ({
 
 export const StyledDataGridSearch = themedStyled('div', ({ $theme }) => ({
   width: '280px',
-  ...margin('0', $theme.sizing.scale300, '0', '0'),
+  ...margin( $theme.sizing.scale200, $theme.sizing.scale300, '0', '0'),
 }));
 
 export const StyledFooterRowCount = themedStyled('div', ({ $theme }) => ({

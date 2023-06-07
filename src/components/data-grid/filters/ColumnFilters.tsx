@@ -10,6 +10,7 @@ import { DatepickerPopover } from '../../datepicker-popover';
 import { FilterButton } from './FilterButton';
 import { Button } from '../../button';
 import { ButtonKind } from '../../../models';
+import { ParagraphSmall } from 'baseui/typography';
 
 const LESS_FILTERS_BUTTON_TEST_ID = 'less-filters-button';
 const MORE_FILTERS_BUTTON_TEST_ID = 'more-filters-button';
@@ -38,6 +39,7 @@ export const ColumnFilters = ({
     theme: {
       current: {
         colors: { primary, contentSecondary },
+        sizing: { scale200 },
       },
     },
   } = useTheme();
@@ -321,7 +323,9 @@ export const ColumnFilters = ({
           )}
           {showClearFilters && (
             <Button kind={ButtonKind.minimal} onClick={() => onClearFiltersClick()}>
-              {clearFilters}
+              <ParagraphSmall paddingTop={scale200} color={primary}>
+                {clearFilters}
+              </ParagraphSmall>
             </Button>
           )}
         </>
