@@ -141,6 +141,7 @@ export const DataGrid = ({
   hasFooterRowCount = true,
   isRowDragManaged = false,
   rowHeight = DEFAULT_ROW_HEIGHT,
+  hideActions = false,
   getRowHeight,
   showClearFilters = true,
 }: DataGridProps) => {
@@ -152,7 +153,7 @@ export const DataGrid = ({
   const [selectedFilterIds, setSelectedFilterIds] = useState<SelectedFilterIds>({});
   const [rowsSelected, setRowsSelected] = useState<number>(0);
   const [isGridColumnApiLoaded, setIsGridColumnApiLoaded] = useState<boolean>(false);
-  const [filterModel, setFilterModel] = useState<{ [key: string]: any }>({});
+  const [filterModel, setFilterModel] = useState<Record<string, any>>({});
 
   const { theme } = useTheme();
 
@@ -944,24 +945,26 @@ export const DataGrid = ({
               />
             ),
           )}
-          <AgGridColumn
-            headerName={''}
-            field={''}
-            headerComponent={''}
-            headerComponentParams={{
-              translations,
-            }}
-            cellRenderer={columnCellRenderer}
-            cellRendererParams={{
-              data: { items: rowActionItems, api: gridApi },
-            }}
-            type="rightAligned"
-            minWidth={PINNED_COLUMN_WIDTH}
-            maxWidth={rowActionItems?.length || columnToggling ? PINNED_COLUMN_WIDTH : 0}
-            sortable={false}
-            resizable={false}
-            pinned={'right'}
-          />
+          {!hideActions ? (
+            <AgGridColumn
+              headerName={''}
+              field={''}
+              headerComponent={''}
+              headerComponentParams={{
+                translations,
+              }}
+              cellRenderer={columnCellRenderer}
+              cellRendererParams={{
+                data: { items: rowActionItems, api: gridApi },
+              }}
+              type="rightAligned"
+              minWidth={PINNED_COLUMN_WIDTH}
+              maxWidth={rowActionItems?.length || columnToggling ? PINNED_COLUMN_WIDTH : 0}
+              sortable={false}
+              resizable={false}
+              pinned={'right'}
+            />
+          ) : null}
         </StyledAgGridReact>
       </StyledDataGrid>
     </>
