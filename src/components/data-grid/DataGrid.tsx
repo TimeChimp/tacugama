@@ -141,9 +141,9 @@ export const DataGrid = ({
   hasFooterRowCount = true,
   isRowDragManaged = false,
   rowHeight = DEFAULT_ROW_HEIGHT,
-  hideActions = false,
   getRowHeight,
   showClearFilters = true,
+  customActionsCellRender,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -826,7 +826,12 @@ export const DataGrid = ({
           rowHeight={rowHeight}
           getRowHeight={getRowHeight}
           frameworkComponents={{
-            moreActionsCell: (props: any) => <RowActionsCell {...props} hideWithNoItems={hideActionWithNoItems} />,
+            moreActionsCell: (props: any) =>
+              !customActionsCellRender ? (
+                <RowActionsCell {...props} hideWithNoItems={hideActionWithNoItems} />
+              ) : (
+                customActionsCellRender(props)
+              ),
             footerRowCount: hasFooterRowCount ? FooterRowCount : null,
             footerPagination: showPagination ? FooterPagination : null,
             footerPageSize: paginationPageSize ? FooterPageSize : null,
@@ -945,26 +950,24 @@ export const DataGrid = ({
               />
             ),
           )}
-          {!hideActions ? (
-            <AgGridColumn
-              headerName={''}
-              field={''}
-              headerComponent={''}
-              headerComponentParams={{
-                translations,
-              }}
-              cellRenderer={columnCellRenderer}
-              cellRendererParams={{
-                data: { items: rowActionItems, api: gridApi },
-              }}
-              type="rightAligned"
-              minWidth={PINNED_COLUMN_WIDTH}
-              maxWidth={rowActionItems?.length || columnToggling ? PINNED_COLUMN_WIDTH : 0}
-              sortable={false}
-              resizable={false}
-              pinned={'right'}
-            />
-          ) : null}
+          <AgGridColumn
+            headerName={''}
+            field={''}
+            headerComponent={''}
+            headerComponentParams={{
+              translations,
+            }}
+            cellRenderer={columnCellRenderer}
+            cellRendererParams={{
+              data: { items: rowActionItems, api: gridApi },
+            }}
+            type="rightAligned"
+            minWidth={PINNED_COLUMN_WIDTH}
+            maxWidth={rowActionItems?.length || columnToggling ? PINNED_COLUMN_WIDTH : 0}
+            sortable={false}
+            resizable={false}
+            pinned={'right'}
+          />
         </StyledAgGridReact>
       </StyledDataGrid>
     </>
