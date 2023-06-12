@@ -248,10 +248,10 @@ export interface DataGridProps {
   hasFooterRowCount?: boolean;
   isRowDragManaged?: boolean;
   rowHeight?: number;
-  hideActions?: boolean;
   getRowHeight?: (params: any) => number;
   onFilterModelChange?: (filterModel: { [key: string]: any }) => void;
   showClearFilters?: boolean;
+  customActionsCellRender?: (props: any) => any;
 }
 
 export interface DataGridView {
