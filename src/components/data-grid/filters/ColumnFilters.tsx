@@ -271,6 +271,7 @@ export const ColumnFilters = ({
           />
         </Dropdown>
       ),
+      [FilterType.settings]: <></>,
     };
 
     return filterTypes[type];
@@ -283,7 +284,7 @@ export const ColumnFilters = ({
 
   return (
     <>
-      {filters?.length && (
+      {!!filters?.length && (
         <>
           {getFilters()?.map(
             ({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon, clearable }) => (

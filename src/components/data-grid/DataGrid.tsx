@@ -662,6 +662,30 @@ export const DataGrid = ({
     return setFilterDefaultValues();
   };
 
+  useEffect(() => {
+    filters?.map((filter) => {
+      if (filter.type === FilterType.settings) {
+        const values = getSetValues(filter.defaultValue || '', filter.type, filter.values as FilterValue['value'][]);
+
+        if (!Object.keys(filterModel).find((item) => item === filter.columnField)) {
+          setFilterModel((model) => ({
+            ...model,
+            [filter.columnField]: filter.customFilterMap ? filter.customFilterMap(values || []) : filter,
+          }));
+        } else {
+          setFilterModel((model) => ({ ...model, [filter.columnField]: undefined }));
+        }
+
+        gridApi?.onFilterChanged();
+      }
+    });
+
+    if (!filters?.length && Object.keys(filterModel).length) {
+      setFilterModel({});
+      gridApi?.onFilterChanged();
+    }
+  }, [filters]);
+
   const isServerSideGroup = (dataItem: any) => {
     return !!dataItem.children?.length;
   };

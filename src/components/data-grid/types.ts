@@ -90,6 +90,7 @@ export enum FilterType {
   date = 'date',
   multi = 'multi',
   single = 'single',
+  settings = 'settings',
 }
 
 export interface FilterValue {
