@@ -665,7 +665,7 @@ export const DataGrid = ({
   useEffect(() => {
     const filterModelKeys = Object.keys(filterModel);
     let needFilterUpdate = false;
-
+        
     filters?.map((filter) => {
       if (filter.type === FilterType.settings) {
         const values = getSetValues(filter.defaultValue || '', filter.type, filter.values as FilterValue['value'][]);
