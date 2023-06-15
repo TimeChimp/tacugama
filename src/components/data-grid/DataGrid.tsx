@@ -663,25 +663,37 @@ export const DataGrid = ({
   };
 
   useEffect(() => {
+    const filterModelKeys = Object.keys(filterModel);
+    let needFilterUpdate = false;
+        
     filters?.map((filter) => {
       if (filter.type === FilterType.settings) {
         const values = getSetValues(filter.defaultValue || '', filter.type, filter.values as FilterValue['value'][]);
 
-        if (!Object.keys(filterModel).find((item) => item === filter.columnField)) {
+        if (!filterModelKeys.find((item) => item === filter.columnField) || !filterModel[filter.columnField]) {
           setFilterModel((model) => ({
             ...model,
             [filter.columnField]: filter.customFilterMap ? filter.customFilterMap(values || []) : filter,
           }));
-        } else {
-          setFilterModel((model) => ({ ...model, [filter.columnField]: undefined }));
-        }
 
-        gridApi?.onFilterChanged();
+          needFilterUpdate = true;
+        }
       }
     });
 
-    if (!filters?.length && Object.keys(filterModel).length) {
+    filterModelKeys.map((key) => {
+      if (!filters?.find((filter) => filter.columnField === key)) {
+        setFilterModel((model) => ({ ...model, [key]: undefined }));
+        needFilterUpdate = true;
+      }
+    });
+
+    if (!filters?.length && filterModelKeys.length) {
       setFilterModel({});
+      needFilterUpdate = true;
+    }
+
+    if (needFilterUpdate) {
       gridApi?.onFilterChanged();
     }
   }, [filters]);
@@ -797,7 +809,7 @@ export const DataGrid = ({
               {isGridColumnApiLoaded && columnToggling && (
                 <HeaderColumnToggle api={gridApi} columnApi={gridColumnApi} />
               )}
-              {settings?.length && <HeaderColumnSettings settings={settings} />}
+              {!!settings?.length && <HeaderColumnSettings settings={settings} />}
             </FlexItem>
           </StyledDataGridHeader>
         )}
