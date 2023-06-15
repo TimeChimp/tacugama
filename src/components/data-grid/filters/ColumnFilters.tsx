@@ -271,6 +271,7 @@ export const ColumnFilters = ({
           />
         </Dropdown>
       ),
+      [FilterType.settings]: <></>,
     };
 
     return filterTypes[type];
