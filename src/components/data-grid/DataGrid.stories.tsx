@@ -108,6 +108,7 @@ const Template: Story<DataGridProps> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
+  paginationPageSize: 10,
   columnToggling: true,
   selection: true,
   filtering: true,
