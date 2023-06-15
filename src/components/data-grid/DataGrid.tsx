@@ -843,7 +843,7 @@ export const DataGrid = ({
           onFirstDataRendered={onFirstDataRendered}
           onSelectionChanged={onSelectionChanged}
           suppressDragLeaveHidesColumns
-          cacheBlockSize={1000}
+          cacheBlockSize={paginationPageSize}
           maxBlocksInCache={10}
           blockLoadDebounceMillis={100}
           headerHeight={40}
