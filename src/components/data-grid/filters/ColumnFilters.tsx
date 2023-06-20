@@ -282,6 +282,8 @@ export const ColumnFilters = ({
     visibleFilters?.map((filter) => onSetFilterClear(filter.columnField));
   };
 
+  const filtersWithoutSettings = filters?.filter((item) => item.type !== FilterType.settings);
+
   return (
     <>
       {!!filters?.length && (
@@ -301,7 +303,7 @@ export const ColumnFilters = ({
               />
             ),
           )}
-          {filters?.length > 2 && (
+          {(filtersWithoutSettings || [])?.length > 2 && (
             <>
               {showLessFilters ? (
                 <FilterButton
