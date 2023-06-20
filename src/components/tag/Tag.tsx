@@ -12,7 +12,7 @@ export const Tag = ({
   size = TagSize.small,
   closeable = false,
   cursor = 'default',
-  color = customColors.light7,
+  color = customColors.dark5,
   width = 'auto',
   maxWidth = 'auto',
   ...rest
