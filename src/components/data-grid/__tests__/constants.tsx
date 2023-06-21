@@ -157,6 +157,14 @@ export const FILTERS: Filter[] = [
     icon: ({ ...props }) => <NoteIcon {...props} />,
     valuesLoading: true,
   },
+  {
+    type: FilterType.multiVirtual,
+    title: 'Virtual Scroll Select',
+    columnField: 'client',
+    values: ['Apple', 'Microsoft', 'Amazon', 'Google'],
+    searchPlaceholder: 'Search clients',
+    icon: ({ ...props }) => <BriefcaseIcon {...props} />,
+  },
 ];
 
 export const ROW_ACTION_ITEMS: DropdownItem[] = [

@@ -11,6 +11,7 @@ import { FilterButton } from './FilterButton';
 import { Button } from '../../button';
 import { ButtonKind } from '../../../models';
 import { ParagraphSmall } from 'baseui/typography';
+import { FixedSizeSelect } from '../../fixed-size-select';
 
 const LESS_FILTERS_BUTTON_TEST_ID = 'less-filters-button';
 const MORE_FILTERS_BUTTON_TEST_ID = 'more-filters-button';
@@ -253,6 +254,23 @@ export const ColumnFilters = ({
             arrows
           />
         </Dropdown>
+      ),
+      [FilterType.multiVirtual]: (
+        <FixedSizeSelect
+          showSearch
+          selection
+          items={getAllColumnValues(columnField, FilterType.multiVirtual, values)}
+          selectedIds={getSelectedFilterIds(columnField)}
+          searchPlaceholder={searchPlaceholder || search}
+          isLoading={valuesLoading}
+          title={getSetTitle(columnField, title)}
+          startEnhancer={Icon && <Icon color={getSetIconColor(columnField)} />}
+          size={SIZE.compact}
+          isActive={isSetFilterActive(columnField)}
+          onClear={() => onSetFilterClear(columnField)}
+          hasValue={isSetFilterActive(columnField)}
+          arrows
+        />
       ),
       [FilterType.single]: (
         <Dropdown
