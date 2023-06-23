@@ -1,19 +1,18 @@
-import * as React from 'react';
-import { withStyle } from 'baseui';
+import React, { useEffect, useState } from 'react';
+import { themedWithStyle } from '../../theme';
 import { Option, Select, StyledDropdownListItem, Value } from 'baseui/select';
 import { StyledList, StyledEmptyState, OptionListProps } from 'baseui/menu';
 import { FixedSizeList } from 'react-window';
-import { border, borderRadius, padding } from 'utils';
-import { useTheme } from 'providers';
+import { border, borderRadius, padding } from '../../utils';
+import { useTheme } from '../../providers';
 import { FixedSizeSelectProps } from './types';
 
 const LIST_ITEM_HEIGHT = 42;
 const EMPTY_LIST_HEIGHT = 72;
 const MAX_LIST_HEIGHT = 200;
 
-const ListItem = withStyle(StyledDropdownListItem, {
-  paddingTop: 0,
-  paddingBottom: 0,
+const ListItem = themedWithStyle(StyledDropdownListItem, {
+  ...padding('0'),
   display: 'flex',
   alignItems: 'center',
 });
@@ -81,56 +80,75 @@ for (let i = 0; i < 10000; i += 1) {
 
 export const FixedSizeSelect = ({
   items,
-  showSearch,
   selection,
   selectedIds,
   searchPlaceholder,
-  isLoading,
-  title,
-  startEnhancer,
-  size,
-  isActive,
-  onClear,
-  hasValue,
-  arrows,
-}: FixedSizeSelectProps) => {
-  const [value, setValue] = React.useState<Value>([]);
+}: // title,
+// showSearch,
+// isLoading,
+// startEnhancer,
+// size,
+// isActive,
+// onClear,
+FixedSizeSelectProps) => {
+  const [value, setValue] = useState<Value>([]);
+  const [dropdownItems, setDropdownItems] = useState<any[]>([]);
+
+  useEffect(() => {
+    const dropDownItems = items
+      .filter((x) => {
+        if (x.filterConditions?.length && x.context) {
+          return x.filterConditions?.every(({ value, name, comparator }: any) => {
+            return comparator(value, name, x.context);
+          });
+        }
+
+        // return !searchTerm || x.label?.toLowerCase().includes(searchTerm?.toLowerCase());
+      })
+      .map((x) => ({
+        ...x,
+        checkbox: selection,
+        // @ts-expect-error typing issue
+        isChecked: selectedIds && x.id ? selectedIds.includes(x.id) : false,
+      }));
+
+    setDropdownItems(dropDownItems);
+  }, [items, selection, selectedIds]);
 
   const {
     theme: {
       current: {
-        sizing: { scale0, scale200, scale300, scale400, scale500, scale600, scale800 },
-        borders: { border100, border300, radius200 },
+        sizing: { scale200, scale300, scale400 },
+        borders: { border300, radius200 },
         colors,
         customColors,
-        customSizing: { scale50, scale975 },
+        customSizing: { scale975 },
       },
     },
   } = useTheme();
-  const { primaryB, borderTransparent, primary } = colors;
-  const { dark1, dark3, dark4, light2, light3, light4, light7 } = customColors;
+  const { primaryB } = colors;
+  const { light2 } = customColors;
 
   return (
     <Select
-      options={items.length ? items : defaultOptions}
+      options={dropdownItems.length ? dropdownItems : defaultOptions}
       labelKey="id"
       valueKey="label"
-      placeholder="Select"
+      placeholder={searchPlaceholder || 'Select'}
       overrides={{
         Dropdown: { component: VirtualDropdown },
         Root: {
           style: {
             width: 'auto',
             height: '44px',
-            paddingTop: '6px',
-            paddingRight: '8px',
-            backgroundColor: '#fff',
+            ...padding(scale200, scale300, '0', '0'),
+            backgroundColor: primaryB,
           },
         },
         ControlContainer: {
           style: {
-            height: '38px',
-            backgroundColor: '#fff',
+            height: scale975,
+            backgroundColor: primaryB,
             ...border({
               ...border300,
               borderColor: light2,
@@ -141,9 +159,7 @@ export const FixedSizeSelect = ({
         },
         ValueContainer: {
           style: {
-            ...padding('0'),
-            paddingTop: '6px',
-            paddingLeft: '10px',
+            ...padding(scale200, '0', '0', scale400),
           },
         },
       }}
