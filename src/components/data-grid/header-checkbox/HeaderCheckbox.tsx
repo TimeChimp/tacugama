@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { HeaderCheckboxProps } from '..';
 import { StyledHeaderCheckbox, StyledHeaderCheckboxValue } from '../styles';
 import { Checkbox } from '../../checkbox';
-import { RowNode } from '@ag-grid-community/core';
+import { PaginationChangedEvent, RowNode } from '@ag-grid-community/core';
 
 const CHECKBOX_TEST_ID = 'data-grid-select-all';
 const MODEL_UPDATED_EVENT = 'modelUpdated';
@@ -42,31 +42,46 @@ export const HeaderCheckbox = ({ api: gridApi, displayName }: HeaderCheckboxProp
     return pageRows.every(({ id }) => selectedRowIds.includes(id));
   }, [gridApi, getPageIndices]);
 
-  useEffect(() => {
-    function handleChangeEvent() {
-      const selectedRows: RowNode[] = gridApi.getSelectedRows();
-      const allSelected = allAreSelected();
-      if (!checked && allSelected) {
-        setChecked(true);
-      } else if (checked && !allSelected) {
-        setChecked(false);
-      }
-
-      if (selectedRows?.length && !allSelected) {
-        setIsIndeterminate(true);
-      } else {
-        setIsIndeterminate(false);
-      }
+  const handleChangeEvent = useCallback(() => {
+    const selectedRows: RowNode[] = gridApi.getSelectedRows();
+    const allSelected = allAreSelected();
+    if (!checked && allSelected) {
+      setChecked(true);
+    } else if (checked && !allSelected) {
+      setChecked(false);
     }
 
+    if (selectedRows?.length && !allSelected) {
+      setIsIndeterminate(true);
+    } else {
+      setIsIndeterminate(false);
+    }
+  }, [gridApi, checked, allAreSelected]);
+
+  const deselectAll = useCallback(() => {
+    const selectedRows: RowNode[] = gridApi.getSelectedNodes();
+    selectedRows.forEach((row) => row.selectThisNode(false));
+  }, [gridApi]);
+
+  const onPaginationChanged = useCallback(
+    (e: PaginationChangedEvent) => {
+      if (e.newPage) {
+        deselectAll();
+      }
+      handleChangeEvent();
+    },
+    [deselectAll, handleChangeEvent],
+  );
+
+  useEffect(() => {
     gridApi.addEventListener(MODEL_UPDATED_EVENT, handleChangeEvent);
     gridApi.addEventListener(SELECTION_CHANGED_EVENT, handleChangeEvent);
-    gridApi.addEventListener(PAGINATION_CHANGED_EVENT, handleChangeEvent);
+    gridApi.addEventListener(PAGINATION_CHANGED_EVENT, onPaginationChanged);
 
     return () => {
       gridApi.removeEventListener(MODEL_UPDATED_EVENT, handleChangeEvent);
       gridApi.removeEventListener(SELECTION_CHANGED_EVENT, handleChangeEvent);
-      gridApi.removeEventListener(PAGINATION_CHANGED_EVENT, handleChangeEvent);
+      gridApi.removeEventListener(PAGINATION_CHANGED_EVENT, onPaginationChanged);
     };
   }, [gridApi, checked, getPageIndices, allAreSelected]);
 
