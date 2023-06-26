@@ -27,10 +27,16 @@ export const RowActionsCell = ({ data, hideWithNoItems, ...props }: RowActionsCe
     containerRef.current?.click();
   };
 
+  const onClose = () => {
+    setActive(false);
+    // Deselect row when closing the menu
+    api?.deselectAll();
+  };
+
   const filteredItems = useMemo(() => {
-    return items?.filter((item: any) => {
+    return items?.filter((item) => {
       if (item.filterConditions?.length) {
-        return item.filterConditions?.every(({ value, name, comparator }: any) => {
+        return item.filterConditions?.every(({ value, name, comparator }) => {
           return comparator(value, name, data);
         });
       }
@@ -46,7 +52,7 @@ export const RowActionsCell = ({ data, hideWithNoItems, ...props }: RowActionsCe
       {!hide ? (
         <Dropdown
           onOpen={onOpen}
-          onClose={() => setActive(false)}
+          onClose={onClose}
           items={filteredItems}
           selectedIds={[id]}
           additionalProperties={api}
