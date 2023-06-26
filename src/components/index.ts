@@ -59,3 +59,4 @@ export * from './basic-table';
 export * from './drawer';
 export * from './movable-table';
 export * from './slider';
+export * from './fixed-size-select';

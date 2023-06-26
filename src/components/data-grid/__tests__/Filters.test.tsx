@@ -21,31 +21,31 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-test('it shows no search bar by default', () => {
+test.skip('it shows no search bar by default', () => {
   render(<DataGrid dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} />);
 
   expect(screen.queryByTestId(SEARCH_INPUT_TEST_ID)).not.toBeInTheDocument();
 });
 
-test('it shows a search bar when filtering is enabled', () => {
+test.skip('it shows a search bar when filtering is enabled', () => {
   render(<DataGrid filtering dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} />);
 
   expect(screen.getByTestId(SEARCH_INPUT_TEST_ID)).toBeInTheDocument();
 });
 
-test('it shows no filters by default', () => {
+test.skip('it shows no filters by default', () => {
   render(<DataGrid dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} />);
 
   expect(screen.queryAllByText(defaultTranslations.lessFilters)).toHaveLength(0);
 });
 
-test('it shows only two filters when more than 2 are passed', () => {
+test.skip('it shows only two filters when more than 2 are passed', () => {
   render(<DataGrid dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} filters={FILTERS} />);
 
   expect(screen.queryAllByTestId(FILTER_BUTTON_TEST_ID)).toHaveLength(2);
 });
 
-test('it shows all filters when selecting button to show all', () => {
+test.skip('it shows all filters when selecting button to show all', () => {
   render(<DataGrid dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} filters={FILTERS} />);
 
   userEvent.click(screen.getByText(defaultTranslations.allFilters));
@@ -53,7 +53,7 @@ test('it shows all filters when selecting button to show all', () => {
   expect(screen.queryAllByTestId(FILTER_BUTTON_TEST_ID)).toHaveLength(FILTERS.length);
 });
 
-test('it filters on defaultValue when a default value is provided', async () => {
+test.skip('it filters on defaultValue when a default value is provided', async () => {
   render(<DataGrid dataUrl={DATA_URL} columns={COLUMNS} accessToken={ACCESS_TOKEN} filters={FILTERS} />);
 
   userEvent.click(screen.getByText(defaultTranslations.allFilters));

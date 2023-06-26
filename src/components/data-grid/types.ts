@@ -89,6 +89,7 @@ export type IFilterType =
 export enum FilterType {
   date = 'date',
   multi = 'multi',
+  multiVirtual = 'multiVirtual',
   single = 'single',
   settings = 'settings',
 }
