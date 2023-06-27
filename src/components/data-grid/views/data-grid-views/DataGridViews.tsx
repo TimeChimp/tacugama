@@ -177,14 +177,14 @@ export const DataGridViews = ({
         />
       </StyledDataGridViews>
       <ConfirmationModal
-        title={translations.deleteView!}
-        description={translations.deleteViewConfirmation!}
+        title={translations.deleteView}
+        description={translations.deleteViewConfirmation}
         type={ConfirmationModalType.danger}
         isOpen={deleteModalIsOpen}
         onClose={onDeleteModalClose}
-        submitLabel={translations.deleteView!}
+        submitLabel={translations.deleteView}
         submitOnClick={handleViewDelete}
-        cancelLabel={translations.cancel!}
+        cancelLabel={translations.cancel}
         submitButtonTestId={DELETE_VIEW_SUBMIT_BUTTON_TEST_ID}
       />
       <CreateViewModal

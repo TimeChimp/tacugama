@@ -110,7 +110,7 @@ export const StyledDataGridFilters = themedStyled('div', ({ $theme }) => ({
 
 export const StyledDataGridSearch = themedStyled('div', ({ $theme }) => ({
   width: '280px',
-  ...margin( $theme.sizing.scale200, $theme.sizing.scale300, '0', '0'),
+  ...margin($theme.sizing.scale200, $theme.sizing.scale300, '0', '0'),
 }));
 
 export const StyledFooterRowCount = themedStyled('div', ({ $theme }) => ({
@@ -186,7 +186,7 @@ export const StyledDataGridViews = themedStyled('div', ({ $theme }) => ({
 }));
 
 export const StyledDataGridViewListItem = themedStyled('li', ({ $theme }) => ({
-  ...padding('0', $theme.sizing.scale300),
+  ...padding('0', $theme.sizing.scale600),
   backgroundColor: $theme.colors.primaryB,
   display: 'flex',
   alignItems: 'center',
@@ -204,7 +204,7 @@ export const StyledDataGridDivider = themedStyled('div', ({ $theme }) => ({
 
 export const StyledViewOptionsFooter = themedStyled('div', ({ $theme }) => ({
   backgroundColor: $theme.colors.primaryB,
-  ...padding('0', $theme.sizing.scale100),
+  ...padding('0', $theme.sizing.scale600),
 }));
 
 export const StyledGroupRowInnerRendererContainer = themedStyled('div', () => ({

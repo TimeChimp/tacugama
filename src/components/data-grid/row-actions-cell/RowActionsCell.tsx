@@ -29,8 +29,6 @@ export const RowActionsCell = ({ data, hideWithNoItems, ...props }: RowActionsCe
 
   const onClose = () => {
     setActive(false);
-    // Deselect row when closing the menu
-    api?.deselectAll();
   };
 
   const filteredItems = useMemo(() => {
