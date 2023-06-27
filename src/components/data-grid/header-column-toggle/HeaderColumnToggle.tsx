@@ -58,8 +58,8 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
           } as DropdownItem),
       );
 
-    setDropdownItems(items || []);
     setVisibleColumns();
+    setDropdownItems(items || []);
   }, [gridApi, columnApi, setVisibleColumns, toggleColumn]);
 
   return (

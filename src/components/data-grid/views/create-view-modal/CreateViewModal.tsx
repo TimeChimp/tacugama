@@ -48,7 +48,7 @@ export const CreateViewModal = ({
     const state: DataGridState = {
       columnState: saveColumns ? gridColumnApi?.getColumnState() : [],
       columnGroupState: saveGrouping ? gridColumnApi?.getColumnGroupState() : [],
-      filterModel: saveFilters ? gridApi?.getFilterModel() : [],
+      filterModel: saveFilters ? gridApi?.getFilterModel() : {},
     };
     return JSON.stringify(state);
   };
@@ -96,11 +96,11 @@ export const CreateViewModal = ({
               {translations.saveColumns}
             </Checkbox>
           </FormControl>
-          <FormControl>
+          {/* <FormControl>
             <Checkbox checked={saveGrouping} onChange={() => setSaveGrouping(!saveGrouping)}>
               {translations.saveGrouping}
             </Checkbox>
-          </FormControl>
+          </FormControl> */}
           <FormControl>
             <Checkbox checked={saveFilters} onChange={() => setSaveFilters(!saveFilters)}>
               {translations.saveFilters}

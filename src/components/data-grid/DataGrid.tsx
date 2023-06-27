@@ -243,8 +243,10 @@ export const DataGrid = ({
   };
 
   const refreshStore = (api: GridApi) => {
-    const rowCount = api.getDisplayedRowCount();
-    return api.refreshServerSideStore({ purge: rowCount === 0 });
+    const rowCount = api?.getDisplayedRowCount();
+    // Deselect all rows when refreshing
+    api?.deselectAll();
+    return api?.refreshServerSideStore({ purge: rowCount === 0 });
   };
 
   const refreshCells = (api: GridApi) => api.refreshCells();
