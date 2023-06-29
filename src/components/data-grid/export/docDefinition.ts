@@ -1,4 +1,4 @@
-import { ColumnApi, GridApi, ValueFormatterParams } from '@ag-grid-community/core';
+import { Column, ColumnApi, GridApi, ValueFormatterParams } from '@ag-grid-community/core';
 import { DEFAULT_PDF_HEADER_HEIGHT, DEFAULT_PDF_ROW_HEIGHT } from '../../../models';
 import { Alignment, Margins, PdfHeaderCell, PdfTableCell, PrintParams, Translations } from '../types';
 
@@ -175,32 +175,55 @@ export const getDocDefinition = (
   function getRowsToExport(columnsToExport: PdfHeaderCell[]) {
     const rowsToExport: PdfTableCell[][] = [];
 
-    const selectedRows = gridApi.getSelectedRows();
+    const selectedRows = gridApi.getSelectedNodes();
+
+    // Sort the selected rows by the order they appear in the grid
+    selectedRows.sort((a, b) => {
+      if (a.rowIndex === undefined || b.rowIndex === undefined) {
+        return 0;
+      }
+      return a.rowIndex - b.rowIndex;
+    });
 
     selectedRows.forEach((node) => {
-      const rowToExport = columnsToExport.map((column: any) => {
+      if (!node.id) {
+        return;
+      }
+      const rowToExport = columnsToExport.map((column) => {
+        if (!column) {
+          return createTableCell('');
+        }
         let cellValue = '';
 
         if (column.colDef) {
-          cellValue = node[column.colDef.field];
+          if (column.colDef.field) {
+            cellValue = node.data[column?.colDef.field];
+          }
           const valueFormatterParams: ValueFormatterParams = {
             api: gridApi,
             columnApi,
-            column,
-            node: gridApi.getRowNode(node.id),
+            column: column as unknown as Column,
+            node: gridApi.getRowNode(node.id!),
             data: node,
             colDef: column.colDef,
             value: cellValue,
             context: undefined,
           };
 
-          cellValue = column.valueFormatter(valueFormatterParams);
+          if (column.colDef.valueFormatter) {
+            cellValue =
+              (column?.valueFormatter &&
+                typeof column.valueFormatter !== 'string' &&
+                column?.valueFormatter(valueFormatterParams)) ||
+              '';
+          }
         }
 
         const tableCell = createTableCell(cellValue);
         return tableCell;
       });
-      rowsToExport.push(rowToExport);
+
+      rowsToExport.push(rowToExport.filter((cell) => cell !== null) as PdfTableCell[]);
     });
 
     return rowsToExport;

@@ -73,6 +73,8 @@ export const COLUMNS: DataGridColumn[] = [
     field: 'userName',
     label: 'Employee',
     customComponent: CustomCellComponent,
+    sortable: true,
+    sort: 'asc',
   },
   {
     field: 'description',
