@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { FooterRowCountProps } from '../types';
+import { FooterRowCountProps, MODEL_UPDATED_EVENT, PAGINATION_CHANGED_EVENT, ROW_SELECTED_EVENT } from '../types';
 import { StyledDataGridDivider, StyledFooterRowCount } from '../styles';
 import { useTheme } from '../../../providers';
 import { ParagraphSmall } from '../../typography';
-
-const MODEL_UPDATED_EVENT = 'modelUpdated';
-const PAGINATION_CHANGED_EVENT = 'paginationChanged';
-const ROW_SELECTED_EVENT = 'rowSelected';
 
 export const FooterRowCount = ({
   api: gridApi,

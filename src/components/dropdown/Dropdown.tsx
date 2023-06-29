@@ -47,7 +47,7 @@ export const Dropdown = ({
     const dropDownItems = items
       .filter((x) => {
         if (x.filterConditions?.length && x.context) {
-          return x.filterConditions?.every(({ value, name, comparator }: any) => {
+          return x.filterConditions?.every(({ value, name, comparator }) => {
             return comparator(value, name, x.context);
           });
         }

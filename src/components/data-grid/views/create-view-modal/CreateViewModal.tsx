@@ -7,7 +7,7 @@ import { HeadingSmall } from '../../../typography';
 import { FormControl } from '../../../form-control';
 import { Input } from '../../../input';
 import { CreateViewModalProps, DataGridState } from '../../types';
-import { Checkbox } from '../../../checkbox';
+import { Banner } from '../../../banner';
 
 interface FormInput {
   name: string;
@@ -50,7 +50,9 @@ export const CreateViewModal = ({
       columnGroupState: saveGrouping ? gridColumnApi?.getColumnGroupState() : [],
       filterModel: saveFilters ? gridApi?.getFilterModel() : {},
     };
-    return JSON.stringify(state);
+    const string = JSON.stringify(state);
+    console.log('getState', string);
+    return string;
   };
 
   const onSubmit = async ({ name }: FormInput) => {
@@ -91,28 +93,29 @@ export const CreateViewModal = ({
               )}
             />
           </FormControl>
-          <FormControl>
+          {/* <FormControl>
             <Checkbox checked={saveColumns} onChange={() => setSaveColumns(!saveColumns)}>
               {translations.saveColumns}
             </Checkbox>
           </FormControl>
-          {/* <FormControl>
+          <FormControl>
             <Checkbox checked={saveGrouping} onChange={() => setSaveGrouping(!saveGrouping)}>
               {translations.saveGrouping}
             </Checkbox>
-          </FormControl> */}
+          </FormControl>
           <FormControl>
             <Checkbox checked={saveFilters} onChange={() => setSaveFilters(!saveFilters)}>
               {translations.saveFilters}
             </Checkbox>
-          </FormControl>
+          </FormControl> */}
+          <Banner text={translations.viewsExplanation} />
         </ModalBody>
         <ModalFooter>
           <Button kind={ButtonKind.secondary} onClick={() => onClose()}>
             {translations.cancel}
           </Button>
           <Button testId="create-view-modal-submit" isLoading={loading} type="submit">
-            {translations.addView}
+            {translations.add}
           </Button>
         </ModalFooter>
       </form>

@@ -154,6 +154,8 @@ export interface Translations {
   defaultView: string;
   viewOptions: string;
   addView: string;
+  viewsExplanation: string;
+  saveViewDescription: string;
   viewName: string;
   saveColumns: string;
   searchColumns: string;
@@ -161,6 +163,7 @@ export interface Translations {
   saveFilters: string;
   saveView: string;
   cancel: string;
+  save: string;
   unpinView: string;
   pinView: string;
   renameView: string;
@@ -181,6 +184,7 @@ export interface Translations {
   export: string;
   none: string;
   clearFilters: string;
+  add: string;
 }
 
 export interface DataGridSetting {
@@ -502,3 +506,7 @@ export interface ProcessCellForExportParams {
 export type Margins = number | [number, number] | [number, number, number, number];
 
 export type Alignment = 'left' | 'right' | 'justify' | 'center';
+
+export const MODEL_UPDATED_EVENT = 'modelUpdated';
+export const PAGINATION_CHANGED_EVENT = 'paginationChanged';
+export const ROW_SELECTED_EVENT = 'rowSelected';

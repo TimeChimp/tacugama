@@ -70,7 +70,7 @@ export const RenameViewModal = ({ isOpen, onClose, handleRenameView, translation
             {translations.cancel}
           </Button>
           <Button testId="rename-view-modal-submit" isLoading={loading} type="submit">
-            {translations.renameView}
+            {translations.save}
           </Button>
         </ModalFooter>
       </form>
