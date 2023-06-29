@@ -19,7 +19,7 @@ export const StyledBanner = themedStyled<'div', StyledBannerProps>('div', ({ $th
   backgroundColor: getBannerBackgroundColor($backgroundColor || $theme.colors.primary),
   ...borderRadius($theme.borders.radius100),
   ...padding($theme.sizing.scale400, $theme.sizing.scale500),
-  width: '100%',
+  flex: '1 1 auto',
 }));
 
 export const StyledContainer = themedStyled('div', ({ $theme }) => ({

@@ -19,7 +19,10 @@ export const defaultTranslations: Translations = {
   searchBar: 'Search for a description',
   defaultView: 'Default',
   viewOptions: 'View options',
-  addView: 'Add view',
+  addView: 'New view',
+  viewsExplanation:
+    'We remember the width, sorting, and positioning of columns, which ones are active, inactive, and fixed',
+  saveViewDescription: 'Are you sure you want to save your changes?',
   viewName: 'View name',
   saveColumns: 'Save column',
   saveGrouping: 'Save grouping',
@@ -27,6 +30,7 @@ export const defaultTranslations: Translations = {
   saveView: 'Save view',
   searchColumns: 'Search columns',
   cancel: 'Cancel',
+  save: 'Save',
   unpinView: 'Unpin',
   pinView: 'Pin',
   renameView: 'Rename view',
@@ -51,4 +55,5 @@ export const defaultTranslations: Translations = {
   export: 'Export',
   none: 'None',
   clearFilters: 'Clear filters',
+  add: 'Add',
 };

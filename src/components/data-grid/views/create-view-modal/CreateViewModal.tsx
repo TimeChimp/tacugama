@@ -7,6 +7,7 @@ import { HeadingSmall } from '../../../typography';
 import { FormControl } from '../../../form-control';
 import { Input } from '../../../input';
 import { CreateViewModalProps, DataGridState } from '../../types';
+import { Banner } from '../../../banner';
 
 interface FormInput {
   name: string;
@@ -107,13 +108,14 @@ export const CreateViewModal = ({
               {translations.saveFilters}
             </Checkbox>
           </FormControl> */}
+          <Banner text={translations.viewsExplanation} />
         </ModalBody>
         <ModalFooter>
           <Button kind={ButtonKind.secondary} onClick={() => onClose()}>
             {translations.cancel}
           </Button>
           <Button testId="create-view-modal-submit" isLoading={loading} type="submit">
-            {translations.addView}
+            {translations.add}
           </Button>
         </ModalFooter>
       </form>

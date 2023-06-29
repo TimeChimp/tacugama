@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ModalFooter, ModalBody, Modal, ModalHeader } from '../../../modal';
 import { Button } from '../../../button';
-import { HeadingSmall } from '../../../typography';
+import { HeadingSmall, ParagraphSmall } from '../../../typography';
 import { SaveViewModalProps, DataGridState } from '../../types';
 import { ButtonKind } from '../../../../models';
 
@@ -65,13 +65,14 @@ export const SaveViewModal = ({
             {translations.saveFilters}
           </Checkbox>
         </FormControl> */}
+        <ParagraphSmall>{translations.saveViewDescription}</ParagraphSmall>
       </ModalBody>
       <ModalFooter>
         <Button kind={ButtonKind.secondary} onClick={() => onClose()}>
           {translations.cancel}
         </Button>
         <Button onClick={onSubmit} testId="save-view-modal-submit" isLoading={loading}>
-          {translations.saveView}
+          {translations.save}
         </Button>
       </ModalFooter>
     </Modal>
