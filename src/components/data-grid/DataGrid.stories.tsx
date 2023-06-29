@@ -8,7 +8,15 @@ import '@ag-grid-community/core/dist/styles/ag-theme-alpine-dark.css';
 import { DataGrid, DataGridProps } from '.';
 import { DataGridView, CreateViewInput, RowModelType } from './types';
 import { getTimeEntriesQueryMock } from './__tests__/mockServer';
-import { ACCESS_TOKEN, COLUMNS, DATA_URL, FILTERS, SEARCH_COLUMNS, TIME_ENTRIES } from './__tests__/constants';
+import {
+  ACCESS_TOKEN,
+  COLUMNS,
+  DATA_URL,
+  FILTERS,
+  SEARCH_COLUMNS,
+  TIME_ENTRIES,
+  VIEW_STATE,
+} from './__tests__/constants';
 import { defaultTranslations } from './defaultTranslations';
 
 export default {
@@ -20,7 +28,16 @@ export default {
 } as Meta;
 
 const Template: Story<DataGridProps> = (args) => {
-  const [views, setViews] = useState<DataGridView[]>([]);
+  const [views, setViews] = useState<DataGridView[]>([
+    {
+      id: '1',
+      name: 'Test view',
+      viewState: JSON.stringify(VIEW_STATE),
+      viewType: 'test',
+      pinned: true,
+      active: true,
+    },
+  ]);
 
   const handlePin = async (id: string, pinned: boolean) => {
     const view = views.find((x) => x.id === id);
@@ -101,7 +118,7 @@ const Template: Story<DataGridProps> = (args) => {
       onRenameView={(id: string, name: string) => handleRename(id, name)}
       onCreateView={(input: CreateViewInput) => handleCreateView(input)}
       onSaveViewState={(id: string, viewState: string) => handleSaveView(id, viewState)}
-      onReady={(data: any) => console.log(data)}
+      onReady={(data) => console.log(data)}
     />
   );
 };

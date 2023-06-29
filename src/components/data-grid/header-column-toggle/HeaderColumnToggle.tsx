@@ -4,7 +4,7 @@ import { TableIcon } from '../../icons/table';
 import { Dropdown, DropdownItem } from '../../dropdown';
 import { Button } from '../../button';
 import { useTheme } from '../../../providers';
-import { HeaderColumnToggleProps } from '..';
+import { HeaderColumnToggleProps, MODEL_UPDATED_EVENT } from '..';
 import { Column } from '@ag-grid-community/core';
 import { DATA_TEST_ID, ButtonKind } from '../../../models';
 import { FlexItem } from '../../flex-item';
@@ -31,6 +31,16 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
       .map((column) => column.getColId());
     setVisibleColumnIds(visibleColumnIds || []);
   }, [columnApi]);
+
+  useEffect(() => {
+    const onModelUpdated = () => setVisibleColumns();
+
+    gridApi?.addEventListener(MODEL_UPDATED_EVENT, onModelUpdated);
+
+    return () => {
+      gridApi?.removeEventListener(MODEL_UPDATED_EVENT, onModelUpdated);
+    };
+  }, [gridApi]);
 
   const toggleColumn = useCallback(
     (column: Column) => {

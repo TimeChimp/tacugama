@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ModalFooter, ModalBody, Modal, ModalHeader } from '../../../modal';
 import { Button } from '../../../button';
 import { HeadingSmall } from '../../../typography';
-import { FormControl } from '../../../form-control';
 import { SaveViewModalProps, DataGridState } from '../../types';
-import { Checkbox } from '../../../checkbox';
 import { ButtonKind } from '../../../../models';
 
 export const SaveViewModal = ({
@@ -52,21 +50,21 @@ export const SaveViewModal = ({
         <HeadingSmall>{translations.saveView}</HeadingSmall>
       </ModalHeader>
       <ModalBody>
-        <FormControl>
+        {/* <FormControl>
           <Checkbox checked={saveColumns} onChange={() => setSaveColumns(!saveColumns)}>
             {translations.saveColumns}
           </Checkbox>
         </FormControl>
-        {/* <FormControl>
+        <FormControl>
           <Checkbox checked={saveGrouping} onChange={() => setSaveGrouping(!saveGrouping)}>
             {translations.saveGrouping}
           </Checkbox>
-        </FormControl> */}
+        </FormControl>
         <FormControl>
           <Checkbox checked={saveFilters} onChange={() => setSaveFilters(!saveFilters)}>
             {translations.saveFilters}
           </Checkbox>
-        </FormControl>
+        </FormControl> */}
       </ModalBody>
       <ModalFooter>
         <Button kind={ButtonKind.secondary} onClick={() => onClose()}>
