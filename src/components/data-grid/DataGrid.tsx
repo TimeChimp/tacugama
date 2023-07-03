@@ -309,10 +309,14 @@ export const DataGrid = ({
       if (state) {
         const gridState: DataGridState = JSON.parse(state);
 
-        columnApi.setColumnState(gridState.columnState);
-        columnApi.setColumnGroupState(gridState.columnGroupState);
-        api?.setFilterModel(gridState.filterModel);
-        setViewFilterIds(gridState.filterModel);
+        try {
+          columnApi.setColumnState(gridState.columnState);
+          columnApi.setColumnGroupState(gridState.columnGroupState);
+          api?.setFilterModel(gridState.filterModel);
+          setViewFilterIds(gridState.filterModel);
+        } catch (e) {
+          console.error('Error while setting grid state', e);
+        }
       } else {
         resetGrid(api, columnApi);
       }
@@ -350,13 +354,14 @@ export const DataGrid = ({
 
   const onFiltering = useCallback(
     (filters: FilterModel) => {
-      if (!gridApi) {
-        return;
-      }
-      setFilterModel(filters);
-      gridApi?.onFilterChanged();
-      if (rowModelType === RowModelType.clientSide) {
-        gridApi?.setFilterModel(filters);
+      try {
+        setFilterModel(filters);
+        gridApi?.onFilterChanged();
+        if (rowModelType === RowModelType.clientSide) {
+          gridApi?.setFilterModel(filters);
+        }
+      } catch (error) {
+        console.error(error);
       }
     },
     [gridApi, rowModelType],
