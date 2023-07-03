@@ -50,9 +50,7 @@ export const CreateViewModal = ({
       columnGroupState: saveGrouping ? gridColumnApi?.getColumnGroupState() : [],
       filterModel: saveFilters ? gridApi?.getFilterModel() : {},
     };
-    const string = JSON.stringify(state);
-    console.log('getState', string);
-    return string;
+    return JSON.stringify(state);
   };
 
   const onSubmit = async ({ name }: FormInput) => {

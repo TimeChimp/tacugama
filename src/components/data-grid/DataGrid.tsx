@@ -303,6 +303,9 @@ export const DataGrid = ({
 
   const setViewState = useCallback(
     (api: GridApi, columnApi: ColumnApi, state: string | null) => {
+      if (!api || !columnApi) {
+        return;
+      }
       if (state) {
         const gridState: DataGridState = JSON.parse(state);
 
