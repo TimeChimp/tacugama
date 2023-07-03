@@ -350,6 +350,9 @@ export const DataGrid = ({
 
   const onFiltering = useCallback(
     (filters: FilterModel) => {
+      if (!gridApi) {
+        return;
+      }
       setFilterModel(filters);
       gridApi?.onFilterChanged();
       if (rowModelType === RowModelType.clientSide) {
