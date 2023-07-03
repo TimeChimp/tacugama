@@ -1,13 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { HeaderCheckboxProps } from '..';
+import { HeaderCheckboxProps, MODEL_UPDATED_EVENT, PAGINATION_CHANGED_EVENT, SELECTION_CHANGED_EVENT } from '..';
 import { StyledHeaderCheckbox, StyledHeaderCheckboxValue } from '../styles';
 import { Checkbox } from '../../checkbox';
-import { PaginationChangedEvent, RowNode } from '@ag-grid-community/core';
+import { RowNode } from '@ag-grid-community/core';
 
 const CHECKBOX_TEST_ID = 'data-grid-select-all';
-const MODEL_UPDATED_EVENT = 'modelUpdated';
-const SELECTION_CHANGED_EVENT = 'selectionChanged';
-const PAGINATION_CHANGED_EVENT = 'paginationChanged';
 
 export const HeaderCheckbox = ({ api: gridApi, displayName }: HeaderCheckboxProps) => {
   const [checked, setChecked] = useState(false);
@@ -63,15 +60,10 @@ export const HeaderCheckbox = ({ api: gridApi, displayName }: HeaderCheckboxProp
     selectedRows.forEach((row) => row.selectThisNode(false));
   }, [gridApi]);
 
-  const onPaginationChanged = useCallback(
-    (e: PaginationChangedEvent) => {
-      if (e.newPage) {
-        deselectAll();
-      }
-      handleChangeEvent();
-    },
-    [deselectAll, handleChangeEvent],
-  );
+  const onPaginationChanged = useCallback(() => {
+    deselectAll();
+    handleChangeEvent();
+  }, [deselectAll, handleChangeEvent]);
 
   useEffect(() => {
     gridApi.addEventListener(MODEL_UPDATED_EVENT, handleChangeEvent);

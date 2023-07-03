@@ -509,4 +509,5 @@ export type Alignment = 'left' | 'right' | 'justify' | 'center';
 
 export const MODEL_UPDATED_EVENT = 'modelUpdated';
 export const PAGINATION_CHANGED_EVENT = 'paginationChanged';
+export const SELECTION_CHANGED_EVENT = 'selectionChanged';
 export const ROW_SELECTED_EVENT = 'rowSelected';
