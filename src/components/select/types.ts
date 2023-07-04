@@ -16,6 +16,4 @@ export interface SelectProps extends Omit<BaseSelectProps, 'type'> {
     rootProps?: () => object;
   };
   success?: boolean;
-  stickyButtonText?: string;
-  stickyButtonOnClick?: () => void;
 }

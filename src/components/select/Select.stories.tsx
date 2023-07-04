@@ -1,8 +1,9 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Select } from './Select';
+import { MultiSelect as Select } from './Select';
 import { ColorSelect, ColorSelectProps } from './color-select';
+import { SingleSelect as SingleSelectComponent, SingleSelectProps } from './single-select';
 import { OPTIONS } from './test-data';
 import { SelectProps } from './types';
 
@@ -19,6 +20,8 @@ Template.parameters = {
   },
 };
 
+const SingleSelectTemplate: Story<SingleSelectProps> = (args) => <SingleSelectComponent {...args} />;
+
 const ColorSelectTemplate: Story<ColorSelectProps> = (args) => <ColorSelect {...args} />;
 
 export const Default = Template.bind({});
@@ -31,6 +34,12 @@ Default.parameters = {
     type: 'figma',
     url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=1733%3A11543&t=NbmXDJ7K9Ilt6afV-4',
   },
+};
+
+export const SingleSelect = SingleSelectTemplate.bind({});
+SingleSelect.args = {
+  options: OPTIONS,
+  placeholder: 'Placeholder',
 };
 
 export const Multi = Template.bind({});
