@@ -610,6 +610,7 @@ export const DataGrid = ({
 
   const filterOnValue = useCallback(
     (columnField: string, value: FilterValue['value'], type: FilterType) => {
+      console.log('filterOnValue', value, columnField, type);
       onSetFiltering(columnField, type, value);
 
       setSelectedFilterIds((currentIds) => {
@@ -659,7 +660,11 @@ export const DataGrid = ({
 
     if (defaultFilterValues?.length) {
       defaultFilterValues.forEach(({ columnField, defaultValue, type }) => {
-        if (defaultValue) {
+        if (Array.isArray(defaultValue) && defaultValue.length > 0) {
+          defaultValue.forEach((val) => {
+            filterOnValue(columnField, val, type);
+          });
+        } else if (defaultValue) {
           filterOnValue(columnField, defaultValue, type);
         }
       });
