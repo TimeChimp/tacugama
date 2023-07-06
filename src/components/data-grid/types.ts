@@ -258,6 +258,8 @@ export interface DataGridProps {
   onFilterModelChange?: (filterModel: { [key: string]: any }) => void;
   showClearFilters?: boolean;
   customActionsCellRender?: (props: any) => any;
+  initialShowLessFilters?: boolean;
+  onShowLessFiltersChange?: (showLessFilters: boolean) => void;
 }
 
 export interface DataGridView {
@@ -298,6 +300,8 @@ export interface FiltersProps {
   clearFilterModel: (columnFilter: string) => void;
   onSearch?: (searchTerm: string) => void;
   showClearFilters?: boolean;
+  initialShowLessFilters?: boolean;
+  onShowLessFiltersChange?: (showLessFilters: boolean) => void;
 }
 
 export interface ColumnFiltersProps {
@@ -314,6 +318,8 @@ export interface ColumnFiltersProps {
   filterOnDate: (columnField: string, selectedDates: Date[]) => void;
   clearFilterModel: (columnFilter: string) => void;
   showClearFilters?: boolean;
+  initialShowLessFilters?: boolean;
+  onShowLessFiltersChange?: (showLessFilters: boolean) => void;
 }
 export interface FooterRowCountProps {
   api: GridApi;

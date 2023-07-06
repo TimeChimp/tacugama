@@ -144,6 +144,8 @@ export const DataGrid = ({
   getRowHeight,
   showClearFilters = true,
   customActionsCellRender,
+  initialShowLessFilters,
+  onShowLessFiltersChange,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -659,7 +661,11 @@ export const DataGrid = ({
 
     if (defaultFilterValues?.length) {
       defaultFilterValues.forEach(({ columnField, defaultValue, type }) => {
-        if (defaultValue) {
+        if (Array.isArray(defaultValue) && defaultValue.length > 0) {
+          defaultValue.forEach((val) => {
+            filterOnValue(columnField, val, type);
+          });
+        } else if (defaultValue) {
           filterOnValue(columnField, defaultValue, type);
         }
       });
@@ -770,6 +776,8 @@ export const DataGrid = ({
         clearFilterModel={clearFilterModel}
         onSearch={onSearch}
         showClearFilters={showClearFilters}
+        initialShowLessFilters={initialShowLessFilters}
+        onShowLessFiltersChange={onShowLessFiltersChange}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {showDataGridHeader && (
