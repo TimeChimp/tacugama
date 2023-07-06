@@ -610,7 +610,6 @@ export const DataGrid = ({
 
   const filterOnValue = useCallback(
     (columnField: string, value: FilterValue['value'], type: FilterType) => {
-      console.log('filterOnValue', value, columnField, type);
       onSetFiltering(columnField, type, value);
 
       setSelectedFilterIds((currentIds) => {
