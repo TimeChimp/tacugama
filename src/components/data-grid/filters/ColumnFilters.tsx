@@ -31,8 +31,10 @@ export const ColumnFilters = ({
   filterOnDate,
   clearFilterModel,
   showClearFilters,
+  initialShowLessFilters,
+  onShowLessFiltersChange,
 }: ColumnFiltersProps) => {
-  const [showLessFilters, setShowLessFilters] = useState<boolean>(true);
+  const [showLessFilters, setShowLessFilters] = useState<boolean>(initialShowLessFilters ?? true);
   const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
   const [internalDates, setInternalDates] = useState<Date[]>([]);
 
@@ -55,6 +57,12 @@ export const ColumnFilters = ({
   useEffect(() => {
     validateFilters();
   }, [filters, validateFilters]);
+
+  useEffect(() => {
+    if (onShowLessFiltersChange) {
+      onShowLessFiltersChange(showLessFilters);
+    }
+  }, [showLessFilters]);
 
   const isSelectValueActive = useCallback(
     (columnField: string, filterValue: FilterValue['value'], type: FilterType) => {
