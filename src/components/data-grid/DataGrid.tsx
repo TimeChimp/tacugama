@@ -146,6 +146,7 @@ export const DataGrid = ({
   customActionsCellRender,
   initialShowLessFilters,
   onShowLessFiltersChange,
+  setFiltersHeight,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -778,6 +779,7 @@ export const DataGrid = ({
         showClearFilters={showClearFilters}
         initialShowLessFilters={initialShowLessFilters}
         onShowLessFiltersChange={onShowLessFiltersChange}
+        setFiltersHeight={setFiltersHeight}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {showDataGridHeader && (

@@ -260,6 +260,7 @@ export interface DataGridProps {
   customActionsCellRender?: (props: any) => any;
   initialShowLessFilters?: boolean;
   onShowLessFiltersChange?: (showLessFilters: boolean) => void;
+  setFiltersHeight?: (filtersHeight: number) => void;
 }
 
 export interface DataGridView {
@@ -302,6 +303,7 @@ export interface FiltersProps {
   showClearFilters?: boolean;
   initialShowLessFilters?: boolean;
   onShowLessFiltersChange?: (showLessFilters: boolean) => void;
+  setFiltersHeight?: (filtersHeight: number) => void;
 }
 
 export interface ColumnFiltersProps {
