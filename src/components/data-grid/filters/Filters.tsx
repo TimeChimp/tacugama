@@ -18,16 +18,18 @@ export const Filters = ({
   debouncedSearch,
   onSearch,
   setFiltersHeight,
+  onShowLessFiltersChange,
   ...rest
 }: FiltersProps) => {
   const { searchBar } = translations;
   const [searchValue, setSearchValue] = useState('');
   const ref = useRef<HTMLDivElement>(null);
 
+  const handleResize = () => {
+    setFiltersHeight && setFiltersHeight(ref.current ? ref.current?.offsetHeight : 0);
+  };
+
   useEffect(() => {
-    const handleResize = () => {
-      setFiltersHeight && setFiltersHeight(ref.current ? ref.current?.offsetHeight : 0);
-    };
     handleResize();
     window.addEventListener('resize', handleResize);
 
@@ -64,7 +66,15 @@ export const Filters = ({
             />
           </StyledDataGridSearch>
         )}
-        <ColumnFilters api={api} translations={translations} {...rest} />
+        <ColumnFilters
+          api={api}
+          translations={translations}
+          onShowLessFiltersChange={(showLessFilters: boolean) => {
+            onShowLessFiltersChange && onShowLessFiltersChange(showLessFilters);
+            handleResize();
+          }}
+          {...rest}
+        />
       </FlexItem>
     </StyledDataGridFilters>
   );
