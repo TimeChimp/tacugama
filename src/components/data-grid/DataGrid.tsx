@@ -63,7 +63,6 @@ import { defaultTranslations } from './defaultTranslations';
 import { DataGridViews } from './views/data-grid-views';
 import ReactDOMServer from 'react-dom/server';
 import DataGridActions from './DataGridActions';
-import { RowSelect } from '../row-select';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { GroupRowInnerRenderer } from './group-row-inner-renderer';
 import { GroupRowInnerTagRenderer } from './group-row-inner-tag-renderer';
@@ -887,7 +886,6 @@ export const DataGrid = ({
             noRowsTemplate: () => <NoRowsTemplate translations={translations} />,
             headerCheckbox: HeaderCheckbox,
             loadingCellTemplate: LoadingCellTemplate,
-            rowSelect: RowSelect,
             groupRowInnerRenderer: GroupRowInnerRenderer,
             groupRowInnerTagRenderer: GroupRowInnerTagRenderer,
           }}
@@ -973,13 +971,10 @@ export const DataGrid = ({
               aggFunc,
               customMap,
               customComponent,
-              rowSelectProps,
               ...rest
             }) => (
               <AgGridColumn
                 cellRendererFramework={customComponent}
-                cellRenderer={rowSelectProps ? 'rowSelect' : undefined}
-                cellRendererParams={rowSelectProps ? { ...rowSelectProps } : undefined}
                 key={field}
                 headerName={label}
                 field={field}

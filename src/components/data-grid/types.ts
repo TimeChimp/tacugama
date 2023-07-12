@@ -54,7 +54,7 @@ export interface DataGridRowSelectProps {
   labelKey: string;
   valueKey: string;
   onChangeHandler: (data: any) => void;
-  options: Option[];
+  options: Option<any>[];
   optionProp: string;
   isLockedIconDisplayedFunc?: (data: any) => boolean;
 }
@@ -71,7 +71,6 @@ export interface DataGridColumn extends AgGridColumnProps {
   customMap?: (value: any) => any;
   customComponent?: React.FunctionComponent<{ data: any; value: any }>;
   customHeaderComponent?: React.FunctionComponent;
-  rowSelectProps?: DataGridRowSelectProps;
 }
 
 export type FilterTypeModel = TextFilterModel | NumberFilterModel | DateFilterModel | SetFilterModel;
