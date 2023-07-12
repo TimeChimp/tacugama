@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { Select as BaseSelect, Option, Value, OnChangeParams } from 'baseui/select';
+import { Select as BaseSelect, Value } from 'baseui/select';
 import { useTheme } from '../../providers';
 import { border, borderBottom, borderRadius, padding } from '../../utils';
 import { Skeleton } from '../skeleton';
@@ -42,7 +42,7 @@ export const RowSelect = ({
     return options.find((option) => option[valueKey] === data[optionProp]);
   }, [options, data, optionProp, valueKey]);
 
-  const { selectOption = [defaultSelectOption!] } = watch();
+  const { selectOption = [defaultSelectOption] } = watch();
 
   const { border300, radius200 } = borders;
   const { primary100, contentPrimary } = colors;
@@ -182,5 +182,3 @@ export const RowSelect = ({
     </>
   );
 };
-
-export type { Option, Value, OnChangeParams };

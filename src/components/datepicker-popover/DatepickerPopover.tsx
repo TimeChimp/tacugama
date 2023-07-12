@@ -3,7 +3,7 @@ import { Popover } from '../popover';
 import { borderBottom } from '../../utils';
 import { useTheme } from '../../providers';
 import { Calendar, QuickSelectOption } from 'baseui/datepicker';
-import { Select } from '../select';
+import { SingleSelect } from '../select';
 import { getDateLocale, TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerPopoverProps } from './types';
 
@@ -146,13 +146,16 @@ export const DatepickerPopover = ({
               },
             },
             QuickSelect: {
-              component: (props: any) => (
-                <Select
-                  {...props}
-                  disableSortOptions
-                  onChangeHandler={({ value }) => onChange && onChange({ date: value })}
-                />
-              ),
+              component: (props) => {
+                console.log(props);
+                return (
+                  <SingleSelect
+                    {...props}
+                    disableSortOptions
+                    onChange={(option) => onChange && onChange({ date: option?.id as unknown as Date })}
+                  />
+                );
+              },
             },
             ...overrides,
           }}

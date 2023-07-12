@@ -1,6 +1,6 @@
 import React from 'react';
-import { Select as BaseSelect, Option, Value, OnChangeParams } from 'baseui/select';
-import { useTheme } from '../../providers';
+import { Select as BaseSelect, Option, Value, OnChangeParams, Options } from 'baseui/select';
+import { useTheme } from '../../../providers';
 import {
   border,
   borderBottom,
@@ -9,25 +9,25 @@ import {
   getInputBackgroundColor,
   padding,
   margin,
-} from '../../utils';
-import { Skeleton } from '../skeleton';
-import { FlexItem } from '../flex-item';
-import { CaretDownIcon } from '../icons/caret-down';
+} from '../../../utils';
+import { Skeleton } from '../../skeleton';
+import { FlexItem } from '../../flex-item';
+import { CaretDownIcon } from '../../icons/caret-down';
 import { SelectProps } from './types';
+import { DEFAULT_LABEL_KEY, DEFAULT_VALUE_KEY } from '../single-select';
 
 export const MultiSelect = ({
   size = 'compact',
-  valueKey = 'id',
-  labelKey = 'name',
+  valueKey = DEFAULT_VALUE_KEY,
+  labelKey = DEFAULT_LABEL_KEY,
   showSkeleton = false,
   propOverrides,
-  onChangeHandler,
-  multi,
   options,
   success = false,
   disableSortOptions = false,
   disabled = false,
   error = false,
+  isLoading = false,
   ...rest
 }: SelectProps) => {
   const {
@@ -46,15 +46,7 @@ export const MultiSelect = ({
   const { primary100, contentPrimary } = colors;
   const { primarySubtle, dark4 } = customColors;
 
-  const handleOnChange = (params: OnChangeParams) => {
-    if (multi) {
-      return onChangeHandler(params);
-    }
-    const { value } = params;
-    return onChangeHandler({ ...params, value: value?.length === 1 ? value[0] : value });
-  };
-
-  const alphabetizeOptions = (options: Option[] | { [key: string]: Option[] }, disableSortOptions?: boolean) => {
+  const alphabetizeOptions = (options: Options, disableSortOptions?: boolean) => {
     if (!options) {
       return [];
     }
@@ -79,8 +71,7 @@ export const MultiSelect = ({
           size={size}
           valueKey={valueKey}
           labelKey={labelKey}
-          onChange={handleOnChange}
-          disabled={disabled}
+          disabled={disabled || isLoading}
           error={error}
           multi
           type="select"

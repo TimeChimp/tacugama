@@ -1,6 +1,4 @@
-export { MultiSelect } from './Select';
-export type { Value, OnChangeParams } from './Select';
-export { ColorSelect } from './color-select';
-export type { ColorOptionProps } from './color-option';
-export * from './types';
+export { MultiSelect } from './multi-select/MultiSelect';
+export type { Value, OnChangeParams } from './multi-select/MultiSelect';
+export * from './multi-select/types';
 export * from './single-select';
