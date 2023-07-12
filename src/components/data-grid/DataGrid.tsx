@@ -56,6 +56,7 @@ import {
   RowModelType,
   DataGridColumnValueType,
   CustomFilterTypes,
+  Filter,
 } from './types';
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
@@ -143,6 +144,9 @@ export const DataGrid = ({
   getRowHeight,
   showClearFilters = true,
   customActionsCellRender,
+  initialShowLessFilters,
+  onShowLessFiltersChange,
+  setFiltersHeight,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -292,7 +296,7 @@ export const DataGrid = ({
         api.destroyFilter(filter);
       });
 
-      setViewFilterIds({});
+      //setViewFilterIds({});
       if (setDates) {
         setDates(getInitialDateRange());
       }
@@ -311,8 +315,8 @@ export const DataGrid = ({
         try {
           columnApi.setColumnState(gridState.columnState);
           columnApi.setColumnGroupState(gridState.columnGroupState);
-          api?.setFilterModel(gridState.filterModel);
-          setViewFilterIds(gridState.filterModel);
+          //api?.setFilterModel(gridState.filterModel);
+          //setViewFilterIds(gridState.filterModel);
         } catch (e) {
           console.error('Error while setting grid state', e);
         }
@@ -340,7 +344,7 @@ export const DataGrid = ({
       } else if (onActivateView) {
         await onActivateView(view.id);
       }
-
+      //setViewFilterIds
       setViewState(gridApi, gridColumnApi, view.viewState);
     }
   };
@@ -568,6 +572,22 @@ export const DataGrid = ({
     onFiltering(filterModel);
   };
 
+  const getSetFilterObject = (values: (string | number | boolean | null)[], filterObject?: Filter) => {
+    if (filterObject?.customFilterMap) {
+      return filterObject?.customFilterMap(values);
+    }
+    if (filterObject?.byId) {
+      return {
+        ids: values,
+        filterType: CustomFilterTypes.ids,
+      };
+    }
+    return {
+      values,
+      filterType: CustomFilterTypes.set,
+    };
+  };
+
   const onSetFiltering = useCallback(
     (columnField: string, type: FilterType, value: FilterValue['value']) => {
       let currentValues;
@@ -585,22 +605,7 @@ export const DataGrid = ({
       }
       const filterObject = filters?.find((filter) => filter.columnField === columnField);
 
-      let setFilter;
-      if (filterObject?.customFilterMap) {
-        setFilter = filterObject?.customFilterMap(values);
-      } else if (filterObject?.byId) {
-        setFilter = {
-          ids: values,
-          filterType: CustomFilterTypes.ids,
-        };
-      } else {
-        setFilter = {
-          values,
-          filterType: CustomFilterTypes.set,
-        };
-      }
-
-      filterModel[columnField] = setFilter;
+      filterModel[columnField] = getSetFilterObject(values, filterObject);
 
       onFiltering(filterModel);
     },
@@ -626,6 +631,26 @@ export const DataGrid = ({
         }
         return { ...currentIds, [columnField]: [...currentIds[columnField], value] };
       });
+    },
+    [setSelectedFilterIds, onSetFiltering],
+  );
+
+  const filterOnMultiValues = useCallback(
+    (columnField: string, values: FilterValue['value'][]) => {
+      if (!values.length) {
+        setFilterModel((model) => ({ ...model, [columnField]: undefined }));
+        return gridApi?.onFilterChanged();
+      }
+      const filterObject = filters?.find((filter) => filter.columnField === columnField);
+
+      filterModel[columnField] = getSetFilterObject(values, filterObject);
+
+      onFiltering(filterModel);
+
+      setSelectedFilterIds((currentIds) => ({
+        ...currentIds,
+        [columnField]: values,
+      }));
     },
     [setSelectedFilterIds, onSetFiltering],
   );
@@ -658,7 +683,11 @@ export const DataGrid = ({
 
     if (defaultFilterValues?.length) {
       defaultFilterValues.forEach(({ columnField, defaultValue, type }) => {
-        if (defaultValue) {
+        if (Array.isArray(defaultValue) && defaultValue.length > 0) {
+          defaultValue.forEach((val) => {
+            filterOnValue(columnField, val, type);
+          });
+        } else if (defaultValue) {
           filterOnValue(columnField, defaultValue, type);
         }
       });
@@ -764,11 +793,15 @@ export const DataGrid = ({
         selectedFilterIds={selectedFilterIds}
         setSelectedFilterIds={setSelectedFilterIds}
         filterOnValue={filterOnValue}
+        filterOnMultiValues={filterOnMultiValues}
         filterOnDate={filterOnDate}
         debouncedSearch={debouncedSearch}
         clearFilterModel={clearFilterModel}
         onSearch={onSearch}
         showClearFilters={showClearFilters}
+        initialShowLessFilters={initialShowLessFilters}
+        onShowLessFiltersChange={onShowLessFiltersChange}
+        setFiltersHeight={setFiltersHeight}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {showDataGridHeader && (

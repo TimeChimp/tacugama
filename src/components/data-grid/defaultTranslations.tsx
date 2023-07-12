@@ -40,6 +40,7 @@ export const defaultTranslations: Translations = {
   defaultViewTooltip: 'Default view cannot be edited.',
   lessFilters: 'Less filters',
   allFilters: 'All filters',
+  applyFilters: 'Apply filters',
   showResultsBy: 'Show',
   paginationPrevious: 'Prev',
   paginationNext: 'Next',

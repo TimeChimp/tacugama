@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useMemo, useState } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { FiltersProps } from '../types';
 import { StyledDataGridFilters, StyledDataGridSearch } from '../styles';
 import { SearchInput } from '../../input';
@@ -17,10 +17,26 @@ export const Filters = ({
   translations,
   debouncedSearch,
   onSearch,
+  setFiltersHeight,
+  onShowLessFiltersChange,
   ...rest
 }: FiltersProps) => {
   const { searchBar } = translations;
   const [searchValue, setSearchValue] = useState('');
+  const ref = useRef<HTMLDivElement>(null);
+
+  const handleResize = () => {
+    setFiltersHeight && setFiltersHeight(ref.current ? ref.current?.offsetHeight : 0);
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const handleSearch = (searchTerm: string) => {
     if (onSearch) {
@@ -37,7 +53,7 @@ export const Filters = ({
   };
 
   return (
-    <StyledDataGridFilters>
+    <StyledDataGridFilters ref={ref}>
       <FlexItem justifyContent="start">
         {filtering && (
           <StyledDataGridSearch>
@@ -50,7 +66,15 @@ export const Filters = ({
             />
           </StyledDataGridSearch>
         )}
-        <ColumnFilters api={api} translations={translations} {...rest} />
+        <ColumnFilters
+          api={api}
+          translations={translations}
+          onShowLessFiltersChange={(showLessFilters: boolean) => {
+            onShowLessFiltersChange && onShowLessFiltersChange(showLessFilters);
+            handleResize();
+          }}
+          {...rest}
+        />
       </FlexItem>
     </StyledDataGridFilters>
   );

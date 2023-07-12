@@ -161,6 +161,7 @@ export interface Translations {
   defaultViewTooltip: string;
   lessFilters: string;
   allFilters: string;
+  applyFilters: string;
   showResultsBy: string;
   paginationPrevious: string;
   paginationNext: string;
@@ -246,6 +247,9 @@ export interface DataGridProps {
   onFilterModelChange?: (filterModel: { [key: string]: any }) => void;
   showClearFilters?: boolean;
   customActionsCellRender?: (props: any) => any;
+  initialShowLessFilters?: boolean;
+  onShowLessFiltersChange?: (showLessFilters: boolean) => void;
+  setFiltersHeight?: (filtersHeight: number) => void;
 }
 
 export interface DataGridView {
@@ -281,11 +285,15 @@ export interface FiltersProps {
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
   filterOnValue: (columnField: string, value: FilterValue['value'], type: FilterType) => void;
+  filterOnMultiValues: (columnField: string, values: FilterValue['value'][]) => void;
   filterOnDate: (columnField: string, selectedDates: Date[]) => void;
   debouncedSearch?: boolean;
   clearFilterModel: (columnFilter: string) => void;
   onSearch?: (searchTerm: string) => void;
   showClearFilters?: boolean;
+  initialShowLessFilters?: boolean;
+  onShowLessFiltersChange?: (showLessFilters: boolean) => void;
+  setFiltersHeight?: (filtersHeight: number) => void;
 }
 
 export interface ColumnFiltersProps {
@@ -299,9 +307,12 @@ export interface ColumnFiltersProps {
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
   filterOnValue: (columnField: string, value: FilterValue['value'], type: FilterType) => void;
+  filterOnMultiValues: (columnField: string, values: FilterValue['value'][]) => void;
   filterOnDate: (columnField: string, selectedDates: Date[]) => void;
   clearFilterModel: (columnFilter: string) => void;
   showClearFilters?: boolean;
+  initialShowLessFilters?: boolean;
+  onShowLessFiltersChange?: (showLessFilters: boolean) => void;
 }
 export interface FooterRowCountProps {
   api: GridApi;
