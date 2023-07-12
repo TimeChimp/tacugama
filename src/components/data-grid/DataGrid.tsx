@@ -296,7 +296,7 @@ export const DataGrid = ({
         api.destroyFilter(filter);
       });
 
-      setViewFilterIds({});
+      //setViewFilterIds({});
       if (setDates) {
         setDates(getInitialDateRange());
       }
@@ -315,8 +315,8 @@ export const DataGrid = ({
         try {
           columnApi.setColumnState(gridState.columnState);
           columnApi.setColumnGroupState(gridState.columnGroupState);
-          api?.setFilterModel(gridState.filterModel);
-          setViewFilterIds(gridState.filterModel);
+          //api?.setFilterModel(gridState.filterModel);
+          //setViewFilterIds(gridState.filterModel);
         } catch (e) {
           console.error('Error while setting grid state', e);
         }
@@ -344,7 +344,7 @@ export const DataGrid = ({
       } else if (onActivateView) {
         await onActivateView(view.id);
       }
-
+      //setViewFilterIds
       setViewState(gridApi, gridColumnApi, view.viewState);
     }
   };

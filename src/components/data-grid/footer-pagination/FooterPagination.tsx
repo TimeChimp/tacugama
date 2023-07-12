@@ -11,6 +11,10 @@ export const FooterPagination = ({ api: gridApi, translations }: FooterRowCountP
 
   useEffect(() => {
     const onPaginationChanged = () => {
+      const gridApiCurrentPage = gridApi?.paginationGetCurrentPage();
+      if (typeof gridApiCurrentPage === 'number' && gridApiCurrentPage + 1 !== currentPage) {
+        setCurrentPage(gridApiCurrentPage + 1);
+      }
       setNumPages(gridApi?.paginationGetTotalPages());
     };
 
@@ -19,7 +23,7 @@ export const FooterPagination = ({ api: gridApi, translations }: FooterRowCountP
     return () => {
       gridApi?.removeEventListener(EVENT_LISTENER, onPaginationChanged);
     };
-  }, [gridApi]);
+  }, [gridApi, currentPage]);
 
   const handlePageChange = (page: number) => {
     // Ag-grid and baseweb have a different way of counting the total number of pages
