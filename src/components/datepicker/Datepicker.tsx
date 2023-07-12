@@ -11,7 +11,7 @@ import {
 } from '../../utils';
 import { useTheme } from '../../providers';
 import { DatePicker, DatepickerOverrides, QuickSelectOption } from 'baseui/datepicker';
-import { Select } from '../select';
+import { SingleSelect } from '../select';
 import { DATA_TEST_ID } from '../../models';
 import { InputOverrides } from 'baseui/input';
 import { CalendarIcon } from '../icons/calendar';
@@ -21,7 +21,6 @@ import { Skeleton } from '../skeleton';
 
 export const Datepicker = ({
   customValue,
-  setCustomValue,
   placement = 'bottomLeft',
   locale,
   weekStartDay,
@@ -213,7 +212,7 @@ export const Datepicker = ({
       },
     },
     QuickSelect: {
-      component: (props: any) => <Select {...props} disableSortOptions />,
+      component: (props) => <SingleSelect {...props} disableSortOptions />,
     },
     Input: {
       props: {

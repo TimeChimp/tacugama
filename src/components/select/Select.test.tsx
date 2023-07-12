@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import * as React from 'react';
 import { configure, render, screen } from '../../utils/test-utils';
-import { Select } from '.';
+import { Select } from './Select';
 import { OPTIONS } from './test-data';
 
 const SKELETON_TEST_ID = 'loader';
