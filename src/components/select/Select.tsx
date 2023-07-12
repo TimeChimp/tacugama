@@ -1,6 +1,6 @@
 import React from 'react';
-import { Select as BaseSelect, Option, Value, OnChangeParams, Options } from 'baseui/select';
-import { useTheme } from '../../../providers';
+import { Select as BaseSelect, Option, Value, OnChangeParams } from 'baseui/select';
+import { useTheme } from '../../providers';
 import {
   border,
   borderBottom,
@@ -9,27 +9,35 @@ import {
   getInputBackgroundColor,
   padding,
   margin,
-} from '../../../utils';
-import { Skeleton } from '../../skeleton';
-import { FlexItem } from '../../flex-item';
-import { CaretDownIcon } from '../../icons/caret-down';
-import { MultiSelectProps } from './types';
-import { DEFAULT_LABEL_KEY, DEFAULT_VALUE_KEY } from '../single-select';
+} from '../../utils';
+import { Skeleton } from '../skeleton';
+import { FlexItem } from '../flex-item';
+import { CaretDownIcon } from '../icons/caret-down';
+import { SelectProps } from './types';
+import { AddLineIcon } from '../icons';
+import { Button } from '../button';
+import { ButtonKind } from '../../models';
 
-export const MultiSelect = ({
+/**
+ * @deprecated This component will be removed in the next major release (v10). Please use the `MultiSelect` or the `SingleSelect` components instead.
+ */
+export const Select = ({
   size = 'compact',
-  valueKey = DEFAULT_VALUE_KEY,
-  labelKey = DEFAULT_LABEL_KEY,
+  valueKey = 'id',
+  labelKey = 'name',
   showSkeleton = false,
   propOverrides,
+  onChangeHandler,
+  multi,
   options,
   success = false,
   disableSortOptions = false,
   disabled = false,
   error = false,
-  isLoading = false,
+  stickyButtonText,
+  stickyButtonOnClick,
   ...rest
-}: MultiSelectProps) => {
+}: SelectProps) => {
   const {
     theme: {
       current: {
@@ -46,7 +54,15 @@ export const MultiSelect = ({
   const { primary100, contentPrimary } = colors;
   const { primarySubtle, dark4 } = customColors;
 
-  const alphabetizeOptions = (options: Options, disableSortOptions?: boolean) => {
+  const handleOnChange = (params: OnChangeParams) => {
+    if (multi) {
+      return onChangeHandler(params);
+    }
+    const { value } = params;
+    return onChangeHandler({ ...params, value: value?.length === 1 ? value[0] : value });
+  };
+
+  const alphabetizeOptions = (options: Option[] | { [key: string]: Option[] }, disableSortOptions?: boolean) => {
     if (!options) {
       return [];
     }
@@ -62,6 +78,8 @@ export const MultiSelect = ({
     return options.length > 1 ? [...options].sort((a, b) => a[labelKey]?.localeCompare(b[labelKey])) : options;
   };
 
+  const showStickButton = stickyButtonText && stickyButtonOnClick;
+
   return (
     <>
       {showSkeleton ? (
@@ -71,11 +89,12 @@ export const MultiSelect = ({
           size={size}
           valueKey={valueKey}
           labelKey={labelKey}
-          disabled={disabled || isLoading}
+          onChange={handleOnChange}
+          disabled={disabled}
           error={error}
+          multi={multi}
           type="select"
           options={alphabetizeOptions(options, disableSortOptions)}
-          multi
           {...rest}
           overrides={{
             ControlContainer: {
@@ -125,6 +144,23 @@ export const MultiSelect = ({
                 color: dark4,
                 ...margin('0', '0', '0', `-${scale0}`),
               },
+            },
+            DropdownContainer: {
+              ...(showStickButton && {
+                props: ({ children, ...rest }) => ({
+                  ...rest,
+                  children: (
+                    <>
+                      {children}
+                      <FlexItem marg1={scale300} marg2={scale600} justifyContent="start">
+                        <Button kind={ButtonKind.minimal} startEnhancer={AddLineIcon} onClick={stickyButtonOnClick}>
+                          {stickyButtonText}
+                        </Button>
+                      </FlexItem>
+                    </>
+                  ),
+                }),
+              }),
             },
             Input: {
               style: {

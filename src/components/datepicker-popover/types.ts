@@ -2,7 +2,7 @@ import { TetherPlacement } from 'baseui/layer';
 import { CalendarProps } from 'baseui/datepicker';
 import { SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerRangeTranslations } from '../datepicker';
-import { Option } from '../select';
+import { SingleSelectOption as Option } from '../select';
 
 export type DatepickerOption = Option<string, 'id', 'id'>;
 
