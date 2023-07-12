@@ -173,6 +173,7 @@ export interface Translations {
   defaultViewTooltip: string;
   lessFilters: string;
   allFilters: string;
+  applyFilters: string;
   showResultsBy: string;
   paginationPrevious: string;
   paginationNext: string;
@@ -296,6 +297,7 @@ export interface FiltersProps {
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
   filterOnValue: (columnField: string, value: FilterValue['value'], type: FilterType) => void;
+  filterOnMultiValues: (columnField: string, values: FilterValue['value'][]) => void;
   filterOnDate: (columnField: string, selectedDates: Date[]) => void;
   debouncedSearch?: boolean;
   clearFilterModel: (columnFilter: string) => void;
@@ -317,6 +319,7 @@ export interface ColumnFiltersProps {
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
   filterOnValue: (columnField: string, value: FilterValue['value'], type: FilterType) => void;
+  filterOnMultiValues: (columnField: string, values: FilterValue['value'][]) => void;
   filterOnDate: (columnField: string, selectedDates: Date[]) => void;
   clearFilterModel: (columnFilter: string) => void;
   showClearFilters?: boolean;

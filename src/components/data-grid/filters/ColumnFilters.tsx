@@ -12,6 +12,7 @@ import { Button } from '../../button';
 import { ButtonKind } from '../../../models';
 import { ParagraphSmall } from 'baseui/typography';
 import { FixedSizeSelect } from '../../fixed-size-select';
+import { MultiFilter } from './MultiFilter';
 
 const LESS_FILTERS_BUTTON_TEST_ID = 'less-filters-button';
 const MORE_FILTERS_BUTTON_TEST_ID = 'more-filters-button';
@@ -25,9 +26,10 @@ export const ColumnFilters = ({
   setDates,
   setSelectedFilterIds,
   selectedFilterIds,
-  translations: { search, lessFilters, allFilters, clearFilters },
+  translations: { search, lessFilters, allFilters, clearFilters, applyFilters },
   datepickerTranslations,
   filterOnValue,
+  filterOnMultiValues,
   filterOnDate,
   clearFilterModel,
   showClearFilters,
@@ -205,6 +207,9 @@ export const ColumnFilters = ({
 
   const getSelectedFilterIds = (columnField: string) => selectedFilterIds[columnField]?.map(String);
 
+  const handleFilterMultiValues = (columnField: string) => (values: FilterValue['value'][]) =>
+    filterOnMultiValues(columnField, values);
+
   const getSelectHasValue = (columnField: string) =>
     Array.isArray(selectedFilterIds[columnField])
       ? !!selectedFilterIds[columnField].length
@@ -244,24 +249,18 @@ export const ColumnFilters = ({
         </>
       ),
       [FilterType.multi]: (
-        <Dropdown
-          showSearch
-          selection
-          items={getAllColumnValues(columnField, FilterType.multi, values)}
-          selectedIds={getSelectedFilterIds(columnField)}
+        <MultiFilter
+          values={getAllColumnValues(columnField, FilterType.multi, values)}
+          initialSelectedFilterIds={getSelectedFilterIds(columnField)}
           searchPlaceholder={searchPlaceholder || search}
-          isLoading={valuesLoading}
-        >
-          <FilterButton
-            title={getSetTitle(columnField, title)}
-            startEnhancer={Icon && <Icon color={getSetIconColor(columnField)} />}
-            size={SIZE.compact}
-            isActive={isSetFilterActive(columnField)}
-            onClear={() => onSetFilterClear(columnField)}
-            hasValue={isSetFilterActive(columnField)}
-            arrows
-          />
-        </Dropdown>
+          valuesLoading={valuesLoading}
+          title={getSetTitle(columnField, title)}
+          icon={Icon && <Icon color={getSetIconColor(columnField)} />}
+          isFilterActive={isSetFilterActive(columnField)}
+          onSetFilterClear={() => onSetFilterClear(columnField)}
+          onApplyFilter={handleFilterMultiValues(columnField)}
+          applyFiltersLabel={applyFilters}
+        />
       ),
       [FilterType.multiVirtual]: (
         <FixedSizeSelect
