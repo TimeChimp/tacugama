@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { MultiSelect as Select } from './multi-select';
+import { Select } from './multi-select';
 import { SingleSelect as SingleSelectComponent, SingleSelectProps } from './single-select';
 import { OPTIONS } from './test-data';
 import { SelectProps } from './multi-select/types';
@@ -18,7 +18,9 @@ Template.parameters = {
   },
 };
 
-const SingleSelectTemplate: Story<SingleSelectProps<string>> = (args) => <SingleSelectComponent {...args} />;
+const SingleSelectTemplate: Story<SingleSelectProps<string, 'id', 'name'>> = (args) => (
+  <SingleSelectComponent {...args} />
+);
 
 export const Single = SingleSelectTemplate.bind({});
 Single.args = {

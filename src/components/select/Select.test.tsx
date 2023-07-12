@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import * as React from 'react';
 import { configure, render, screen } from '../../utils/test-utils';
-import { MultiSelect as Select } from '.';
+import { Select } from './multi-select';
 import { OPTIONS } from './test-data';
 
 const SKELETON_TEST_ID = 'loader';

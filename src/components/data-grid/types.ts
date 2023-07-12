@@ -17,7 +17,6 @@ import { DurationFormat, NumberFormat, SupportedLocale } from '@timechimp/timech
 import { DropdownItem } from '../dropdown';
 import { SVGProps as IconProps } from '..';
 import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
-import { Option } from '../select';
 import { AgGridColumnProps } from '@ag-grid-community/react';
 import { DatepickerRangeTranslations } from '../datepicker';
 import { AgGridReact } from '@ag-grid-community/react/lib/agGridReact';
@@ -48,16 +47,6 @@ export interface DataGridApi {
 
 export type DataGridColumnValueType = 'number' | 'integer' | 'currency' | 'date' | 'time' | 'datetime' | 'duration';
 export type DataGridAggFunc = 'sum';
-
-export interface DataGridRowSelectProps {
-  placeholder: string;
-  labelKey: string;
-  valueKey: string;
-  onChangeHandler: (data: any) => void;
-  options: Option<any>[];
-  optionProp: string;
-  isLockedIconDisplayedFunc?: (data: any) => boolean;
-}
 
 export interface DataGridColumn extends AgGridColumnProps {
   field: string;

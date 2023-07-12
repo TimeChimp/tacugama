@@ -1,4 +1,4 @@
-export type Option<T, ValueKey extends string = 'id', LabelKey extends string = 'name'> = {
+export type Option<T, ValueKey extends string, LabelKey extends string> = {
   [key in ValueKey]: T;
 } & {
   [key in LabelKey]: string;
@@ -6,7 +6,7 @@ export type Option<T, ValueKey extends string = 'id', LabelKey extends string = 
   [key: string]: any;
 };
 
-export interface SingleSelectProps<ValueType, ValueKey extends string = 'id', LabelKey extends string = 'name'> {
+export interface SingleSelectProps<ValueType, ValueKey extends string, LabelKey extends string> {
   valueKey?: ValueKey;
   labelKey?: LabelKey;
   showSkeleton?: boolean;
@@ -18,6 +18,7 @@ export interface SingleSelectProps<ValueType, ValueKey extends string = 'id', La
   isLoading?: boolean;
   creatable?: boolean;
   onChange?: (value: Option<ValueType, ValueKey, LabelKey> | null) => void;
+  defaultValue?: Option<ValueType, ValueKey, LabelKey> | null;
   placeholder?: string;
   error?: boolean;
   success?: boolean;

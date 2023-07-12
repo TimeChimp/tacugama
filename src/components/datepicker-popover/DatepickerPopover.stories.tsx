@@ -3,6 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { DatepickerPopover } from '.';
 import { DatepickerPopoverProps } from './types';
+import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 
 export default {
   title: 'Components/DatepickerPopover',
@@ -16,7 +17,8 @@ const Template: Story<DatepickerPopoverProps> = (args) => <DatepickerPopover {..
 export const Default = Template.bind({});
 Default.args = {
   placement: 'bottomLeft',
-  date: new Date(),
+  date: [new TcDate().startOf('month').toDate(), new TcDate().endOf('month').toDate()],
   isOpen: true,
   setIsOpen: () => (isOpen = !isOpen),
+  quickSelect: true,
 };

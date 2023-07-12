@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Popover } from '../popover';
 import { borderBottom } from '../../utils';
 import { useTheme } from '../../providers';
-import { Calendar, QuickSelectOption } from 'baseui/datepicker';
+import { Calendar } from 'baseui/datepicker';
 import { SingleSelect } from '../select';
 import { getDateLocale, TcDate } from '@timechimp/timechimp-typescript-helpers';
-import { DatepickerPopoverProps } from './types';
+import { DatepickerOption, DatepickerPopoverProps } from './types';
 
 export const DatepickerPopover = ({
   date,
@@ -17,6 +17,7 @@ export const DatepickerPopover = ({
   overrides,
   translations,
   onChange,
+  quickSelect = false,
   ...rest
 }: DatepickerPopoverProps) => {
   const [localeObj, setLocaleObj] = useState<Locale>();
@@ -41,7 +42,7 @@ export const DatepickerPopover = ({
     }
   }, [locale, weekStartDay]);
 
-  const quickSelectOptions: QuickSelectOption<Date>[] = [
+  const quickSelectOptions: DatepickerOption[] = [
     {
       id: translations?.today ?? 'Today',
       beginDate: new Date(),
@@ -94,6 +95,47 @@ export const DatepickerPopover = ({
     },
   ];
 
+  const isSameDate = (option: DatepickerOption, _date: Date[]) => {
+    const selectedBeginDate = _date[0];
+    const selectedEndDate = _date[1];
+    const optionBeginDate = new TcDate(option.beginDate);
+    const optionEndDate = new TcDate(option.endDate);
+
+    return optionBeginDate.isSame(selectedBeginDate, 'day') && optionEndDate.isSame(selectedEndDate, 'day');
+  };
+
+  const isSameSingleDate = (option: DatepickerOption, _date: Date) => {
+    const selectedDate = _date;
+    const optionBeginDate = new TcDate(option.beginDate);
+
+    return optionBeginDate.isSame(selectedDate, 'day');
+  };
+
+  const isDateInQuickSelectOptions = useMemo(() => {
+    if (!date || !quickSelect) {
+      return false;
+    }
+
+    if (!Array.isArray(date)) {
+      return quickSelectOptions.some((option) => isSameSingleDate(option, date));
+    }
+    return quickSelectOptions.some((option) => isSameDate(option, date));
+  }, [date, quickSelectOptions]);
+
+  const quickSelectValue = useMemo(() => {
+    if (!date || !quickSelect || !isDateInQuickSelectOptions) {
+      return undefined;
+    }
+
+    if (!Array.isArray(date)) {
+      const quickSelectOption = quickSelectOptions.find((option) => isSameSingleDate(option, date));
+      return quickSelectOption;
+    }
+
+    const quickSelectOption = quickSelectOptions.find((option) => isSameDate(option, date));
+    return quickSelectOption;
+  }, [date, quickSelectOptions, isDateInQuickSelectOptions]);
+
   return (
     <Popover
       isOpen={isOpen}
@@ -111,10 +153,14 @@ export const DatepickerPopover = ({
       content={() => (
         <Calendar
           value={date}
-          onChange={onChange}
+          onChange={({ date }) => {
+            if (date) {
+              onChange(date as Date | Date[]);
+            }
+          }}
           locale={localeObj}
-          quickSelect
-          quickSelectOptions={quickSelectOptions}
+          quickSelect={quickSelect}
+          range={quickSelect}
           overrides={{
             CalendarHeader: {
               style: {
@@ -146,16 +192,20 @@ export const DatepickerPopover = ({
               },
             },
             QuickSelect: {
-              component: (props) => {
-                console.log(props);
-                return (
-                  <SingleSelect
-                    {...props}
-                    disableSortOptions
-                    onChange={(option) => onChange && onChange({ date: option?.id as unknown as Date })}
-                  />
-                );
-              },
+              component: () => (
+                <SingleSelect
+                  options={quickSelectOptions}
+                  disableSortOptions
+                  clearable={false}
+                  labelKey="id"
+                  defaultValue={quickSelectValue}
+                  onChange={(option) => {
+                    if (option && option.beginDate && option.endDate) {
+                      onChange([option.beginDate, option.endDate]);
+                    }
+                  }}
+                />
+              ),
             },
             ...overrides,
           }}

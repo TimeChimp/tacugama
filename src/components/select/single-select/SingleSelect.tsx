@@ -16,9 +16,10 @@ import { SingleSelectProps, Option } from './types';
 export const DEFAULT_VALUE_KEY = 'id';
 export const DEFAULT_LABEL_KEY = 'name';
 
-export const SingleSelect = <ValueType extends string>({
+export const SingleSelect = <ValueType extends string, ValueKey extends string, LabelKey extends string>({
   valueKey,
   labelKey,
+  defaultValue,
   showSkeleton = false,
   disableSortOptions = false,
   options,
@@ -33,7 +34,7 @@ export const SingleSelect = <ValueType extends string>({
   placeholder,
   createText = (inputValue: string) => `Create ${inputValue}`,
   onCreateOption,
-}: SingleSelectProps<ValueType>) => {
+}: SingleSelectProps<ValueType, ValueKey, LabelKey>) => {
   const {
     theme: {
       current: {
@@ -50,7 +51,7 @@ export const SingleSelect = <ValueType extends string>({
   const { primary100, contentPrimary, primaryB } = colors;
   const { dark4 } = customColors;
 
-  const alphabetizeOptions = (options: Option<ValueType>[], disableSortOptions?: boolean) => {
+  const alphabetizeOptions = (options: Option<ValueType, ValueKey, LabelKey>[], disableSortOptions?: boolean) => {
     if (!options) {
       return [];
     }
@@ -65,22 +66,23 @@ export const SingleSelect = <ValueType extends string>({
 
   const alphabetizedOptions = alphabetizeOptions(options, disableSortOptions);
 
-  const props: SelectProps<Option<ValueType>, false> = {
+  const props: SelectProps<Option<ValueType, ValueKey, LabelKey>, false> = {
     onChange,
+    defaultValue,
     options: alphabetizedOptions,
     placeholder,
     isClearable: clearable,
     isSearchable: searchable,
     isDisabled: disabled || isLoading,
     isLoading,
-    getOptionLabel: (option: Option<ValueType>) => {
+    getOptionLabel: (option: Option<ValueType, ValueKey, LabelKey>) => {
       if (option.__isNew__) {
         return createText(option.value);
       }
 
       return option[labelKey ?? DEFAULT_LABEL_KEY];
     },
-    getOptionValue: (option: Option<ValueType>) => option[valueKey ?? DEFAULT_VALUE_KEY],
+    getOptionValue: (option: Option<ValueType, ValueKey, LabelKey>) => option[valueKey ?? DEFAULT_VALUE_KEY],
     styles: {
       control: (provided, { isFocused }) => ({
         ...provided,

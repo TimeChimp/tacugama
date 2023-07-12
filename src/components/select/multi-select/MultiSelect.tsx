@@ -16,7 +16,7 @@ import { CaretDownIcon } from '../../icons/caret-down';
 import { SelectProps } from './types';
 import { DEFAULT_LABEL_KEY, DEFAULT_VALUE_KEY } from '../single-select';
 
-export const MultiSelect = ({
+export const Select = ({
   size = 'compact',
   valueKey = DEFAULT_VALUE_KEY,
   labelKey = DEFAULT_LABEL_KEY,
@@ -73,7 +73,6 @@ export const MultiSelect = ({
           labelKey={labelKey}
           disabled={disabled || isLoading}
           error={error}
-          multi
           type="select"
           options={alphabetizeOptions(options, disableSortOptions)}
           {...rest}

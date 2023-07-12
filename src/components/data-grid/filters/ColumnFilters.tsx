@@ -223,8 +223,7 @@ export const ColumnFilters = ({
             arrows
           />
           <DatepickerPopover
-            // @ts-expect-error - TODO: fix date type
-            onChange={({ date }) => onDateSelect({ date, columnField })}
+            onChange={(date) => onDateSelect({ date, columnField })}
             date={internalDates.length ? internalDates : dates}
             isOpen={datepickerIsOpen}
             setIsOpen={toggleDatePicker}

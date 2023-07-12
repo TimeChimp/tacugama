@@ -10,4 +10,6 @@ export interface SelectProps extends Omit<BaseSelectProps, OmittedProps> {
     rootProps?: () => object;
   };
   success?: boolean;
+  // @deprecated In a future (V10) release, this will be removed in favor of the separation of single and multi select
+  multi?: boolean;
 }
