@@ -2,8 +2,8 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Modal, ModalHeader, ModalBody, ModalFooter, ModalProps, ModalSize } from './';
-import { Button } from 'components';
-import { ButtonKind, ButtonType } from 'models';
+import { Button, MultiSelect, SingleSelect } from '../';
+import { ButtonKind } from '../../models';
 
 export default {
   title: 'Components/Modal',
@@ -26,6 +26,13 @@ const Template: Story<ModalProps> = (args) => (
       Maecenas aliquet mauris ut tempus. Proin ut dui sed metus pharetra hend rerit vel non mi. Nulla ornare faucibus
       ex, non facilisis nisl. Maecenas aliquet mauris ut tempus. Proin ut dui sed metus pharetra hend rerit vel non mi.
       Nulla ornare faucibus ex, non facilisis nisl. Maecenas aliquet mauris ut tempus.
+      <SingleSelect
+        options={[
+          { id: '1', name: 'test' },
+          { id: '2', name: 'test 2' },
+        ]}
+        creatable
+      />
     </ModalBody>
     <ModalFooter>
       <Button kind={ButtonKind.secondary}>Cancel</Button>
