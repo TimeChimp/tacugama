@@ -1,74 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { themedWithStyle } from '../../theme';
-import { Option, Select, StyledDropdownListItem, Value } from 'baseui/select';
-import { StyledList, StyledEmptyState, OptionListProps } from 'baseui/menu';
-import { FixedSizeList } from 'react-window';
+import { Option, Select, Value } from 'baseui/select';
 import { border, borderRadius, padding } from '../../utils';
 import { useTheme } from '../../providers';
+import { VirtualScrollList } from '../virtual-scroll-list';
 import { FixedSizeSelectProps } from './types';
-
-const LIST_ITEM_HEIGHT = 42;
-const EMPTY_LIST_HEIGHT = 72;
-const MAX_LIST_HEIGHT = 200;
-
-const ListItem = themedWithStyle(StyledDropdownListItem, {
-  ...padding('0'),
-  display: 'flex',
-  alignItems: 'center',
-});
-
-const FixedSizeListItem = ({
-  data,
-  index,
-  style,
-}: {
-  data: { props: OptionListProps }[];
-  index: number;
-  style: React.CSSProperties;
-}) => {
-  const { item, overrides, ...restChildProps } = data[index].props;
-  return (
-    <ListItem
-      key={item.id}
-      style={{
-        boxSizing: 'border-box',
-        ...style,
-      }}
-      {...restChildProps}
-    >
-      {item.id}
-    </ListItem>
-  );
-};
-
-const VirtualDropdown = React.forwardRef<HTMLUListElement, any>((props: any, ref) => {
-  const children = React.Children.toArray(props.children);
-  // @ts-expect-error typing issue
-  if (!children[0] || !children[0].props.item) {
-    return (
-      <StyledList $style={{ height: EMPTY_LIST_HEIGHT + 'px' }} ref={ref}>
-        {/* @ts-expect-error typing issue */}
-        <StyledEmptyState {...children[0].props} />
-      </StyledList>
-    );
-  }
-  const height = Math.min(MAX_LIST_HEIGHT, children.length * LIST_ITEM_HEIGHT);
-  return (
-    <StyledList ref={ref}>
-      <FixedSizeList
-        width="100%"
-        height={height}
-        itemCount={children.length}
-        // @ts-expect-error typing issue
-        itemData={children}
-        itemKey={(index: number, data: { props: OptionListProps }[]) => data[index].props.item.id}
-        itemSize={LIST_ITEM_HEIGHT}
-      >
-        {FixedSizeListItem}
-      </FixedSizeList>
-    </StyledList>
-  );
-});
 
 const defaultOptions: Option[] = [];
 for (let i = 0; i < 10000; i += 1) {
@@ -78,19 +13,7 @@ for (let i = 0; i < 10000; i += 1) {
   });
 }
 
-export const FixedSizeSelect = ({
-  items,
-  selection,
-  selectedIds,
-  searchPlaceholder,
-}: // title,
-// showSearch,
-// isLoading,
-// startEnhancer,
-// size,
-// isActive,
-// onClear,
-FixedSizeSelectProps) => {
+export const FixedSizeSelect = ({ items, selection, selectedIds, searchPlaceholder }: FixedSizeSelectProps) => {
   const [value, setValue] = useState<Value>([]);
   const [dropdownItems, setDropdownItems] = useState<any[]>([]);
 
@@ -136,7 +59,7 @@ FixedSizeSelectProps) => {
       valueKey="label"
       placeholder={searchPlaceholder || 'Select'}
       overrides={{
-        Dropdown: { component: VirtualDropdown },
+        Dropdown: { component: VirtualScrollList },
         Root: {
           style: {
             width: 'auto',
