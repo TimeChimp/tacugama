@@ -1,6 +1,6 @@
 import React from 'react';
 import { OptionListProps } from 'baseui/menu';
-import { DropdownOption } from 'index';
+import { DropdownOption } from '../dropdown';
 import { ListItem } from './styles';
 
 export const FixedSizeListItem = ({
