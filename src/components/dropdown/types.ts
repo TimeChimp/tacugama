@@ -1,3 +1,4 @@
+import React from 'react';
 import { TetherPlacement } from 'baseui/layer';
 
 export interface ActionItemFilterCondition {
@@ -45,4 +46,5 @@ export interface DropdownProps {
   isLoading?: boolean;
   // Additional properties to pass to the action function of a dropdown item i.e. a reference to the GridApi
   additionalProperties?: any;
+  customList?: React.ComponentType<any>;
 }
