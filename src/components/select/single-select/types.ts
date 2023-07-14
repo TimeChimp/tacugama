@@ -23,5 +23,6 @@ export interface SingleSelectProps<ValueType, ValueKey extends string, LabelKey 
   error?: boolean;
   success?: boolean;
   createText?: (inputValue: string) => string;
+  noOptionsMessage?: () => string;
   onCreateOption?: (inputValue: string) => void;
 }

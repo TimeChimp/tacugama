@@ -1,16 +1,16 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Select } from './multi-select';
+import { MultiSelect } from './multi-select';
 import { SingleSelect as SingleSelectComponent, SingleSelectProps } from './single-select';
 import { OPTIONS } from './test-data';
-import { SelectProps } from './multi-select/types';
+import { MultiSelectProps } from './multi-select/types';
 
 export default {
   title: 'Components/Select',
 } as Meta;
 
-const Template: Story<SelectProps> = (args) => <Select {...args} />;
+const Template: Story<MultiSelectProps> = (args) => <MultiSelect {...args} />;
 Template.parameters = {
   design: {
     type: 'figma',

@@ -10,13 +10,18 @@ import {
   getInputBorderColor,
   getInputBackgroundColor,
   padding,
+  margin,
 } from '../../../utils';
 import { SingleSelectProps, Option } from './types';
 
 export const DEFAULT_VALUE_KEY = 'id';
 export const DEFAULT_LABEL_KEY = 'name';
 
-export const SingleSelect = <ValueType extends string, ValueKey extends string, LabelKey extends string>({
+export const SingleSelect = <
+  ValueType extends string | number | Date,
+  ValueKey extends string,
+  LabelKey extends string,
+>({
   valueKey,
   labelKey,
   defaultValue,
@@ -33,6 +38,7 @@ export const SingleSelect = <ValueType extends string, ValueKey extends string, 
   onChange,
   placeholder,
   createText = (inputValue: string) => `Create ${inputValue}`,
+  noOptionsMessage = () => 'No options',
   onCreateOption,
 }: SingleSelectProps<ValueType, ValueKey, LabelKey>) => {
   const {
@@ -83,7 +89,12 @@ export const SingleSelect = <ValueType extends string, ValueKey extends string, 
       return option[labelKey ?? DEFAULT_LABEL_KEY];
     },
     getOptionValue: (option: Option<ValueType, ValueKey, LabelKey>) => option[valueKey ?? DEFAULT_VALUE_KEY],
+    noOptionsMessage,
     styles: {
+      container: (provided) => ({
+        ...provided,
+        width: '100%',
+      }),
       control: (provided, { isFocused }) => ({
         ...provided,
         backgroundColor: getInputBackgroundColor({ disabled, customColors, colors }),
@@ -135,14 +146,18 @@ export const SingleSelect = <ValueType extends string, ValueKey extends string, 
       }),
       menu: (provided) => ({
         ...provided,
-        zIndex: 99999,
         ...borderRadius(radius200),
         ...border(border300),
         boxShadow: 'none',
+        ...margin(scale100, '0'),
       }),
       menuList: (provided) => ({
         ...provided,
         ...padding(),
+      }),
+      menuPortal: (provided) => ({
+        ...provided,
+        zIndex: 99999,
       }),
       option: (provided, { isSelected }) => ({
         ...provided,
@@ -188,7 +203,13 @@ export const SingleSelect = <ValueType extends string, ValueKey extends string, 
       {showSkeleton ? (
         <Skeleton width="100%" height={scale975} animation />
       ) : (
-        <>{creatable ? <SelectCreatable {...props} onCreateOption={onCreateOption} /> : <Select {...props} />}</>
+        <>
+          {creatable ? (
+            <SelectCreatable {...props} onCreateOption={onCreateOption} menuPortalTarget={document.body} />
+          ) : (
+            <Select {...props} menuPortalTarget={document.body} />
+          )}
+        </>
       )}
     </>
   );
