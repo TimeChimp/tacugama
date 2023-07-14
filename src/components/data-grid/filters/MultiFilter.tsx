@@ -4,6 +4,7 @@ import { SIZE } from 'baseui/button';
 import { Button } from '../../button';
 import { Dropdown, DropdownItem } from '../../dropdown';
 import { Block } from '../../block';
+import { VirtualScrollList } from '../../virtual-scroll-list';
 import { padding } from '../../../utils';
 import { useTheme } from '../../../providers';
 import { MultiFilterProps } from './types';
@@ -62,6 +63,7 @@ export const MultiFilter = ({
       selectedIds={selectedItems.map(({ id }) => id as string)}
       searchPlaceholder={searchPlaceholder}
       isLoading={valuesLoading}
+      customList={VirtualScrollList}
       footer={
         <Block {...padding(scale300, scale600)} backgroundColor={light4}>
           <Button onClick={handleApplyFilter} width="100%">

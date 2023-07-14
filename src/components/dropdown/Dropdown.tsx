@@ -28,6 +28,7 @@ export const Dropdown = ({
   placement = 'bottomRight',
   isLoading = false,
   additionalProperties,
+  customList: List,
 }: DropdownProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>();
@@ -118,6 +119,7 @@ export const Dropdown = ({
               items={dropdownItems}
               overrides={{
                 List: {
+                  component: List,
                   style: {
                     ...padding(),
                     ...borderRadius(showSearch ? '0' : radius200),
