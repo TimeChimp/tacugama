@@ -188,6 +188,10 @@ export const SingleSelect = <
         ...ParagraphSmall,
         color: dark4,
       }),
+      clearIndicator: (provided) => ({
+        ...provided,
+        cursor: 'pointer',
+      }),
     },
     components: {
       DropdownIndicator: () => (
@@ -205,7 +209,7 @@ export const SingleSelect = <
       ) : (
         <>
           {creatable ? (
-            <SelectCreatable {...props} menuIsOpen onCreateOption={onCreateOption} menuPortalTarget={document.body} />
+            <SelectCreatable {...props} onCreateOption={onCreateOption} menuPortalTarget={document.body} />
           ) : (
             <Select {...props} menuPortalTarget={document.body} />
           )}

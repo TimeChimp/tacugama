@@ -1,5 +1,7 @@
 import React from 'react';
-import { Select as BaseSelect, Option, Value, OnChangeParams, Options } from 'baseui/select';
+import { CaretDownIcon, DEFAULT_LABEL_KEY, DEFAULT_VALUE_KEY, FlexItem, SingleSelectOption, Skeleton } from '../..';
+import SelectCreatable from 'react-select/creatable';
+import Select, { Props as SelectProps } from 'react-select';
 import { useTheme } from '../../../providers';
 import {
   border,
@@ -10,56 +12,217 @@ import {
   padding,
   margin,
 } from '../../../utils';
-import { Skeleton } from '../../skeleton';
-import { FlexItem } from '../../flex-item';
-import { CaretDownIcon } from '../../icons/caret-down';
 import { MultiSelectProps } from './types';
-import { DEFAULT_LABEL_KEY, DEFAULT_VALUE_KEY } from '../single-select';
 
-export const MultiSelect = ({
-  size = 'compact',
-  valueKey = DEFAULT_VALUE_KEY,
-  labelKey = DEFAULT_LABEL_KEY,
+// TODO: Find way to share props between SingleSelect and MultiSelect
+
+export const MultiSelect = <
+  ValueType extends string | number | Date,
+  ValueKey extends string,
+  LabelKey extends string,
+>({
+  valueKey,
+  labelKey,
+  defaultValue,
   showSkeleton = false,
-  propOverrides,
-  options,
-  success = false,
   disableSortOptions = false,
+  options,
+  clearable = false,
+  searchable = true,
+  isLoading = false,
+  creatable = false,
   disabled = false,
   error = false,
-  isLoading = false,
-  ...rest
-}: MultiSelectProps) => {
+  success = false,
+  onChange,
+  placeholder,
+  createText = (inputValue: string) => `Create ${inputValue}`,
+  noOptionsMessage = () => 'No options',
+  onCreateOption,
+}: MultiSelectProps<ValueType, ValueKey, LabelKey>) => {
   const {
     theme: {
       current: {
         colors,
         borders,
         customColors,
-        sizing: { scale0, scale100, scale300, scale600, scale700, scale950 },
+        sizing: { scale100, scale300, scale600, scale950 },
         customSizing: { scale975 },
         typography: { ParagraphSmall },
       },
     },
   } = useTheme();
   const { border300, radius200 } = borders;
-  const { primary100, contentPrimary } = colors;
-  const { primarySubtle, dark4 } = customColors;
+  const { primary100, contentPrimary, primaryB } = colors;
+  const { dark4, primarySubtle } = customColors;
 
-  const alphabetizeOptions = (options: Options, disableSortOptions?: boolean) => {
+  const alphabetizeOptions = (
+    options: SingleSelectOption<ValueType, ValueKey, LabelKey>[],
+    disableSortOptions?: boolean,
+  ) => {
     if (!options) {
       return [];
     }
     if (disableSortOptions) {
       return options;
     }
-    if (!Array.isArray(options)) {
-      return Object.entries(options).reduce((acc, [key, value]) => ({
-        ...acc,
-        [key]: value.length > 1 ? [...value].sort((a, b) => a[labelKey]?.localeCompare(b[labelKey])) : value,
-      })) as Option[];
-    }
-    return options.length > 1 ? [...options].sort((a, b) => a[labelKey]?.localeCompare(b[labelKey])) : options;
+
+    return options.length > 1
+      ? [...options].sort((a, b) => a[labelKey ?? DEFAULT_LABEL_KEY]?.localeCompare(b[labelKey ?? DEFAULT_LABEL_KEY]))
+      : options;
+  };
+
+  const alphabetizedOptions = alphabetizeOptions(options, disableSortOptions);
+
+  const props: SelectProps<SingleSelectOption<ValueType, ValueKey, LabelKey>, true> = {
+    onChange,
+    isMulti: true,
+    defaultValue,
+    options: alphabetizedOptions,
+    placeholder,
+    isClearable: clearable,
+    isSearchable: searchable,
+    isDisabled: disabled || isLoading,
+    isLoading,
+    getOptionLabel: (option: SingleSelectOption<ValueType, ValueKey, LabelKey>) => {
+      if (option.__isNew__) {
+        return createText(option.value);
+      }
+
+      return option[labelKey ?? DEFAULT_LABEL_KEY];
+    },
+    getOptionValue: (option: SingleSelectOption<ValueType, ValueKey, LabelKey>) =>
+      option[valueKey ?? DEFAULT_VALUE_KEY],
+    noOptionsMessage,
+    styles: {
+      container: (provided) => ({
+        ...provided,
+        width: '100%',
+      }),
+      control: (provided, { isFocused }) => ({
+        ...provided,
+        backgroundColor: getInputBackgroundColor({ disabled, customColors, colors }),
+        ...borderRadius(radius200),
+        ...border({
+          ...border300,
+          borderColor: getInputBorderColor({
+            error,
+            success,
+            isFocused,
+            customColors,
+            colors,
+          }),
+        }),
+        boxShadow: 'none',
+        height: scale950,
+        ':hover': {
+          ...border({
+            ...border300,
+            borderColor: getInputBorderColor({
+              error,
+              success,
+              isFocused,
+              customColors,
+              colors,
+              hover: true,
+              disabled,
+            }),
+          }),
+        },
+      }),
+      valueContainer: (provided) => ({
+        ...provided,
+        ...padding('0', scale600),
+      }),
+      placeholder: (provided) => ({
+        ...provided,
+        ...ParagraphSmall,
+        color: dark4,
+      }),
+      input: (provided) => ({
+        ...provided,
+        ...ParagraphSmall,
+      }),
+      singleValue: (provided) => ({
+        ...provided,
+        ...ParagraphSmall,
+        lineHeight: scale950,
+      }),
+      menu: (provided) => ({
+        ...provided,
+        ...borderRadius(radius200),
+        ...border(border300),
+        boxShadow: 'none',
+        ...margin(scale100, '0'),
+      }),
+      menuList: (provided) => ({
+        ...provided,
+        ...padding(),
+      }),
+      menuPortal: (provided) => ({
+        ...provided,
+        zIndex: 99999,
+      }),
+      option: (provided, { isSelected }) => ({
+        ...provided,
+        ...borderBottom(border300),
+        ...ParagraphSmall,
+        color: contentPrimary,
+        ':hover': {
+          backgroundColor: primary100,
+        },
+        backgroundColor: isSelected ? primary100 : primaryB,
+        cursor: 'pointer',
+        ...padding(scale300, scale600),
+        ':first-of-type': {
+          borderBottomLeftRadius: radius200,
+          borderBottomRightRadius: radius200,
+        },
+        ':last-of-type': {
+          borderTopLeftRadius: radius200,
+          borderTopRightRadius: radius200,
+          ...borderBottom(),
+        },
+      }),
+      indicatorSeparator: () => ({
+        display: 'none',
+      }),
+      noOptionsMessage: (provided) => ({
+        ...provided,
+        ...ParagraphSmall,
+        color: dark4,
+      }),
+      multiValue: (provided) => ({
+        ...provided,
+        ...borderRadius(radius200),
+        backgroundColor: primarySubtle,
+        ...margin('0', scale100, '0', '0'),
+      }),
+      multiValueLabel: (provided) => ({
+        ...provided,
+        ...ParagraphSmall,
+        color: contentPrimary,
+      }),
+      multiValueRemove: (provided) => ({
+        ...provided,
+        ':hover': {
+          backgroundColor: primarySubtle,
+          color: contentPrimary,
+          cursor: 'pointer',
+        },
+      }),
+      clearIndicator: (provided) => ({
+        ...provided,
+        cursor: 'pointer',
+      }),
+    },
+    components: {
+      DropdownIndicator: () => (
+        <FlexItem marg1="0" marg2={scale600} marg3="0" marg4={scale100} width="auto">
+          <CaretDownIcon />
+        </FlexItem>
+      ),
+    },
   };
 
   return (
@@ -67,170 +230,14 @@ export const MultiSelect = ({
       {showSkeleton ? (
         <Skeleton width="100%" height={scale975} animation />
       ) : (
-        <BaseSelect
-          size={size}
-          valueKey={valueKey}
-          labelKey={labelKey}
-          disabled={disabled || isLoading}
-          error={error}
-          type="select"
-          options={alphabetizeOptions(options, disableSortOptions)}
-          multi
-          {...rest}
-          overrides={{
-            ControlContainer: {
-              style: {
-                backgroundColor: getInputBackgroundColor({ disabled, customColors, colors }),
-                ...border(),
-                ...borderRadius(radius200),
-                height: scale950,
-              },
-            },
-            Root: {
-              style: ({ $error, $isFocused }) => ({
-                backgroundColor: getInputBackgroundColor({ disabled, customColors, colors }),
-                ...borderRadius(radius200),
-                ...border({
-                  ...border300,
-                  borderColor: getInputBorderColor({
-                    error: $error,
-                    success,
-                    isFocused: $isFocused,
-                    customColors,
-                    colors,
-                  }),
-                }),
-                ':hover': {
-                  ...border({
-                    ...border300,
-                    borderColor: getInputBorderColor({
-                      error: $error,
-                      success,
-                      isFocused: $isFocused,
-                      customColors,
-                      colors,
-                      hover: true,
-                      disabled,
-                    }),
-                  }),
-                },
-              }),
-              props: {
-                ...propOverrides?.rootProps?.apply(propOverrides),
-              },
-            },
-            Placeholder: {
-              style: {
-                ...ParagraphSmall,
-                color: dark4,
-                ...margin('0', '0', '0', `-${scale0}`),
-              },
-            },
-            Input: {
-              style: {
-                ...ParagraphSmall,
-                '::placeholder': {
-                  color: customColors.dark4,
-                },
-              },
-            },
-            ValueContainer: {
-              style: {
-                ...ParagraphSmall,
-                ...padding('0', scale600),
-                gap: scale300,
-              },
-            },
-            Dropdown: {
-              style: {
-                ...padding('0'),
-                ...borderRadius(radius200),
-                maxHeight: '300px',
-                boxShadow: 'none',
-              },
-            },
-            DropdownListItem: {
-              style: {
-                ...borderBottom(border300),
-                ...ParagraphSmall,
-                ':hover': {
-                  backgroundColor: primary100,
-                },
-              },
-              props: {
-                ...propOverrides?.dropdownListItemProps?.apply(propOverrides),
-              },
-            },
-            SelectArrow: {
-              component: () => (
-                <FlexItem marg1="0" marg2="0" marg3="0" marg4={scale100} width="auto">
-                  <CaretDownIcon />
-                </FlexItem>
-              ),
-            },
-            ClearIcon: {
-              style: {
-                width: scale700,
-                height: scale700,
-              },
-            },
-            LoadingIndicator: {
-              props: {
-                overrides: {
-                  Svg: {
-                    style: {
-                      width: scale700,
-                      height: scale700,
-                    },
-                  },
-                },
-              },
-            },
-            Popover: {
-              props: {
-                overrides: {
-                  Body: {
-                    style: {
-                      zIndex: 99999,
-                    },
-                  },
-                },
-              },
-            },
-            Tag: {
-              props: {
-                overrides: {
-                  Root: {
-                    style: {
-                      backgroundColor: primarySubtle,
-                      ...borderRadius(radius200),
-                      ...margin('0'),
-                    },
-                  },
-                  Text: {
-                    style: {
-                      ...ParagraphSmall,
-                      color: contentPrimary,
-                    },
-                  },
-                  Action: {
-                    style: {
-                      color: '#4A4A4A', // NOTE: property does not exist in theme
-                    },
-                  },
-                },
-              },
-            },
-            SingleValue: {
-              style: {
-                lineHeight: scale950,
-              },
-            },
-          }}
-        />
+        <>
+          {creatable ? (
+            <SelectCreatable {...props} menuIsOpen onCreateOption={onCreateOption} menuPortalTarget={document.body} />
+          ) : (
+            <Select {...props} menuPortalTarget={document.body} />
+          )}
+        </>
       )}
     </>
   );
 };
-
-export type { Option, Value, OnChangeParams };
