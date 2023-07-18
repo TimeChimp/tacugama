@@ -173,11 +173,11 @@ export const SingleSelect = <
         ':first-of-type': {
           borderBottomLeftRadius: radius200,
           borderBottomRightRadius: radius200,
-          ...borderBottom(),
         },
         ':last-of-type': {
           borderTopLeftRadius: radius200,
           borderTopRightRadius: radius200,
+          ...borderBottom(),
         },
       }),
       indicatorSeparator: () => ({
@@ -205,7 +205,7 @@ export const SingleSelect = <
       ) : (
         <>
           {creatable ? (
-            <SelectCreatable {...props} onCreateOption={onCreateOption} menuPortalTarget={document.body} />
+            <SelectCreatable {...props} menuIsOpen onCreateOption={onCreateOption} menuPortalTarget={document.body} />
           ) : (
             <Select {...props} menuPortalTarget={document.body} />
           )}
