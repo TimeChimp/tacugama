@@ -170,14 +170,14 @@ export const SingleSelect = <
         backgroundColor: isSelected ? primary100 : primaryB,
         cursor: 'pointer',
         ...padding(scale300, scale600),
-        ':last-child': {
+        ':first-of-type': {
           borderBottomLeftRadius: radius200,
           borderBottomRightRadius: radius200,
-          ...borderBottom(),
         },
-        ':first-child': {
+        ':last-of-type': {
           borderTopLeftRadius: radius200,
           borderTopRightRadius: radius200,
+          ...borderBottom(),
         },
       }),
       indicatorSeparator: () => ({
@@ -187,6 +187,10 @@ export const SingleSelect = <
         ...provided,
         ...ParagraphSmall,
         color: dark4,
+      }),
+      clearIndicator: (provided) => ({
+        ...provided,
+        cursor: 'pointer',
       }),
     },
     components: {

@@ -10,7 +10,7 @@ export default {
   title: 'Components/Select',
 } as Meta;
 
-const Template: Story<MultiSelectProps> = (args) => <MultiSelect {...args} />;
+const Template: Story<MultiSelectProps<string, 'id', 'name'>> = (args) => <MultiSelect {...args} />;
 Template.parameters = {
   design: {
     type: 'figma',
@@ -35,6 +35,8 @@ Multi.args = {
   options: OPTIONS,
   placeholder: 'Placeholder',
   value: [OPTIONS[0], OPTIONS[1]],
+  creatable: true,
+  clearable: true,
 };
 Multi.parameters = {
   design: {
