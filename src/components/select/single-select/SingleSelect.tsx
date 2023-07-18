@@ -170,12 +170,12 @@ export const SingleSelect = <
         backgroundColor: isSelected ? primary100 : primaryB,
         cursor: 'pointer',
         ...padding(scale300, scale600),
-        ':last-child': {
+        ':first-of-type': {
           borderBottomLeftRadius: radius200,
           borderBottomRightRadius: radius200,
           ...borderBottom(),
         },
-        ':first-child': {
+        ':last-of-type': {
           borderTopLeftRadius: radius200,
           borderTopRightRadius: radius200,
         },
