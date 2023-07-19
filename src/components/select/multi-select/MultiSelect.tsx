@@ -175,12 +175,12 @@ export const MultiSelect = <
         cursor: 'pointer',
         ...padding(scale300, scale600),
         ':first-of-type': {
-          borderBottomLeftRadius: radius200,
-          borderBottomRightRadius: radius200,
-        },
-        ':last-of-type': {
           borderTopLeftRadius: radius200,
           borderTopRightRadius: radius200,
+        },
+        ':last-of-type': {
+          borderBottomLeftRadius: radius200,
+          borderBottomRightRadius: radius200,
           ...borderBottom(),
         },
       }),
@@ -232,7 +232,7 @@ export const MultiSelect = <
       ) : (
         <>
           {creatable ? (
-            <SelectCreatable {...props} menuIsOpen onCreateOption={onCreateOption} menuPortalTarget={document.body} />
+            <SelectCreatable {...props} onCreateOption={onCreateOption} menuPortalTarget={document.body} />
           ) : (
             <Select {...props} menuPortalTarget={document.body} />
           )}
