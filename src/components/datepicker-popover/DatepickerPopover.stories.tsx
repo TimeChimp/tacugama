@@ -12,7 +12,14 @@ export default {
 
 let isOpen = true;
 
-const Template: Story<DatepickerPopoverProps> = (args) => <DatepickerPopover {...args} />;
+const Template: Story<DatepickerPopoverProps> = (args) => {
+  const [date, setDate] = React.useState<[Date, Date]>([
+    new TcDate().startOf('month').toDate(),
+    new TcDate().endOf('month').toDate(),
+  ]);
+
+  return <DatepickerPopover {...args} date={date} onChange={(date) => setDate(date as [Date, Date])} />;
+};
 
 export const Default = Template.bind({});
 Default.args = {

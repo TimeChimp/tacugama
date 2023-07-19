@@ -95,7 +95,7 @@ export const DatepickerPopover = ({
     },
   ];
 
-  const isSameDate = (option: DatepickerOption, _date: Date[]) => {
+  const isSameDates = (option: DatepickerOption, _date: Date[]) => {
     const selectedBeginDate = _date[0];
     const selectedEndDate = _date[1];
     const optionBeginDate = new TcDate(option.beginDate);
@@ -119,7 +119,7 @@ export const DatepickerPopover = ({
     if (!Array.isArray(date)) {
       return quickSelectOptions.some((option) => isSameSingleDate(option, date));
     }
-    return quickSelectOptions.some((option) => isSameDate(option, date));
+    return quickSelectOptions.some((option) => isSameDates(option, date));
   }, [date, quickSelectOptions]);
 
   const quickSelectValue = useMemo(() => {
@@ -132,7 +132,7 @@ export const DatepickerPopover = ({
       return quickSelectOption;
     }
 
-    const quickSelectOption = quickSelectOptions.find((option) => isSameDate(option, date));
+    const quickSelectOption = quickSelectOptions.find((option) => isSameDates(option, date));
     return quickSelectOption;
   }, [date, quickSelectOptions, isDateInQuickSelectOptions]);
 
@@ -195,7 +195,8 @@ export const DatepickerPopover = ({
               component: (props) => (
                 <Select
                   {...props}
-                  value={[quickSelectValue]}
+                  options={quickSelectOptions}
+                  value={quickSelectValue && [quickSelectValue]}
                   disableSortOptions
                   clearable={false}
                   onChangeHandler={({ value }) => onChange && onChange(value)}
