@@ -171,12 +171,12 @@ export const SingleSelect = <
         cursor: 'pointer',
         ...padding(scale300, scale600),
         ':first-of-type': {
-          borderBottomLeftRadius: radius200,
-          borderBottomRightRadius: radius200,
-        },
-        ':last-of-type': {
           borderTopLeftRadius: radius200,
           borderTopRightRadius: radius200,
+        },
+        ':last-of-type': {
+          borderBottomLeftRadius: radius200,
+          borderBottomRightRadius: radius200,
           ...borderBottom(),
         },
       }),
