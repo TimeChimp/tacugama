@@ -18,8 +18,8 @@ export interface MultiSelectProps<ValueType, ValueKey extends string, LabelKey e
         actionMeta: ActionMeta<SingleSelectOption<ValueType, ValueKey, LabelKey>>,
       ) => void)
     | undefined;
-  defaultValue?: SingleSelectOption<ValueType, ValueKey, LabelKey> | null;
-  value?: SingleSelectOption<ValueType, ValueKey, LabelKey> | null;
+  defaultValue?: MultiValue<SingleSelectOption<ValueType, ValueKey, LabelKey>> | null;
+  value?: MultiValue<SingleSelectOption<ValueType, ValueKey, LabelKey>> | null;
   placeholder?: string;
   error?: boolean;
   success?: boolean;
