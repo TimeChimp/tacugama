@@ -143,6 +143,7 @@ export const MultiSelect = <
       input: (provided) => ({
         ...provided,
         ...ParagraphSmall,
+        ...margin(scale300, '0'),
       }),
       menu: (provided) => ({
         ...provided,
