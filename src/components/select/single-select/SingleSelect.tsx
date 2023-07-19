@@ -24,6 +24,7 @@ export const SingleSelect = <
 >({
   valueKey,
   labelKey,
+  value,
   defaultValue,
   showSkeleton = false,
   disableSortOptions = false,
@@ -74,6 +75,7 @@ export const SingleSelect = <
 
   const props: SelectProps<Option<ValueType, ValueKey, LabelKey>, false> = {
     onChange,
+    value,
     defaultValue,
     options: alphabetizedOptions,
     placeholder,

@@ -19,6 +19,7 @@ export interface MultiSelectProps<ValueType, ValueKey extends string, LabelKey e
       ) => void)
     | undefined;
   defaultValue?: SingleSelectOption<ValueType, ValueKey, LabelKey> | null;
+  value?: SingleSelectOption<ValueType, ValueKey, LabelKey> | null;
   placeholder?: string;
   error?: boolean;
   success?: boolean;

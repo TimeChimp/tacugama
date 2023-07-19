@@ -19,6 +19,7 @@ export interface SingleSelectProps<ValueType, ValueKey extends string, LabelKey 
   creatable?: boolean;
   onChange?: (value: Option<ValueType, ValueKey, LabelKey> | null) => void;
   defaultValue?: Option<ValueType, ValueKey, LabelKey> | null;
+  value?: Option<ValueType, ValueKey, LabelKey> | null;
   placeholder?: string;
   error?: boolean;
   success?: boolean;
