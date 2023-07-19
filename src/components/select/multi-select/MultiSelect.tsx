@@ -23,6 +23,7 @@ export const MultiSelect = <
 >({
   valueKey,
   labelKey,
+  value,
   defaultValue,
   showSkeleton = false,
   disableSortOptions = false,
@@ -78,6 +79,7 @@ export const MultiSelect = <
     onChange,
     isMulti: true,
     defaultValue,
+    value,
     options: alphabetizedOptions,
     placeholder,
     isClearable: clearable,
