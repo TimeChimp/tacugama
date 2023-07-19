@@ -46,7 +46,7 @@ export const MultiSelect = <
         colors,
         borders,
         customColors,
-        sizing: { scale100, scale300, scale600, scale950 },
+        sizing: { scale0, scale100, scale300, scale600, scale950 },
         customSizing: { scale975 },
         typography: { ParagraphSmall },
       },
@@ -114,7 +114,7 @@ export const MultiSelect = <
           }),
         }),
         boxShadow: 'none',
-        height: scale950,
+        minHeight: scale950,
         ':hover': {
           ...border({
             ...border300,
@@ -138,15 +138,11 @@ export const MultiSelect = <
         ...provided,
         ...ParagraphSmall,
         color: dark4,
+        ...margin(scale300, '0'),
       }),
       input: (provided) => ({
         ...provided,
         ...ParagraphSmall,
-      }),
-      singleValue: (provided) => ({
-        ...provided,
-        ...ParagraphSmall,
-        lineHeight: scale950,
       }),
       menu: (provided) => ({
         ...provided,
@@ -196,7 +192,7 @@ export const MultiSelect = <
         ...provided,
         ...borderRadius(radius200),
         backgroundColor: primarySubtle,
-        ...margin('0', scale100, '0', '0'),
+        ...margin(scale0, scale100, scale0, '0'),
       }),
       multiValueLabel: (provided) => ({
         ...provided,
