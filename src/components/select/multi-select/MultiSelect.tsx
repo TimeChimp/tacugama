@@ -208,6 +208,7 @@ export const MultiSelect = <
           backgroundColor: primarySubtle,
           color: contentPrimary,
           cursor: 'pointer',
+          ...borderRadius(radius200),
         },
       }),
       clearIndicator: (provided) => ({
