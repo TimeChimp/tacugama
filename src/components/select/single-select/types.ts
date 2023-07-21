@@ -1,7 +1,7 @@
 export type Option<T, ValueKey extends string, LabelKey extends string> = {
   [key in ValueKey]: T;
 } & {
-  [key in LabelKey]: string;
+  [key in LabelKey]: string | JSX.Element;
 } & {
   [key: string]: any;
 };
