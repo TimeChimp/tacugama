@@ -61,3 +61,6 @@ export * from './slider';
 export * from './fixed-size-select';
 export * from './virtual-scroll-list';
 export * from './form-row';
+export * from './file-upload';
+export * from './notification-provider';
+export * from './multi-pages-modal';
