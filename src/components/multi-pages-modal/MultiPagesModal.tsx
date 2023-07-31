@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { MultiPagesModalProps } from './types';
 import { Modal, ModalBody, ModalFooter, ModalHeader, ModalSize } from '../modal';
 import { Button } from '../button';
-import { ButtonKind, ButtonType } from 'models';
+import { ButtonKind, ButtonType } from '../../models';
 
 export const MultiPagesModal = ({
   isOpen,
