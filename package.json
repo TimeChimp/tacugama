@@ -106,6 +106,7 @@
     "core-js": "^3.27.1",
     "date-fns": "^2.17.0",
     "deepmerge": "^4.2.2",
+    "framer-motion": "^10.15.0",
     "isomorphic-unfetch": "^3.1.0",
     "pdfmake": "^0.1.71",
     "react-color": "^2.19.3",
