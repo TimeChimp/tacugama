@@ -17,3 +17,8 @@ export interface NotificationProviderProps {
   isInIframe: boolean;
   sendNotification: (type: SnackBarType, title: string) => void;
 }
+
+export interface NotificationContainerProps {
+  notifications: Notification[];
+  removeNotification: (id: number) => void;
+}
