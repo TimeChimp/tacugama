@@ -25,12 +25,12 @@ export interface EditPageProps {
   backText: string;
 }
 
-export interface RouterPromptProps<T> {
-  show: boolean | undefined;
-  reset?: UseFormReset<T>;
+export interface RouterPromptProps {
+  show?: boolean | undefined;
+  reset: UseFormReset<any>;
 }
 
-export interface EditPageContainerProps<T> {
+export interface EditPageContainerProps {
   title: string;
   fullWidth?: boolean;
   width?: string;
@@ -44,8 +44,6 @@ export interface EditPageContainerProps<T> {
   onFooterButtonClick?: () => Promise<void>;
   secondaryFooterButtonTitle?: string;
   secondaryFooterButtonProps?: ButtonProps;
-  hasUnsavedChanges?: boolean;
-  reset?: UseFormReset<T>;
   paddingLeftRight?: CustomThemeType;
-  RouterPrompt: <T>({ show, reset }: RouterPromptProps<T>) => JSX.Element;
+  routerPrompt?: JSX.Element;
 }

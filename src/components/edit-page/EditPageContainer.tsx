@@ -16,7 +16,7 @@ const TOP_BOTTOM_PADDING = 50;
 const TOTAL_PADDING = TOP_BOTTOM_PADDING * 2;
 const SMALL_CONTAINER_HEIGHT = `calc(${BOX_HEIGHT} - ${TOTAL_PADDING}px)`;
 
-export const EditPageContainer = <T,>({
+export const EditPageContainer = ({
   title,
   fullWidth = true,
   width = 'auto',
@@ -30,11 +30,9 @@ export const EditPageContainer = <T,>({
   onFooterButtonClick,
   secondaryFooterButtonTitle,
   secondaryFooterButtonProps = {},
-  hasUnsavedChanges,
-  reset,
   paddingLeftRight,
-  RouterPrompt,
-}: EditPageContainerProps<T>) => {
+  routerPrompt,
+}: EditPageContainerProps) => {
   const {
     theme: {
       current: {
@@ -94,7 +92,7 @@ export const EditPageContainer = <T,>({
           </Button>
         ) : null}
       </Block>
-      {onFooterButtonClick && <RouterPrompt show={hasUnsavedChanges} reset={reset} />}
+      {onFooterButtonClick && routerPrompt}
     </Box>
   );
 };
