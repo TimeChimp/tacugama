@@ -65,3 +65,4 @@ export * from './file-upload';
 export * from './notification-provider';
 export * from './multi-pages-modal';
 export * from './date-picker';
+export * from './edit-page';
