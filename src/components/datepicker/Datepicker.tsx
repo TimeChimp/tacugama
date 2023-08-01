@@ -16,7 +16,7 @@ import { DATA_TEST_ID } from '../../models';
 import { InputOverrides } from 'baseui/input';
 import { CalendarIcon } from '../icons/calendar';
 import { getDateLocale, TcDate } from '@timechimp/timechimp-typescript-helpers';
-import { DatePickerProps } from './types';
+import { DatepickerProps } from './types';
 import { Skeleton } from '../skeleton';
 
 export const Datepicker = ({
@@ -31,7 +31,7 @@ export const Datepicker = ({
   translations,
   showSkeleton = false,
   ...rest
-}: DatePickerProps) => {
+}: DatepickerProps) => {
   const [localeObj, setLocaleObj] = useState<Locale>();
 
   const {
