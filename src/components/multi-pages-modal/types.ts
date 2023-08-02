@@ -22,4 +22,5 @@ export interface MultiPagesModalProps {
   cancelText: string;
   previousText: string;
   nextText: string;
+  modalName?: string;
 }

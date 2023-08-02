@@ -2,5 +2,5 @@ import { MutableRefObject } from 'react';
 
 export interface FileInputProps {
   inputRef: MutableRefObject<any>;
-  onChange: (e: any) => void;
+  onChange: (e: React.FormEvent<HTMLInputElement>) => void;
 }

@@ -27,7 +27,7 @@ export const EditPageSkeleton = ({ numberOfSideNavItems }: EditPageSkeletonProps
           <Skeleton animation height={scale900} width="200px" />
         </ButtonBox>
       </FlexItem>
-      <FlexGrid flexGridColumnCount={2} flexGridColumnGap="scale900" flexGridRowGap="scale1600">
+      <FlexGrid flexGridColumnCount={2} flexGridColumnGap={scale900} flexGridRowGap={scale1600}>
         <SideMenuFlexGridItem>
           <SideMenuSkeleton numberOfSideNavItems={numberOfSideNavItems} />
         </SideMenuFlexGridItem>

@@ -34,8 +34,8 @@ const FileTemplate: Story<FileInputProps> = () => {
   const inputRef = useRef<any>(null);
   const title = 'Download';
 
-  const handleFileChange = (e) => {
-    const file = e.target.files && e.target.files[0];
+  const handleFileChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const file = (e.target as HTMLInputElement).files && (e.target as HTMLInputElement)?.files?.[0];
     if (!file) {
       return;
     }

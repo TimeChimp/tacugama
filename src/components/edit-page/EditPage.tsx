@@ -34,7 +34,7 @@ export const EditPage = ({
   const {
     theme: {
       current: {
-        sizing: { scale500 },
+        sizing: { scale800, scale500, scale1600 },
       },
     },
   } = useTheme();
@@ -146,7 +146,7 @@ export const EditPage = ({
           )}
         </ButtonBox>
       </FlexItem>
-      <FlexGrid flexGridColumnCount={2} flexGridColumnGap="scale800" flexGridRowGap="scale1600">
+      <FlexGrid flexGridColumnCount={2} flexGridColumnGap={scale800} flexGridRowGap={scale1600}>
         <SideMenuFlexGridItem>
           <Box>
             <SideNav

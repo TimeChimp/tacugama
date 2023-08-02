@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { DatePicker, DatePickerProps, WeekMonthDisplay } from '.';
+import { DatePicker, DatePickerProps, Day, WeekMonthDisplay } from '.';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 
 export default {
@@ -13,7 +13,7 @@ const WEEK_START = 1;
 
 const Template: Story<DatePickerProps> = () => {
   const [date, setDate] = useState<Date>(new Date());
-  const [days, setDays] = useState<any[]>([]);
+  const [days, setDays] = useState<Day[]>([]);
 
   const handleDays = (updatedDate: Date, updatedDisplay: WeekMonthDisplay) => {
     const startDate = new TcDate(updatedDate).startOf(updatedDisplay, WEEK_START);

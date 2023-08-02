@@ -20,6 +20,7 @@ export const MultiPagesModal = ({
   cancelText,
   previousText,
   nextText,
+  modalName = 'multi-pages-modal',
 }: MultiPagesModalProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -43,7 +44,7 @@ export const MultiPagesModal = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size={ModalSize.LARGE} name="multi-pages-modal">
+    <Modal isOpen={isOpen} onClose={onClose} size={ModalSize.LARGE} name={modalName}>
       <form
         onSubmit={onSubmit}
         onKeyUp={(e) => {
