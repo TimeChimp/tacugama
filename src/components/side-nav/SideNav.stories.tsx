@@ -5,6 +5,7 @@ import { ParagraphSmall } from '../typography';
 import { Box } from '../box';
 import { FlexGrid, FlexGridItem } from '../flex-grid';
 import { SideMenuFlexGridItem } from '../edit-page';
+import { ContainerFull } from '../container';
 
 export default {
   title: 'Components/Side nav',
@@ -41,7 +42,7 @@ const Template: Story<SideNavProps> = () => {
   }, [tab]);
 
   return (
-    <div className="container-full">
+    <ContainerFull>
       <FlexGrid flexGridColumnCount={2} flexGridColumnGap="scale900" flexGridRowGap="scale1600">
         <SideMenuFlexGridItem>
           <Box maxHeight="90vh" overflow="auto">
@@ -51,7 +52,7 @@ const Template: Story<SideNavProps> = () => {
 
         <FlexGridItem>{contentComponent}</FlexGridItem>
       </FlexGrid>
-    </div>
+    </ContainerFull>
   );
 };
 
