@@ -25,20 +25,18 @@ const Template: Story<EditPageProps> = () => {
   ];
 
   return (
-    <ContainerFull>
-      <EditPage
-        entity="team"
-        sideNavItems={getSideNavItems()}
-        title={'Edit Page'}
-        returnToTitle={'Page'}
-        onCancel={() => console.log('Cancel')}
-        loading={false}
-        onSave={async () => console.log('Save')}
-        cancelText={'Cancel'}
-        saveText={'Save'}
-        backText={'Back'}
-      />
-    </ContainerFull>
+    <EditPage
+      entity="team"
+      sideNavItems={getSideNavItems()}
+      title={'Edit Page'}
+      returnToTitle={'Page'}
+      onCancel={() => console.log('Cancel')}
+      loading={false}
+      onSave={async () => console.log('Save')}
+      cancelText={'Cancel'}
+      saveText={'Save'}
+      backText={'Back'}
+    />
   );
 };
 

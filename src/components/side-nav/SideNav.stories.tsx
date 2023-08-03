@@ -42,17 +42,15 @@ const Template: Story<SideNavProps> = () => {
   }, [tab]);
 
   return (
-    <ContainerFull>
-      <FlexGrid flexGridColumnCount={2} flexGridColumnGap="scale900" flexGridRowGap="scale1600">
-        <SideMenuFlexGridItem>
-          <Box maxHeight="90vh" overflow="auto">
-            <SideNav activeItemId={tab} items={sideNavItems} handleNavigation={(nextTab) => setTab(nextTab)} />
-          </Box>
-        </SideMenuFlexGridItem>
+    <FlexGrid flexGridColumnCount={2} flexGridColumnGap="scale900" flexGridRowGap="scale1600">
+      <SideMenuFlexGridItem>
+        <Box maxHeight="90vh" overflow="auto">
+          <SideNav activeItemId={tab} items={sideNavItems} handleNavigation={(nextTab) => setTab(nextTab)} />
+        </Box>
+      </SideMenuFlexGridItem>
 
-        <FlexGridItem>{contentComponent}</FlexGridItem>
-      </FlexGrid>
-    </ContainerFull>
+      <FlexGridItem>{contentComponent}</FlexGridItem>
+    </FlexGrid>
   );
 };
 
