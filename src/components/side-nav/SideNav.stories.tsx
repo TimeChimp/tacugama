@@ -5,7 +5,6 @@ import { ParagraphSmall } from '../typography';
 import { Box } from '../box';
 import { FlexGrid, FlexGridItem } from '../flex-grid';
 import { SideMenuFlexGridItem } from '../edit-page';
-import { ContainerFull } from '../container';
 
 export default {
   title: 'Components/Side nav',

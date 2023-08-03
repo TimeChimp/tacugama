@@ -3,7 +3,6 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { EditPage, EditPageProps } from './';
 import { ParagraphSmall } from 'baseui/typography';
 import { SideNavItem } from '../side-nav';
-import { ContainerFull } from '../container';
 
 export default {
   title: 'Components/Edit Page',
