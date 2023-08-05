@@ -1,5 +1,5 @@
 import { SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
-import { DatepickerProps } from 'baseui/datepicker';
+import { DatepickerProps as BaseDatepickerProps } from 'baseui/datepicker';
 import { TetherPlacement } from 'baseui/layer';
 
 export interface DatepickerRangeTranslations {
@@ -15,7 +15,7 @@ export interface DatepickerRangeTranslations {
   previousYear?: string;
 }
 
-export interface DatePickerProps extends DatepickerProps {
+export interface DatepickerProps extends BaseDatepickerProps {
   placement?: TetherPlacement;
   locale?: SupportedLocale;
   weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;

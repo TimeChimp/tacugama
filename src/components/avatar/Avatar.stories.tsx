@@ -2,8 +2,8 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Avatar, AvatarProps } from './';
-import { AvatarIcon } from 'components/icons';
-import { AvatarType } from 'models';
+import { AvatarIcon } from '../icons';
+import { AvatarType } from '../../models';
 
 export default {
   title: 'Components/Avatar',

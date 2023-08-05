@@ -1,59 +1,21 @@
-import { ParagraphMedium } from '../typography';
 import React from 'react';
-import { useTheme } from '../../providers';
-import {
-  StyledSideNav,
-  StyledSideNavItem,
-  StyledSideNavLink,
-  StyledSideNavItemIcon,
-  StyledSideNavItemTitle,
-} from './StyledSideNav';
+import { SideNavListItem } from './SideNavListItem';
+import { StyledSideNav } from './styles';
+import { SideNavProps } from './types';
+import { Block } from '../block';
 
-export interface SideNavItem {
-  id: string;
-  title: string;
-  icon?: JSX.Element;
-  subItems?: SideNavItem[];
-}
-export interface SideNavProps {
-  items: SideNavItem[];
-  activeItemId: string;
-  onChange: (item: SideNavItem) => any;
-}
-
-export const SideNav = ({ items, activeItemId, onChange }: SideNavProps) => {
-  const {
-    theme: {
-      current: {
-        colors: { primary, primary200, contentSecondary },
-      },
-    },
-  } = useTheme();
-
-  const isActive = (item: SideNavItem) => {
-    return item.id === activeItemId;
-  };
-
-  const getColor = (item: SideNavItem) => {
-    return isActive(item) ? primary : contentSecondary;
-  };
-
-  const getBackgroundColor = (item: SideNavItem) => {
-    return isActive(item) ? primary200 : 'transparent';
-  };
-
+export const SideNav = ({ items, header, isInsideModal = false, ...rest }: SideNavProps) => {
   return (
-    <StyledSideNav>
-      {items.map((item) => (
-        <StyledSideNavItem key={item.id}>
-          <StyledSideNavLink onClick={() => onChange(item)} style={{ backgroundColor: getBackgroundColor(item) }}>
-            <StyledSideNavItemIcon>{item.icon}</StyledSideNavItemIcon>
-            <StyledSideNavItemTitle>
-              <ParagraphMedium color={getColor(item)}>{item.title}</ParagraphMedium>
-            </StyledSideNavItemTitle>
-          </StyledSideNavLink>
-        </StyledSideNavItem>
-      ))}
-    </StyledSideNav>
+    <Block display="flex" justifyContent="center" overflow="auto" height="100%">
+      <Block width="100%">
+        <StyledSideNav $isInsideModal={isInsideModal}>
+          {header}
+
+          {items.map((item) => (
+            <SideNavListItem key={item.id} item={item} {...rest} />
+          ))}
+        </StyledSideNav>
+      </Block>
+    </Block>
   );
 };

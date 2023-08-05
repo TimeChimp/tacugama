@@ -1,40 +1,56 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { EditIcon } from '../icons/edit';
-
-import { SideNav, SideNavItem, SideNavProps } from '.';
+import { SideNav, SideNavProps } from '.';
+import { ParagraphSmall } from '../typography';
+import { Box } from '../box';
+import { FlexGrid, FlexGridItem } from '../flex-grid';
+import { SideMenuFlexGridItem } from '../edit-page';
 
 export default {
   title: 'Components/Side nav',
   component: SideNav,
 } as Meta;
 
-let activeItemId: React.ReactText = '1';
+enum Tab {
+  Tab1 = 'Tab1',
+  Tab2 = 'Tab2',
+}
 
-const Template: Story<SideNavProps> = (args) => <SideNav {...args} />;
+const Template: Story<SideNavProps> = () => {
+  const [tab, setTab] = useState<string>(Tab.Tab1);
+
+  const sideNavItems = [
+    {
+      id: Tab.Tab1,
+      title: Tab.Tab1,
+      component: () => <ParagraphSmall>{Tab.Tab1}</ParagraphSmall>,
+    },
+    {
+      id: Tab.Tab2,
+      title: Tab.Tab2,
+      component: () => <ParagraphSmall>{Tab.Tab2}</ParagraphSmall>,
+    },
+  ];
+
+  const contentComponent = useMemo(() => {
+    const navItem = sideNavItems.find(({ id }) => id === tab);
+
+    if (navItem?.component) {
+      return <>{navItem.component()}</>;
+    }
+  }, [tab]);
+
+  return (
+    <FlexGrid flexGridColumnCount={2} flexGridColumnGap="scale900" flexGridRowGap="scale1600">
+      <SideMenuFlexGridItem>
+        <Box maxHeight="90vh" overflow="auto">
+          <SideNav activeItemId={tab} items={sideNavItems} handleNavigation={(nextTab) => setTab(nextTab)} />
+        </Box>
+      </SideMenuFlexGridItem>
+
+      <FlexGridItem>{contentComponent}</FlexGridItem>
+    </FlexGrid>
+  );
+};
 
 export const Default = Template.bind({});
-Default.args = {
-  activeItemId,
-  onChange: ({ id }: SideNavItem) => {
-    activeItemId = id;
-  },
-  items: [
-    {
-      id: '1',
-      icon: <EditIcon />,
-      title: 'Item 1',
-    },
-    {
-      id: '2',
-      icon: <EditIcon />,
-      title: 'Item 2',
-      subItems: [
-        {
-          id: '2a',
-          title: 'Item 2a',
-        },
-      ],
-    },
-  ],
-};
