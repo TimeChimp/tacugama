@@ -58,7 +58,7 @@ export const EditPageContainer = ({
       </Block>
       <Separator noMargin />
       <Block
-        {...padding(scale800, String(paddingLeftRight) ?? scale1600)}
+        {...padding(scale800, paddingLeftRight ?? scale1600)}
         display="flex"
         justifyContent={justifyContent}
         overflow="auto"
@@ -96,3 +96,5 @@ export const EditPageContainer = ({
     </Box>
   );
 };
+
+export default EditPageContainer;

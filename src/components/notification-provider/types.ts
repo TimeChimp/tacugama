@@ -1,5 +1,12 @@
 import { SnackBarType } from '../snackbar';
 
+export enum NotificationType {
+  Success = 'success',
+  Error = 'error',
+  Info = 'info',
+  Warning = 'warning',
+}
+
 export interface Notification {
   id: number;
   message: string;
@@ -15,10 +22,13 @@ export interface NotificationContextProps {
 export interface NotificationProviderProps {
   children: React.ReactNode;
   isInIframe: boolean;
-  sendNotification: (type: SnackBarType, title: string) => void;
-}
-
-export interface NotificationContainerProps {
-  notifications: Notification[];
-  removeNotification: (id: number) => void;
+  sendNotification: ({
+    message,
+    type,
+    title,
+  }: {
+    type: NotificationType | SnackBarType;
+    message?: string;
+    title: string;
+  }) => void;
 }

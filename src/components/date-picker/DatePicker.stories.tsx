@@ -56,3 +56,4 @@ const Template: Story<DatePickerProps> = () => {
 };
 
 export const Default = Template.bind({});
+Default.args = {};

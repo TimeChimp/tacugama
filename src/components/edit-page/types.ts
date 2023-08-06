@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import { SideNavItem } from 'components/side-nav';
 import { UseFormReset } from 'react-hook-form';
 import { ButtonProps } from '../button';
-import { CustomThemeType } from '../../models';
 
 export interface EditPageSkeletonProps {
   numberOfSideNavItems?: number;
@@ -44,6 +43,6 @@ export interface EditPageContainerProps {
   onFooterButtonClick?: () => Promise<void>;
   secondaryFooterButtonTitle?: string;
   secondaryFooterButtonProps?: ButtonProps;
-  paddingLeftRight?: CustomThemeType;
+  paddingLeftRight?: string;
   routerPrompt?: JSX.Element;
 }
