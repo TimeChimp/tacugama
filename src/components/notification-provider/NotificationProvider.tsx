@@ -25,7 +25,7 @@ export const NotificationProvider: FunctionComponent<NotificationProviderProps> 
 
   const newNotification = async (type: SnackBarType, message: string) => {
     if (isInIframe) {
-      sendNotification(type, message);
+      sendNotification({ type, title: message });
       return;
     }
     const id = notificationId + 1;
