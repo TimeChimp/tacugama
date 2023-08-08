@@ -13,7 +13,7 @@ const getBackgroundColor = ({ $isDisabled, $active, $theme }: StyledWeekdayProps
   return $theme.customColors.light4;
 };
 
-export const Container = themedStyled('div', ({ $theme }) => ({
+export const WeekdaysSelectContainer = themedStyled('div', ({ $theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: $theme.sizing.scale600,

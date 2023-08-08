@@ -1,6 +1,6 @@
 import React from 'react';
 import { WeekdaysSelectProps } from './types';
-import { Container, SelectAllLink, WeekdayComponent, WeekdaysContainer } from './styles';
+import { WeekdaysSelectContainer, SelectAllLink, WeekdayComponent, WeekdaysContainer } from './styles';
 import { ParagraphSmall } from '../typography/paragraph-small';
 import { Button } from '../button';
 import { useTheme } from '../../providers';
@@ -40,7 +40,7 @@ export const WeekdaysSelect = ({
   };
 
   return (
-    <Container>
+    <WeekdaysSelectContainer>
       <WeekdaysContainer>
         {weekDays.map((day, index) => (
           <WeekdayComponent
@@ -58,6 +58,6 @@ export const WeekdaysSelect = ({
           <SelectAllLink>{selectAllLabel}</SelectAllLink>
         </Button>
       )}
-    </Container>
+    </WeekdaysSelectContainer>
   );
 };

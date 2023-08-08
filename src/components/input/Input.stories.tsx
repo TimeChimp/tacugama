@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { InputProps } from './types';
 import { Input } from './Input';
@@ -6,9 +6,12 @@ import { ColorInput, ColorInputProps } from './color-input';
 import { SearchIcon } from '../icons/search';
 import { PriceInput, PriceInputProps } from './price-input';
 import { HoursInput, HoursInputProps } from './hours-input';
+import { FileInput, FileInputProps } from './file-input';
 import { NumberInput, NumberInputProps } from './number-input';
-import { PRICE_INPUT_PLACEHOLDER, PRICE_INPUT_PREFIX } from '../../models';
+import { ButtonKind, PRICE_INPUT_PLACEHOLDER, PRICE_INPUT_PREFIX } from '../../models';
 import { SearchInput, SearchInputProps } from './search-input';
+import { Button } from '../button';
+import { AddLineIcon } from '../icons';
 
 export default {
   title: 'Components/Input',
@@ -26,6 +29,31 @@ const NumberTemplate: Story<NumberInputProps> = (args) => <NumberInput {...args}
 const PriceTemplate: Story<PriceInputProps> = (args) => <PriceInput {...args} />;
 
 const HoursTemplate: Story<HoursInputProps> = (args) => <HoursInput {...args} />;
+
+const FileTemplate: Story<FileInputProps> = () => {
+  const inputRef = useRef<any>(null);
+  const title = 'Download';
+
+  const handleFileChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const file = (e.target as HTMLInputElement).files && (e.target as HTMLInputElement)?.files?.[0];
+    if (!file) {
+      return;
+    }
+  };
+
+  const handleClick = () => {
+    inputRef?.current?.click();
+  };
+
+  return (
+    <>
+      <Button kind={ButtonKind.secondary} onClick={handleClick} startEnhancer={<AddLineIcon />}>
+        {title}
+      </Button>
+      <FileInput inputRef={inputRef} onChange={handleFileChange} />
+    </>
+  );
+};
 
 export const Default = Template.bind({});
 Default.args = {
@@ -179,3 +207,5 @@ NoBorderSearch.parameters = {
     url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=2434%3A28364&t=N57j8nqiSc9cqSnt-4',
   },
 };
+
+export const File = FileTemplate.bind({});
