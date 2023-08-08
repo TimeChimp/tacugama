@@ -700,7 +700,6 @@ export const DataGrid = ({
     }
 
     if (defaultFilterValues?.length) {
-      console.log('defaultValues', defaultFilterValues);
       defaultFilterValues.forEach(({ columnField, defaultValue, type }) => {
         if (Array.isArray(defaultValue) && defaultValue.length > 0) {
           defaultValue.forEach((val) => {
