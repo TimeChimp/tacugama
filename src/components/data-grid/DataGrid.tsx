@@ -149,12 +149,13 @@ export const DataGrid = ({
   initialShowLessFilters,
   onShowLessFiltersChange,
   setFiltersHeight,
+  hasStoredFilters,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
-  const [allViews, setAllViews] = useState<DataGridView[]>([]);
+  const [allViews, setAllViews] = useState<DataGridView[]>(views ?? []);
   const [selectedFilterIds, setSelectedFilterIds] = useState<SelectedFilterIds>({});
   const [rowsSelected, setRowsSelected] = useState<number>(0);
   const [isGridColumnApiLoaded, setIsGridColumnApiLoaded] = useState<boolean>(false);
@@ -714,7 +715,8 @@ export const DataGrid = ({
 
   const onFirstDataRendered = () => {
     const activeView = allViews?.find((view) => view.active);
-    if (activeView && activeView.viewState) {
+
+    if (activeView && activeView.viewState && !hasStoredFilters) {
       return setViewState(gridApi, gridColumnApi, activeView.viewState);
     }
 

@@ -255,6 +255,7 @@ export interface DataGridProps {
   initialShowLessFilters?: boolean;
   onShowLessFiltersChange?: (showLessFilters: boolean) => void;
   setFiltersHeight?: (filtersHeight: number) => void;
+  hasStoredFilters?: boolean;
 }
 
 export interface DataGridView {
