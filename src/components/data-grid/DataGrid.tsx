@@ -29,6 +29,7 @@ import {
   GridReadyEvent,
   DateFilterModel,
   SelectionChangedEvent,
+  TextFilterModel,
 } from '@ag-grid-community/core';
 import {
   formatCurrency,
@@ -57,6 +58,7 @@ import {
   DataGridColumnValueType,
   CustomFilterTypes,
   Filter,
+  IdsFilterModel,
 } from './types';
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
@@ -268,6 +270,20 @@ export const DataGrid = ({
           }
         }
 
+        if (filter.filterType === 'ids') {
+          const idsFilter = filter as IdsFilterModel;
+          if (idsFilter.ids) {
+            filterIds[filterName] = idsFilter.ids;
+          }
+        }
+
+        if (filter.filterType === 'text') {
+          const textFilter = filter as TextFilterModel;
+          if (textFilter?.filter) {
+            filterIds[filterName] = [textFilter.filter];
+          }
+        }
+
         if (filter.filterType === 'date') {
           const { dateFrom, dateTo } = filter as DateFilterModel;
           if (setDates && dateFrom && dateTo) {
@@ -315,8 +331,9 @@ export const DataGrid = ({
         try {
           columnApi.setColumnState(gridState.columnState);
           columnApi.setColumnGroupState(gridState.columnGroupState);
-          //api?.setFilterModel(gridState.filterModel);
-          //setViewFilterIds(gridState.filterModel);
+          setFilterModel(gridState.filterModel);
+          api?.setFilterModel(gridState.filterModel);
+          setViewFilterIds(gridState.filterModel);
         } catch (e) {
           console.error('Error while setting grid state', e);
         }
@@ -331,6 +348,7 @@ export const DataGrid = ({
 
   const handleActivateView = async (id: string) => {
     const view = allViews?.find((view) => view.id === id);
+
     if (view) {
       if (view.id === 'default' && onDeactivateView) {
         // Deactivate current view when selecting the default view
@@ -682,6 +700,7 @@ export const DataGrid = ({
     }
 
     if (defaultFilterValues?.length) {
+      console.log('defaultValues', defaultFilterValues);
       defaultFilterValues.forEach(({ columnField, defaultValue, type }) => {
         if (Array.isArray(defaultValue) && defaultValue.length > 0) {
           defaultValue.forEach((val) => {
@@ -834,6 +853,7 @@ export const DataGrid = ({
                   gridColumnApi={gridColumnApi}
                   onModalClose={onModalClose}
                   onModalOpen={onModalOpen}
+                  filterModel={filterModel}
                 />
               )}
               {grouping && (

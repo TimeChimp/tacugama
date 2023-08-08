@@ -18,8 +18,8 @@ export const CreateViewModal = ({
   onClose,
   handleCreateView,
   translations,
-  gridApi,
   gridColumnApi,
+  filterModel,
 }: CreateViewModalProps) => {
   const {
     handleSubmit,
@@ -31,24 +31,18 @@ export const CreateViewModal = ({
     mode: 'onChange',
   });
   const [loading, setLoading] = useState<boolean>(false);
-  const [saveColumns, setSaveColumns] = useState<boolean>(true);
-  const [saveGrouping, setSaveGrouping] = useState<boolean>(true);
-  const [saveFilters, setSaveFilters] = useState<boolean>(true);
 
   useEffect(() => {
     if (isOpen) {
       reset({ name: '' });
-      setSaveColumns(true);
-      setSaveGrouping(true);
-      setSaveFilters(true);
     }
   }, [setValue, isOpen, reset, gridColumnApi]);
 
   const getState = () => {
     const state: DataGridState = {
-      columnState: saveColumns ? gridColumnApi?.getColumnState() : [],
-      columnGroupState: saveGrouping ? gridColumnApi?.getColumnGroupState() : [],
-      filterModel: saveFilters ? gridApi?.getFilterModel() : {},
+      columnState: gridColumnApi?.getColumnState(),
+      columnGroupState: gridColumnApi?.getColumnGroupState(),
+      filterModel,
     };
     return JSON.stringify(state);
   };
@@ -91,21 +85,6 @@ export const CreateViewModal = ({
               )}
             />
           </FormControl>
-          {/* <FormControl>
-            <Checkbox checked={saveColumns} onChange={() => setSaveColumns(!saveColumns)}>
-              {translations.saveColumns}
-            </Checkbox>
-          </FormControl>
-          <FormControl>
-            <Checkbox checked={saveGrouping} onChange={() => setSaveGrouping(!saveGrouping)}>
-              {translations.saveGrouping}
-            </Checkbox>
-          </FormControl>
-          <FormControl>
-            <Checkbox checked={saveFilters} onChange={() => setSaveFilters(!saveFilters)}>
-              {translations.saveFilters}
-            </Checkbox>
-          </FormControl> */}
           <Banner text={translations.viewsExplanation} />
         </ModalBody>
         <ModalFooter>
