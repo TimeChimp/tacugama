@@ -14,3 +14,4 @@ export {
   VictoryVoronoiContainer,
   VictoryStack,
 } from 'victory';
+export * from './theme';
