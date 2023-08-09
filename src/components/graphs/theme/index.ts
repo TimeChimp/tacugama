@@ -1,15 +1,7 @@
-// Colors
-const yellow200 = '#FFF59D';
-const deepOrange600 = '#F4511E';
-const lime300 = '#DCE775';
-const lightGreen500 = '#8BC34A';
-const teal700 = '#00796B';
-const cyan900 = '#006064';
-const colors = [deepOrange600, yellow200, lime300, lightGreen500, teal700, cyan900];
-const blueGrey50 = '#ECEFF1';
-const blueGrey300 = '#90A4AE';
-const blueGrey700 = '#455A64';
-const grey900 = '#212121';
+import { colors } from '../../input';
+import { lightColors, customColors } from '../../../theme/colors';
+const { contentPrimary, contentTertiary } = lightColors;
+const { light6 } = customColors;
 
 // Typography
 const sansSerif = "'Inter', 'Helvetica', sans-serif";
@@ -30,7 +22,7 @@ const baseLabelStyles = {
   fontSize,
   letterSpacing,
   padding,
-  fill: blueGrey700,
+  fill: contentPrimary,
   stroke: 'transparent',
   strokeWidth: 0,
 };
@@ -47,7 +39,7 @@ export const chartTheme = {
     {
       style: {
         data: {
-          fill: grey900,
+          fill: contentPrimary,
         },
         labels: baseLabelStyles,
       },
@@ -59,7 +51,7 @@ export const chartTheme = {
       style: {
         axis: {
           fill: 'transparent',
-          stroke: blueGrey300,
+          stroke: light6,
           strokeWidth: 2,
           strokeLinecap,
           strokeLinejoin,
@@ -70,7 +62,7 @@ export const chartTheme = {
         }),
         grid: {
           fill: 'none',
-          stroke: blueGrey50,
+          stroke: contentTertiary,
           strokeDasharray,
           strokeLinecap,
           strokeLinejoin,
@@ -79,13 +71,13 @@ export const chartTheme = {
         ticks: {
           fill: 'transparent',
           size: 5,
-          stroke: blueGrey300,
+          stroke: light6,
           strokeWidth: 1,
           strokeLinecap,
           strokeLinejoin,
         },
         tickLabels: Object.assign({}, baseLabelStyles, {
-          fill: blueGrey700,
+          fill: contentPrimary,
         }),
       },
     },
@@ -104,7 +96,7 @@ export const chartTheme = {
     {
       style: {
         data: {
-          fill: blueGrey700,
+          fill: contentPrimary,
           padding,
           strokeWidth: 0,
         },
@@ -116,15 +108,15 @@ export const chartTheme = {
   boxplot: Object.assign(
     {
       style: {
-        max: { padding, stroke: blueGrey700, strokeWidth: 1 },
+        max: { padding, stroke: contentPrimary, strokeWidth: 1 },
         maxLabels: Object.assign({}, baseLabelStyles, { padding: 3 }),
-        median: { padding, stroke: blueGrey700, strokeWidth: 1 },
+        median: { padding, stroke: contentPrimary, strokeWidth: 1 },
         medianLabels: Object.assign({}, baseLabelStyles, { padding: 3 }),
-        min: { padding, stroke: blueGrey700, strokeWidth: 1 },
+        min: { padding, stroke: contentPrimary, strokeWidth: 1 },
         minLabels: Object.assign({}, baseLabelStyles, { padding: 3 }),
-        q1: { padding, fill: blueGrey700 },
+        q1: { padding, fill: contentPrimary },
         q1Labels: Object.assign({}, baseLabelStyles, { padding: 3 }),
-        q3: { padding, fill: blueGrey700 },
+        q3: { padding, fill: contentPrimary },
         q3Labels: Object.assign({}, baseLabelStyles, { padding: 3 }),
       },
       boxWidth: 20,
@@ -135,13 +127,13 @@ export const chartTheme = {
     {
       style: {
         data: {
-          stroke: blueGrey700,
+          stroke: contentPrimary,
         },
         labels: Object.assign({}, baseLabelStyles, { padding: 5 }),
       },
       candleColors: {
         positive: '#ffffff',
-        negative: blueGrey700,
+        negative: contentPrimary,
       },
     },
     baseProps,
@@ -154,7 +146,7 @@ export const chartTheme = {
         data: {
           fill: 'transparent',
           opacity: 1,
-          stroke: blueGrey700,
+          stroke: contentPrimary,
           strokeWidth: 2,
         },
         labels: baseLabelStyles,
@@ -172,8 +164,8 @@ export const chartTheme = {
     {
       style: {
         data: {
-          fill: blueGrey700,
-          stroke: grey900,
+          fill: contentPrimary,
+          stroke: contentPrimary,
           strokeWidth: 2,
         },
         labels: baseLabelStyles,
@@ -200,7 +192,7 @@ export const chartTheme = {
         data: {
           fill: 'transparent',
           opacity: 1,
-          stroke: blueGrey700,
+          stroke: contentPrimary,
           strokeWidth: 2,
         },
         labels: baseLabelStyles,
@@ -214,7 +206,7 @@ export const chartTheme = {
       style: {
         data: {
           padding,
-          stroke: blueGrey50,
+          stroke: contentTertiary,
           strokeWidth: 1,
         },
         labels: Object.assign({}, baseLabelStyles, { padding: 20 }),
@@ -226,7 +218,7 @@ export const chartTheme = {
     {
       style: {
         data: {
-          fill: blueGrey700,
+          fill: contentPrimary,
           opacity: 1,
           stroke: 'transparent',
           strokeWidth: 0,
@@ -245,7 +237,7 @@ export const chartTheme = {
   tooltip: {
     style: Object.assign({}, baseLabelStyles, { padding: 0, pointerEvents: 'none' }),
     flyoutStyle: {
-      stroke: grey900,
+      stroke: contentPrimary,
       strokeWidth: 1,
       fill: '#f0f0f0',
       pointerEvents: 'none',
@@ -264,7 +256,7 @@ export const chartTheme = {
         },
         labels: Object.assign({}, baseLabelStyles, { padding: 5, pointerEvents: 'none' }),
         flyout: {
-          stroke: grey900,
+          stroke: contentPrimary,
           strokeWidth: 1,
           fill: '#f0f0f0',
           pointerEvents: 'none',
