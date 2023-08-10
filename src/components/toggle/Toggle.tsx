@@ -3,7 +3,6 @@ import { Checkbox, CheckboxProps, STYLE_TYPE } from 'baseui/checkbox';
 import { useTheme } from '../../providers';
 import { borderRadius, margin } from '../../utils';
 import { DATA_TEST_ID } from '../../models';
-import { isDisabled } from '@testing-library/user-event/dist/utils';
 
 export interface ToggleProps extends CheckboxProps {
   testId?: string;
@@ -21,7 +20,7 @@ export const Toggle = ({ checked, children, testId, size = ToggleSize.large, dis
       current: {
         sizing: { scale0, scale500, scale600, scale700, scale950 },
         colors: { primary400 },
-        customColors: { dark4, light2, light3, light4, light6, light7 },
+        customColors: { light2, light3, light4, light6, light7 },
         typography: { LabelSmall },
       },
     },
