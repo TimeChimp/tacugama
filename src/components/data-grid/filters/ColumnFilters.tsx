@@ -205,7 +205,13 @@ export const ColumnFilters = ({
     clearFilterModel(columnField);
   };
 
-  const getSelectedFilterIds = (columnField: string) => selectedFilterIds[columnField]?.map(String);
+  const getSelectedFilterIds = (columnField: string) => {
+    if (Array.isArray(selectedFilterIds?.[columnField])) {
+      return selectedFilterIds?.[columnField]?.map(String);
+    } else {
+      return [selectedFilterIds?.[columnField]?.toString()];
+    }
+  };
 
   const handleFilterMultiValues = (columnField: string) => (values: FilterValue['value'][]) =>
     filterOnMultiValues(columnField, values);

@@ -12,6 +12,7 @@ import {
   RowNode,
   TextFilterModel,
   ValueFormatterParams,
+  ProvidedFilterModel,
 } from '@ag-grid-community/core';
 import { DurationFormat, NumberFormat, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DropdownItem } from '../dropdown';
@@ -60,6 +61,10 @@ export interface DataGridColumn extends AgGridColumnProps {
   customMap?: (value: any) => any;
   customComponent?: React.FunctionComponent<{ data: any; value: any }>;
   customHeaderComponent?: React.FunctionComponent;
+}
+
+export interface IdsFilterModel extends ProvidedFilterModel {
+  ids: (string | null)[];
 }
 
 export type FilterTypeModel = TextFilterModel | NumberFilterModel | DateFilterModel | SetFilterModel;
@@ -250,6 +255,7 @@ export interface DataGridProps {
   initialShowLessFilters?: boolean;
   onShowLessFiltersChange?: (showLessFilters: boolean) => void;
   setFiltersHeight?: (filtersHeight: number) => void;
+  hasStoredFilters?: boolean;
 }
 
 export interface DataGridView {
@@ -398,6 +404,7 @@ export interface DataGridViewsProps {
   onModalClose?: () => void;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
+  filterModel: Record<string, any>;
 }
 
 export interface CreateViewModalProps {
@@ -405,8 +412,8 @@ export interface CreateViewModalProps {
   onClose: () => void;
   handleCreateView: (input: CreateViewInput) => Promise<void>;
   translations: Translations;
-  gridApi: GridApi;
   gridColumnApi: ColumnApi;
+  filterModel: Record<string, any>;
 }
 
 export interface SaveViewModalProps {
@@ -414,9 +421,9 @@ export interface SaveViewModalProps {
   onClose: () => void;
   handleSaveView: (id: string, viewState: string) => Promise<void>;
   translations: Translations;
-  gridApi: GridApi;
   gridColumnApi: ColumnApi;
   view: DataGridView;
+  filterModel: Record<string, any>;
 }
 
 export interface RenameViewModalProps {
