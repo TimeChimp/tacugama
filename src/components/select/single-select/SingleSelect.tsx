@@ -244,7 +244,7 @@ export const SingleSelect = <
       return <SelectCreatable {...props} onCreateOption={onCreateOption} menuPortalTarget={document.body} />;
     }
     if (loadOptions) {
-      return <SelectAsync {...props} loadOptions={loadOptions} cacheOptions={cacheOptions} />;
+      return <SelectAsync {...props} loadOptions={loadOptions} cacheOptions={cacheOptions} defaultOptions={options} />;
     }
     return <Select {...props} menuPortalTarget={document.body} />;
   }, [cacheOptions, creatable, loadOptions, onCreateOption, props]);
