@@ -10,6 +10,15 @@ export default {
   title: 'Components/Select',
 } as Meta;
 
+const promiseOptions = (inputValue: string) =>
+  new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(() => {
+        return OPTIONS.filter((i) => i.name.toLowerCase().includes(inputValue.toLowerCase()));
+      });
+    }, 1000);
+  });
+
 const Template: Story<MultiSelectProps<string, 'id', 'name'>> = (args) => <MultiSelect {...args} />;
 Template.parameters = {
   design: {
@@ -28,6 +37,15 @@ Single.args = {
   placeholder: 'Placeholder',
   creatable: true,
   clearable: true,
+};
+
+export const SingleAsync = SingleSelectTemplate.bind({});
+SingleAsync.args = {
+  options: OPTIONS,
+  placeholder: 'Placeholder',
+  clearable: true,
+  cacheOptions: true,
+  loadOptions: promiseOptions,
 };
 
 export const Multi = Template.bind({});

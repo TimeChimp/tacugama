@@ -27,4 +27,6 @@ export interface SingleSelectProps<ValueType, ValueKey extends string, LabelKey 
   noOptionsMessage?: () => string;
   onCreateOption?: (inputValue: string) => void;
   multi?: boolean;
+  loadOptions?: (inputValue: string) => Promise<Option<ValueType, ValueKey, LabelKey>[]>;
+  cacheOptions?: boolean;
 }
