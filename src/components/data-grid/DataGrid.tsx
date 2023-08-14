@@ -150,6 +150,7 @@ export const DataGrid = ({
   onShowLessFiltersChange,
   setFiltersHeight,
   hasStoredFilters,
+  showTotalFooter = false,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -581,11 +582,14 @@ export const DataGrid = ({
   };
 
   const onSearch = (searchTerm: string) => {
+    if (!searchTerm) {
+      return;
+    }
     searchColumns?.forEach((columnField) => {
       filterModel[columnField] = {
         filterType: 'text',
         type: 'contains',
-        filter: searchTerm,
+        filter: searchTerm.trim(),
       };
     });
     onFiltering(filterModel);
@@ -800,15 +804,12 @@ export const DataGrid = ({
     <>
       <Filters
         api={gridApi}
-        columns={gridColumns}
         filtering={filtering}
         filters={filters}
         dates={dates}
         setDates={setDates}
-        onFiltering={setFilterModel}
         translations={translations}
         datepickerTranslations={datepickerTranslations}
-        searchColumns={searchColumns}
         dateFormat={formatSettings.dateFormat ?? (defaultFormatSettings.dateFormat as string)}
         selectedFilterIds={selectedFilterIds}
         setSelectedFilterIds={setSelectedFilterIds}
@@ -908,6 +909,7 @@ export const DataGrid = ({
           groupIncludeFooter={groupIncludeFooter}
           groupIncludeTotalFooter={groupIncludeTotalFooter}
           groupSelectsChildren={!treeData && true}
+          pinnedBottomRowData={showTotalFooter && []}
           pagination={showPagination}
           paginationPageSize={paginationPageSize}
           suppressPaginationPanel={hasPaginationPanel}

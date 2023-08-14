@@ -7,13 +7,11 @@ import { ColumnFilters } from './ColumnFilters';
 import { debounce } from '../../../utils';
 
 const SEARCH_INPUT_TEST_ID = 'data-grid-search';
+const RESIZE_EVENT = 'resize';
 
 export const Filters = ({
-  columns,
   filtering,
-  onFiltering,
   api,
-  searchColumns,
   translations,
   debouncedSearch,
   onSearch,
@@ -31,10 +29,10 @@ export const Filters = ({
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize);
+    window.addEventListener(RESIZE_EVENT, handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener(RESIZE_EVENT, handleResize);
     };
   }, []);
 
