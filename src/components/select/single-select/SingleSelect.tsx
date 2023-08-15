@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { CaretDownIcon, FlexItem, Skeleton } from '../..';
 import SelectCreatable from 'react-select/creatable';
+import SelectAsync from 'react-select/async';
 import Select, { Props as SelectProps } from 'react-select';
 import { useTheme } from '../../../providers';
 import {
@@ -41,6 +42,8 @@ export const SingleSelect = <
   createText = (inputValue: string) => `Create ${inputValue}`,
   noOptionsMessage = () => 'No options',
   onCreateOption,
+  loadOptions,
+  cacheOptions,
 }: SingleSelectProps<ValueType, ValueKey, LabelKey>) => {
   const {
     theme: {
@@ -73,47 +76,35 @@ export const SingleSelect = <
 
   const alphabetizedOptions = alphabetizeOptions(options, disableSortOptions);
 
-  const props: SelectProps<Option<ValueType, ValueKey, LabelKey>, false> = {
-    onChange,
-    value,
-    defaultValue,
-    options: alphabetizedOptions,
-    placeholder,
-    isClearable: clearable,
-    isSearchable: searchable,
-    isDisabled: disabled || isLoading,
-    isLoading,
-    getOptionLabel: (option: Option<ValueType, ValueKey, LabelKey>) => {
-      if (option.__isNew__) {
-        return createText(option.value);
-      }
+  const props: SelectProps<Option<ValueType, ValueKey, LabelKey>, false> = useMemo(
+    () => ({
+      onChange,
+      value,
+      defaultValue,
+      options: alphabetizedOptions,
+      placeholder,
+      isClearable: clearable,
+      isSearchable: searchable,
+      isDisabled: disabled || isLoading,
+      isLoading,
+      getOptionLabel: (option: Option<ValueType, ValueKey, LabelKey>) => {
+        if (option.__isNew__) {
+          return createText(option.value);
+        }
 
-      return option[labelKey ?? DEFAULT_LABEL_KEY];
-    },
-    getOptionValue: (option: Option<ValueType, ValueKey, LabelKey>) => option[valueKey ?? DEFAULT_VALUE_KEY],
-    noOptionsMessage,
-    styles: {
-      container: (provided) => ({
-        ...provided,
-        width: '100%',
-      }),
-      control: (provided, { isFocused }) => ({
-        ...provided,
-        backgroundColor: getInputBackgroundColor({ disabled, customColors, colors }),
-        ...borderRadius(radius200),
-        ...border({
-          ...border300,
-          borderColor: getInputBorderColor({
-            error,
-            success,
-            isFocused,
-            customColors,
-            colors,
-          }),
+        return option[labelKey ?? DEFAULT_LABEL_KEY];
+      },
+      getOptionValue: (option: Option<ValueType, ValueKey, LabelKey>) => option[valueKey ?? DEFAULT_VALUE_KEY],
+      noOptionsMessage,
+      styles: {
+        container: (provided) => ({
+          ...provided,
+          width: '100%',
         }),
-        boxShadow: 'none',
-        height: scale950,
-        ':hover': {
+        control: (provided, { isFocused }) => ({
+          ...provided,
+          backgroundColor: getInputBackgroundColor({ disabled, customColors, colors }),
+          ...borderRadius(radius200),
           ...border({
             ...border300,
             borderColor: getInputBorderColor({
@@ -122,101 +113,141 @@ export const SingleSelect = <
               isFocused,
               customColors,
               colors,
-              hover: true,
-              disabled,
             }),
           }),
-        },
-      }),
-      valueContainer: (provided) => ({
-        ...provided,
-        ...padding('0', scale600),
-      }),
-      placeholder: (provided) => ({
-        ...provided,
-        ...ParagraphSmall,
-        color: dark4,
-      }),
-      input: (provided) => ({
-        ...provided,
-        ...ParagraphSmall,
-      }),
-      singleValue: (provided) => ({
-        ...provided,
-        ...ParagraphSmall,
-        lineHeight: scale950,
-      }),
-      menu: (provided) => ({
-        ...provided,
-        ...borderRadius(radius200),
-        ...border(border300),
-        boxShadow: 'none',
-        ...margin(scale100, '0'),
-      }),
-      menuList: (provided) => ({
-        ...provided,
-        ...padding(),
-      }),
-      menuPortal: (provided) => ({
-        ...provided,
-        zIndex: 99999,
-      }),
-      option: (provided, { isSelected }) => ({
-        ...provided,
-        ...borderBottom(border300),
-        ...ParagraphSmall,
-        color: contentPrimary,
-        ':hover': {
-          backgroundColor: primary100,
-        },
-        backgroundColor: isSelected ? primary100 : primaryB,
-        cursor: 'pointer',
-        ...padding(scale300, scale600),
-        ':first-of-type': {
-          borderTopLeftRadius: radius200,
-          borderTopRightRadius: radius200,
-        },
-        ':last-of-type': {
-          borderBottomLeftRadius: radius200,
-          borderBottomRightRadius: radius200,
-          ...borderBottom(),
-        },
-      }),
-      indicatorSeparator: () => ({
-        display: 'none',
-      }),
-      noOptionsMessage: (provided) => ({
-        ...provided,
-        ...ParagraphSmall,
-        color: dark4,
-      }),
-      clearIndicator: (provided) => ({
-        ...provided,
-        cursor: 'pointer',
-      }),
-    },
-    components: {
-      DropdownIndicator: () => (
-        <FlexItem marg1="0" marg2={scale600} marg3="0" marg4={scale100} width="auto">
-          <CaretDownIcon />
-        </FlexItem>
-      ),
-    },
-  };
-
-  return (
-    <>
-      {showSkeleton ? (
-        <Skeleton width="100%" height={scale975} animation />
-      ) : (
-        <>
-          {creatable ? (
-            <SelectCreatable {...props} onCreateOption={onCreateOption} menuPortalTarget={document.body} />
-          ) : (
-            <Select {...props} menuPortalTarget={document.body} />
-          )}
-        </>
-      )}
-    </>
+          boxShadow: 'none',
+          height: scale950,
+          ':hover': {
+            ...border({
+              ...border300,
+              borderColor: getInputBorderColor({
+                error,
+                success,
+                isFocused,
+                customColors,
+                colors,
+                hover: true,
+                disabled,
+              }),
+            }),
+          },
+        }),
+        valueContainer: (provided) => ({
+          ...provided,
+          ...padding('0', scale600),
+        }),
+        placeholder: (provided) => ({
+          ...provided,
+          ...ParagraphSmall,
+          color: dark4,
+        }),
+        input: (provided) => ({
+          ...provided,
+          ...ParagraphSmall,
+        }),
+        singleValue: (provided) => ({
+          ...provided,
+          ...ParagraphSmall,
+          lineHeight: scale950,
+        }),
+        menu: (provided) => ({
+          ...provided,
+          ...borderRadius(radius200),
+          ...border(border300),
+          boxShadow: 'none',
+          ...margin(scale100, '0'),
+        }),
+        menuList: (provided) => ({
+          ...provided,
+          ...padding(),
+        }),
+        menuPortal: (provided) => ({
+          ...provided,
+          zIndex: 99999,
+        }),
+        option: (provided, { isSelected }) => ({
+          ...provided,
+          ...borderBottom(border300),
+          ...ParagraphSmall,
+          color: contentPrimary,
+          ':hover': {
+            backgroundColor: primary100,
+          },
+          backgroundColor: isSelected ? primary100 : primaryB,
+          cursor: 'pointer',
+          ...padding(scale300, scale600),
+          ':first-of-type': {
+            borderTopLeftRadius: radius200,
+            borderTopRightRadius: radius200,
+          },
+          ':last-of-type': {
+            borderBottomLeftRadius: radius200,
+            borderBottomRightRadius: radius200,
+            ...borderBottom(),
+          },
+        }),
+        indicatorSeparator: () => ({
+          display: 'none',
+        }),
+        noOptionsMessage: (provided) => ({
+          ...provided,
+          ...ParagraphSmall,
+          color: dark4,
+        }),
+        clearIndicator: (provided) => ({
+          ...provided,
+          cursor: 'pointer',
+        }),
+      },
+      components: {
+        DropdownIndicator: () => (
+          <FlexItem marg1="0" marg2={scale600} marg3="0" marg4={scale100} width="auto">
+            <CaretDownIcon />
+          </FlexItem>
+        ),
+      },
+    }),
+    [
+      ParagraphSmall,
+      alphabetizedOptions,
+      border300,
+      clearable,
+      colors,
+      contentPrimary,
+      createText,
+      customColors,
+      dark4,
+      defaultValue,
+      disabled,
+      error,
+      isLoading,
+      labelKey,
+      noOptionsMessage,
+      onChange,
+      placeholder,
+      primary100,
+      primaryB,
+      radius200,
+      scale100,
+      scale300,
+      scale600,
+      scale950,
+      searchable,
+      success,
+      value,
+      valueKey,
+    ],
   );
+
+  const SelectComponent = useMemo(() => {
+    if (creatable) {
+      return <SelectCreatable {...props} onCreateOption={onCreateOption} menuPortalTarget={document.body} />;
+    }
+    if (loadOptions) {
+      return <SelectAsync {...props} loadOptions={loadOptions} cacheOptions={cacheOptions} defaultOptions={options} />;
+    }
+    return <Select {...props} menuPortalTarget={document.body} />;
+  }, [cacheOptions, creatable, loadOptions, onCreateOption, props]);
+
+  return <>{showSkeleton ? <Skeleton width="100%" height={scale975} animation /> : <>{SelectComponent}</>}</>;
 };
