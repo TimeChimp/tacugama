@@ -150,7 +150,6 @@ export const DataGrid = ({
   onShowLessFiltersChange,
   setFiltersHeight,
   hasStoredFilters,
-  showTotalFooter = false,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -909,7 +908,6 @@ export const DataGrid = ({
           groupIncludeFooter={groupIncludeFooter}
           groupIncludeTotalFooter={groupIncludeTotalFooter}
           groupSelectsChildren={!treeData && true}
-          pinnedBottomRowData={showTotalFooter && []}
           pagination={showPagination}
           paginationPageSize={paginationPageSize}
           suppressPaginationPanel={hasPaginationPanel}
