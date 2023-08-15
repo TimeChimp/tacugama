@@ -278,15 +278,12 @@ export interface SelectedFilterIds {
 
 export interface FiltersProps {
   api: GridApi;
-  columns: DataGridColumn[];
   filters?: Filter[];
   dates?: Date[];
   setDates?: (dates: Date[]) => void;
   filtering?: boolean;
-  onFiltering: (filters: FilterModel) => void;
   translations: Translations;
   datepickerTranslations?: DatepickerRangeTranslations;
-  searchColumns?: string[];
   dateFormat: string;
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
