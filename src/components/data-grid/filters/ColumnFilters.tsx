@@ -213,8 +213,13 @@ export const ColumnFilters = ({
     }
   };
 
-  const handleFilterMultiValues = (columnField: string) => (values: FilterValue['value'][]) =>
-    filterOnMultiValues(columnField, values);
+  const handleFilterMultiValues = (columnField: string) => (values: FilterValue['value'][]) => {
+    if (values.length) {
+      filterOnMultiValues(columnField, values);
+    } else {
+      onSetFilterClear(columnField);
+    }
+  };
 
   const getSelectHasValue = (columnField: string) =>
     Array.isArray(selectedFilterIds[columnField])
