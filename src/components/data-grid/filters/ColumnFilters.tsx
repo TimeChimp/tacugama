@@ -317,7 +317,7 @@ export const ColumnFilters = ({
     visibleFilters?.map((filter) => onSetFilterClear(filter.columnField));
   };
 
-  const filtersWithoutSettings = filters?.filter((item) => item.type !== FilterType.settings);
+  const filtersWithoutSettings = filters?.filter((item) => item.type !== FilterType.settings && !item.hide);
 
   return (
     <>
