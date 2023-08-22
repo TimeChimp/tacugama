@@ -4,6 +4,7 @@ import SelectCreatable from 'react-select/creatable';
 import SelectAsync from 'react-select/async';
 import Select, { Props as SelectProps, components } from 'react-select';
 import { useTheme } from '../../../providers';
+import { DATA_TEST_ID } from '../../../models';
 import {
   border,
   borderBottom,
@@ -44,7 +45,7 @@ export const SingleSelect = <
   onCreateOption,
   loadOptions,
   cacheOptions,
-  menuTestId,
+  dataTestId,
 }: SingleSelectProps<ValueType, ValueKey, LabelKey>) => {
   const {
     theme: {
@@ -76,29 +77,6 @@ export const SingleSelect = <
   };
 
   const alphabetizedOptions = alphabetizeOptions(options, disableSortOptions);
-
-  const CustomMenuList = ({ children, innerProps }: any) => (
-    <div {...innerProps} data-test-id={menuTestId}>
-      {children}
-    </div>
-  );
-
-  const CustomOption = ({ children, innerProps, data }: any) => {
-    const optionValue = data[labelKey ?? DEFAULT_LABEL_KEY];
-    const optionId = `${menuTestId}-option-${optionValue}`;
-
-    return (
-      <div {...innerProps} data-test-id={optionId}>
-        {children}
-      </div>
-    );
-  };
-
-  const CustomDropdownIndicator = () => (
-    <FlexItem marg1="0" marg2={scale600} marg3="0" marg4={scale100} width="auto">
-      <CaretDownIcon />
-    </FlexItem>
-  );
 
   const props: SelectProps<Option<ValueType, ValueKey, LabelKey>, false> = useMemo(
     () => ({
@@ -224,13 +202,24 @@ export const SingleSelect = <
         }),
       },
       components: {
-        DropdownIndicator: CustomDropdownIndicator,
-        MenuList: (props) => <CustomMenuList {...props} />,
-        Option: (props) => (
-          <components.Option {...props}>
-            <CustomOption {...props} />
-          </components.Option>
+        DropdownIndicator: () => (
+          <FlexItem marg1="0" marg2={scale600} marg3="0" marg4={scale100} width="auto">
+            <CaretDownIcon />
+          </FlexItem>
         ),
+        SelectContainer: (props) => {
+          const customProps = { [DATA_TEST_ID]: `container-${dataTestId}` };
+          return <components.SelectContainer {...props} innerProps={{ ...props.innerProps, ...customProps }} />;
+        },
+        MenuList: (props) => {
+          const customProps = { [DATA_TEST_ID]: `menu-${dataTestId}` };
+          return <components.MenuList {...props} innerProps={{ ...props.innerProps, ...customProps }} />;
+        },
+        Option: (props) => {
+          const optionValue = props.data[labelKey ?? DEFAULT_LABEL_KEY];
+          const customProps = { [DATA_TEST_ID]: `${dataTestId}-option-${optionValue}` };
+          return <components.Option {...props} innerProps={{ ...props.innerProps, ...customProps }} />;
+        },
       },
     }),
     [
