@@ -37,6 +37,7 @@ Single.args = {
   placeholder: 'Placeholder',
   creatable: true,
   clearable: true,
+  menuTestId: 'single-select-menu',
 };
 
 export const SingleAsync = SingleSelectTemplate.bind({});

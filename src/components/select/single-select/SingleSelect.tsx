@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { CaretDownIcon, FlexItem, Skeleton } from '../..';
 import SelectCreatable from 'react-select/creatable';
 import SelectAsync from 'react-select/async';
-import Select, { Props as SelectProps } from 'react-select';
+import Select, { Props as SelectProps, components } from 'react-select';
 import { useTheme } from '../../../providers';
 import {
   border,
@@ -44,6 +44,7 @@ export const SingleSelect = <
   onCreateOption,
   loadOptions,
   cacheOptions,
+  menuTestId,
 }: SingleSelectProps<ValueType, ValueKey, LabelKey>) => {
   const {
     theme: {
@@ -75,6 +76,29 @@ export const SingleSelect = <
   };
 
   const alphabetizedOptions = alphabetizeOptions(options, disableSortOptions);
+
+  const CustomMenuList = ({ children, innerProps }: any) => (
+    <div {...innerProps} data-test-id={menuTestId}>
+      {children}
+    </div>
+  );
+
+  const CustomOption = ({ children, innerProps, data }: any) => {
+    const optionValue = data[labelKey ?? DEFAULT_LABEL_KEY];
+    const optionId = `${menuTestId}-option-${optionValue}`;
+
+    return (
+      <div {...innerProps} data-test-id={optionId}>
+        {children}
+      </div>
+    );
+  };
+
+  const CustomDropdownIndicator = () => (
+    <FlexItem marg1="0" marg2={scale600} marg3="0" marg4={scale100} width="auto">
+      <CaretDownIcon />
+    </FlexItem>
+  );
 
   const props: SelectProps<Option<ValueType, ValueKey, LabelKey>, false> = useMemo(
     () => ({
@@ -200,10 +224,12 @@ export const SingleSelect = <
         }),
       },
       components: {
-        DropdownIndicator: () => (
-          <FlexItem marg1="0" marg2={scale600} marg3="0" marg4={scale100} width="auto">
-            <CaretDownIcon />
-          </FlexItem>
+        DropdownIndicator: CustomDropdownIndicator,
+        MenuList: (props) => <CustomMenuList {...props} />,
+        Option: (props) => (
+          <components.Option {...props}>
+            <CustomOption {...props} />
+          </components.Option>
         ),
       },
     }),

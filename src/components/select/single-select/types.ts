@@ -29,4 +29,5 @@ export interface SingleSelectProps<ValueType, ValueKey extends string, LabelKey 
   multi?: boolean;
   loadOptions?: (inputValue: string) => Promise<Option<ValueType, ValueKey, LabelKey>[]>;
   cacheOptions?: boolean;
+  menuTestId?: string;
 }
