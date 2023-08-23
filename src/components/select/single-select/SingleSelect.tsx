@@ -208,7 +208,7 @@ export const SingleSelect = <
           </FlexItem>
         ),
         SelectContainer: (props) => {
-          const customProps = { [DATA_TEST_ID]: `container-${dataTestId}` };
+          const customProps = { [DATA_TEST_ID]: dataTestId };
           return <components.SelectContainer {...props} innerProps={{ ...props.innerProps, ...customProps }} />;
         },
         MenuList: (props) => {
