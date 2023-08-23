@@ -33,7 +33,7 @@ const SingleSelectTemplate: Story<SingleSelectProps<string, 'id', 'name'>> = (ar
 
 export const Single = SingleSelectTemplate.bind({});
 Single.args = {
-  options: OPTIONS,
+  options: [...OPTIONS, ...OPTIONS, ...OPTIONS],
   placeholder: 'Placeholder',
   creatable: true,
   clearable: true,
