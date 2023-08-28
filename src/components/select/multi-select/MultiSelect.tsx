@@ -222,9 +222,6 @@ export const MultiSelect = <
           <CaretDownIcon />
         </FlexItem>
       ),
-      Control: (props) => {
-        return <components.Control {...props} innerProps={{ ...props.innerProps, role: 'combobox' }} />;
-      },
       Input: (props) => <components.Input {...props} aria-haspopup="listbox" />,
       Menu: (props) => <components.Menu {...props} innerProps={{ ...props.innerProps, role: 'listbox' }} />,
       Option: (props) => {

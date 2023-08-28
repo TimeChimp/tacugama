@@ -62,17 +62,16 @@ export const SingleSelect = <
   const { dark4 } = customColors;
 
   const alphabetizeOptions = (options: Option<ValueType, ValueKey, LabelKey>[], disableSortOptions?: boolean) => {
-    return options;
-    // if (!options) {
-    //   return [];
-    // }
-    // if (disableSortOptions) {
-    //   return options;
-    // }
+    if (!options) {
+      return [];
+    }
+    if (disableSortOptions) {
+      return options;
+    }
 
-    // return options.length > 1
-    //   ? [...options].sort((a, b) => a[labelKey ?? DEFAULT_LABEL_KEY]?.localeCompare(b[labelKey ?? DEFAULT_LABEL_KEY]))
-    //   : options;
+    return options.length > 1
+      ? [...options].sort((a, b) => a[labelKey ?? DEFAULT_LABEL_KEY]?.localeCompare(b[labelKey ?? DEFAULT_LABEL_KEY]))
+      : options;
   };
 
   const alphabetizedOptions = alphabetizeOptions(options, disableSortOptions);
@@ -173,9 +172,6 @@ export const SingleSelect = <
           color: contentPrimary,
           ':hover': {
             backgroundColor: primaryB,
-          },
-          ':focus': {
-            backgroundColor: primary100,
           },
           backgroundColor: isSelected ? primary100 : primaryB,
           cursor: 'pointer',
