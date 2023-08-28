@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
+import { SingleSelectProps, Option } from './types';
 import { CaretDownIcon, FlexItem, Skeleton } from '../..';
 import SelectCreatable from 'react-select/creatable';
 import SelectAsync from 'react-select/async';
-import Select, { Props as SelectProps } from 'react-select';
+import Select, { Props as SelectProps, components } from 'react-select';
 import { useTheme } from '../../../providers';
 import {
   border,
@@ -13,7 +14,6 @@ import {
   padding,
   margin,
 } from '../../../utils';
-import { SingleSelectProps, Option } from './types';
 
 export const DEFAULT_VALUE_KEY = 'id';
 export const DEFAULT_LABEL_KEY = 'name';
@@ -205,6 +205,9 @@ export const SingleSelect = <
             <CaretDownIcon />
           </FlexItem>
         ),
+        MenuList: (props) => {
+          return <components.MenuList {...props} innerProps={{ role: 'menulist' }} />;
+        },
       },
     }),
     [

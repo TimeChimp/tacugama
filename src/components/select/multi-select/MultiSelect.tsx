@@ -1,7 +1,7 @@
 import React from 'react';
 import { CaretDownIcon, DEFAULT_LABEL_KEY, DEFAULT_VALUE_KEY, FlexItem, SingleSelectOption, Skeleton } from '../..';
 import SelectCreatable from 'react-select/creatable';
-import Select, { Props as SelectProps } from 'react-select';
+import Select, { Props as SelectProps, components } from 'react-select';
 import { useTheme } from '../../../providers';
 import {
   border,
@@ -222,6 +222,9 @@ export const MultiSelect = <
           <CaretDownIcon />
         </FlexItem>
       ),
+      MenuList: (props) => {
+        return <components.MenuList {...props} innerProps={{ role: 'menulist' }} />;
+      },
     },
   };
 
