@@ -222,14 +222,14 @@ export const MultiSelect = <
           <CaretDownIcon />
         </FlexItem>
       ),
-      SelectContainer: (props) => {
-        return <components.SelectContainer {...props} innerProps={{ ...props.innerProps, role: 'select' }} />;
+      Control: (props) => {
+        return <components.Control {...props} innerProps={{ ...props.innerProps, role: 'combobox' }} />;
       },
-      MenuList: (props) => {
-        return <components.MenuList {...props} innerProps={{ ...props.innerProps, role: 'listbox' }} />;
-      },
+      Input: (props) => <components.Input {...props} aria-haspopup="listbox" />,
+      Menu: (props) => <components.Menu {...props} innerProps={{ ...props.innerProps, role: 'listbox' }} />,
       Option: (props) => {
-        return <components.Option {...props} innerProps={{ ...props.innerProps, role: 'listitem' }} />;
+        const stylingProps = props.isFocused ? { style: { backgroundColor: primary100 } } : {};
+        return <components.Option {...props} innerProps={{ ...props.innerProps, ...stylingProps, role: 'listitem' }} />;
       },
     },
   };

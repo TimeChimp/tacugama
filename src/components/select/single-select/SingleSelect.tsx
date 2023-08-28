@@ -62,16 +62,17 @@ export const SingleSelect = <
   const { dark4 } = customColors;
 
   const alphabetizeOptions = (options: Option<ValueType, ValueKey, LabelKey>[], disableSortOptions?: boolean) => {
-    if (!options) {
-      return [];
-    }
-    if (disableSortOptions) {
-      return options;
-    }
+    return options;
+    // if (!options) {
+    //   return [];
+    // }
+    // if (disableSortOptions) {
+    //   return options;
+    // }
 
-    return options.length > 1
-      ? [...options].sort((a, b) => a[labelKey ?? DEFAULT_LABEL_KEY]?.localeCompare(b[labelKey ?? DEFAULT_LABEL_KEY]))
-      : options;
+    // return options.length > 1
+    //   ? [...options].sort((a, b) => a[labelKey ?? DEFAULT_LABEL_KEY]?.localeCompare(b[labelKey ?? DEFAULT_LABEL_KEY]))
+    //   : options;
   };
 
   const alphabetizedOptions = alphabetizeOptions(options, disableSortOptions);
@@ -171,6 +172,9 @@ export const SingleSelect = <
           ...ParagraphSmall,
           color: contentPrimary,
           ':hover': {
+            backgroundColor: primaryB,
+          },
+          ':focus': {
             backgroundColor: primary100,
           },
           backgroundColor: isSelected ? primary100 : primaryB,
@@ -205,14 +209,13 @@ export const SingleSelect = <
             <CaretDownIcon />
           </FlexItem>
         ),
-        SelectContainer: (props) => {
-          return <components.SelectContainer {...props} innerProps={{ ...props.innerProps, role: 'select' }} />;
-        },
-        MenuList: (props) => {
-          return <components.MenuList {...props} innerProps={{ ...props.innerProps, role: 'listbox' }} />;
-        },
+        Input: (props) => <components.Input {...props} aria-haspopup="listbox" />,
+        Menu: (props) => <components.Menu {...props} innerProps={{ ...props.innerProps, role: 'listbox' }} />,
         Option: (props) => {
-          return <components.Option {...props} innerProps={{ ...props.innerProps, role: 'listitem' }} />;
+          const stylingProps = props.isFocused ? { style: { backgroundColor: primary100 } } : {};
+          return (
+            <components.Option {...props} innerProps={{ ...props.innerProps, ...stylingProps, role: 'listitem' }} />
+          );
         },
       },
     }),
@@ -250,27 +253,12 @@ export const SingleSelect = <
 
   const SelectComponent = useMemo(() => {
     if (creatable) {
-      return (
-        <SelectCreatable
-          menuIsOpen={true}
-          {...props}
-          onCreateOption={onCreateOption}
-          menuPortalTarget={document.body}
-        />
-      );
+      return <SelectCreatable {...props} onCreateOption={onCreateOption} menuPortalTarget={document.body} />;
     }
     if (loadOptions) {
-      return (
-        <SelectAsync
-          menuIsOpen={true}
-          {...props}
-          loadOptions={loadOptions}
-          cacheOptions={cacheOptions}
-          defaultOptions={options}
-        />
-      );
+      return <SelectAsync {...props} loadOptions={loadOptions} cacheOptions={cacheOptions} defaultOptions={options} />;
     }
-    return <Select menuIsOpen={true} {...props} menuPortalTarget={document.body} />;
+    return <Select {...props} menuPortalTarget={document.body} />;
   }, [cacheOptions, creatable, loadOptions, onCreateOption, props]);
 
   return <>{showSkeleton ? <Skeleton width="100%" height={scale975} animation /> : <>{SelectComponent}</>}</>;
