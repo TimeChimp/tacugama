@@ -222,8 +222,14 @@ export const MultiSelect = <
           <CaretDownIcon />
         </FlexItem>
       ),
+      SelectContainer: (props) => {
+        return <components.SelectContainer {...props} innerProps={{ ...props.innerProps, role: 'select' }} />;
+      },
       MenuList: (props) => {
-        return <components.MenuList {...props} innerProps={{ role: 'menulist' }} />;
+        return <components.MenuList {...props} innerProps={{ ...props.innerProps, role: 'listbox' }} />;
+      },
+      Option: (props) => {
+        return <components.Option {...props} innerProps={{ ...props.innerProps, role: 'listitem' }} />;
       },
     },
   };

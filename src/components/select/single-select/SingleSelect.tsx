@@ -205,8 +205,14 @@ export const SingleSelect = <
             <CaretDownIcon />
           </FlexItem>
         ),
+        SelectContainer: (props) => {
+          return <components.SelectContainer {...props} innerProps={{ ...props.innerProps, role: 'select' }} />;
+        },
         MenuList: (props) => {
-          return <components.MenuList {...props} innerProps={{ role: 'menulist' }} />;
+          return <components.MenuList {...props} innerProps={{ ...props.innerProps, role: 'listbox' }} />;
+        },
+        Option: (props) => {
+          return <components.Option {...props} innerProps={{ ...props.innerProps, role: 'listitem' }} />;
         },
       },
     }),
@@ -244,12 +250,27 @@ export const SingleSelect = <
 
   const SelectComponent = useMemo(() => {
     if (creatable) {
-      return <SelectCreatable {...props} onCreateOption={onCreateOption} menuPortalTarget={document.body} />;
+      return (
+        <SelectCreatable
+          menuIsOpen={true}
+          {...props}
+          onCreateOption={onCreateOption}
+          menuPortalTarget={document.body}
+        />
+      );
     }
     if (loadOptions) {
-      return <SelectAsync {...props} loadOptions={loadOptions} cacheOptions={cacheOptions} defaultOptions={options} />;
+      return (
+        <SelectAsync
+          menuIsOpen={true}
+          {...props}
+          loadOptions={loadOptions}
+          cacheOptions={cacheOptions}
+          defaultOptions={options}
+        />
+      );
     }
-    return <Select {...props} menuPortalTarget={document.body} />;
+    return <Select menuIsOpen={true} {...props} menuPortalTarget={document.body} />;
   }, [cacheOptions, creatable, loadOptions, onCreateOption, props]);
 
   return <>{showSkeleton ? <Skeleton width="100%" height={scale975} animation /> : <>{SelectComponent}</>}</>;
