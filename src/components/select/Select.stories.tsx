@@ -48,6 +48,15 @@ SingleAsync.args = {
   loadOptions: promiseOptions,
 };
 
+export const Group = SingleSelectTemplate.bind({});
+Group.args = {
+  options: [{ label: 'test1', options: OPTIONS }],
+  placeholder: 'Placeholder',
+  creatable: true,
+  clearable: true,
+  formatGroupLabel: (data) => <div>{data.label}</div>,
+};
+
 export const Multi = Template.bind({});
 Multi.args = {
   options: OPTIONS,

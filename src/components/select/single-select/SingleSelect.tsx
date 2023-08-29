@@ -206,6 +206,7 @@ export const SingleSelect = <
           </FlexItem>
         ),
       },
+      formatGroupLabel: (data) => <div>{data.label}</div>,
     }),
     [
       ParagraphSmall,

@@ -11,7 +11,9 @@ export interface SingleSelectProps<ValueType, ValueKey extends string, LabelKey 
   labelKey?: LabelKey;
   showSkeleton?: boolean;
   disableSortOptions?: boolean;
-  options: Option<ValueType, ValueKey, LabelKey>[];
+  options:
+    | Option<ValueType, ValueKey, LabelKey>[]
+    | { label: string; options: Option<ValueType, ValueKey, LabelKey>[] }[];
   clearable?: boolean;
   searchable?: boolean;
   disabled?: boolean;
