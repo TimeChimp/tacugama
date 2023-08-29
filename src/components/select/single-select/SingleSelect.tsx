@@ -14,6 +14,8 @@ import {
   margin,
 } from '../../../utils';
 import { SingleSelectProps, Option } from './types';
+import { StyledSelectGroupLabelContainer, StyledSelectGroupLabelSpan } from '../SelectStyles';
+import { ParagraphXSmall } from '../../typography';
 
 export const DEFAULT_VALUE_KEY = 'id';
 export const DEFAULT_LABEL_KEY = 'name';
@@ -51,7 +53,7 @@ export const SingleSelect = <
         colors,
         borders,
         customColors,
-        sizing: { scale100, scale300, scale600, scale950 },
+        sizing: { scale100, scale300, scale600, scale950, scale700 },
         customSizing: { scale975 },
         typography: { ParagraphSmall },
       },
@@ -59,7 +61,7 @@ export const SingleSelect = <
   } = useTheme();
   const { border300, radius200 } = borders;
   const { primary100, contentPrimary, primaryB } = colors;
-  const { dark4 } = customColors;
+  const { dark4, dark3 } = customColors;
 
   const alphabetizeOptions = (options: Option<ValueType, ValueKey, LabelKey>[], disableSortOptions?: boolean) => {
     if (!options) {
@@ -75,6 +77,12 @@ export const SingleSelect = <
   };
 
   const alphabetizedOptions = alphabetizeOptions(options, disableSortOptions);
+
+  const formGroupLabelComponent = (label?: string) => (
+    <ParagraphXSmall color={dark3} as="span">
+      {label || ''}
+    </ParagraphXSmall>
+  );
 
   const props: SelectProps<Option<ValueType, ValueKey, LabelKey>, false> = useMemo(
     () => ({
@@ -167,7 +175,6 @@ export const SingleSelect = <
         }),
         option: (provided, { isSelected }) => ({
           ...provided,
-          ...borderBottom(border300),
           ...ParagraphSmall,
           color: contentPrimary,
           ':hover': {
@@ -198,6 +205,16 @@ export const SingleSelect = <
           ...provided,
           cursor: 'pointer',
         }),
+        group: (provided) => ({
+          ...provided,
+          paddingTop: scale100,
+        }),
+        groupHeading: (provided) => ({
+          ...provided,
+          paddingLeft: scale600,
+          lineHeight: scale700,
+          marginBottom: '0',
+        }),
       },
       components: {
         DropdownIndicator: () => (
@@ -206,7 +223,7 @@ export const SingleSelect = <
           </FlexItem>
         ),
       },
-      formatGroupLabel: (data) => <div>{data.label}</div>,
+      formatGroupLabel: (data) => formGroupLabelComponent(data.label),
     }),
     [
       ParagraphSmall,
@@ -242,12 +259,27 @@ export const SingleSelect = <
 
   const SelectComponent = useMemo(() => {
     if (creatable) {
-      return <SelectCreatable {...props} onCreateOption={onCreateOption} menuPortalTarget={document.body} />;
+      return (
+        <SelectCreatable
+          menuIsOpen={true}
+          {...props}
+          onCreateOption={onCreateOption}
+          menuPortalTarget={document.body}
+        />
+      );
     }
     if (loadOptions) {
-      return <SelectAsync {...props} loadOptions={loadOptions} cacheOptions={cacheOptions} defaultOptions={options} />;
+      return (
+        <SelectAsync
+          menuIsOpen={true}
+          {...props}
+          loadOptions={loadOptions}
+          cacheOptions={cacheOptions}
+          defaultOptions={options}
+        />
+      );
     }
-    return <Select {...props} menuPortalTarget={document.body} />;
+    return <Select menuIsOpen={true} {...props} menuPortalTarget={document.body} />;
   }, [cacheOptions, creatable, loadOptions, onCreateOption, props]);
 
   return <>{showSkeleton ? <Skeleton width="100%" height={scale975} animation /> : <>{SelectComponent}</>}</>;

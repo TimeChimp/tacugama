@@ -50,11 +50,13 @@ SingleAsync.args = {
 
 export const Group = SingleSelectTemplate.bind({});
 Group.args = {
-  options: [{ label: 'test1', options: OPTIONS }],
+  options: [
+    { label: 'test1', options: OPTIONS },
+    { label: 'test2', options: OPTIONS },
+  ],
   placeholder: 'Placeholder',
   creatable: true,
   clearable: true,
-  formatGroupLabel: (data) => <div>{data.label}</div>,
 };
 
 export const Multi = Template.bind({});
