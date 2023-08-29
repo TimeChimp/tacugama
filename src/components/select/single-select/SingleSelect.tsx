@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
+import { SingleSelectProps, Option } from './types';
 import { CaretDownIcon, FlexItem, Skeleton } from '../..';
 import SelectCreatable from 'react-select/creatable';
 import SelectAsync from 'react-select/async';
-import Select, { Props as SelectProps } from 'react-select';
+import Select, { Props as SelectProps, components } from 'react-select';
 import { useTheme } from '../../../providers';
 import {
   border,
@@ -13,7 +14,6 @@ import {
   padding,
   margin,
 } from '../../../utils';
-import { SingleSelectProps, Option } from './types';
 
 export const DEFAULT_VALUE_KEY = 'id';
 export const DEFAULT_LABEL_KEY = 'name';
@@ -59,7 +59,7 @@ export const SingleSelect = <
   } = useTheme();
   const { border300, radius200 } = borders;
   const { primary100, contentPrimary, primaryB } = colors;
-  const { dark4 } = customColors;
+  const { dark4, light7 } = customColors;
 
   const alphabetizeOptions = (options: Option<ValueType, ValueKey, LabelKey>[], disableSortOptions?: boolean) => {
     if (!options) {
@@ -75,6 +75,13 @@ export const SingleSelect = <
   };
 
   const alphabetizedOptions = alphabetizeOptions(options, disableSortOptions);
+
+  const optionBackgroundColor = (isSelected: boolean, isFocused: boolean) => {
+    if (isSelected) {
+      return primary100;
+    }
+    return isFocused ? light7 : primaryB;
+  };
 
   const props: SelectProps<Option<ValueType, ValueKey, LabelKey>, false> = useMemo(
     () => ({
@@ -165,15 +172,12 @@ export const SingleSelect = <
           ...provided,
           zIndex: 99999,
         }),
-        option: (provided, { isSelected }) => ({
+        option: (provided, { isSelected, isFocused }) => ({
           ...provided,
           ...borderBottom(border300),
           ...ParagraphSmall,
           color: contentPrimary,
-          ':hover': {
-            backgroundColor: primary100,
-          },
-          backgroundColor: isSelected ? primary100 : primaryB,
+          backgroundColor: optionBackgroundColor(isSelected, isFocused),
           cursor: 'pointer',
           ...padding(scale300, scale600),
           ':first-of-type': {
@@ -205,6 +209,9 @@ export const SingleSelect = <
             <CaretDownIcon />
           </FlexItem>
         ),
+        Input: (props) => <components.Input {...props} aria-haspopup="listbox" />,
+        Menu: (props) => <components.Menu {...props} innerProps={{ ...props.innerProps, role: 'listbox' }} />,
+        Option: (props) => <components.Option {...props} innerProps={{ ...props.innerProps, role: 'listitem' }} />,
       },
     }),
     [
