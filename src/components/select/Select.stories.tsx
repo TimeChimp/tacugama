@@ -48,11 +48,16 @@ SingleAsync.args = {
   loadOptions: promiseOptions,
 };
 
-export const Group = SingleSelectTemplate.bind({});
-Group.args = {
+const midIndexOptions = Math.ceil(OPTIONS.length / 2);
+const firstGroupOptions = OPTIONS.filter((_, index) => index < midIndexOptions);
+const secondGroupOptions = OPTIONS.filter((_, index) => index >= midIndexOptions);
+
+export const GroupSingle = SingleSelectTemplate.bind({});
+GroupSingle.args = {
+  isGrouped: true,
   options: [
-    { label: 'test1', options: OPTIONS },
-    { label: 'test2', options: OPTIONS },
+    { label: 'Group 1', options: firstGroupOptions },
+    { label: 'Group 2', options: secondGroupOptions },
   ],
   placeholder: 'Placeholder',
   creatable: true,
@@ -72,4 +77,16 @@ Multi.parameters = {
     type: 'figma',
     url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=1733%3A11543&t=NbmXDJ7K9Ilt6afV-4',
   },
+};
+
+export const GroupMulti = Template.bind({});
+GroupMulti.args = {
+  isGrouped: true,
+  options: [
+    { label: 'Group 1', options: firstGroupOptions },
+    { label: 'Group 2', options: secondGroupOptions },
+  ],
+  placeholder: 'Placeholder',
+  creatable: true,
+  clearable: true,
 };

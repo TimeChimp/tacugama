@@ -15,6 +15,7 @@ export const LoadingCellTemplate = () => {
     <Skeleton
       overrides={{
         Root: {
+          props: { role: 'status', 'aria-label': 'loading...', 'aria-busy': true },
           style: {
             position: 'absolute',
             top: 0,

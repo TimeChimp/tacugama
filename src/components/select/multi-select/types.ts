@@ -1,12 +1,14 @@
 import { ActionMeta, MultiValue } from 'react-select';
 import { SingleSelectOption } from '..';
 
-export interface MultiSelectProps<ValueType, ValueKey extends string, LabelKey extends string> {
+interface BaseMultiSelectProps<ValueType, ValueKey extends string, LabelKey extends string> {
   valueKey?: ValueKey;
   labelKey?: LabelKey;
   showSkeleton?: boolean;
   disableSortOptions?: boolean;
-  options: SingleSelectOption<ValueType, ValueKey, LabelKey>[];
+  options:
+    | SingleSelectOption<ValueType, ValueKey, LabelKey>[]
+    | { label: string; options: SingleSelectOption<ValueType, ValueKey, LabelKey>[] }[];
   clearable?: boolean;
   searchable?: boolean;
   disabled?: boolean;
@@ -27,3 +29,19 @@ export interface MultiSelectProps<ValueType, ValueKey extends string, LabelKey e
   noOptionsMessage?: () => string;
   onCreateOption?: (inputValue: string) => void;
 }
+
+interface MultiSelectPropsWithGroups<ValueType, ValueKey extends string, LabelKey extends string>
+  extends BaseMultiSelectProps<ValueType, ValueKey, LabelKey> {
+  isGrouped: true;
+  options: { label: string; options: SingleSelectOption<ValueType, ValueKey, LabelKey>[] }[];
+}
+
+interface MultiSelectPropsWithoutGroups<ValueType, ValueKey extends string, LabelKey extends string>
+  extends BaseMultiSelectProps<ValueType, ValueKey, LabelKey> {
+  isGrouped?: false;
+  options: SingleSelectOption<ValueType, ValueKey, LabelKey>[];
+}
+
+export type MultiSelectProps<ValueType, ValueKey extends string, LabelKey extends string> =
+  | MultiSelectPropsWithGroups<ValueType, ValueKey, LabelKey>
+  | MultiSelectPropsWithoutGroups<ValueType, ValueKey, LabelKey>;

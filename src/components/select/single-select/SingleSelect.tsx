@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
+import { SingleSelectProps, Option } from './types';
 import { CaretDownIcon, FlexItem, Skeleton } from '../..';
 import SelectCreatable from 'react-select/creatable';
 import SelectAsync from 'react-select/async';
-import Select, { Props as SelectProps } from 'react-select';
+import Select, { Props as SelectProps, components } from 'react-select';
 import { useTheme } from '../../../providers';
 import {
   border,
@@ -13,8 +14,7 @@ import {
   padding,
   margin,
 } from '../../../utils';
-import { SingleSelectProps, Option } from './types';
-import { StyledSelectGroupLabelContainer, StyledSelectGroupLabelSpan } from '../SelectStyles';
+import { StyledSelectGroupLabelContainer } from '../SelectStyles';
 import { ParagraphXSmall } from '../../typography';
 
 export const DEFAULT_VALUE_KEY = 'id';
@@ -46,6 +46,7 @@ export const SingleSelect = <
   onCreateOption,
   loadOptions,
   cacheOptions,
+  isGrouped = false,
 }: SingleSelectProps<ValueType, ValueKey, LabelKey>) => {
   const {
     theme: {
@@ -53,15 +54,15 @@ export const SingleSelect = <
         colors,
         borders,
         customColors,
-        sizing: { scale100, scale300, scale600, scale950, scale700 },
+        sizing: { scale100, scale300, scale600, scale950, scale700, scale400 },
         customSizing: { scale975 },
         typography: { ParagraphSmall },
       },
     },
   } = useTheme();
   const { border300, radius200 } = borders;
-  const { primary100, contentPrimary, primaryB } = colors;
-  const { dark4, dark3 } = customColors;
+  const { primary100, contentPrimary, primaryB, primary } = colors;
+  const { dark4, dark3, light7 } = customColors;
 
   const alphabetizeOptions = (options: Option<ValueType, ValueKey, LabelKey>[], disableSortOptions?: boolean) => {
     if (!options) {
@@ -76,13 +77,34 @@ export const SingleSelect = <
       : options;
   };
 
-  const alphabetizedOptions = alphabetizeOptions(options, disableSortOptions);
+  const alphabetizedGroupedOptions = (
+    groupedOptions: { label: string; options: Option<ValueType, ValueKey, LabelKey>[] }[],
+    disableSortOptions?: boolean,
+  ) => {
+    if (disableSortOptions) {
+      return options;
+    }
+    return groupedOptions.map((group) => {
+      return {
+        ...group,
+        options: alphabetizeOptions(group.options, disableSortOptions),
+      };
+    });
+  };
 
-  const formGroupLabelComponent = (label?: string) => (
-    <ParagraphXSmall color={dark3} as="span">
-      {label || ''}
-    </ParagraphXSmall>
-  );
+  const alphabetizedOptions = isGrouped
+    ? alphabetizedGroupedOptions(
+        options as { label: string; options: Option<ValueType, ValueKey, LabelKey>[] }[],
+        false,
+      )
+    : alphabetizeOptions(options as Option<ValueType, ValueKey, LabelKey>[], disableSortOptions);
+
+  const optionBackgroundColor = (isSelected: boolean, isFocused: boolean) => {
+    if (isSelected) {
+      return primary100;
+    }
+    return isFocused ? light7 : primaryB;
+  };
 
   const props: SelectProps<Option<ValueType, ValueKey, LabelKey>, false> = useMemo(
     () => ({
@@ -167,31 +189,32 @@ export const SingleSelect = <
         }),
         menuList: (provided) => ({
           ...provided,
-          ...padding(),
+          ...(isGrouped ? padding(scale100, '0', '0', '0') : padding()),
         }),
         menuPortal: (provided) => ({
           ...provided,
           zIndex: 99999,
         }),
-        option: (provided, { isSelected }) => ({
+        option: (provided, { isSelected, isFocused }) => ({
           ...provided,
           ...ParagraphSmall,
-          color: contentPrimary,
-          ':hover': {
-            backgroundColor: primary100,
-          },
-          backgroundColor: isSelected ? primary100 : primaryB,
+          color: isSelected ? primary : contentPrimary,
+          backgroundColor: optionBackgroundColor(isSelected, isFocused),
           cursor: 'pointer',
           ...padding(scale300, scale600),
-          ':first-of-type': {
-            borderTopLeftRadius: radius200,
-            borderTopRightRadius: radius200,
-          },
-          ':last-of-type': {
-            borderBottomLeftRadius: radius200,
-            borderBottomRightRadius: radius200,
-            ...borderBottom(),
-          },
+          ...(!isGrouped
+            ? {
+                ':first-of-type': {
+                  borderTopLeftRadius: radius200,
+                  borderTopRightRadius: radius200,
+                },
+                ':last-of-type': {
+                  borderBottomLeftRadius: radius200,
+                  borderBottomRightRadius: radius200,
+                  ...borderBottom(),
+                },
+              }
+            : {}),
         }),
         indicatorSeparator: () => ({
           display: 'none',
@@ -207,11 +230,25 @@ export const SingleSelect = <
         }),
         group: (provided) => ({
           ...provided,
-          paddingTop: scale100,
+          ...padding(scale100, '0', '0', '0'),
+          'div:last-child div:first-child': {
+            borderTopLeftRadius: '0',
+            borderTopRightRadius: '0',
+          },
+          'div:last-child div:last-child': {
+            borderBottomLeftRadius: '0',
+            borderBottomRightRadius: '0',
+          },
+          ':last-of-type': {
+            'div:last-child div:last-child': {
+              borderBottomLeftRadius: radius200,
+              borderBottomRightRadius: radius200,
+            },
+          },
         }),
         groupHeading: (provided) => ({
           ...provided,
-          paddingLeft: scale600,
+          ...padding('0', scale400),
           lineHeight: scale700,
           marginBottom: '0',
         }),
@@ -222,8 +259,18 @@ export const SingleSelect = <
             <CaretDownIcon />
           </FlexItem>
         ),
+        Input: (props) => <components.Input {...props} aria-haspopup="listbox" />,
+        Menu: (props) => <components.Menu {...props} innerProps={{ ...props.innerProps, role: 'listbox' }} />,
+        Option: (props) => {
+          console.log('props', props);
+          return <components.Option {...props} innerProps={{ ...props.innerProps, role: 'listitem' }} />;
+        },
       },
-      formatGroupLabel: (data) => formGroupLabelComponent(data.label),
+      formatGroupLabel: (data) => (
+        <ParagraphXSmall color={dark3} as="span">
+          {data?.label || ''}
+        </ParagraphXSmall>
+      ),
     }),
     [
       ParagraphSmall,
@@ -259,27 +306,12 @@ export const SingleSelect = <
 
   const SelectComponent = useMemo(() => {
     if (creatable) {
-      return (
-        <SelectCreatable
-          menuIsOpen={true}
-          {...props}
-          onCreateOption={onCreateOption}
-          menuPortalTarget={document.body}
-        />
-      );
+      return <SelectCreatable {...props} onCreateOption={onCreateOption} menuPortalTarget={document.body} />;
     }
     if (loadOptions) {
-      return (
-        <SelectAsync
-          menuIsOpen={true}
-          {...props}
-          loadOptions={loadOptions}
-          cacheOptions={cacheOptions}
-          defaultOptions={options}
-        />
-      );
+      return <SelectAsync {...props} loadOptions={loadOptions} cacheOptions={cacheOptions} defaultOptions={options} />;
     }
-    return <Select menuIsOpen={true} {...props} menuPortalTarget={document.body} />;
+    return <Select {...props} menuPortalTarget={document.body} />;
   }, [cacheOptions, creatable, loadOptions, onCreateOption, props]);
 
   return <>{showSkeleton ? <Skeleton width="100%" height={scale975} animation /> : <>{SelectComponent}</>}</>;
