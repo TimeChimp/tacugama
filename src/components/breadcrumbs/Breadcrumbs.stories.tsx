@@ -12,7 +12,7 @@ export default {
 
 const Template: Story<BreadcrumbsProps> = () => (
   <Breadcrumbs>
-    <StyledBreadcrumbItem onClick={() => console.log('Back')}>Parent Page</StyledBreadcrumbItem>
+    <StyledBreadcrumbItem>Parent Page</StyledBreadcrumbItem>
     <Block display="flex" justifyContent="center" alignItems="center">
       <HeadingXSmall>Current Page</HeadingXSmall>
     </Block>

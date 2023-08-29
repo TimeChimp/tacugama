@@ -10,7 +10,6 @@ export const StyledBreadcrumbItem = themedStyled('li', ({ $theme }) => ({
   display: 'inline-block',
   color: $theme.customColors.dark3,
   textDecoration: 'underline',
-  cursor: 'pointer',
   fontSize: $theme.typography.ParagraphSmall.fontSize,
 }));
 
