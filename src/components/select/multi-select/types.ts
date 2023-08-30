@@ -6,9 +6,6 @@ interface BaseMultiSelectProps<ValueType, ValueKey extends string, LabelKey exte
   labelKey?: LabelKey;
   showSkeleton?: boolean;
   disableSortOptions?: boolean;
-  options:
-    | SingleSelectOption<ValueType, ValueKey, LabelKey>[]
-    | { label: string; options: SingleSelectOption<ValueType, ValueKey, LabelKey>[] }[];
   clearable?: boolean;
   searchable?: boolean;
   disabled?: boolean;

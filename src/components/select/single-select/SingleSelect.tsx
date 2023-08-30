@@ -14,7 +14,6 @@ import {
   padding,
   margin,
 } from '../../../utils';
-import { StyledSelectGroupLabelContainer } from '../SelectStyles';
 import { ParagraphXSmall } from '../../typography';
 
 export const DEFAULT_VALUE_KEY = 'id';
@@ -231,14 +230,6 @@ export const SingleSelect = <
         group: (provided) => ({
           ...provided,
           ...padding(scale100, '0', '0', '0'),
-          'div:last-child div:first-child': {
-            borderTopLeftRadius: '0',
-            borderTopRightRadius: '0',
-          },
-          'div:last-child div:last-child': {
-            borderBottomLeftRadius: '0',
-            borderBottomRightRadius: '0',
-          },
           ':last-of-type': {
             'div:last-child div:last-child': {
               borderBottomLeftRadius: radius200,
@@ -261,10 +252,7 @@ export const SingleSelect = <
         ),
         Input: (props) => <components.Input {...props} aria-haspopup="listbox" />,
         Menu: (props) => <components.Menu {...props} innerProps={{ ...props.innerProps, role: 'listbox' }} />,
-        Option: (props) => {
-          console.log('props', props);
-          return <components.Option {...props} innerProps={{ ...props.innerProps, role: 'listitem' }} />;
-        },
+        Option: (props) => <components.Option {...props} innerProps={{ ...props.innerProps, role: 'listitem' }} />,
       },
       formatGroupLabel: (data) => (
         <ParagraphXSmall color={dark3} as="span">

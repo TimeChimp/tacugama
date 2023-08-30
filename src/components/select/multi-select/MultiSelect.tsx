@@ -247,14 +247,6 @@ export const MultiSelect = <
       group: (provided) => ({
         ...provided,
         ...padding(scale100, '0', '0', '0'),
-        'div:last-child div:first-child': {
-          borderTopLeftRadius: '0',
-          borderTopRightRadius: '0',
-        },
-        'div:last-child div:last-child': {
-          borderBottomLeftRadius: '0',
-          borderBottomRightRadius: '0',
-        },
         ':last-of-type': {
           'div:last-child div:last-child': {
             borderBottomLeftRadius: radius200,
