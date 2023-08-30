@@ -1,16 +1,14 @@
 import React from 'react';
 import { FormControl as BaseFormControl } from 'baseui/form-control';
 import { useTheme } from '../../providers';
-import { ParagraphXSmall as ParagraphXSmallComponent } from '../typography';
 import { margin } from '../../utils';
 import { FormControlProps } from './types';
-import { Block } from '../block';
 
 export const FormControl = ({ overrides, error, success, caption, children, ...rest }: FormControlProps) => {
   const {
     theme: {
       current: {
-        typography: { ParagraphSmall, ParagraphXSmall },
+        typography: { ParagraphXSmall, LabelSmall },
         sizing: { scale100, scale500, scale550 },
         customColors: { red0, green0, dark3 },
       },
@@ -24,6 +22,7 @@ export const FormControl = ({ overrides, error, success, caption, children, ...r
     if (success) {
       return success;
     }
+    return caption;
   };
 
   const getCaptionColor = () => {
@@ -46,7 +45,7 @@ export const FormControl = ({ overrides, error, success, caption, children, ...r
         ...overrides,
         Label: {
           style: {
-            ...ParagraphSmall,
+            ...LabelSmall,
             lineHeight: scale550, // Fix: Because of the bug in baseui (can't override the span around the label)
             ...margin('0'),
             width: 'auto',
@@ -61,32 +60,13 @@ export const FormControl = ({ overrides, error, success, caption, children, ...r
           style: {
             ...ParagraphXSmall,
             ...margin(scale100, '0', '0', '0'),
-            textAlign: !!error || !!success ? 'right' : 'left',
+            textAlign: 'left',
             color: getCaptionColor(),
           },
         },
       }}
     >
-      <>
-        {caption ? (
-          <Block marginBottom={scale500}>
-            <ParagraphXSmallComponent
-              color={dark3}
-              overrides={{
-                Block: {
-                  style: {
-                    lineHeight: scale550,
-                    fontSize: scale550,
-                  },
-                },
-              }}
-            >
-              {caption}
-            </ParagraphXSmallComponent>
-          </Block>
-        ) : null}
-        {children}
-      </>
+      <>{children}</>
     </BaseFormControl>
   );
 };

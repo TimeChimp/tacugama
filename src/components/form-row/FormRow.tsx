@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Controller, FieldValues } from 'react-hook-form';
 import { FormRowProps, FormRowVariant } from './types';
-import { LabelSmall, ParagraphSmall } from '../typography';
+import { LabelSmall, ParagraphSmall, ParagraphXSmall } from '../typography';
 import { FormControl } from '../form-control';
 import { Separator } from '../separator';
 import { Block } from '../block';
@@ -169,14 +169,14 @@ export const FormRow = <T extends FieldValues, K extends string>({
             </Block>
 
             {caption && !isLarge && variant !== FormRowVariant.Secondary && !error && (
-              <ParagraphSmall color={dark3} marginTop={scale100}>
+              <ParagraphXSmall color={dark3} marginTop={scale100}>
                 {caption}
-              </ParagraphSmall>
+              </ParagraphXSmall>
             )}
             {!!error && (
-              <ParagraphSmall color={red0} marginTop={scale100}>
+              <ParagraphXSmall color={red0} marginTop={scale100}>
                 {error}
-              </ParagraphSmall>
+              </ParagraphXSmall>
             )}
           </>
         </FormControl>
