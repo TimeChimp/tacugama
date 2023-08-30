@@ -469,7 +469,7 @@ export const DataGrid = ({
     if (gridApi) {
       gridApi.setServerSideDatasource(createServerSideDatasource());
     }
-  }, [filterModel]);
+  }, [filterModel, dataUrl]);
 
   const getRowNodeId = (data: any) => {
     return data.hierarchy ?? data.id;
