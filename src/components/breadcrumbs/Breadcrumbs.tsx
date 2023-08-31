@@ -11,6 +11,7 @@ export const StyledBreadcrumbItem = themedStyled('li', ({ $theme }) => ({
   color: $theme.customColors.dark3,
   textDecoration: 'underline',
   fontSize: $theme.typography.ParagraphSmall.fontSize,
+  cursor: 'pointer',
 }));
 
 const InlineBlock = themedStyled('div', () => ({
