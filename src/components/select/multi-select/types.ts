@@ -26,4 +26,5 @@ export interface MultiSelectProps<ValueType, ValueKey extends string, LabelKey e
   createText?: (inputValue: string) => string;
   noOptionsMessage?: () => string;
   onCreateOption?: (inputValue: string) => void;
+  inputId?: string;
 }

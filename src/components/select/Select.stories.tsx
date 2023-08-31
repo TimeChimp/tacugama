@@ -37,6 +37,7 @@ Single.args = {
   placeholder: 'Placeholder',
   creatable: true,
   clearable: true,
+  inputId: 'single-select',
 };
 
 export const SingleAsync = SingleSelectTemplate.bind({});
@@ -55,6 +56,7 @@ Multi.args = {
   value: [OPTIONS[0], OPTIONS[1]],
   creatable: true,
   clearable: true,
+  inputId: 'multi-select',
 };
 Multi.parameters = {
   design: {
