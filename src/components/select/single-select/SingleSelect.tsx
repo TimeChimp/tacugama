@@ -14,6 +14,7 @@ import {
   padding,
   margin,
 } from '../../../utils';
+import { ParagraphXSmall } from '../../typography';
 
 export const DEFAULT_VALUE_KEY = 'id';
 export const DEFAULT_LABEL_KEY = 'name';
@@ -44,6 +45,7 @@ export const SingleSelect = <
   onCreateOption,
   loadOptions,
   cacheOptions,
+  isGrouped = false,
 }: SingleSelectProps<ValueType, ValueKey, LabelKey>) => {
   const {
     theme: {
@@ -51,15 +53,15 @@ export const SingleSelect = <
         colors,
         borders,
         customColors,
-        sizing: { scale100, scale300, scale600, scale950 },
+        sizing: { scale100, scale300, scale600, scale950, scale700, scale400 },
         customSizing: { scale975 },
         typography: { ParagraphSmall },
       },
     },
   } = useTheme();
   const { border300, radius200 } = borders;
-  const { primary100, contentPrimary, primaryB } = colors;
-  const { dark4, light7 } = customColors;
+  const { primary100, contentPrimary, primaryB, primary } = colors;
+  const { dark4, dark3, light7 } = customColors;
 
   const alphabetizeOptions = (options: Option<ValueType, ValueKey, LabelKey>[], disableSortOptions?: boolean) => {
     if (!options) {
@@ -74,7 +76,27 @@ export const SingleSelect = <
       : options;
   };
 
-  const alphabetizedOptions = alphabetizeOptions(options, disableSortOptions);
+  const alphabetizedGroupedOptions = (
+    groupedOptions: { label: string; options: Option<ValueType, ValueKey, LabelKey>[] }[],
+    disableSortOptions?: boolean,
+  ) => {
+    if (disableSortOptions) {
+      return options;
+    }
+    return groupedOptions.map((group) => {
+      return {
+        ...group,
+        options: alphabetizeOptions(group.options, disableSortOptions),
+      };
+    });
+  };
+
+  const alphabetizedOptions = isGrouped
+    ? alphabetizedGroupedOptions(
+        options as { label: string; options: Option<ValueType, ValueKey, LabelKey>[] }[],
+        false,
+      )
+    : alphabetizeOptions(options as Option<ValueType, ValueKey, LabelKey>[], disableSortOptions);
 
   const optionBackgroundColor = (isSelected: boolean, isFocused: boolean) => {
     if (isSelected) {
@@ -166,7 +188,7 @@ export const SingleSelect = <
         }),
         menuList: (provided) => ({
           ...provided,
-          ...padding(),
+          ...(isGrouped ? padding(scale100, '0', '0', '0') : padding()),
         }),
         menuPortal: (provided) => ({
           ...provided,
@@ -174,21 +196,24 @@ export const SingleSelect = <
         }),
         option: (provided, { isSelected, isFocused }) => ({
           ...provided,
-          ...borderBottom(border300),
           ...ParagraphSmall,
-          color: contentPrimary,
+          color: isSelected ? primary : contentPrimary,
           backgroundColor: optionBackgroundColor(isSelected, isFocused),
           cursor: 'pointer',
           ...padding(scale300, scale600),
-          ':first-of-type': {
-            borderTopLeftRadius: radius200,
-            borderTopRightRadius: radius200,
-          },
-          ':last-of-type': {
-            borderBottomLeftRadius: radius200,
-            borderBottomRightRadius: radius200,
-            ...borderBottom(),
-          },
+          ...(!isGrouped
+            ? {
+                ':first-of-type': {
+                  borderTopLeftRadius: radius200,
+                  borderTopRightRadius: radius200,
+                },
+                ':last-of-type': {
+                  borderBottomLeftRadius: radius200,
+                  borderBottomRightRadius: radius200,
+                  ...borderBottom(),
+                },
+              }
+            : {}),
         }),
         indicatorSeparator: () => ({
           display: 'none',
@@ -202,6 +227,22 @@ export const SingleSelect = <
           ...provided,
           cursor: 'pointer',
         }),
+        group: (provided) => ({
+          ...provided,
+          ...padding(scale100, '0', '0', '0'),
+          ':last-of-type': {
+            'div:last-child div:last-child': {
+              borderBottomLeftRadius: radius200,
+              borderBottomRightRadius: radius200,
+            },
+          },
+        }),
+        groupHeading: (provided) => ({
+          ...provided,
+          ...padding('0', scale400),
+          lineHeight: scale700,
+          marginBottom: '0',
+        }),
       },
       components: {
         DropdownIndicator: () => (
@@ -213,6 +254,11 @@ export const SingleSelect = <
         Menu: (props) => <components.Menu {...props} innerProps={{ ...props.innerProps, role: 'listbox' }} />,
         Option: (props) => <components.Option {...props} innerProps={{ ...props.innerProps, role: 'listitem' }} />,
       },
+      formatGroupLabel: (data) => (
+        <ParagraphXSmall color={dark3} as="span">
+          {data?.label || ''}
+        </ParagraphXSmall>
+      ),
     }),
     [
       ParagraphSmall,

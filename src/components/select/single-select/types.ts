@@ -6,12 +6,11 @@ export type Option<T, ValueKey extends string, LabelKey extends string> = {
   [key: string]: any;
 };
 
-export interface SingleSelectProps<ValueType, ValueKey extends string, LabelKey extends string> {
+interface BaseSingleSelectProps<ValueType, ValueKey extends string, LabelKey extends string> {
   valueKey?: ValueKey;
   labelKey?: LabelKey;
   showSkeleton?: boolean;
   disableSortOptions?: boolean;
-  options: Option<ValueType, ValueKey, LabelKey>[];
   clearable?: boolean;
   searchable?: boolean;
   disabled?: boolean;
@@ -30,3 +29,19 @@ export interface SingleSelectProps<ValueType, ValueKey extends string, LabelKey 
   loadOptions?: (inputValue: string) => Promise<Option<ValueType, ValueKey, LabelKey>[]>;
   cacheOptions?: boolean;
 }
+
+interface SingleSelectPropsWithGroups<ValueType, ValueKey extends string, LabelKey extends string>
+  extends BaseSingleSelectProps<ValueType, ValueKey, LabelKey> {
+  isGrouped: true;
+  options: { label: string; options: Option<ValueType, ValueKey, LabelKey>[] }[];
+}
+
+interface SingleSelectPropsWithoutGroups<ValueType, ValueKey extends string, LabelKey extends string>
+  extends BaseSingleSelectProps<ValueType, ValueKey, LabelKey> {
+  isGrouped?: false;
+  options: Option<ValueType, ValueKey, LabelKey>[];
+}
+
+export type SingleSelectProps<ValueType, ValueKey extends string, LabelKey extends string> =
+  | SingleSelectPropsWithGroups<ValueType, ValueKey, LabelKey>
+  | SingleSelectPropsWithoutGroups<ValueType, ValueKey, LabelKey>;
