@@ -26,5 +26,6 @@ export const ColorPickerContainer = themedStyled('div', () => {
 export const ColorPickerWrapper = themedStyled('div', () => {
   return {
     position: 'relative',
+    width: '100%',
   };
 });
