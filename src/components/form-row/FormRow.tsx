@@ -66,7 +66,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
       },
     },
   } = useTheme();
-  const minHeightBlock = !isLarge && !minHeight ? scale2400 : minHeight ?? 0;
+  const minHeightBlock = !minHeight ? scale2400 : minHeight ?? 0;
 
   const getLabel = () => {
     if (rules?.required && label) {
@@ -92,7 +92,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
         margin: 0,
         marginBottom: marginBottomWrapper(),
         minHeight: minHeightBlock,
-        paddingBottom: !isLarge ? scale300 : 0,
+        paddingBottom: scale300,
         flexWrap: 'wrap',
       }}
     >
