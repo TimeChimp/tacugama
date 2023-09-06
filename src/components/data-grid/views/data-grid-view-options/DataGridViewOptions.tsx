@@ -14,7 +14,7 @@ import { EditIcon } from '../../../icons/edit';
 import { MoreIcon } from '../../../icons/more';
 import { Dropdown, DropdownItem } from '../../../dropdown';
 import { StatefulMenu } from '../../../menu';
-import { LabelXSmall, ParagraphSmall } from '../../../typography';
+import { ParagraphSmall } from '../../../typography';
 import { SearchInput } from '../../../input';
 import { StyledDropdownSearch } from '../../../dropdown/styles';
 import { useTheme } from '../../../../providers';
@@ -144,14 +144,14 @@ export const DataGridViewOptions = ({
                       onClick={() => id && onViewSelect(id)}
                       startEnhancer={() => <ViewIcon color={isActiveView(id!) ? primary : contentStateDisabled} />}
                     >
-                      <LabelXSmall
+                      <ParagraphSmall
                         marginTop={scale400}
                         marginBottom={scale400}
                         marginLeft={scale400}
                         marginRight={scale400}
                       >
                         {label}
-                      </LabelXSmall>
+                      </ParagraphSmall>
                     </Button>
                     {id !== 'default' && (
                       <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
@@ -172,7 +172,7 @@ export const DataGridViewOptions = ({
               onClick={() => setCreateModalIsOpen(true)}
               startEnhancer={() => <AddLineIcon color={primary} />}
             >
-              <LabelXSmall
+              <ParagraphSmall
                 color={primary}
                 marginTop={scale400}
                 marginBottom={scale400}
@@ -180,7 +180,7 @@ export const DataGridViewOptions = ({
                 marginRight={scale400}
               >
                 {translations.addView}
-              </LabelXSmall>
+              </ParagraphSmall>
             </Button>
           </StyledViewOptionsFooter>
         </>

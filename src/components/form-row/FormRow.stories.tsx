@@ -46,6 +46,40 @@ export const Default = Template.bind({});
 Default.args = {
   label: 'This is a label',
   caption: 'This is a caption',
+  success: '',
+};
+
+const ErrorTemplate: Story<FormRowProps<FormInput, string>> = (args) => {
+  const {
+    control,
+    formState: { errors },
+  } = useForm<FormInput>({
+    mode: 'onSubmit',
+  });
+  return (
+    <FormRow
+      {...args}
+      name="name"
+      control={control}
+      rules={{ required: true }}
+      render={({ field }) => (
+        <Input
+          {...field}
+          testId="name-input"
+          size="compact"
+          placeholder="Name"
+          error={!!errors.name}
+          autoComplete="off"
+        />
+      )}
+    />
+  );
+};
+
+export const WithError = ErrorTemplate.bind({});
+WithError.args = {
+  label: 'This is a label',
+  caption: 'This is a caption',
   error: 'This is an error caption',
   success: '',
   forLabel: 'name-input',

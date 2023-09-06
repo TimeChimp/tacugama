@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from '../../providers';
 import { ErrorIcon } from '../icons';
-import { LabelSmall } from '../typography';
+import { ParagraphSmall } from '../typography';
 import { StyledSideNavLink, StyledSideNavItemIcon, StyledSideNavItemTitle } from './styles';
 import { SideNavLinkProps } from './types';
 
@@ -39,7 +39,7 @@ export const SideNavLink = ({
         </StyledSideNavItemIcon>
       ) : null}
       <StyledSideNavItemTitle $hasIcon={!!Icon}>
-        <LabelSmall color={color}>{title}</LabelSmall>
+        <ParagraphSmall color={color}>{title}</ParagraphSmall>
       </StyledSideNavItemTitle>
 
       {hasError ? <ErrorIcon color={red0} /> : null}

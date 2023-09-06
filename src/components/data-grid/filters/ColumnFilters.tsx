@@ -321,7 +321,7 @@ export const ColumnFilters = ({
 
   return (
     <>
-      {!!filters?.length && (
+      {!!getFilters()?.length && (
         <>
           {getFilters()?.map(
             ({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon, clearable }) => (

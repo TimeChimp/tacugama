@@ -13,6 +13,7 @@ import {
   margin,
 } from '../../../utils';
 import { MultiSelectProps } from './types';
+import { ParagraphXSmall } from '../../typography';
 
 // TODO: Find way to share props between SingleSelect and MultiSelect
 
@@ -41,6 +42,7 @@ export const MultiSelect = <
   noOptionsMessage = () => 'No options',
   onCreateOption,
   inputId,
+  isGrouped = false,
 }: MultiSelectProps<ValueType, ValueKey, LabelKey>) => {
   const {
     theme: {
@@ -48,7 +50,7 @@ export const MultiSelect = <
         colors,
         borders,
         customColors,
-        sizing: { scale0, scale100, scale300, scale600, scale950 },
+        sizing: { scale0, scale100, scale300, scale600, scale950, scale400, scale700 },
         customSizing: { scale975 },
         typography: { ParagraphSmall },
       },
@@ -56,7 +58,7 @@ export const MultiSelect = <
   } = useTheme();
   const { border300, radius200 } = borders;
   const { primary100, contentPrimary, primaryB } = colors;
-  const { dark4, primarySubtle, light7 } = customColors;
+  const { dark4, primarySubtle, light7, dark3 } = customColors;
 
   const alphabetizeOptions = (
     options: SingleSelectOption<ValueType, ValueKey, LabelKey>[],
@@ -74,7 +76,27 @@ export const MultiSelect = <
       : options;
   };
 
-  const alphabetizedOptions = alphabetizeOptions(options, disableSortOptions);
+  const alphabetizedGroupedOptions = (
+    groupedOptions: { label: string; options: SingleSelectOption<ValueType, ValueKey, LabelKey>[] }[],
+    disableSortOptions?: boolean,
+  ) => {
+    if (disableSortOptions) {
+      return options;
+    }
+    return groupedOptions.map((group) => {
+      return {
+        ...group,
+        options: alphabetizeOptions(group.options, disableSortOptions),
+      };
+    });
+  };
+
+  const alphabetizedOptions = isGrouped
+    ? alphabetizedGroupedOptions(
+        options as { label: string; options: SingleSelectOption<ValueType, ValueKey, LabelKey>[] }[],
+        disableSortOptions,
+      )
+    : alphabetizeOptions(options as SingleSelectOption<ValueType, ValueKey, LabelKey>[], disableSortOptions);
 
   const optionBackgroundColor = (isSelected: boolean, isFocused: boolean) => {
     if (isSelected) {
@@ -164,7 +186,7 @@ export const MultiSelect = <
       }),
       menuList: (provided) => ({
         ...provided,
-        ...padding(),
+        ...(isGrouped ? padding(scale100, '0', '0', '0') : padding()),
       }),
       menuPortal: (provided) => ({
         ...provided,
@@ -172,21 +194,24 @@ export const MultiSelect = <
       }),
       option: (provided, { isSelected, isFocused }) => ({
         ...provided,
-        ...borderBottom(border300),
         ...ParagraphSmall,
         color: contentPrimary,
         backgroundColor: optionBackgroundColor(isSelected, isFocused),
         cursor: 'pointer',
         ...padding(scale300, scale600),
-        ':first-of-type': {
-          borderTopLeftRadius: radius200,
-          borderTopRightRadius: radius200,
-        },
-        ':last-of-type': {
-          borderBottomLeftRadius: radius200,
-          borderBottomRightRadius: radius200,
-          ...borderBottom(),
-        },
+        ...(!isGrouped
+          ? {
+              ':first-of-type': {
+                borderTopLeftRadius: radius200,
+                borderTopRightRadius: radius200,
+              },
+              ':last-of-type': {
+                borderBottomLeftRadius: radius200,
+                borderBottomRightRadius: radius200,
+                ...borderBottom(),
+              },
+            }
+          : {}),
       }),
       indicatorSeparator: () => ({
         display: 'none',
@@ -220,6 +245,22 @@ export const MultiSelect = <
         ...provided,
         cursor: 'pointer',
       }),
+      group: (provided) => ({
+        ...provided,
+        ...padding(scale100, '0', '0', '0'),
+        ':last-of-type': {
+          'div:last-child div:last-child': {
+            borderBottomLeftRadius: radius200,
+            borderBottomRightRadius: radius200,
+          },
+        },
+      }),
+      groupHeading: (provided) => ({
+        ...provided,
+        ...padding('0', scale400),
+        lineHeight: scale700,
+        marginBottom: '0',
+      }),
     },
     components: {
       DropdownIndicator: () => (
@@ -234,6 +275,11 @@ export const MultiSelect = <
       Menu: (props) => <components.Menu {...props} innerProps={{ ...props.innerProps, role: 'listbox' }} />,
       Option: (props) => <components.Option {...props} innerProps={{ ...props.innerProps, role: 'listitem' }} />,
     },
+    formatGroupLabel: (data) => (
+      <ParagraphXSmall color={dark3} as="span">
+        {data?.label || ''}
+      </ParagraphXSmall>
+    ),
   };
 
   return (

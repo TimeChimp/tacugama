@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Controller, FieldValues } from 'react-hook-form';
 import { FormRowProps, FormRowVariant } from './types';
-import { LabelSmall, ParagraphSmall } from '../typography';
+import { LabelSmall, ParagraphSmall, ParagraphXSmall } from '../typography';
 import { FormControl } from '../form-control';
 import { Separator } from '../separator';
 import { Block } from '../block';
@@ -80,7 +80,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
     if (marginBottom) {
       return marginBottom;
     }
-    return isLarge ? scale300 : 0;
+    return scale300;
   }, [isLarge, marginBottom, scale300]);
 
   return (
@@ -100,7 +100,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
       <Block
         ref={setElementRef}
         style={{
-          display: (isLarge || variant === FormRowVariant.Secondary) && showLabelInline ? 'flex' : 'block',
+          display: variant === FormRowVariant.Secondary && showLabelInline ? 'flex' : 'block',
           width: '100%',
           gap: !isLarge && variant === FormRowVariant.Secondary ? scale300 : scale1200,
           alignItems,
@@ -114,7 +114,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
               flexBasis: isLarge || variant !== FormRowVariant.Secondary ? scale7500 : '',
               display: 'inline-grid',
               gap: scale0,
-              marginBottom: !isLarge && variant !== FormRowVariant.Secondary ? scale300 : 0,
+              marginBottom: variant !== FormRowVariant.Secondary ? scale300 : 0,
               flexShrink: !isLarge && variant === FormRowVariant.Secondary ? 1 : 0,
             }}
           >
@@ -151,9 +151,6 @@ export const FormRow = <T extends FieldValues, K extends string>({
                 )}
               </LabelSmall>
             )}
-            {caption && (isLarge || variant === FormRowVariant.Secondary) && (
-              <ParagraphSmall color={dark3}>{caption}</ParagraphSmall>
-            )}
           </Block>
         )}
 
@@ -175,20 +172,19 @@ export const FormRow = <T extends FieldValues, K extends string>({
               <Block style={{ display: 'flex' }}>{actionButtons && actionButtons.map((button) => button)}</Block>
             </Block>
 
-            {caption && !isLarge && variant !== FormRowVariant.Secondary && !error && (
-              <ParagraphSmall color={dark3} marginTop={scale100}>
+            {caption && variant !== FormRowVariant.Secondary && !error && (
+              <ParagraphXSmall color={dark3} marginTop={scale100}>
                 {caption}
-              </ParagraphSmall>
+              </ParagraphXSmall>
             )}
             {!!error && (
-              <ParagraphSmall color={red0} marginTop={scale100}>
+              <ParagraphXSmall color={red0} marginTop={scale100}>
                 {error}
-              </ParagraphSmall>
+              </ParagraphXSmall>
             )}
           </>
         </FormControl>
       </Block>
-      {!hideSeparator && isLarge && <Separator />}
     </Block>
   );
 };
