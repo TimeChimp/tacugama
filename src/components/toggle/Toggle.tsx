@@ -70,6 +70,7 @@ export const Toggle = ({ checked, children, testId, size = ToggleSize.large, dis
             marginRight: 0,
             marginLeft: 0,
             marginTop: 0,
+            marginBottom: 0,
             ...borderRadius(scale500),
             backgroundColor: toggleBackgroundColor,
           },
