@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { Block } from 'baseui/block';
-import { Toggle, ToggleSize } from 'components/toggle';
-import { FormToggleProps, FormToggleSize } from './types';
-import { useTheme } from 'providers';
 import { LabelSmall, ParagraphSmall } from 'baseui/typography';
-import { FlexItem } from 'components/flex-item';
+import { FormToggleProps, FormToggleSize } from './types';
+import { useTheme } from '../../providers';
+import { Toggle, ToggleSize } from '../toggle';
+import { FlexItem } from '../flex-item';
 
 export const FormToggle = ({
   isChecked,
