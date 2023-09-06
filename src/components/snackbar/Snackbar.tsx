@@ -1,6 +1,6 @@
 import React from 'react';
 import { CheckIcon, ClearIcon, WarningIcon, InfoIcon, ClearLineIcon } from '../icons';
-import { LabelSmall, ParagraphSmall } from '../typography';
+import { ParagraphSmall } from '../typography';
 import { Button } from '../button';
 import { useTheme } from '../../providers';
 import { StyledDiv, StyledSnackbar, StyledSpan, StyledCloseWrapper, StyledCloseSeparator } from './SnackbarStyles';
@@ -55,7 +55,7 @@ export const Snackbar = ({
       <StyledDiv>
         <Block display="flex" gridGap={scale400}>
           <StyledSpan color={primaryB}>{getIcon()}</StyledSpan>
-          <LabelSmall color={primaryB}>{message}</LabelSmall>
+          <ParagraphSmall color={primaryB}>{message}</ParagraphSmall>
           {actionMessage && (
             <Button kind={ButtonKind.minimal} onClick={actionOnClick}>
               <ParagraphSmall color={primaryB} alignSelf="flex-start">

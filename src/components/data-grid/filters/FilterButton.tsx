@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import { Button, ButtonProps } from '../../button';
-import { LabelSmall } from '../../typography';
+import { ParagraphSmall } from '../../typography';
 import { CaretDownIcon } from '../../icons/caret-down';
 import { ClearLineIcon } from '../../icons/clear-line';
 import { useTheme } from '../../../providers';
@@ -51,7 +51,7 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
           }
           {...rest}
         >
-          <LabelSmall
+          <ParagraphSmall
             overrides={{
               Block: {
                 style: {
@@ -61,7 +61,7 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
             }}
           >
             {title}
-          </LabelSmall>
+          </ParagraphSmall>
         </Button>
       </FilterButtonBox>
     );
