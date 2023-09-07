@@ -42,6 +42,42 @@ const Template: Story<FormGroupProps> = ({ title, subtitle }) => {
           />
         )}
       />
+      <FormRow
+        label="This is a label"
+        caption="This is a caption"
+        error="This is an error caption"
+        name="name"
+        control={control}
+        rules={{ required: true }}
+        render={({ field }) => (
+          <Input
+            {...field}
+            testId="name-input"
+            size="compact"
+            placeholder="Name"
+            error={!!errors.name}
+            autoComplete="off"
+          />
+        )}
+      />
+      <FormRow
+        label="This is a label"
+        caption="This is a caption"
+        error="This is an error caption"
+        name="name"
+        control={control}
+        rules={{ required: true }}
+        render={({ field }) => (
+          <Input
+            {...field}
+            testId="name-input"
+            size="compact"
+            placeholder="Name"
+            error={!!errors.name}
+            autoComplete="off"
+          />
+        )}
+      />
     </FormGroup>
   );
 };
