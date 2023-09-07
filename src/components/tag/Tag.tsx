@@ -14,6 +14,7 @@ export const Tag = ({
   cursor = 'default',
   color = customColors.dark5,
   fontColor = customColors.light4,
+  height,
   width = 'auto',
   maxWidth = 'auto',
   ...rest
@@ -48,7 +49,7 @@ export const Tag = ({
               }),
               backgroundColor: color,
               cursor,
-              height: scale750,
+              height: height ?? scale750,
               color: fontColor,
             }),
           },
@@ -75,7 +76,7 @@ export const Tag = ({
             style: () => ({
               width,
               display: 'inline-flex',
-              height: scale750,
+              height: height ?? scale750,
               ...padding('0', scale200),
               ...borderRadius(scale0),
               ...margin('0px', scale100, '0px', '0px'),
