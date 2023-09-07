@@ -35,6 +35,7 @@ const Template: Story<FormRowProps<FormInput, string>> = (args) => {
           placeholder="Name"
           error={!!errors.name}
           autoComplete="off"
+          id="name-input"
         />
       )}
     />
@@ -81,4 +82,5 @@ WithError.args = {
   caption: 'This is a caption',
   error: 'This is an error caption',
   success: '',
+  forLabel: 'name-input',
 };

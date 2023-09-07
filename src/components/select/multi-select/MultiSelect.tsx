@@ -41,6 +41,7 @@ export const MultiSelect = <
   createText = (inputValue: string) => `Create ${inputValue}`,
   noOptionsMessage = () => 'No options',
   onCreateOption,
+  inputId,
   isGrouped = false,
 }: MultiSelectProps<ValueType, ValueKey, LabelKey>) => {
   const {
@@ -267,7 +268,10 @@ export const MultiSelect = <
           <CaretDownIcon />
         </FlexItem>
       ),
-      Input: (props) => <components.Input {...props} aria-haspopup="listbox" />,
+      Input: (props) => {
+        const customProps = inputId ? { ...props, id: inputId } : { ...props };
+        return <components.Input {...customProps} aria-haspopup="listbox" />;
+      },
       Menu: (props) => <components.Menu {...props} innerProps={{ ...props.innerProps, role: 'listbox' }} />,
       Option: (props) => <components.Option {...props} innerProps={{ ...props.innerProps, role: 'listitem' }} />,
     },

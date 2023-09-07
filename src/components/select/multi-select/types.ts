@@ -25,6 +25,7 @@ interface BaseMultiSelectProps<ValueType, ValueKey extends string, LabelKey exte
   createText?: (inputValue: string) => string;
   noOptionsMessage?: () => string;
   onCreateOption?: (inputValue: string) => void;
+  inputId?: string;
 }
 
 interface MultiSelectPropsWithGroups<ValueType, ValueKey extends string, LabelKey extends string>
