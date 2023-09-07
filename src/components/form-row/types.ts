@@ -17,6 +17,7 @@ export interface FormRowProps<T extends FieldValues, K extends string> {
   name: keyof T | `${K}.${number}.${string}`;
   label?: string | JSX.Element | null;
   labelEndEnhancer?: ReactNode | (() => ReactNode);
+  forLabel?: string;
   defaultValue?: any;
   error?: string;
   control?: Control<T, any>;
