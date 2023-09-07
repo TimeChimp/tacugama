@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Controller, FieldValues } from 'react-hook-form';
 import { FormRowProps, FormRowVariant } from './types';
 import { LabelSmall, ParagraphXSmall } from '../typography';
@@ -19,7 +19,6 @@ export const FormRow = <T extends FieldValues, K extends string>({
   render,
   caption,
   rules,
-  marginBottom,
   toolTip,
   actionButtons,
   variant,
@@ -45,24 +44,15 @@ export const FormRow = <T extends FieldValues, K extends string>({
     return label;
   };
 
-  const marginBottomWrapper = useCallback(() => {
-    if (marginBottom) {
-      return marginBottom;
-    }
-    return scale300;
-  }, [marginBottom, scale300]);
-
   return (
     <Block
       style={{
         display: 'flex',
         width: '100%',
         flexDirection: 'column',
-        gap: scale400,
+        gap: scale500,
         margin: 0,
-        marginBottom: marginBottomWrapper(),
         minHeight: minHeightBlock,
-        paddingBottom: scale300,
         flexWrap: 'wrap',
       }}
     >
