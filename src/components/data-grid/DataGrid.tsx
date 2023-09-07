@@ -581,14 +581,11 @@ export const DataGrid = ({
   };
 
   const onSearch = (searchTerm: string) => {
-    if (!searchTerm) {
-      return;
-    }
     searchColumns?.forEach((columnField) => {
       filterModel[columnField] = {
         filterType: 'text',
         type: 'contains',
-        filter: searchTerm.trim(),
+        filter: searchTerm?.trim(),
       };
     });
     onFiltering(filterModel);
