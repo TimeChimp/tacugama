@@ -15,6 +15,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
   control,
   label,
   labelEndEnhancer,
+  forLabel,
   defaultValue,
   error,
   render,
@@ -118,7 +119,13 @@ export const FormRow = <T extends FieldValues, K extends string>({
             }}
           >
             {label && (
-              <LabelSmall display="flex" alignItems="center" gridGap={scale200}>
+              <LabelSmall
+                display="flex"
+                as="label"
+                alignItems="center"
+                gridGap={scale200}
+                {...(forLabel ? { for: forLabel } : {})}
+              >
                 {getLabel()}
                 {toolTip && (
                   <StatefulTooltip
