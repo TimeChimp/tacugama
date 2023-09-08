@@ -13,6 +13,8 @@ export const Tag = ({
   closeable = false,
   cursor = 'default',
   color = customColors.dark5,
+  fontColor = customColors.light4,
+  height,
   width = 'auto',
   maxWidth = 'auto',
   ...rest
@@ -22,7 +24,6 @@ export const Tag = ({
       current: {
         sizing: { scale0, scale100, scale200, scale550, scale600, scale750 },
         borders: { border300 },
-        customColors: { light4 },
       },
     },
   } = useTheme();
@@ -48,14 +49,14 @@ export const Tag = ({
               }),
               backgroundColor: color,
               cursor,
-              height: scale750,
-              color: light4,
+              height: height ?? scale750,
+              color: fontColor,
             }),
           },
           Text: {
             component: ParagraphXSmall,
             style: () => ({
-              color: light4,
+              color: fontColor,
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',
@@ -75,7 +76,7 @@ export const Tag = ({
             style: () => ({
               width,
               display: 'inline-flex',
-              height: scale750,
+              height: height ?? scale750,
               ...padding('0', scale200),
               ...borderRadius(scale0),
               ...margin('0px', scale100, '0px', '0px'),
@@ -84,14 +85,14 @@ export const Tag = ({
                 borderColor: color,
               }),
               backgroundColor: color,
-              color: light4,
+              color: fontColor,
               cursor,
             }),
           },
           Text: {
             component: ParagraphSmall,
             style: () => ({
-              color: light4,
+              color: fontColor,
               overflow: 'hidden',
               textOverflow: 'ellipsis',
             }),

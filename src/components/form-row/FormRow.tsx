@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import { Controller, FieldValues } from 'react-hook-form';
 import { FormRowProps, FormRowVariant } from './types';
-import { LabelSmall, ParagraphSmall, ParagraphXSmall } from '../typography';
+import { LabelSmall, ParagraphXSmall } from '../typography';
 import { FormControl } from '../form-control';
-import { Separator } from '../separator';
 import { Block } from '../block';
 import { margin } from '../../utils';
 import { useTheme } from '../../providers';
@@ -21,43 +20,13 @@ export const FormRow = <T extends FieldValues, K extends string>({
   render,
   caption,
   rules,
-  marginBottom,
   toolTip,
-  hideSeparator,
   actionButtons,
   variant,
   minHeight,
   alignItems = 'start',
   showLabelInline = true,
 }: FormRowProps<T, K>) => {
-  const [dimensions, setDimensions] = useState({
-    width: 0,
-    height: 0,
-  });
-
-  const [elementRef, setElementRef] = useState<HTMLElement | null>();
-
-  useEffect(() => {
-    const onWindowResize = () => {
-      setDimensions({
-        width: elementRef?.offsetWidth || 0,
-        height: elementRef?.offsetHeight || 0,
-      });
-    };
-
-    if (typeof window !== undefined && elementRef?.offsetWidth) {
-      onWindowResize();
-      window.addEventListener('resize', onWindowResize);
-      return () => {
-        window.removeEventListener('resize', onWindowResize);
-      };
-    }
-  }, [elementRef]);
-
-  const { width } = dimensions;
-  const breakpoint = 900;
-  const isLarge = width ? width > breakpoint : true;
-
   const {
     theme: {
       current: {
@@ -67,7 +36,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
       },
     },
   } = useTheme();
-  const minHeightBlock = !isLarge && !minHeight ? scale2400 : minHeight ?? 0;
+  const minHeightBlock = !minHeight ? scale2400 : minHeight ?? 0;
 
   const getLabel = () => {
     if (rules?.required && label) {
@@ -76,46 +45,36 @@ export const FormRow = <T extends FieldValues, K extends string>({
     return label;
   };
 
-  const marginBottomWrapper = useCallback(() => {
-    if (marginBottom) {
-      return marginBottom;
-    }
-    return scale300;
-  }, [isLarge, marginBottom, scale300]);
-
   return (
     <Block
       style={{
         display: 'flex',
         width: '100%',
         flexDirection: 'column',
-        gap: scale400,
+        gap: scale500,
         margin: 0,
-        marginBottom: marginBottomWrapper(),
         minHeight: minHeightBlock,
-        paddingBottom: !isLarge ? scale300 : 0,
         flexWrap: 'wrap',
       }}
     >
       <Block
-        ref={setElementRef}
         style={{
           display: variant === FormRowVariant.Secondary && showLabelInline ? 'flex' : 'block',
           width: '100%',
-          gap: !isLarge && variant === FormRowVariant.Secondary ? scale300 : scale1200,
+          gap: variant === FormRowVariant.Secondary ? scale300 : scale1200,
           alignItems,
-          flexFlow: !isLarge && variant === FormRowVariant.Secondary ? 'row-reverse' : 'row',
-          justifyContent: !isLarge && variant === FormRowVariant.Secondary ? 'flex-end' : '',
+          flexFlow: variant === FormRowVariant.Secondary ? 'row-reverse' : 'row',
+          justifyContent: variant === FormRowVariant.Secondary ? 'flex-end' : '',
         }}
       >
         {(label || caption) && (
           <Block
             style={{
-              flexBasis: isLarge || variant !== FormRowVariant.Secondary ? scale7500 : '',
+              flexBasis: variant !== FormRowVariant.Secondary ? scale7500 : '',
               display: 'inline-grid',
               gap: scale0,
               marginBottom: variant !== FormRowVariant.Secondary ? scale300 : 0,
-              flexShrink: !isLarge && variant === FormRowVariant.Secondary ? 1 : 0,
+              flexShrink: variant === FormRowVariant.Secondary ? 1 : 0,
             }}
           >
             {label && (
