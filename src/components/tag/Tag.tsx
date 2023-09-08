@@ -17,6 +17,7 @@ export const Tag = ({
   height,
   width = 'auto',
   maxWidth = 'auto',
+  overrides,
   ...rest
 }: TagProps) => {
   const {
@@ -51,6 +52,7 @@ export const Tag = ({
               cursor,
               height: height ?? scale750,
               color: fontColor,
+              ...(overrides?.Root?.style || {}),
             }),
           },
           Text: {
@@ -60,15 +62,18 @@ export const Tag = ({
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',
+              ...(overrides?.Text?.style || {}),
             }),
           },
           Action: {
             style: () => ({
               marginLeft: scale100,
+              ...(overrides?.Action?.style || {}),
             }),
           },
           ActionIcon: {
             component: () => <ClearLineIcon size={scale550} />,
+            style: overrides?.ActionIcon?.style,
           },
         }),
         ...(size === TagSize.large && {
@@ -87,6 +92,7 @@ export const Tag = ({
               backgroundColor: color,
               color: fontColor,
               cursor,
+              ...(overrides?.Root?.style || {}),
             }),
           },
           Text: {
@@ -95,15 +101,18 @@ export const Tag = ({
               color: fontColor,
               overflow: 'hidden',
               textOverflow: 'ellipsis',
+              ...(overrides?.Text?.style || {}),
             }),
           },
           Action: {
             style: () => ({
               marginLeft: scale100,
+              ...(overrides?.Action?.style || {}),
             }),
           },
           ActionIcon: {
             component: () => <ClearLineIcon size={scale600} />,
+            style: overrides?.ActionIcon?.style,
           },
         }),
       }}
