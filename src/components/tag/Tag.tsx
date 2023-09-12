@@ -14,7 +14,6 @@ export const Tag = ({
   cursor = 'default',
   color = customColors.dark5,
   fontColor = customColors.light4,
-  height,
   width = 'auto',
   maxWidth = 'auto',
   overrides,
@@ -23,7 +22,7 @@ export const Tag = ({
   const {
     theme: {
       current: {
-        sizing: { scale0, scale100, scale200, scale550, scale600, scale750 },
+        sizing: { scale0, scale100, scale200, scale550, scale600, scale700 },
         borders: { border300 },
       },
     },
@@ -50,7 +49,7 @@ export const Tag = ({
               }),
               backgroundColor: color,
               cursor,
-              height: height ?? scale750,
+              height: scale700,
               color: fontColor,
               ...(overrides?.Root?.style || {}),
             }),
@@ -81,7 +80,7 @@ export const Tag = ({
             style: () => ({
               width,
               display: 'inline-flex',
-              height: height ?? scale750,
+              height: scale700,
               ...padding('0', scale200),
               ...borderRadius(scale0),
               ...margin('0px', scale100, '0px', '0px'),
