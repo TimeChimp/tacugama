@@ -33,6 +33,7 @@ const HoursTemplate: Story<HoursInputProps> = (args) => <HoursInput {...args} />
 const FileTemplate: Story<FileInputProps> = () => {
   const inputRef = useRef<any>(null);
   const title = 'Download';
+  const ATTACHMENTS_IMAGES_TYPE_ACCEPT = 'image/*';
 
   const handleFileChange = (e: React.FormEvent<HTMLInputElement>) => {
     const file = (e.target as HTMLInputElement).files && (e.target as HTMLInputElement)?.files?.[0];
@@ -50,7 +51,7 @@ const FileTemplate: Story<FileInputProps> = () => {
       <Button kind={ButtonKind.secondary} onClick={handleClick} startEnhancer={<AddLineIcon />}>
         {title}
       </Button>
-      <FileInput inputRef={inputRef} onChange={handleFileChange} />
+      <FileInput inputRef={inputRef} onChange={handleFileChange} accept={ATTACHMENTS_IMAGES_TYPE_ACCEPT} />
     </>
   );
 };
