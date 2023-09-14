@@ -29,5 +29,4 @@ export interface FormRowProps<T extends FieldValues, K extends string> {
   rules?: Omit<RegisterOptions<T, any>, 'disabled' | 'valueAsNumber' | 'valueAsDate' | 'setValueAs'>;
   toolTip?: string;
   actionButtons?: React.ReactNode[];
-  alignItems?: string;
 }
