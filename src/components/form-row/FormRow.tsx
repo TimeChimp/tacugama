@@ -92,7 +92,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
         <>
           <Block overrides={{ Block: { style: { display: 'flex', gap: actionButtons ? scale300 : 0 } } }}>
             <Controller name={name} control={control} defaultValue={defaultValue} rules={rules} render={render} />
-            <Block display={'flex'}>{actionButtons && actionButtons.map((button) => button)}</Block>
+            {actionButtons ? <Block display={'flex'}>{actionButtons.map((button) => button)}</Block> : null}
           </Block>
 
           {caption && !error && (
