@@ -49,8 +49,6 @@ export const FormRow = <T extends FieldValues, K extends string>({
         display: 'flex',
         width: '100%',
         flexDirection: 'column',
-        gap: scale500,
-        margin: 0,
         flexWrap: 'wrap',
       }}
     >
@@ -125,7 +123,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
           <>
             <Block style={{ display: 'flex', gap: actionButtons ? scale300 : 0 }}>
               <Controller name={name} control={control} defaultValue={defaultValue} rules={rules} render={render} />
-              <Block style={{ display: 'flex' }}>{actionButtons && actionButtons.map((button) => button)}</Block>
+              <Block display={'flex'}>{actionButtons && actionButtons.map((button) => button)}</Block>
             </Block>
 
             {caption && variant !== FormRowVariant.Secondary && !error && (
