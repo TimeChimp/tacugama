@@ -5,6 +5,7 @@ import { useTheme } from '../../providers';
 import { FlexGrid, FlexGridItem } from '../flex-grid';
 import { Block } from '../block';
 import { FormGroupStack, FormGroupTitleStack } from './styles';
+import { Separator } from '../separator';
 
 export const FormGroup = ({ title, subtitle, children }: FormGroupProps) => {
   const [dimensions, setDimensions] = useState({
@@ -38,7 +39,7 @@ export const FormGroup = ({ title, subtitle, children }: FormGroupProps) => {
   const {
     theme: {
       current: {
-        sizing: { scale900, scale1200 },
+        sizing: { scale800, scale900, scale1200 },
         customColors: { dark1, dark3 },
       },
     },
@@ -57,36 +58,54 @@ export const FormGroup = ({ title, subtitle, children }: FormGroupProps) => {
   }, [isLarge, title, subtitle]);
 
   return (
-    <Block ref={setElementRef} width="100%">
-      <FlexGrid flexGridColumnCount={2} $gridGap={gridGap} flexDirection={isLarge ? 'row' : 'column'}>
-        <FlexGridItem
-          flex={isLarge ? 1 : 'auto'}
-          overrides={{
-            Block: {
-              style: {
-                width: isLarge ? 'auto' : '100%',
+    <>
+      <Block ref={setElementRef} width="100%">
+        <FlexGrid flexGridColumnCount={2} $gridGap={gridGap} flexDirection={isLarge ? 'row' : 'column'}>
+          <FlexGridItem
+            flex={isLarge ? 1 : 'auto'}
+            overrides={{
+              Block: {
+                style: {
+                  width: isLarge ? 'auto' : '100%',
+                },
+              },
+            }}
+          >
+            <FormGroupTitleStack>
+              <LabelMedium color={dark1}>{title}</LabelMedium>
+              {subtitle ? <ParagraphSmall color={dark3}>{subtitle}</ParagraphSmall> : null}
+            </FormGroupTitleStack>
+          </FlexGridItem>
+          <FlexGridItem
+            flex={isLarge ? 3 : 'auto'}
+            overrides={{
+              Block: {
+                style: {
+                  width: isLarge ? 'auto' : '100%',
+                },
+              },
+            }}
+          >
+            <FormGroupStack>{children}</FormGroupStack>
+          </FlexGridItem>
+        </FlexGrid>
+      </Block>
+      <Block
+        marginBottom={scale800}
+        marginTop={scale800}
+        overrides={{
+          Block: {
+            style: {
+              ':last-child': {
+                marginBottom: 0,
+                display: 'none',
               },
             },
-          }}
-        >
-          <FormGroupTitleStack>
-            <LabelMedium color={dark1}>{title}</LabelMedium>
-            {subtitle ? <ParagraphSmall color={dark3}>{subtitle}</ParagraphSmall> : null}
-          </FormGroupTitleStack>
-        </FlexGridItem>
-        <FlexGridItem
-          flex={isLarge ? 3 : 'auto'}
-          overrides={{
-            Block: {
-              style: {
-                width: isLarge ? 'auto' : '100%',
-              },
-            },
-          }}
-        >
-          <FormGroupStack>{children}</FormGroupStack>
-        </FlexGridItem>
-      </FlexGrid>
-    </Block>
+          },
+        }}
+      >
+        <Separator />
+      </Block>
+    </>
   );
 };
