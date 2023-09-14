@@ -18,7 +18,10 @@ export const FormRow = <T extends FieldValues, K extends string>({
   rules,
   toolTip,
   actionButtons,
-  ...rest
+  name,
+  control,
+  defaultValue,
+  render,
 }: FormRowProps<T, K>) => {
   const {
     theme: {
@@ -70,7 +73,9 @@ export const FormRow = <T extends FieldValues, K extends string>({
                 }}
                 content={toolTip}
               >
-                <HelpIcon title={''} />
+                <div>
+                  <HelpIcon title={''} />
+                </div>
               </StatefulTooltip>
             )}
           </LabelSmall>
@@ -90,7 +95,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
       >
         <>
           <Block style={{ display: 'flex', gap: actionButtons ? scale300 : 0 }}>
-            <Controller {...rest} />
+            <Controller name={name} control={control} defaultValue={defaultValue} rules={rules} render={render} />
             <Block display={'flex'}>{actionButtons && actionButtons.map((button) => button)}</Block>
           </Block>
 

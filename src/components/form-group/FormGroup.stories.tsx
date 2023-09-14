@@ -7,6 +7,7 @@ import { FormGroupProps } from './types';
 import { useForm } from 'react-hook-form';
 import { TCFormRow } from '../tc-form-row';
 import { Toggle } from '../toggle';
+import { Checkbox } from '../checkbox';
 
 export default {
   title: 'Components/Form Group',
@@ -28,8 +29,7 @@ const Template: Story<FormGroupProps> = ({ title, subtitle }) => {
     <FormGroup title={title} subtitle={subtitle}>
       <FormRow
         label="This is a label"
-        caption="This is a caption"
-        error="This is an error caption"
+        toolTip="This is a tooltip"
         name="name"
         control={control}
         rules={{ required: true }}
@@ -69,14 +69,7 @@ const Template: Story<FormGroupProps> = ({ title, subtitle }) => {
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
-          <Input
-            {...field}
-            testId="name-input"
-            size="compact"
-            placeholder="Name"
-            error={!!errors.name}
-            autoComplete="off"
-          />
+          <Input {...field} testId="name-input" size="compact" placeholder="Name" error autoComplete="off" />
         )}
       />
       <TCFormRow
@@ -85,6 +78,23 @@ const Template: Story<FormGroupProps> = ({ title, subtitle }) => {
         label="This is a label"
         rules={{ required: true }}
         render={({ field }) => <Toggle {...field} />}
+      />
+
+      <TCFormRow
+        control={control}
+        name="name"
+        label="This is a label"
+        caption="This is a caption"
+        rules={{ required: true }}
+        render={({ field }) => <Toggle {...field} />}
+      />
+
+      <TCFormRow
+        control={control}
+        name="name"
+        label="This is a label"
+        rules={{ required: true }}
+        render={({ field }) => <Checkbox {...field} />}
       >
         <Input placeholder="Test input" />
       </TCFormRow>
