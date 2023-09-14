@@ -3,7 +3,7 @@ import { Popover } from '../popover';
 import { borderBottom } from '../../utils';
 import { useTheme } from '../../providers';
 import { Calendar } from 'baseui/datepicker';
-import { Select } from '../select';
+import { Select } from '../select/Select';
 import { getDateLocale, TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerOption, DatepickerPopoverProps } from './types';
 
