@@ -14,7 +14,7 @@ export enum ToggleSize {
   large = 'large',
 }
 
-export const Toggle = ({ checked, children, testId, size = ToggleSize.large, disabled, ...rest }: ToggleProps) => {
+export const Toggle = ({ checked, children, testId, size = ToggleSize.small, disabled, ...rest }: ToggleProps) => {
   const {
     theme: {
       current: {

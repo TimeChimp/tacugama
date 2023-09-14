@@ -10,6 +10,7 @@ import {
 
 export interface TCFormRowProps<T extends FieldValues, K extends string> {
   name: keyof T | `${K}.${number}.${string}`;
+  children: ReactElement<any>;
   label: string;
   forLabel?: string;
   defaultValue?: any;

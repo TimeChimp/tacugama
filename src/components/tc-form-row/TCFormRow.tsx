@@ -13,6 +13,7 @@ import { margin } from '../../utils';
  */
 export const TCFormRow = <T extends FieldValues, K extends string>({
   name,
+  children,
   control,
   label,
   forLabel,
@@ -24,7 +25,7 @@ export const TCFormRow = <T extends FieldValues, K extends string>({
   const {
     theme: {
       current: {
-        sizing: { scale0, scale100, scale200 },
+        sizing: { scale100, scale200 },
         customColors: { dark3 },
       },
     },
@@ -51,7 +52,6 @@ export const TCFormRow = <T extends FieldValues, K extends string>({
           as="label"
           alignItems="center"
           gridGap={scale200}
-          marginTop={scale0}
           {...(forLabel ? { for: forLabel } : {})}
         >
           {label}
@@ -62,6 +62,8 @@ export const TCFormRow = <T extends FieldValues, K extends string>({
             {caption}
           </ParagraphXSmall>
         )}
+
+        {children ? <Block marginTop={scale100}>{children}</Block> : null}
       </Block>
     </TcFormRowWrapper>
   );

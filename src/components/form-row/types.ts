@@ -38,6 +38,5 @@ export interface FormRowProps<T extends FieldValues, K extends string> {
   actionButtons?: React.ReactNode[];
   showLabelInline?: boolean;
   variant?: FormRowVariant;
-  minHeight?: any;
   alignItems?: string;
 }

@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { TCFormRow } from '.';
 import { TCFormRowProps } from './types';
-import { Checkbox as CheckboxComponent, Toggle as ToggleComponent } from '..';
+import { Checkbox as CheckboxComponent, FormGroup, Input, Toggle as ToggleComponent } from '..';
 import { useForm } from 'react-hook-form';
 
 export default {
@@ -20,13 +20,26 @@ const ToggleTemplate: Story<TCFormRowProps<FormInput, string>> = (args) => {
     mode: 'onSubmit',
   });
   return (
-    <TCFormRow
-      {...args}
-      name="isAwesome"
-      control={control}
-      rules={{ required: true }}
-      render={({ field }) => <ToggleComponent {...field} />}
-    />
+    <FormGroup title="This is a title" subtitle="This is subtitle">
+      <TCFormRow
+        {...args}
+        name="isAwesome"
+        control={control}
+        rules={{ required: true }}
+        render={({ field }) => <ToggleComponent {...field} />}
+      >
+        <Input placeholder="Test input" />
+      </TCFormRow>
+      <TCFormRow
+        {...args}
+        name="isAwesome"
+        control={control}
+        rules={{ required: true }}
+        render={({ field }) => <ToggleComponent {...field} />}
+      >
+        <Input placeholder="Test input" />
+      </TCFormRow>
+    </FormGroup>
   );
 };
 

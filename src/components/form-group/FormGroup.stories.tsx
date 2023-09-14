@@ -5,6 +5,8 @@ import { Input } from '../input';
 import { FormRow } from '../form-row';
 import { FormGroupProps } from './types';
 import { useForm } from 'react-hook-form';
+import { TCFormRow } from '../tc-form-row';
+import { Toggle } from '../toggle';
 
 export default {
   title: 'Components/Form Group',
@@ -45,7 +47,6 @@ const Template: Story<FormGroupProps> = ({ title, subtitle }) => {
       <FormRow
         label="This is a label"
         caption="This is a caption"
-        error="This is an error caption"
         name="name"
         control={control}
         rules={{ required: true }}
@@ -78,6 +79,15 @@ const Template: Story<FormGroupProps> = ({ title, subtitle }) => {
           />
         )}
       />
+      <TCFormRow
+        control={control}
+        name="name"
+        label="This is a label"
+        rules={{ required: true }}
+        render={({ field }) => <Toggle {...field} />}
+      >
+        <Input placeholder="Test input" />
+      </TCFormRow>
     </FormGroup>
   );
 };

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { FormGroupProps } from './types';
 import { ParagraphSmall, LabelMedium } from '../typography';
 import { useTheme } from '../../providers';
 import { FlexGrid, FlexGridItem } from '../flex-grid';
 import { Block } from '../block';
+import { FormGroupStack, FormGroupTitleStack } from './styles';
 
 export const FormGroup = ({ title, subtitle, children }: FormGroupProps) => {
   const [dimensions, setDimensions] = useState({
@@ -37,19 +38,27 @@ export const FormGroup = ({ title, subtitle, children }: FormGroupProps) => {
   const {
     theme: {
       current: {
-        sizing: { scale300, scale900, scale1200 },
+        sizing: { scale900, scale1200 },
         customColors: { dark1, dark3 },
       },
     },
   } = useTheme();
 
+  const gridGap = useMemo(() => {
+    if (isLarge) {
+      return scale1200;
+    }
+
+    if (title || subtitle) {
+      return scale900;
+    }
+
+    return 0;
+  }, [isLarge, title, subtitle]);
+
   return (
     <Block ref={setElementRef} width="100%">
-      <FlexGrid
-        flexGridColumnCount={2}
-        $gridGap={isLarge ? scale1200 : scale900}
-        flexDirection={isLarge ? 'row' : 'column'}
-      >
+      <FlexGrid flexGridColumnCount={2} $gridGap={gridGap} flexDirection={isLarge ? 'row' : 'column'}>
         <FlexGridItem
           flex={isLarge ? 1 : 'auto'}
           overrides={{
@@ -60,12 +69,10 @@ export const FormGroup = ({ title, subtitle, children }: FormGroupProps) => {
             },
           }}
         >
-          <LabelMedium color={dark1}>{title}</LabelMedium>
-          {subtitle ? (
-            <ParagraphSmall color={dark3} marginTop={scale300}>
-              {subtitle}
-            </ParagraphSmall>
-          ) : null}
+          <FormGroupTitleStack>
+            <LabelMedium color={dark1}>{title}</LabelMedium>
+            {subtitle ? <ParagraphSmall color={dark3}>{subtitle}</ParagraphSmall> : null}
+          </FormGroupTitleStack>
         </FlexGridItem>
         <FlexGridItem
           flex={isLarge ? 3 : 'auto'}
@@ -77,7 +84,7 @@ export const FormGroup = ({ title, subtitle, children }: FormGroupProps) => {
             },
           }}
         >
-          {children}
+          <FormGroupStack>{children}</FormGroupStack>
         </FlexGridItem>
       </FlexGrid>
     </Block>

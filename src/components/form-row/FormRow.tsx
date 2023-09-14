@@ -23,20 +23,18 @@ export const FormRow = <T extends FieldValues, K extends string>({
   toolTip,
   actionButtons,
   variant,
-  minHeight,
   alignItems = 'start',
   showLabelInline = true,
 }: FormRowProps<T, K>) => {
   const {
     theme: {
       current: {
-        sizing: { scale0, scale100, scale200, scale300, scale400, scale500, scale2400, scale1200 },
+        sizing: { scale0, scale100, scale200, scale300, scale400, scale500, scale1200 },
         customSizing: { scale8750, scale7500 },
         customColors: { dark3, red0 },
       },
     },
   } = useTheme();
-  const minHeightBlock = !minHeight ? scale2400 : minHeight ?? 0;
 
   const getLabel = () => {
     if (rules?.required && label) {
@@ -53,7 +51,6 @@ export const FormRow = <T extends FieldValues, K extends string>({
         flexDirection: 'column',
         gap: scale500,
         margin: 0,
-        minHeight: minHeightBlock,
         flexWrap: 'wrap',
       }}
     >
