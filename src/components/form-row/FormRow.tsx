@@ -43,11 +43,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
   return (
     <Block width={'100%'}>
       {label && (
-        <Block
-          style={{
-            marginBottom: scale300,
-          }}
-        >
+        <Block marginBottom={scale300}>
           <LabelSmall
             display="flex"
             as="label"
@@ -94,7 +90,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
         }}
       >
         <>
-          <Block style={{ display: 'flex', gap: actionButtons ? scale300 : 0 }}>
+          <Block overrides={{ Block: { style: { display: 'flex', gap: actionButtons ? scale300 : 0 } } }}>
             <Controller name={name} control={control} defaultValue={defaultValue} rules={rules} render={render} />
             <Block display={'flex'}>{actionButtons && actionButtons.map((button) => button)}</Block>
           </Block>
