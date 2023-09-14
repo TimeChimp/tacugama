@@ -9,7 +9,7 @@ export const FormControl = ({ overrides, error, success, caption, children, ...r
     theme: {
       current: {
         typography: { ParagraphXSmall, LabelSmall },
-        sizing: { scale100, scale500, scale550 },
+        sizing: { scale100, scale550 },
         customColors: { red0, green0, dark3 },
       },
     },

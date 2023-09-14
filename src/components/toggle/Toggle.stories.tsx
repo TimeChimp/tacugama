@@ -1,8 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Toggle, ToggleProps } from './';
-import { ToggleSize } from 'components';
+import { Toggle, ToggleProps, ToggleSize } from './';
 
 export default {
   title: 'Components/Toggle',
@@ -13,9 +12,6 @@ const Template: Story<ToggleProps> = (args) => {
   return (
     <>
       <Toggle {...args} />
-      <Toggle checked={false} />
-      <Toggle {...args} disabled />
-      <Toggle {...args} checked={false} disabled />
     </>
   );
 };

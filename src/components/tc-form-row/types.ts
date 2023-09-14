@@ -1,21 +1,21 @@
-import React, { ReactElement, ReactNode } from 'react';
+import { ReactElement } from 'react';
 import {
   Control,
-  ControllerFieldState,
   ControllerRenderProps,
-  FieldValues,
-  RegisterOptions,
+  ControllerFieldState,
   UseFormStateReturn,
+  RegisterOptions,
+  FieldValues,
 } from 'react-hook-form';
 
-export interface FormRowProps<T extends FieldValues, K extends string> {
+export interface TCFormRowProps<T extends FieldValues, K extends string> {
   name: keyof T | `${K}.${number}.${string}`;
-  control?: Control<T, any>;
-  label?: string | JSX.Element | null;
-  labelEndEnhancer?: ReactNode | (() => ReactNode);
+  children?: ReactElement<any>;
+  label: string;
   forLabel?: string;
   defaultValue?: any;
-  error?: string;
+  control?: Control<T, any>;
+  caption?: string | JSX.Element;
   render: ({
     field,
     fieldState,
@@ -25,8 +25,5 @@ export interface FormRowProps<T extends FieldValues, K extends string> {
     fieldState: ControllerFieldState;
     formState: UseFormStateReturn<T>;
   }) => ReactElement<any>;
-  caption?: string | JSX.Element;
   rules?: Omit<RegisterOptions<T, any>, 'disabled' | 'valueAsNumber' | 'valueAsDate' | 'setValueAs'>;
-  toolTip?: string;
-  actionButtons?: React.ReactNode[];
 }
