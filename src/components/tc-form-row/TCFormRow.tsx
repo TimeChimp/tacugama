@@ -9,7 +9,7 @@ import { Block } from 'baseui/block';
 import { margin } from '../../utils';
 
 /**
- * TCFormRow is a component that is used specifically for Toggle & Checkboxe components.
+ * TCFormRow is a component that is used specifically for Toggle & Checkbox components.
  */
 export const TCFormRow = <T extends FieldValues, K extends string>({
   name,
