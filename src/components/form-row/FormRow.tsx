@@ -1,6 +1,6 @@
 import React from 'react';
 import { Controller, FieldValues } from 'react-hook-form';
-import { FormRowProps, FormRowVariant } from './types';
+import { FormRowProps } from './types';
 import { LabelSmall, ParagraphXSmall } from '../typography';
 import { FormControl } from '../form-control';
 import { Block } from '../block';
@@ -22,9 +22,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
   rules,
   toolTip,
   actionButtons,
-  variant,
   alignItems = 'start',
-  showLabelInline = true,
 }: FormRowProps<T, K>) => {
   const {
     theme: {
@@ -54,22 +52,20 @@ export const FormRow = <T extends FieldValues, K extends string>({
     >
       <Block
         style={{
-          display: variant === FormRowVariant.Secondary && showLabelInline ? 'flex' : 'block',
+          display: 'block',
           width: '100%',
-          gap: variant === FormRowVariant.Secondary ? scale300 : scale1200,
+          gap: scale1200,
           alignItems,
-          flexFlow: variant === FormRowVariant.Secondary ? 'row-reverse' : 'row',
-          justifyContent: variant === FormRowVariant.Secondary ? 'flex-end' : '',
         }}
       >
         {(label || caption) && (
           <Block
             style={{
-              flexBasis: variant !== FormRowVariant.Secondary ? scale7500 : '',
+              flexBasis: scale7500,
               display: 'inline-grid',
               gap: scale0,
-              marginBottom: variant !== FormRowVariant.Secondary ? scale300 : 0,
-              flexShrink: variant === FormRowVariant.Secondary ? 1 : 0,
+              marginBottom: scale300,
+              flexShrink: 0,
             }}
           >
             {label && (
@@ -114,8 +110,8 @@ export const FormRow = <T extends FieldValues, K extends string>({
             ControlContainer: {
               style: {
                 ...margin('0'),
-                flexShrink: variant === FormRowVariant.Secondary ? 7 : 1,
-                width: variant === FormRowVariant.Secondary ? 'initial' : '100%',
+                flexShrink: 1,
+                width: '100%',
               },
             },
           }}
@@ -126,7 +122,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
               <Block display={'flex'}>{actionButtons && actionButtons.map((button) => button)}</Block>
             </Block>
 
-            {caption && variant !== FormRowVariant.Secondary && !error && (
+            {caption && !error && (
               <ParagraphXSmall color={dark3} marginTop={scale100}>
                 {caption}
               </ParagraphXSmall>
