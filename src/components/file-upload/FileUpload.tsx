@@ -90,7 +90,6 @@ export const FileUpload = ({
     instructionMessage: string,
     buttonText: string,
     preview?: string,
-    error?: boolean,
   ): BaseFileUploaderOverrides => ({
     FileDragAndDrop: {
       style: {
@@ -102,7 +101,7 @@ export const FileUpload = ({
       },
     },
     ButtonComponent: (props) => (
-      <Button {...props} overrides={selectButton()}>
+      <Button {...props} overrides={selectButton()} type="button">
         {buttonText}
       </Button>
     ),
@@ -125,7 +124,5 @@ export const FileUpload = ({
     },
   });
 
-  return (
-    <BaseFileUploader {...rest} overrides={fileUploaderOverrides(instructionMessage, buttonText, preview, error)} />
-  );
+  return <BaseFileUploader {...rest} overrides={fileUploaderOverrides(instructionMessage, buttonText, preview)} />;
 };
