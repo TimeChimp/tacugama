@@ -97,7 +97,6 @@ export const FormGroup = ({ title, subtitle, children }: FormGroupProps) => {
           Block: {
             style: {
               ':last-child': {
-                marginBottom: 0,
                 display: 'none',
               },
             },
