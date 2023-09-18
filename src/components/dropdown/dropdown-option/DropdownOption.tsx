@@ -9,7 +9,7 @@ import {
   StyledDropdownOptionLabel,
 } from '../styles';
 import { DropdownOptionProps } from '../types';
-import { StatefulTooltip } from 'components/tooltip';
+import { StatefulTooltip } from '../../tooltip';
 
 export const DropdownOption = forwardRef<any, DropdownOptionProps>(
   ({ item, onItemSelect }: DropdownOptionProps, ref) => {
