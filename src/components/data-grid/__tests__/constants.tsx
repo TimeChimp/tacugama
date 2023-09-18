@@ -128,8 +128,9 @@ export const FILTERS: Filter[] = [
     columnField: 'userName',
     values: [
       { value: 1, label: 'Henkie' },
-      { value: 2, label: 'Baltus' },
-      { value: 3, label: 'Bob' },
+      { value: 2, label: 'Test option multiple filter with very long name' },
+      { value: 3, label: 'Baltus' },
+      { value: 4, label: 'Bob' },
     ],
     icon: ({ ...props }) => <AvatarIcon size="12px" {...props} />,
     searchPlaceholder: 'Search users',

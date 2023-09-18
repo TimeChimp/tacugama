@@ -19,6 +19,7 @@ export interface DropdownItem {
   isBold?: boolean;
   filterConditions?: ActionItemFilterCondition[];
   context?: any;
+  showTooltip?: boolean;
 }
 
 export interface DropdownOptionProps {

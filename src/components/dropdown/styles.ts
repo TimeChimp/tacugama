@@ -7,6 +7,7 @@ export const StyledDropdownOption = themedStyled('div', ({ $theme }) => ({
   ...padding($theme.sizing.scale400, $theme.sizing.scale600),
   minWidth: $theme.sizing.scale3200,
   gap: $theme.sizing.scale500,
+  width: '100%',
   cursor: 'pointer',
   ':hover': {
     background: $theme.colors.menuFillHover,
@@ -35,6 +36,7 @@ export const StyledDropdownOptionLabel = themedStyled('div', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
+  overflow: 'hidden',
 });
 
 export const StyledDropdownFooter = themedStyled('div', ({ $theme }) => ({
