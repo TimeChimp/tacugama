@@ -27,6 +27,7 @@ export const MultiFilter = ({
     theme: {
       current: {
         sizing: { scale300, scale600 },
+        customSizing: { scale8750 },
         customColors: { light4 },
       },
     },
@@ -53,6 +54,7 @@ export const MultiFilter = ({
     ...value,
     action: () => handleSelectItem(value),
     isBold: !!selectedItems.find(({ id }) => id === value.id),
+    showTooltip: true,
   }));
 
   return (
@@ -64,6 +66,7 @@ export const MultiFilter = ({
       searchPlaceholder={searchPlaceholder}
       isLoading={valuesLoading}
       customList={VirtualScrollList}
+      propOverrides={{ bodyProps: () => ({ width: scale8750 }) }}
       footer={
         <Block {...padding(scale300, scale600)} backgroundColor={light4}>
           <Button onClick={handleApplyFilter} width="100%">
