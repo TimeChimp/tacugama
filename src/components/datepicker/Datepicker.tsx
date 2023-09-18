@@ -22,7 +22,7 @@ import { Skeleton } from '../skeleton';
 export const Datepicker = ({
   customValue,
   placement = 'bottomLeft',
-  locale,
+  locale = 'en',
   weekStartDay,
   overrides,
   noBorder,

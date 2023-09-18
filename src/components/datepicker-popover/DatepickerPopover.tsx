@@ -12,7 +12,7 @@ export const DatepickerPopover = ({
   placement = 'bottomLeft',
   setIsOpen,
   isOpen,
-  locale,
+  locale = 'en',
   weekStartDay,
   overrides,
   translations,
