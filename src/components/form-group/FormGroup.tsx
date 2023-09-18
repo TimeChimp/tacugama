@@ -59,7 +59,7 @@ export const FormGroup = ({ title, subtitle, children }: FormGroupProps) => {
 
   return (
     <>
-      <Block ref={setElementRef} width="100%">
+      <Block ref={setElementRef} width="100%" marginBottom={scale800}>
         <FlexGrid flexGridColumnCount={2} $gridGap={gridGap} flexDirection={isLarge ? 'row' : 'column'}>
           <FlexGridItem
             flex={isLarge ? 1 : 'auto'}
@@ -92,7 +92,6 @@ export const FormGroup = ({ title, subtitle, children }: FormGroupProps) => {
       </Block>
       <Block
         marginBottom={scale800}
-        marginTop={scale800}
         overrides={{
           Block: {
             style: {
