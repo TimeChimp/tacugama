@@ -16,14 +16,7 @@ export interface ModalProps extends Omit<BaseModelProps, 'size'> {
   size?: ModalSize;
 }
 
-export const Modal = ({
-  children,
-  onStateChange,
-  name,
-  overrides = {},
-  size = ModalSize.DEFAULT,
-  ...rest
-}: ModalProps) => {
+export const Modal = ({ children, onStateChange, overrides = {}, size = ModalSize.DEFAULT, ...rest }: ModalProps) => {
   // By utilizing the `MountStateNotifier` inside of `BaseModal` it will know the mountstate for when
   // the modal is closed. The base modal is unmounted, but this component `Modal` is still mounted.
   // Hence using a component to check the current state so the modal can use animations for mount states.
