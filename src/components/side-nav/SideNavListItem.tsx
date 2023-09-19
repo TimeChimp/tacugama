@@ -22,6 +22,9 @@ export const SideNavListItem = ({
     setExpanded,
     expanded,
     hasError,
+    disabled,
+    disabledText,
+    disabledOnClick,
   },
   activeItemId,
   activeSecondaryItemId,
@@ -90,6 +93,9 @@ export const SideNavListItem = ({
           hasError={hasError}
           handleNavigation={handleNavigation}
           isClickable={isClickable}
+          disabled={disabled}
+          disabledText={disabledText}
+          disabledOnClick={disabledOnClick}
         />
         {bottomSubtitle && (
           <LabelXSmall color={dark3} marginTop={scale500} marginBottom={scale400}>

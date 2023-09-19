@@ -23,17 +23,20 @@ export const StyledSideNavHeader = themedStyled('li', ({ $theme }) => ({
 
 export const StyledSideNavLink = themedStyled<any, StyledSideNavItemProps>(
   'li',
-  ({ $theme, $active = false, $isRightAlign = false, $isClickable = true }) => ({
-    ...padding($theme.sizing.scale200, $theme.sizing.scale500),
-    borderRadius: $theme.borders.radius200,
-    display: 'flex',
-    alignItems: 'center',
-    cursor: $isClickable ? 'pointer' : 'no-drop',
-    textDecoration: 'none',
-    backgroundColor: $active ? $theme.colors.primary100 : 'transparent',
-    flexFlow: $isRightAlign ? 'row-reverse' : 'row',
-    gap: $theme.sizing.scale600,
-  }),
+  ({ $theme, $active = false, $isRightAlign = false, $isClickable = true, $isDisabled = false }) => {
+    const cursorType = $isDisabled ? 'help' : 'pointer';
+    return {
+      ...padding($theme.sizing.scale200, $theme.sizing.scale500),
+      borderRadius: $theme.borders.radius200,
+      display: 'flex',
+      alignItems: 'center',
+      cursor: $isClickable ? cursorType : 'no-drop',
+      textDecoration: 'none',
+      backgroundColor: $active ? $theme.colors.primary100 : 'transparent',
+      flexFlow: $isRightAlign ? 'row-reverse' : 'row',
+      gap: $theme.sizing.scale600,
+    };
+  },
 );
 
 export const StyledSideNavGroupLink = themedStyled<any, StyledSideNavItemProps>(
