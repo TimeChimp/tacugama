@@ -22,7 +22,7 @@ export const SideNavListItem = ({
     setExpanded,
     expanded,
     hasError,
-    disabled,
+    disabled = false,
     disabledText,
     disabledOnClick,
   },
