@@ -52,7 +52,7 @@ export const SideNavLink = ({
         </StyledSideNavItemIcon>
       ) : null}
       {disabled ? (
-        <StatefulTooltip placement="top" showArrow triggerType="hover" content={() => disabledText}>
+        <StatefulTooltip placement="top" showArrow triggerType="hover" content={disabledText}>
           <div>{navItemTitle(light2)}</div>
         </StatefulTooltip>
       ) : (
