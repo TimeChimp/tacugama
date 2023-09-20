@@ -3,7 +3,7 @@ import { ModalHeader, ModalFooter, ModalBody, Modal } from '../modal';
 import { HeadingSmall, ParagraphSmall } from '../typography';
 import { Button } from '../button';
 import { ButtonKind, ButtonType, ConfirmationModalType } from '../../models';
-import { FlexItem } from 'components/flex-item';
+import { FlexItem } from '../flex-item';
 import { Block } from 'baseui/block';
 
 export interface ConfirmationModalProps {
