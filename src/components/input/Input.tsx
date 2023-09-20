@@ -28,6 +28,7 @@ export const Input = ({
   endEnhancer = null,
   overrides,
   showSkeleton = false,
+  autoComplete = 'off',
   ...rest
 }: InputProps) => {
   const {
@@ -178,6 +179,7 @@ export const Input = ({
       endEnhancer={endEnhancer}
       overrides={baseOverrides}
       type={type}
+      autoComplete={autoComplete}
       {...rest}
     />
   );
