@@ -8,7 +8,7 @@ import { PriceInput, PriceInputProps } from './price-input';
 import { HoursInput, HoursInputProps } from './hours-input';
 import { FileInput, FileInputProps } from './file-input';
 import { NumberInput, NumberInputProps } from './number-input';
-import { ButtonKind, PRICE_INPUT_PLACEHOLDER, PRICE_INPUT_PREFIX } from '../../models';
+import { ATTACHMENTS_IMAGES_TYPE_ACCEPT, ButtonKind, PRICE_INPUT_PLACEHOLDER, PRICE_INPUT_PREFIX } from '../../models';
 import { SearchInput, SearchInputProps } from './search-input';
 import { Button } from '../button';
 import { AddLineIcon } from '../icons';
@@ -33,7 +33,6 @@ const HoursTemplate: Story<HoursInputProps> = (args) => <HoursInput {...args} />
 const FileTemplate: Story<FileInputProps> = () => {
   const inputRef = useRef<any>(null);
   const title = 'Download';
-  const ATTACHMENTS_IMAGES_TYPE_ACCEPT = 'image/*';
 
   const handleFileChange = (e: React.FormEvent<HTMLInputElement>) => {
     const file = (e.target as HTMLInputElement).files && (e.target as HTMLInputElement)?.files?.[0];

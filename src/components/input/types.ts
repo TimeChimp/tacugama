@@ -7,6 +7,6 @@ export interface InputProps extends BaseInputProps {
   success?: boolean;
   width?: string;
   showSkeleton?: boolean;
-  // @deprecated - Don't use this prop, it will be removed in the future
+  /** @deprecated Don't use this prop, it will be removed in the future */
   size?: keyof typeof SIZE;
 }
