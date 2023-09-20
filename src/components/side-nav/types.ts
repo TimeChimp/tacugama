@@ -25,6 +25,9 @@ export interface SideNavItem {
   expanded?: boolean;
   setExpanded?: (expanded?: boolean) => void;
   hasError?: boolean;
+  disabled?: boolean;
+  disabledText?: string;
+  disabledOnClick?: () => void;
 }
 
 export interface SideNavProps {
@@ -45,6 +48,7 @@ export interface StyledSideNavItemProps {
   $active?: boolean;
   $isRightAlign?: boolean;
   $isClickable?: boolean;
+  $isDisabled?: boolean;
 }
 
 export interface StyledSideNavItemTitleProps {
@@ -71,6 +75,9 @@ export interface SideNavLinkProps {
   isRightAlign?: boolean;
   hasError?: boolean;
   isClickable?: boolean;
+  disabled?: boolean;
+  disabledText?: string;
+  disabledOnClick?: () => void;
 }
 
 export interface SideNavItemProps {
