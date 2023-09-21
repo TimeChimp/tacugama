@@ -38,7 +38,6 @@ export const SideMenuFlexGridItem = ({
 };
 
 export const ButtonBox = themedStyled('div', () => ({
-  width: '50%',
   display: 'flex',
   justifyContent: 'flex-end',
 }));

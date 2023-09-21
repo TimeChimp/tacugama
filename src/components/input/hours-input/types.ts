@@ -1,6 +1,7 @@
 import { TimeFormat } from '@timechimp/timechimp-typescript-helpers';
+import { InputProps } from '../types';
 
-export interface HoursInputProps {
+export interface HoursInputProps extends InputProps {
   disabled?: boolean;
   endEnhancer?: JSX.Element;
   defaultValue?: string | number;

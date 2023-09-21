@@ -27,7 +27,7 @@ const Template: Story<EditPageProps> = () => {
     <EditPage
       entity="team"
       sideNavItems={getSideNavItems()}
-      title={'Edit Page'}
+      title="Edit Page"
       returnToTitle={'Page'}
       onCancel={() => console.log('Cancel')}
       loading={false}
