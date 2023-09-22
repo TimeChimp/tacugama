@@ -110,8 +110,10 @@ export const EditPage = ({
 
   return (
     <>
-      <FlexItem justifyContent="space-between" marg1="0" marg2="0" marg3={scale500} marg4="0">
-        <HeadingSmall>{title}</HeadingSmall>
+      <FlexItem justifyContent="space-between" marg1="0" marg2="0" marg3={scale500} marg4="0" flexWrap="nowrap">
+        <HeadingSmall whiteSpace="nowrap" textOverflow="ellipsis" overflow="hidden">
+          {title}
+        </HeadingSmall>
         <ButtonBox>
           {onSave ? (
             <>
