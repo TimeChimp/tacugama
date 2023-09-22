@@ -59,7 +59,7 @@ export const FormGroup = ({ title, subtitle, children }: FormGroupProps) => {
 
   return (
     <>
-      <Block ref={setElementRef} width="100%" marginBottom={scale800}>
+      <Block ref={setElementRef} width="100%" paddingBottom={scale800}>
         <FlexGrid flexGridColumnCount={2} $gridGap={gridGap} flexDirection={isLarge ? 'row' : 'column'}>
           <FlexGridItem
             flex={isLarge ? 1 : 'auto'}

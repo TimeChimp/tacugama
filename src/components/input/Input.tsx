@@ -29,6 +29,7 @@ export const Input = ({
   overrides,
   showSkeleton = false,
   autoComplete = 'off',
+  name,
   ...rest
 }: InputProps) => {
   const {
@@ -180,6 +181,7 @@ export const Input = ({
       overrides={baseOverrides}
       type={type}
       autoComplete={autoComplete}
+      id={name}
       {...rest}
     />
   );

@@ -42,17 +42,7 @@ export const CopyText = ({
       {...padding(scale0, scale100)}
       {...rest}
     >
-      <ParagraphSmall
-        overrides={{
-          Block: {
-            style: {
-              fontFamily: 'Source Code Pro, sans-serif',
-            },
-          },
-        }}
-        marginTop={scale0}
-        marginBottom={scale0}
-      >
+      <ParagraphSmall marginTop={scale0} marginBottom={scale0}>
         {value}
       </ParagraphSmall>
       <StyledCopyIcon onClick={() => copyTextHandler(value)}>

@@ -46,6 +46,7 @@ export const SingleSelect = <
   loadOptions,
   cacheOptions,
   inputId,
+  name,
   isGrouped = false,
 }: SingleSelectProps<ValueType, ValueKey, LabelKey>) => {
   const {
@@ -252,7 +253,8 @@ export const SingleSelect = <
           </FlexItem>
         ),
         Input: (props) => {
-          const customProps = inputId ? { ...props, id: inputId } : { ...props };
+          const id = name || inputId;
+          const customProps = id ? { ...props, id } : { ...props };
           return <components.Input {...customProps} aria-haspopup="listbox" />;
         },
         Menu: (props) => <components.Menu {...props} innerProps={{ ...props.innerProps, role: 'listbox' }} />,
@@ -298,12 +300,22 @@ export const SingleSelect = <
 
   const SelectComponent = useMemo(() => {
     if (creatable) {
-      return <SelectCreatable {...props} onCreateOption={onCreateOption} menuPortalTarget={document.body} />;
+      return (
+        <SelectCreatable name={name} {...props} onCreateOption={onCreateOption} menuPortalTarget={document.body} />
+      );
     }
     if (loadOptions) {
-      return <SelectAsync {...props} loadOptions={loadOptions} cacheOptions={cacheOptions} defaultOptions={options} />;
+      return (
+        <SelectAsync
+          name={name}
+          {...props}
+          loadOptions={loadOptions}
+          cacheOptions={cacheOptions}
+          defaultOptions={options}
+        />
+      );
     }
-    return <Select {...props} menuPortalTarget={document.body} />;
+    return <Select name={name} {...props} menuPortalTarget={document.body} />;
   }, [cacheOptions, creatable, loadOptions, onCreateOption, props]);
 
   return <>{showSkeleton ? <Skeleton width="100%" height={scale975} animation /> : <>{SelectComponent}</>}</>;
