@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { SideNav, SideNavProps } from '.';
+import { SideNav, SideNavItem, SideNavProps } from '.';
 import { ParagraphSmall } from '../typography';
 import { Box } from '../box';
 import { FlexGrid, FlexGridItem } from '../flex-grid';
@@ -12,23 +12,32 @@ export default {
 } as Meta;
 
 enum Tab {
-  Tab1 = 'Tab1',
-  Tab2 = 'Tab2',
+  General = 'General',
+  Approval = 'Approval',
+  Invoices = 'Invoices',
 }
 
 const Template: Story<SideNavProps> = () => {
-  const [tab, setTab] = useState<string>(Tab.Tab1);
+  const [tab, setTab] = useState<string>(Tab.General);
 
-  const sideNavItems = [
+  const sideNavItems: SideNavItem[] = [
     {
-      id: Tab.Tab1,
-      title: Tab.Tab1,
-      component: () => <ParagraphSmall>{Tab.Tab1}</ParagraphSmall>,
+      id: Tab.General,
+      title: Tab.General,
+      component: () => <ParagraphSmall>{Tab.General}</ParagraphSmall>,
     },
     {
-      id: Tab.Tab2,
-      title: Tab.Tab2,
-      component: () => <ParagraphSmall>{Tab.Tab2}</ParagraphSmall>,
+      id: Tab.Approval,
+      title: Tab.Approval,
+      component: () => <ParagraphSmall>{Tab.Approval}</ParagraphSmall>,
+      disabled: true,
+      disabledText: 'Activate module in App Center',
+      disabledOnClick: () => console.log('Redirect to App Center'),
+    },
+    {
+      id: Tab.Invoices,
+      title: Tab.Invoices,
+      component: () => <ParagraphSmall>{Tab.Invoices}</ParagraphSmall>,
     },
   ];
 
