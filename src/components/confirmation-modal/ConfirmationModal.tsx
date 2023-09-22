@@ -3,6 +3,8 @@ import { ModalHeader, ModalFooter, ModalBody, Modal } from '../modal';
 import { HeadingSmall, ParagraphSmall } from '../typography';
 import { Button } from '../button';
 import { ButtonKind, ButtonType, ConfirmationModalType } from '../../models';
+import { FlexItem } from '../flex-item';
+import { Block } from 'baseui/block';
 
 export interface ConfirmationModalProps {
   title: string;
@@ -19,6 +21,8 @@ export interface ConfirmationModalProps {
   cancelLabel: string;
   cancelOnClick?: () => Promise<void>;
   submitButtonTestId?: string;
+  submitButtondisabled?: boolean;
+  footerLeftComponent?: JSX.Element;
 }
 
 export const ConfirmationModal = ({
@@ -33,6 +37,8 @@ export const ConfirmationModal = ({
   cancelOnClick,
   submitButtonTestId,
   onClose,
+  submitButtondisabled,
+  footerLeftComponent,
 }: ConfirmationModalProps) => {
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -78,12 +84,23 @@ export const ConfirmationModal = ({
         <ParagraphSmall>{description}</ParagraphSmall>
       </ModalBody>
       <ModalFooter>
-        <Button kind={ButtonKind.secondary} onClick={handleCancel}>
-          {cancelLabel}
-        </Button>
-        <Button buttonType={getButtonType()} isLoading={loading} onClick={handleSubmit} testId={submitButtonTestId}>
-          {submitLabel}
-        </Button>
+        <FlexItem justifyContent="space-between" alignItems="center">
+          <Block>{footerLeftComponent}</Block>
+          <Block>
+            <Button kind={ButtonKind.secondary} onClick={handleCancel}>
+              {cancelLabel}
+            </Button>
+            <Button
+              buttonType={getButtonType()}
+              isLoading={loading}
+              onClick={handleSubmit}
+              testId={submitButtonTestId}
+              disabled={submitButtondisabled}
+            >
+              {submitLabel}
+            </Button>
+          </Block>
+        </FlexItem>
       </ModalFooter>
     </Modal>
   );

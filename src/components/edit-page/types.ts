@@ -41,6 +41,7 @@ export interface EditPageContainerProps {
   footerButtonIsLoading?: boolean;
   footerButtonType?: 'button' | 'submit' | 'reset';
   onFooterButtonClick?: () => Promise<void>;
+  justifyFooterButtons?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
   secondaryFooterButtonTitle?: string;
   secondaryFooterButtonProps?: ButtonProps;
   paddingLeftRight?: string;
