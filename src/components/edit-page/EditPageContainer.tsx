@@ -28,6 +28,7 @@ export const EditPageContainer = ({
   footerButtonIsLoading,
   footerButtonType = 'button',
   onFooterButtonClick,
+  justifyFooterButtons = 'flex-end',
   secondaryFooterButtonTitle,
   secondaryFooterButtonProps = {},
   paddingLeftRight,
@@ -73,7 +74,7 @@ export const EditPageContainer = ({
         display="flex"
         {...padding(scale200, scale1600)}
         height={scale1200}
-        justifyContent="flex-end"
+        justifyContent={justifyFooterButtons}
         alignItems="center"
       >
         {secondaryFooterButtonTitle ? (
