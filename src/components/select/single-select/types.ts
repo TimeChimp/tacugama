@@ -28,7 +28,9 @@ interface BaseSingleSelectProps<ValueType, ValueKey extends string, LabelKey ext
   multi?: boolean;
   loadOptions?: (inputValue: string) => Promise<Option<ValueType, ValueKey, LabelKey>[]>;
   cacheOptions?: boolean;
+  /** @deprecated Don't use this prop, it will be removed in the future */
   inputId?: string;
+  name?: string;
 }
 
 interface SingleSelectPropsWithGroups<ValueType, ValueKey extends string, LabelKey extends string>

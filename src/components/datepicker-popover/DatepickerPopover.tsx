@@ -55,8 +55,8 @@ export const DatepickerPopover = ({
     },
     {
       id: translations?.thisWeek ?? 'This week',
-      beginDate: new TcDate().startOf('week').toDate(),
-      endDate: new TcDate().endOf('week').toDate(),
+      beginDate: new TcDate().startOf('week', 1).getDateWithoutTimeAsUTC(),
+      endDate: new TcDate().endOf('week', 1).getDateWithoutTimeAsUTC(),
     },
     {
       id: translations?.thisMonth ?? 'This month',
@@ -75,8 +75,8 @@ export const DatepickerPopover = ({
     },
     {
       id: translations?.previousWeek ?? 'Previous week',
-      beginDate: new TcDate().subtract(1, 'week').startOf('week').toDate(),
-      endDate: new TcDate().subtract(1, 'week').endOf('week').toDate(),
+      beginDate: new TcDate().subtract(1, 'week').startOf('week', 1).toDate(),
+      endDate: new TcDate().subtract(1, 'week').endOf('week', 1).toDate(),
     },
     {
       id: translations?.previousMonth ?? 'Previous month',
