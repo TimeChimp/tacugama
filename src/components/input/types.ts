@@ -1,6 +1,7 @@
 import { InputProps as BaseInputProps, SIZE } from 'baseui/input';
 
 export interface InputProps extends BaseInputProps {
+  /** @deprecated Don't use this prop, it will be removed in the future */
   testId?: string;
   uppercase?: boolean;
   noBorder?: boolean;
