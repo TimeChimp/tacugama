@@ -20,11 +20,13 @@ export const COLUMNS = [
     label: 'Address',
     type: BasicTableColumnType.Text,
     field: 'address',
+    alignEnd: true,
   },
   {
     label: 'Actions',
     type: BasicTableColumnType.Custom,
     field: 'actions',
+    alignEnd: true,
   },
 ];
 

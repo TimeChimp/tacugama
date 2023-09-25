@@ -1,24 +1,29 @@
 import React from 'react';
 import { BasicTableProps, BasicTableRow } from './types';
 import { useTheme } from '../../providers';
-import { padding } from '../../utils';
+import { padding, border } from '../../utils';
 import { TableBuilder, TableBuilderColumn } from 'baseui/table-semantic';
 import { renderCell } from './Cell';
+import { EmptyMessage } from './EmptyMessage';
 import { TABLE_ROW_HEIGHT } from '../../models';
 
-export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
+export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps) => {
   const {
     theme: {
       current: {
-        sizing: { scale600 },
+        sizing: { scale600, scale1000 },
         colors: { primaryB },
-        customColors: { light7 },
-        borders: { radius200 },
+        customColors: { light7, light2, light6 },
+        borders: { radius200, border100 },
         typography: { ParagraphSmall },
-        customSizing: { scale1025 },
       },
     },
   } = useTheme();
+
+  const tableRootStyles = {
+    borderRadius: radius200,
+    ...border({ ...border100, borderColor: light2 }),
+  };
 
   const tableHeadCellStyles = {
     backgroundColor: light7,
@@ -36,17 +41,21 @@ export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
     ...padding('0', scale600),
     height: TABLE_ROW_HEIGHT,
     verticalAlign: 'middle',
+    borderBottomColor: light6,
   };
 
   return (
     <TableBuilder
       overrides={{
+        Root: {
+          style: tableRootStyles,
+        },
         TableHeadCell: {
           style: tableHeadCellStyles,
         },
         TableHeadRow: {
           style: {
-            height: scale1025,
+            height: scale1000,
           },
         },
         TableBodyRow: {
@@ -60,7 +69,15 @@ export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
         TableBodyCell: {
           style: tableBodyCellStyles,
         },
+        TableEmptyMessage: {
+          style: {
+            height: TABLE_ROW_HEIGHT,
+            ...padding('0px', scale600),
+            verticalAlign: 'middle',
+          },
+        },
       }}
+      {...(emptyMessage ? { emptyMessage: <EmptyMessage message={emptyMessage} /> } : {})}
       {...props}
     >
       {columns.map((column) => (
@@ -72,6 +89,7 @@ export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
               style: {
                 ...tableHeadCellStyles,
                 width: column.width ?? 'auto',
+                textAlign: column?.alignEnd ? 'right' : 'left',
               },
             },
             TableBodyCell: {
