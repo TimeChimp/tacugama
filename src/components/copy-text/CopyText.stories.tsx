@@ -14,4 +14,5 @@ export const Default = Template.bind({});
 Default.args = {
   value,
   copyTextHandler: (value) => navigator.clipboard.writeText(value),
+  buttonText: 'Copy',
 };
