@@ -46,7 +46,6 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
 
   const tableEmptyMessageStyles = {
     height: TABLE_ROW_HEIGHT,
-    verticalAlign: 'middle',
     ...ParagraphSmall,
     ...padding('0px', scale600, '0px', scale600),
   };
