@@ -44,6 +44,13 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
     borderBottomColor: light6,
   };
 
+  const tableEmptyMessageStyles = {
+    height: TABLE_ROW_HEIGHT,
+    verticalAlign: 'middle',
+    ...ParagraphSmall,
+    ...padding('0px', scale600, '0px', scale600),
+  };
+
   return (
     <TableBuilder
       overrides={{
@@ -70,11 +77,7 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
           style: tableBodyCellStyles,
         },
         TableEmptyMessage: {
-          style: {
-            height: TABLE_ROW_HEIGHT,
-            ...padding('0px', scale600),
-            verticalAlign: 'middle',
-          },
+          style: tableEmptyMessageStyles,
         },
       }}
       {...(emptyMessage ? { emptyMessage: <EmptyMessage message={emptyMessage} /> } : {})}
@@ -89,7 +92,6 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
               style: {
                 ...tableHeadCellStyles,
                 width: column.width ?? 'auto',
-                textAlign: column?.alignEnd ? 'right' : 'left',
               },
             },
             TableBodyCell: {
