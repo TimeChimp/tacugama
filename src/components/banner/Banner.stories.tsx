@@ -3,6 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Banner } from './Banner';
 import { BannerProps, BannerType } from './types';
+import { ParagraphSmall } from '../typography';
 
 export default {
   title: 'Components/Banner',
@@ -37,4 +38,17 @@ export const Warning = Template.bind({});
 Warning.args = {
   type: BannerType.warning,
   text: 'Warning!',
+};
+
+const bannerText = 'Banner with custom ';
+
+export const BannerWithLink = Template.bind({});
+BannerWithLink.args = {
+  type: BannerType.error,
+  customText: (
+    <ParagraphSmall>
+      {bannerText}
+      <a href="#">link</a>
+    </ParagraphSmall>
+  ),
 };

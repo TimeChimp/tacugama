@@ -22,4 +22,7 @@ const Template: Story<EditPageContainerProps> = (args) => {
 export const Default = Template.bind({});
 Default.args = {
   title: 'Edit Page',
+  footerButtonTitle: 'Save',
+  onFooterButtonClick: () => console.log('Save'),
+  footerButtonIsLoading: false,
 };
