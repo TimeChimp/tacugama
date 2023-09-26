@@ -107,26 +107,15 @@ export const EditPage = ({
         <ButtonBox>
           {saveText ? (
             <>
-              <Button
-                kind={ButtonKind.secondary}
-                onClick={onCancelClick}
-                testId={`cancel-button-${entity}`}
-                type="button"
-              >
+              <Button kind={ButtonKind.secondary} onClick={onCancelClick}>
                 {cancelText}
               </Button>
-              <Button isLoading={updating} testId={`save-button-${entity}`} disabled={isSaveDisabled} type="submit">
+              <Button isLoading={updating} disabled={isSaveDisabled} type="submit">
                 {saveText}
               </Button>
             </>
           ) : (
-            <Button
-              kind={ButtonKind.secondary}
-              onClick={onCancelClick}
-              testId={`cancel-button-${entity}`}
-              type="button"
-              startEnhancer={<CaretLeftIcon />}
-            >
+            <Button kind={ButtonKind.secondary} onClick={onCancelClick} startEnhancer={<CaretLeftIcon />}>
               {backText}
             </Button>
           )}
