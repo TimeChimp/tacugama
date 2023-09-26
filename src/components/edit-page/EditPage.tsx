@@ -25,11 +25,9 @@ export const EditPage = ({
   backText,
   cancelText,
   onCancel,
-  onSave,
 }: EditPageProps) => {
   const [tab, setTab] = useState<string>(sideNavItems[0]?.id);
   const [secondaryTab, setSecondaryTab] = useState<string>();
-  const [isSaving, setIsSaving] = useState(false);
 
   const {
     theme: {
@@ -90,14 +88,6 @@ export const EditPage = ({
     setTab(parentId);
   };
 
-  const onSaveClick = async () => {
-    if (onSave) {
-      setIsSaving(true);
-      await onSave();
-      setIsSaving(false);
-    }
-  };
-
   const onCancelClick = () => {
     if (onCancel) {
       onCancel();
@@ -115,7 +105,7 @@ export const EditPage = ({
           {title}
         </HeadingSmall>
         <ButtonBox>
-          {onSave ? (
+          {saveText ? (
             <>
               <Button
                 kind={ButtonKind.secondary}
@@ -125,13 +115,7 @@ export const EditPage = ({
               >
                 {cancelText}
               </Button>
-              <Button
-                isLoading={isSaving || updating}
-                onClick={onSaveClick}
-                testId={`save-button-${entity}`}
-                disabled={isSaveDisabled}
-                type="submit"
-              >
+              <Button isLoading={updating} testId={`save-button-${entity}`} disabled={isSaveDisabled} type="submit">
                 {saveText}
               </Button>
             </>
