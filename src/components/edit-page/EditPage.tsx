@@ -15,7 +15,6 @@ import { Box } from '../box';
 export const EditPage = ({
   sideNavItems,
   title,
-  entity,
   selectedTab,
   selectedSubTab,
   loading,

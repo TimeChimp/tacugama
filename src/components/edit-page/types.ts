@@ -9,7 +9,6 @@ export interface EditPageSkeletonProps {
 export interface EditPageProps {
   loading?: boolean;
   updating?: boolean;
-  entity: string;
   title: string | undefined;
   selectedTab?: string;
   selectedSubTab?: string;
