@@ -6,7 +6,7 @@ import { TableBuilder, TableBuilderColumn, StyledTableHeadCell } from 'baseui/ta
 import { renderCell } from './Cell';
 import { EmptyMessage } from './EmptyMessage';
 import { TABLE_ROW_HEIGHT } from '../../models';
-import { FlexItem } from 'components/flex-item';
+import { FlexItem } from '../flex-item';
 
 export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps) => {
   const {
