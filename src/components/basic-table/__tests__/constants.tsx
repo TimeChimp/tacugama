@@ -24,11 +24,6 @@ export const COLUMNS = [
     field: 'address',
   },
   {
-    label: <CheckIcon />,
-    type: BasicTableColumnType.Custom,
-    field: 'address',
-  },
-  {
     label: 'Actions',
     type: BasicTableColumnType.Custom,
     field: 'actions',

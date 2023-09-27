@@ -30,9 +30,3 @@ EmptyData.args = {
   data: [],
   emptyMessage: 'No items added...',
 };
-EmptyData.parameters = {
-  design: {
-    type: 'figma',
-    url: 'https://www.figma.com/file/QrIqXt997mm9ePey5JCLAJ/DS-1.0?node-id=3754%3A28336&t=gRiloFAZsdFGMVIU-4',
-  },
-};
