@@ -14,9 +14,9 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
       current: {
         sizing: { scale600, scale1000 },
         colors: { primaryB },
-        customColors: { light7, light2, light6 },
+        customColors: { light7, light2, light6, dark3 },
         borders: { radius200, border100 },
-        typography: { ParagraphSmall },
+        typography: { ParagraphSmall, LabelSmall },
       },
     },
   } = useTheme();
@@ -28,6 +28,7 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
 
   const tableHeadCellStyles = {
     backgroundColor: light7,
+    color: dark3,
     ...padding('0', scale600),
     ':first-child': {
       borderTopLeftRadius: radius200,
@@ -35,7 +36,7 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
     ':last-child': {
       borderTopRightRadius: radius200,
     },
-    ...ParagraphSmall,
+    ...LabelSmall,
   };
 
   const tableBodyCellStyles = {
