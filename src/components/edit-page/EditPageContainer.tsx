@@ -28,6 +28,7 @@ export const EditPageContainer = ({
   footerButtonIsLoading,
   footerButtonType = 'button',
   onFooterButtonClick,
+  isFooterButton = true,
   justifyFooterButtons = 'flex-end',
   secondaryFooterButtonTitle,
   secondaryFooterButtonProps = {},
@@ -82,7 +83,7 @@ export const EditPageContainer = ({
             {secondaryFooterButtonTitle}
           </Button>
         ) : null}
-        {footerButtonTitle ? (
+        {footerButtonTitle && isFooterButton ? (
           <Button
             type={footerButtonType}
             kind={ButtonKind.primary}
