@@ -2,10 +2,11 @@ import React from 'react';
 import { BasicTableProps, BasicTableRow } from './types';
 import { useTheme } from '../../providers';
 import { padding, border } from '../../utils';
-import { TableBuilder, TableBuilderColumn } from 'baseui/table-semantic';
+import { TableBuilder, TableBuilderColumn, StyledTableHeadCell } from 'baseui/table-semantic';
 import { renderCell } from './Cell';
 import { EmptyMessage } from './EmptyMessage';
 import { TABLE_ROW_HEIGHT } from '../../models';
+import { FlexItem } from 'components/flex-item';
 
 export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps) => {
   const {
@@ -92,6 +93,11 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
                 ...tableHeadCellStyles,
                 width: column.width ?? 'auto',
               },
+              component: ({ $style, children }) => (
+                <StyledTableHeadCell style={$style}>
+                  <FlexItem justifyContent={column?.alignEnd ? 'flex-end' : 'flex-start'}>{children}</FlexItem>
+                </StyledTableHeadCell>
+              ),
             },
             TableBodyCell: {
               style: {

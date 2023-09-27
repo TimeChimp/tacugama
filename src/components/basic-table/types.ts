@@ -10,6 +10,7 @@ export interface BasicTableColumn {
   field: string;
   type?: BasicTableColumnType;
   width?: string;
+  alignEnd?: boolean;
 }
 
 export interface BasicTableRow {

@@ -4,6 +4,7 @@ import { Toggle, ToggleSize } from '../../toggle';
 import { Input } from '../../input';
 import React from 'react';
 import { BasicTableColumnType } from '../types';
+import { CheckIcon } from 'components/icons';
 
 export const COLUMNS = [
   {
@@ -15,10 +16,16 @@ export const COLUMNS = [
     type: BasicTableColumnType.Text,
     field: 'age',
     width: '50px',
+    alignEnd: true,
   },
   {
     label: 'Address',
     type: BasicTableColumnType.Text,
+    field: 'address',
+  },
+  {
+    label: <CheckIcon />,
+    type: BasicTableColumnType.Custom,
     field: 'address',
   },
   {
