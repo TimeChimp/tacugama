@@ -9,6 +9,7 @@ import { FileUploadPreview } from './file-upload-preview';
 import { borderRadius, margin, padding } from '../../utils';
 import { Button } from 'baseui/button';
 import { useTheme } from '../../providers';
+import { ButtonKind } from 'models';
 
 export interface FileUploadProps extends Omit<BaseFileUploaderProps, 'overrides'> {
   instructionMessage: string;
@@ -16,6 +17,7 @@ export interface FileUploadProps extends Omit<BaseFileUploaderProps, 'overrides'
   preview?: string;
   error?: boolean;
   progressMessage?: string;
+  height?: string;
 }
 
 export const FileUpload = ({
@@ -24,6 +26,7 @@ export const FileUpload = ({
   buttonText,
   error,
   progressMessage,
+  height,
   ...rest
 }: FileUploadProps) => {
   const { theme } = useTheme();
@@ -32,6 +35,7 @@ export const FileUpload = ({
       sizing: { scale100, scale400, scale500, scale550, scale850 },
       colors: { negative, white },
       customColors: { dark0 },
+      customColors: { light2, light7 },
     },
   } = theme;
 
@@ -98,10 +102,13 @@ export const FileUpload = ({
         display: 'flex',
         alignContent: 'center',
         justifyContent: 'center',
+        backgroundColor: light7,
+        borderColor: light2,
+        maxHeight: height,
       },
     },
     ButtonComponent: (props) => (
-      <Button {...props} overrides={selectButton()} type="button">
+      <Button {...props} overrides={selectButton()} kind={ButtonKind.tertiary} type="button">
         {buttonText}
       </Button>
     ),
