@@ -9,7 +9,7 @@ import { FileUploadPreview } from './file-upload-preview';
 import { borderRadius, margin, padding } from '../../utils';
 import { Button } from 'baseui/button';
 import { useTheme } from '../../providers';
-import { ButtonKind } from 'models';
+import { ButtonKind } from '../../models';
 
 export interface FileUploadProps extends Omit<BaseFileUploaderProps, 'overrides'> {
   instructionMessage: string;
