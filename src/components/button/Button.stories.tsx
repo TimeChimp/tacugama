@@ -3,8 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Button } from './Button';
 import { ButtonProps } from './types';
-import { ButtonType } from 'models';
-import { ButtonKind } from '../../models';
+import { ButtonType, ButtonKind, ButtonShape } from '../../models';
 import { SearchIcon } from '../icons/search';
 
 export default {
@@ -169,7 +168,7 @@ export const PrimaryIcon = SquareButtonTemplate.bind({});
 PrimaryIcon.args = {
   buttonType: ButtonType.default,
   kind: ButtonKind.primary,
-  shape: 'square',
+  shape: ButtonShape.square,
   disabled: false,
 };
 PrimaryIcon.parameters = {
@@ -183,7 +182,7 @@ export const SecondaryIcon = SquareButtonTemplate.bind({});
 SecondaryIcon.args = {
   buttonType: ButtonType.default,
   kind: ButtonKind.secondary,
-  shape: 'square',
+  shape: ButtonShape.square,
   disabled: false,
 };
 SecondaryIcon.parameters = {
@@ -197,7 +196,7 @@ export const TertiaryIcon = SquareButtonTemplate.bind({});
 TertiaryIcon.args = {
   buttonType: ButtonType.default,
   kind: ButtonKind.tertiary,
-  shape: 'square',
+  shape: ButtonShape.square,
   disabled: false,
 };
 TertiaryIcon.parameters = {
@@ -211,7 +210,7 @@ export const QuaternaryIcon = SquareButtonTemplate.bind({});
 QuaternaryIcon.args = {
   buttonType: ButtonType.default,
   kind: ButtonKind.quarternary,
-  shape: 'square',
+  shape: ButtonShape.square,
   disabled: false,
 };
 QuaternaryIcon.parameters = {

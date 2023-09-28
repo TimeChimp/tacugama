@@ -15,6 +15,7 @@ export const COLUMNS = [
     type: BasicTableColumnType.Text,
     field: 'age',
     width: '50px',
+    alignEnd: true,
   },
   {
     label: 'Address',

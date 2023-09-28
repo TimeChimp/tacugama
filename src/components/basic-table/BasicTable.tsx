@@ -1,27 +1,34 @@
 import React from 'react';
 import { BasicTableProps, BasicTableRow } from './types';
 import { useTheme } from '../../providers';
-import { padding } from '../../utils';
-import { TableBuilder, TableBuilderColumn } from 'baseui/table-semantic';
+import { padding, border } from '../../utils';
+import { TableBuilder, TableBuilderColumn, StyledTableHeadCell } from 'baseui/table-semantic';
 import { renderCell } from './Cell';
+import { EmptyMessage } from './EmptyMessage';
 import { TABLE_ROW_HEIGHT } from '../../models';
+import { FlexItem } from '../flex-item';
 
-export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
+export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps) => {
   const {
     theme: {
       current: {
-        sizing: { scale600 },
+        sizing: { scale600, scale1000 },
         colors: { primaryB },
-        customColors: { light7 },
-        borders: { radius200 },
-        typography: { ParagraphSmall },
-        customSizing: { scale1025 },
+        customColors: { light7, light2, light6, dark3 },
+        borders: { radius200, border100 },
+        typography: { ParagraphSmall, LabelSmall },
       },
     },
   } = useTheme();
 
+  const tableRootStyles = {
+    borderRadius: radius200,
+    ...border({ ...border100, borderColor: light2 }),
+  };
+
   const tableHeadCellStyles = {
     backgroundColor: light7,
+    color: dark3,
     ...padding('0', scale600),
     ':first-child': {
       borderTopLeftRadius: radius200,
@@ -29,24 +36,34 @@ export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
     ':last-child': {
       borderTopRightRadius: radius200,
     },
-    ...ParagraphSmall,
+    ...LabelSmall,
   };
 
   const tableBodyCellStyles = {
     ...padding('0', scale600),
     height: TABLE_ROW_HEIGHT,
     verticalAlign: 'middle',
+    borderBottomColor: light6,
+  };
+
+  const tableEmptyMessageStyles = {
+    height: TABLE_ROW_HEIGHT,
+    ...ParagraphSmall,
+    ...padding('0px', scale600, '0px', scale600),
   };
 
   return (
     <TableBuilder
       overrides={{
+        Root: {
+          style: tableRootStyles,
+        },
         TableHeadCell: {
           style: tableHeadCellStyles,
         },
         TableHeadRow: {
           style: {
-            height: scale1025,
+            height: scale1000,
           },
         },
         TableBodyRow: {
@@ -60,7 +77,11 @@ export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
         TableBodyCell: {
           style: tableBodyCellStyles,
         },
+        TableEmptyMessage: {
+          style: tableEmptyMessageStyles,
+        },
       }}
+      {...(emptyMessage ? { emptyMessage: <EmptyMessage message={emptyMessage} /> } : {})}
       {...props}
     >
       {columns.map((column) => (
@@ -73,6 +94,11 @@ export const BasicTable = ({ columns, ...props }: BasicTableProps) => {
                 ...tableHeadCellStyles,
                 width: column.width ?? 'auto',
               },
+              component: ({ $style, children }) => (
+                <StyledTableHeadCell style={$style}>
+                  <FlexItem justifyContent={column?.alignEnd ? 'flex-end' : 'flex-start'}>{children}</FlexItem>
+                </StyledTableHeadCell>
+              ),
             },
             TableBodyCell: {
               style: {
