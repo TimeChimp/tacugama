@@ -15,7 +15,6 @@ import { Box } from '../box';
 export const EditPage = ({
   sideNavItems,
   title,
-  entity,
   selectedTab,
   selectedSubTab,
   loading,
@@ -25,11 +24,9 @@ export const EditPage = ({
   backText,
   cancelText,
   onCancel,
-  onSave,
 }: EditPageProps) => {
   const [tab, setTab] = useState<string>(sideNavItems[0]?.id);
   const [secondaryTab, setSecondaryTab] = useState<string>();
-  const [isSaving, setIsSaving] = useState(false);
 
   const {
     theme: {
@@ -90,14 +87,6 @@ export const EditPage = ({
     setTab(parentId);
   };
 
-  const onSaveClick = async () => {
-    if (onSave) {
-      setIsSaving(true);
-      await onSave();
-      setIsSaving(false);
-    }
-  };
-
   const onCancelClick = () => {
     if (onCancel) {
       onCancel();
@@ -115,34 +104,17 @@ export const EditPage = ({
           {title}
         </HeadingSmall>
         <ButtonBox>
-          {onSave ? (
+          {saveText ? (
             <>
-              <Button
-                kind={ButtonKind.secondary}
-                onClick={onCancelClick}
-                testId={`cancel-button-${entity}`}
-                type="button"
-              >
+              <Button kind={ButtonKind.secondary} onClick={onCancelClick}>
                 {cancelText}
               </Button>
-              <Button
-                isLoading={isSaving || updating}
-                onClick={onSaveClick}
-                testId={`save-button-${entity}`}
-                disabled={isSaveDisabled}
-                type="submit"
-              >
+              <Button isLoading={updating} disabled={isSaveDisabled} type="submit">
                 {saveText}
               </Button>
             </>
           ) : (
-            <Button
-              kind={ButtonKind.secondary}
-              onClick={onCancelClick}
-              testId={`cancel-button-${entity}`}
-              type="button"
-              startEnhancer={<CaretLeftIcon />}
-            >
+            <Button kind={ButtonKind.secondary} onClick={onCancelClick} startEnhancer={<CaretLeftIcon />}>
               {backText}
             </Button>
           )}
