@@ -13,7 +13,7 @@ import {
   padding,
 } from '../../utils';
 import { Button as BaseButton, SIZE } from 'baseui/button';
-import { ButtonKind, ButtonType } from '../../models';
+import { ButtonKind, ButtonType, ButtonShape } from '../../models';
 import { ButtonProps } from './types';
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -28,7 +28,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       type = 'button',
       kind = ButtonKind.primary,
       size = SIZE.compact,
-      shape = 'default',
+      shape = ButtonShape.default,
       testId,
       rootOverrides,
       color,
@@ -63,12 +63,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const getPadding = () => {
       if (kind === ButtonKind.primary || kind === ButtonKind.secondary) {
-        if (shape === 'square') {
+        if (shape === ButtonShape.square) {
           return padding(scale400);
         }
         return padding(scale200, scale500);
       }
-      if (shape === 'square') {
+      if (shape === ButtonShape.square) {
         return padding(scale50);
       }
       return padding(scale300);

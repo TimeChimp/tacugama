@@ -8,5 +8,4 @@ export enum BannerType {
 export interface BannerProps {
   type?: BannerType;
   text?: string;
-  customText?: JSX.Element;
 }

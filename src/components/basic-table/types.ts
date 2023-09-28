@@ -6,10 +6,11 @@ export enum BasicTableColumnType {
 }
 
 export interface BasicTableColumn {
-  label: string;
+  label: string | React.ReactNode;
   field: string;
   type?: BasicTableColumnType;
   width?: string;
+  alignEnd?: boolean;
 }
 
 export interface BasicTableRow {
@@ -21,5 +22,6 @@ type OmittedTableProps = 'columns' | 'data';
 export interface BasicTableProps extends Omit<TableProps, OmittedTableProps> {
   columns: BasicTableColumn[];
   data: BasicTableRow[];
+  emptyMessage?: string;
   setData?: (data: BasicTableRow[]) => void;
 }
