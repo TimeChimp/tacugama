@@ -104,7 +104,7 @@ export const FileUpload = ({
         justifyContent: 'center',
         backgroundColor: light7,
         borderColor: light2,
-        maxHeight: maxHeight,
+        maxHeight,
       },
     },
     ButtonComponent: (props) => (
