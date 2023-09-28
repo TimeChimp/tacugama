@@ -17,7 +17,7 @@ export interface FileUploadProps extends Omit<BaseFileUploaderProps, 'overrides'
   preview?: string;
   error?: boolean;
   progressMessage?: string;
-  height?: string;
+  maxHeight?: string;
 }
 
 export const FileUpload = ({
@@ -26,7 +26,7 @@ export const FileUpload = ({
   buttonText,
   error,
   progressMessage,
-  height,
+  maxHeight,
   ...rest
 }: FileUploadProps) => {
   const { theme } = useTheme();
@@ -104,7 +104,7 @@ export const FileUpload = ({
         justifyContent: 'center',
         backgroundColor: light7,
         borderColor: light2,
-        maxHeight: height,
+        maxHeight: maxHeight,
       },
     },
     ButtonComponent: (props) => (

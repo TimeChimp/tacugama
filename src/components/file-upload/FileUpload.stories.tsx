@@ -12,5 +12,5 @@ const Template: Story<FileUploadProps> = (args) => <FileUpload {...args}></FileU
 
 export const Default = Template.bind({});
 Default.args = {
-  height: '76px',
+  maxHeight: '76px',
 };
