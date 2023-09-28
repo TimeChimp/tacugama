@@ -6,6 +6,11 @@ export interface EditPageSkeletonProps {
   numberOfSideNavItems?: number;
 }
 
+export enum HeaderButtonTypeEditPageContainer {
+  Add = 'add',
+  Remove = 'remove',
+}
+
 export interface EditPageProps {
   loading?: boolean;
   updating?: boolean;
@@ -31,6 +36,8 @@ export interface EditPageContainerProps {
   children: ReactNode;
   headerButtonTitle?: string;
   onHeaderButtonClick?: () => void;
+  headerButtonType?: HeaderButtonTypeEditPageContainer;
   submitButtonText?: string;
   updating?: boolean;
+  updatingHeaderButton?: boolean;
 }

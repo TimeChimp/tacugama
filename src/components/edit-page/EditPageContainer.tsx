@@ -1,11 +1,11 @@
 import { useTheme } from '../../providers';
 import React from 'react';
-import { EditPageContainerProps } from './types';
+import { EditPageContainerProps, HeaderButtonTypeEditPageContainer } from './types';
 import { Box } from '../box';
 import { HeadingXSmall } from '../typography';
 import { Button } from '../button';
 import { Block } from '../block';
-import { ButtonKind } from '../../models';
+import { ButtonKind, ButtonType } from '../../models';
 import { padding } from '../../utils';
 import { Separator } from '../separator';
 import { AddLineIcon } from '../icons';
@@ -22,6 +22,8 @@ export const EditPageContainer = ({
   onHeaderButtonClick,
   submitButtonText,
   updating = false,
+  headerButtonType = HeaderButtonTypeEditPageContainer.Add,
+  updatingHeaderButton,
 }: EditPageContainerProps) => {
   const {
     theme: {
@@ -30,6 +32,32 @@ export const EditPageContainer = ({
       },
     },
   } = useTheme();
+
+  const getHeaderButton = () => {
+    if (HeaderButtonTypeEditPageContainer.Remove === headerButtonType) {
+      return (
+        <Button
+          kind={ButtonKind.primary}
+          buttonType={ButtonType.error}
+          onClick={onHeaderButtonClick}
+          isLoading={updatingHeaderButton}
+        >
+          {headerButtonTitle}
+        </Button>
+      );
+    }
+    return (
+      <Button
+        kind={ButtonKind.primary}
+        startEnhancer={<AddLineIcon />}
+        onClick={onHeaderButtonClick}
+        isLoading={updatingHeaderButton}
+      >
+        {headerButtonTitle}
+      </Button>
+    );
+  };
+
   return (
     <Box height={BOX_HEIGHT}>
       <Block
@@ -40,11 +68,7 @@ export const EditPageContainer = ({
         height={scale1200}
       >
         <HeadingXSmall height={scale850}>{title}</HeadingXSmall>
-        {headerButtonTitle ? (
-          <Button kind={ButtonKind.primary} startEnhancer={<AddLineIcon />} onClick={onHeaderButtonClick}>
-            {headerButtonTitle}
-          </Button>
-        ) : null}
+        {headerButtonTitle ? getHeaderButton() : null}
       </Block>
       <Separator noMargin />
       <Block
