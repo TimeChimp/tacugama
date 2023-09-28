@@ -9,3 +9,4 @@ export * from './FlexWrapProperty';
 export * from './AvatarType';
 export * from './ButtonKind';
 export * from './AttachmentsTypeAccept';
+export * from './ButtonShape';
