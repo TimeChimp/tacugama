@@ -81,8 +81,7 @@ async function typescriptCopy({ from, to }) {
 
 async function createPackageFile() {
   const packageData = await fse.readFile(path.resolve(packagePath, './package.json'), 'utf8');
-  const { nyc, scripts, devDependencies, workspaces, ...packageDataOther } =
-    JSON.parse(packageData);
+  const { nyc, scripts, devDependencies, workspaces, ...packageDataOther } = JSON.parse(packageData);
 
   const newPackageData = {
     ...packageDataOther,
@@ -90,12 +89,8 @@ async function createPackageFile() {
     files: ['cjs', 'esm'],
     ...(packageDataOther.main
       ? {
-          main: fse.existsSync(path.resolve(buildPath, './cjs/index.js'))
-            ? './cjs/index.js'
-            : './index.js',
-          module: fse.existsSync(path.resolve(buildPath, './esm/index.js'))
-            ? './esm/index.js'
-            : './index.js',
+          main: fse.existsSync(path.resolve(buildPath, './cjs/index.js')) ? './cjs/index.js' : './index.js',
+          module: fse.existsSync(path.resolve(buildPath, './esm/index.js')) ? './esm/index.js' : './index.js',
         }
       : {}),
   };

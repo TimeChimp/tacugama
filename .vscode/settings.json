@@ -1,5 +1,9 @@
 {
-  "[typescript]": { "editor.formatOnSave": true },
+  "editor.formatOnSave": true,
+  "[typescript]": { "editor.formatOnSave": false },
+  "[typereact]": { "editor.formatOnSave": false },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.requireConfig": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.tslint": true,
     "source.fixAll.eslint": true,

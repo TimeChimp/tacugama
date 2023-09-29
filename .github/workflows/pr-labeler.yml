@@ -8,8 +8,8 @@ jobs:
     name: Add PR type label
     runs-on: ubuntu-latest
     steps:
-    - uses: TimonVS/pr-labeler-action@v3
-      with:
-        configuration-path: .github/pr-labeler-config.yml
-      env:
+      - uses: TimonVS/pr-labeler-action@v3
+        with:
+          configuration-path: .github/pr-labeler-config.yml
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
