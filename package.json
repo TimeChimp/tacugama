@@ -58,7 +58,7 @@
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^13.1.9",
     "@types/pdfmake": "^0.1.17",
-    "@types/react": "^18.0.30",
+    "@types/react": "^18.2.24",
     "@types/react-color": "^3.0.5",
     "@types/react-dom": "^18.0.9",
     "@types/styletron-engine-atomic": "^1.1.0",
