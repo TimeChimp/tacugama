@@ -2,18 +2,15 @@ import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { TcDate, TimeParser, timePlaceholder } from '@timechimp/timechimp-typescript-helpers';
 import { HoursInputProps } from './types';
 import { Input } from '../Input';
+import { SECONDS_IN_HOUR } from '../../../models';
 
 const DEFAULT_TIME_FORMAT = 'HH:mm';
-const SECONDS_IN_HOUR = 60 * 60;
 
 export const HoursInput = ({ onSubmit, timeFormat = DEFAULT_TIME_FORMAT, defaultValue, ...rest }: HoursInputProps) => {
-  const [inputIsValid, setInputIsValid] = useState(true);
   const [inputValue, setInputValue] = useState('');
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { value } = e.target;
-    const { isValid } = new TimeParser(value).parse();
-    setInputIsValid(isValid);
     setInputValue(value);
   };
 
@@ -41,6 +38,7 @@ export const HoursInput = ({ onSubmit, timeFormat = DEFAULT_TIME_FORMAT, default
     if (seconds) {
       return onSubmit(seconds / SECONDS_IN_HOUR);
     }
+    setInputValue('');
     return onSubmit(undefined);
   };
 
@@ -49,7 +47,6 @@ export const HoursInput = ({ onSubmit, timeFormat = DEFAULT_TIME_FORMAT, default
       value={inputValue}
       onChange={onChange}
       onBlur={onBlur}
-      error={!inputIsValid}
       autoComplete="off"
       placeholder={timePlaceholder(timeFormat)}
       {...rest}
