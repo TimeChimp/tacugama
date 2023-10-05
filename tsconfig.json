@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -23,18 +19,9 @@
     "downlevelIteration": true,
     "declaration": true,
     "paths": {
-      "test-utils": ["./src/test-utils"],
+      "test-utils": ["./src/test-utils"]
     }
   },
-  "include": [
-    "src",
-    "custom.d.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "build",
-    "src/components/**/*.stories.tsx",
-    "src/utils/test-utils.tsx",
-    "**/*.test.tsx",
-  ]
+  "include": ["src", "custom.d.ts"],
+  "exclude": ["node_modules", "build", "src/components/**/*.stories.tsx", "src/utils/test-utils.tsx", "**/*.test.tsx"]
 }

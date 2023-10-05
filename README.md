@@ -22,11 +22,11 @@ import { App } from './App';
 import { ThemeProvider } from '@timechimp/tacugama';
 
 ReactDOM.render(
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>,
-    document.getElementById('root'),
-  );
+  <ThemeProvider>
+    <App />
+  </ThemeProvider>,
+  document.getElementById('root'),
+);
 ```
 
 Use Tacugama components in your app
@@ -35,9 +35,9 @@ Use Tacugama components in your app
 import { Avatar } from '@timechimp/tacugama';
 
 export const App = () => (
-    <>
-        <Avatar name="John Doe" />
-    </>
+  <>
+    <Avatar name="John Doe" />
+  </>
 );
 ```
 
@@ -57,10 +57,10 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </ThemeProvider>
     </>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;
 ```
 
 #### Step 2
@@ -71,16 +71,15 @@ Create a custom `_document.jsx` and set it up as follows:
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { StyletronProvider, styletron } from '@timechimp/tacugama';
 
-
 class MyDocument extends Document {
   static getInitialProps(props) {
     const page = props.renderPage((App) => (props) => (
       <StyletronProvider value={styletron}>
         <App {...props} />
       </StyletronProvider>
-    ))
-    const stylesheets = styletron.getStylesheets() || []
-    return { ...page, stylesheets }
+    ));
+    const stylesheets = styletron.getStylesheets() || [];
+    return { ...page, stylesheets };
   }
 
   render() {
@@ -102,7 +101,7 @@ class MyDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    )
+    );
   }
 }
 
