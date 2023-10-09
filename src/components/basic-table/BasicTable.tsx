@@ -2,7 +2,7 @@ import React from 'react';
 import { BasicTableProps, BasicTableRow } from './types';
 import { useTheme } from '../../providers';
 import { padding, border } from '../../utils';
-import { TableBuilder, TableBuilderColumn, StyledTableHeadCell } from 'baseui/table-semantic';
+import { TableBuilder, TableBuilderColumn, StyledTableHeadCell, StyledTableEmptyMessage } from 'baseui/table-semantic';
 import { renderCell } from './Cell';
 import { EmptyMessage } from './EmptyMessage';
 import { TABLE_ROW_HEIGHT } from '../../models';
@@ -79,6 +79,9 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
         },
         TableEmptyMessage: {
           style: tableEmptyMessageStyles,
+          component: ({ children, $style }) => (
+            <StyledTableEmptyMessage style={$style}>{children}</StyledTableEmptyMessage>
+          ),
         },
       }}
       {...(emptyMessage ? { emptyMessage: <EmptyMessage message={emptyMessage} /> } : {})}
