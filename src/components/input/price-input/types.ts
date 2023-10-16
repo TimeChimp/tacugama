@@ -18,4 +18,5 @@ export interface PriceInputProps extends Omit<NumberFormatProps, OmitValues> {
     | (((e: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => void) &
         ((e: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => void))
     | undefined;
+  width?: string;
 }
