@@ -46,7 +46,7 @@ export const TCFormRow = <T extends FieldValues, K extends string>({
         <Controller name={name} control={control} defaultValue={defaultValue} rules={rules} render={render} />
       </FormControl>
 
-      <Block>
+      <Block width={'100%'}>
         <ParagraphSmall
           display="flex"
           as="label"

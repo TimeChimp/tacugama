@@ -3,9 +3,13 @@ import NumberFormatComponent from 'react-number-format';
 import { NumberFormat } from '@timechimp/timechimp-typescript-helpers';
 import { NumberInputProps } from './types';
 import { Input } from '../Input';
+import { Align } from '../types';
 
 const DEFAULT_NUMBER_FORMAT = NumberFormat.Dot;
 const DEFAULT_TEST_ID = 'price-input';
+const DEFAULT_DECIMAL_SCALE = 2;
+
+const DEFAULT_WIDTH = '130px';
 
 const getNumberSeparators = (numberFormat: NumberFormat) => {
   switch (numberFormat) {
@@ -21,8 +25,10 @@ const getNumberSeparators = (numberFormat: NumberFormat) => {
   }
 };
 
+const getDefaultPlaceholder = (decimalSeparator: string) => `0${decimalSeparator}00`;
+
 export const NumberInput = ({
-  placeholder,
+  placeholder: customPlaceholder,
   prefix,
   numberFormat = DEFAULT_NUMBER_FORMAT,
   testId = DEFAULT_TEST_ID,
@@ -36,8 +42,13 @@ export const NumberInput = ({
   value,
   onFocus,
   showSkeleton = false,
+  decimalScale = DEFAULT_DECIMAL_SCALE,
+  fixedDecimalScale = true,
+  align = Align.right,
+  width = DEFAULT_WIDTH,
 }: NumberInputProps) => {
   const { thousandSeparator, decimalSeparator } = getNumberSeparators(numberFormat);
+  const placeholder = customPlaceholder || getDefaultPlaceholder(decimalSeparator);
   return (
     <NumberFormatComponent
       placeholder={placeholder}
@@ -56,8 +67,12 @@ export const NumberInput = ({
       data-test-id={testId}
       onFocus={onFocus}
       customInput={Input}
+      align={align}
       error={error}
       showSkeleton={showSkeleton}
+      decimalScale={decimalScale}
+      fixedDecimalScale={fixedDecimalScale}
+      width={width}
     />
   );
 };

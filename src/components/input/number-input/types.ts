@@ -1,5 +1,6 @@
 import { NumberFormat } from '@timechimp/timechimp-typescript-helpers';
 import { NumberFormatProps } from 'react-number-format';
+import { Align } from '../types';
 
 export interface NumberInputComponentProps extends NumberFormatProps {
   $error?: boolean;
@@ -19,4 +20,6 @@ export interface NumberInputProps extends Omit<NumberFormatProps, OmitValues> {
         ((e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => void))
     | undefined;
   showSkeleton?: boolean;
+  align?: Align;
+  width?: string;
 }
