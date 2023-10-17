@@ -34,7 +34,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       color,
       isLink,
       backgroundColor,
-      isNotModalButton = false,
       cursorType,
       ...rest
     }: ButtonProps,
@@ -187,11 +186,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   borderColor: dark3,
                   backgroundColor: backgroundColor ?? light4,
                 },
-                ...(!isNotModalButton && {
-                  ':not(:last-child)': {
-                    ...margin('0', scale300, '0', '0'),
-                  },
-                }),
                 cursor: cursorType ?? 'pointer',
                 ...rootOverrides,
               },

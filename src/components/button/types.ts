@@ -1,5 +1,5 @@
 import { ButtonProps as BaseButtonProps } from 'baseui/button';
-import { ButtonKind, ButtonType, ButtonShape } from '../../models';
+import { ButtonKind, ButtonType } from '../../models';
 
 export interface ButtonProps extends Omit<BaseButtonProps, 'kind'> {
   buttonType?: ButtonType;
@@ -11,6 +11,5 @@ export interface ButtonProps extends Omit<BaseButtonProps, 'kind'> {
   isLink?: boolean;
   rootOverrides?: { [key: string]: number | string };
   backgroundColor?: string;
-  isNotModalButton?: boolean;
   cursorType?: string;
 }
