@@ -15,7 +15,7 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
         sizing: { scale600 },
         colors: { primaryB },
         customColors: { light4, light6, light7 },
-        borders: { radius200, border300 },
+        borders: { border300 },
         typography: { ParagraphSmall },
         customSizing: { scale1025 },
       },
@@ -29,12 +29,6 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
   const tableHeadCellStyles = {
     backgroundColor: light7,
     ...padding('0', scale600),
-    ':first-child': {
-      borderTopLeftRadius: radius200,
-    },
-    ':last-child': {
-      borderTopRightRadius: radius200,
-    },
     ...ParagraphSmall,
     height: scale1025,
     ...borderBottom(border300),
@@ -88,8 +82,10 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
           >
             <thead>
               <tr>
-                {columns.map((column) => (
-                  <th style={{ ...tableHeadCellStyles, width: column.width ?? 'auto' }}>{column.label}</th>
+                {columns.map((column, index) => (
+                  <th key={`th-${index}`} style={{ ...tableHeadCellStyles, width: column.width ?? 'auto' }}>
+                    {column.label}
+                  </th>
                 ))}
               </tr>
             </thead>
@@ -110,7 +106,7 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
               }}
             >
               {columns.map((column, index) => (
-                <td style={{ ...tableBodyCellStyles, width: column.width ?? _widths[index] }}>
+                <td key={`td-${index}`} style={{ ...tableBodyCellStyles, width: column.width ?? _widths[index] }}>
                   {renderCell(value as unknown as BasicTableRow, column)}
                 </td>
               ))}
