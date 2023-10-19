@@ -6,13 +6,12 @@ import { SECONDS_IN_HOUR } from '../../../models';
 import { Align } from '../types';
 
 const DEFAULT_TIME_FORMAT = 'HH:mm';
-const DEFAULT_WIDTH = '130px';
 
 export const HoursInput = ({
   onSubmit,
   timeFormat = DEFAULT_TIME_FORMAT,
   defaultValue,
-  align = Align.right,
+  align = Align.left,
   ...rest
 }: HoursInputProps) => {
   const [inputValue, setInputValue] = useState('');
@@ -58,7 +57,6 @@ export const HoursInput = ({
       autoComplete="off"
       placeholder={timePlaceholder(timeFormat)}
       align={align}
-      width={DEFAULT_WIDTH}
       {...rest}
     />
   );
