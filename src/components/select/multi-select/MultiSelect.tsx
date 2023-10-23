@@ -14,6 +14,7 @@ import {
 } from '../../../utils';
 import { MultiSelectProps } from './types';
 import { ParagraphXSmall } from '../../typography';
+import { HIGH_Z_INDEX } from '../../../models';
 
 // TODO: Find way to share props between SingleSelect and MultiSelect
 
@@ -190,7 +191,7 @@ export const MultiSelect = <
       }),
       menuPortal: (provided) => ({
         ...provided,
-        zIndex: 99999,
+        zIndex: HIGH_Z_INDEX,
       }),
       option: (provided, { isSelected, isFocused }) => ({
         ...provided,

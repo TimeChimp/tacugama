@@ -1,3 +1,3 @@
 import { NumberInputProps } from '../number-input';
 
-export type PriceInputProps = NumberInputProps;
+export type PercentageInputProps = NumberInputProps;

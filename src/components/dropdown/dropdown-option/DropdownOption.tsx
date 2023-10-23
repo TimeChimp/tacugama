@@ -10,6 +10,7 @@ import {
 } from '../styles';
 import { DropdownOptionProps } from '../types';
 import { StatefulTooltip } from '../../tooltip';
+import { HIGH_Z_INDEX } from '../../../models';
 
 export const DropdownOption = forwardRef<any, DropdownOptionProps>(
   ({ item, onItemSelect }: DropdownOptionProps, ref) => {
@@ -31,7 +32,7 @@ export const DropdownOption = forwardRef<any, DropdownOptionProps>(
             style: {
               fontSize: scale400,
               lineHeight: scale500,
-              zIndex: '9999',
+              zIndex: HIGH_Z_INDEX,
               width: 'fit-content',
               maxWidth: scale4375,
               wordBreak: 'break-all',
