@@ -12,7 +12,7 @@ import {
   getStyleOverrides,
 } from '../../utils';
 import { DATA_TEST_ID } from '../../models';
-import { InputProps } from './types';
+import { Align, InputProps } from './types';
 import { Skeleton } from '../skeleton';
 
 export const Input = ({
@@ -30,6 +30,7 @@ export const Input = ({
   showSkeleton = false,
   autoComplete = 'off',
   name,
+  align = Align.left,
   ...rest
 }: InputProps) => {
   const {
@@ -73,6 +74,7 @@ export const Input = ({
           ...border(),
           ...padding('0', endEnhancer ? scale500 : scale600, '0', startEnhancer ? scale500 : scale600),
           textTransform: uppercase ? 'uppercase' : 'inherit',
+          textAlign: align,
           color,
           '::placeholder': {
             color: customColors.dark4,

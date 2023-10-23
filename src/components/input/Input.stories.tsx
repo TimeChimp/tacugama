@@ -152,7 +152,6 @@ Color.parameters = {
 
 export const Number = NumberTemplate.bind({});
 Number.args = {
-  placeholder: '0',
   testId: 'test-input',
   error: false,
   disabled: false,

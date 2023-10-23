@@ -3,10 +3,17 @@ import { TcDate, TimeParser, timePlaceholder } from '@timechimp/timechimp-typesc
 import { HoursInputProps } from './types';
 import { Input } from '../Input';
 import { SECONDS_IN_HOUR } from '../../../models';
+import { Align } from '../types';
 
 const DEFAULT_TIME_FORMAT = 'HH:mm';
 
-export const HoursInput = ({ onSubmit, timeFormat = DEFAULT_TIME_FORMAT, defaultValue, ...rest }: HoursInputProps) => {
+export const HoursInput = ({
+  onSubmit,
+  timeFormat = DEFAULT_TIME_FORMAT,
+  defaultValue,
+  align = Align.left,
+  ...rest
+}: HoursInputProps) => {
   const [inputValue, setInputValue] = useState('');
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -49,6 +56,7 @@ export const HoursInput = ({ onSubmit, timeFormat = DEFAULT_TIME_FORMAT, default
       onBlur={onBlur}
       autoComplete="off"
       placeholder={timePlaceholder(timeFormat)}
+      align={align}
       {...rest}
     />
   );

@@ -17,6 +17,7 @@ export const DropdownOption = forwardRef<any, DropdownOptionProps>(
     const {
       current: {
         sizing: { scale400, scale500 },
+        customSizing: { scale4375 },
       },
     } = theme;
 
@@ -32,6 +33,8 @@ export const DropdownOption = forwardRef<any, DropdownOptionProps>(
               lineHeight: scale500,
               zIndex: '9999',
               width: 'fit-content',
+              maxWidth: scale4375,
+              wordBreak: 'break-all',
             },
           },
         }}

@@ -30,12 +30,6 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
     backgroundColor: light7,
     color: dark3,
     ...padding('0', scale600),
-    ':first-child': {
-      borderTopLeftRadius: radius200,
-    },
-    ':last-child': {
-      borderTopRightRadius: radius200,
-    },
     ...LabelSmall,
   };
 
