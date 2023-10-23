@@ -16,7 +16,7 @@ import { CaretDownIcon } from '../icons/caret-down';
 import { SelectProps } from './types';
 import { AddLineIcon } from '../icons';
 import { Button } from '../button';
-import { ButtonKind } from '../../models';
+import { ButtonKind, HIGH_Z_INDEX } from '../../models';
 
 /**
  * @deprecated This component will be removed in the next major release (v10). Please use the `MultiSelect` or the `SingleSelect` components instead.
@@ -227,7 +227,7 @@ export const Select = ({
                 overrides: {
                   Body: {
                     style: {
-                      zIndex: 99999,
+                      zIndex: HIGH_Z_INDEX,
                     },
                   },
                 },
