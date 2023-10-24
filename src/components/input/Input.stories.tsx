@@ -8,7 +8,8 @@ import { PriceInput, PriceInputProps } from './price-input';
 import { HoursInput, HoursInputProps } from './hours-input';
 import { FileInput, FileInputProps } from './file-input';
 import { NumberInput, NumberInputProps } from './number-input';
-import { ATTACHMENTS_IMAGES_TYPE_ACCEPT, ButtonKind, PRICE_INPUT_PLACEHOLDER, PRICE_INPUT_PREFIX } from '../../models';
+import { PercentageInput, PercentageInputProps } from './percentage-input';
+import { ATTACHMENTS_IMAGES_TYPE_ACCEPT, ButtonKind, PRICE_INPUT_PREFIX } from '../../models';
 import { SearchInput, SearchInputProps } from './search-input';
 import { Button } from '../button';
 import { AddLineIcon } from '../icons';
@@ -29,6 +30,8 @@ const NumberTemplate: Story<NumberInputProps> = (args) => <NumberInput {...args}
 const PriceTemplate: Story<PriceInputProps> = (args) => <PriceInput {...args} />;
 
 const HoursTemplate: Story<HoursInputProps> = (args) => <HoursInput {...args} />;
+
+const PercentageTemplate: Story<PercentageInputProps> = (args) => <PercentageInput {...args} />;
 
 const FileTemplate: Story<FileInputProps> = () => {
   const inputRef = useRef<any>(null);
@@ -75,7 +78,7 @@ Default.parameters = {
 
 export const Search = SearchTemplate.bind({});
 Search.args = {
-  placeholder: 'Type to search',
+  placeholder: 'Search ...',
   testId: 'test-input',
   error: false,
   success: false,
@@ -152,7 +155,6 @@ Color.parameters = {
 
 export const Number = NumberTemplate.bind({});
 Number.args = {
-  placeholder: '0',
   testId: 'test-input',
   error: false,
   disabled: false,
@@ -172,7 +174,6 @@ Price.args = {
   disabled: false,
   value: '',
   prefix: PRICE_INPUT_PREFIX,
-  placeholder: PRICE_INPUT_PLACEHOLDER,
 };
 Price.parameters = {
   design: {
@@ -209,3 +210,5 @@ NoBorderSearch.parameters = {
 };
 
 export const File = FileTemplate.bind({});
+
+export const Percentage = PercentageTemplate.bind({});
