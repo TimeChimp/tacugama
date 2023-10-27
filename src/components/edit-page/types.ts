@@ -41,3 +41,9 @@ export interface EditPageContainerProps {
   updating?: boolean;
   updatingHeaderButton?: boolean;
 }
+
+export interface EditPageContentProps {
+  sideNavItems: SideNavItem[];
+  selectedTab?: string;
+  selectedSubTab?: string;
+}
