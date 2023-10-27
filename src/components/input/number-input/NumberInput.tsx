@@ -44,13 +44,15 @@ export const NumberInput = ({
   fixedDecimalScale = true,
   align = Align.left,
   width = '100%',
+  suffix,
 }: NumberInputProps) => {
   const { thousandSeparator, decimalSeparator } = getNumberSeparators(numberFormat);
   const placeholder = customPlaceholder || getDefaultPlaceholder(decimalSeparator);
   return (
     <NumberFormatComponent
       placeholder={placeholder}
-      prefix={prefix}
+      startEnhancer={prefix}
+      endEnhancer={suffix}
       allowNegative={allowNegative}
       onValueChange={({ value }) => onChange(value)}
       isNumericString

@@ -8,11 +8,11 @@ import { margin } from '../../utils';
 import { useTheme } from '../../providers';
 import { StatefulTooltip } from '../tooltip';
 import { HelpIcon } from '../icons';
+import { HIGH_Z_INDEX } from '../../models';
 
 export const FormRow = <T extends FieldValues, K extends string>({
   label,
   labelEndEnhancer,
-  forLabel,
   error,
   caption,
   rules,
@@ -44,13 +44,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
     <Block width={'100%'}>
       {label && (
         <Block marginBottom={scale300}>
-          <LabelSmall
-            display="flex"
-            as="label"
-            alignItems="center"
-            gridGap={scale200}
-            {...(forLabel ? { for: forLabel } : {})}
-          >
+          <LabelSmall display="flex" as="label" alignItems="center" gridGap={scale200} for={name as string}>
             {getLabel()}
             {toolTip && (
               <StatefulTooltip
@@ -62,7 +56,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
                     style: {
                       fontSize: scale400,
                       lineHeight: scale500,
-                      zIndex: '9999',
+                      zIndex: HIGH_Z_INDEX,
                       width: scale8750,
                     },
                   },
