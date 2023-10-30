@@ -3,6 +3,7 @@ import { TableProps } from 'baseui/table-semantic';
 export enum BasicTableColumnType {
   Text = 'text',
   Custom = 'custom',
+  Financial = 'financial',
 }
 
 export interface BasicTableColumn {
@@ -10,7 +11,6 @@ export interface BasicTableColumn {
   field: string;
   type?: BasicTableColumnType;
   width?: string;
-  alignEnd?: boolean;
 }
 
 export interface BasicTableRow {

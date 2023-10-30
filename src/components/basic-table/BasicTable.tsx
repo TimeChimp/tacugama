@@ -1,5 +1,5 @@
 import React from 'react';
-import { BasicTableProps, BasicTableRow } from './types';
+import { BasicTableProps, BasicTableRow, BasicTableColumnType } from './types';
 import { useTheme } from '../../providers';
 import { padding, border } from '../../utils';
 import { TableBuilder, TableBuilderColumn, StyledTableHeadCell, StyledTableEmptyMessage } from 'baseui/table-semantic';
@@ -93,7 +93,11 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
               },
               component: ({ $style, children }) => (
                 <StyledTableHeadCell style={$style}>
-                  <FlexItem justifyContent={column?.alignEnd ? 'flex-end' : 'flex-start'}>{children}</FlexItem>
+                  <FlexItem
+                    justifyContent={column?.type === BasicTableColumnType.Financial ? 'flex-end' : 'flex-start'}
+                  >
+                    {children}
+                  </FlexItem>
                 </StyledTableHeadCell>
               ),
             },

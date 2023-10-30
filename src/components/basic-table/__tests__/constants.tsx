@@ -3,7 +3,7 @@ import { Checkbox } from '../../checkbox';
 import { Toggle, ToggleSize } from '../../toggle';
 import { Input } from '../../input';
 import React from 'react';
-import { BasicTableColumnType } from '../types';
+import { BasicTableColumnType, BasicTableRow } from '../types';
 
 export const COLUMNS = [
   {
@@ -11,16 +11,16 @@ export const COLUMNS = [
     field: 'name',
   },
   {
-    label: 'Age',
-    type: BasicTableColumnType.Text,
-    field: 'age',
-    width: '50px',
-    alignEnd: true,
-  },
-  {
     label: 'Address',
     type: BasicTableColumnType.Text,
     field: 'address',
+  },
+  {
+    label: 'Price',
+    type: BasicTableColumnType.Financial,
+    field: 'price',
+    width: '50px',
+    alignEnd: true,
   },
   {
     label: 'Actions',
@@ -29,28 +29,28 @@ export const COLUMNS = [
   },
 ];
 
-export const DATA = [
+export const DATA: BasicTableRow[] = [
   {
     name: 'John Smith',
-    age: 30,
-    address: '100 Market St., San Francisco, California',
+    price: '$30',
+    address: <p>'100 Market St., San Francisco, California'</p>,
     actions: <Button onClick={() => alert('Hey there!')}>Action!</Button>,
   },
   {
     name: 'Sarah Brown',
-    age: 31,
+    price: '$31',
     address: '100 Broadway St., New York City, New York',
     actions: <Input placeholder="Fill me in" />,
   },
   {
     name: 'Jane Doe',
-    age: 32,
+    price: '$32',
     address: '100 Main St., Los Angeles, California',
     actions: <Toggle size={ToggleSize.large} />,
   },
   {
     name: 'Hank Smith',
-    age: 40,
+    price: '$40',
     address: '100 Baker St., Dallas, Texas',
     actions: <Checkbox />,
   },
