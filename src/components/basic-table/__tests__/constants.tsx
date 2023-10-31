@@ -11,16 +11,10 @@ export const COLUMNS = [
     field: 'name',
   },
   {
-    label: 'Address',
-    type: BasicTableColumnType.Text,
-    field: 'address',
-  },
-  {
     label: 'Price',
     type: BasicTableColumnType.Financial,
     field: 'price',
     width: '50px',
-    alignEnd: true,
   },
   {
     label: 'Actions',
