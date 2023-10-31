@@ -9,8 +9,6 @@ const DEFAULT_NUMBER_FORMAT = NumberFormat.Dot;
 const DEFAULT_TEST_ID = 'price-input';
 const DEFAULT_DECIMAL_SCALE = 2;
 
-const DEFAULT_WIDTH = '130px';
-
 const getNumberSeparators = (numberFormat: NumberFormat) => {
   switch (numberFormat) {
     case NumberFormat.Comma:
@@ -44,15 +42,17 @@ export const NumberInput = ({
   showSkeleton = false,
   decimalScale = DEFAULT_DECIMAL_SCALE,
   fixedDecimalScale = true,
-  align = Align.right,
-  width = DEFAULT_WIDTH,
+  align = Align.left,
+  width = '100%',
+  suffix,
 }: NumberInputProps) => {
   const { thousandSeparator, decimalSeparator } = getNumberSeparators(numberFormat);
   const placeholder = customPlaceholder || getDefaultPlaceholder(decimalSeparator);
   return (
     <NumberFormatComponent
       placeholder={placeholder}
-      prefix={prefix}
+      startEnhancer={prefix}
+      endEnhancer={suffix}
       allowNegative={allowNegative}
       onValueChange={({ value }) => onChange(value)}
       isNumericString

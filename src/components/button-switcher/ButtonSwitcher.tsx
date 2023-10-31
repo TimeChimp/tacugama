@@ -2,7 +2,6 @@ import React from 'react';
 import { FlexGrid } from 'baseui/flex-grid';
 import Button from '../button/Button';
 import { ButtonKind } from '../../models';
-import { useTheme } from '../../providers';
 
 const DEFAULT_OPTIONS = [
   {
@@ -12,6 +11,18 @@ const DEFAULT_OPTIONS = [
   {
     label: 'Option 2',
     id: 'option-2',
+  },
+  {
+    label: 'Option 3',
+    id: 'option-3',
+  },
+  {
+    label: 'Option 4',
+    id: 'option-4',
+  },
+  {
+    label: 'Option 5',
+    id: 'option-5',
   },
 ];
 
@@ -33,14 +44,12 @@ export const ButtonSwitcher = ({
 }: ButtonSwitcherProps) => {
   const leftButtonRadiuses = { borderTopRightRadius: 0, borderBottomRightRadius: 0 };
   const rightButtonRadiuses = { borderTopLeftRadius: 0, borderBottomLeftRadius: 0 };
-
-  const {
-    theme: {
-      current: {
-        sizing: { scale300 },
-      },
-    },
-  } = useTheme();
+  const middleButtonRadiuses = {
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+  };
 
   const renderPrimaryButton = (option: ButtonSwitcherOption, radiuses: { [key: string]: string | number }) => (
     <Button rootOverrides={radiuses} onClick={() => onClick(option)} type="button">
@@ -53,14 +62,23 @@ export const ButtonSwitcher = ({
     </Button>
   );
 
+  const getRadiuses = (idx: number) => {
+    if (!idx) {
+      return leftButtonRadiuses;
+    }
+    if (idx === options.length - 1) {
+      return rightButtonRadiuses;
+    }
+    return middleButtonRadiuses;
+  };
+
   return (
-    <FlexGrid gridGap={scale300}>
-      {selectedOption?.id === options[0].id
-        ? renderPrimaryButton(options[0], leftButtonRadiuses)
-        : renderSecondaryButton(options[0], leftButtonRadiuses)}
-      {selectedOption?.id === options[1].id
-        ? renderPrimaryButton(options[1], rightButtonRadiuses)
-        : renderSecondaryButton(options[1], rightButtonRadiuses)}
+    <FlexGrid>
+      {options.map((option, idx) =>
+        selectedOption?.id === option.id
+          ? renderPrimaryButton(option, getRadiuses(idx))
+          : renderSecondaryButton(option, getRadiuses(idx)),
+      )}
     </FlexGrid>
   );
 };

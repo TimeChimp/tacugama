@@ -13,7 +13,6 @@ export interface FormRowProps<T extends FieldValues, K extends string> {
   control?: Control<T, any>;
   label?: string | JSX.Element | null;
   labelEndEnhancer?: ReactNode | (() => ReactNode);
-  forLabel?: string;
   defaultValue?: any;
   error?: string;
   render: ({
@@ -29,4 +28,8 @@ export interface FormRowProps<T extends FieldValues, K extends string> {
   rules?: Omit<RegisterOptions<T, any>, 'disabled' | 'valueAsNumber' | 'valueAsDate' | 'setValueAs'>;
   toolTip?: string;
   actionButtons?: React.ReactNode[];
+
+  // DEPRECATED
+  /** @deprecated Don't use this prop, it will be removed in the future */
+  forLabel?: string;
 }

@@ -15,6 +15,7 @@ import {
   margin,
 } from '../../../utils';
 import { ParagraphXSmall } from '../../typography';
+import { HIGH_Z_INDEX } from '../../../models';
 
 export const DEFAULT_VALUE_KEY = 'id';
 export const DEFAULT_LABEL_KEY = 'name';
@@ -194,7 +195,7 @@ export const SingleSelect = <
         }),
         menuPortal: (provided) => ({
           ...provided,
-          zIndex: 99999,
+          zIndex: HIGH_Z_INDEX,
         }),
         option: (provided, { isSelected, isFocused }) => ({
           ...provided,
