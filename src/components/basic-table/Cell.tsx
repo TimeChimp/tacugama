@@ -20,15 +20,21 @@ export const renderCell = (row: BasicTableRow, column: BasicTableColumn) => {
         <ParagraphSmall>{value}</ParagraphSmall>
       </CellWrapper>
     ),
-    [BasicTableColumnType.Custom]: () => <CellWrapper>{value}</CellWrapper>,
+    [BasicTableColumnType.Custom]: () => (
+      <CellWrapper>
+        <>{value}</>
+      </CellWrapper>
+    ),
     [BasicTableColumnType.Financial]: () => (
       <CellWrapper alignRight>
         <>
-          {typeof value !== 'string'
-            ? React.cloneElement(value, {
-                align: Align.right,
-              })
-            : value}
+          {value && typeof value !== 'string' && typeof value !== 'number' ? (
+            React.cloneElement(value, {
+              align: Align.right,
+            })
+          ) : (
+            <ParagraphSmall>{value}</ParagraphSmall>
+          )}
         </>
       </CellWrapper>
     ),

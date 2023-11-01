@@ -11,6 +11,10 @@ export const COLUMNS = [
     field: 'name',
   },
   {
+    label: 'Address',
+    field: 'address',
+  },
+  {
     label: 'Price',
     type: BasicTableColumnType.Financial,
     field: 'price',

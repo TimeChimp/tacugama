@@ -14,7 +14,7 @@ export interface BasicTableColumn {
 }
 
 export interface BasicTableRow {
-  [field: string]: any;
+  [field: string]: string | number | React.ReactElement;
 }
 
 type OmittedTableProps = 'columns' | 'data';
