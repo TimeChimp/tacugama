@@ -5,3 +5,7 @@ export interface FormGroupProps {
   subtitle?: string;
   children?: ReactNode;
 }
+
+export interface FormModalGroupProps {
+  children?: ReactNode;
+}
