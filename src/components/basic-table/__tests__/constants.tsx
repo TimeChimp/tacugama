@@ -2,10 +2,11 @@ import { Button } from '../../button';
 import { Checkbox } from '../../checkbox';
 import { Toggle, ToggleSize } from '../../toggle';
 import { Input } from '../../input';
+import { PriceInput } from '../../input/price-input';
 import React from 'react';
-import { BasicTableColumnType, BasicTableRow } from '../types';
+import { BasicTableColumnType, BasicTableRow, BasicTableColumn } from '../types';
 
-export const COLUMNS = [
+export const COLUMNS: BasicTableColumn[] = [
   {
     label: 'Name',
     field: 'name',
@@ -18,7 +19,7 @@ export const COLUMNS = [
     label: 'Price',
     type: BasicTableColumnType.Financial,
     field: 'price',
-    width: '50px',
+    width: '200px',
   },
   {
     label: 'Actions',
@@ -36,19 +37,25 @@ export const DATA: BasicTableRow[] = [
   },
   {
     name: 'Sarah Brown',
-    price: '$31',
+    price: '',
     address: '100 Broadway St., New York City, New York',
     actions: <Input placeholder="Fill me in" />,
   },
   {
     name: 'Jane Doe',
-    price: '$32',
+    price: (
+      <PriceInput
+        onChange={(e) => {
+          console.log(e);
+        }}
+      />
+    ),
     address: '100 Main St., Los Angeles, California',
     actions: <Toggle size={ToggleSize.large} />,
   },
   {
     name: 'Hank Smith',
-    price: '$40',
+    price: 40,
     address: '100 Baker St., Dallas, Texas',
     actions: <Checkbox />,
   },
