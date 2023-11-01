@@ -33,7 +33,7 @@ Default.parameters = {
 
 const TextAreaTemplate: Story<FormControlProps> = (args) => (
   <FormControl {...args}>
-    <Textarea placeholder="Zero state with placeholder" />
+    <Textarea placeholder="Zero state with placeholder" value="" />
   </FormControl>
 );
 
