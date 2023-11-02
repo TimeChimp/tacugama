@@ -2,9 +2,10 @@ import React from 'react';
 import { BasicTableColumn, BasicTableColumnType, BasicTableRow } from './types';
 import { ParagraphSmall } from '../typography';
 import { FlexItem } from '../flex-item';
+import { Align } from '../input/types';
 
-const CellWrapper = ({ children, alignEnd }: { children: React.ReactNode; alignEnd?: boolean }) => (
-  <FlexItem height="100%" justifyContent={alignEnd ? 'flex-end' : 'flex-start'} alignItems="center">
+const CellWrapper = ({ children, alignRight }: { children: React.ReactElement; alignRight?: boolean }) => (
+  <FlexItem height="100%" justifyContent={alignRight ? 'flex-end' : 'flex-start'} alignItems="center">
     {children}
   </FlexItem>
 );
@@ -15,11 +16,28 @@ export const renderCell = (row: BasicTableRow, column: BasicTableColumn) => {
 
   const map = {
     [BasicTableColumnType.Text]: () => (
-      <CellWrapper alignEnd={column?.alignEnd}>
+      <CellWrapper>
         <ParagraphSmall>{value}</ParagraphSmall>
       </CellWrapper>
     ),
-    [BasicTableColumnType.Custom]: () => <CellWrapper alignEnd={column?.alignEnd}>{value}</CellWrapper>,
+    [BasicTableColumnType.Custom]: () => (
+      <CellWrapper>
+        <>{value}</>
+      </CellWrapper>
+    ),
+    [BasicTableColumnType.Financial]: () => (
+      <CellWrapper alignRight>
+        <>
+          {value && typeof value !== 'string' && typeof value !== 'number' ? (
+            React.cloneElement(value, {
+              align: Align.right,
+            })
+          ) : (
+            <ParagraphSmall>{value}</ParagraphSmall>
+          )}
+        </>
+      </CellWrapper>
+    ),
   };
 
   return map[type ?? BasicTableColumnType.Text]();
