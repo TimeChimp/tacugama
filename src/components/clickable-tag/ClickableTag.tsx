@@ -14,7 +14,7 @@ export const ClickableTag = ({ onClick, label, tagProps = {}, buttonProps = {} }
     },
   } = useTheme();
   return (
-    <Button kind={ButtonKind.minimal} onClick={onClick} type="button" {...buttonProps}>
+    <Button kind={ButtonKind.minimal} onClick={onClick} {...buttonProps}>
       <Tag
         value={label}
         cursor="pointer"
