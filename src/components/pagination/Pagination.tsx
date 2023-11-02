@@ -40,14 +40,14 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
         },
         NextButton: {
           component: ({ onClick }: any) => (
-            <Button type="button" kind={ButtonKind.tertiary} shape="square" onClick={onClick}>
+            <Button kind={ButtonKind.tertiary} shape="square" onClick={onClick}>
               <CaretRightIcon color={dark2} />
             </Button>
           ),
         },
         PrevButton: {
           component: ({ onClick }: any) => (
-            <Button type="button" kind={ButtonKind.tertiary} shape="square" onClick={onClick}>
+            <Button kind={ButtonKind.tertiary} shape="square" onClick={onClick}>
               <CaretLeftIcon color={dark2} />
             </Button>
           ),
