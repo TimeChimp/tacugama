@@ -1,5 +1,4 @@
 import React from 'react';
-import { ParagraphSmall } from 'baseui/typography';
 import { useTheme } from '../../providers';
 import { StyledCopyIcon } from './StyledCopyText';
 import { ButtonKind } from '../../models';
@@ -8,6 +7,7 @@ import { StatefulTooltip } from '../tooltip';
 import { Block } from '../block';
 import { Button } from '../button';
 import { CopyTextProps } from './types';
+import { StyledParagraphSmall } from './styles';
 
 export const CopyText = ({
   value,
@@ -35,9 +35,9 @@ export const CopyText = ({
       backgroundColor={backgroundColor}
       {...rest}
     >
-      <ParagraphSmall marginTop={scale0} marginBottom={scale0} color={dark4}>
+      <StyledParagraphSmall marginTop={scale0} marginBottom={scale0} color={dark4}>
         {value}
-      </ParagraphSmall>
+      </StyledParagraphSmall>
       <StyledCopyIcon onClick={() => copyTextHandler(value)}>
         <StatefulTooltip triggerType="click" content={() => <Block>{copiedText}</Block>}>
           <Button kind={ButtonKind.tertiary}>{buttonText}</Button>
