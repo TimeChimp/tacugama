@@ -11,7 +11,7 @@ export const BasicTableBuilder = ({ isSecondaryTable, children, emptyMessage, ..
   const {
     theme: {
       current: {
-        sizing: { scale1000, scale800 },
+        sizing: { scale800 },
         colors: { primaryB },
         customColors: { light2, light6 },
         borders: { radius200, border100 },
@@ -40,7 +40,7 @@ export const BasicTableBuilder = ({ isSecondaryTable, children, emptyMessage, ..
   const tableEmptyMessageStyles = {
     height: TABLE_ROW_HEIGHT,
     ...ParagraphSmall,
-    ...padding('0px', scale800, '0px', scale800),
+    ...padding('0', scale800),
   };
 
   return (
@@ -54,7 +54,7 @@ export const BasicTableBuilder = ({ isSecondaryTable, children, emptyMessage, ..
         },
         TableHeadRow: {
           style: {
-            height: scale1000,
+            height: TABLE_ROW_HEIGHT,
           },
         },
         TableBodyRow: {
