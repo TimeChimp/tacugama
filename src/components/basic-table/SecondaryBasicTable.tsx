@@ -4,12 +4,12 @@ import { TableBuilderColumn } from 'baseui/table-semantic';
 import { renderCell, BasicTableBuilder, BasicTableHeadCell } from './components';
 import { useBasicTableStyles } from './hooks';
 
-export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps) => {
+export const SecondaryBasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps) => {
   const { tableBodyCellStyles, tableHeadCellStyles } = useBasicTableStyles();
 
   return (
     <>
-      <BasicTableBuilder emptyMessage={emptyMessage} {...props}>
+      <BasicTableBuilder emptyMessage={emptyMessage} {...props} isSecondaryTable>
         {columns.map((column) => (
           <TableBuilderColumn<BasicTableRow>
             key={column.field}
@@ -17,7 +17,7 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
             overrides={{
               TableHeadCell: {
                 style: {
-                  ...tableHeadCellStyles,
+                  ...{ ...tableHeadCellStyles },
                   width: column.width ?? 'auto',
                 },
                 component: ({ $style, children }) => (

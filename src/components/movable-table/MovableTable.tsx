@@ -1,9 +1,10 @@
-import { BasicTableRow, renderCell } from '../basic-table';
-import { TABLE_ROW_HEIGHT } from '../../models';
+import { BasicTableRow, BasicTableColumnType } from '../basic-table';
+import { renderCell } from '../basic-table/components';
+import { useBasicTableStyles } from '../basic-table/hooks';
 import { useTheme } from '../../providers';
 import * as React from 'react';
 import { List, arrayMove } from 'react-movable';
-import { borderBottom, padding } from '../../utils';
+import { borderBottom, borderTop } from '../../utils';
 import { MovableTableProps } from './types';
 
 export const MovableTable = ({ columns, data, setData, entityRows }: MovableTableProps) => {
@@ -12,33 +13,28 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
   const {
     theme: {
       current: {
-        sizing: { scale600 },
         colors: { primaryB },
-        customColors: { light4, light6, light7 },
+        customColors: { light4, light6 },
         borders: { border300 },
-        typography: { ParagraphSmall },
-        customSizing: { scale1025 },
       },
     },
   } = useTheme();
 
-  const tableStyles = {
-    borderSpacing: 0,
-  };
+  const { tableBodyCellStyles: BasicTableBodyCellStyles, tableHeadCellStyles: BasicTableHeadCellStyles } =
+    useBasicTableStyles();
 
   const tableHeadCellStyles = {
-    backgroundColor: light7,
-    ...padding('0', scale600),
-    ...ParagraphSmall,
-    height: scale1025,
     ...borderBottom(border300),
-  } as React.CSSProperties;
+    ...BasicTableHeadCellStyles,
+  };
 
   const tableBodyCellStyles = {
-    ...padding('0', scale600),
-    height: TABLE_ROW_HEIGHT,
-    verticalAlign: 'middle',
     ...borderBottom(border300),
+    ...BasicTableBodyCellStyles,
+  };
+
+  const tableStyles = {
+    borderSpacing: 0,
   };
 
   const tableBodyRowStyles = {
@@ -60,6 +56,7 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
       style={{
         display: 'flex',
         justifyContent: 'stretch',
+        ...borderTop({ ...border300, borderColor: light6 }),
       }}
     >
       <List
@@ -83,7 +80,14 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
             <thead>
               <tr>
                 {columns.map((column, index) => (
-                  <th key={`th-${index}`} style={{ ...tableHeadCellStyles, width: column.width ?? 'auto' }}>
+                  <th
+                    key={`th-${index}`}
+                    style={{
+                      ...tableHeadCellStyles,
+                      width: column.width ?? 'auto',
+                      textAlign: column?.type === BasicTableColumnType.Financial ? 'right' : 'left',
+                    }}
+                  >
                     {column.label}
                   </th>
                 ))}

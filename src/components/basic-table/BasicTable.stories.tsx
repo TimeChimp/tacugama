@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { BasicTable } from '.';
+import { BasicTable, SecondaryBasicTable } from '.';
 import { BasicTableProps } from './types';
 import { COLUMNS, DATA } from './__tests__/constants';
 
@@ -29,4 +29,12 @@ EmptyData.args = {
   columns: COLUMNS,
   data: [],
   emptyMessage: 'No items added...',
+};
+
+const TemplateSecondary: Story<BasicTableProps> = (args) => <SecondaryBasicTable {...args} />;
+
+export const Secondary = TemplateSecondary.bind({});
+Secondary.args = {
+  columns: COLUMNS,
+  data: DATA,
 };
