@@ -5,19 +5,20 @@ import { renderCell, BasicTableBuilder, BasicTableHeadCell } from './components'
 import { useBasicTableStyles } from './hooks';
 
 export const SecondaryBasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps) => {
-  const { tableBodyCellStyles, tableHeadCellStyles } = useBasicTableStyles();
+  const { tableBodyCellStyles, tableHeadCellStyles, getSidePadding } = useBasicTableStyles();
 
   return (
     <>
       <BasicTableBuilder emptyMessage={emptyMessage} {...props} isSecondaryTable>
-        {columns.map((column) => (
+        {columns.map((column, index) => (
           <TableBuilderColumn<BasicTableRow>
             key={column.field}
             header={column.label}
             overrides={{
               TableHeadCell: {
                 style: {
-                  ...{ ...tableHeadCellStyles },
+                  ...tableHeadCellStyles,
+                  ...getSidePadding(index, columns.length),
                   width: column.width ?? 'auto',
                 },
                 component: ({ $style, children }) => (
@@ -29,6 +30,7 @@ export const SecondaryBasicTable = ({ columns, emptyMessage, ...props }: BasicTa
               TableBodyCell: {
                 style: {
                   ...tableBodyCellStyles,
+                  ...getSidePadding(index, columns.length),
                   width: column.width ?? 'auto',
                 },
               },

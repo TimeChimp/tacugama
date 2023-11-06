@@ -5,12 +5,12 @@ import { renderCell, BasicTableBuilder, BasicTableHeadCell } from './components'
 import { useBasicTableStyles } from './hooks';
 
 export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps) => {
-  const { tableBodyCellStyles, tableHeadCellStyles } = useBasicTableStyles();
+  const { tableBodyCellStyles, tableHeadCellStyles, getSidePadding } = useBasicTableStyles();
 
   return (
     <>
       <BasicTableBuilder emptyMessage={emptyMessage} {...props}>
-        {columns.map((column) => (
+        {columns.map((column, index) => (
           <TableBuilderColumn<BasicTableRow>
             key={column.field}
             header={column.label}
@@ -18,6 +18,7 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
               TableHeadCell: {
                 style: {
                   ...tableHeadCellStyles,
+                  ...getSidePadding(index, columns.length),
                   width: column.width ?? 'auto',
                 },
                 component: ({ $style, children }) => (
@@ -29,6 +30,7 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
               TableBodyCell: {
                 style: {
                   ...tableBodyCellStyles,
+                  ...getSidePadding(index, columns.length),
                   width: column.width ?? 'auto',
                 },
               },

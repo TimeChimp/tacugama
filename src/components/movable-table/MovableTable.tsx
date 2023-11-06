@@ -4,7 +4,7 @@ import { useBasicTableStyles } from '../basic-table/hooks';
 import { useTheme } from '../../providers';
 import * as React from 'react';
 import { List, arrayMove } from 'react-movable';
-import { borderBottom, borderTop } from '../../utils';
+import { borderBottom, borderTop, padding } from '../../utils';
 import { MovableTableProps } from './types';
 
 export const MovableTable = ({ columns, data, setData, entityRows }: MovableTableProps) => {
@@ -16,6 +16,7 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
         colors: { primaryB },
         customColors: { light4, light6 },
         borders: { border300 },
+        sizing: { scale600, scale800 },
       },
     },
   } = useTheme();
@@ -26,11 +27,13 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
   const tableHeadCellStyles = {
     ...borderBottom(border300),
     ...BasicTableHeadCellStyles,
+    ...padding('0', scale600),
   };
 
   const tableBodyCellStyles = {
     ...borderBottom(border300),
     ...BasicTableBodyCellStyles,
+    ...padding('0', scale600),
   };
 
   const tableStyles = {
@@ -49,6 +52,15 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
     if (setData) {
       setData(newData);
     }
+  };
+
+  const getSidePadding = (index: number) => {
+    if (index === 0) {
+      return { paddingLeft: scale800 };
+    } else if (index + 1 === columns?.length) {
+      return { paddingRight: scale800 };
+    }
+    return {};
   };
 
   return (
@@ -86,6 +98,7 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
                       ...tableHeadCellStyles,
                       width: column.width ?? 'auto',
                       textAlign: column?.type === BasicTableColumnType.Financial ? 'right' : 'left',
+                      ...getSidePadding(index),
                     }}
                   >
                     {column.label}
@@ -110,7 +123,10 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
               }}
             >
               {columns.map((column, index) => (
-                <td key={`td-${index}`} style={{ ...tableBodyCellStyles, width: column.width ?? _widths[index] }}>
+                <td
+                  key={`td-${index}`}
+                  style={{ ...tableBodyCellStyles, ...getSidePadding(index), width: column.width ?? _widths[index] }}
+                >
                   {renderCell(value as unknown as BasicTableRow, column)}
                 </td>
               ))}

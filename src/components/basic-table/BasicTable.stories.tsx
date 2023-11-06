@@ -38,3 +38,10 @@ Secondary.args = {
   columns: COLUMNS,
   data: DATA,
 };
+
+export const EmptyDataSecondary = TemplateSecondary.bind({});
+EmptyDataSecondary.args = {
+  columns: COLUMNS,
+  data: [],
+  emptyMessage: 'No items added...',
+};
