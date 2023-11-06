@@ -1,8 +1,8 @@
 import React from 'react';
-import { useTheme } from 'providers';
-import { Block } from 'baseui/block';
+import { Block } from '../../../block';
 import { padding } from '../../../../utils';
 import { WidgetContentProps } from '../../types';
+import { useTheme } from '../../../../providers';
 
 export const WidgetContent = ({ children, height }: WidgetContentProps) => {
   const {

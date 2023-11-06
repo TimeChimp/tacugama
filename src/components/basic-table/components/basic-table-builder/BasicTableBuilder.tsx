@@ -1,6 +1,6 @@
 import React from 'react';
-import { useTheme } from 'providers';
 import { TableBuilder, StyledTableEmptyMessage } from 'baseui/table-semantic';
+import { useTheme } from '../../../../providers';
 import { border, padding, borderBottom, borderTop } from '../../../../utils';
 import { TABLE_ROW_HEIGHT } from '../../../../models';
 import { EmptyMessage } from '../empty-message';

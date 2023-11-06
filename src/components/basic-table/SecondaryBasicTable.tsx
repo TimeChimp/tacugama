@@ -1,6 +1,6 @@
 import React from 'react';
-import { BasicTableProps, BasicTableRow, BasicTableColumnType } from './types';
 import { TableBuilderColumn } from 'baseui/table-semantic';
+import { BasicTableProps, BasicTableRow, BasicTableColumnType } from './types';
 import { renderCell, BasicTableBuilder, BasicTableHeadCell } from './components';
 import { useBasicTableStyles } from './hooks';
 

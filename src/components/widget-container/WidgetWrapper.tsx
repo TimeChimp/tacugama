@@ -2,10 +2,9 @@ import React from 'react';
 import { Box } from '../box';
 import { Block } from '../block';
 import { ParagraphSmall } from '../typography';
-import { padding } from 'utils';
-import { useTheme } from 'providers';
+import { padding, borderBottom } from '../../utils';
+import { useTheme } from '../../providers';
 import { WidgetWrapperProps } from './types';
-import { borderBottom } from '../../utils';
 
 export const WidgetWrapper = ({ title, children, customButton }: WidgetWrapperProps) => {
   const {

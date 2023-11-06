@@ -13,7 +13,6 @@ const CellWrapper = ({ children, alignRight }: { children: React.ReactElement; a
 export const renderCell = (row: BasicTableRow, column: BasicTableColumn) => {
   const { type, field } = column;
   const value = row[field];
-  console.log('8989898::', row, column);
 
   const map = {
     [BasicTableColumnType.Text]: () => (

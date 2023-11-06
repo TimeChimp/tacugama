@@ -1,6 +1,6 @@
-import { useTheme } from 'providers';
+import { useTheme } from '../../../../providers';
 import { padding } from '../../../../utils';
-import { TABLE_ROW_HEIGHT } from 'models';
+import { TABLE_ROW_HEIGHT } from '../../../../models';
 
 export const useBasicTableStyles = () => {
   const {
