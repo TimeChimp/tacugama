@@ -1,5 +1,5 @@
 export interface BasicTableBuilderProps {
   emptyMessage?: string;
-  isSecondaryTable?: boolean;
+  isEmbeddedTable?: boolean;
   children: React.ReactElement[];
 }

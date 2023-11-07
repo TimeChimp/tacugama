@@ -7,7 +7,7 @@ import { EmptyMessage } from '../empty-message';
 import { BasicTableBuilderProps } from './types';
 import { useBasicTableStyles } from '../../hooks';
 
-export const BasicTableBuilder = ({ isSecondaryTable, children, emptyMessage, ...props }: BasicTableBuilderProps) => {
+export const BasicTableBuilder = ({ isEmbeddedTable, children, emptyMessage, ...props }: BasicTableBuilderProps) => {
   const {
     theme: {
       current: {
@@ -23,7 +23,7 @@ export const BasicTableBuilder = ({ isSecondaryTable, children, emptyMessage, ..
   const { tableBodyCellStyles, tableHeadCellStyles } = useBasicTableStyles();
 
   const getBorder = () => {
-    if (isSecondaryTable) {
+    if (isEmbeddedTable) {
       return {
         ...borderBottom({ ...border100, borderColor: light6 }),
         ...borderTop({ ...border100, borderColor: light6 }),
@@ -33,7 +33,7 @@ export const BasicTableBuilder = ({ isSecondaryTable, children, emptyMessage, ..
   };
 
   const tableRootStyles = {
-    ...(!isSecondaryTable ? { borderRadius: radius200 } : {}),
+    ...(!isEmbeddedTable ? { borderRadius: radius200 } : {}),
     ...getBorder(),
   };
 

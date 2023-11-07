@@ -1,3 +1,3 @@
 export * from './BasicTable';
-export * from './SecondaryBasicTable';
+export * from './EmbeddedTable';
 export * from './types';

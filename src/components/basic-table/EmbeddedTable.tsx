@@ -4,12 +4,12 @@ import { BasicTableProps, BasicTableRow, BasicTableColumnType } from './types';
 import { renderCell, BasicTableBuilder, BasicTableHeadCell } from './components';
 import { useBasicTableStyles } from './hooks';
 
-export const SecondaryBasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps) => {
+export const EmbeddedTable = ({ columns, emptyMessage, ...props }: BasicTableProps) => {
   const { tableBodyCellStyles, tableHeadCellStyles, getSidePadding } = useBasicTableStyles();
 
   return (
     <>
-      <BasicTableBuilder emptyMessage={emptyMessage} {...props} isSecondaryTable>
+      <BasicTableBuilder emptyMessage={emptyMessage} {...props} isEmbeddedTable>
         {columns.map((column, index) => (
           <TableBuilderColumn<BasicTableRow>
             key={column.field}
