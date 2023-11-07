@@ -19,6 +19,7 @@ export const Textarea = ({
   success,
   resizeable = false,
   showSkeleton = false,
+  height,
   ...rest
 }: TextareaProps) => {
   const {
@@ -37,7 +38,7 @@ export const Textarea = ({
   const { contentSecondary, contentTertiary } = colors;
 
   return showSkeleton ? (
-    <Skeleton animation height={scale2400} width="100%" />
+    <Skeleton animation height={height ?? scale2400} width="100%" />
   ) : (
     <BaseTextArea
       value={value}
@@ -75,8 +76,8 @@ export const Textarea = ({
             return {
               ...ParagraphSmall,
               ...padding(scale300, scale600),
-              minHeight: scale2400,
-              height: scale2400,
+              minHeight: height ?? scale2400,
+              height: height ?? scale2400,
               width: '100%',
               resize: resizeable ? 'vertical' : 'none',
               color,
