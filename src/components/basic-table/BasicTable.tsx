@@ -1,87 +1,15 @@
 import React from 'react';
+import { TableBuilderColumn } from 'baseui/table-semantic';
 import { BasicTableProps, BasicTableRow, BasicTableColumnType } from './types';
-import { useTheme } from '../../providers';
-import { padding, border } from '../../utils';
-import { TableBuilder, TableBuilderColumn, StyledTableHeadCell, StyledTableEmptyMessage } from 'baseui/table-semantic';
-import { renderCell } from './Cell';
-import { EmptyMessage } from './EmptyMessage';
-import { TABLE_ROW_HEIGHT } from '../../models';
-import { FlexItem } from '../flex-item';
+import { renderCell, BasicTableBuilder, BasicTableHeadCell } from './components';
+import { useBasicTableStyles } from './hooks';
 
 export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps) => {
-  const {
-    theme: {
-      current: {
-        sizing: { scale600, scale1000 },
-        colors: { primaryB },
-        customColors: { light7, light2, light6, dark3 },
-        borders: { radius200, border100 },
-        typography: { ParagraphSmall, LabelSmall },
-      },
-    },
-  } = useTheme();
-
-  const tableRootStyles = {
-    borderRadius: radius200,
-    ...border({ ...border100, borderColor: light2 }),
-  };
-
-  const tableHeadCellStyles = {
-    backgroundColor: light7,
-    color: dark3,
-    ...padding('0', scale600),
-    ...LabelSmall,
-  };
-
-  const tableBodyCellStyles = {
-    ...padding('0', scale600),
-    height: TABLE_ROW_HEIGHT,
-    verticalAlign: 'middle',
-    borderBottomColor: light6,
-  };
-
-  const tableEmptyMessageStyles = {
-    height: TABLE_ROW_HEIGHT,
-    ...ParagraphSmall,
-    ...padding('0px', scale600, '0px', scale600),
-  };
+  const { tableBodyCellStyles, tableHeadCellStyles, getSidePadding } = useBasicTableStyles();
 
   return (
-    <TableBuilder
-      overrides={{
-        Root: {
-          style: tableRootStyles,
-        },
-        TableHeadCell: {
-          style: tableHeadCellStyles,
-        },
-        TableHeadRow: {
-          style: {
-            height: scale1000,
-          },
-        },
-        TableBodyRow: {
-          style: {
-            height: TABLE_ROW_HEIGHT,
-            ':hover': {
-              backgroundColor: primaryB,
-            },
-          },
-        },
-        TableBodyCell: {
-          style: tableBodyCellStyles,
-        },
-        TableEmptyMessage: {
-          style: tableEmptyMessageStyles,
-          component: ({ children, $style }) => (
-            <StyledTableEmptyMessage style={$style}>{children}</StyledTableEmptyMessage>
-          ),
-        },
-      }}
-      {...(emptyMessage ? { emptyMessage: <EmptyMessage message={emptyMessage} /> } : {})}
-      {...props}
-    >
-      {columns.map((column) => (
+    <BasicTableBuilder emptyMessage={emptyMessage} {...props}>
+      {columns.map((column, index) => (
         <TableBuilderColumn<BasicTableRow>
           key={column.field}
           header={column.label}
@@ -89,21 +17,19 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
             TableHeadCell: {
               style: {
                 ...tableHeadCellStyles,
+                ...getSidePadding(index, columns.length),
                 width: column.width ?? 'auto',
               },
               component: ({ $style, children }) => (
-                <StyledTableHeadCell style={$style}>
-                  <FlexItem
-                    justifyContent={column?.type === BasicTableColumnType.Financial ? 'flex-end' : 'flex-start'}
-                  >
-                    {children}
-                  </FlexItem>
-                </StyledTableHeadCell>
+                <BasicTableHeadCell style={$style} alignEnd={column?.type === BasicTableColumnType.Financial}>
+                  {children}
+                </BasicTableHeadCell>
               ),
             },
             TableBodyCell: {
               style: {
                 ...tableBodyCellStyles,
+                ...getSidePadding(index, columns.length),
                 width: column.width ?? 'auto',
               },
             },
@@ -112,6 +38,6 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
           {(row) => renderCell(row, column)}
         </TableBuilderColumn>
       ))}
-    </TableBuilder>
+    </BasicTableBuilder>
   );
 };
