@@ -1,11 +1,28 @@
+import { useTheme } from '../../providers';
 import * as React from 'react';
 import { List, arrayMove } from 'react-movable';
-import { BasicTableRow, BasicTableColumnType } from '../basic-table';
-import { renderCell } from '../basic-table/components';
+import { BasicTableColumn, BasicTableColumnType, BasicTableRow } from '../basic-table';
 import { useBasicTableStyles } from '../basic-table/hooks';
-import { useTheme } from '../../providers';
 import { borderBottom, borderTop, padding } from '../../utils';
 import { MovableTableProps } from './types';
+import { FlexItem } from 'components/flex-item';
+
+const MIN_TABLE_WIDTH = 1100;
+
+const renderCell = (row: BasicTableRow, column: BasicTableColumn) => {
+  const { field } = column;
+  const value = row[field];
+
+  return (
+    <FlexItem
+      height="100%"
+      justifyContent={column?.type === BasicTableColumnType.Financial ? 'flex-end' : 'flex-start'}
+      alignItems="flex-start"
+    >
+      {value}
+    </FlexItem>
+  );
+};
 
 export const MovableTable = ({ columns, data, setData, entityRows }: MovableTableProps) => {
   const [widths, setWidths] = React.useState<string[]>([]);
@@ -13,10 +30,10 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
   const {
     theme: {
       current: {
+        sizing: { scale500 },
         colors: { primaryB },
         customColors: { light4, light6 },
         borders: { border300 },
-        sizing: { scale600 },
       },
     },
   } = useTheme();
@@ -30,13 +47,13 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
   const tableHeadCellStyles = {
     ...borderBottom(border300),
     ...BasicTableHeadCellStyles,
-    ...padding('0', scale600),
+    ...padding('0', scale500),
   };
 
   const tableBodyCellStyles = {
     ...borderBottom(border300),
     ...BasicTableBodyCellStyles,
-    ...padding('0', scale600),
+    ...padding(scale500, scale500),
   };
 
   const tableStyles = {
@@ -62,6 +79,7 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
       style={{
         display: 'flex',
         justifyContent: 'stretch',
+        overflow: 'auto',
         ...borderTop({ ...border300, borderColor: light6 }),
       }}
     >
@@ -81,6 +99,7 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
               ...tableStyles,
               cursor: isDragged ? 'grabbing' : undefined,
               width: '100%',
+              minWidth: `${MIN_TABLE_WIDTH}px`,
             }}
           >
             <thead>
@@ -90,9 +109,9 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
                     key={`th-${index}`}
                     style={{
                       ...tableHeadCellStyles,
+                      ...getSidePadding(index, columns.length),
                       width: column.width ?? 'auto',
                       textAlign: column?.type === BasicTableColumnType.Financial ? 'right' : 'left',
-                      ...getSidePadding(index, columns.length),
                     }}
                   >
                     {column.label}
@@ -131,13 +150,7 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
             </tr>
           );
 
-          return isDragged ? (
-            <table style={{ ...props.style, borderSpacing: 0, width: '100%' }}>
-              <tbody>{row}</tbody>
-            </table>
-          ) : (
-            row
-          );
+          return row;
         }}
       />
     </div>
