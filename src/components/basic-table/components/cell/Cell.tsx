@@ -1,8 +1,8 @@
 import React from 'react';
-import { BasicTableColumn, BasicTableColumnType, BasicTableRow } from './types';
-import { ParagraphSmall } from '../typography';
-import { FlexItem } from '../flex-item';
-import { Align } from '../input/types';
+import { BasicTableColumn, BasicTableColumnType, BasicTableRow } from '../../types';
+import { ParagraphSmall } from '../../../typography';
+import { FlexItem } from '../../../flex-item';
+import { Align } from '../../../input/types';
 
 const CellWrapper = ({ children, alignRight }: { children: React.ReactElement; alignRight?: boolean }) => (
   <FlexItem height="100%" justifyContent={alignRight ? 'flex-end' : 'flex-start'} alignItems="center">
