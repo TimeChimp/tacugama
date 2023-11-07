@@ -2,7 +2,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { FormControl } from './';
-import { Input, SearchIcon, Textarea } from 'components';
+import { Input, SearchIcon, Textarea } from '../../components';
 import { FormControlProps } from './types';
 
 export default {
@@ -33,7 +33,7 @@ Default.parameters = {
 
 const TextAreaTemplate: Story<FormControlProps> = (args) => (
   <FormControl {...args}>
-    <Textarea placeholder="Zero state with placeholder" />
+    <Textarea placeholder="Zero state with placeholder" value="" />
   </FormControl>
 );
 
