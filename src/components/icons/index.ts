@@ -68,3 +68,4 @@ export * from './dragdrop';
 export * from './camera-outline';
 export * from './location';
 export * from './description';
+export * from './link';
