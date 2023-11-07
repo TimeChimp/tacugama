@@ -4,8 +4,8 @@ import { HeadingSmall, ParagraphSmall } from '../typography';
 import { Button } from '../button';
 import { ButtonKind, ButtonType, ConfirmationModalType } from '../../models';
 import { FlexItem } from '../flex-item';
-import { Block } from 'baseui/block';
-
+import { Block } from '../block';
+import { useTheme } from '../../providers';
 export interface ConfirmationModalProps {
   title: string;
   description: string | JSX.Element;
@@ -41,6 +41,14 @@ export const ConfirmationModal = ({
   footerLeftComponent,
 }: ConfirmationModalProps) => {
   const [loading, setLoading] = useState<boolean>(false);
+
+  const {
+    theme: {
+      current: {
+        sizing: { scale300 },
+      },
+    },
+  } = useTheme();
 
   const handleCancel = async () => {
     if (cancelOnClick) {
@@ -84,9 +92,9 @@ export const ConfirmationModal = ({
         <ParagraphSmall>{description}</ParagraphSmall>
       </ModalBody>
       <ModalFooter>
-        <FlexItem justifyContent="space-between" alignItems="center">
+        <FlexItem justifyContent="space-between" alignItems="center" gap={scale300}>
           <Block>{footerLeftComponent}</Block>
-          <Block>
+          <Block display="flex" gridGap={scale300}>
             <Button kind={ButtonKind.secondary} onClick={handleCancel}>
               {cancelLabel}
             </Button>

@@ -60,11 +60,11 @@ export const MultiPagesModal = ({
         <ModalBody>{isOpen ? CurrentPageContent : null}</ModalBody>
         <ModalFooter>
           {currentPage === 1 ? (
-            <Button kind={ButtonKind.secondary} type="button" onClick={onClose}>
+            <Button kind={ButtonKind.secondary} onClick={onClose}>
               {cancelText}
             </Button>
           ) : (
-            <Button kind={ButtonKind.secondary} type="button" onClick={() => setCurrentPage((page) => page - 1)}>
+            <Button kind={ButtonKind.secondary} onClick={() => setCurrentPage((page) => page - 1)}>
               {previousText}
             </Button>
           )}
@@ -82,11 +82,7 @@ export const MultiPagesModal = ({
                   {submitText}
                 </Button>
               ) : (
-                <Button
-                  type="button"
-                  onClick={onNextPage}
-                  disabled={pages[currentPage - 1].submitButtonDisabled || nextPageDisabled}
-                >
+                <Button onClick={onNextPage} disabled={pages[currentPage - 1].submitButtonDisabled || nextPageDisabled}>
                   {nextText}
                 </Button>
               )}
