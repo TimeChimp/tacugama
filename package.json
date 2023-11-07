@@ -45,7 +45,7 @@
   },
   "sideEffects": false,
   "devDependencies": {
-    "@babel/core": "^7.20.7",
+    "@babel/core": "^7.23.2",
     "@size-limit/preset-small-lib": "^4.6.0",
     "@storybook/addon-docs": "^6.5.15",
     "@storybook/addon-essentials": "^6.5.15",
