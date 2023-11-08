@@ -1,70 +1,30 @@
-import { useTheme } from '../../providers';
 import * as React from 'react';
 import { List, arrayMove } from 'react-movable';
 import { BasicTableColumnType, BasicTableRow } from '../basic-table';
-import { useBasicTableStyles } from '../basic-table/hooks';
-import { borderBottom, borderTop } from '../../utils';
 import { MovableTableProps } from './types';
 import { renderCell } from '../basic-table/components';
-
-const MIN_TABLE_WIDTH = 1100;
+import {
+  StyledTable,
+  StyledTableBodyCell,
+  StyledTableBodyRow,
+  StyledTableHeadCell,
+  StyledTableWrapper,
+} from './StyledTable';
+import { useBasicTableStyles } from '../basic-table/hooks';
 
 export const MovableTable = ({ columns, data, setData, entityRows }: MovableTableProps) => {
+  const { tableBodyCellStyles, tableHeadCellStyles, getSidePadding } = useBasicTableStyles();
   const [widths, setWidths] = React.useState<string[]>([]);
-
-  const {
-    theme: {
-      current: {
-        colors: { primaryB },
-        customColors: { light4, light6 },
-        borders: { border300 },
-      },
-    },
-  } = useTheme();
-
-  const {
-    tableBodyCellStyles: BasicTableBodyCellStyles,
-    tableHeadCellStyles: BasicTableHeadCellStyles,
-    getSidePadding,
-  } = useBasicTableStyles();
-
-  const tableHeadCellStyles = {
-    ...borderBottom(border300),
-    ...BasicTableHeadCellStyles,
-  };
-
-  const tableBodyCellStyles = {
-    ...borderBottom(border300),
-    ...BasicTableBodyCellStyles,
-  };
-
-  const tableStyles = {
-    borderSpacing: 0,
-  };
-
-  const tableBodyRowStyles = {
-    ':hover': {
-      backgroundColor: primaryB,
-    },
-  };
 
   const onChange = (oldIndex: number, newIndex: number) => {
     const newData = arrayMove(entityRows, oldIndex, newIndex);
-
     if (setData) {
       setData(newData);
     }
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'stretch',
-        overflow: 'auto',
-        ...borderTop({ ...border300, borderColor: light6 }),
-      }}
-    >
+    <StyledTableWrapper>
       <List
         beforeDrag={({ elements, index }) => {
           const cells = Array.from(elements[index].children);
@@ -76,65 +36,54 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
         values={data}
         onChange={({ oldIndex, newIndex }) => onChange(oldIndex, newIndex)}
         renderList={({ children, props, isDragged }) => (
-          <table
-            style={{
-              ...tableStyles,
-              cursor: isDragged ? 'grabbing' : undefined,
-              width: '100%',
-              minWidth: `${MIN_TABLE_WIDTH}px`,
-            }}
-          >
+          <StyledTable $isDragged={isDragged}>
             <thead>
               <tr>
                 {columns.map((column, index) => (
-                  <th
+                  <StyledTableHeadCell
                     key={`th-${index}`}
-                    style={{
-                      ...tableHeadCellStyles,
-                      ...getSidePadding(index, columns.length),
-                      width: column.width ?? 'auto',
-                      textAlign: column?.type === BasicTableColumnType.Financial ? 'right' : 'left',
-                    }}
+                    $width={column.width ?? 'auto'}
+                    $textAlign={column?.type === BasicTableColumnType.Financial ? 'right' : 'left'}
+                    $index={index}
+                    $numberOfColumns={columns.length}
+                    $tableHeadCellStyles={tableHeadCellStyles}
+                    $getSidePadding={getSidePadding}
                   >
                     {column.label}
-                  </th>
+                  </StyledTableHeadCell>
                 ))}
               </tr>
             </thead>
             <tbody {...props}>{children}</tbody>
-          </table>
+          </StyledTable>
         )}
         renderItem={({ value, props, isDragged, isSelected }) => {
           const _widths = isDragged ? widths : [];
           const row = (
-            <tr
+            <StyledTableBodyRow
               {...props}
-              style={{
-                ...props.style,
-                cursor: isDragged ? 'grabbing' : undefined,
-                backgroundColor: isDragged || isSelected ? light6 : light4,
-                ...tableBodyRowStyles,
-                ...borderBottom(props.key === entityRows.length - 1 ? undefined : border300),
-              }}
+              $isDragged={isDragged}
+              $isSelected={isSelected}
+              $isBorderBottom={props.key === entityRows.length - 1}
             >
               {columns.map((column, index) => (
-                <td
+                <StyledTableBodyCell
                   key={`td-${index}`}
-                  style={{
-                    ...tableBodyCellStyles,
-                    ...getSidePadding(index, columns.length),
-                    width: column.width ?? _widths[index],
-                  }}
+                  $width={column.width ?? _widths[index]}
+                  $index={index}
+                  $numberOfColumns={columns.length}
+                  $tableBodyCellStyles={tableBodyCellStyles}
+                  $getSidePadding={getSidePadding}
                 >
                   {renderCell(value as unknown as BasicTableRow, column)}
-                </td>
+                </StyledTableBodyCell>
               ))}
-            </tr>
+            </StyledTableBodyRow>
           );
 
           return row;
         }}
       />
-    </div>
+    </StyledTableWrapper>
   );
 };

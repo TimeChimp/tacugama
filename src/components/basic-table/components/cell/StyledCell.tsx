@@ -1,5 +1,5 @@
 import { themedStyled } from '../../../../theme';
-import { TABLE_ROW_HEIGHT } from 'models';
+import { TABLE_ROW_HEIGHT } from '../../../../models';
 
 export interface StyledCellBoxProps {
   $alignRight?: boolean;
