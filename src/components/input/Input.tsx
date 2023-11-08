@@ -47,6 +47,8 @@ export const Input = ({
   const { border300 } = borders;
   const { primaryB } = colors;
 
+  console.log('aaaaa', scale975);
+
   // Password input requires the default padding
   const rootPadding = () => {
     if (type !== 'password') {

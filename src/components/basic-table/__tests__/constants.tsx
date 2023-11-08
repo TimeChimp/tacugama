@@ -5,6 +5,7 @@ import { Input } from '../../input';
 import { PriceInput } from '../../input/price-input';
 import React from 'react';
 import { BasicTableColumnType, BasicTableRow, BasicTableColumn } from '../types';
+import { FlexItem } from 'components/flex-item';
 
 export const COLUMNS: BasicTableColumn[] = [
   {
@@ -32,7 +33,7 @@ export const DATA: BasicTableRow[] = [
   {
     name: 'John Smith',
     price: '$30',
-    address: <p>'100 Market St., San Francisco, California'</p>,
+    address: '100 Market St., San Francisco, California',
     actions: <Button onClick={() => alert('Hey there!')}>Action!</Button>,
   },
   {
@@ -44,11 +45,18 @@ export const DATA: BasicTableRow[] = [
   {
     name: 'Jane Doe',
     price: (
-      <PriceInput
-        onChange={(e) => {
-          console.log(e);
-        }}
-      />
+      <FlexItem>
+        <PriceInput
+          onChange={(e) => {
+            console.log(e);
+          }}
+        />
+        <PriceInput
+          onChange={(e) => {
+            console.log(e);
+          }}
+        />
+      </FlexItem>
     ),
     address: '100 Main St., Los Angeles, California',
     actions: <Toggle size={ToggleSize.large} />,

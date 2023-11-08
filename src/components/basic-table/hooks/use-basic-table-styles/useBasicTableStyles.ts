@@ -23,10 +23,11 @@ export const useBasicTableStyles = () => {
   };
 
   const tableBodyCellStyles = {
-    ...padding('0', scale600),
+    ...padding('1px', scale600),
     height: TABLE_ROW_HEIGHT,
-    verticalAlign: 'middle',
+    verticalAlign: 'top',
     borderBottomColor: light6,
+    borderBox: 'inset',
   };
 
   const getSidePadding = (index: number, numberOfColumns: number) => {

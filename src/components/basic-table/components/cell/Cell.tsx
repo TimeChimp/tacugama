@@ -3,11 +3,13 @@ import { BasicTableColumn, BasicTableColumnType, BasicTableRow } from '../../typ
 import { ParagraphSmall } from '../../../typography';
 import { FlexItem } from '../../../flex-item';
 import { Align } from '../../../input/types';
+import { StyledCellBox } from './StyledCell';
+import { Block } from '../../../block';
 
 const CellWrapper = ({ children, alignRight }: { children: React.ReactElement; alignRight?: boolean }) => (
-  <FlexItem height="100%" justifyContent={alignRight ? 'flex-end' : 'flex-start'} alignItems="center">
-    {children}
-  </FlexItem>
+  <Block height="100%">
+    <StyledCellBox $alignRight={alignRight}>{children}</StyledCellBox>
+  </Block>
 );
 
 export const renderCell = (row: BasicTableRow, column: BasicTableColumn) => {
