@@ -32,7 +32,7 @@ export const DATA: BasicTableRow[] = [
   {
     name: 'John Smith',
     price: '$30',
-    address: <p>'100 Market St., San Francisco, California'</p>,
+    address: '100 Market St., San Francisco, California',
     actions: <Button onClick={() => alert('Hey there!')}>Action!</Button>,
   },
   {
