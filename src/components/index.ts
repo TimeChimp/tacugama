@@ -69,3 +69,4 @@ export * from './date-picker';
 export * from './edit-page';
 export * from './app-skeleton';
 export * from './tc-form-row';
+export * from './widget-container';
