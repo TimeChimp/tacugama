@@ -51,10 +51,10 @@ export interface StyledTableBodyCellProps {
     verticalAlign: string;
     borderBottomColor: string;
     borderBox: string;
-    paddingTop: string | undefined;
-    paddingRight: string | undefined;
-    paddingBottom: string | undefined;
-    paddingLeft: string | undefined;
+    paddingTop?: string;
+    paddingRight?: string;
+    paddingBottom?: string;
+    paddingLeft?: string;
   };
   $sidePadding: { paddingLeft?: string; paddingRight?: string };
 }
