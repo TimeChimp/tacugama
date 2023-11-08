@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlexItem } from '../flex-item';
+import { FlexItem } from '../../../flex-item';
 
 export const EmptyMessage = ({ message }: { message: string }) => {
   return (

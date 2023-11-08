@@ -14,7 +14,7 @@ export const EditPageSkeleton = ({ numberOfSideNavItems }: EditPageSkeletonProps
   const {
     theme: {
       current: {
-        sizing: { scale500, scale900, scale1000, scale1600, scale2400 },
+        sizing: { scale500, scale800, scale900, scale1000, scale1600, scale2400 },
       },
     },
   } = useTheme();
@@ -27,7 +27,7 @@ export const EditPageSkeleton = ({ numberOfSideNavItems }: EditPageSkeletonProps
           <Skeleton animation height={scale900} width="200px" />
         </ButtonBox>
       </FlexItem>
-      <FlexGrid flexGridColumnCount={2} flexGridColumnGap={scale900} flexGridRowGap={scale1600}>
+      <FlexGrid flexGridColumnCount={2} flexGridColumnGap={scale800} flexGridRowGap={scale1600}>
         <SideMenuFlexGridItem>
           <SideMenuSkeleton numberOfSideNavItems={numberOfSideNavItems} />
         </SideMenuFlexGridItem>
