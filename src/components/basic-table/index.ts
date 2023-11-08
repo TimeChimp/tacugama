@@ -1,3 +1,3 @@
 export * from './BasicTable';
-export * from './Cell';
+export * from './EmbeddedTable';
 export * from './types';

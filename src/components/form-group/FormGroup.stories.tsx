@@ -1,6 +1,6 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { FormGroup } from './';
+import { FormGroup, FormModalGroup } from './';
 import { Input } from '../input';
 import { FormRow } from '../form-row';
 import { FormGroupProps } from './types';
@@ -25,6 +25,7 @@ const Template: Story<FormGroupProps> = ({ title, subtitle }) => {
   } = useForm<FormInput>({
     mode: 'onSubmit',
   });
+
   return (
     <>
       <FormGroup title={title} subtitle={subtitle}>
@@ -106,8 +107,61 @@ const Template: Story<FormGroupProps> = ({ title, subtitle }) => {
   );
 };
 
+const ModalTemplate: Story<FormGroupProps> = () => {
+  const {
+    control,
+    formState: { errors },
+  } = useForm<FormInput>({
+    mode: 'onSubmit',
+  });
+
+  return (
+    <>
+      <FormModalGroup>
+        <FormRow
+          label="This is a label"
+          toolTip="This is a tooltip"
+          name="name"
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Input
+              {...field}
+              testId="name-input"
+              size="compact"
+              placeholder="Name"
+              error={!!errors.name}
+              autoComplete="off"
+            />
+          )}
+        />
+        <FormRow
+          label="This is a label"
+          caption="This is a caption"
+          name="name"
+          control={control}
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Input
+              {...field}
+              testId="name-input"
+              size="compact"
+              placeholder="Name"
+              error={!!errors.name}
+              autoComplete="off"
+            />
+          )}
+        />
+      </FormModalGroup>
+    </>
+  );
+};
+
 export const Default = Template.bind({});
 Default.args = {
   title: 'This is a title',
   subtitle: 'This is a subtitle',
 };
+
+export const ModalDefault = ModalTemplate.bind({});
+ModalDefault.args = {};
