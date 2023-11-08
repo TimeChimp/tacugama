@@ -23,8 +23,6 @@ export const StyledTable = themedStyled<'table', StyledTableProps>('table', ({ $
 export interface StyledTableHeadCellProps {
   $textAlign?: TextAlignProperty;
   $width?: string;
-  $index: number;
-  $numberOfColumns: number;
   $tableHeadCellStyles: {
     height: string;
     borderBottomColor: string;
@@ -32,39 +30,22 @@ export interface StyledTableHeadCellProps {
     fontWeight: string | number;
     color: string;
   };
-  $getSidePadding: (
-    index: number,
-    numberOfColumns: number,
-  ) =>
-    | {
-        paddingLeft: string;
-        paddingRight?: undefined;
-      }
-    | {
-        paddingRight: string;
-        paddingLeft?: undefined;
-      }
-    | {
-        paddingLeft?: undefined;
-        paddingRight?: undefined;
-      };
+  $sidePadding: { paddingLeft?: string; paddingRight?: string };
 }
 
 export const StyledTableHeadCell = themedStyled<'th', StyledTableHeadCellProps>(
   'th',
-  ({ $theme, $width, $textAlign, $index, $numberOfColumns, $tableHeadCellStyles, $getSidePadding }) => ({
-    ...$getSidePadding($index, $numberOfColumns),
+  ({ $theme, $width, $textAlign, $tableHeadCellStyles, $sidePadding }) => ({
     ...$tableHeadCellStyles,
+    ...$sidePadding,
     width: $width,
     textAlign: $textAlign,
-    ...borderBottom($theme.borders.border300),
+    ...borderBottom({ ...$theme.borders.border300, borderColor: $theme.customColors.light6 }),
   }),
 );
 
 export interface StyledTableBodyCellProps {
   $width?: string;
-  $index: number;
-  $numberOfColumns: number;
   $tableBodyCellStyles: {
     height: string;
     verticalAlign: string;
@@ -75,48 +56,28 @@ export interface StyledTableBodyCellProps {
     paddingBottom: string | undefined;
     paddingLeft: string | undefined;
   };
-  $getSidePadding: (
-    index: number,
-    numberOfColumns: number,
-  ) =>
-    | {
-        paddingLeft: string;
-        paddingRight?: undefined;
-      }
-    | {
-        paddingRight: string;
-        paddingLeft?: undefined;
-      }
-    | {
-        paddingLeft?: undefined;
-        paddingRight?: undefined;
-      };
+  $sidePadding: { paddingLeft?: string; paddingRight?: string };
 }
 
 export const StyledTableBodyCell = themedStyled<'td', StyledTableBodyCellProps>(
   'td',
-  ({ $theme, $width, $index, $numberOfColumns, $tableBodyCellStyles, $getSidePadding }) => ({
-    ...$getSidePadding($index, $numberOfColumns),
+  ({ $theme, $width, $tableBodyCellStyles, $sidePadding }) => ({
     ...$tableBodyCellStyles,
+    ...$sidePadding,
     width: $width,
-    ...borderBottom($theme.borders.border300),
+    ...borderBottom({ ...$theme.borders.border300, borderColor: $theme.customColors.light6 }),
   }),
 );
 
 export interface StyledTableBodyRowProps {
   $isDragged?: boolean;
   $isSelected?: boolean;
-  $isBorderBottom: boolean;
 }
 
 export const StyledTableBodyRow = themedStyled<'tr', StyledTableBodyRowProps>(
   'tr',
-  ({ $theme, $isDragged, $isSelected, $isBorderBottom }) => ({
+  ({ $theme, $isDragged, $isSelected }) => ({
     cursor: $isDragged ? 'grabbing' : undefined,
     backgroundColor: $isDragged || $isSelected ? $theme.customColors.light6 : $theme.customColors.light4,
-    ':hover': {
-      backgroundColor: $theme.colors.primaryB,
-    },
-    ...borderBottom($isBorderBottom ? undefined : $theme.borders.border300),
   }),
 );

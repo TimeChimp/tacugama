@@ -39,19 +39,20 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
           <StyledTable $isDragged={isDragged}>
             <thead>
               <tr>
-                {columns.map((column, index) => (
-                  <StyledTableHeadCell
-                    key={`th-${index}`}
-                    $width={column.width ?? 'auto'}
-                    $textAlign={column?.type === BasicTableColumnType.Financial ? 'right' : 'left'}
-                    $index={index}
-                    $numberOfColumns={columns.length}
-                    $tableHeadCellStyles={tableHeadCellStyles}
-                    $getSidePadding={getSidePadding}
-                  >
-                    {column.label}
-                  </StyledTableHeadCell>
-                ))}
+                {columns.map((column, index) => {
+                  const sidePadding = getSidePadding(index, columns?.length);
+                  return (
+                    <StyledTableHeadCell
+                      key={`th-${index}`}
+                      $width={column.width ?? 'auto'}
+                      $textAlign={column?.type === BasicTableColumnType.Financial ? 'right' : 'left'}
+                      $tableHeadCellStyles={tableHeadCellStyles}
+                      $sidePadding={sidePadding}
+                    >
+                      {column.label}
+                    </StyledTableHeadCell>
+                  );
+                })}
               </tr>
             </thead>
             <tbody {...props}>{children}</tbody>
@@ -60,24 +61,21 @@ export const MovableTable = ({ columns, data, setData, entityRows }: MovableTabl
         renderItem={({ value, props, isDragged, isSelected }) => {
           const _widths = isDragged ? widths : [];
           const row = (
-            <StyledTableBodyRow
-              {...props}
-              $isDragged={isDragged}
-              $isSelected={isSelected}
-              $isBorderBottom={props.key === entityRows.length - 1}
-            >
-              {columns.map((column, index) => (
-                <StyledTableBodyCell
-                  key={`td-${index}`}
-                  $width={column.width ?? _widths[index]}
-                  $index={index}
-                  $numberOfColumns={columns.length}
-                  $tableBodyCellStyles={tableBodyCellStyles}
-                  $getSidePadding={getSidePadding}
-                >
-                  {renderCell(value as unknown as BasicTableRow, column)}
-                </StyledTableBodyCell>
-              ))}
+            <StyledTableBodyRow {...props} $isDragged={isDragged} $isSelected={isSelected}>
+              {columns.map((column, index) => {
+                const sidePadding = getSidePadding(index, columns?.length);
+
+                return (
+                  <StyledTableBodyCell
+                    key={`td-${index}`}
+                    $width={column.width ?? _widths[index]}
+                    $tableBodyCellStyles={tableBodyCellStyles}
+                    $sidePadding={sidePadding}
+                  >
+                    {renderCell(value as unknown as BasicTableRow, column)}
+                  </StyledTableBodyCell>
+                );
+              })}
             </StyledTableBodyRow>
           );
 
