@@ -1,6 +1,6 @@
 import React from 'react';
 import { Block, BlockProps } from 'baseui/block';
-import { CustomThemeProps } from 'models';
+import { CustomThemeProps } from '../../models';
 import { border, borderRadius } from '../../utils';
 
 export interface BoxProps extends BlockProps {

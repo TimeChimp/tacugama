@@ -11,7 +11,7 @@ import { BriefcaseIcon } from '../../icons/briefcase';
 import { NoteIcon } from '../../icons/note';
 import { AvatarIcon } from '../../icons/avatar';
 import { XmarkIcon } from '../../icons/xmark';
-import { DropdownItem } from 'components/dropdown';
+import { DropdownItem } from '../../../components';
 
 const CustomCellComponent = ({ data }: any) => {
   const {

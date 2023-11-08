@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { SideNavItem } from 'components/side-nav';
+import { SideNavItem } from '../../components';
 import { UseFormReset } from 'react-hook-form';
 
 export interface EditPageSkeletonProps {

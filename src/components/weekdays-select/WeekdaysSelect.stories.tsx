@@ -7,7 +7,7 @@ import {
   WeekdaysSelect as WeekdaysSelectComponent,
   WeekdaysSelectProps,
 } from './';
-import { ParagraphSmall } from 'components';
+import { ParagraphSmall } from '../../components';
 
 export default {
   title: 'Components/WeekdaysSelect',

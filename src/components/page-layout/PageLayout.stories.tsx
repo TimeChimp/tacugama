@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { PageLayout, PageLayoutProps } from './PageLayout';
-import { HeadingLarge } from 'components';
+import { HeadingLarge } from '../../components';
 
 export default {
   title: 'Components/Page Layout',

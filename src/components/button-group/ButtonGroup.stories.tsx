@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { ButtonGroup } from './';
 import { ButtonGroupProps } from './ButtonGroup';
-import { Button } from 'components';
+import { Button } from '../../components';
 
 export default {
   title: 'Components/Button Group',

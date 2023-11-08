@@ -6,7 +6,7 @@ import { BoxHeader } from './box-header';
 import { BoxBody } from './box-body';
 import { BoxFooter } from './box-footer';
 
-import { Button, BoxProps, HeadingSmall, Input } from 'components';
+import { Button, BoxProps, HeadingSmall, Input } from '../../components';
 
 export default {
   title: 'Components/Box',

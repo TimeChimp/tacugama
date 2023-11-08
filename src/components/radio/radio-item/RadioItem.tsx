@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Radio as BaseRadio, RadioOverrides, RadioProps as BaseRadioProps } from 'baseui/radio';
 import { IconProps } from 'baseui/icon';
 import { RadioIcon } from '../radio-icon';
-import { CustomThemeType } from 'models';
+import { CustomThemeType } from '../../../models';
 import { border, margin, padding, getRadioBorderColor, getRadioBackgroundColor, borderRadius } from '../../../utils';
 
 export interface RadioProps extends BaseRadioProps {
