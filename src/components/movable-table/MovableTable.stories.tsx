@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { MovableTable, MovableTableProps } from '.';
-import { COLUMNS, DATA } from '../basic-table/__tests__/constants';
+import { DATA, COLUMNS } from '../basic-table/__tests__/constants';
 
 export default {
   title: 'Components/MovableTable',

@@ -7,6 +7,7 @@ export const useBasicTableStyles = () => {
     theme: {
       current: {
         sizing: { scale800, scale600 },
+        customSizing: { scale050 },
         customColors: { light7, light6, dark3 },
         typography: { LabelSmall },
       },
@@ -23,10 +24,11 @@ export const useBasicTableStyles = () => {
   };
 
   const tableBodyCellStyles = {
-    ...padding('0', scale600),
+    ...padding(scale050, scale600),
     height: TABLE_ROW_HEIGHT,
-    verticalAlign: 'middle',
+    verticalAlign: 'top',
     borderBottomColor: light6,
+    borderBox: 'inset',
   };
 
   const getSidePadding = (index: number, numberOfColumns: number) => {
