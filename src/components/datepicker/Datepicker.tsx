@@ -132,6 +132,8 @@ export const Datepicker = ({
       },
       props: {
         [DATA_TEST_ID]: testId,
+        // We don't want the input to be tabbable, because it automatically opens the calendar popover when opening the modal
+        tabIndex: -1,
       },
     },
     InputContainer: {
