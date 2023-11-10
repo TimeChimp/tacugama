@@ -37,9 +37,10 @@ export const SideMenuFlexGridItem = ({
   );
 };
 
-export const ButtonBox = themedStyled('div', () => ({
+export const ButtonBox = themedStyled('div', ({ $theme }) => ({
   display: 'flex',
   justifyContent: 'flex-end',
+  gap: $theme.sizing.scale300,
 }));
 
 export const SkeletonNavContainer = themedStyled('div', ({ $theme }) => ({

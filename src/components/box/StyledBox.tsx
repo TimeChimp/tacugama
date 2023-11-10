@@ -12,4 +12,7 @@ export const StyledBoxBody = themedStyled('div', ({ $theme }) => ({
 export const StyledBoxFooter = themedStyled('div', ({ $theme }) => ({
   ...margin($theme.sizing.scale800),
   textAlign: 'right',
+  display: 'flex',
+  justifyContent: 'flex-end',
+  gap: $theme.sizing.scale300,
 }));
