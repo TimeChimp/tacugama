@@ -29,7 +29,7 @@ export const renderCell = (row: BasicTableRow, column: BasicTableColumn) => {
     [BasicTableColumnType.Financial]: () => (
       <CellWrapper alignRight>
         <>
-          {value && typeof value !== 'string' && typeof value !== 'number' ? (
+          {value && typeof value !== 'string' && typeof value !== 'number' && typeof value !== 'boolean' ? (
             React.cloneElement(value, {
               align: Align.right,
             })
