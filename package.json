@@ -111,6 +111,7 @@
     "core-js": "^3.27.1",
     "date-fns": "^2.17.0",
     "deepmerge": "^4.2.2",
+    "export-to-csv": "^1.2.1",
     "isomorphic-unfetch": "^3.1.0",
     "pdfmake": "^0.1.71",
     "react-color": "^2.19.3",
@@ -121,7 +122,8 @@
     "react-window": "^1.8.9",
     "styletron-engine-atomic": "1.4.7",
     "styletron-react": "^6.1.0",
-    "victory": "^36.0.1"
+    "victory": "^36.0.1",
+    "write-excel-file": "^1.4.27"
   },
   "msw": {
     "workerDirectory": "public"
