@@ -18,6 +18,7 @@ import { CalendarIcon } from '../icons/calendar';
 import { getDateLocale, TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerProps } from './types';
 import { Skeleton } from '../skeleton';
+import { LabelSmall } from '../typography';
 
 export const Datepicker = ({
   customValue,
@@ -215,6 +216,13 @@ export const Datepicker = ({
     },
     QuickSelect: {
       component: (props) => <SingleSelect {...props} disableSortOptions />,
+    },
+    QuickSelectFormControl: {
+      props: {
+        overrides: {
+          Label: () => <LabelSmall>{translations?.chooseRangeLabel ?? 'Choose a date range'}</LabelSmall>,
+        },
+      },
     },
     Input: {
       props: {

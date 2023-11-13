@@ -6,6 +6,7 @@ import { Calendar } from 'baseui/datepicker';
 import { Select } from '../select/Select';
 import { getDateLocale, TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerOption, DatepickerPopoverProps } from './types';
+import { LabelSmall } from '../typography/label-small';
 
 export const DatepickerPopover = ({
   date,
@@ -202,6 +203,13 @@ export const DatepickerPopover = ({
                   onChangeHandler={({ value }) => onChange && onChange(value)}
                 />
               ),
+            },
+            QuickSelectFormControl: {
+              props: {
+                overrides: {
+                  Label: () => <LabelSmall>{translations?.chooseRangeLabel ?? 'Choose a date range'}</LabelSmall>,
+                },
+              },
             },
             ...overrides,
           }}
