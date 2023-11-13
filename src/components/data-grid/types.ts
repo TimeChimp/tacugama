@@ -285,6 +285,7 @@ export interface FiltersProps {
   translations: Translations;
   datepickerTranslations?: DatepickerRangeTranslations;
   dateFormat: string;
+  locale?: SupportedLocale;
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
   filterOnValue: (columnField: string, value: FilterValue['value'], type: FilterType) => void;
@@ -307,6 +308,7 @@ export interface ColumnFiltersProps {
   translations: Translations;
   datepickerTranslations?: DatepickerRangeTranslations;
   dateFormat: string;
+  locale?: SupportedLocale;
   selectedFilterIds: SelectedFilterIds;
   setSelectedFilterIds: Dispatch<SetStateAction<SelectedFilterIds>>;
   filterOnValue: (columnField: string, value: FilterValue['value'], type: FilterType) => void;
