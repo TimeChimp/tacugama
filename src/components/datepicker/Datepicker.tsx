@@ -18,6 +18,7 @@ import { CalendarIcon } from '../icons/calendar';
 import { getDateLocale, TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerProps } from './types';
 import { Skeleton } from '../skeleton';
+import { LabelSmall } from '../typography';
 
 export const Datepicker = ({
   customValue,
@@ -37,7 +38,7 @@ export const Datepicker = ({
   const {
     theme: {
       current: {
-        sizing: { scale500, scale600, scale1000 },
+        sizing: { scale500, scale600 },
         customSizing: { scale975 },
         colors: { primaryA, contentTertiary },
         borders,
@@ -132,6 +133,8 @@ export const Datepicker = ({
       },
       props: {
         [DATA_TEST_ID]: testId,
+        // We don't want the input to be tabbable, because it automatically opens the calendar popover when opening the modal
+        tabIndex: -1,
       },
     },
     InputContainer: {
@@ -142,7 +145,7 @@ export const Datepicker = ({
     },
     Root: {
       style: ({ $error, $isFocused }) => ({
-        height: scale1000,
+        height: scale975,
         ...border(
           !noBorder
             ? {
@@ -212,7 +215,20 @@ export const Datepicker = ({
       },
     },
     QuickSelect: {
-      component: (props) => <SingleSelect {...props} disableSortOptions />,
+      component: (props) => (
+        <SingleSelect
+          {...props}
+          disableSortOptions
+          placeholder={translations?.chooseRangeLabel ?? 'Choose a date range'}
+        />
+      ),
+    },
+    QuickSelectFormControl: {
+      props: {
+        overrides: {
+          Label: () => <LabelSmall>{translations?.chooseRangeLabel ?? 'Choose a date range'}</LabelSmall>,
+        },
+      },
     },
     Input: {
       props: {

@@ -1,4 +1,4 @@
-import { borderBottom, borderTop } from '../../utils';
+import { borderBottom, borderTop, padding } from '../../utils';
 import { themedStyled } from '../../theme';
 import { TextAlignProperty } from '../../models';
 
@@ -37,6 +37,7 @@ export const StyledTableHeadCell = themedStyled<'th', StyledTableHeadCellProps>(
   'th',
   ({ $theme, $width, $textAlign, $tableHeadCellStyles, $sidePadding }) => ({
     ...$tableHeadCellStyles,
+    ...padding('0', $theme.sizing.scale100),
     ...$sidePadding,
     width: $width,
     textAlign: $textAlign,
@@ -63,6 +64,7 @@ export const StyledTableBodyCell = themedStyled<'td', StyledTableBodyCellProps>(
   'td',
   ({ $theme, $width, $tableBodyCellStyles, $sidePadding }) => ({
     ...$tableBodyCellStyles,
+    ...padding($theme.customSizing.scale050, $theme.sizing.scale100),
     ...$sidePadding,
     width: $width,
     ...borderBottom({ ...$theme.borders.border300, borderColor: $theme.customColors.light6 }),

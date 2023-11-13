@@ -22,6 +22,7 @@ export const ColumnFilters = ({
   filters,
   api,
   dateFormat,
+  locale,
   dates,
   setDates,
   setSelectedFilterIds,
@@ -254,6 +255,7 @@ export const ColumnFilters = ({
             monthsShown={2}
             range
             quickSelect
+            locale={locale}
             translations={datepickerTranslations}
           />
         </>
