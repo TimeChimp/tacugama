@@ -807,6 +807,7 @@ export const DataGrid = ({
         translations={translations}
         datepickerTranslations={datepickerTranslations}
         dateFormat={formatSettings.dateFormat ?? (defaultFormatSettings.dateFormat as string)}
+        locale={formatSettings.language ?? (defaultFormatSettings.language as SupportedLocale)}
         selectedFilterIds={selectedFilterIds}
         setSelectedFilterIds={setSelectedFilterIds}
         filterOnValue={filterOnValue}
