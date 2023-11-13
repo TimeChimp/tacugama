@@ -201,6 +201,7 @@ export const DatepickerPopover = ({
                   disableSortOptions
                   clearable={false}
                   onChangeHandler={({ value }) => onChange && onChange(value)}
+                  placeholder={translations?.chooseRangeLabel ?? 'Choose a date range'}
                 />
               ),
             },

@@ -215,7 +215,13 @@ export const Datepicker = ({
       },
     },
     QuickSelect: {
-      component: (props) => <SingleSelect {...props} disableSortOptions />,
+      component: (props) => (
+        <SingleSelect
+          {...props}
+          disableSortOptions
+          placeholder={translations?.chooseRangeLabel ?? 'Choose a date range'}
+        />
+      ),
     },
     QuickSelectFormControl: {
       props: {
