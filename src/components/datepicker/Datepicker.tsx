@@ -38,7 +38,7 @@ export const Datepicker = ({
   const {
     theme: {
       current: {
-        sizing: { scale500, scale600, scale1000 },
+        sizing: { scale500, scale600 },
         customSizing: { scale975 },
         colors: { primaryA, contentTertiary },
         borders,
@@ -145,7 +145,7 @@ export const Datepicker = ({
     },
     Root: {
       style: ({ $error, $isFocused }) => ({
-        height: scale1000,
+        height: scale975,
         ...border(
           !noBorder
             ? {
