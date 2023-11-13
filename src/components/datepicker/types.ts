@@ -3,6 +3,7 @@ import { DatepickerProps as BaseDatepickerProps } from 'baseui/datepicker';
 import { TetherPlacement } from 'baseui/layer';
 
 export interface DatepickerRangeTranslations {
+  chooseRangeLabel?: string;
   today?: string;
   yesterday?: string;
   thisWeek?: string;
