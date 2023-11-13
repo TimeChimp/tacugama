@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { ActionButton } from '../action-button';
-import { createCsvDownloadHandler, createXlsxDownloadHandler } from '../../utils';
+import { createCsvDownloadHandler, createXlsxDownloadHandler } from '../../utils/export';
 import { ExportDropdownProps } from './types';
 import { ButtonKind } from '../../models';
 
