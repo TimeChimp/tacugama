@@ -3,7 +3,7 @@ import { Radio as BaseRadio, RadioOverrides, RadioProps as BaseRadioProps } from
 import { IconProps } from 'baseui/icon';
 import { RadioIcon } from '../radio-icon';
 import { CustomThemeType } from 'models';
-import { border, margin, padding, getRadioBorderColor, getRadioBackgroundColor, borderRadius } from '../../../utils';
+import { border, margin, getRadioBorderColor, padding, getRadioBackgroundColor, borderRadius } from '../../../utils';
 
 export interface RadioProps extends BaseRadioProps {
   value: string;
@@ -24,7 +24,6 @@ const radioOverrides = ({
       alignItems: 'start',
       ...borderRadius($theme.borders.radius100),
       ...margin($theme.sizing.scale100, '0'),
-      ...padding($theme.sizing.scale300, $theme.sizing.scale400),
       backgroundColor: 'none',
       ...(colored && {
         backgroundColor: $checked ? $theme.colors.primary100 : $theme.colors.primary50,
