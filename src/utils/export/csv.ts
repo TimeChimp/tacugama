@@ -1,25 +1,27 @@
-import { mkConfig, generateCsv, download, ConfigOptions } from 'export-to-csv';
 import { BasicTableColumn } from '../../components/basic-table/types';
+import { saveAs } from 'file-saver';
 
 interface Options {
   rows: any[];
   columns: BasicTableColumn[];
-  config?: ConfigOptions;
-  fileName?: string;
+  fileName: string;
 }
 
-export const createCsv = (data: Options) => {
-  const { rows, columns, config = {}, fileName } = data;
+export const isSafari = () => /^((?!chrome|android).)*safari/i.test(navigator?.userAgent);
 
-  const columnHeaders: ConfigOptions['columnHeaders'] = columns?.map((column) => ({
-    key: column.field,
-    displayLabel: column.label?.toString() ?? '',
-  }));
-  const csvConfig = mkConfig({ ...config, columnHeaders, filename: fileName });
-  return { config: csvConfig, file: generateCsv(csvConfig)(rows) };
+export const createCsv = (data: Options) => {
+  const { rows, columns } = data;
+  const columnHeaders = columns?.map((column) => column.label?.toString() ?? '');
+  return `${columnHeaders.join(',')}\n${rows
+    .map((row) => columns.map((column) => row?.[column.field]).join(','))
+    .join('\n')}`;
 };
 
-export const createCsvDownloadHandler = (data: Options) => {
-  const { config, file } = createCsv(data);
-  return () => download(config)(file);
+export const createCsvSavingHandler = (data: Options) => {
+  return () =>
+    saveAs(
+      new File([createCsv(data)], `${data.fileName}.csv`, {
+        type: `${isSafari() ? 'application/csv' : 'text/csv'};charset=utf-8`,
+      }),
+    );
 };

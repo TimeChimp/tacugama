@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { ActionButton } from '../action-button';
-import { createCsvDownloadHandler, createXlsxDownloadHandler } from '../../utils/export';
+import { createCsvSavingHandler, createXlsxDownloadHandler } from '../../utils/export';
 import { ExportDropdownProps } from './types';
 import { ButtonKind } from '../../models';
 
@@ -26,12 +26,7 @@ export const ExportDropdown = ({
       items.push({
         label: exportToCsv.label,
         id: exportToCsv.id ?? exportToExcel.label,
-        action: createCsvDownloadHandler({
-          rows,
-          columns,
-          config: exportToCsv.config,
-          fileName: exportToCsv?.fileName ?? 'export',
-        }),
+        action: createCsvSavingHandler({ rows, columns, fileName: exportToCsv.fileName ?? 'export' }),
       });
     }
 
