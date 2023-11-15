@@ -25,7 +25,7 @@ export const ExportDropdown = ({
     if (exportToCsv) {
       items.push({
         label: exportToCsv.label,
-        id: exportToCsv.id ?? exportToExcel.label,
+        id: exportToCsv.id ?? exportToCsv.label,
         action: createCsvSavingHandler({ rows, columns, fileName: exportToCsv.fileName ?? 'export' }),
       });
     }
