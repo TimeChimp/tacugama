@@ -5,7 +5,10 @@ const getHydrateClass = () => document.getElementsByClassName('_styletron_hydrat
 
 export const styletron =
   typeof window === 'undefined'
-    ? new Server()
+    ? new Server({
+        prefix: 'tc-',
+      })
     : new Client({
+        prefix: 'tc-',
         hydrate: getHydrateClass() as HTMLCollectionOf<HTMLStyleElement>,
       });
