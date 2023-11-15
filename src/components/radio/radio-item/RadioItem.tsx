@@ -24,7 +24,6 @@ const radioOverrides = ({
       alignItems: 'start',
       ...borderRadius($theme.borders.radius100),
       ...margin($theme.sizing.scale100, '0'),
-      ...padding($theme.sizing.scale300, $theme.sizing.scale400),
       backgroundColor: 'none',
       ...(colored && {
         backgroundColor: $checked ? $theme.colors.primary100 : $theme.colors.primary50,
