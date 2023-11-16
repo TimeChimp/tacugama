@@ -1,16 +1,15 @@
-import { ReactNode } from 'react';
-import { TagProps as TagComponentProps } from 'baseui/tag';
+import { TagProps as BaseTagProps } from 'baseui/tag';
 
 export enum TagSize {
   small = 'small',
   large = 'large',
 }
 
-export interface TagProps extends TagComponentProps {
+export interface TagProps extends BaseTagProps {
   value?: string;
   // children?: ReactNode;
   // size?: TagSize;
-  // closeable?: boolean;
+  closeable?: boolean;
   // cursor?: string;
   color?: string;
   // fontColor?: string;

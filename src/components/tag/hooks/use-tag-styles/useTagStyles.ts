@@ -7,7 +7,7 @@ export const useTagStyles = ({ color }: { color: string }) => {
       current: {
         sizing: { scale200, scale0, scale100, scale700 },
         borders: { border300 },
-        customColors: { light4 },
+        customColors: { light4, dark4, light3, dark1 },
         typography: { ParagraphXSmall },
       },
     },
@@ -15,22 +15,28 @@ export const useTagStyles = ({ color }: { color: string }) => {
 
   const rootStyles = {
     display: 'inline-flex',
-    ...padding('0px', scale200),
+    ...padding('0', scale200),
     ...borderRadius(scale0),
-    ...margin('0px', scale100, '0px', '0px'),
+    ...margin('0', scale100, '0', '0'),
     ...border({
       ...border300,
-      borderColor: color,
+      borderColor: dark4,
     }),
-    backgroundColor: color,
+    backgroundColor: light3,
+    // ...border({
+    //   ...border300,
+    //   borderColor: color,
+    // }),
+    // backgroundColor: color,
     cursor: 'default',
     height: scale700,
-    color: light4,
+    color: dark1,
+    maxWidth: '100%',
   };
 
   const textStyles = {
     ...ParagraphXSmall,
-    color: light4,
+    color: dark1,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',

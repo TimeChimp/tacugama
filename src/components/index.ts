@@ -72,3 +72,4 @@ export * from './tc-form-row';
 export * from './widget-container';
 export * from './export-dropdown';
 export * from './singular-tag';
+export * from './colored-label';
