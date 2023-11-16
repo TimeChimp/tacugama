@@ -8,14 +8,14 @@ export enum TagSize {
 
 export interface TagProps extends TagComponentProps {
   value?: string;
-  children?: ReactNode;
-  size?: TagSize;
-  closeable?: boolean;
-  cursor?: string;
+  // children?: ReactNode;
+  // size?: TagSize;
+  // closeable?: boolean;
+  // cursor?: string;
   color?: string;
-  fontColor?: string;
-  backgroundColor?: string;
-  borderColor?: string;
-  width?: string;
-  maxWidth?: string;
+  // fontColor?: string;
+  // backgroundColor?: string;
+  // borderColor?: string;
+  // width?: string;
+  // maxWidth?: string;
 }

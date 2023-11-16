@@ -5,6 +5,6 @@ import { TagProps } from '../tag/types';
 export interface ClickableTagProps {
   label: string;
   onClick: (e: SyntheticEvent<HTMLButtonElement, Event>) => void;
-  tagProps?: TagProps;
-  buttonProps?: ButtonProps;
+  // tagProps?: TagProps;
+  // buttonProps?: ButtonProps;
 }
