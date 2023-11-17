@@ -30,7 +30,7 @@ export const MultiPagesModal = ({
     }
   }, [isOpen, resetOnClose]);
 
-  const CurrentPageContent = useMemo(() => pages[currentPage - 1].component, [currentPage, pages]);
+  const CurrentPageContent = useMemo(() => pages[currentPage - 1]?.component || null, [currentPage, pages]);
 
   const onNextPage = async () => {
     if (validatePage) {
