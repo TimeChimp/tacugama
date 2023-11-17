@@ -172,6 +172,9 @@ export const SingleSelect = <
           ...provided,
           ...ParagraphSmall,
           color: dark4,
+          whiteSpace: 'nowrap',
+          textOverflow: 'ellipsis',
+          overflow: 'hidden',
         }),
         input: (provided) => ({
           ...provided,
