@@ -48,7 +48,7 @@ export const MultiPagesModal = ({
       <form
         onSubmit={onSubmit}
         onKeyUp={(e) => {
-          if (e.key === 'Enter' && currentPage !== 4) {
+          if (e.key === 'Enter' && currentPage !== 4 && currentPage !== pages.length) {
             onNextPage();
           }
         }}
