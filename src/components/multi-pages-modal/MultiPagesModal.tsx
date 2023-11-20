@@ -77,12 +77,15 @@ export const MultiPagesModal = ({
                   testId="team-modal-submit"
                   isLoading={loading}
                   type="submit"
-                  disabled={pages[currentPage - 1].submitButtonDisabled}
+                  disabled={!!pages[currentPage - 1]?.submitButtonDisabled}
                 >
                   {submitText}
                 </Button>
               ) : (
-                <Button onClick={onNextPage} disabled={pages[currentPage - 1].submitButtonDisabled || nextPageDisabled}>
+                <Button
+                  onClick={onNextPage}
+                  disabled={!!pages[currentPage - 1]?.submitButtonDisabled || nextPageDisabled}
+                >
                   {nextText}
                 </Button>
               )}
