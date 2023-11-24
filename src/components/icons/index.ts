@@ -70,3 +70,4 @@ export * from './location';
 export * from './description';
 export * from './link';
 export * from './pencil-simple';
+export * from './eye-slash';
