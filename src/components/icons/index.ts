@@ -87,3 +87,4 @@ export * from './list-checks';
 export * from './paint-brush-broad';
 export * from './paper-plane-right';
 export * from './shield';
+export * from './signature';
