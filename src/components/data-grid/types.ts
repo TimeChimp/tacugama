@@ -92,6 +92,12 @@ export interface FilterValue {
   label: string;
   icon?: JSX.Element;
 }
+
+export interface ExtraFilter {
+  name: string;
+  values: object;
+}
+
 export interface Filter {
   type: FilterType;
   columnField: string;
@@ -106,6 +112,7 @@ export interface Filter {
   clearable?: boolean;
   customFilterMap?: (values: FilterValue['value'][]) => any;
   customGetValuerMap?: (filterModel: any) => any;
+  setExtraFilterModelValue?: (values: FilterValue['value'][]) => ExtraFilter[];
 }
 
 export interface GetServerSideGroupKey {
