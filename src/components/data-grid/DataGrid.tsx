@@ -485,6 +485,16 @@ export const DataGrid = ({
 
   const clearFilterModel = (columnFilter: string) => {
     setFilterModel((model) => ({ ...model, [columnFilter]: undefined }));
+
+    const filter = filters?.find((filter) => filter.columnField === columnFilter);
+
+    if (filter?.setExtraFilterModelValue) {
+      const currentFilters = filter?.setExtraFilterModelValue([]);
+
+      if (currentFilters) {
+        currentFilters.map((item) => (filterModel[item.name] = item.values ?? undefined));
+      }
+    }
     gridApi?.onFilterChanged();
   };
 
@@ -618,6 +628,15 @@ export const DataGrid = ({
       }
 
       const values = getSetValues(value, type, currentValues);
+
+      if (filter?.setExtraFilterModelValue) {
+        const currentFilters = filter?.setExtraFilterModelValue(values);
+
+        if (currentFilters) {
+          currentFilters.map((item) => (filterModel[item.name] = item.values ?? undefined));
+        }
+      }
+
       if (!values.length) {
         setFilterModel((model) => ({ ...model, [columnField]: undefined }));
         return gridApi?.onFilterChanged();
@@ -625,14 +644,6 @@ export const DataGrid = ({
       const filterObject = filters?.find((filter) => filter.columnField === columnField);
 
       filterModel[columnField] = getSetFilterObject(values, filterObject);
-
-      if (filter?.setExtraFilterModelValue) {
-        const currentFilters = filter?.setExtraFilterModelValue(values);
-
-        if (currentFilters) {
-          currentFilters.map((item) => (filterModel[item.name] = item.values));
-        }
-      }
 
       onFiltering(filterModel);
     },
@@ -671,6 +682,16 @@ export const DataGrid = ({
       const filterObject = filters?.find((filter) => filter.columnField === columnField);
 
       filterModel[columnField] = getSetFilterObject(values, filterObject);
+
+      const filter = filters?.find((filter) => filter.columnField === columnField);
+
+      if (filter?.setExtraFilterModelValue) {
+        const currentFilters = filter?.setExtraFilterModelValue(values);
+
+        if (currentFilters) {
+          currentFilters.map((item) => (filterModel[item.name] = item.values ?? undefined));
+        }
+      }
 
       onFiltering(filterModel);
 

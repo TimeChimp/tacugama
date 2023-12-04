@@ -124,6 +124,10 @@ export const FILTERS: Filter[] = [
     setExtraFilterModelValue: (values) => {
       const extraFilters = [];
 
+      if (!values.length) {
+        return [{ name: 'dueDate', values: null }];
+      }
+
       if (values.includes('active') && values.includes('archived')) {
         extraFilters.push({
           name: 'dueDate',
@@ -154,6 +158,8 @@ export const FILTERS: Filter[] = [
             type: 'inRange',
           },
         });
+      } else {
+        return [{ name: 'dueDate', values: null }];
       }
 
       return extraFilters;
