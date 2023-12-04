@@ -95,7 +95,7 @@ export interface FilterValue {
 
 export interface ExtraFilter {
   name: string;
-  values: object;
+  values: object | null;
 }
 
 export interface Filter {
