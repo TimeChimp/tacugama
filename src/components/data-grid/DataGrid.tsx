@@ -626,6 +626,14 @@ export const DataGrid = ({
 
       filterModel[columnField] = getSetFilterObject(values, filterObject);
 
+      if (filter?.setExtraFilterModelValue) {
+        const currentFilters = filter?.setExtraFilterModelValue(values);
+
+        if (currentFilters) {
+          currentFilters.map((item) => (filterModel[item.name] = item.values));
+        }
+      }
+
       onFiltering(filterModel);
     },
     [gridApi, filters, filterModel, onFiltering],

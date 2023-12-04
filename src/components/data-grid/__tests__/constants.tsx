@@ -121,6 +121,43 @@ export const FILTERS: Filter[] = [
       { label: 'Archived', value: 'archived', icon: <Dot color="grey" /> },
     ],
     defaultValue: 'active',
+    setExtraFilterModelValue: (values) => {
+      const extraFilters = [];
+
+      if (values.includes('active') && values.includes('archived')) {
+        extraFilters.push({
+          name: 'dueDate',
+          values: {
+            dateFrom: new Date('01-01-1900'),
+            dateTo: new Date('01-01-9999'),
+            filterType: 'date',
+            type: 'inRange',
+          },
+        });
+      } else if (values.includes('active')) {
+        extraFilters.push({
+          name: 'dueDate',
+          values: {
+            dateFrom: new TcDate().toDate(),
+            dateTo: new Date('01-01-9999'),
+            filterType: 'date',
+            type: 'inRange',
+          },
+        });
+      } else if (values.includes('archived')) {
+        extraFilters.push({
+          name: 'dueDate',
+          values: {
+            dateFrom: new Date('01-01-1900'),
+            dateTo: new Date(),
+            filterType: 'date',
+            type: 'inRange',
+          },
+        });
+      }
+
+      return extraFilters;
+    },
   },
   {
     type: FilterType.multi,
