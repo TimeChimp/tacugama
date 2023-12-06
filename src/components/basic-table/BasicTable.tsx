@@ -4,7 +4,7 @@ import { BasicTableProps, BasicTableRow, BasicTableColumnType } from './types';
 import { renderCell, BasicTableBuilder, BasicTableHeadCell } from './components';
 import { useBasicTableStyles } from './hooks';
 import { padding } from '../../utils';
-import { useTheme } from 'providers';
+import { useTheme } from '../../providers';
 
 export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps) => {
   const { tableBodyCellStyles, tableHeadCellStyles, getSidePadding } = useBasicTableStyles();
