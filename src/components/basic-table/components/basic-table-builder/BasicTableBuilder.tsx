@@ -52,14 +52,8 @@ export const BasicTableBuilder = ({ isEmbeddedTable, children, emptyMessage, ...
         TableHeadCell: {
           style: tableHeadCellStyles,
         },
-        TableHeadRow: {
-          style: {
-            height: TABLE_ROW_HEIGHT,
-          },
-        },
         TableBodyRow: {
           style: {
-            height: TABLE_ROW_HEIGHT,
             ':hover': {
               backgroundColor: primaryB,
             },
