@@ -37,7 +37,7 @@ export const StyledTableHeadCell = themedStyled<'th', StyledTableHeadCellProps>(
   'th',
   ({ $theme, $width, $textAlign, $tableHeadCellStyles, $sidePadding }) => ({
     ...$tableHeadCellStyles,
-    ...padding('0', $theme.sizing.scale100),
+    ...padding($theme.customSizing.scale050, $theme.sizing.scale100),
     ...$sidePadding,
     width: $width,
     textAlign: $textAlign,
@@ -48,7 +48,6 @@ export const StyledTableHeadCell = themedStyled<'th', StyledTableHeadCellProps>(
 export interface StyledTableBodyCellProps {
   $width?: string;
   $tableBodyCellStyles: {
-    height: string;
     verticalAlign: string;
     borderBottomColor: string;
     borderBox: string;
