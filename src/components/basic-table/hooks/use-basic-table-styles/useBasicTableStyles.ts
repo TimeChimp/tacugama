@@ -25,7 +25,6 @@ export const useBasicTableStyles = () => {
 
   const tableBodyCellStyles = {
     ...padding(scale050, scale600),
-    height: TABLE_ROW_HEIGHT,
     verticalAlign: 'top',
     borderBottomColor: light6,
     borderBox: 'inset',

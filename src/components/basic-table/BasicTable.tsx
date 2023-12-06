@@ -3,9 +3,19 @@ import { TableBuilderColumn } from 'baseui/table-semantic';
 import { BasicTableProps, BasicTableRow, BasicTableColumnType } from './types';
 import { renderCell, BasicTableBuilder, BasicTableHeadCell } from './components';
 import { useBasicTableStyles } from './hooks';
+import { padding } from '../../utils';
+import { useTheme } from 'providers';
 
 export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps) => {
   const { tableBodyCellStyles, tableHeadCellStyles, getSidePadding } = useBasicTableStyles();
+  const {
+    theme: {
+      current: {
+        sizing: { scale600 },
+        customSizing: { scale050 },
+      },
+    },
+  } = useTheme();
 
   return (
     <BasicTableBuilder emptyMessage={emptyMessage} {...props}>
@@ -17,6 +27,7 @@ export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps)
             TableHeadCell: {
               style: {
                 ...tableHeadCellStyles,
+                ...padding(scale050, scale600),
                 ...getSidePadding(index, columns.length),
                 width: column.width ?? 'auto',
               },
