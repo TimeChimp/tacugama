@@ -88,3 +88,6 @@ export * from './paint-brush-broad';
 export * from './paper-plane-right';
 export * from './shield';
 export * from './signature';
+export * from './stack';
+export * from './archive-box';
+export * from './activate';
