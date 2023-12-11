@@ -16,6 +16,8 @@ import { Button as BaseButton, SIZE } from 'baseui/button';
 import { ButtonKind, ButtonType, ButtonShape } from '../../models';
 import { ButtonProps } from './types';
 
+const TRANSITION = 'all 0.2s ease-in-out';
+
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
@@ -42,16 +44,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const {
       theme: {
         current: {
-          sizing: { scale0, scale200, scale300, scale400, scale500, scale600, scale800 },
+          sizing: { scale0, scale100, scale200, scale300, scale400, scale500, scale600, scale800 },
           borders: { border100, border300, radius200 },
           colors,
           customColors,
           customSizing: { scale50, scale975 },
+          typography: { ParagraphSmall },
         },
       },
     } = useTheme();
     const { primaryB, borderTransparent, primary } = colors;
-    const { dark1, dark3, dark4, light2, light3, light4, light7 } = customColors;
+    const { dark1, dark3, dark4, light2, light4, light7 } = customColors;
 
     const getButtonHeight = () => {
       if (kind === ButtonKind.primary || kind === ButtonKind.secondary) {
@@ -69,6 +72,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       }
       if (shape === ButtonShape.square) {
         return padding(scale50);
+      }
+      if (kind === ButtonKind.tertiary) {
+        return padding(scale0, scale100);
       }
       return padding(scale300);
     };
@@ -229,9 +235,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           return {
             Root: {
               style: {
+                ...ParagraphSmall,
                 height: getButtonHeight(),
                 ...(width && { width }),
-                backgroundColor: backgroundColor ?? light3,
+                backgroundColor: backgroundColor ?? primaryB,
                 color: color ?? dark1,
                 ...border({
                   ...border300,
@@ -239,12 +246,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 }),
                 ...borderRadius(radius200),
                 ...getPadding(),
+                transition: TRANSITION,
                 ':hover': {
-                  backgroundColor: backgroundColor ?? light3,
-                  borderColor: dark3,
+                  backgroundColor: backgroundColor ?? primaryB,
+                  borderColor: dark4,
+                  transition: TRANSITION,
                 },
                 ':active': {
-                  backgroundColor: backgroundColor ?? light3,
+                  backgroundColor: backgroundColor ?? primaryB,
+                  borderColor: dark4,
                 },
                 ':disabled': {
                   borderColor: light2,
@@ -261,7 +271,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             },
             StartEnhancer: {
               style: {
-                ...margin('0', scale400, '0', '0'),
+                ...margin('0', scale100, '0', '0'),
                 ':disabled': {
                   color: dark4,
                 },
