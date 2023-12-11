@@ -5,6 +5,7 @@ import { Button } from './Button';
 import { ButtonProps } from './types';
 import { ButtonType, ButtonKind, ButtonShape } from '../../models';
 import { SearchIcon } from '../icons/search';
+import { AddLineIcon } from '../icons/add-line';
 
 export default {
   title: 'Components/Button',
@@ -51,10 +52,10 @@ SecondaryStartEnhancer.parameters = {
 
 export const TertiaryStartEnhancer = ButtonTemplate.bind({});
 TertiaryStartEnhancer.args = {
-  children: 'Button',
+  children: 'New',
   buttonType: ButtonType.default,
   kind: ButtonKind.tertiary,
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <AddLineIcon />,
   disabled: false,
 };
 TertiaryStartEnhancer.parameters = {
