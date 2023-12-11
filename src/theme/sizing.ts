@@ -11,6 +11,7 @@ export const customSizing: CustomSizing = {
   scale975: '38px',
   scale1000: '40px',
   scale1025: '41px',
+  scale1050: '42px',
   scale1125: '45px',
   scale1175: '47px',
   scale1250: '50px',

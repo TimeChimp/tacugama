@@ -95,6 +95,7 @@ export interface CustomSizing {
   scale975: string;
   scale1000: string;
   scale1025: string;
+  scale1050: string;
   scale1125: string;
   scale1175: string;
   scale1250: string;
