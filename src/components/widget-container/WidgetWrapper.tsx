@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box } from '../box';
 import { ParagraphSmall } from '../typography';
-import { padding } from '../../utils';
 import { useTheme } from '../../providers';
 import { WidgetWrapperProps } from './types';
 import { StyledWidgetBox } from './StyledWidgetContainer';
@@ -10,7 +9,7 @@ export const WidgetWrapper = ({ title, children, customButton }: WidgetWrapperPr
   const {
     theme: {
       current: {
-        customColors: { dark3 },
+        customColors: { dark4 },
       },
     },
   } = useTheme();
@@ -18,9 +17,7 @@ export const WidgetWrapper = ({ title, children, customButton }: WidgetWrapperPr
   return (
     <Box>
       <StyledWidgetBox>
-        <ParagraphSmall color={dark3} {...padding('9px', '0px')}>
-          {title}
-        </ParagraphSmall>
+        <ParagraphSmall color={dark4}>{title}</ParagraphSmall>
         {customButton}
       </StyledWidgetBox>
       {children}

@@ -5,7 +5,7 @@ import { WidgetContainerProps } from './types';
 import { Button } from '../button';
 import { AddLineIcon } from '../icons';
 import { ButtonKind } from '../../models';
-import { ParagraphSmall } from 'baseui/typography';
+import { ParagraphSmall } from '../typography';
 
 export default {
   title: 'Components/WidgetContainer',
@@ -33,7 +33,7 @@ export const ButtonWrapper = WidgetContainerButtonTemplate.bind({});
 ButtonWrapper.args = {
   title: 'Button widget wrapper',
   customButton: (
-    <Button kind={ButtonKind.secondary} startEnhancer={<AddLineIcon />}>
+    <Button kind={ButtonKind.tertiary} startEnhancer={<AddLineIcon />}>
       New
     </Button>
   ),
