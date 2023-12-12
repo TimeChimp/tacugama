@@ -3,6 +3,8 @@ import { addDecorator } from '@storybook/react';
 import { initializeWorker, mswDecorator } from 'msw-storybook-addon';
 import { ThemeProvider } from '../src/providers';
 
+import './global.css';
+
 initializeWorker();
 addDecorator(mswDecorator);
 

@@ -48,7 +48,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           borders: { border100, border300, radius200 },
           colors,
           customColors,
-          customSizing: { scale50, scale975 },
+          customSizing: { scale50, scale825, scale975 },
           typography: { ParagraphSmall },
         },
       },
@@ -60,6 +60,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       if (kind === ButtonKind.primary || kind === ButtonKind.secondary) {
         return height ?? scale975;
       }
+
+      if (kind === ButtonKind.tertiary) {
+        return height ?? scale825;
+      }
+
       return height ?? scale800;
     };
 
