@@ -16,7 +16,11 @@ import { Button as BaseButton, SIZE } from 'baseui/button';
 import { ButtonKind, ButtonType, ButtonShape } from '../../models';
 import { ButtonProps } from './types';
 
-const TRANSITION = 'all 0.2s ease-in-out';
+const transitionProperties = {
+  transitionProperty: 'all',
+  transitionDuration: '0.2s',
+  transitionTimingFunction: 'ease-in-out',
+};
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
@@ -251,11 +255,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 }),
                 ...borderRadius(radius200),
                 ...getPadding(),
-                transition: TRANSITION,
+                ...transitionProperties,
                 ':hover': {
                   backgroundColor: backgroundColor ?? primaryB,
                   borderColor: dark4,
-                  transition: TRANSITION,
+                  ...transitionProperties,
                 },
                 ':active': {
                   backgroundColor: backgroundColor ?? primaryB,
