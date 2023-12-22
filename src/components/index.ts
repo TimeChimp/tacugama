@@ -71,3 +71,4 @@ export * from './app-skeleton';
 export * from './tc-form-row';
 export * from './widget-container';
 export * from './export-dropdown';
+export * from './accordion';
