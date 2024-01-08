@@ -1071,6 +1071,7 @@ export const DataGrid = ({
                 cellClass={valueType === 'currency' ? 'ag-right-aligned-cell' : ''}
                 headerClass={valueType === 'currency' ? 'ag-right-aligned-header' : ''}
                 resizable
+                lockPinned
                 {...rest}
               />
             ),
@@ -1092,6 +1093,7 @@ export const DataGrid = ({
             sortable={false}
             resizable={false}
             pinned={'right'}
+            lockPosition
           />
         </StyledAgGridReact>
       </StyledDataGrid>
