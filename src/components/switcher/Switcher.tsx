@@ -10,9 +10,10 @@ export interface SwitcherProps {
   onPrev: () => void;
   onNext: () => void;
   value: string | number;
+  color?: string;
 }
 
-export const Switcher = ({ onPrev, onNext, value }: SwitcherProps) => {
+export const Switcher = ({ onPrev, onNext, value, color }: SwitcherProps) => {
   const {
     theme: {
       current: {
@@ -27,7 +28,7 @@ export const Switcher = ({ onPrev, onNext, value }: SwitcherProps) => {
         <Button onClick={onPrev}>
           <CaretLeftIcon size={scale400} />
         </Button>
-        <LabelMedium paddingLeft={scale500} paddingRight={scale500}>
+        <LabelMedium paddingLeft={scale500} paddingRight={scale500} color={color}>
           {value}
         </LabelMedium>
         <Button onClick={onNext}>
