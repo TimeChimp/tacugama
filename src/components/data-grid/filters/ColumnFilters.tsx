@@ -192,6 +192,7 @@ export const ColumnFilters = ({
       };
     });
     clearFilterModel(columnField);
+    console.log('asdfffff');
     api.onFilterChanged();
   };
 
