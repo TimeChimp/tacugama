@@ -192,8 +192,7 @@ export const ColumnFilters = ({
       };
     });
     clearFilterModel(columnField);
-    console.log('asdfffff');
-    api.onFilterChanged();
+    api?.onFilterChanged();
   };
 
   const onSelectFilterClear = (columnField: string) => {
