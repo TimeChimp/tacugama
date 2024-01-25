@@ -15,6 +15,7 @@ export const MultiPagesModal = ({
   disableCounterTitle = false,
   nextPageDisabled = false,
   noSubmit = false,
+  resetCurrentPage = false,
   onSubmit,
   validatePage,
   cancelText,
@@ -23,6 +24,12 @@ export const MultiPagesModal = ({
   modalName = 'multi-pages-modal',
 }: MultiPagesModalProps) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  useEffect(() => {
+    if (resetCurrentPage) {
+      setCurrentPage(1);
+    }
+  }, [resetCurrentPage]);
 
   useEffect(() => {
     if (!isOpen && resetOnClose) {
