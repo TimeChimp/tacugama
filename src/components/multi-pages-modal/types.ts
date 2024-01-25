@@ -14,6 +14,7 @@ export interface MultiPagesModalProps {
   submitText: string;
   onSubmit?: () => void;
   noSubmit?: boolean;
+  resetCurrentPage?: boolean;
   resetOnClose?: boolean;
   disableCounterTitle?: boolean;
   modalOverrides?: ModalProps['overrides'];
