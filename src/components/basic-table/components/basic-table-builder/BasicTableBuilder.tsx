@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { TableBuilder, StyledTableEmptyMessage } from 'baseui/table-semantic';
 import { useTheme } from '../../../../providers';
 import { border, padding, borderBottom, borderTop } from '../../../../utils';
@@ -6,8 +6,15 @@ import { TABLE_ROW_HEIGHT } from '../../../../models';
 import { EmptyMessage } from '../empty-message';
 import { BasicTableBuilderProps } from './types';
 import { useBasicTableStyles } from '../../hooks';
+import { BasicTableRow } from 'components/basic-table/types';
 
-export const BasicTableBuilder = ({ isEmbeddedTable, children, emptyMessage, ...props }: BasicTableBuilderProps) => {
+export const BasicTableBuilder = ({
+  isEmbeddedTable,
+  children,
+  emptyMessage,
+  data,
+  ...props
+}: BasicTableBuilderProps) => {
   const {
     theme: {
       current: {
@@ -43,8 +50,38 @@ export const BasicTableBuilder = ({ isEmbeddedTable, children, emptyMessage, ...
     ...padding('0', scale800),
   };
 
+  const [sortColumn, setSortColumn] = useState('');
+  const [sortAsc, setSortAsc] = useState(true);
+
+  const sortedData = useMemo(() => {
+    return data?.slice()?.sort((a: BasicTableRow, b: BasicTableRow) => {
+      const left = sortAsc ? a : b;
+      const right = sortAsc ? b : a;
+      const leftValue = String(left[sortColumn]);
+      const rightValue = String(right[sortColumn]);
+
+      return leftValue?.localeCompare(rightValue, 'en', {
+        numeric: true,
+        sensitivity: 'base',
+      });
+    });
+  }, [sortColumn, sortAsc, data]);
+
+  function handleSort(id: string) {
+    if (id === sortColumn) {
+      setSortAsc((asc) => !asc);
+    } else {
+      setSortColumn(id);
+      setSortAsc(true);
+    }
+  }
+
   return (
     <TableBuilder
+      data={sortedData}
+      sortColumn={sortColumn}
+      sortOrder={sortAsc ? 'ASC' : 'DESC'}
+      onSort={handleSort}
       overrides={{
         Root: {
           style: tableRootStyles,

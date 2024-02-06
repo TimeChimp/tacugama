@@ -11,6 +11,7 @@ export interface BasicTableColumn {
   field: string;
   type?: BasicTableColumnType;
   width?: string;
+  sortable?: boolean;
 }
 
 export interface BasicTableRow {
@@ -24,4 +25,5 @@ export interface BasicTableProps extends Omit<TableProps, OmittedTableProps> {
   data: BasicTableRow[];
   emptyMessage?: string;
   setData?: (data: BasicTableRow[]) => void;
+  sortableColumns?: boolean;
 }
