@@ -4,9 +4,11 @@ import { useTheme } from '../../../../providers';
 import { border, padding, borderBottom, borderTop } from '../../../../utils';
 import { TABLE_ROW_HEIGHT } from '../../../../models';
 import { EmptyMessage } from '../empty-message';
-import { BasicTableBuilderProps } from './types';
+import { BasicTableBuilderProps, SortOrder, SortOrderType } from './types';
 import { useBasicTableStyles } from '../../hooks';
 import { BasicTableRow } from 'components/basic-table/types';
+import { CaretDownIcon, CaretUpIcon } from 'components/icons';
+import { Block } from 'baseui/block';
 
 export const BasicTableBuilder = ({
   isEmbeddedTable,
@@ -20,14 +22,14 @@ export const BasicTableBuilder = ({
       current: {
         sizing: { scale800 },
         colors: { primaryB },
-        customColors: { light2, light6 },
+        customColors: { light2, light6, dark1 },
         borders: { radius200, border100 },
         typography: { ParagraphSmall },
       },
     },
   } = useTheme();
 
-  const { tableBodyCellStyles, tableHeadCellStyles } = useBasicTableStyles();
+  const { tableBodyCellStyles, tableHeadCellStyles, sortIconContainer } = useBasicTableStyles();
 
   const getBorder = () => {
     if (isEmbeddedTable) {
@@ -51,36 +53,39 @@ export const BasicTableBuilder = ({
   };
 
   const [sortColumn, setSortColumn] = useState('');
-  const [sortAsc, setSortAsc] = useState(true);
+  const [sortOrder, setSortOrder] = useState<SortOrderType>(null);
 
   const sortedData = useMemo(() => {
-    return data?.slice()?.sort((a: BasicTableRow, b: BasicTableRow) => {
-      const left = sortAsc ? a : b;
-      const right = sortAsc ? b : a;
-      const leftValue = String(left[sortColumn]);
-      const rightValue = String(right[sortColumn]);
+    if (!sortColumn || !sortOrder) {
+      return data;
+    }
 
-      return leftValue?.localeCompare(rightValue, 'en', {
-        numeric: true,
-        sensitivity: 'base',
-      });
+    return [...data].sort((a: BasicTableRow, b: BasicTableRow) => {
+      const leftValue = String(a[sortColumn]);
+      const rightValue = String(b[sortColumn]);
+
+      return sortOrder === SortOrder.ASC
+        ? leftValue.localeCompare(rightValue, 'en', { numeric: true, sensitivity: 'base' })
+        : rightValue.localeCompare(leftValue, 'en', { numeric: true, sensitivity: 'base' });
     });
-  }, [sortColumn, sortAsc, data]);
+  }, [sortColumn, sortOrder, data]);
 
-  function handleSort(id: string) {
-    if (id === sortColumn) {
-      setSortAsc((asc) => !asc);
+  const handleSort = (id: string) => {
+    if (id === sortColumn && sortOrder === SortOrder.DESC) {
+      setSortOrder(null);
+    } else if (id === sortColumn && sortOrder === SortOrder.ASC) {
+      setSortOrder(SortOrder.DESC);
     } else {
       setSortColumn(id);
-      setSortAsc(true);
+      setSortOrder(SortOrder.ASC);
     }
-  }
+  };
 
   return (
     <TableBuilder
       data={sortedData}
       sortColumn={sortColumn}
-      sortOrder={sortAsc ? 'ASC' : 'DESC'}
+      sortOrder={sortOrder}
       onSort={handleSort}
       overrides={{
         Root: {
@@ -104,6 +109,17 @@ export const BasicTableBuilder = ({
           component: ({ children, $style }) => (
             <StyledTableEmptyMessage style={$style}>{children}</StyledTableEmptyMessage>
           ),
+        },
+        SortIconContainer: {
+          component: ({ children }) => {
+            return <Block style={sortIconContainer}>{children}</Block>;
+          },
+        },
+        SortAscIcon: {
+          component: () => <CaretUpIcon color={dark1} />,
+        },
+        SortDescIcon: {
+          component: () => <CaretDownIcon color={dark1} />,
         },
       }}
       {...(emptyMessage ? { emptyMessage: <EmptyMessage message={emptyMessage} /> } : {})}

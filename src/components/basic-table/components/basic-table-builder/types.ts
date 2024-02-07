@@ -6,3 +6,10 @@ export interface BasicTableBuilderProps {
   children: React.ReactElement[];
   data: BasicTableRow[];
 }
+
+export enum SortOrder {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
+export type SortOrderType = SortOrder.ASC | SortOrder.DESC | null;
