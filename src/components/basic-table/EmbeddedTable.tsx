@@ -4,7 +4,7 @@ import { BasicTableProps, BasicTableRow, BasicTableColumnType } from './types';
 import { renderCell, BasicTableBuilder, BasicTableHeadCell, BasicTableHeadCellSortable } from './components';
 import { useBasicTableStyles } from './hooks';
 
-export const EmbeddedTable = ({ columns, emptyMessage, sortableColumns, ...props }: BasicTableProps) => {
+export const EmbeddedTable = ({ columns, emptyMessage, ...props }: BasicTableProps) => {
   const { tableBodyCellStyles, tableHeadCellStyles, getSidePadding } = useBasicTableStyles();
 
   return (
@@ -15,7 +15,7 @@ export const EmbeddedTable = ({ columns, emptyMessage, sortableColumns, ...props
             key={column?.field}
             id={column?.field}
             header={column?.label}
-            sortable={column?.sortable ?? sortableColumns}
+            sortable={column?.sortable}
             overrides={{
               TableHeadCell: {
                 style: {

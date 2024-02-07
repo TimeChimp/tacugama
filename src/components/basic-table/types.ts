@@ -25,5 +25,4 @@ export interface BasicTableProps extends Omit<TableProps, OmittedTableProps> {
   data: BasicTableRow[];
   emptyMessage?: string;
   setData?: (data: BasicTableRow[]) => void;
-  sortableColumns?: boolean;
 }

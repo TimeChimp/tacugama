@@ -6,7 +6,7 @@ import { useBasicTableStyles } from './hooks';
 import { padding } from '../../utils';
 import { useTheme } from '../../providers';
 
-export const BasicTable = ({ columns, emptyMessage, sortableColumns, ...props }: BasicTableProps) => {
+export const BasicTable = ({ columns, emptyMessage, ...props }: BasicTableProps) => {
   const { tableBodyCellStyles, tableHeadCellStyles, getSidePadding } = useBasicTableStyles();
   const {
     theme: {
@@ -24,7 +24,7 @@ export const BasicTable = ({ columns, emptyMessage, sortableColumns, ...props }:
           key={column?.field}
           id={column?.field}
           header={column?.label}
-          sortable={column?.sortable ?? sortableColumns}
+          sortable={column?.sortable}
           overrides={{
             TableHeadCell: {
               style: {
