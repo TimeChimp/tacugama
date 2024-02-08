@@ -112,14 +112,25 @@ export const BasicTableBuilder = ({
         },
         SortIconContainer: {
           component: ({ children }) => {
-            return <Block style={sortIconContainer}>{children}</Block>;
+            return children;
           },
         },
         SortAscIcon: {
-          component: () => <CaretUpIcon color={dark1} />,
+          component: () => (
+            <Block style={sortIconContainer}>
+              <CaretUpIcon color={dark1} />
+            </Block>
+          ),
         },
         SortDescIcon: {
-          component: () => <CaretDownIcon color={dark1} />,
+          component: () => (
+            <Block style={sortIconContainer}>
+              <CaretDownIcon color={dark1} />
+            </Block>
+          ),
+        },
+        SortNoneIcon: {
+          component: () => null,
         },
       }}
       {...(emptyMessage ? { emptyMessage: <EmptyMessage message={emptyMessage} /> } : {})}
