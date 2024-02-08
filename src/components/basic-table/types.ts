@@ -11,6 +11,7 @@ export interface BasicTableColumn {
   field: string;
   type?: BasicTableColumnType;
   width?: string;
+  sortable?: boolean;
 }
 
 export interface BasicTableRow {

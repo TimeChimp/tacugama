@@ -6,7 +6,7 @@ export const useBasicTableStyles = () => {
   const {
     theme: {
       current: {
-        sizing: { scale800, scale600 },
+        sizing: { scale200, scale800, scale600 },
         customSizing: { scale050 },
         customColors: { light7, light6, dark3 },
         typography: { LabelSmall },
@@ -30,6 +30,10 @@ export const useBasicTableStyles = () => {
     borderBox: 'inset',
   };
 
+  const sortIconContainer = {
+    marginLeft: scale200,
+  };
+
   const getSidePadding = (index: number, numberOfColumns: number) => {
     if (index === 0) {
       return { paddingLeft: scale800 };
@@ -39,5 +43,5 @@ export const useBasicTableStyles = () => {
     return {};
   };
 
-  return { tableBodyCellStyles, tableHeadCellStyles, getSidePadding };
+  return { tableBodyCellStyles, tableHeadCellStyles, sortIconContainer, getSidePadding };
 };
