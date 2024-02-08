@@ -7,7 +7,7 @@ import { EmptyMessage } from '../empty-message';
 import { BasicTableBuilderProps, SortOrder, SortOrderType } from './types';
 import { useBasicTableStyles } from '../../hooks';
 import { BasicTableRow } from 'components/basic-table/types';
-import { CaretDownIcon, CaretUpIcon } from 'components/icons';
+import { CaretDownIcon, CaretUpIcon } from '../../../icons';
 import { Block } from 'baseui/block';
 
 export const BasicTableBuilder = ({
