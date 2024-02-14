@@ -1,12 +1,12 @@
 import React from 'react';
 import { ParagraphSmall } from '../typography';
 import { useTheme } from '../../providers';
-import { StyledBanner, StyledContainer } from './styles';
+import { StyledBanner, StyledContainer, StyledBannerTextPosition } from './styles';
 import { CheckIcon, ClearIcon, InfoIcon, WarningIcon } from '../icons';
 import { BannerType, BannerProps } from './types';
 import { Block } from '../block';
 
-export const Banner = ({ type = BannerType.info, text }: BannerProps) => {
+export const Banner = ({ type = BannerType.info, text, showIcon = true, textPosition }: BannerProps) => {
   const {
     theme: {
       current: {
@@ -42,9 +42,12 @@ export const Banner = ({ type = BannerType.info, text }: BannerProps) => {
   };
 
   return (
-    <StyledBanner $backgroundColor={getBannerBackgroundColor()}>
+    <StyledBanner
+      $backgroundColor={getBannerBackgroundColor()}
+      $textPosition={textPosition ?? StyledBannerTextPosition.Start}
+    >
       <StyledContainer>
-        <Block paddingTop={scale0}>{getBannerIcon()}</Block>
+        {showIcon && <Block paddingTop={scale0}>{getBannerIcon()}</Block>}
         <ParagraphSmall>{text}</ParagraphSmall>
       </StyledContainer>
     </StyledBanner>
