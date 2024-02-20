@@ -24,6 +24,7 @@ const Template: Story<SideNavProps> = () => {
     {
       id: Tab.General,
       title: Tab.General,
+      subtitle: 'Subtitle',
       component: () => <ParagraphSmall>{Tab.General}</ParagraphSmall>,
     },
     {
