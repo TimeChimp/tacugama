@@ -23,7 +23,7 @@ export const COLUMNS: BasicTableColumn[] = [
   },
   {
     label: 'Actions',
-    type: BasicTableColumnType.Custom,
+    type: BasicTableColumnType.Action,
     field: 'actions',
   },
 ];
