@@ -4,21 +4,10 @@ import { ParagraphSmall } from '../../../typography';
 import { Align } from '../../../input/types';
 import { StyledCellBox } from './StyledCell';
 import { Block } from '../../../block';
-import { HIGH_Z_INDEX } from '../../../../models';
 
-const CellWrapper = ({
-  children,
-  alignRight,
-  zIndex,
-}: {
-  children: React.ReactElement;
-  alignRight?: boolean;
-  zIndex?: number;
-}) => (
+const CellWrapper = ({ children, alignRight }: { children: React.ReactElement; alignRight?: boolean }) => (
   <Block height="100%">
-    <StyledCellBox $alignRight={alignRight} $zIndex={zIndex}>
-      {children}
-    </StyledCellBox>
+    <StyledCellBox $alignRight={alignRight}>{children}</StyledCellBox>
   </Block>
 );
 
@@ -38,7 +27,7 @@ export const renderCell = (row: BasicTableRow, column: BasicTableColumn) => {
       </CellWrapper>
     ),
     [BasicTableColumnType.Action]: () => (
-      <CellWrapper alignRight zIndex={HIGH_Z_INDEX}>
+      <CellWrapper alignRight>
         <>{value}</>
       </CellWrapper>
     ),
