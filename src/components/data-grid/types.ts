@@ -13,6 +13,7 @@ import {
   TextFilterModel,
   ValueFormatterParams,
   ProvidedFilterModel,
+  CellClickedEvent,
 } from '@ag-grid-community/core';
 import { DurationFormat, NumberFormat, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DropdownItem } from '../dropdown';
@@ -263,6 +264,7 @@ export interface DataGridProps {
   onShowLessFiltersChange?: (showLessFilters: boolean) => void;
   setFiltersHeight?: (filtersHeight: number) => void;
   hasStoredFilters?: boolean;
+  onCellClicked?: (event: CellClickedEvent) => void;
 }
 
 export interface DataGridView {

@@ -150,6 +150,7 @@ export const DataGrid = ({
   onShowLessFiltersChange,
   setFiltersHeight,
   hasStoredFilters,
+  onCellClicked,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -1072,6 +1073,7 @@ export const DataGrid = ({
                 headerClass={valueType === 'currency' ? 'ag-right-aligned-header' : ''}
                 resizable
                 lockPinned
+                onCellClicked={onCellClicked}
                 {...rest}
               />
             ),
