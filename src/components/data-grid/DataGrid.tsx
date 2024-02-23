@@ -151,6 +151,7 @@ export const DataGrid = ({
   setFiltersHeight,
   hasStoredFilters,
   onCellClicked,
+  excelStyles,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -954,6 +955,7 @@ export const DataGrid = ({
           blockLoadDebounceMillis={100}
           headerHeight={40}
           rowHeight={rowHeight}
+          excelStyles={excelStyles}
           getRowHeight={getRowHeight}
           frameworkComponents={{
             moreActionsCell: (props: any) =>

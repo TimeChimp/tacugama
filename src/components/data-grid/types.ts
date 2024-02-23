@@ -265,6 +265,7 @@ export interface DataGridProps {
   setFiltersHeight?: (filtersHeight: number) => void;
   hasStoredFilters?: boolean;
   onCellClicked?: (event: CellClickedEvent) => void;
+  excelStyles?: any[];
 }
 
 export interface DataGridView {
