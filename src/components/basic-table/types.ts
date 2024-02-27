@@ -3,6 +3,7 @@ import { TableProps } from 'baseui/table-semantic';
 export enum BasicTableColumnType {
   Text = 'text',
   Custom = 'custom',
+  Action = 'action',
   Financial = 'financial',
 }
 

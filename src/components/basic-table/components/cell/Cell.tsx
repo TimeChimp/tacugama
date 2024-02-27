@@ -26,6 +26,11 @@ export const renderCell = (row: BasicTableRow, column: BasicTableColumn) => {
         <>{value}</>
       </CellWrapper>
     ),
+    [BasicTableColumnType.Action]: () => (
+      <CellWrapper alignRight>
+        <>{value}</>
+      </CellWrapper>
+    ),
     [BasicTableColumnType.Financial]: () => (
       <CellWrapper alignRight>
         <>

@@ -35,16 +35,7 @@ const Template: Story<FormGroupProps> = ({ title, subtitle }) => {
           name="name"
           control={control}
           rules={{ required: true }}
-          render={({ field }) => (
-            <Input
-              {...field}
-              testId="name-input"
-              size="compact"
-              placeholder="Name"
-              error={!!errors.name}
-              autoComplete="off"
-            />
-          )}
+          render={({ field }) => <Input {...field} placeholder="Name" error={!!errors.name} autoComplete="off" />}
         />
         <FormRow
           label="This is a label"
@@ -52,16 +43,7 @@ const Template: Story<FormGroupProps> = ({ title, subtitle }) => {
           name="name"
           control={control}
           rules={{ required: true }}
-          render={({ field }) => (
-            <Input
-              {...field}
-              testId="name-input"
-              size="compact"
-              placeholder="Name"
-              error={!!errors.name}
-              autoComplete="off"
-            />
-          )}
+          render={({ field }) => <Input {...field} placeholder="Name" error={!!errors.name} autoComplete="off" />}
         />
         <FormRow
           label="This is a label"
@@ -70,9 +52,7 @@ const Template: Story<FormGroupProps> = ({ title, subtitle }) => {
           name="name"
           control={control}
           rules={{ required: true }}
-          render={({ field }) => (
-            <Input {...field} testId="name-input" size="compact" placeholder="Name" error autoComplete="off" />
-          )}
+          render={({ field }) => <Input {...field} placeholder="Name" error autoComplete="off" />}
         />
         <TCFormRow
           control={control}
@@ -103,6 +83,14 @@ const Template: Story<FormGroupProps> = ({ title, subtitle }) => {
       </FormGroup>
 
       <FormGroup title={title} subtitle={subtitle}></FormGroup>
+      <FormGroup>
+        <FormRow
+          label="This is a full width form group"
+          name="name"
+          control={control}
+          render={({ field }) => <Input {...field} placeholder="Name" autoComplete="off" />}
+        />
+      </FormGroup>
     </>
   );
 };

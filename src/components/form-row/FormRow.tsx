@@ -43,7 +43,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
   return (
     <Block width={'100%'}>
       {label && (
-        <Block marginBottom={scale300}>
+        <Block marginBottom={scale100}>
           <LabelSmall display="flex" as="label" alignItems="center" gridGap={scale200} for={name as string}>
             {getLabel()}
             {toolTip && (
