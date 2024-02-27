@@ -8,19 +8,13 @@ import { FormGroupStack, FormGroupTitleStack } from './styles';
 import { Separator } from '../separator';
 
 export const FormGroup = ({ title, subtitle, children }: FormGroupProps) => {
-  const [dimensions, setDimensions] = useState({
-    width: 0,
-    height: 0,
-  });
+  const [width, setWidth] = useState(0);
 
   const [elementRef, setElementRef] = useState<HTMLElement | null>();
 
   useEffect(() => {
     const onWindowResize = () => {
-      setDimensions({
-        width: elementRef?.offsetWidth || 0,
-        height: elementRef?.offsetHeight || 0,
-      });
+      setWidth(elementRef?.offsetWidth || 0);
     };
 
     if (typeof window !== undefined && elementRef?.offsetWidth) {
@@ -32,9 +26,9 @@ export const FormGroup = ({ title, subtitle, children }: FormGroupProps) => {
     }
   }, [elementRef]);
 
-  const { width } = dimensions;
   const breakpoint = 900;
-  const isLarge = width ? width > breakpoint : true;
+  // Only set large if subtitle or title is present
+  const isLarge = (width > breakpoint && !!(title || subtitle)) ?? false;
 
   const {
     theme: {
@@ -44,7 +38,6 @@ export const FormGroup = ({ title, subtitle, children }: FormGroupProps) => {
       },
     },
   } = useTheme();
-
   const gridGap = useMemo(() => {
     if (isLarge) {
       return scale1200;

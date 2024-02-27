@@ -35,7 +35,7 @@ export const SideNavListItem = ({
       current: {
         colors: { primary, contentSecondary },
         customColors: { dark3 },
-        sizing: { scale400, scale500 },
+        sizing: { scale100, scale400, scale500, scale600 },
       },
     },
   } = useTheme();
@@ -80,7 +80,7 @@ export const SideNavListItem = ({
     return (
       <>
         {subtitle && (
-          <LabelXSmall color={dark3} marginTop={scale500} marginBottom={scale400}>
+          <LabelXSmall color={dark3} marginTop={scale600} marginBottom={scale100}>
             {subtitle.toUpperCase()}
           </LabelXSmall>
         )}
