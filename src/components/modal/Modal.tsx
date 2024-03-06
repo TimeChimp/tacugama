@@ -56,7 +56,7 @@ export const Modal = ({ children, onStateChange, overrides = {}, size = ModalSiz
     DialogContainer: {
       style: {
         transitionDuration: '0ms', // use no transition because bright eyes has non for the backdrop
-        alignItems: 'flex-start',
+        alignItems: 'center',
         overflow: 'hidden',
       },
     },
