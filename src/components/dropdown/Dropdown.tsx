@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { StatefulMenu } from '../menu';
 import { StatefulPopover } from '../popover';
 import { borderRadius, padding } from '../../utils';
@@ -30,7 +30,6 @@ export const Dropdown = ({
   additionalProperties,
   customList: List,
 }: DropdownProps) => {
-  const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>();
 
   const {
@@ -44,25 +43,25 @@ export const Dropdown = ({
     },
   } = useTheme();
 
-  useEffect(() => {
-    const dropDownItems = items
-      .filter((x) => {
-        if (x.filterConditions?.length && x.context) {
-          return x.filterConditions?.every(({ value, name, comparator }) => {
-            return comparator(value, name, x.context);
-          });
-        }
+  const dropdownItems = useMemo(
+    () =>
+      items
+        .filter((x) => {
+          if (x.filterConditions?.length && x.context) {
+            return x.filterConditions?.every(({ value, name, comparator }) => {
+              return comparator(value, name, x.context);
+            });
+          }
 
-        return !searchTerm || x.label?.toLowerCase().includes(searchTerm?.toLowerCase().trim());
-      })
-      .map((x) => ({
-        ...x,
-        checkbox: selection,
-        isChecked: selectedIds && x.id ? selectedIds.includes(x.id) : false,
-      }));
-
-    setDropdownItems(dropDownItems);
-  }, [items, selection, selectedIds, searchTerm]);
+          return !searchTerm || x.label?.toLowerCase().includes(searchTerm?.toLowerCase().trim());
+        })
+        .map((x) => ({
+          ...x,
+          checkbox: selection,
+          isChecked: selectedIds && x.id ? selectedIds.includes(x.id) : false,
+        })),
+    [items, searchTerm, selectedIds, selection],
+  );
 
   return (
     <StatefulPopover
