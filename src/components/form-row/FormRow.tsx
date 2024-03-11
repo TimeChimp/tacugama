@@ -44,7 +44,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
     <Block width={'100%'}>
       {label && (
         <Block marginBottom={scale100}>
-          <LabelSmall display="flex" as="label" alignItems="center" gridGap={scale200} for={name as string}>
+          <LabelSmall display="flex" as="label" alignItems="center" gridGap={scale200} htmlFor={name as string}>
             {getLabel()}
             {toolTip && (
               <StatefulTooltip
