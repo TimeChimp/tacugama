@@ -11,9 +11,8 @@ import { Separator } from '../separator';
 import { AddLineIcon } from '../icons';
 
 const BOX_HEIGHT = '90vh';
-const TOP_BOTTOM_PADDING = 50;
-const TOTAL_PADDING = TOP_BOTTOM_PADDING * 2;
-const SMALL_CONTAINER_HEIGHT = `calc(${BOX_HEIGHT} - ${TOTAL_PADDING}px)`;
+const TOTAL_PADDING = 98;
+const SMALL_CONTAINER_HEIGHT = `calc(100% - ${TOTAL_PADDING}px)`;
 
 export const EditPageContainer = ({
   title,
@@ -24,6 +23,8 @@ export const EditPageContainer = ({
   updating = false,
   headerButtonType = HeaderButtonTypeEditPageContainer.Add,
   updatingHeaderButton,
+  //TODO: handle heigh from inside this component once next is standalone only: https://timechimp.atlassian.net/jira/software/c/projects/CSR/boards/19?selectedIssue=CSR-5396
+  height,
 }: EditPageContainerProps) => {
   const {
     theme: {
@@ -59,7 +60,7 @@ export const EditPageContainer = ({
   };
 
   return (
-    <Box height={BOX_HEIGHT}>
+    <Box height={height ?? BOX_HEIGHT}>
       <Block
         {...padding(scale200, scale1600)}
         display="flex"
