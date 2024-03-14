@@ -25,5 +25,4 @@ Default.args = {
   submitButtonText: 'Save',
   onFooterButtonClick: () => console.log('Save'),
   footerButtonIsLoading: false,
-  onHeaderButtonClick: () => console.log('Cancel'),
 };

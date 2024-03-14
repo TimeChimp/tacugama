@@ -23,7 +23,6 @@ export const EditPageContainer = ({
   updating = false,
   headerButtonType = HeaderButtonTypeEditPageContainer.Add,
   updatingHeaderButton,
-  //TODO: handle heigh from inside this component once next is standalone only: https://timechimp.atlassian.net/jira/software/c/projects/CSR/boards/19?selectedIssue=CSR-5396
   height,
 }: EditPageContainerProps) => {
   const {
