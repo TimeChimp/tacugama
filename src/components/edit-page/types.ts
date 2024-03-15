@@ -40,6 +40,7 @@ export interface EditPageContainerProps {
   submitButtonText?: string;
   updating?: boolean;
   updatingHeaderButton?: boolean;
+  height?: string;
 }
 
 export interface EditPageContentProps {
