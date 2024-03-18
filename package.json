@@ -34,7 +34,7 @@
     "format": "prettier ./src/**/*.* --write"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=18"
   },
   "name": "@timechimp/tacugama",
   "author": {
