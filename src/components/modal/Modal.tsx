@@ -2,7 +2,6 @@ import React from 'react';
 import { Modal as BaseModal, ModalOverrides, ModalProps as BaseModelProps } from 'baseui/modal';
 import { useTheme } from '../../providers';
 import merge from 'deepmerge';
-
 import { borderRadius, margin, MountStateNotifier, MountStates } from '../../utils';
 
 export enum ModalSize {
@@ -31,6 +30,14 @@ export const Modal = ({ children, onStateChange, overrides = {}, size = ModalSiz
     },
   } = useTheme();
 
+  const isInIframe = () => {
+    try {
+      return typeof window !== 'undefined' && window.self !== window.top;
+    } catch (e) {
+      return true;
+    }
+  };
+
   const mergedOverrides: ModalOverrides = merge(overrides, {
     Root: {
       style: {
@@ -56,7 +63,7 @@ export const Modal = ({ children, onStateChange, overrides = {}, size = ModalSiz
     DialogContainer: {
       style: {
         transitionDuration: '0ms', // use no transition because bright eyes has non for the backdrop
-        alignItems: 'flex-start',
+        alignItems: isInIframe() ? 'flex-start' : 'center',
         overflow: 'hidden',
       },
     },
