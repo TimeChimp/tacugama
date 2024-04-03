@@ -28,6 +28,7 @@ export default {
 } as Meta;
 
 const Template: Story<DataGridProps> = (args) => {
+  const [dates, setDates] = useState([new Date()]);
   const [views, setViews] = useState<DataGridView[]>([
     {
       id: '1',
@@ -119,6 +120,8 @@ const Template: Story<DataGridProps> = (args) => {
       onCreateView={(input: CreateViewInput) => handleCreateView(input)}
       onSaveViewState={(id: string, viewState: string) => handleSaveView(id, viewState)}
       onReady={(data) => console.log(data)}
+      dates={dates}
+      setDates={setDates}
     />
   );
 };
