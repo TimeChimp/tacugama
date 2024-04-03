@@ -187,6 +187,7 @@ export interface Translations {
   none: string;
   clearFilters: string;
   add: string;
+  noTeam: string;
 }
 
 export interface DataGridSetting {
