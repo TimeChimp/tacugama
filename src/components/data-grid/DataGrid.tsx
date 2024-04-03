@@ -82,7 +82,7 @@ const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
 const DEFAULT_ROW_HEIGHT = 40;
 const PINNED_COLUMN_WIDTH = 54;
-const NO_TEAM = 'noTeam';
+const EMPTY_GROUP = 'EmptyGroup';
 
 export const DataGrid = ({
   licenseKey,
@@ -405,13 +405,12 @@ export const DataGrid = ({
               };
             });
           const groupKeys = params?.parentNode?.data ? [params?.parentNode?.data[rowGroupCols[0]?.field]] : [];
-          const groupKeysCopy = groupKeys?.includes(translations?.noTeam) ? [NO_TEAM] : groupKeys;
           try {
             const body = {
               ...params.request,
               filterModel,
               rowGroupCols,
-              groupKeys: groupKeysCopy,
+              groupKeys,
             };
             let headers: HeadersInit = {
               'Content-Type': 'application/json',
@@ -441,8 +440,8 @@ export const DataGrid = ({
             }
 
             const rowDataCopy = rowData?.map((item) => {
-              if (item?.teamName === NO_TEAM) {
-                item.teamName = translations.noTeam;
+              if (selectedGroupOption && item[selectedGroupOption.field] === EMPTY_GROUP) {
+                item[selectedGroupOption.field] = translations.emptyGroup[selectedGroupOption.field];
                 return item;
               } else {
                 return item;

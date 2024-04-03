@@ -187,7 +187,7 @@ export interface Translations {
   none: string;
   clearFilters: string;
   add: string;
-  noTeam: string;
+  emptyGroup: { teamName: string };
 }
 
 export interface DataGridSetting {

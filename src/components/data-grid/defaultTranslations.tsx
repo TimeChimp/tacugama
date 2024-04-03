@@ -57,5 +57,7 @@ export const defaultTranslations: Translations = {
   none: 'None',
   clearFilters: 'Clear filters',
   add: 'Add',
-  noTeam: 'No team',
+  emptyGroup: {
+    teamName: 'No team',
+  },
 };
