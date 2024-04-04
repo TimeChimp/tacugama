@@ -441,7 +441,7 @@ export const DataGrid = ({
 
             const rowDataCopy = rowData?.map((item) => {
               if (selectedGroupOption && item[selectedGroupOption.field] === EMPTY_GROUP) {
-                item[selectedGroupOption.field] = translations.emptyGroup[selectedGroupOption.field];
+                item[selectedGroupOption?.field] = translations?.emptyGroup[selectedGroupOption?.field];
                 return item;
               } else {
                 return item;
