@@ -82,6 +82,7 @@ const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
 const DEFAULT_HEIGHT = 'calc(100vh - 200px)';
 const DEFAULT_ROW_HEIGHT = 40;
 const PINNED_COLUMN_WIDTH = 54;
+const EMPTY_GROUP = 'EmptyGroup';
 
 export const DataGrid = ({
   licenseKey,
@@ -394,8 +395,23 @@ export const DataGrid = ({
     return {
       getRows: async function (params: IServerSideGetRowsParams) {
         if (dataUrl) {
+          const rowGroupCols = columns
+            ?.filter((x) => x?.rowGroup)
+            ?.map((column) => {
+              return {
+                id: column?.field,
+                displayName: column?.label || '',
+                field: column?.field,
+              };
+            });
+          const groupKeys = params?.parentNode?.data ? [params?.parentNode?.data[rowGroupCols[0]?.field]] : [];
           try {
-            const body = { ...params.request, filterModel };
+            const body = {
+              ...params.request,
+              filterModel,
+              rowGroupCols,
+              groupKeys,
+            };
             let headers: HeadersInit = {
               'Content-Type': 'application/json',
             };
@@ -423,7 +439,18 @@ export const DataGrid = ({
               params.api.hideOverlay();
             }
 
-            return params.success({ rowData, rowCount });
+            const rowDataCopy = rowData?.map((item) => {
+              if (selectedGroupOption && item[selectedGroupOption.field] === EMPTY_GROUP) {
+                item[selectedGroupOption?.field] = translations?.emptyGroup[selectedGroupOption?.field];
+                return item;
+              }
+              return item;
+            });
+
+            return params.success({
+              rowData: rowDataCopy,
+              rowCount,
+            });
           } catch (error) {
             return params.fail();
           }
@@ -808,21 +835,17 @@ export const DataGrid = ({
   const selectedGroupOption = columns.filter((x) => x.groupable).find((column) => column.rowGroup);
 
   const handleGrouping = (field: string) => {
-    if (selectedGroupOption?.field === field) {
-      onGrouping([]);
-    } else {
-      onGrouping([field]);
-    }
+    onGrouping([field]);
   };
 
   const options: DropdownItem[] = columns
-    .filter((x) => x.groupable)
-    .map((column) => {
+    ?.filter((x) => x.groupable)
+    ?.map((column) => {
       return {
-        id: column.field,
-        label: column.label || '',
-        isBold: column.rowGroup,
-        action: () => handleGrouping(column.field),
+        id: column?.field,
+        label: column?.label || '',
+        isBold: column?.rowGroup,
+        action: () => handleGrouping(column?.field),
       };
     });
 
