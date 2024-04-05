@@ -443,9 +443,8 @@ export const DataGrid = ({
               if (selectedGroupOption && item[selectedGroupOption.field] === EMPTY_GROUP) {
                 item[selectedGroupOption?.field] = translations?.emptyGroup[selectedGroupOption?.field];
                 return item;
-              } else {
-                return item;
               }
+              return item;
             });
 
             return params.success({
