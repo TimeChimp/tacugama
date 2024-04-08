@@ -405,12 +405,16 @@ export const DataGrid = ({
               };
             });
           const groupKeys = params?.parentNode?.data ? [params?.parentNode?.data[rowGroupCols[0]?.field]] : [];
+          const groupKeysCopy =
+            selectedGroupOption && groupKeys?.includes(translations?.emptyGroup[selectedGroupOption?.field])
+              ? [EMPTY_GROUP]
+              : groupKeys;
           try {
             const body = {
               ...params.request,
               filterModel,
               rowGroupCols,
-              groupKeys,
+              groupKeys: groupKeysCopy,
             };
             let headers: HeadersInit = {
               'Content-Type': 'application/json',
