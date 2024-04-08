@@ -13,6 +13,7 @@ export interface AvatarProps extends BaseAvatarProps {
   borderColor?: string;
   color?: string;
   height?: string;
+  filter?: string;
 }
 
 export const Avatar = ({
@@ -24,6 +25,7 @@ export const Avatar = ({
   borderColor,
   size,
   color,
+  filter,
   ...rest
 }: AvatarProps) => {
   const {
@@ -58,6 +60,7 @@ export const Avatar = ({
               backgroundColor: backgroundColor ?? primary,
               height: height ?? scale800,
               width: height ?? scale800,
+              filter: filter,
             },
             props: {
               [DATA_TEST_ID]: testId,
@@ -67,6 +70,7 @@ export const Avatar = ({
             style: {
               fontSize: getFontSize(),
               color: color ?? light4,
+              width: size,
             },
           },
         };
@@ -77,6 +81,7 @@ export const Avatar = ({
               backgroundColor: backgroundColor ?? light3,
               height: height ?? scale800,
               width: height ?? scale800,
+              filter: filter,
               ...borderRadius('50%'),
               ...border({
                 ...border300,
@@ -92,6 +97,7 @@ export const Avatar = ({
             style: {
               fontSize: getFontSize(),
               color: color ?? dark1,
+              width: size,
             },
           },
         };
