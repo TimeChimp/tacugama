@@ -92,6 +92,7 @@ export interface FilterValue {
   value: string | boolean | number | null;
   label: string;
   icon?: JSX.Element;
+  color?: string;
 }
 
 export interface ExtraFilter {
