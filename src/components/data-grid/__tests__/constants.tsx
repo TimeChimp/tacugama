@@ -26,7 +26,7 @@ const CustomCellComponent = ({ data }: any) => {
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
       <Avatar
-        name={data.userName}
+        name={data?.userName}
         overrides={{
           Avatar: {
             style: {

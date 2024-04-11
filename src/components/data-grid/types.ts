@@ -92,6 +92,7 @@ export interface FilterValue {
   value: string | boolean | number | null;
   label: string;
   icon?: JSX.Element;
+  color?: string;
 }
 
 export interface ExtraFilter {
@@ -142,6 +143,10 @@ export interface FormatSettings {
   timeFormat?: string;
 }
 
+interface EmptyGroup {
+  [key: string]: string;
+}
+
 export interface Translations {
   rowCountText: (count: number, totalCount: number) => JSX.Element;
   rowCountSelectedText: (count: number) => JSX.Element;
@@ -187,6 +192,7 @@ export interface Translations {
   none: string;
   clearFilters: string;
   add: string;
+  emptyGroup: EmptyGroup;
 }
 
 export interface DataGridSetting {
