@@ -7,10 +7,17 @@ import { Datepicker } from 'components/datepicker/Datepicker';
 import { FlexItem } from 'components/flex-item';
 import { Block } from 'baseui/block';
 import { CustomDatepickerProps } from './types';
+import { defaultFormatSettings } from 'components/data-grid/defaultFormatSettings';
 
-export const CustomDatepicker = ({ date, translations, onChange, dateFormat, ...rest }: CustomDatepickerProps) => {
+export const CustomDatepicker = ({
+  date = new Date(),
+  translations,
+  onChange,
+  dateFormat,
+  ...rest
+}: CustomDatepickerProps) => {
   const [isDatepickerOpen, setIsDatepickerOpen] = useState(false);
-  const [value, setValue] = useState([new Date()]);
+  const [value, setValue] = useState(Array.isArray(date) ? date : [date]);
 
   const {
     theme: {
@@ -159,6 +166,7 @@ export const CustomDatepicker = ({ date, translations, onChange, dateFormat, ...
 
     if (value.id === 'Custom') {
       setIsDatepickerOpen(true);
+      setValue([new Date(), new Date()]);
     } else {
       setIsDatepickerOpen(false);
       onChange([value.beginDate, value.endDate]);
@@ -173,6 +181,23 @@ export const CustomDatepicker = ({ date, translations, onChange, dateFormat, ...
 
     setValue(date);
   };
+
+  const actualDateFormat = useMemo(() => {
+    if (dateFormat) {
+      return dateFormat;
+    }
+
+    return defaultFormatSettings.dateFormat;
+  }, [dateFormat]);
+
+  const mask = useMemo(() => {
+    return actualDateFormat
+      ?.toLocaleLowerCase()
+      .replace('yyyy', '9999')
+      .replace('yy', '99')
+      .replace('dd', '99')
+      .replace('mm', '99');
+  }, []);
 
   return (
     <FlexItem width="auto">
@@ -191,9 +216,12 @@ export const CustomDatepicker = ({ date, translations, onChange, dateFormat, ...
           <Datepicker
             {...rest}
             range
-            customValue={value || [new Date()]}
+            customValue={value}
             onChange={({ date }) => handleDateClick(date)}
-            formatString={dateFormat}
+            quickSelect={false}
+            formatString={actualDateFormat}
+            placeholder={`${actualDateFormat} - ${actualDateFormat}`.toLocaleLowerCase()}
+            mask={`${mask} - ${mask}`}
           />
         </Block>
       )}
