@@ -151,7 +151,6 @@ export const ColumnFilters = ({
 
     if (selectedDates.length > 1) {
       setDates(selectedDates);
-      // toggleDatePicker();
       filterOnDate(columnField, selectedDates);
     }
   };

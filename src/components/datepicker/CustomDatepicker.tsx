@@ -24,8 +24,8 @@ export const CustomDatepicker = ({ date, translations, onChange, dateFormat, ...
   const quickSelectOptions: DatepickerOption[] = [
     {
       id: translations?.allPeriods ?? 'All periods',
-      beginDate: new TcDate().subtract(1, 'year').startOf('year').toDate(),
-      endDate: new TcDate().endOf('year').toDate(),
+      beginDate: new Date('01-01-1900'),
+      endDate: new Date('01-01-9999'),
     },
     {
       id: translations?.today ?? 'Today',
