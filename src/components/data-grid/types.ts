@@ -193,6 +193,7 @@ export interface Translations {
   clearFilters: string;
   add: string;
   emptyGroup: EmptyGroup;
+  exportTooltip: string;
 }
 
 export interface DataGridSetting {
@@ -474,6 +475,7 @@ export interface DataGridActionsProps {
   onBulkDelete?: () => Promise<void>;
   hideDownload?: boolean;
   hideDelete?: boolean;
+  showExportTooltip?: boolean;
 }
 
 export type PageOrientation = 'portrait' | 'landscape';
