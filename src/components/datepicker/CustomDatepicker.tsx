@@ -2,12 +2,12 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTheme } from '../../providers';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerOption } from '../datepicker-popover/types';
-import { SingleSelect } from 'components/select';
-import { Datepicker } from 'components/datepicker/Datepicker';
-import { FlexItem } from 'components/flex-item';
+import { SingleSelect } from '../select';
+import { Datepicker } from '../datepicker/Datepicker';
+import { FlexItem } from '../flex-item';
 import { Block } from 'baseui/block';
 import { CustomDatepickerProps } from './types';
-import { defaultFormatSettings } from 'components/data-grid/defaultFormatSettings';
+import { defaultFormatSettings } from '../data-grid/defaultFormatSettings';
 
 export const CustomDatepicker = ({
   date = new Date(),

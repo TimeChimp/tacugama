@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ColumnFiltersProps, Filter, FilterType, FilterValue } from '../types';
-import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { SIZE } from 'baseui/button';
 import { Dropdown, DropdownItem } from '../../dropdown';
 import { MinusIcon } from '../../icons/minus';
@@ -12,7 +11,7 @@ import { ButtonKind } from '../../../models';
 import { ParagraphSmall } from 'baseui/typography';
 import { FixedSizeSelect } from '../../fixed-size-select';
 import { MultiFilter } from './MultiFilter';
-import { CustomDatepicker } from 'components/datepicker';
+import { CustomDatepicker } from '../../datepicker';
 
 const LESS_FILTERS_BUTTON_TEST_ID = 'less-filters-button';
 const MORE_FILTERS_BUTTON_TEST_ID = 'more-filters-button';
