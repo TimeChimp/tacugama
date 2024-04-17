@@ -1,5 +1,5 @@
 {
-  "version": "13.10.0",
+  "version": "14.0.0",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
