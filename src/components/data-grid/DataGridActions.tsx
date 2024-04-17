@@ -8,6 +8,7 @@ import { DataGridActionsProps } from './types';
 import { FlexItem } from '../flex-item';
 import { exportExcel, exportPdf, exportCSV } from './export';
 import { ParagraphSmall } from '../typography';
+import { StatefulTooltip } from '../tooltip';
 
 const DELETE_BUTTON_TEST_ID = 'delete-button';
 const EXPORT_BUTTON_TEST_ID = 'export-button';
@@ -23,6 +24,7 @@ export const DataGridActions = ({
   translations,
   hideDownload,
   hideDelete,
+  showExportTooltip,
 }: DataGridActionsProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
 
@@ -31,6 +33,7 @@ export const DataGridActions = ({
       current: {
         colors: { primaryA, white },
         sizing: { scale300 },
+        customSizing: { scale4250 },
         customColors: { dark4 },
       },
     },
@@ -85,7 +88,20 @@ export const DataGridActions = ({
             }}
           >
             <Button kind={ButtonKind.tertiary} disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
-              <ParagraphSmall color={rowsSelected ? primaryA : dark4}>{translations.export}</ParagraphSmall>
+              <StatefulTooltip
+                content={showExportTooltip ? translations.exportTooltip : ''}
+                showArrow={true}
+                placement="top"
+                overrides={{
+                  Body: {
+                    style: {
+                      width: scale4250,
+                    },
+                  },
+                }}
+              >
+                <ParagraphSmall color={rowsSelected ? primaryA : dark4}>{translations.export}</ParagraphSmall>
+              </StatefulTooltip>
             </Button>
           </Dropdown>
         )}

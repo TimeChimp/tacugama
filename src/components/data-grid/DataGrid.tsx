@@ -395,7 +395,7 @@ export const DataGrid = ({
     return {
       getRows: async function (params: IServerSideGetRowsParams) {
         if (dataUrl) {
-          const rowGroupCols = columns
+          const rowGroupCols = gridColumns
             ?.filter((x) => x?.rowGroup)
             ?.map((column) => {
               return {
@@ -513,6 +513,7 @@ export const DataGrid = ({
       c.rowGroup = rowGroups.includes(c.field);
     });
     setGridColumns(columns);
+    setRowsSelected(0);
   };
 
   const clearFilterModel = (columnFilter: string) => {
@@ -831,27 +832,32 @@ export const DataGrid = ({
     return '';
   }, [rowActionItems]);
 
+  const selectedGroupOption = gridColumns.filter((x) => x.groupable).find((column) => column.rowGroup);
+
+  const generalSelection = selectedGroupOption ? false : selection;
+
   const showDataGridHeader = useMemo(
-    () => viewing || settings?.length || (selection && !(hideDelete && hideDownload)),
-    [viewing, selection, hideDelete, hideDownload, settings],
+    () => viewing || settings?.length || (generalSelection && !(hideDelete && hideDownload)),
+    [viewing, generalSelection, hideDelete, hideDownload, settings],
   );
 
-  const selectedGroupOption = columns.filter((x) => x.groupable).find((column) => column.rowGroup);
-
-  const handleGrouping = (field: string) => {
-    onGrouping([field]);
-  };
-
-  const options: DropdownItem[] = columns
+  const options: DropdownItem[] = gridColumns
     ?.filter((x) => x.groupable)
     ?.map((column) => {
       return {
         id: column?.field,
         label: column?.label || '',
         isBold: column?.rowGroup,
-        action: () => handleGrouping(column?.field),
+        action: () => onGrouping([column?.field]),
       };
     });
+
+  const noneOption = {
+    id: 'none',
+    label: translations.none,
+    isBold: !selectedGroupOption,
+    action: () => onGrouping([]),
+  };
 
   return (
     <>
@@ -880,8 +886,8 @@ export const DataGrid = ({
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {showDataGridHeader && (
-          <StyledDataGridHeader $justifyContent={!selection ? 'flex-end' : 'space-between'}>
-            {(selection || enableExport) && (
+          <StyledDataGridHeader $justifyContent={!generalSelection && !enableExport ? 'flex-end' : 'space-between'}>
+            {(generalSelection || enableExport) && (
               <DataGridActions
                 gridApi={gridApi}
                 gridColumnApi={gridColumnApi}
@@ -891,6 +897,7 @@ export const DataGrid = ({
                 onBulkDelete={onBulkDelete}
                 hideDownload={hideDownload}
                 hideDelete={hideDelete}
+                showExportTooltip={!!selectedGroupOption}
               />
             )}
             <FlexItem width="auto" gap={scale300}>
@@ -916,9 +923,9 @@ export const DataGrid = ({
                 <>
                   <FlexItem width="auto">
                     <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
-                    <Dropdown items={options}>
+                    <Dropdown items={[noneOption, ...options]}>
                       <Button kind={ButtonKind.tertiary}>
-                        {selectedGroupOption?.label ?? translations.none}
+                        {selectedGroupOption?.label ?? noneOption.label}
                         <FlexItem marg4={scale500}>
                           <CaretDownIcon color={dark1} />
                         </FlexItem>
@@ -1055,11 +1062,11 @@ export const DataGrid = ({
           colResizeDefault="shift"
         >
           <AgGridColumn
-            hide={!selection}
+            hide={!generalSelection}
             headerName={''}
             field={''}
-            checkboxSelection={selection}
-            headerComponent={selection ? 'headerCheckbox' : ''}
+            checkboxSelection={generalSelection}
+            headerComponent={generalSelection ? 'headerCheckbox' : ''}
             minWidth={PINNED_COLUMN_WIDTH}
             maxWidth={PINNED_COLUMN_WIDTH}
             sortable={false}
