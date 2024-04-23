@@ -1113,6 +1113,7 @@ export const DataGrid = ({
             ),
           )}
           <AgGridColumn
+            hide={!rowActionItems}
             headerName={''}
             field={''}
             headerComponent={''}
