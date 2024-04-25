@@ -290,9 +290,9 @@ export const MultiSelect = <
       ) : (
         <>
           {creatable ? (
-            <SelectCreatable {...props} onCreateOption={onCreateOption} menuPortalTarget={document.body} />
+            <SelectCreatable {...props} onCreateOption={onCreateOption} menuPortalTarget={document?.body} />
           ) : (
-            <Select {...props} menuPortalTarget={document.body} />
+            <Select {...props} menuPortalTarget={document?.body} />
           )}
         </>
       )}

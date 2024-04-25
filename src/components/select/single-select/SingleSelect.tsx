@@ -305,7 +305,7 @@ export const SingleSelect = <
   const SelectComponent = useMemo(() => {
     if (creatable) {
       return (
-        <SelectCreatable name={name} {...props} onCreateOption={onCreateOption} menuPortalTarget={document.body} />
+        <SelectCreatable name={name} {...props} onCreateOption={onCreateOption} menuPortalTarget={document?.body} />
       );
     }
     if (loadOptions) {
@@ -319,7 +319,7 @@ export const SingleSelect = <
         />
       );
     }
-    return <Select name={name} {...props} menuPortalTarget={document.body} />;
+    return <Select name={name} {...props} menuPortalTarget={document?.body} />;
   }, [cacheOptions, creatable, loadOptions, onCreateOption, props]);
 
   return <>{showSkeleton ? <Skeleton width="100%" height={scale975} animation /> : <>{SelectComponent}</>}</>;
