@@ -897,7 +897,7 @@ export const DataGrid = ({
                 onBulkDelete={onBulkDelete}
                 hideDownload={hideDownload}
                 hideDelete={hideDelete}
-                showExportTooltip={!!selectedGroupOption}
+                showExportTooltip={!!selectedGroupOption || rowsSelected > 0}
               />
             )}
             <FlexItem width="auto" gap={scale300}>
