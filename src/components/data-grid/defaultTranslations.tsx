@@ -60,5 +60,6 @@ export const defaultTranslations: Translations = {
   emptyGroup: {
     teamName: 'No team',
   },
-  exportTooltip: 'Change the “Group by” dropdown to “None” to be able to export the employee insights.',
+  exportTooltipGrouping: 'Change the “Group by” dropdown to “None” to be able to export.',
+  exportTooltipNoSelection: 'Select at least one row to make an export.',
 };

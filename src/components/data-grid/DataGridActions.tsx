@@ -63,6 +63,18 @@ export const DataGridActions = ({
     return null;
   }
 
+  const getToolTipText = () => {
+    if (!showExportTooltip) {
+      return '';
+    }
+
+    if (rowsSelected) {
+      return translations.exportTooltipGrouping;
+    }
+
+    return translations.exportTooltipNoSelection;
+  };
+
   return (
     <StyledDataGridActions>
       {!hideDelete && onBulkDelete ? (
@@ -89,7 +101,7 @@ export const DataGridActions = ({
           >
             <Button kind={ButtonKind.tertiary} disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
               <StatefulTooltip
-                content={showExportTooltip ? translations.exportTooltip : ''}
+                content={getToolTipText()}
                 showArrow={true}
                 placement="top"
                 overrides={{

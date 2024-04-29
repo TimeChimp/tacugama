@@ -193,7 +193,8 @@ export interface Translations {
   clearFilters: string;
   add: string;
   emptyGroup: EmptyGroup;
-  exportTooltip: string;
+  exportTooltipGrouping: string;
+  exportTooltipNoSelection: string;
 }
 
 export interface DataGridSetting {
