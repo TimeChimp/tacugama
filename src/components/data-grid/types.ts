@@ -476,7 +476,7 @@ export interface DataGridActionsProps {
   onBulkDelete?: () => Promise<void>;
   hideDownload?: boolean;
   hideDelete?: boolean;
-  showExportTooltip?: boolean;
+  hasGrouping?: boolean;
 }
 
 export type PageOrientation = 'portrait' | 'landscape';
