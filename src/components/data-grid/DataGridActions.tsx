@@ -24,7 +24,7 @@ export const DataGridActions = ({
   translations,
   hideDownload,
   hideDelete,
-  showExportTooltip,
+  hasGrouping,
 }: DataGridActionsProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
 
@@ -63,16 +63,14 @@ export const DataGridActions = ({
     return null;
   }
 
-  const getToolTipText = () => {
-    if (!showExportTooltip) {
-      return '';
-    }
-
-    if (rowsSelected) {
+  const getTooltipText = () => {
+    if (hasGrouping) {
       return translations.exportTooltipGrouping;
     }
-
-    return translations.exportTooltipNoSelection;
+    if (!rowsSelected) {
+      return translations.exportTooltipNoSelection;
+    }
+    return '';
   };
 
   return (
@@ -101,7 +99,7 @@ export const DataGridActions = ({
           >
             <Button kind={ButtonKind.tertiary} disabled={!rowsSelected} testId={EXPORT_BUTTON_TEST_ID}>
               <StatefulTooltip
-                content={getToolTipText()}
+                content={getTooltipText()}
                 showArrow={true}
                 placement="top"
                 overrides={{
