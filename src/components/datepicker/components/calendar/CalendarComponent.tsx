@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Calendar, DatepickerOverrides } from 'baseui/datepicker';
 import { borderRadius, padding } from '../../../../utils';
 import { Block } from '../../../block';
-import { CaretDownIcon, CaretLeftIcon, CaretRightIcon } from 'components/icons';
+import { CaretDownIcon, CaretLeftIcon, CaretRightIcon } from '../../../icons';
 import { useTheme } from '../../../../providers';
 import { CalendarComponentProps } from './types';
 import { getDateLocale } from '@timechimp/timechimp-typescript-helpers';
@@ -23,6 +23,17 @@ export const CalendarOverride = (): DatepickerOverrides => {
     CalendarContainer: {
       style: {
         paddingTop: '0',
+      },
+    },
+    Popover: {
+      props: {
+        overrides: {
+          Body: {
+            style: () => ({
+              zIndex: 1000,
+            }),
+          },
+        },
       },
     },
     MonthYearSelectPopover: {

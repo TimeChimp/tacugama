@@ -1,6 +1,5 @@
 import { SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
-import { DatepickerProps as BaseDatepickerProps, CalendarProps } from 'baseui/datepicker';
-import { TetherPlacement } from 'baseui/layer';
+import { DatepickerProps as BaseDatepickerProps } from 'baseui/datepicker';
 
 export interface DatepickerRangeTranslations {
   chooseRangeLabel?: string;
@@ -29,15 +28,4 @@ export interface DatepickerProps extends Omit<BaseDatepickerProps, 'quickSelect'
   showSkeleton?: boolean;
   //TODO: remove quickSelect, check first if it is used in the project
   quickSelect?: 5;
-}
-
-//TODO: remove this
-export interface CustomDatepickerProps extends Omit<CalendarProps, 'onChange'> {
-  dateFormat: string;
-  date?: Date | Date[];
-  placement?: TetherPlacement;
-  locale?: SupportedLocale;
-  weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
-  translations?: DatepickerRangeTranslations;
-  onChange: (date: Date | Date[]) => void;
 }

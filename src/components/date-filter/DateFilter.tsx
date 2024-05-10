@@ -1,9 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Popover } from '../popover';
-import { borderRadius, padding } from '../../utils';
 import { useTheme } from '../../providers';
-import { Calendar } from 'baseui/datepicker';
-import { getDateLocale, TcDate } from '@timechimp/timechimp-typescript-helpers';
+import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { DateFilterProps, QuickSelectOption } from './types';
 import { FlexItem } from '../flex-item';
 import { Button } from '../button';
@@ -12,7 +10,6 @@ import { ButtonKind, QuickSelectDateOption } from '../../models';
 import { Block } from 'baseui/block';
 import { Dropdown } from '../dropdown';
 import { FilterButton } from '../data-grid/filters/FilterButton';
-import { CaretLeftIcon, CaretDownIcon, CaretRightIcon } from '../../components/icons';
 import { CalendarComponent } from '../datepicker/components/calendar';
 
 //Move this filter component to datagrid
@@ -108,7 +105,6 @@ export const DateFilter = ({
       activeQuickSelect?.endDate
     ) {
       setInternalDate([activeQuickSelect?.beginDate, activeQuickSelect?.endDate]);
-      //onChange && onChange([activeQuickSelect?.beginDate, activeQuickSelect?.endDate]);
     }
   }, [activeQuickSelect]);
 
@@ -119,21 +115,14 @@ export const DateFilter = ({
     }));
   }, []);
 
-  const [localeObj, setLocaleObj] = useState<Locale>();
-
   const {
     theme: {
       current: {
-        typography,
-        typography: { ParagraphSmall, ParagraphMedium, LabelMedium },
-        sizing,
-        sizing: { scale300, scale200, scale600, scale100 },
-        colors: { primaryA, primaryB },
-        borders: { radius200 },
+        sizing: { scale300 },
+        colors: { primaryB },
       },
     },
   } = useTheme();
-  console.log('typeee', typography);
 
   const getDateTitleFormat = (date: Date) => new TcDate(date).format(dateFormat);
 
@@ -143,18 +132,6 @@ export const DateFilter = ({
     }
     return '';
   }, [dates, dateFormat]);
-
-  useEffect(() => {
-    if (locale) {
-      const localeObj = getDateLocale(locale);
-
-      if (weekStartDay && localeObj.options) {
-        localeObj.options.weekStartsOn = weekStartDay;
-      }
-
-      setLocaleObj(localeObj);
-    }
-  }, [locale, weekStartDay]);
 
   const onQuickSelect = (option: QuickSelectOption) => {
     if (!option) {
@@ -180,40 +157,9 @@ export const DateFilter = ({
     if (date) {
       setInternalDate([date]);
     }
-
-    // if (!date) {
-    //   setInternalDate(date);
-    //   return;
-    // }
-    // if (!internalDate || !Array.isArray(internalDate) || internalDate?.length || date?.length === 2) {
-    //   setInternalDate(Array.isArray(date) ? date : [date]);
-    //   return;
-    // }
-
-    // setInternalDate((prevDate) => {
-    //   if (!date) {
-    //     return null;
-    //   }
-
-    //   if (Array.isArray(date) && date.length === 2) {
-    //     return date;
-    //   }
-
-    //   if (!prevDate && date) {
-    //     return Array.isArray(date) ? date : [date];
-    //   }
-
-    //   if (Array.isArray(prevDate) && prevDate?.length === 1) {
-    //     return [...prevDate, Array.isArray(date) ? date[0] : date];
-    //   }
-    //   if (Array.isArray(prevDate) && prevDate?.length === 2) {
-    //     return Array.isArray(date) ? date : [date];
-    //   }
-    // });
   };
 
   useEffect(() => {
-    console.log('internalll date', internalDate);
     if (internalDate?.length === 2) {
       onChange(internalDate as [Date, Date]);
       setIsOpen(false);
@@ -228,15 +174,7 @@ export const DateFilter = ({
           selectedIds={activeQuickSelect?.id ? [activeQuickSelect.id] : undefined}
           isLoading={false}
         >
-          <FilterButton
-            title={activeQuickSelect?.label ?? ''}
-            // startEnhancer={getSelectActiveItem(columnField, values).icon}
-            size={SIZE.compact}
-            arrows
-            // onClear={clearable ? () => onSelectFilterClear(columnField) : undefined}
-            // hasValue={getSelectHasValue(columnField)}
-            // isActive={getSelectHasValue(columnField)}
-          />
+          <FilterButton title={activeQuickSelect?.label ?? ''} size={SIZE.compact} arrows />
         </Dropdown>
       </Block>
 
