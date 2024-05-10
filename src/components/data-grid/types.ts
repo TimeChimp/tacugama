@@ -335,6 +335,7 @@ export interface ColumnFiltersProps {
   showClearFilters?: boolean;
   initialShowLessFilters?: boolean;
   onShowLessFiltersChange?: (showLessFilters: boolean) => void;
+  filtering?: boolean;
 }
 export interface FooterRowCountProps {
   api: GridApi;

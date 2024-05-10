@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { StatefulMenu } from '../menu';
 import { StatefulPopover } from '../popover';
 import { borderRadius, padding } from '../../utils';

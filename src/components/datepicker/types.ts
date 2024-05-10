@@ -18,8 +18,7 @@ export interface DatepickerRangeTranslations {
   allPeriods?: string;
 }
 
-export interface DatepickerProps extends BaseDatepickerProps {
-  placement?: TetherPlacement;
+export interface DatepickerProps extends Omit<BaseDatepickerProps, 'quickSelect'> {
   locale?: SupportedLocale;
   weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
   testId?: string;
@@ -27,10 +26,12 @@ export interface DatepickerProps extends BaseDatepickerProps {
   iconColor?: string;
   customValue: Date[];
   onChange: ({ date }: { date: any }) => void;
-  translations?: DatepickerRangeTranslations;
   showSkeleton?: boolean;
+  //TODO: remove quickSelect, check first if it is used in the project
+  quickSelect?: 5;
 }
 
+//TODO: remove this
 export interface CustomDatepickerProps extends Omit<CalendarProps, 'onChange'> {
   dateFormat: string;
   date?: Date | Date[];

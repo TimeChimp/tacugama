@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useTheme } from '../../providers';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerOption } from '../datepicker-popover/types';
+import { DatepickerPopover } from '../datepicker-popover';
 import { SingleSelect } from '../select';
 import { Datepicker } from '../datepicker/Datepicker';
 import { FlexItem } from '../flex-item';
@@ -219,9 +220,9 @@ export const CustomDatepicker = ({
             customValue={value}
             onChange={({ date }) => handleDateClick(date)}
             quickSelect={false}
-            formatString={actualDateFormat}
-            placeholder={`${actualDateFormat} - ${actualDateFormat}`.toLocaleLowerCase()}
-            mask={`${mask} - ${mask}`}
+            //formatString={actualDateFormat}
+            //placeholder={`${actualDateFormat} - ${actualDateFormat}`.toLocaleLowerCase()}
+            //mask={`${mask} - ${mask}`}
           />
         </Block>
       )}

@@ -1,18 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ColumnFiltersProps, Filter, FilterType, FilterValue } from '../types';
-import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { SIZE } from 'baseui/button';
 import { Dropdown, DropdownItem } from '../../dropdown';
 import { MinusIcon } from '../../icons/minus';
 import { AddLineIcon } from '../../icons/add-line';
 import { useTheme } from '../../../providers';
-import { DatepickerPopover } from '../../datepicker-popover';
 import { FilterButton } from './FilterButton';
 import { Button } from '../../button';
 import { ButtonKind } from '../../../models';
-import { ParagraphSmall } from 'baseui/typography';
 import { FixedSizeSelect } from '../../fixed-size-select';
 import { MultiFilter } from './MultiFilter';
+import { DateFilter } from '../../date-filter';
+import { StyledFilterColumn, StyledDateFilterColumn } from '../styles';
 
 const LESS_FILTERS_BUTTON_TEST_ID = 'less-filters-button';
 const MORE_FILTERS_BUTTON_TEST_ID = 'more-filters-button';
@@ -36,16 +35,14 @@ export const ColumnFilters = ({
   showClearFilters,
   initialShowLessFilters,
   onShowLessFiltersChange,
+  filtering,
 }: ColumnFiltersProps) => {
   const [showLessFilters, setShowLessFilters] = useState<boolean>(initialShowLessFilters ?? true);
-  const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
-  const [internalDates, setInternalDates] = useState<Date[]>([]);
 
   const {
     theme: {
       current: {
         colors: { primary, contentSecondary },
-        sizing: { scale200 },
       },
     },
   } = useTheme();
@@ -111,8 +108,6 @@ export const ColumnFilters = ({
 
   const isSetFilterActive = (columnField: string) => !!selectedFilterIds[columnField]?.length;
 
-  const getDateIconColor = () => (dateFilterIsActive() ? primary : contentSecondary);
-
   const getSetIconColor = (columnField: string) => (isSetFilterActive(columnField) ? primary : contentSecondary);
 
   const getSelectActiveItem = (columnField: string, values?: string[] | FilterValue[]) => {
@@ -135,11 +130,6 @@ export const ColumnFilters = ({
     };
   };
 
-  const getDateTitleFormat = (date: Date) => new TcDate(date).format(dateFormat);
-
-  const getDateTitle = (title: string) =>
-    dates && dateFilterIsActive() ? `${getDateTitleFormat(dates[0])} - ${getDateTitleFormat(dates[1])}` : title;
-
   const getSetTitle = (columnField: string, title: string) => {
     if (!isSetFilterActive(columnField)) {
       return title;
@@ -148,30 +138,12 @@ export const ColumnFilters = ({
     return `${length} ${title}`;
   };
 
-  const toggleDatePicker = () => {
-    if (datepickerIsOpen) {
-      setDatepickerIsOpen(false);
-      return setInternalDates([]);
-    }
-    return setDatepickerIsOpen(true);
-  };
-
-  const onDateSelect = ({ date: selectedDates, columnField }: { date: Date | Date[]; columnField: string }) => {
-    if (!setDates) {
-      return;
+  const onDateSelect = ({ dates, columnField }: { dates: [Date, Date]; columnField: string }) => {
+    if (setDates) {
+      setDates(dates);
     }
 
-    if (!Array.isArray(selectedDates)) {
-      return setInternalDates([selectedDates]);
-    }
-
-    setInternalDates(selectedDates);
-
-    if (selectedDates.length > 1) {
-      setDates(selectedDates);
-      toggleDatePicker();
-      filterOnDate(columnField, selectedDates);
-    }
+    filterOnDate(columnField, dates);
   };
 
   const getFilters = () => {
@@ -237,30 +209,8 @@ export const ColumnFilters = ({
     icon: Icon,
     clearable,
   }: Filter) => {
-    const filterTypes = {
-      [FilterType.date]: (
-        <>
-          <FilterButton
-            onClick={() => setDatepickerIsOpen(!datepickerIsOpen)}
-            startEnhancer={Icon && <Icon color={getDateIconColor()} />}
-            size={SIZE.compact}
-            title={getDateTitle(title)}
-            arrows
-          />
-          <DatepickerPopover
-            onChange={(date) => onDateSelect({ date, columnField })}
-            date={internalDates.length ? internalDates : dates}
-            isOpen={datepickerIsOpen}
-            setIsOpen={toggleDatePicker}
-            monthsShown={2}
-            range
-            quickSelect
-            locale={locale}
-            translations={datepickerTranslations}
-          />
-        </>
-      ),
-      [FilterType.multi]: (
+    if (type === FilterType.multi) {
+      return (
         <MultiFilter
           values={getAllColumnValues(columnField, FilterType.multi, values)}
           initialSelectedFilterIds={getSelectedFilterIds(columnField)}
@@ -273,8 +223,10 @@ export const ColumnFilters = ({
           onApplyFilter={handleFilterMultiValues(columnField)}
           applyFiltersLabel={applyFilters}
         />
-      ),
-      [FilterType.multiVirtual]: (
+      );
+    }
+    if (type === FilterType.multiVirtual) {
+      return (
         <FixedSizeSelect
           showSearch
           selection
@@ -290,8 +242,11 @@ export const ColumnFilters = ({
           hasValue={isSetFilterActive(columnField)}
           arrows
         />
-      ),
-      [FilterType.single]: (
+      );
+    }
+
+    if (type === FilterType.single) {
+      return (
         <Dropdown
           items={getAllColumnValues(columnField, FilterType.single, values)}
           selectedIds={getSelectedFilterIds(columnField)}
@@ -307,11 +262,9 @@ export const ColumnFilters = ({
             isActive={getSelectHasValue(columnField)}
           />
         </Dropdown>
-      ),
-      [FilterType.settings]: <></>,
-    };
-
-    return filterTypes[type];
+      );
+    }
+    return null;
   };
 
   const onClearFiltersClick = () => {
@@ -326,22 +279,42 @@ export const ColumnFilters = ({
       {!!getFilters()?.length && (
         <>
           {getFilters()?.map(
-            ({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon, clearable }) => (
-              <Filter
-                key={columnField}
-                title={title}
-                columnField={columnField}
-                type={type}
-                searchPlaceholder={searchPlaceholder}
-                values={values}
-                valuesLoading={valuesLoading}
-                icon={icon}
-                clearable={clearable}
-              />
-            ),
+            ({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon, clearable }, index) =>
+              //TODO: make Show Separator part of filter array being passed
+              {
+                // <StyledDateFilterColumn $isFirstColumn={index === 0 && !filtering}>
+
+                return type === FilterType.date ? (
+                  <StyledDateFilterColumn $isFirstColumn={index === 0 && !filtering}>
+                    <DateFilter
+                      locale={locale ?? 'en'}
+                      weekStartDay={0}
+                      translations={datepickerTranslations}
+                      onChange={(dates) => onDateSelect({ dates, columnField })}
+                      dateFormat={dateFormat}
+                      dates={dates}
+                    />
+                  </StyledDateFilterColumn>
+                ) : (
+                  <StyledFilterColumn>
+                    <Filter
+                      key={columnField}
+                      title={title}
+                      columnField={columnField}
+                      type={type}
+                      searchPlaceholder={searchPlaceholder}
+                      values={values}
+                      valuesLoading={valuesLoading}
+                      icon={icon}
+                      clearable={clearable}
+                    />
+                  </StyledFilterColumn>
+                );
+                // </StyledDateFilterColumn>
+              },
           )}
           {(filtersWithoutSettings || [])?.length > 2 && (
-            <>
+            <StyledFilterColumn>
               {showLessFilters ? (
                 <FilterButton
                   testId={MORE_FILTERS_BUTTON_TEST_ID}
@@ -359,13 +332,11 @@ export const ColumnFilters = ({
                   title={lessFilters}
                 />
               )}
-            </>
+            </StyledFilterColumn>
           )}
           {showClearFilters && (
-            <Button kind={ButtonKind.minimal} onClick={() => onClearFiltersClick()}>
-              <ParagraphSmall paddingTop={scale200} color={primary}>
-                {clearFilters}
-              </ParagraphSmall>
+            <Button kind={ButtonKind.minimal} color={primary} onClick={() => onClearFiltersClick()}>
+              {clearFilters}
             </Button>
           )}
         </>

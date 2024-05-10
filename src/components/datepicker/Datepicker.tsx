@@ -19,18 +19,18 @@ import { getDateLocale, TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerProps } from './types';
 import { Skeleton } from '../skeleton';
 import { LabelSmall } from '../typography';
+import { CalendarOverride } from '../datepicker/components';
 
 export const Datepicker = ({
   customValue,
-  placement = 'bottomLeft',
   locale = 'en',
   weekStartDay,
   overrides,
   noBorder,
   testId,
   iconColor,
-  translations,
   showSkeleton = false,
+  quickSelect,
   ...rest
 }: DatepickerProps) => {
   const [localeObj, setLocaleObj] = useState<Locale>();
@@ -62,58 +62,58 @@ export const Datepicker = ({
     }
   }, [locale, weekStartDay]);
 
-  const quickSelectOptions: QuickSelectOption<Date>[] = [
-    {
-      id: translations?.today ?? 'Today',
-      beginDate: new Date(),
-      endDate: new Date(),
-    },
-    {
-      id: translations?.yesterday ?? 'Yesterday',
-      beginDate: new TcDate().subtract(1, 'day').toDate(),
-      endDate: new TcDate().subtract(1, 'day').toDate(),
-    },
-    {
-      id: translations?.thisWeek ?? 'This week',
-      beginDate: new TcDate().startOf('week').toDate(),
-      endDate: new TcDate().endOf('week').toDate(),
-    },
-    {
-      id: translations?.thisMonth ?? 'This month',
-      beginDate: new TcDate().startOf('month').toDate(),
-      endDate: new TcDate().endOf('month').toDate(),
-    },
-    {
-      id: translations?.thisQuarter ?? 'This quarter',
-      beginDate: new TcDate().startOf('quarter').toDate(),
-      endDate: new TcDate().endOf('quarter').toDate(),
-    },
-    {
-      id: translations?.thisYear ?? 'This year',
-      beginDate: new TcDate().startOf('year').toDate(),
-      endDate: new TcDate().endOf('year').toDate(),
-    },
-    {
-      id: translations?.previousWeek ?? 'Previous week',
-      beginDate: new TcDate().subtract(1, 'week').startOf('week').toDate(),
-      endDate: new TcDate().subtract(1, 'week').endOf('week').toDate(),
-    },
-    {
-      id: translations?.previousMonth ?? 'Previous month',
-      beginDate: new TcDate().subtract(1, 'month').startOf('month').toDate(),
-      endDate: new TcDate().subtract(1, 'month').endOf('month').toDate(),
-    },
-    {
-      id: translations?.previousQuarter ?? 'Previous quarter',
-      beginDate: new TcDate().subtract(1, 'quarter').startOf('quarter').toDate(),
-      endDate: new TcDate().subtract(1, 'quarter').endOf('quarter').toDate(),
-    },
-    {
-      id: translations?.previousYear ?? 'Previous year',
-      beginDate: new TcDate().subtract(1, 'year').startOf('year').toDate(),
-      endDate: new TcDate().subtract(1, 'year').endOf('year').toDate(),
-    },
-  ];
+  // const quickSelectOptions: QuickSelectOption<Date>[] = [
+  //   {
+  //     id: translations?.today ?? 'Today',
+  //     beginDate: new Date(),
+  //     endDate: new Date(),
+  //   },
+  //   {
+  //     id: translations?.yesterday ?? 'Yesterday',
+  //     beginDate: new TcDate().subtract(1, 'day').toDate(),
+  //     endDate: new TcDate().subtract(1, 'day').toDate(),
+  //   },
+  //   {
+  //     id: translations?.thisWeek ?? 'This week',
+  //     beginDate: new TcDate().startOf('week').toDate(),
+  //     endDate: new TcDate().endOf('week').toDate(),
+  //   },
+  //   {
+  //     id: translations?.thisMonth ?? 'This month',
+  //     beginDate: new TcDate().startOf('month').toDate(),
+  //     endDate: new TcDate().endOf('month').toDate(),
+  //   },
+  //   {
+  //     id: translations?.thisQuarter ?? 'This quarter',
+  //     beginDate: new TcDate().startOf('quarter').toDate(),
+  //     endDate: new TcDate().endOf('quarter').toDate(),
+  //   },
+  //   {
+  //     id: translations?.thisYear ?? 'This year',
+  //     beginDate: new TcDate().startOf('year').toDate(),
+  //     endDate: new TcDate().endOf('year').toDate(),
+  //   },
+  //   {
+  //     id: translations?.previousWeek ?? 'Previous week',
+  //     beginDate: new TcDate().subtract(1, 'week').startOf('week').toDate(),
+  //     endDate: new TcDate().subtract(1, 'week').endOf('week').toDate(),
+  //   },
+  //   {
+  //     id: translations?.previousMonth ?? 'Previous month',
+  //     beginDate: new TcDate().subtract(1, 'month').startOf('month').toDate(),
+  //     endDate: new TcDate().subtract(1, 'month').endOf('month').toDate(),
+  //   },
+  //   {
+  //     id: translations?.previousQuarter ?? 'Previous quarter',
+  //     beginDate: new TcDate().subtract(1, 'quarter').startOf('quarter').toDate(),
+  //     endDate: new TcDate().subtract(1, 'quarter').endOf('quarter').toDate(),
+  //   },
+  //   {
+  //     id: translations?.previousYear ?? 'Previous year',
+  //     beginDate: new TcDate().subtract(1, 'year').startOf('year').toDate(),
+  //     endDate: new TcDate().subtract(1, 'year').endOf('year').toDate(),
+  //   },
+  // ];
 
   const inputBaseOverrides: InputOverrides = {
     Input: {
@@ -185,96 +185,63 @@ export const Datepicker = ({
   };
 
   const datepickerBaseOverrides: DatepickerOverrides = {
-    CalendarHeader: {
-      style: {
-        backgroundColor: primaryB,
-        ...borderBottom(border300),
-      },
-    },
-    MonthHeader: {
-      style: {
-        backgroundColor: primaryB,
-        color: primaryA,
-        fontWeight: 600,
-      },
-    },
-    MonthYearSelectButton: {
-      style: {
-        color: primaryA,
-        fontWeight: 600,
-      },
-    },
-    PrevButton: {
-      style: {
-        color: contentTertiary,
-      },
-    },
-    NextButton: {
-      style: {
-        color: contentTertiary,
-      },
-    },
-    QuickSelect: {
-      component: (props) => (
-        <SingleSelect
-          {...props}
-          disableSortOptions
-          placeholder={translations?.chooseRangeLabel ?? 'Choose a date range'}
-        />
-      ),
-    },
-    QuickSelectFormControl: {
-      props: {
-        overrides: {
-          Label: () => <LabelSmall>{translations?.chooseRangeLabel ?? 'Choose a date range'}</LabelSmall>,
-        },
-      },
-    },
+    //TODO: usememo?
+    ...CalendarOverride(),
     Input: {
       props: {
         overrides: inputBaseOverrides,
         endEnhancer: <CalendarIcon size={scale600} color={iconColor || contentTertiary} />,
       },
     },
+    //Need the zindex
     Popover: {
       props: {
-        placement: placement,
-        overrides: {
-          Body: {
-            style: () => ({
-              zIndex: 1000,
-            }),
-          },
-        },
+        placement: 'bottomLeft',
+        // overrides: {
+        //   Body: {
+        //     style: () => ({
+        //       zIndex: 1000,
+        //     }),
+        //   },
+        // },
       },
     },
-    MonthYearSelectPopover: {
-      props: {
-        overrides: {
-          Body: {
-            style: () => ({
-              zIndex: 1001,
-            }),
-          },
-        },
-      },
-    },
+    // MonthYearSelectPopover: {
+    //   props: {
+    //     overrides: {
+    //       Body: {
+    //         style: () => ({
+    //           zIndex: 1001,
+    //         }),
+    //       },
+    //     },
+    //   },
+    // },
   };
+
+  console.log('testt:::: ', CalendarOverride());
 
   if (showSkeleton) {
     return <Skeleton animation height={scale975} />;
   }
 
+  //const defaultOverrides = CalendarOverride();
+
+  //console.log('testtt123123', defaultOverrides);
+
   return (
-    <DatePicker
-      value={customValue}
-      locale={localeObj}
-      quickSelectOptions={quickSelectOptions}
-      overrides={{
-        ...datepickerBaseOverrides,
-        ...overrides,
-      }}
-      {...rest}
-    />
+    <>
+      <DatePicker
+        value={customValue}
+        locale={localeObj}
+        quickSelect={false}
+        // quickSelectOptions={quickSelectOptions}
+        overrides={{
+          ...datepickerBaseOverrides,
+          ...overrides,
+        }}
+        {...rest}
+      />
+    </>
   );
 };

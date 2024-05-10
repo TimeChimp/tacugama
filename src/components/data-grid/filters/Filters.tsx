@@ -52,28 +52,27 @@ export const Filters = ({
 
   return (
     <StyledDataGridFilters ref={ref}>
-      <FlexItem justifyContent="start">
-        {filtering && (
-          <StyledDataGridSearch>
-            <SearchInput
-              testId={SEARCH_INPUT_TEST_ID}
-              size="mini"
-              placeholder={searchBar}
-              onChange={onSearchChange}
-              value={searchValue}
-            />
-          </StyledDataGridSearch>
-        )}
-        <ColumnFilters
-          api={api}
-          translations={translations}
-          onShowLessFiltersChange={(showLessFilters: boolean) => {
-            onShowLessFiltersChange && onShowLessFiltersChange(showLessFilters);
-            handleResize();
-          }}
-          {...rest}
-        />
-      </FlexItem>
+      {filtering && (
+        <StyledDataGridSearch>
+          <SearchInput
+            testId={SEARCH_INPUT_TEST_ID}
+            size="mini"
+            placeholder={searchBar}
+            onChange={onSearchChange}
+            value={searchValue}
+          />
+        </StyledDataGridSearch>
+      )}
+      <ColumnFilters
+        api={api}
+        translations={translations}
+        onShowLessFiltersChange={(showLessFilters: boolean) => {
+          onShowLessFiltersChange && onShowLessFiltersChange(showLessFilters);
+          handleResize();
+        }}
+        filtering={filtering}
+        {...rest}
+      />
     </StyledDataGridFilters>
   );
 };

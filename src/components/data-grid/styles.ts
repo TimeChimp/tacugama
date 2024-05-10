@@ -103,14 +103,17 @@ export const StyledAgGridReact = themedStyled<typeof AgGridReact, StyledDataGrid
 
 export const StyledDataGridFilters = themedStyled('div', ({ $theme }) => ({
   width: '100%',
-  ...margin($theme.sizing.scale400, '0'),
+  ...padding($theme.sizing.scale300, '0'),
   display: 'flex',
-  justifyContent: 'space-between',
+  gap: $theme.sizing.scale300,
+  flexWrap: 'wrap',
+  // justifyContent: 'space-between',
 }));
 
 export const StyledDataGridSearch = themedStyled('div', ({ $theme }) => ({
   width: '280px',
-  ...margin($theme.sizing.scale200, $theme.sizing.scale300, '0', '0'),
+  ...padding($theme.sizing.scale100, '0'),
+  //...margin($theme.sizing.scale200, $theme.sizing.scale300, '0', '0'),
 }));
 
 export const StyledFooterRowCount = themedStyled('div', ({ $theme }) => ({
@@ -153,6 +156,10 @@ export const StyledHeaderCheckboxValue = themedStyled('div', ({ $theme }) => ({
 
 interface StyledDataGridHeaderProps {
   $justifyContent?: string;
+}
+
+interface StyledDateFilterColumnProps {
+  $isFirstColumn?: boolean;
 }
 
 export const StyledDataGridHeader = themedStyled<'div', StyledDataGridHeaderProps>(
@@ -209,4 +216,24 @@ export const StyledViewOptionsFooter = themedStyled('div', ({ $theme }) => ({
 
 export const StyledGroupRowInnerRendererContainer = themedStyled('div', () => ({
   display: 'inline-block',
+}));
+
+export const StyledDateFilterColumn = themedStyled<'div', StyledDateFilterColumnProps>(
+  'div',
+  ({ $isFirstColumn, $theme }) => ({
+    ...($isFirstColumn
+      ? {
+          ...padding($theme.sizing.scale100, $theme.sizing.scale300, $theme.sizing.scale100, '0'),
+          ...borderRight($theme.borders.border200),
+        }
+      : {
+          ...padding($theme.sizing.scale100, $theme.sizing.scale300),
+          ...borderRight($theme.borders.border200),
+          ...borderLeft($theme.borders.border200),
+        }),
+  }),
+);
+
+export const StyledFilterColumn = themedStyled('div', ({ $theme }) => ({
+  ...padding($theme.sizing.scale100, '0'),
 }));

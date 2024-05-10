@@ -18,9 +18,9 @@ export interface FilterButtonProps extends ButtonProps {
   arrows?: boolean;
 }
 
-export const FilterButtonBox = themedStyled('div', ({ $theme }) => ({
-  ...padding($theme.sizing.scale200, $theme.sizing.scale300, '0', '0'),
-}));
+// export const FilterButtonBox = themedStyled('div', ({ $theme }) => ({
+//   ...padding($theme.sizing.scale200, '0'),
+// }));
 
 export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
   ({ title, testId, onClear, hasValue = false, isActive = false, arrows, ...rest }: FilterButtonProps, ref) => {
@@ -33,36 +33,34 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
     } = useTheme();
 
     return (
-      <FilterButtonBox>
-        <Button
-          kind={ButtonKind.secondary}
-          ref={ref}
-          testId={testId ?? FILTER_BUTTON_TEST_ID}
-          endEnhancer={
-            <>
-              {arrows && <CaretDownIcon />}
-              {hasValue && onClear && (
-                <Button kind={ButtonKind.minimal} onClick={onClear}>
-                  <ClearLineIcon color={primaryA} />
-                </Button>
-              )}
-            </>
-          }
-          {...rest}
-        >
-          <ParagraphSmall
-            overrides={{
-              Block: {
-                style: {
-                  fontWeight: isActive ? 600 : 400,
-                },
+      <Button
+        kind={ButtonKind.secondary}
+        ref={ref}
+        testId={testId ?? FILTER_BUTTON_TEST_ID}
+        endEnhancer={
+          <>
+            {arrows && <CaretDownIcon />}
+            {hasValue && onClear && (
+              <Button kind={ButtonKind.minimal} onClick={onClear}>
+                <ClearLineIcon color={primaryA} />
+              </Button>
+            )}
+          </>
+        }
+        {...rest}
+      >
+        <ParagraphSmall
+          overrides={{
+            Block: {
+              style: {
+                fontWeight: isActive ? 600 : 400,
               },
-            }}
-          >
-            {title}
-          </ParagraphSmall>
-        </Button>
-      </FilterButtonBox>
+            },
+          }}
+        >
+          {title}
+        </ParagraphSmall>
+      </Button>
     );
   },
 );
