@@ -17,7 +17,7 @@ export interface DatepickerRangeTranslations {
   allPeriods?: string;
 }
 
-export interface DatepickerProps extends Omit<BaseDatepickerProps, 'quickSelect'> {
+export interface DatepickerProps extends Omit<BaseDatepickerProps, 'quickSelect' | 'range'> {
   locale?: SupportedLocale;
   testId?: string;
   noBorder?: boolean;

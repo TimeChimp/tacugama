@@ -1,12 +1,7 @@
-import { TetherPlacement } from 'baseui/layer';
-import { CalendarProps } from 'baseui/datepicker';
 import { SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerRangeTranslations } from '../datepicker';
 import { SingleSelectOption as Option } from '../select';
 import { QuickSelectDateOption } from '../../models';
-
-//TODO: remove this?
-export type DatepickerOption = Option<string, 'id', 'id'>;
 
 interface QuickSelectOptionCustom {
   id: QuickSelectDateOption.CUSTOM;

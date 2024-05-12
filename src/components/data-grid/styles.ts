@@ -107,13 +107,11 @@ export const StyledDataGridFilters = themedStyled('div', ({ $theme }) => ({
   display: 'flex',
   gap: $theme.sizing.scale300,
   flexWrap: 'wrap',
-  // justifyContent: 'space-between',
 }));
 
 export const StyledDataGridSearch = themedStyled('div', ({ $theme }) => ({
   width: '280px',
   ...padding($theme.sizing.scale100, '0'),
-  //...margin($theme.sizing.scale200, $theme.sizing.scale300, '0', '0'),
 }));
 
 export const StyledFooterRowCount = themedStyled('div', ({ $theme }) => ({

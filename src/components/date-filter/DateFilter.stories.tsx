@@ -18,7 +18,7 @@ const Template: Story<DateFilterProps> = (args) => {
     new TcDate().endOf('month').toDate(),
   ]);
 
-  return <DateFilter {...args} date={date} onChange={(date) => setDate(date as [Date, Date])} />;
+  return <DateFilter {...args} dates={date} onChange={(date) => setDate(date as [Date, Date])} />;
 };
 
 export const Default = Template.bind({});

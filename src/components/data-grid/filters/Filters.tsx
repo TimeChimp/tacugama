@@ -2,7 +2,6 @@ import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { FiltersProps } from '../types';
 import { StyledDataGridFilters, StyledDataGridSearch } from '../styles';
 import { SearchInput } from '../../input';
-import { FlexItem } from '../../flex-item';
 import { ColumnFilters } from './ColumnFilters';
 import { debounce } from '../../../utils';
 
@@ -70,7 +69,7 @@ export const Filters = ({
           onShowLessFiltersChange && onShowLessFiltersChange(showLessFilters);
           handleResize();
         }}
-        filtering={filtering}
+        searchIsShown={filtering}
         {...rest}
       />
     </StyledDataGridFilters>

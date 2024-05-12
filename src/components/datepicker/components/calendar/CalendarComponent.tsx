@@ -19,7 +19,6 @@ export const CalendarOverride = (): DatepickerOverrides => {
     },
   } = useTheme();
   return {
-    //TODO: style dropdown?
     CalendarContainer: {
       style: {
         paddingTop: '0',
@@ -76,7 +75,6 @@ export const CalendarOverride = (): DatepickerOverrides => {
     MonthHeader: {
       style: {
         backgroundColor: primaryB,
-        //Set type?
         fontWeight: 600,
         display: 'flex',
         justifyContent: 'space-between',
@@ -142,11 +140,6 @@ export const CalendarComponent = ({ date, onChange, locale }: CalendarComponentP
   useEffect(() => {
     if (locale) {
       const localeObj = getDateLocale(locale);
-
-      //   if (weekStartDay && localeObj.options) {
-      //     localeObj.options.weekStartsOn = weekStartDay;
-      //   }
-
       setLocaleObj(localeObj);
     }
   }, [locale]);
@@ -155,9 +148,7 @@ export const CalendarComponent = ({ date, onChange, locale }: CalendarComponentP
     <Calendar
       value={date}
       locale={localeObj}
-      onChange={({ date }) => {
-        onChange(date);
-      }}
+      onChange={({ date }) => onChange(date)}
       range
       overrides={CalendarOverride()}
     />

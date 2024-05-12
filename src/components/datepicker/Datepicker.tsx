@@ -122,7 +122,6 @@ export const Datepicker = ({
   };
 
   const datepickerBaseOverrides: DatepickerOverrides = {
-    //TODO: usememo?
     ...CalendarOverride(),
     Input: {
       props: {
@@ -130,7 +129,6 @@ export const Datepicker = ({
         endEnhancer: <CalendarIcon size={scale600} color={iconColor || contentTertiary} />,
       },
     },
-    //Need globally??
     Popover: {
       props: {
         placement: 'bottomLeft',

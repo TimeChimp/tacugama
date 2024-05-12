@@ -5,8 +5,6 @@ import { CaretDownIcon } from '../../icons/caret-down';
 import { ClearLineIcon } from '../../icons/clear-line';
 import { useTheme } from '../../../providers';
 import { ButtonKind } from '../../../models';
-import { themedStyled } from '../../../theme';
-import { padding } from '../../../utils';
 
 const FILTER_BUTTON_TEST_ID = 'filter-button';
 
@@ -17,10 +15,6 @@ export interface FilterButtonProps extends ButtonProps {
   onClear?: () => void;
   arrows?: boolean;
 }
-
-// export const FilterButtonBox = themedStyled('div', ({ $theme }) => ({
-//   ...padding($theme.sizing.scale200, '0'),
-// }));
 
 export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
   ({ title, testId, onClear, hasValue = false, isActive = false, arrows, ...rest }: FilterButtonProps, ref) => {
