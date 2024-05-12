@@ -19,13 +19,10 @@ export interface DatepickerRangeTranslations {
 
 export interface DatepickerProps extends Omit<BaseDatepickerProps, 'quickSelect'> {
   locale?: SupportedLocale;
-  weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
   testId?: string;
   noBorder?: boolean;
   iconColor?: string;
   customValue: Date[];
   onChange: ({ date }: { date: any }) => void;
   showSkeleton?: boolean;
-  //TODO: remove quickSelect, check first if it is used in the project
-  quickSelect?: 5;
 }

@@ -136,20 +136,20 @@ export const CalendarOverride = (): DatepickerOverrides => {
   };
 };
 
-export const CalendarComponent = ({ date, onChange, locale, weekStartDay }: CalendarComponentProps) => {
+export const CalendarComponent = ({ date, onChange, locale }: CalendarComponentProps) => {
   const [localeObj, setLocaleObj] = useState<Locale>();
 
   useEffect(() => {
     if (locale) {
       const localeObj = getDateLocale(locale);
 
-      if (weekStartDay && localeObj.options) {
-        localeObj.options.weekStartsOn = weekStartDay;
-      }
+      //   if (weekStartDay && localeObj.options) {
+      //     localeObj.options.weekStartsOn = weekStartDay;
+      //   }
 
       setLocaleObj(localeObj);
     }
-  }, [locale, weekStartDay]);
+  }, [locale]);
 
   return (
     <Calendar

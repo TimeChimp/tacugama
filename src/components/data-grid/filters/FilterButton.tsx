@@ -31,7 +31,6 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
         },
       },
     } = useTheme();
-
     return (
       <Button
         kind={ButtonKind.secondary}

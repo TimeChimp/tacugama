@@ -8,7 +8,9 @@ import { getDateLocale, TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerOption, DatepickerPopoverProps } from './types';
 import { LabelSmall } from '../typography/label-small';
 
-//TODO: remove once this component is replaced by DateFilter
+/**
+ * @deprecated This component has been deprecated and will be removed in a future version.
+ */
 export const DatepickerPopover = ({
   date,
   placement = 'bottomLeft',

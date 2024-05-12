@@ -24,10 +24,9 @@ export type QuickSelectOption = QuickSelectOptionCustom | QuickSelectOptionPrede
 
 export interface DateFilterProps {
   locale: SupportedLocale;
-  weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | undefined;
   translations?: DatepickerRangeTranslations;
   onChange: (date: [Date, Date]) => void;
   dateFormat: string;
-  defaultQuickSelect?: QuickSelectDateOption;
+  defaultQuickSelect?: Exclude<QuickSelectDateOption, QuickSelectDateOption.CUSTOM>;
   dates?: Date[];
 }

@@ -21,13 +21,11 @@ import { CalendarOverride } from '../datepicker/components';
 export const Datepicker = ({
   customValue,
   locale = 'en',
-  weekStartDay,
   overrides,
   noBorder,
   testId,
   iconColor,
   showSkeleton = false,
-  quickSelect,
   ...rest
 }: DatepickerProps) => {
   const [localeObj, setLocaleObj] = useState<Locale>();
@@ -50,14 +48,9 @@ export const Datepicker = ({
   useEffect(() => {
     if (locale) {
       const localeObj = getDateLocale(locale);
-
-      if (weekStartDay && localeObj.options) {
-        localeObj.options.weekStartsOn = weekStartDay;
-      }
-
       setLocaleObj(localeObj);
     }
-  }, [locale, weekStartDay]);
+  }, [locale]);
 
   const inputBaseOverrides: InputOverrides = {
     Input: {
@@ -150,17 +143,6 @@ export const Datepicker = ({
         },
       },
     },
-    // MonthYearSelectPopover: {
-    //   props: {
-    //     overrides: {
-    //       Body: {
-    //         style: () => ({
-    //           zIndex: 1001,
-    //         }),
-    //       },
-    //     },
-    //   },
-    // },
   };
 
   if (showSkeleton) {

@@ -15,7 +15,6 @@ import { CalendarComponent } from '../datepicker/components/calendar';
 //Move this filter component to datagrid
 export const DateFilter = ({
   locale = 'en',
-  weekStartDay,
   translations,
   onChange,
   dateFormat,
@@ -130,7 +129,7 @@ export const DateFilter = ({
     if (dates?.length === 2) {
       return `${getDateTitleFormat(dates[0])} - ${getDateTitleFormat(dates[1])}`;
     }
-    return '';
+    return translations?.chooseRangeLabel ?? 'Choose a date range';
   }, [dates, dateFormat]);
 
   const onQuickSelect = (option: QuickSelectOption) => {
@@ -201,14 +200,7 @@ export const DateFilter = ({
             },
           }}
           showArrow
-          content={() => (
-            <CalendarComponent
-              locale={locale}
-              date={internalDate}
-              onChange={onCalendarChange}
-              weekStartDay={weekStartDay}
-            />
-          )}
+          content={() => <CalendarComponent locale={locale} date={internalDate} onChange={onCalendarChange} />}
         >
           <Button size={SIZE.compact} kind={ButtonKind.secondary}>
             {dateTitle}
