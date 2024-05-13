@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { ColumnFiltersProps, Filter, FilterType, FilterValue } from '../types';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
+import { ColumnFiltersProps, FilterType, FilterValue } from '../types';
 import { SIZE } from 'baseui/button';
 import { Dropdown, DropdownItem } from '../../dropdown';
 import { MinusIcon } from '../../icons/minus';
@@ -145,14 +145,13 @@ export const ColumnFilters = ({
     filterOnDate(columnField, dates);
   };
 
-  const getFilters = () => {
-    validateFilters();
+  const shownFilters = useMemo(() => {
     const visibleFilters = filters?.filter((filter) => !filter.hide);
     if (showLessFilters) {
-      return visibleFilters?.slice(0, 2);
+      return visibleFilters?.slice(0, 2) ?? [];
     }
-    return visibleFilters;
-  };
+    return visibleFilters ?? [];
+  }, [filters, showLessFilters]);
 
   const onSetFilterClear = (columnField: string) => {
     api.destroyFilter(columnField);
@@ -199,21 +198,33 @@ export const ColumnFilters = ({
       : !!selectedFilterIds[columnField];
 
   const onClearFiltersClick = () => {
-    const visibleFilters = getFilters();
-    visibleFilters?.map((filter) => onSetFilterClear(filter.columnField));
+    shownFilters?.map((filter) => onSetFilterClear(filter.columnField));
   };
 
   const filtersWithoutSettings = filters?.filter((item) => item.type !== FilterType.settings && !item.hide);
 
+  const showDateDivider = (type: 'left' | 'right', index: number) => {
+    if (type === 'left') {
+      return index !== 0 || searchIsShown;
+    }
+    if (type === 'right' && (filtersWithoutSettings || [])?.length > 2) {
+      return true;
+    }
+    return index !== shownFilters.length - 1;
+  };
+
   return (
     <>
-      {!!getFilters()?.length && (
+      {!!shownFilters?.length && (
         <>
-          {getFilters()?.map(
+          {shownFilters?.map(
             ({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon: Icon, clearable }, index) => {
               if (type === FilterType.date) {
                 return (
-                  <StyledDateFilterColumn $isFirstColumn={index === 0 && !searchIsShown}>
+                  <StyledDateFilterColumn
+                    $showLeftDivider={showDateDivider('left', index)}
+                    $showRightDivider={showDateDivider('right', index)}
+                  >
                     <DateFilter
                       locale={locale ?? 'en'}
                       translations={datepickerTranslations}
@@ -291,6 +302,7 @@ export const ColumnFilters = ({
               return null;
             },
           )}
+
           {(filtersWithoutSettings || [])?.length > 2 && (
             <StyledFilterColumn>
               {showLessFilters ? (

@@ -8,7 +8,8 @@ interface StyledDataGridHeaderProps {
 }
 
 interface StyledDateFilterColumnProps {
-  $isFirstColumn?: boolean;
+  $showLeftDivider?: boolean;
+  $showRightDivider?: boolean;
 }
 
 export const PAGINATION_SELECTED_ROWS_WIDTH = 285;
@@ -218,18 +219,30 @@ export const StyledGroupRowInnerRendererContainer = themedStyled('div', () => ({
 
 export const StyledDateFilterColumn = themedStyled<'div', StyledDateFilterColumnProps>(
   'div',
-  ({ $isFirstColumn, $theme }) => ({
-    ...($isFirstColumn
-      ? {
-          ...padding($theme.sizing.scale100, $theme.sizing.scale300, $theme.sizing.scale100, '0'),
-          ...borderRight($theme.borders.border200),
-        }
-      : {
-          ...padding($theme.sizing.scale100, $theme.sizing.scale300),
-          ...borderRight($theme.borders.border200),
-          ...borderLeft($theme.borders.border200),
-        }),
-  }),
+  ({ $showLeftDivider, $showRightDivider, $theme }) => {
+    if ($showLeftDivider && $showRightDivider) {
+      return {
+        ...padding($theme.sizing.scale100, $theme.sizing.scale300),
+        ...borderRight($theme.borders.border200),
+        ...borderLeft($theme.borders.border200),
+      };
+    }
+    if ($showRightDivider) {
+      return {
+        ...padding($theme.sizing.scale100, $theme.sizing.scale300, $theme.sizing.scale100, '0'),
+        ...borderRight($theme.borders.border200),
+      };
+    }
+    if ($showLeftDivider) {
+      return {
+        ...padding($theme.sizing.scale100, '0', $theme.sizing.scale100, $theme.sizing.scale300),
+        ...borderLeft($theme.borders.border200),
+      };
+    }
+    return {
+      ...padding($theme.sizing.scale100, '0'),
+    };
+  },
 );
 
 export const StyledFilterColumn = themedStyled('div', ({ $theme }) => ({
