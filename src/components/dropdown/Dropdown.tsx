@@ -171,6 +171,7 @@ const DropdownBase = ({
       </Popover>
     );
   }
+
   const { onOpen, onClose } = rest as DropdownProps;
   return (
     <StatefulPopover

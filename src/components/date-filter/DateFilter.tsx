@@ -131,9 +131,10 @@ export const DateFilter = ({
     [],
   );
 
-  const activeQuickSelect = useMemo(() => {
-    return quickSelectOptions.find((option) => option.id === activeQuickSelectId);
-  }, [activeQuickSelectId]);
+  const activeQuickSelect = useMemo(
+    () => quickSelectOptions.find((option) => option.id === activeQuickSelectId),
+    [activeQuickSelectId],
+  );
 
   useEffect(() => {
     if (
@@ -154,18 +155,18 @@ export const DateFilter = ({
     },
   } = useTheme();
 
-  const getDateTitleFormat = (date: Date) => new TcDate(date).format(dateFormat);
-
   const dateTitle = useMemo(() => {
     if (dates?.length === 2) {
-      return `${getDateTitleFormat(dates[0])} - ${getDateTitleFormat(dates[1])}`;
+      const startDate = new TcDate(dates[0]).format(dateFormat);
+      const endDate = new TcDate(dates[1]).format(dateFormat);
+      return `${startDate} - ${endDate}`;
     }
     return translations?.chooseRangeLabel ?? 'Choose a date range';
   }, [dates, dateFormat]);
 
   const onCalendarChange = (date: Date | (Date | null | undefined)[] | undefined | null) => {
     if (Array.isArray(date)) {
-      const filteredDates: Date[] = date.filter((d) => d instanceof Date) as Date[];
+      const filteredDates = date.filter((d) => d instanceof Date) as Date[];
 
       setInternalDate((prevDate) => {
         if (filteredDates.length === 2 || prevDate?.length === 2) {

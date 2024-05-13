@@ -3,6 +3,14 @@ import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
 import { margin, padding, borderTop, borderRight, borderLeft, borderBottom } from '../../utils';
 
+interface StyledDataGridHeaderProps {
+  $justifyContent?: string;
+}
+
+interface StyledDateFilterColumnProps {
+  $isFirstColumn?: boolean;
+}
+
 export const PAGINATION_SELECTED_ROWS_WIDTH = 285;
 
 export const getGridThemeOverrides = (theme: CustomThemeType) => {
@@ -151,14 +159,6 @@ export const StyledHeaderCheckbox = themedStyled('div', {
 export const StyledHeaderCheckboxValue = themedStyled('div', ({ $theme }) => ({
   ...padding('0', '0', '0', $theme.sizing.scale0),
 }));
-
-interface StyledDataGridHeaderProps {
-  $justifyContent?: string;
-}
-
-interface StyledDateFilterColumnProps {
-  $isFirstColumn?: boolean;
-}
 
 export const StyledDataGridHeader = themedStyled<'div', StyledDataGridHeaderProps>(
   'div',

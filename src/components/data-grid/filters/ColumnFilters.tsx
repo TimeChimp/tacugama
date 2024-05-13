@@ -276,7 +276,7 @@ export const ColumnFilters = ({
                       searchPlaceholder={searchPlaceholder || search}
                       isLoading={valuesLoading}
                       title={getSetTitle(columnField, title)}
-                      startEnhancer={Icon && <Icon color={getSetIconColor(columnField)} />}
+                      startEnhancer={Icon ? <Icon color={getSetIconColor(columnField)} /> : null}
                       size={SIZE.compact}
                       isActive={isSetFilterActive(columnField)}
                       onClear={() => onSetFilterClear(columnField)}
