@@ -36,6 +36,7 @@ export const ColumnFilters = ({
   initialShowLessFilters,
   onShowLessFiltersChange,
   searchIsShown,
+  defaultDateQuickSelect,
 }: ColumnFiltersProps) => {
   const [showLessFilters, setShowLessFilters] = useState<boolean>(initialShowLessFilters ?? true);
 
@@ -219,6 +220,7 @@ export const ColumnFilters = ({
                       onChange={(dates) => onDateSelect({ dates, columnField })}
                       dateFormat={dateFormat}
                       dates={dates}
+                      defaultQuickSelect={defaultDateQuickSelect}
                     />
                   </StyledDateFilterColumn>
                 );

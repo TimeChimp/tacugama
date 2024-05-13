@@ -73,7 +73,7 @@ import { FlexItem } from '../flex-item';
 import { ParagraphSmall } from '../typography';
 import { Button } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
-import { ButtonKind } from '../../models';
+import { ButtonKind, QuickSelectDateOption } from '../../models';
 import { CaretDownIcon, CaretUpIcon, DragDropIcon } from '../icons';
 import { HeaderColumnSettings } from './header-column-settings';
 
@@ -152,6 +152,7 @@ export const DataGrid = ({
   setFiltersHeight,
   hasStoredFilters,
   onCellClicked,
+  defaultDateQuickSelect = QuickSelectDateOption.THIS_YEAR,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -883,6 +884,7 @@ export const DataGrid = ({
         initialShowLessFilters={initialShowLessFilters}
         onShowLessFiltersChange={onShowLessFiltersChange}
         setFiltersHeight={setFiltersHeight}
+        defaultDateQuickSelect={defaultDateQuickSelect}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {showDataGridHeader && (

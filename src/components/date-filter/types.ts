@@ -1,6 +1,5 @@
 import { SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerRangeTranslations } from '../datepicker';
-import { SingleSelectOption as Option } from '../select';
 import { QuickSelectDateOption } from '../../models';
 
 interface QuickSelectOptionCustom {
@@ -9,7 +8,7 @@ interface QuickSelectOptionCustom {
 }
 
 interface QuickSelectOptionPredefined {
-  id: Exclude<QuickSelectDateOption, QuickSelectDateOption.CUSTOM>;
+  id: QuickSelectDateOption;
   label: string;
   beginDate: Date;
   endDate: Date;
@@ -22,6 +21,6 @@ export interface DateFilterProps {
   translations?: DatepickerRangeTranslations;
   onChange: (date: [Date, Date]) => void;
   dateFormat: string;
-  defaultQuickSelect?: Exclude<QuickSelectDateOption, QuickSelectDateOption.CUSTOM>;
+  defaultQuickSelect?: QuickSelectDateOption;
   dates?: Date[];
 }

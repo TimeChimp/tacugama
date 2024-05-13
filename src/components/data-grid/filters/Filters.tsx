@@ -16,6 +16,7 @@ export const Filters = ({
   onSearch,
   setFiltersHeight,
   onShowLessFiltersChange,
+  defaultDateQuickSelect,
   ...rest
 }: FiltersProps) => {
   const { searchBar } = translations;
@@ -70,6 +71,7 @@ export const Filters = ({
           handleResize();
         }}
         searchIsShown={filtering}
+        defaultDateQuickSelect={defaultDateQuickSelect}
         {...rest}
       />
     </StyledDataGridFilters>

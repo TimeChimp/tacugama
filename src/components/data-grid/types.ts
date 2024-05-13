@@ -22,6 +22,7 @@ import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
 import { AgGridColumnProps } from '@ag-grid-community/react';
 import { DatepickerRangeTranslations } from '../datepicker';
 import { AgGridReact } from '@ag-grid-community/react/lib/agGridReact';
+import { QuickSelectDateOption } from '../../models';
 
 export enum RowModelType {
   clientSide = 'clientSide',
@@ -273,6 +274,7 @@ export interface DataGridProps {
   setFiltersHeight?: (filtersHeight: number) => void;
   hasStoredFilters?: boolean;
   onCellClicked?: (event: CellClickedEvent) => void;
+  defaultDateQuickSelect?: QuickSelectDateOption;
 }
 
 export interface DataGridView {
@@ -315,6 +317,7 @@ export interface FiltersProps {
   initialShowLessFilters?: boolean;
   onShowLessFiltersChange?: (showLessFilters: boolean) => void;
   setFiltersHeight?: (filtersHeight: number) => void;
+  defaultDateQuickSelect: QuickSelectDateOption;
 }
 
 export interface ColumnFiltersProps {
@@ -336,7 +339,9 @@ export interface ColumnFiltersProps {
   initialShowLessFilters?: boolean;
   onShowLessFiltersChange?: (showLessFilters: boolean) => void;
   searchIsShown?: boolean;
+  defaultDateQuickSelect: QuickSelectDateOption;
 }
+
 export interface FooterRowCountProps {
   api: GridApi;
   translations: Translations;

@@ -11,6 +11,76 @@ import { Block } from 'baseui/block';
 import { Dropdown } from '../dropdown';
 import { FilterButton } from '../data-grid/filters/FilterButton';
 import { CalendarComponent } from '../datepicker/components/calendar';
+import { DatepickerRangeTranslations } from '../datepicker';
+
+export const quickDateSelectOptions = (translations?: DatepickerRangeTranslations): QuickSelectOption[] => {
+  return [
+    {
+      id: QuickSelectDateOption.TODAY,
+      label: translations?.today ?? 'Today',
+      beginDate: new Date(),
+      endDate: new Date(),
+    },
+    {
+      id: QuickSelectDateOption.YESTERDAY,
+      label: translations?.yesterday ?? 'Yesterday',
+      beginDate: new TcDate().subtract(1, 'day').toDate(),
+      endDate: new TcDate().subtract(1, 'day').toDate(),
+    },
+    {
+      id: QuickSelectDateOption.THIS_WEEK,
+      label: translations?.thisWeek ?? 'This week',
+      beginDate: new TcDate().startOf('week', 1).getDateWithoutTimeAsUTC(),
+      endDate: new TcDate().endOf('week', 1).getDateWithoutTimeAsUTC(),
+    },
+    {
+      id: QuickSelectDateOption.THIS_MONTH,
+      label: translations?.thisMonth ?? 'This month',
+      beginDate: new TcDate().startOf('month').toDate(),
+      endDate: new TcDate().endOf('month').toDate(),
+    },
+    {
+      id: QuickSelectDateOption.THIS_QUARTER,
+      label: translations?.thisQuarter ?? 'This quarter',
+      beginDate: new TcDate().startOf('quarter').toDate(),
+      endDate: new TcDate().endOf('quarter').toDate(),
+    },
+    {
+      id: QuickSelectDateOption.THIS_YEAR,
+      label: translations?.thisYear ?? 'This year',
+      beginDate: new TcDate().startOf('year').toDate(),
+      endDate: new TcDate().endOf('year').toDate(),
+    },
+    {
+      id: QuickSelectDateOption.PREVIOUS_WEEK,
+      label: translations?.previousWeek ?? 'Previous week',
+      beginDate: new TcDate().subtract(1, 'week').startOf('week', 1).toDate(),
+      endDate: new TcDate().subtract(1, 'week').endOf('week', 1).toDate(),
+    },
+    {
+      id: QuickSelectDateOption.PREVIOUS_MONTH,
+      label: translations?.previousMonth ?? 'Previous month',
+      beginDate: new TcDate().subtract(1, 'month').startOf('month').toDate(),
+      endDate: new TcDate().subtract(1, 'month').endOf('month').toDate(),
+    },
+    {
+      id: QuickSelectDateOption.PREVIOUS_QUARTER,
+      label: translations?.previousQuarter ?? 'Previous quarter',
+      beginDate: new TcDate().subtract(1, 'quarter').startOf('quarter').toDate(),
+      endDate: new TcDate().subtract(1, 'quarter').endOf('quarter').toDate(),
+    },
+    {
+      id: QuickSelectDateOption.PREVIOUS_YEAR,
+      label: translations?.previousYear ?? 'Previous year',
+      beginDate: new TcDate().subtract(1, 'year').startOf('year').toDate(),
+      endDate: new TcDate().subtract(1, 'year').endOf('year').toDate(),
+    },
+    {
+      id: QuickSelectDateOption.CUSTOM,
+      label: translations?.custom ?? 'Custom',
+    },
+  ];
+};
 
 export const DateFilter = ({
   locale = 'en',
@@ -22,114 +92,118 @@ export const DateFilter = ({
 }: DateFilterProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeQuickSelectId, setActiveQuickSelectId] = useState<QuickSelectDateOption>(defaultQuickSelect);
-  const [internalDate, setInternalDate] = useState<Date[]>([]);
+  const [internalDate, setInternalDate] = useState<Date[]>(dates ?? []);
 
   const onQuickSelect = (option: QuickSelectOption) => {
     setActiveQuickSelectId(option?.id);
   };
+  const quickSelectOptions = quickDateSelectOptions(translations).map((option) => ({
+    ...option,
+    action: () => onQuickSelect(option),
+  }));
 
-  const quickSelectOptions: QuickSelectOption[] = useMemo(
-    () => [
-      {
-        id: QuickSelectDateOption.TODAY,
-        label: translations?.today ?? 'Today',
-        beginDate: new Date(),
-        endDate: new Date(),
-        action: function () {
-          onQuickSelect(this);
-        },
-      },
-      {
-        id: QuickSelectDateOption.YESTERDAY,
-        label: translations?.yesterday ?? 'Yesterday',
-        beginDate: new TcDate().subtract(1, 'day').toDate(),
-        endDate: new TcDate().subtract(1, 'day').toDate(),
-        action: function () {
-          onQuickSelect(this);
-        },
-      },
-      {
-        id: QuickSelectDateOption.THIS_WEEK,
-        label: translations?.thisWeek ?? 'This week',
-        beginDate: new TcDate().startOf('week', 1).getDateWithoutTimeAsUTC(),
-        endDate: new TcDate().endOf('week', 1).getDateWithoutTimeAsUTC(),
-        action: function () {
-          onQuickSelect(this);
-        },
-      },
-      {
-        id: QuickSelectDateOption.THIS_MONTH,
-        label: translations?.thisMonth ?? 'This month',
-        beginDate: new TcDate().startOf('month').toDate(),
-        endDate: new TcDate().endOf('month').toDate(),
-        action: function () {
-          onQuickSelect(this);
-        },
-      },
-      {
-        id: QuickSelectDateOption.THIS_QUARTER,
-        label: translations?.thisQuarter ?? 'This quarter',
-        beginDate: new TcDate().startOf('quarter').toDate(),
-        endDate: new TcDate().endOf('quarter').toDate(),
-        action: function () {
-          onQuickSelect(this);
-        },
-      },
-      {
-        id: QuickSelectDateOption.THIS_YEAR,
-        label: translations?.thisYear ?? 'This year',
-        beginDate: new TcDate().startOf('year').toDate(),
-        endDate: new TcDate().endOf('year').toDate(),
-        action: function () {
-          onQuickSelect(this);
-        },
-      },
-      {
-        id: QuickSelectDateOption.PREVIOUS_WEEK,
-        label: translations?.previousWeek ?? 'Previous week',
-        beginDate: new TcDate().subtract(1, 'week').startOf('week', 1).toDate(),
-        endDate: new TcDate().subtract(1, 'week').endOf('week', 1).toDate(),
-        action: function () {
-          onQuickSelect(this);
-        },
-      },
-      {
-        id: QuickSelectDateOption.PREVIOUS_MONTH,
-        label: translations?.previousMonth ?? 'Previous month',
-        beginDate: new TcDate().subtract(1, 'month').startOf('month').toDate(),
-        endDate: new TcDate().subtract(1, 'month').endOf('month').toDate(),
-        action: function () {
-          onQuickSelect(this);
-        },
-      },
-      {
-        id: QuickSelectDateOption.PREVIOUS_QUARTER,
-        label: translations?.previousQuarter ?? 'Previous quarter',
-        beginDate: new TcDate().subtract(1, 'quarter').startOf('quarter').toDate(),
-        endDate: new TcDate().subtract(1, 'quarter').endOf('quarter').toDate(),
-        action: function () {
-          onQuickSelect(this);
-        },
-      },
-      {
-        id: QuickSelectDateOption.PREVIOUS_YEAR,
-        label: translations?.previousYear ?? 'Previous year',
-        beginDate: new TcDate().subtract(1, 'year').startOf('year').toDate(),
-        endDate: new TcDate().subtract(1, 'year').endOf('year').toDate(),
-        action: function () {
-          onQuickSelect(this);
-        },
-      },
-      {
-        id: QuickSelectDateOption.CUSTOM,
-        label: translations?.custom ?? 'Custom',
-        action: function () {
-          onQuickSelect(this);
-        },
-      },
-    ],
-    [],
-  );
+  // const quickSelectOptions: QuickSelectOption[] = useMemo(
+  //   () => [
+  //     {
+  //       id: QuickSelectDateOption.TODAY,
+  //       label: translations?.today ?? 'Today',
+  //       beginDate: new Date(),
+  //       endDate: new Date(),
+  //       action: function () {
+  //         onQuickSelect(this);
+  //       },
+  //     },
+  //     {
+  //       id: QuickSelectDateOption.YESTERDAY,
+  //       label: translations?.yesterday ?? 'Yesterday',
+  //       beginDate: new TcDate().subtract(1, 'day').toDate(),
+  //       endDate: new TcDate().subtract(1, 'day').toDate(),
+  //       action: function () {
+  //         onQuickSelect(this);
+  //       },
+  //     },
+  //     {
+  //       id: QuickSelectDateOption.THIS_WEEK,
+  //       label: translations?.thisWeek ?? 'This week',
+  //       beginDate: new TcDate().startOf('week', 1).getDateWithoutTimeAsUTC(),
+  //       endDate: new TcDate().endOf('week', 1).getDateWithoutTimeAsUTC(),
+  //       action: function () {
+  //         onQuickSelect(this);
+  //       },
+  //     },
+  //     {
+  //       id: QuickSelectDateOption.THIS_MONTH,
+  //       label: translations?.thisMonth ?? 'This month',
+  //       beginDate: new TcDate().startOf('month').toDate(),
+  //       endDate: new TcDate().endOf('month').toDate(),
+  //       action: function () {
+  //         onQuickSelect(this);
+  //       },
+  //     },
+  //     {
+  //       id: QuickSelectDateOption.THIS_QUARTER,
+  //       label: translations?.thisQuarter ?? 'This quarter',
+  //       beginDate: new TcDate().startOf('quarter').toDate(),
+  //       endDate: new TcDate().endOf('quarter').toDate(),
+  //       action: function () {
+  //         onQuickSelect(this);
+  //       },
+  //     },
+  //     {
+  //       id: QuickSelectDateOption.THIS_YEAR,
+  //       label: translations?.thisYear ?? 'This year',
+  //       beginDate: new TcDate().startOf('year').toDate(),
+  //       endDate: new TcDate().endOf('year').toDate(),
+  //       action: function () {
+  //         onQuickSelect(this);
+  //       },
+  //     },
+  //     {
+  //       id: QuickSelectDateOption.PREVIOUS_WEEK,
+  //       label: translations?.previousWeek ?? 'Previous week',
+  //       beginDate: new TcDate().subtract(1, 'week').startOf('week', 1).toDate(),
+  //       endDate: new TcDate().subtract(1, 'week').endOf('week', 1).toDate(),
+  //       action: function () {
+  //         onQuickSelect(this);
+  //       },
+  //     },
+  //     {
+  //       id: QuickSelectDateOption.PREVIOUS_MONTH,
+  //       label: translations?.previousMonth ?? 'Previous month',
+  //       beginDate: new TcDate().subtract(1, 'month').startOf('month').toDate(),
+  //       endDate: new TcDate().subtract(1, 'month').endOf('month').toDate(),
+  //       action: function () {
+  //         onQuickSelect(this);
+  //       },
+  //     },
+  //     {
+  //       id: QuickSelectDateOption.PREVIOUS_QUARTER,
+  //       label: translations?.previousQuarter ?? 'Previous quarter',
+  //       beginDate: new TcDate().subtract(1, 'quarter').startOf('quarter').toDate(),
+  //       endDate: new TcDate().subtract(1, 'quarter').endOf('quarter').toDate(),
+  //       action: function () {
+  //         onQuickSelect(this);
+  //       },
+  //     },
+  //     {
+  //       id: QuickSelectDateOption.PREVIOUS_YEAR,
+  //       label: translations?.previousYear ?? 'Previous year',
+  //       beginDate: new TcDate().subtract(1, 'year').startOf('year').toDate(),
+  //       endDate: new TcDate().subtract(1, 'year').endOf('year').toDate(),
+  //       action: function () {
+  //         onQuickSelect(this);
+  //       },
+  //     },
+  //     {
+  //       id: QuickSelectDateOption.CUSTOM,
+  //       label: translations?.custom ?? 'Custom',
+  //       action: function () {
+  //         onQuickSelect(this);
+  //       },
+  //     },
+  //   ],
+  //   [],
+  // );
 
   const activeQuickSelect = useMemo(
     () => quickSelectOptions.find((option) => option.id === activeQuickSelectId),

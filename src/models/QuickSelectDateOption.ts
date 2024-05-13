@@ -1,5 +1,4 @@
 export enum QuickSelectDateOption {
-  ALL_PERIODS = 'allPeriods',
   TODAY = 'today',
   YESTERDAY = 'yesterday',
   THIS_WEEK = 'thisWeek',
