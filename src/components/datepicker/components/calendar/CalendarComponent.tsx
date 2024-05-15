@@ -6,6 +6,7 @@ import { CaretDownIcon, CaretLeftIcon, CaretRightIcon } from '../../../icons';
 import { useTheme } from '../../../../providers';
 import { CalendarComponentProps } from './types';
 import { getDateLocale } from '@timechimp/timechimp-typescript-helpers';
+import { HIGH_Z_INDEX } from 'models';
 
 export const CalendarOverride = (): DatepickerOverrides => {
   const {
@@ -41,7 +42,7 @@ export const CalendarOverride = (): DatepickerOverrides => {
           Body: {
             style: () => ({
               ...borderRadius(radius200),
-              zIndex: 99999999,
+              zIndex: HIGH_Z_INDEX,
             }),
           },
         },

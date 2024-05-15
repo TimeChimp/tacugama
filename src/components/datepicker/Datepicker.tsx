@@ -148,17 +148,15 @@ export const Datepicker = ({
   }
 
   return (
-    <>
-      <DatePicker
-        value={customValue}
-        locale={localeObj}
-        quickSelect={false}
-        overrides={{
-          ...datepickerBaseOverrides,
-          ...overrides,
-        }}
-        {...rest}
-      />
-    </>
+    <DatePicker
+      value={customValue}
+      locale={localeObj}
+      quickSelect={false}
+      overrides={{
+        ...datepickerBaseOverrides,
+        ...overrides,
+      }}
+      {...rest}
+    />
   );
 };

@@ -30,8 +30,8 @@ export const quickDateSelectOptions = (translations?: DatepickerRangeTranslation
     {
       id: QuickSelectDateOption.THIS_WEEK,
       label: translations?.thisWeek ?? 'This week',
-      beginDate: new TcDate().startOf('week', 1).getDateWithoutTimeAsUTC(),
-      endDate: new TcDate().endOf('week', 1).getDateWithoutTimeAsUTC(),
+      beginDate: new TcDate().startOf('week', 1).toDate(),
+      endDate: new TcDate().endOf('week', 1).toDate(),
     },
     {
       id: QuickSelectDateOption.THIS_MONTH,

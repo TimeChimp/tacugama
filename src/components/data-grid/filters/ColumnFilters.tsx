@@ -17,6 +17,11 @@ const LESS_FILTERS_BUTTON_TEST_ID = 'less-filters-button';
 const MORE_FILTERS_BUTTON_TEST_ID = 'more-filters-button';
 const MULTIPLE_DATE_FILTER_ERROR = 'You can only pass max. 1 date filter';
 
+enum DividerType {
+  LEFT = 'LEFT',
+  RIGHT = 'RIGHT',
+}
+
 export const ColumnFilters = ({
   filters,
   api,
@@ -203,11 +208,11 @@ export const ColumnFilters = ({
 
   const filtersWithoutSettings = filters?.filter((item) => item.type !== FilterType.settings && !item.hide);
 
-  const showDateDivider = (type: 'left' | 'right', index: number) => {
-    if (type === 'left') {
+  const showDateDivider = (type: DividerType, index: number) => {
+    if (type === DividerType.LEFT) {
       return index !== 0 || searchIsShown;
     }
-    if (type === 'right' && (filtersWithoutSettings || [])?.length > 2) {
+    if (type === DividerType.RIGHT && (filtersWithoutSettings || [])?.length > 2) {
       return true;
     }
     return index !== shownFilters.length - 1;
@@ -222,8 +227,8 @@ export const ColumnFilters = ({
               if (type === FilterType.date) {
                 return (
                   <StyledDateFilterColumn
-                    $showLeftDivider={showDateDivider('left', index)}
-                    $showRightDivider={showDateDivider('right', index)}
+                    $showLeftDivider={showDateDivider(DividerType.LEFT, index)}
+                    $showRightDivider={showDateDivider(DividerType.RIGHT, index)}
                   >
                     <DateFilter
                       locale={locale ?? 'en'}
