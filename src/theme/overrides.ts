@@ -1,4 +1,4 @@
-import { CustomOverrideType } from 'models';
+import { CustomOverrideType } from '../models';
 import { customColors } from './colors';
 import { customSizing } from './sizing';
 import { typography } from './typography';

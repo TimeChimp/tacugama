@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { IconOverrides, IconProps } from 'baseui/icon';
-import { ThemeProps } from 'models';
+import { ThemeProps } from '../../../models';
 
 const iconOverrides = ({ $checked }: { $checked: boolean }): IconOverrides => {
   return {
