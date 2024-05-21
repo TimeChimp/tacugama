@@ -5,7 +5,7 @@ import {
   createThemedWithStyle,
   createThemedUseStyletron,
 } from 'baseui';
-import { CustomThemeType, CustomOverrideType, CustomColors } from '../models';
+import { CustomThemeType, CustomOverrideType, CustomColors } from 'models';
 
 import { default as basePrimitives } from './primitives';
 import { default as baseOverrides } from './overrides';
