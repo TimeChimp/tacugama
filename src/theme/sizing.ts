@@ -1,4 +1,4 @@
-import { CustomSizing } from 'models';
+import { CustomSizing } from '../models';
 
 export const customSizing: CustomSizing = {
   scale0250: '-7px',

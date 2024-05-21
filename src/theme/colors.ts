@@ -1,5 +1,5 @@
 import { Theme } from 'baseui/theme';
-import { CustomColors } from 'models';
+import { CustomColors } from '../models';
 import { DeepPartial } from '../utils';
 
 export const customColors: CustomColors = {
