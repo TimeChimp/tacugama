@@ -2,7 +2,6 @@ import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { FiltersProps } from '../types';
 import { StyledDataGridFilters, StyledDataGridSearch } from '../styles';
 import { SearchInput } from '../../input';
-import { FlexItem } from '../../flex-item';
 import { ColumnFilters } from './ColumnFilters';
 import { debounce } from '../../../utils';
 
@@ -17,6 +16,7 @@ export const Filters = ({
   onSearch,
   setFiltersHeight,
   onShowLessFiltersChange,
+  defaultDateQuickSelect,
   ...rest
 }: FiltersProps) => {
   const { searchBar } = translations;
@@ -52,28 +52,28 @@ export const Filters = ({
 
   return (
     <StyledDataGridFilters ref={ref}>
-      <FlexItem justifyContent="start">
-        {filtering && (
-          <StyledDataGridSearch>
-            <SearchInput
-              testId={SEARCH_INPUT_TEST_ID}
-              size="mini"
-              placeholder={searchBar}
-              onChange={onSearchChange}
-              value={searchValue}
-            />
-          </StyledDataGridSearch>
-        )}
-        <ColumnFilters
-          api={api}
-          translations={translations}
-          onShowLessFiltersChange={(showLessFilters: boolean) => {
-            onShowLessFiltersChange && onShowLessFiltersChange(showLessFilters);
-            handleResize();
-          }}
-          {...rest}
-        />
-      </FlexItem>
+      {filtering && (
+        <StyledDataGridSearch>
+          <SearchInput
+            testId={SEARCH_INPUT_TEST_ID}
+            size="mini"
+            placeholder={searchBar}
+            onChange={onSearchChange}
+            value={searchValue}
+          />
+        </StyledDataGridSearch>
+      )}
+      <ColumnFilters
+        api={api}
+        translations={translations}
+        onShowLessFiltersChange={(showLessFilters: boolean) => {
+          onShowLessFiltersChange && onShowLessFiltersChange(showLessFilters);
+          handleResize();
+        }}
+        searchIsShown={filtering}
+        defaultDateQuickSelect={defaultDateQuickSelect}
+        {...rest}
+      />
     </StyledDataGridFilters>
   );
 };

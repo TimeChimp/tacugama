@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FilterButton } from './FilterButton';
 import { SIZE } from 'baseui/button';
 import { Button } from '../../button';
-import { Dropdown, DropdownItem } from '../../dropdown';
+import { DropdownItem, DropdownStateless } from '../../dropdown';
 import { Block } from '../../block';
 import { VirtualScrollList } from '../../virtual-scroll-list';
 import { padding } from '../../../utils';
@@ -39,6 +39,7 @@ export const MultiFilter = ({
 
   const handleApplyFilter = () => {
     onApplyFilter(selectedItems.map((item) => item.id as string));
+    setIsOpen(false);
   };
 
   const handleSelectItem = (item: DropdownItem) => {
@@ -57,8 +58,13 @@ export const MultiFilter = ({
     showTooltip: true,
   }));
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Dropdown
+    <DropdownStateless
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
+      onClick={() => setIsOpen(!isOpen)}
       showSearch
       selection
       items={preparedValues}
@@ -84,6 +90,6 @@ export const MultiFilter = ({
         hasValue={isFilterActive}
         arrows
       />
-    </Dropdown>
+    </DropdownStateless>
   );
 };

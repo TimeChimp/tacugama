@@ -3,6 +3,15 @@ import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
 import { margin, padding, borderTop, borderRight, borderLeft, borderBottom } from '../../utils';
 
+interface StyledDataGridHeaderProps {
+  $justifyContent?: string;
+}
+
+interface StyledDateFilterColumnProps {
+  $showLeftDivider?: boolean;
+  $showRightDivider?: boolean;
+}
+
 export const PAGINATION_SELECTED_ROWS_WIDTH = 285;
 
 export const getGridThemeOverrides = (theme: CustomThemeType) => {
@@ -103,14 +112,15 @@ export const StyledAgGridReact = themedStyled<typeof AgGridReact, StyledDataGrid
 
 export const StyledDataGridFilters = themedStyled('div', ({ $theme }) => ({
   width: '100%',
-  ...margin($theme.sizing.scale400, '0'),
+  ...padding($theme.sizing.scale300, '0'),
   display: 'flex',
-  justifyContent: 'space-between',
+  gap: $theme.sizing.scale300,
+  flexWrap: 'wrap',
 }));
 
 export const StyledDataGridSearch = themedStyled('div', ({ $theme }) => ({
   width: '280px',
-  ...margin($theme.sizing.scale200, $theme.sizing.scale300, '0', '0'),
+  ...padding($theme.sizing.scale100, '0'),
 }));
 
 export const StyledFooterRowCount = themedStyled('div', ({ $theme }) => ({
@@ -150,10 +160,6 @@ export const StyledHeaderCheckbox = themedStyled('div', {
 export const StyledHeaderCheckboxValue = themedStyled('div', ({ $theme }) => ({
   ...padding('0', '0', '0', $theme.sizing.scale0),
 }));
-
-interface StyledDataGridHeaderProps {
-  $justifyContent?: string;
-}
 
 export const StyledDataGridHeader = themedStyled<'div', StyledDataGridHeaderProps>(
   'div',
@@ -209,4 +215,36 @@ export const StyledViewOptionsFooter = themedStyled('div', ({ $theme }) => ({
 
 export const StyledGroupRowInnerRendererContainer = themedStyled('div', () => ({
   display: 'inline-block',
+}));
+
+export const StyledDateFilterColumn = themedStyled<'div', StyledDateFilterColumnProps>(
+  'div',
+  ({ $showLeftDivider, $showRightDivider, $theme }) => {
+    if ($showLeftDivider && $showRightDivider) {
+      return {
+        ...padding($theme.sizing.scale100, $theme.sizing.scale300),
+        ...borderRight($theme.borders.border200),
+        ...borderLeft($theme.borders.border200),
+      };
+    }
+    if ($showRightDivider) {
+      return {
+        ...padding($theme.sizing.scale100, $theme.sizing.scale300, $theme.sizing.scale100, '0'),
+        ...borderRight($theme.borders.border200),
+      };
+    }
+    if ($showLeftDivider) {
+      return {
+        ...padding($theme.sizing.scale100, '0', $theme.sizing.scale100, $theme.sizing.scale300),
+        ...borderLeft($theme.borders.border200),
+      };
+    }
+    return {
+      ...padding($theme.sizing.scale100, '0'),
+    };
+  },
+);
+
+export const StyledFilterColumn = themedStyled('div', ({ $theme }) => ({
+  ...padding($theme.sizing.scale100, '0'),
 }));

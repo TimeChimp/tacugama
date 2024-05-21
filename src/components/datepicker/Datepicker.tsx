@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   border,
-  borderBottom,
   borderRadius,
   getInputBorderColor,
   getInputTextColor,
@@ -10,26 +9,22 @@ import {
   padding,
 } from '../../utils';
 import { useTheme } from '../../providers';
-import { DatePicker, DatepickerOverrides, QuickSelectOption } from 'baseui/datepicker';
-import { SingleSelect } from '../select';
+import { DatePicker, DatepickerOverrides } from 'baseui/datepicker';
 import { DATA_TEST_ID } from '../../models';
 import { InputOverrides } from 'baseui/input';
 import { CalendarIcon } from '../icons/calendar';
-import { getDateLocale, TcDate } from '@timechimp/timechimp-typescript-helpers';
+import { getDateLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerProps } from './types';
 import { Skeleton } from '../skeleton';
-import { LabelSmall } from '../typography';
+import { CalendarOverride } from '../datepicker/components';
 
 export const Datepicker = ({
   customValue,
-  placement = 'bottomLeft',
   locale = 'en',
-  weekStartDay,
   overrides,
   noBorder,
   testId,
   iconColor,
-  translations,
   showSkeleton = false,
   ...rest
 }: DatepickerProps) => {
@@ -40,7 +35,7 @@ export const Datepicker = ({
       current: {
         sizing: { scale500, scale600 },
         customSizing: { scale975 },
-        colors: { primaryA, contentTertiary },
+        colors: { contentTertiary },
         borders,
         colors,
         customColors,
@@ -53,67 +48,9 @@ export const Datepicker = ({
   useEffect(() => {
     if (locale) {
       const localeObj = getDateLocale(locale);
-
-      if (weekStartDay && localeObj.options) {
-        localeObj.options.weekStartsOn = weekStartDay;
-      }
-
       setLocaleObj(localeObj);
     }
-  }, [locale, weekStartDay]);
-
-  const quickSelectOptions: QuickSelectOption<Date>[] = [
-    {
-      id: translations?.today ?? 'Today',
-      beginDate: new Date(),
-      endDate: new Date(),
-    },
-    {
-      id: translations?.yesterday ?? 'Yesterday',
-      beginDate: new TcDate().subtract(1, 'day').toDate(),
-      endDate: new TcDate().subtract(1, 'day').toDate(),
-    },
-    {
-      id: translations?.thisWeek ?? 'This week',
-      beginDate: new TcDate().startOf('week').toDate(),
-      endDate: new TcDate().endOf('week').toDate(),
-    },
-    {
-      id: translations?.thisMonth ?? 'This month',
-      beginDate: new TcDate().startOf('month').toDate(),
-      endDate: new TcDate().endOf('month').toDate(),
-    },
-    {
-      id: translations?.thisQuarter ?? 'This quarter',
-      beginDate: new TcDate().startOf('quarter').toDate(),
-      endDate: new TcDate().endOf('quarter').toDate(),
-    },
-    {
-      id: translations?.thisYear ?? 'This year',
-      beginDate: new TcDate().startOf('year').toDate(),
-      endDate: new TcDate().endOf('year').toDate(),
-    },
-    {
-      id: translations?.previousWeek ?? 'Previous week',
-      beginDate: new TcDate().subtract(1, 'week').startOf('week').toDate(),
-      endDate: new TcDate().subtract(1, 'week').endOf('week').toDate(),
-    },
-    {
-      id: translations?.previousMonth ?? 'Previous month',
-      beginDate: new TcDate().subtract(1, 'month').startOf('month').toDate(),
-      endDate: new TcDate().subtract(1, 'month').endOf('month').toDate(),
-    },
-    {
-      id: translations?.previousQuarter ?? 'Previous quarter',
-      beginDate: new TcDate().subtract(1, 'quarter').startOf('quarter').toDate(),
-      endDate: new TcDate().subtract(1, 'quarter').endOf('quarter').toDate(),
-    },
-    {
-      id: translations?.previousYear ?? 'Previous year',
-      beginDate: new TcDate().subtract(1, 'year').startOf('year').toDate(),
-      endDate: new TcDate().subtract(1, 'year').endOf('year').toDate(),
-    },
-  ];
+  }, [locale]);
 
   const inputBaseOverrides: InputOverrides = {
     Input: {
@@ -185,51 +122,7 @@ export const Datepicker = ({
   };
 
   const datepickerBaseOverrides: DatepickerOverrides = {
-    CalendarHeader: {
-      style: {
-        backgroundColor: primaryB,
-        ...borderBottom(border300),
-      },
-    },
-    MonthHeader: {
-      style: {
-        backgroundColor: primaryB,
-        color: primaryA,
-        fontWeight: 600,
-      },
-    },
-    MonthYearSelectButton: {
-      style: {
-        color: primaryA,
-        fontWeight: 600,
-      },
-    },
-    PrevButton: {
-      style: {
-        color: contentTertiary,
-      },
-    },
-    NextButton: {
-      style: {
-        color: contentTertiary,
-      },
-    },
-    QuickSelect: {
-      component: (props) => (
-        <SingleSelect
-          {...props}
-          disableSortOptions
-          placeholder={translations?.chooseRangeLabel ?? 'Choose a date range'}
-        />
-      ),
-    },
-    QuickSelectFormControl: {
-      props: {
-        overrides: {
-          Label: () => <LabelSmall>{translations?.chooseRangeLabel ?? 'Choose a date range'}</LabelSmall>,
-        },
-      },
-    },
+    ...CalendarOverride(),
     Input: {
       props: {
         overrides: inputBaseOverrides,
@@ -238,22 +131,11 @@ export const Datepicker = ({
     },
     Popover: {
       props: {
-        placement: placement,
+        placement: 'bottomLeft',
         overrides: {
           Body: {
             style: () => ({
               zIndex: 1000,
-            }),
-          },
-        },
-      },
-    },
-    MonthYearSelectPopover: {
-      props: {
-        overrides: {
-          Body: {
-            style: () => ({
-              zIndex: 1001,
             }),
           },
         },
@@ -269,7 +151,7 @@ export const Datepicker = ({
     <DatePicker
       value={customValue}
       locale={localeObj}
-      quickSelectOptions={quickSelectOptions}
+      quickSelect={false}
       overrides={{
         ...datepickerBaseOverrides,
         ...overrides,
