@@ -13,7 +13,7 @@ export const CalendarOverride = (): DatepickerOverrides => {
     theme: {
       current: {
         typography: { LabelMedium, ParagraphSmall },
-        colors: { primaryA, primaryB },
+        colors: { primaryA, primaryB, primary, primary100 },
         sizing: { scale100, scale200, scale600, scale1000 },
         borders: { radius200 },
       },
@@ -119,23 +119,24 @@ export const CalendarOverride = (): DatepickerOverrides => {
           alignItems: 'center',
           width: scale1000,
           height: scale1000,
-
           ...($isHighlighted || $selected
             ? {
                 color: primaryB,
                 ':after': {
-                  backgroundColor: primaryA,
+                  backgroundColor: primary,
+                  borderColor: primary,
                   height: '100%',
                 },
               }
             : {}),
+          ':before': { backgroundColor: primary100 },
         };
       },
     },
   };
 };
 
-export const CalendarComponent = ({ date, onChange, locale }: CalendarComponentProps) => {
+export const CalendarComponent = ({ date, onChange, locale, range = true }: CalendarComponentProps) => {
   const [localeObj, setLocaleObj] = useState<Locale>();
 
   useEffect(() => {
@@ -150,7 +151,7 @@ export const CalendarComponent = ({ date, onChange, locale }: CalendarComponentP
       value={date}
       locale={localeObj}
       onChange={({ date }) => onChange(date)}
-      range
+      range={range}
       overrides={CalendarOverride()}
     />
   );
