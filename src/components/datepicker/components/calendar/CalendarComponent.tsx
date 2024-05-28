@@ -108,34 +108,7 @@ export const CalendarOverride = (): DatepickerOverrides => {
       },
     },
     Day: {
-      style: ({
-        $isHighlighted,
-        $style,
-        $selected,
-        $hasRangeOnRight,
-        $isInRange,
-        $pseudoSelected,
-        $hasRangeSelected,
-        ...rest
-      }) => {
-        if ($isHighlighted && !$selected) {
-          console.log(
-            'testtttt',
-            'highlight: ',
-            $isHighlighted,
-            'selected: ',
-            $selected,
-            'range: ',
-            $isInRange,
-            'style: ',
-            $style,
-            'pseudo: ',
-            $pseudoSelected,
-            'rest: ',
-            rest,
-          );
-        }
-
+      style: ({ $isHighlighted, $style, $selected, $hasRangeOnRight, $pseudoSelected, $hasRangeSelected }) => {
         return {
           ...$style,
           ...ParagraphSmall,

@@ -12,7 +12,6 @@ export const StyledDropdownOption = themedStyled('div', ({ $theme }) => ({
   ':hover': {
     background: $theme.colors.menuFillHover,
   },
-  boxSizing: 'border-box',
 }));
 
 export const StyledDropdownOptionIcon = themedStyled('div', ({ $theme }) => ({
