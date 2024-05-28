@@ -13,10 +13,7 @@ export default {
 let isOpen = true;
 
 const Template: Story<DateFilterProps> = (args) => {
-  const [date, setDate] = React.useState<[Date, Date]>([
-    new TcDate().startOf('month').toDate(),
-    new TcDate().endOf('month').toDate(),
-  ]);
+  const [date, setDate] = React.useState<[Date, Date]>([new Date(), new Date()]);
 
   return <DateFilter {...args} dates={date} onChange={(date) => setDate(date as [Date, Date])} />;
 };
@@ -28,4 +25,5 @@ Default.args = {
   isOpen: true,
   setIsOpen: () => (isOpen = !isOpen),
   quickSelect: true,
+  dateFormat: 'dd-MM-yyyy',
 };
