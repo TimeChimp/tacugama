@@ -51,7 +51,7 @@ export const MultiSelect = <
         colors,
         borders,
         customColors,
-        sizing: { scale0, scale100, scale300, scale600, scale950, scale400, scale700 },
+        sizing: { scale0, scale100, scale200, scale300, scale600, scale950, scale400, scale700 },
         customSizing: { scale975 },
         typography: { ParagraphSmall },
       },
@@ -176,7 +176,7 @@ export const MultiSelect = <
       input: (provided) => ({
         ...provided,
         ...ParagraphSmall,
-        ...margin(scale300, '0'),
+        ...margin(scale200, '0'),
       }),
       menu: (provided) => ({
         ...provided,

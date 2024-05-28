@@ -1,22 +1,26 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { ColumnFiltersProps, Filter, FilterType, FilterValue } from '../types';
-import { TcDate } from '@timechimp/timechimp-typescript-helpers';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
+import { ColumnFiltersProps, FilterType, FilterValue } from '../types';
 import { SIZE } from 'baseui/button';
 import { Dropdown, DropdownItem } from '../../dropdown';
 import { MinusIcon } from '../../icons/minus';
 import { AddLineIcon } from '../../icons/add-line';
 import { useTheme } from '../../../providers';
-import { DatepickerPopover } from '../../datepicker-popover';
 import { FilterButton } from './FilterButton';
 import { Button } from '../../button';
 import { ButtonKind } from '../../../models';
-import { ParagraphSmall } from 'baseui/typography';
 import { FixedSizeSelect } from '../../fixed-size-select';
 import { MultiFilter } from './MultiFilter';
+import { DateFilter } from '../../date-filter';
+import { StyledFilterColumn, StyledDateFilterColumn } from '../styles';
 
 const LESS_FILTERS_BUTTON_TEST_ID = 'less-filters-button';
 const MORE_FILTERS_BUTTON_TEST_ID = 'more-filters-button';
 const MULTIPLE_DATE_FILTER_ERROR = 'You can only pass max. 1 date filter';
+
+enum DividerType {
+  LEFT = 'LEFT',
+  RIGHT = 'RIGHT',
+}
 
 export const ColumnFilters = ({
   filters,
@@ -36,16 +40,15 @@ export const ColumnFilters = ({
   showClearFilters,
   initialShowLessFilters,
   onShowLessFiltersChange,
+  searchIsShown,
+  defaultDateQuickSelect,
 }: ColumnFiltersProps) => {
   const [showLessFilters, setShowLessFilters] = useState<boolean>(initialShowLessFilters ?? true);
-  const [datepickerIsOpen, setDatepickerIsOpen] = useState<boolean>(false);
-  const [internalDates, setInternalDates] = useState<Date[]>([]);
 
   const {
     theme: {
       current: {
         colors: { primary, contentSecondary },
-        sizing: { scale200 },
       },
     },
   } = useTheme();
@@ -107,11 +110,7 @@ export const ColumnFilters = ({
     [filterOnValue, isSelectValueActive],
   );
 
-  const dateFilterIsActive = () => dates?.length === 2;
-
   const isSetFilterActive = (columnField: string) => !!selectedFilterIds[columnField]?.length;
-
-  const getDateIconColor = () => (dateFilterIsActive() ? primary : contentSecondary);
 
   const getSetIconColor = (columnField: string) => (isSetFilterActive(columnField) ? primary : contentSecondary);
 
@@ -135,11 +134,6 @@ export const ColumnFilters = ({
     };
   };
 
-  const getDateTitleFormat = (date: Date) => new TcDate(date).format(dateFormat);
-
-  const getDateTitle = (title: string) =>
-    dates && dateFilterIsActive() ? `${getDateTitleFormat(dates[0])} - ${getDateTitleFormat(dates[1])}` : title;
-
   const getSetTitle = (columnField: string, title: string) => {
     if (!isSetFilterActive(columnField)) {
       return title;
@@ -148,40 +142,21 @@ export const ColumnFilters = ({
     return `${length} ${title}`;
   };
 
-  const toggleDatePicker = () => {
-    if (datepickerIsOpen) {
-      setDatepickerIsOpen(false);
-      return setInternalDates([]);
+  const onDateSelect = ({ dates, columnField }: { dates: [Date, Date]; columnField: string }) => {
+    if (setDates) {
+      setDates(dates);
     }
-    return setDatepickerIsOpen(true);
+
+    filterOnDate(columnField, dates);
   };
 
-  const onDateSelect = ({ date: selectedDates, columnField }: { date: Date | Date[]; columnField: string }) => {
-    if (!setDates) {
-      return;
-    }
-
-    if (!Array.isArray(selectedDates)) {
-      return setInternalDates([selectedDates]);
-    }
-
-    setInternalDates(selectedDates);
-
-    if (selectedDates.length > 1) {
-      setDates(selectedDates);
-      toggleDatePicker();
-      filterOnDate(columnField, selectedDates);
-    }
-  };
-
-  const getFilters = () => {
-    validateFilters();
+  const shownFilters = useMemo(() => {
     const visibleFilters = filters?.filter((filter) => !filter.hide);
     if (showLessFilters) {
-      return visibleFilters?.slice(0, 2);
+      return visibleFilters?.slice(0, 2) ?? [];
     }
-    return visibleFilters;
-  };
+    return visibleFilters ?? [];
+  }, [filters, showLessFilters]);
 
   const onSetFilterClear = (columnField: string) => {
     api.destroyFilter(columnField);
@@ -227,121 +202,114 @@ export const ColumnFilters = ({
       ? !!selectedFilterIds[columnField].length
       : !!selectedFilterIds[columnField];
 
-  const Filter = ({
-    title,
-    columnField,
-    type,
-    searchPlaceholder,
-    values,
-    valuesLoading,
-    icon: Icon,
-    clearable,
-  }: Filter) => {
-    const filterTypes = {
-      [FilterType.date]: (
-        <>
-          <FilterButton
-            onClick={() => setDatepickerIsOpen(!datepickerIsOpen)}
-            startEnhancer={Icon && <Icon color={getDateIconColor()} />}
-            size={SIZE.compact}
-            title={getDateTitle(title)}
-            arrows
-          />
-          <DatepickerPopover
-            onChange={(date) => onDateSelect({ date, columnField })}
-            date={internalDates.length ? internalDates : dates}
-            isOpen={datepickerIsOpen}
-            setIsOpen={toggleDatePicker}
-            monthsShown={2}
-            range
-            quickSelect
-            locale={locale}
-            translations={datepickerTranslations}
-          />
-        </>
-      ),
-      [FilterType.multi]: (
-        <MultiFilter
-          values={getAllColumnValues(columnField, FilterType.multi, values)}
-          initialSelectedFilterIds={getSelectedFilterIds(columnField)}
-          searchPlaceholder={searchPlaceholder || search}
-          valuesLoading={valuesLoading}
-          title={getSetTitle(columnField, title)}
-          icon={Icon && <Icon color={getSetIconColor(columnField)} />}
-          isFilterActive={isSetFilterActive(columnField)}
-          onSetFilterClear={() => onSetFilterClear(columnField)}
-          onApplyFilter={handleFilterMultiValues(columnField)}
-          applyFiltersLabel={applyFilters}
-        />
-      ),
-      [FilterType.multiVirtual]: (
-        <FixedSizeSelect
-          showSearch
-          selection
-          items={getAllColumnValues(columnField, FilterType.multiVirtual, values)}
-          selectedIds={getSelectedFilterIds(columnField)}
-          searchPlaceholder={searchPlaceholder || search}
-          isLoading={valuesLoading}
-          title={getSetTitle(columnField, title)}
-          startEnhancer={Icon && <Icon color={getSetIconColor(columnField)} />}
-          size={SIZE.compact}
-          isActive={isSetFilterActive(columnField)}
-          onClear={() => onSetFilterClear(columnField)}
-          hasValue={isSetFilterActive(columnField)}
-          arrows
-        />
-      ),
-      [FilterType.single]: (
-        <Dropdown
-          items={getAllColumnValues(columnField, FilterType.single, values)}
-          selectedIds={getSelectedFilterIds(columnField)}
-          isLoading={valuesLoading}
-        >
-          <FilterButton
-            title={getSelectActiveItem(columnField, values).label ?? title}
-            startEnhancer={getSelectActiveItem(columnField, values).icon}
-            size={SIZE.compact}
-            arrows
-            onClear={clearable ? () => onSelectFilterClear(columnField) : undefined}
-            hasValue={getSelectHasValue(columnField)}
-            isActive={getSelectHasValue(columnField)}
-          />
-        </Dropdown>
-      ),
-      [FilterType.settings]: <></>,
-    };
-
-    return filterTypes[type];
-  };
-
   const onClearFiltersClick = () => {
-    const visibleFilters = getFilters();
-    visibleFilters?.map((filter) => onSetFilterClear(filter.columnField));
+    shownFilters?.map((filter) => onSetFilterClear(filter.columnField));
   };
 
   const filtersWithoutSettings = filters?.filter((item) => item.type !== FilterType.settings && !item.hide);
 
+  const showDateDivider = (type: DividerType, index: number) => {
+    if (type === DividerType.LEFT) {
+      return index !== 0 || searchIsShown;
+    }
+    if (type === DividerType.RIGHT && (filtersWithoutSettings || [])?.length > 2) {
+      return true;
+    }
+    return index !== shownFilters.length - 1;
+  };
+
   return (
     <>
-      {!!getFilters()?.length && (
+      {!!shownFilters?.length && (
         <>
-          {getFilters()?.map(
-            ({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon, clearable }) => (
-              <Filter
-                key={columnField}
-                title={title}
-                columnField={columnField}
-                type={type}
-                searchPlaceholder={searchPlaceholder}
-                values={values}
-                valuesLoading={valuesLoading}
-                icon={icon}
-                clearable={clearable}
-              />
-            ),
+          {shownFilters?.map(
+            ({ title, columnField, type, searchPlaceholder, values, valuesLoading, icon: Icon, clearable }, index) => {
+              if (type === FilterType.date) {
+                return (
+                  <StyledDateFilterColumn
+                    $showLeftDivider={showDateDivider(DividerType.LEFT, index)}
+                    $showRightDivider={showDateDivider(DividerType.RIGHT, index)}
+                  >
+                    <DateFilter
+                      locale={locale ?? 'en'}
+                      translations={datepickerTranslations}
+                      onChange={(dates) => onDateSelect({ dates, columnField })}
+                      dateFormat={dateFormat}
+                      dates={dates}
+                      defaultQuickSelect={defaultDateQuickSelect}
+                    />
+                  </StyledDateFilterColumn>
+                );
+              }
+
+              if (type === FilterType.single) {
+                return (
+                  <StyledFilterColumn>
+                    <Dropdown
+                      items={getAllColumnValues(columnField, FilterType.single, values)}
+                      selectedIds={getSelectedFilterIds(columnField)}
+                      isLoading={valuesLoading}
+                    >
+                      <FilterButton
+                        title={getSelectActiveItem(columnField, values).label ?? title}
+                        startEnhancer={getSelectActiveItem(columnField, values).icon}
+                        size={SIZE.compact}
+                        arrows
+                        onClear={clearable ? () => onSelectFilterClear(columnField) : undefined}
+                        hasValue={getSelectHasValue(columnField)}
+                        isActive={getSelectHasValue(columnField)}
+                      />
+                    </Dropdown>
+                  </StyledFilterColumn>
+                );
+              }
+
+              if (type === FilterType.multi) {
+                return (
+                  <StyledFilterColumn>
+                    <MultiFilter
+                      values={getAllColumnValues(columnField, FilterType.multi, values)}
+                      initialSelectedFilterIds={getSelectedFilterIds(columnField)}
+                      searchPlaceholder={searchPlaceholder || search}
+                      valuesLoading={valuesLoading}
+                      title={getSetTitle(columnField, title)}
+                      icon={Icon ? <Icon color={getSetIconColor(columnField)} /> : null}
+                      isFilterActive={isSetFilterActive(columnField)}
+                      onSetFilterClear={() => onSetFilterClear(columnField)}
+                      onApplyFilter={handleFilterMultiValues(columnField)}
+                      applyFiltersLabel={applyFilters}
+                    />
+                  </StyledFilterColumn>
+                );
+              }
+
+              if (type === FilterType.multiVirtual) {
+                return (
+                  <StyledFilterColumn>
+                    <FixedSizeSelect
+                      showSearch
+                      selection
+                      items={getAllColumnValues(columnField, FilterType.multiVirtual, values)}
+                      selectedIds={getSelectedFilterIds(columnField)}
+                      searchPlaceholder={searchPlaceholder || search}
+                      isLoading={valuesLoading}
+                      title={getSetTitle(columnField, title)}
+                      startEnhancer={Icon ? <Icon color={getSetIconColor(columnField)} /> : null}
+                      size={SIZE.compact}
+                      isActive={isSetFilterActive(columnField)}
+                      onClear={() => onSetFilterClear(columnField)}
+                      hasValue={isSetFilterActive(columnField)}
+                      arrows
+                    />
+                  </StyledFilterColumn>
+                );
+              }
+              return null;
+            },
           )}
+
           {(filtersWithoutSettings || [])?.length > 2 && (
-            <>
+            <StyledFilterColumn>
               {showLessFilters ? (
                 <FilterButton
                   testId={MORE_FILTERS_BUTTON_TEST_ID}
@@ -359,13 +327,11 @@ export const ColumnFilters = ({
                   title={lessFilters}
                 />
               )}
-            </>
+            </StyledFilterColumn>
           )}
           {showClearFilters && (
-            <Button kind={ButtonKind.minimal} onClick={() => onClearFiltersClick()}>
-              <ParagraphSmall paddingTop={scale200} color={primary}>
-                {clearFilters}
-              </ParagraphSmall>
+            <Button kind={ButtonKind.minimal} color={primary} onClick={() => onClearFiltersClick()}>
+              {clearFilters}
             </Button>
           )}
         </>

@@ -27,14 +27,12 @@ export interface DropdownOptionProps {
   onItemSelect: (item: DropdownItem) => void;
 }
 
-export interface DropdownProps {
+interface DropdownBaseProps {
   children?: React.ReactNode;
   items: DropdownItem[];
   placement?: TetherPlacement;
   showSearch?: boolean;
   searchPlaceholder?: string;
-  onClose?: () => any;
-  onOpen?: () => any;
   selection?: boolean;
   selectedIds?: Array<string>;
   footer?: JSX.Element;
@@ -48,4 +46,15 @@ export interface DropdownProps {
   // Additional properties to pass to the action function of a dropdown item i.e. a reference to the GridApi
   additionalProperties?: any;
   customList?: React.ComponentType<any>;
+}
+
+export interface DropdownProps extends DropdownBaseProps {
+  onClose?: () => void;
+  onOpen?: () => any;
+}
+
+export interface DropdownStateLessProps extends DropdownBaseProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onClick: () => void;
 }

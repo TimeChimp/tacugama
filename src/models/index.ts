@@ -10,3 +10,4 @@ export * from './AvatarType';
 export * from './ButtonKind';
 export * from './AttachmentsTypeAccept';
 export * from './ButtonShape';
+export * from './QuickSelectDateOption';
