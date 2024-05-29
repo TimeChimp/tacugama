@@ -10,9 +10,9 @@ export const StyledSnackbar = themedStyled<'div', StyledSnackbarProps>('div', ({
   alignItems: 'center',
   justifyContent: 'space-between',
   backgroundColor: $color,
-  ...borderRadius($theme.sizing.scale0),
+  ...borderRadius($theme.sizing.scale200),
   ...margin($theme.sizing.scale600, '0', '0', $theme.sizing.scale600),
-  ...padding($theme.sizing.scale300, '0', $theme.sizing.scale300, $theme.sizing.scale300),
+  ...padding($theme.sizing.scale600, $theme.sizing.scale200, $theme.sizing.scale600, $theme.sizing.scale600),
   width: $theme.customSizing.scale7525,
   boxShadow: $theme.lighting.shadow500,
 }));
