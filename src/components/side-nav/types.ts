@@ -4,7 +4,6 @@ import { ComponentType } from 'react';
 export interface IconProps {
   size?: string;
   color?: string;
-  title?: string;
 }
 
 export interface SideNavItem {
