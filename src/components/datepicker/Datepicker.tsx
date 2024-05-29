@@ -12,7 +12,6 @@ import { useTheme } from '../../providers';
 import { DatePicker, DatepickerOverrides } from 'baseui/datepicker';
 import { DATA_TEST_ID } from '../../models';
 import { InputOverrides } from 'baseui/input';
-import { CalendarIcon } from '../icons/calendar';
 import { getDateLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerProps } from './types';
 import { Skeleton } from '../skeleton';

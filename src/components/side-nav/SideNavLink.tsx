@@ -1,10 +1,10 @@
 import React from 'react';
 import { useTheme } from '../../providers';
-import { ErrorIcon } from '../icons';
 import { ParagraphSmall } from '../typography';
 import { StyledSideNavLink, StyledSideNavItemIcon, StyledSideNavItemTitle } from './styles';
 import { SideNavLinkProps } from './types';
 import { StatefulTooltip } from '../tooltip';
+import { XCircle } from '@phosphor-icons/react';
 
 export const SideNavLink = ({
   id,
@@ -58,7 +58,7 @@ export const SideNavLink = ({
       ) : (
         navItemTitle(color)
       )}
-      {hasError ? <ErrorIcon color={red0} /> : null}
+      {hasError ? <XCircle color={red0} /> : null}
     </StyledSideNavLink>
   );
 };

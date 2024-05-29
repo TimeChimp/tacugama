@@ -3,6 +3,9 @@ import React from 'react';
 
 import { Icon, SVGProps } from '../../icon';
 
+/**
+ * @deprecated The custom icons are deprecated and will be removed in a future version. Use the Phosphor Icons (https://phosphoricons.com) instead.
+ */
 export const CalendarIcon = ({ title = 'Calendar', size = DEFAULT_ICON_SIZE, color }: SVGProps) => (
   <Icon title={title}>
     <svg width={size} height={size} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
