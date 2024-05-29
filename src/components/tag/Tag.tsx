@@ -5,7 +5,7 @@ import { border, borderRadius, margin, padding } from '../../utils';
 import { ParagraphSmall, ParagraphXSmall } from '../typography';
 import { TagProps, TagSize } from './types';
 import { customColors } from '../../theme/colors';
-import { ClearLineIcon } from '../icons/clear-line';
+import { X } from '@phosphor-icons/react';
 
 export const Tag = ({
   value,
@@ -73,7 +73,7 @@ export const Tag = ({
             }),
           },
           ActionIcon: {
-            component: () => <ClearLineIcon size={scale550} />,
+            component: () => <X size={scale550} />,
             style: overrides?.ActionIcon?.style,
           },
         }),
@@ -112,7 +112,7 @@ export const Tag = ({
             }),
           },
           ActionIcon: {
-            component: () => <ClearLineIcon size={scale600} />,
+            component: () => <X size={scale600} />,
             style: overrides?.ActionIcon?.style,
           },
         }),

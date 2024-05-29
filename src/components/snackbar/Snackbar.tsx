@@ -1,5 +1,4 @@
 import React from 'react';
-import { CheckIcon, ClearIcon, WarningIcon, InfoIcon, ClearLineIcon } from '../icons';
 import { ParagraphSmall } from '../typography';
 import { Button } from '../button';
 import { useTheme } from '../../providers';
@@ -7,6 +6,7 @@ import { StyledDiv, StyledSnackbar, StyledSpan, StyledCloseWrapper, StyledCloseS
 import { ButtonKind } from '../../models';
 import { Block } from '../block';
 import { SnackBarType, SnackbarProps } from './types';
+import { Check, Info, Warning, X, XCircle } from '@phosphor-icons/react';
 
 export const Snackbar = ({
   onClose,
@@ -38,14 +38,14 @@ export const Snackbar = ({
 
   const getIcon = () => {
     const map = {
-      [SnackBarType.success]: <CheckIcon color={primaryB} size={scale650} />,
-      [SnackBarType.error]: <ClearIcon color={primaryB} size={scale650} />,
+      [SnackBarType.success]: <Check color={primaryB} size={scale650} />,
+      [SnackBarType.error]: <XCircle color={primaryB} size={scale650} />,
       [SnackBarType.warning]: (
         <Block marginTop={scale050}>
-          <WarningIcon color={primaryB} size={scale600} />
+          <Warning color={primaryB} size={scale600} />
         </Block>
       ),
-      [SnackBarType.info]: <InfoIcon color={primaryB} size={scale650} />,
+      [SnackBarType.info]: <Info color={primaryB} size={scale650} />,
     };
     return map[type];
   };
@@ -68,7 +68,7 @@ export const Snackbar = ({
           <StyledCloseWrapper>
             <StyledCloseSeparator />
             <Block alignSelf="flex-start">
-              <ClearLineIcon color={primaryB} size={scale700} />
+              <X color={primaryB} size={scale700} />
             </Block>
           </StyledCloseWrapper>
         </Button>

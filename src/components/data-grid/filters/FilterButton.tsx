@@ -1,10 +1,9 @@
 import React, { forwardRef } from 'react';
 import { Button, ButtonProps } from '../../button';
 import { ParagraphSmall } from '../../typography';
-import { CaretDownIcon } from '../../icons/caret-down';
-import { ClearLineIcon } from '../../icons/clear-line';
 import { useTheme } from '../../../providers';
 import { ButtonKind } from '../../../models';
+import { CaretDown, X } from '@phosphor-icons/react';
 
 const FILTER_BUTTON_TEST_ID = 'filter-button';
 
@@ -32,10 +31,10 @@ export const FilterButton = forwardRef<HTMLButtonElement, FilterButtonProps>(
         testId={testId ?? FILTER_BUTTON_TEST_ID}
         endEnhancer={
           <>
-            {arrows && <CaretDownIcon />}
+            {arrows && <CaretDown />}
             {hasValue && onClear && (
               <Button kind={ButtonKind.minimal} onClick={onClear}>
-                <ClearLineIcon color={primaryA} />
+                <X color={primaryA} />
               </Button>
             )}
           </>

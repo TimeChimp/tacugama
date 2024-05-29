@@ -7,8 +7,8 @@ import { EmptyMessage } from '../empty-message';
 import { BasicTableBuilderProps, SortOrder, SortOrderType } from './types';
 import { useBasicTableStyles } from '../../hooks';
 import { BasicTableRow } from 'components/basic-table/types';
-import { CaretDownIcon, CaretUpIcon } from '../../../icons';
 import { Block } from 'baseui/block';
+import { CaretDown, CaretUp } from '@phosphor-icons/react';
 
 export const BasicTableBuilder = ({
   isEmbeddedTable,
@@ -118,14 +118,14 @@ export const BasicTableBuilder = ({
         SortAscIcon: {
           component: () => (
             <Block style={sortIconContainer}>
-              <CaretUpIcon color={dark1} />
+              <CaretUp color={dark1} />
             </Block>
           ),
         },
         SortDescIcon: {
           component: () => (
             <Block style={sortIconContainer}>
-              <CaretDownIcon color={dark1} />
+              <CaretDown color={dark1} />
             </Block>
           ),
         },

@@ -2,8 +2,8 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Avatar, AvatarProps } from './';
-import { AvatarIcon } from '../icons';
 import { AvatarType } from '../../models';
+import { User } from '@phosphor-icons/react';
 
 export default {
   title: 'Components/Avatar',
@@ -30,7 +30,7 @@ const light4 = '#FFFFFF';
 export const WithIcon = Template.bind({});
 WithIcon.args = {
   name: 'John Doe',
-  icon: <AvatarIcon size="14px" color={light4} />,
+  icon: <User size="14px" color={light4} />,
   type: AvatarType.default,
 };
 WithIcon.parameters = {
@@ -43,7 +43,7 @@ WithIcon.parameters = {
 export const DashedWithIcon = DashedTemplate.bind({});
 DashedWithIcon.args = {
   name: 'John Doe',
-  icon: <AvatarIcon size="14px" color="#2E2E2E" />,
+  icon: <User size="14px" color="#2E2E2E" />,
   type: AvatarType.dashed,
 };
 DashedWithIcon.parameters = {

@@ -12,11 +12,11 @@ import {
 } from '../../utils';
 import { Skeleton } from '../skeleton';
 import { FlexItem } from '../flex-item';
-import { CaretDownIcon } from '../icons/caret-down';
 import { SelectProps } from './types';
 import { AddLineIcon } from '../icons';
 import { Button } from '../button';
 import { ButtonKind, HIGH_Z_INDEX } from '../../models';
+import { CaretDown } from '@phosphor-icons/react';
 
 /**
  * @deprecated This component will be removed in the next major release (v10). Please use the `MultiSelect` or the `SingleSelect` components instead.
@@ -200,7 +200,7 @@ export const Select = ({
             SelectArrow: {
               component: () => (
                 <FlexItem marg1="0" marg2="0" marg3="0" marg4={scale100} width="auto">
-                  <CaretDownIcon />
+                  <CaretDown />
                 </FlexItem>
               ),
             },

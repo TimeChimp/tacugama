@@ -17,6 +17,7 @@ import { getDateLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DatepickerProps } from './types';
 import { Skeleton } from '../skeleton';
 import { CalendarOverride } from '../datepicker/components';
+import { Calendar } from '@phosphor-icons/react';
 
 export const Datepicker = ({
   customValue,
@@ -126,7 +127,7 @@ export const Datepicker = ({
     Input: {
       props: {
         overrides: inputBaseOverrides,
-        endEnhancer: <CalendarIcon size={scale600} color={iconColor || contentTertiary} />,
+        endEnhancer: <Calendar size={scale600} color={iconColor || contentTertiary} />,
       },
     },
     Popover: {

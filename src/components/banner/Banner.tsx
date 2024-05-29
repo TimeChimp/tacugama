@@ -2,9 +2,9 @@ import React from 'react';
 import { ParagraphSmall } from '../typography';
 import { useTheme } from '../../providers';
 import { StyledBanner, StyledContainer } from './styles';
-import { CheckIcon, ClearIcon, InfoIcon, WarningIcon } from '../icons';
 import { BannerType, BannerProps } from './types';
 import { Block } from '../block';
+import { Check, Info, Warning, XCircle } from '@phosphor-icons/react';
 
 export const Banner = ({ type = BannerType.info, text }: BannerProps) => {
   const {
@@ -32,10 +32,10 @@ export const Banner = ({ type = BannerType.info, text }: BannerProps) => {
     const color = getBannerBackgroundColor();
 
     const map = {
-      [BannerType.success]: <CheckIcon color={color} />,
-      [BannerType.error]: <ClearIcon color={color} />,
-      [BannerType.warning]: <WarningIcon color={color} />,
-      [BannerType.info]: <InfoIcon color={color} />,
+      [BannerType.success]: <Check color={color} />,
+      [BannerType.error]: <XCircle color={color} />,
+      [BannerType.warning]: <Warning color={color} />,
+      [BannerType.info]: <Info color={color} />,
     };
 
     return map[type];

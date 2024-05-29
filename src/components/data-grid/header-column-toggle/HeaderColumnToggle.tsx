@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { CaretDownIcon } from '../../icons/caret-down';
-import { TableIcon } from '../../icons/table';
 import { Dropdown, DropdownItem } from '../../dropdown';
 import { Button } from '../../button';
 import { useTheme } from '../../../providers';
@@ -8,6 +6,7 @@ import { HeaderColumnToggleProps, MODEL_UPDATED_EVENT } from '..';
 import { Column } from '@ag-grid-community/core';
 import { DATA_TEST_ID, ButtonKind } from '../../../models';
 import { FlexItem } from '../../flex-item';
+import { CaretDown, Table } from '@phosphor-icons/react';
 
 export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnToggleProps) => {
   const [active, setActive] = useState(false);
@@ -85,9 +84,9 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
       }}
     >
       <Button kind={ButtonKind.tertiary}>
-        <TableIcon color={active ? primary : dark1} />
+        <Table color={active ? primary : dark1} />
         <FlexItem marg4={scale500}>
-          <CaretDownIcon color={active ? primary : dark1} />
+          <CaretDown color={active ? primary : dark1} />
         </FlexItem>
       </Button>
     </Dropdown>

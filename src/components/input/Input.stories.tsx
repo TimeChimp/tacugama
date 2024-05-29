@@ -3,7 +3,6 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { InputProps } from './types';
 import { Input } from './Input';
 import { ColorInput, ColorInputProps } from './color-input';
-import { SearchIcon } from '../icons/search';
 import { PriceInput, PriceInputProps } from './price-input';
 import { HoursInput, HoursInputProps } from './hours-input';
 import { FileInput, FileInputProps } from './file-input';
@@ -12,7 +11,7 @@ import { PercentageInput, PercentageInputProps } from './percentage-input';
 import { ATTACHMENTS_IMAGES_TYPE_ACCEPT, ButtonKind, PRICE_INPUT_PREFIX } from '../../models';
 import { SearchInput, SearchInputProps } from './search-input';
 import { Button } from '../button';
-import { AddLineIcon } from '../icons';
+import { MagnifyingGlass, Plus } from '@phosphor-icons/react';
 
 export default {
   title: 'Components/Input',
@@ -50,7 +49,7 @@ const FileTemplate: Story<FileInputProps> = () => {
 
   return (
     <>
-      <Button kind={ButtonKind.secondary} onClick={handleClick} startEnhancer={<AddLineIcon />}>
+      <Button kind={ButtonKind.secondary} onClick={handleClick} startEnhancer={<Plus />}>
         {title}
       </Button>
       <FileInput inputRef={inputRef} onChange={handleFileChange} accept={ATTACHMENTS_IMAGES_TYPE_ACCEPT} />
@@ -96,7 +95,7 @@ Search.parameters = {
 export const WithStartEnhancer = Template.bind({});
 WithStartEnhancer.args = {
   placeholder: 'placeholder',
-  startEnhancer: <SearchIcon size="18px" />,
+  startEnhancer: <MagnifyingGlass size="18px" />,
   error: false,
   success: false,
   disabled: false,
@@ -113,7 +112,7 @@ WithStartEnhancer.parameters = {
 export const WithEndEnhancer = Template.bind({});
 WithEndEnhancer.args = {
   placeholder: 'placeholder',
-  endEnhancer: <SearchIcon size="18px" />,
+  endEnhancer: <MagnifyingGlass size="18px" />,
   error: false,
   success: false,
   disabled: false,
@@ -198,7 +197,7 @@ Hours.parameters = {
 export const NoBorderSearch = Template.bind({});
 NoBorderSearch.args = {
   noBorder: true,
-  startEnhancer: <SearchIcon size="18px" />,
+  startEnhancer: <MagnifyingGlass size="18px" />,
   placeholder: 'Type to search',
   disabled: false,
 };

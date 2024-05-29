@@ -105,6 +105,7 @@
     "@ag-grid-enterprise/server-side-row-model": "25.0.1",
     "@ag-grid-enterprise/set-filter": "25.0.1",
     "@ag-grid-enterprise/status-bar": "25.0.1",
+    "@phosphor-icons/react": "^2.1.5",
     "@timechimp/timechimp-typescript-helpers": "^3.0.4",
     "@types/bytes": "^3.1.1",
     "baseui": "^12.2.0",

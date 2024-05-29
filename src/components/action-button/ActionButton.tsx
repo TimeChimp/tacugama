@@ -5,8 +5,8 @@ import { Button } from '../button';
 import { Dropdown } from '../dropdown';
 import { Block } from '../block';
 import { useTheme } from '../../providers';
-import { CaretDownIcon } from '../icons/caret-down';
 import { ActionButtonProps, DEFAULT_OPTIONS } from './types';
+import { CaretDown } from '@phosphor-icons/react';
 
 export const ActionButton = ({
   options = DEFAULT_OPTIONS,
@@ -32,7 +32,7 @@ export const ActionButton = ({
       <Button size="compact" kind={kind} shape={shape} startEnhancer={startEnhancer} disabled={disabled}>
         <Block display="flex" gridColumnGap={scale500} alignItems="center">
           {label}
-          <CaretDownIcon size={scale600} />
+          <CaretDown size={scale600} />
         </Block>
       </Button>
     </Dropdown>

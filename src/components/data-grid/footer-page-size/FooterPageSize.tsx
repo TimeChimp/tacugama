@@ -4,10 +4,10 @@ import { StyledFooterFooterPageSize } from '../styles';
 import { ParagraphSmall } from '../../typography';
 import { useTheme } from '../../../providers';
 import { Button } from '../../../components/button';
-import { CaretDownIcon } from '../../../components/icons';
 import { Dropdown } from '../../../components/dropdown';
 import { FlexItem } from '../../../components/flex-item';
 import { ButtonKind } from '../../../models';
+import { CaretDown } from '@phosphor-icons/react';
 
 const EVENT_LISTENER = 'paginationChanged';
 
@@ -59,7 +59,7 @@ export const FooterPageSize = ({ api: gridApi, translations }: FooterRowCountPro
         <Button kind={ButtonKind.tertiary}>
           <ParagraphSmall color={dark1}>{selectedOption?.label}</ParagraphSmall>
           <FlexItem marg4={scale500}>
-            <CaretDownIcon color={dark1} />
+            <CaretDown color={dark1} />
           </FlexItem>
         </Button>
       </Dropdown>
