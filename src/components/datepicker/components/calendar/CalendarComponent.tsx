@@ -162,6 +162,7 @@ export const CalendarOverride = (): DatepickerOverrides => {
                   top: '0px',
                   width: '100%',
                   height: '100%',
+                  backgroundColor: primary100,
 
                   ...($hasRangeOnRight
                     ? {
@@ -169,14 +170,12 @@ export const CalendarOverride = (): DatepickerOverrides => {
                         borderTopLeftRadius: '0',
                         borderBottomRightRadius: '100%',
                         borderBottomLeftRadius: '0',
-                        backgroundColor: primary100,
                       }
                     : {
                         borderTopRightRadius: '0',
                         borderTopLeftRadius: '100%',
                         borderBottomRightRadius: '0',
                         borderBottomLeftRadius: '100%',
-                        backgroundColor: primary100,
                       }),
                 },
               }
