@@ -67,8 +67,8 @@ export const Snackbar = ({
         <Button kind={ButtonKind.minimal} onClick={onClose}>
           <StyledCloseWrapper>
             <StyledCloseSeparator />
-            <Block alignSelf="flex-start">
-              <X color={primaryB} size={scale700} />
+            <Block display="flex" alignSelf="flex-start" alignItems="center">
+              <X color={primaryB} size={scale650} />
             </Block>
           </StyledCloseWrapper>
         </Button>

@@ -26,6 +26,7 @@ export const StyledSpan = themedStyled('span', ({ $theme }) => ({
 export const StyledDiv = themedStyled('div', ({ $theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
   flexGrow: 1,
   gap: $theme.sizing.scale400,
 }));
@@ -33,6 +34,7 @@ export const StyledDiv = themedStyled('div', ({ $theme }) => ({
 export const StyledCloseWrapper = themedStyled('div', ({ $theme }) => ({
   display: 'flex',
   justifyContent: 'center',
+  alignItems: 'center',
   width: $theme.sizing.scale950,
   minHeight: $theme.sizing.scale700,
   position: 'relative',
