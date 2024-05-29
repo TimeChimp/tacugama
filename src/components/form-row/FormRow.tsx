@@ -63,9 +63,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
                 }}
                 content={toolTip}
               >
-                <div>
-                  <Info />
-                </div>
+                <Info />
               </StatefulTooltip>
             )}
           </LabelSmall>
