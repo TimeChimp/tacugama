@@ -108,80 +108,28 @@ export const CalendarOverride = (): DatepickerOverrides => {
       },
     },
     Day: {
-      style: ({ $isHighlighted, $style, $selected, $hasRangeOnRight, $pseudoSelected, $hasRangeSelected }) => {
-        return {
-          ...$style,
-          ...ParagraphSmall,
-          paddingTop: '0',
-          paddingBottom: '0',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: scale1000,
-          height: scale1000,
-          // default styling for days inside a range
-          ':before': { backgroundColor: primary100 },
-          // styling  for selected day(s)
-          ...($selected
-            ? {
-                ':after': {
-                  borderColor: primary,
-                  height: '100%',
-                },
-              }
-            : {}),
-
-          // styling highlighted (hovered) days that are ($pseudoSelected) in and out of range when there's a range active
-          ...($isHighlighted && !$selected
-            ? {
-                backgroundColor: $pseudoSelected ? primary100 : primaryB,
-                ':after': {
-                  backgroundColor: $pseudoSelected ? primary100 : 'transparent',
-                  borderColor: primary,
-                  height: '100%',
-                },
-                ':before': {
-                  backgroundColor: primaryB,
-                  borderRadius: '100%',
-                  position: 'absolute',
-                  left: '0px',
-                  top: '0px',
-                  width: '100%',
-                  height: '100%',
-                },
-              }
-            : {}),
-
-          // styling highlighted (hovered) days when a range is not active
-          ...($isHighlighted && !$hasRangeSelected
-            ? {
-                backgroundColor: primaryB,
-                ':before': {
-                  position: 'absolute',
-                  left: '0px',
-                  top: '0px',
-                  width: '100%',
-                  height: '100%',
-                  backgroundColor: primary100,
-
-                  ...($hasRangeOnRight
-                    ? {
-                        borderTopRightRadius: '100%',
-                        borderTopLeftRadius: '0',
-                        borderBottomRightRadius: '100%',
-                        borderBottomLeftRadius: '0',
-                      }
-                    : {
-                        borderTopRightRadius: '0',
-                        borderTopLeftRadius: '100%',
-                        borderBottomRightRadius: '0',
-                        borderBottomLeftRadius: '100%',
-                      }),
-                },
-              }
-            : {}),
-        };
-      },
+      style: ({ $isHighlighted, $style, $selected, $isHovered }) => ({
+        ...$style,
+        ...ParagraphSmall,
+        paddingTop: '0',
+        paddingBottom: '0',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: scale1000,
+        height: scale1000,
+        ':before': { backgroundColor: primary100 },
+        ...($isHighlighted || $selected || $isHovered
+          ? {
+              color: $selected && $isHovered && !$isHighlighted ? primaryA : primaryB,
+              ':after': {
+                backgroundColor: primary,
+                borderColor: primary,
+                height: '100%',
+              },
+            }
+          : {}),
+      }),
     },
   };
 };
