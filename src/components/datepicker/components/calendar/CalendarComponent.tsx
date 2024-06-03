@@ -13,7 +13,7 @@ export const CalendarOverride = (): DatepickerOverrides => {
     theme: {
       current: {
         typography: { LabelMedium, ParagraphSmall },
-        colors: { primaryA, primaryB },
+        colors: { primaryA, primaryB, primary, primary100 },
         sizing: { scale100, scale200, scale600, scale1000 },
         borders: { radius200 },
       },
@@ -108,34 +108,33 @@ export const CalendarOverride = (): DatepickerOverrides => {
       },
     },
     Day: {
-      style: ({ $isHighlighted, $style, $selected }) => {
-        return {
-          ...$style,
-          ...ParagraphSmall,
-          paddingTop: '0',
-          paddingBottom: '0',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: scale1000,
-          height: scale1000,
-
-          ...($isHighlighted || $selected
-            ? {
-                color: primaryB,
-                ':after': {
-                  backgroundColor: primaryA,
-                  height: '100%',
-                },
-              }
-            : {}),
-        };
-      },
+      style: ({ $isHighlighted, $style, $selected, $isHovered }) => ({
+        ...$style,
+        ...ParagraphSmall,
+        paddingTop: '0',
+        paddingBottom: '0',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: scale1000,
+        height: scale1000,
+        ':before': { backgroundColor: primary100 },
+        ...($isHighlighted || $selected || $isHovered
+          ? {
+              color: $selected && $isHovered && !$isHighlighted ? primaryA : primaryB,
+              ':after': {
+                backgroundColor: primary,
+                borderColor: primary,
+                height: '100%',
+              },
+            }
+          : {}),
+      }),
     },
   };
 };
 
-export const CalendarComponent = ({ date, onChange, locale }: CalendarComponentProps) => {
+export const CalendarComponent = ({ date, onChange, locale, range = true }: CalendarComponentProps) => {
   const [localeObj, setLocaleObj] = useState<Locale>();
 
   useEffect(() => {
@@ -150,7 +149,7 @@ export const CalendarComponent = ({ date, onChange, locale }: CalendarComponentP
       value={date}
       locale={localeObj}
       onChange={({ date }) => onChange(date)}
-      range
+      range={range}
       overrides={CalendarOverride()}
     />
   );

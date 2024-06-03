@@ -28,4 +28,5 @@ Default.args = {
   isOpen: true,
   setIsOpen: () => (isOpen = !isOpen),
   quickSelect: true,
+  dateFormat: 'dd-MM-yyyy',
 };
