@@ -50,6 +50,10 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       color: ${theme.customColors.dark3}
     }
 
+    .ag-theme-alpine .ag-cell {
+      line-height: initial;
+    }
+
     .ag-theme-alpine .ag-row {
       color: ${theme.customColors.dark1};
 
