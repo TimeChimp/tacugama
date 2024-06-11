@@ -6,7 +6,7 @@ export const StyledDropdownOption = themedStyled('div', ({ $theme }) => ({
   alignItems: 'center',
   ...padding($theme.sizing.scale400, $theme.sizing.scale600),
   minWidth: $theme.sizing.scale3200,
-  gap: $theme.sizing.scale500,
+  gap: $theme.sizing.scale300,
   width: '100%',
   cursor: 'pointer',
   ':hover': {
