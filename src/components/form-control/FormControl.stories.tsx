@@ -1,9 +1,9 @@
-import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-
+import React from 'react';
 import { FormControl } from './';
-import { Input, SearchIcon, Textarea } from '../../components';
+import { Input, Textarea } from '../../components';
 import { FormControlProps } from './types';
+import { MagnifyingGlass } from '@phosphor-icons/react';
 
 export default {
   title: 'Components/Form Control',
@@ -22,7 +22,7 @@ Default.args = {
   caption: 'This is a caption',
   error: 'This is an error caption',
   success: '',
-  labelEndEnhancer: <SearchIcon />,
+  labelEndEnhancer: <MagnifyingGlass />,
 };
 Default.parameters = {
   design: {
@@ -43,7 +43,7 @@ TextareaFormControl.args = {
   caption: 'This is a caption',
   error: 'This is an error caption',
   success: '',
-  labelEndEnhancer: <SearchIcon />,
+  labelEndEnhancer: <MagnifyingGlass />,
 };
 TextareaFormControl.parameters = {
   design: {

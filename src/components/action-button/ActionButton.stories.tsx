@@ -1,10 +1,9 @@
-import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-
+import React from 'react';
 import { ActionButton } from './';
 import { ButtonKind } from '../../models';
-import { SearchIcon } from '../icons/search';
 import { ActionButtonProps } from './types';
+import { MagnifyingGlass } from '@phosphor-icons/react';
 
 export default {
   title: 'Components/Action Button',
@@ -17,7 +16,7 @@ export const PrimaryStartEnhancer = ActionButtonTemplate.bind({});
 PrimaryStartEnhancer.args = {
   kind: ButtonKind.primary,
   disabled: false,
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <MagnifyingGlass />,
 };
 PrimaryStartEnhancer.parameters = {
   design: {
@@ -29,7 +28,7 @@ PrimaryStartEnhancer.parameters = {
 export const SecondaryStartEnhancer = ActionButtonTemplate.bind({});
 SecondaryStartEnhancer.args = {
   kind: ButtonKind.secondary,
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <MagnifyingGlass />,
   disabled: false,
 };
 SecondaryStartEnhancer.parameters = {
@@ -42,7 +41,7 @@ SecondaryStartEnhancer.parameters = {
 export const TertiaryStartEnhancer = ActionButtonTemplate.bind({});
 TertiaryStartEnhancer.args = {
   kind: ButtonKind.tertiary,
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <MagnifyingGlass />,
   disabled: false,
 };
 TertiaryStartEnhancer.parameters = {
@@ -55,7 +54,7 @@ TertiaryStartEnhancer.parameters = {
 export const QuaternaryStartEnhancer = ActionButtonTemplate.bind({});
 QuaternaryStartEnhancer.args = {
   kind: ButtonKind.quarternary,
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <MagnifyingGlass />,
   disabled: false,
 };
 QuaternaryStartEnhancer.parameters = {
@@ -68,7 +67,7 @@ QuaternaryStartEnhancer.parameters = {
 export const MinimalStartEnhancer = ActionButtonTemplate.bind({});
 MinimalStartEnhancer.args = {
   kind: ButtonKind.minimal,
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <MagnifyingGlass />,
   disabled: false,
 };
 MinimalStartEnhancer.parameters = {
@@ -140,7 +139,7 @@ Minimal.parameters = {
 
 export const PrimaryIcon = ActionButtonTemplate.bind({});
 PrimaryIcon.args = {
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <MagnifyingGlass />,
   kind: ButtonKind.primary,
   shape: 'square',
   disabled: false,
@@ -154,7 +153,7 @@ PrimaryIcon.parameters = {
 
 export const SecondaryIcon = ActionButtonTemplate.bind({});
 SecondaryIcon.args = {
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <MagnifyingGlass />,
   kind: ButtonKind.secondary,
   shape: 'square',
   disabled: false,
@@ -168,7 +167,7 @@ SecondaryIcon.parameters = {
 
 export const TertiaryIcon = ActionButtonTemplate.bind({});
 TertiaryIcon.args = {
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <MagnifyingGlass />,
   kind: ButtonKind.tertiary,
   shape: 'square',
   disabled: false,

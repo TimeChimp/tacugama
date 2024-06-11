@@ -24,6 +24,6 @@ export const StyledBanner = themedStyled<'div', StyledBannerProps>('div', ({ $th
 
 export const StyledContainer = themedStyled('div', ({ $theme }) => ({
   display: 'flex',
-  alignItems: 'flex-start',
+  alignItems: 'center',
   gap: $theme.sizing.scale400,
 }));

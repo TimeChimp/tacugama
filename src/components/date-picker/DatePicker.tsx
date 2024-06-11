@@ -5,8 +5,8 @@ import { useTheme } from '../../providers';
 import { ButtonGroup } from '../button-group';
 import { border, borderRadius, padding } from '../../utils';
 import { Button } from '../button';
-import { CaretLeftIcon, CaretRightIcon, TodayIcon } from '../icons';
 import { ParagraphSmall } from '../typography';
+import { CaretLeft, CaretRight, Crosshair } from '@phosphor-icons/react';
 
 export const DatePicker = ({ date, setDate, display, displayText }: DatePickerProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -49,7 +49,7 @@ export const DatePicker = ({ date, setDate, display, displayText }: DatePickerPr
         }}
         onClick={() => changeWeek(ChangeWeekDirection.Previous)}
       >
-        <CaretLeftIcon color={primaryA} />
+        <CaretLeft color={primaryA} />
       </Button>
       <Button
         overrides={{
@@ -77,7 +77,7 @@ export const DatePicker = ({ date, setDate, display, displayText }: DatePickerPr
         }}
         onClick={() => setDate(new Date())}
       >
-        <TodayIcon color={primaryA} />
+        <Crosshair color={primaryA} />
       </Button>
       <Button
         overrides={{
@@ -91,7 +91,7 @@ export const DatePicker = ({ date, setDate, display, displayText }: DatePickerPr
         }}
         onClick={() => changeWeek(ChangeWeekDirection.Next)}
       >
-        <CaretRightIcon color={primaryA} />
+        <CaretRight color={primaryA} />
       </Button>
     </ButtonGroup>
   );

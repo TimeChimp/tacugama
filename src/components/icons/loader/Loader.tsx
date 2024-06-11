@@ -2,6 +2,9 @@ import React from 'react';
 import { Icon, SVGProps } from '../../icon';
 import { DEFAULT_ICON_SIZE } from '../../../models';
 
+/**
+ * @deprecated The custom icons are deprecated and will be removed in a future version. Use the Phosphor Icons (https://phosphoricons.com) instead.
+ */
 export const LoaderIcon = ({ title = 'Loader', size = DEFAULT_ICON_SIZE, color = '#000' }: SVGProps) => {
   return (
     <Icon title={title} lineHeight="0">

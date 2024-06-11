@@ -1,5 +1,5 @@
 import React from 'react';
-import { CaretDownIcon, DEFAULT_LABEL_KEY, DEFAULT_VALUE_KEY, FlexItem, SingleSelectOption, Skeleton } from '../..';
+import { DEFAULT_LABEL_KEY, DEFAULT_VALUE_KEY, FlexItem, SingleSelectOption, Skeleton } from '../..';
 import SelectCreatable from 'react-select/creatable';
 import Select, { Props as SelectProps, components } from 'react-select';
 import { useTheme } from '../../../providers';
@@ -15,6 +15,7 @@ import {
 import { MultiSelectProps } from './types';
 import { ParagraphXSmall } from '../../typography';
 import { HIGH_Z_INDEX } from '../../../models';
+import { CaretDown } from '@phosphor-icons/react';
 
 // TODO: Find way to share props between SingleSelect and MultiSelect
 
@@ -266,7 +267,7 @@ export const MultiSelect = <
     components: {
       DropdownIndicator: () => (
         <FlexItem marg1="0" marg2={scale600} marg3="0" marg4={scale100} width="auto">
-          <CaretDownIcon />
+          <CaretDown />
         </FlexItem>
       ),
       Input: (props) => {

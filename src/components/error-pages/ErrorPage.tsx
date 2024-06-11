@@ -2,10 +2,10 @@ import React, { useMemo } from 'react';
 import { ErrorButtonsBox, ErrorPageContent, ErrorPageWrapper } from './styles';
 import { ErrorPageProps } from './types';
 import { HeadingSmall, ParagraphSmall } from '../typography';
-import { ErrorIcon } from '../icons/error';
 import { Button } from '../button';
 import { useTheme } from '../../providers';
 import { ButtonKind } from '../../models';
+import { XCircle } from '@phosphor-icons/react';
 
 export const ErrorPage = ({
   title,
@@ -33,7 +33,7 @@ export const ErrorPage = ({
   return (
     <ErrorPageWrapper>
       <ErrorPageContent>
-        <ErrorIcon color={negative} />
+        <XCircle color={negative} />
         <HeadingSmall marginTop={scale550} marginBottom={scale300} color={primary}>
           {title}
         </HeadingSmall>

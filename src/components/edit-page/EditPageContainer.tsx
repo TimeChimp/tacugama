@@ -8,7 +8,7 @@ import { Block } from '../block';
 import { ButtonKind, ButtonType } from '../../models';
 import { padding } from '../../utils';
 import { Separator } from '../separator';
-import { AddLineIcon } from '../icons';
+import { Plus } from '@phosphor-icons/react';
 
 const BOX_HEIGHT = '90vh';
 const TOTAL_PADDING = 98;
@@ -49,7 +49,7 @@ export const EditPageContainer = ({
     return (
       <Button
         kind={ButtonKind.primary}
-        startEnhancer={<AddLineIcon />}
+        startEnhancer={<Plus />}
         onClick={onHeaderButtonClick}
         isLoading={updatingHeaderButton}
       >

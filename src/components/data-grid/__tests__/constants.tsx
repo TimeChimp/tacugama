@@ -6,12 +6,8 @@ import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { Avatar } from '../../avatar';
 import { ParagraphSmall } from 'baseui/typography';
 import { useTheme } from '../../../providers';
-import { CalendarIcon } from '../../icons/calendar';
-import { BriefcaseIcon } from '../../icons/briefcase';
-import { NoteIcon } from '../../icons/note';
-import { AvatarIcon } from '../../icons/avatar';
-import { XmarkIcon } from '../../icons/xmark';
 import { DropdownItem } from 'components/dropdown';
+import { Briefcase, Calendar, Note, User, X } from '@phosphor-icons/react';
 
 const CustomCellComponent = ({ data }: any) => {
   const {
@@ -109,7 +105,7 @@ export const FILTERS: Filter[] = [
     type: FilterType.date,
     title: 'Date',
     columnField: 'start',
-    icon: ({ ...props }) => <CalendarIcon {...props} />,
+    icon: ({ ...props }) => <Calendar {...props} />,
   },
   {
     type: FilterType.single,
@@ -175,7 +171,7 @@ export const FILTERS: Filter[] = [
       { value: 3, label: 'Baltus' },
       { value: 4, label: 'Bob' },
     ],
-    icon: ({ ...props }) => <AvatarIcon size="12px" {...props} />,
+    icon: ({ ...props }) => <User size="12px" {...props} />,
     searchPlaceholder: 'Search users',
   },
   {
@@ -184,7 +180,7 @@ export const FILTERS: Filter[] = [
     columnField: 'client',
     values: ['Apple', 'Microsoft', 'Amazon', 'Google'],
     searchPlaceholder: 'Search clients',
-    icon: ({ ...props }) => <BriefcaseIcon {...props} />,
+    icon: ({ ...props }) => <Briefcase {...props} />,
   },
   {
     type: FilterType.multi,
@@ -192,7 +188,7 @@ export const FILTERS: Filter[] = [
     columnField: 'project',
     values: ['Workshop', 'Website redesign', 'Logo and branding'],
     searchPlaceholder: 'Search projects',
-    icon: ({ ...props }) => <NoteIcon {...props} size="14px" />,
+    icon: ({ ...props }) => <Note {...props} size="14px" />,
   },
   {
     type: FilterType.multi,
@@ -200,7 +196,7 @@ export const FILTERS: Filter[] = [
     columnField: 'task',
     values: ['Testing', 'Development', 'Design', 'Support'],
     searchPlaceholder: 'Search tasks',
-    icon: ({ ...props }) => <NoteIcon {...props} />,
+    icon: ({ ...props }) => <Note {...props} />,
     valuesLoading: true,
   },
   // {
@@ -216,7 +212,7 @@ export const FILTERS: Filter[] = [
 export const ROW_ACTION_ITEMS: DropdownItem[] = [
   {
     label: 'Edit',
-    icon: <XmarkIcon size="12px" />,
+    icon: <X size="12px" />,
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     action: () => {},
   },

@@ -2,9 +2,9 @@ import React, { useMemo, useRef, useState } from 'react';
 import { useTheme } from '../../../providers';
 import { RowActionsCellProps } from '../types';
 import { Dropdown } from '../../dropdown';
-import { MoreIcon } from '../../icons/more';
 import { Button } from '../../button';
 import { ButtonKind } from '../../../models';
+import { DotsThreeVertical } from '@phosphor-icons/react';
 
 export const RowActionsCell = ({ data, hideWithNoItems, ...props }: RowActionsCellProps) => {
   const { items, id, api } = data;
@@ -57,7 +57,7 @@ export const RowActionsCell = ({ data, hideWithNoItems, ...props }: RowActionsCe
           {...props}
         >
           <Button kind={ButtonKind.minimal}>
-            <MoreIcon color={active ? dark1 : contentTertiary} size={scale650} />
+            <DotsThreeVertical weight="bold" color={active ? dark1 : contentTertiary} size={scale650} />
           </Button>
         </Dropdown>
       ) : null}

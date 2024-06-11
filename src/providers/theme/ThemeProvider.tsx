@@ -3,6 +3,7 @@ import { BaseProvider } from 'baseui';
 import { ThemeOptionsProps, getTheme } from '../../theme';
 import { styletron, StyletronProvider } from '../styletron/StyletronProvider';
 import { defaultThemeContextProps, ThemeContext, ThemeProviderProps } from './types';
+import { IconContext } from '@phosphor-icons/react';
 
 export const ThemeProvider = ({ children, theme: themeOptions }: ThemeProviderProps) => {
   const [themeContext, setThemeContext] = useState(defaultThemeContextProps);
@@ -32,7 +33,13 @@ export const ThemeProvider = ({ children, theme: themeOptions }: ThemeProviderPr
             },
           }}
         >
-          {children}
+          <IconContext.Provider
+            value={{
+              size: 16,
+            }}
+          >
+            {children}
+          </IconContext.Provider>
         </BaseProvider>
       </ThemeContext.Provider>
     </StyletronProvider>

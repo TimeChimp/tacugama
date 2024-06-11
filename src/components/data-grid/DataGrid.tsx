@@ -74,8 +74,8 @@ import { ParagraphSmall } from '../typography';
 import { Button } from '../button';
 import { Dropdown, DropdownItem } from '../dropdown';
 import { ButtonKind, QuickSelectDateOption } from '../../models';
-import { CaretDownIcon, CaretUpIcon, DragDropIcon } from '../icons';
 import { HeaderColumnSettings } from './header-column-settings';
+import { CaretDown, CaretUp, DotsSix } from '@phosphor-icons/react';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
@@ -929,7 +929,7 @@ export const DataGrid = ({
                       <Button kind={ButtonKind.tertiary}>
                         {selectedGroupOption?.label ?? noneOption.label}
                         <FlexItem marg4={scale500}>
-                          <CaretDownIcon color={dark1} />
+                          <CaretDown color={dark1} />
                         </FlexItem>
                       </Button>
                     </Dropdown>
@@ -1008,11 +1008,11 @@ export const DataGrid = ({
             groupRowInnerTagRenderer: GroupRowInnerTagRenderer,
           }}
           icons={{
-            rowDrag: () => ReactDOMServer.renderToStaticMarkup(<DragDropIcon color={theme.current.colors.primaryA} />),
+            rowDrag: () => ReactDOMServer.renderToStaticMarkup(<DotsSix color={theme.current.colors.primaryA} />),
             sortAscending: () =>
-              ReactDOMServer.renderToStaticMarkup(<CaretDownIcon color={theme.current.colors.primaryA} />),
+              ReactDOMServer.renderToStaticMarkup(<CaretDown color={theme.current.colors.primaryA} />),
             sortDescending: () =>
-              ReactDOMServer.renderToStaticMarkup(<CaretUpIcon color={theme.current.colors.primaryA} />),
+              ReactDOMServer.renderToStaticMarkup(<CaretUp color={theme.current.colors.primaryA} />),
           }}
           modules={[
             ClientSideRowModelModule,

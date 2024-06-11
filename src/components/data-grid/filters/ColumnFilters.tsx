@@ -2,8 +2,6 @@ import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { ColumnFiltersProps, FilterType, FilterValue } from '../types';
 import { SIZE } from 'baseui/button';
 import { Dropdown, DropdownItem } from '../../dropdown';
-import { MinusIcon } from '../../icons/minus';
-import { AddLineIcon } from '../../icons/add-line';
 import { useTheme } from '../../../providers';
 import { FilterButton } from './FilterButton';
 import { Button } from '../../button';
@@ -12,6 +10,7 @@ import { FixedSizeSelect } from '../../fixed-size-select';
 import { MultiFilter } from './MultiFilter';
 import { DateFilter } from '../../date-filter';
 import { StyledFilterColumn, StyledDateFilterColumn } from '../styles';
+import { Minus, Plus } from '@phosphor-icons/react';
 
 const LESS_FILTERS_BUTTON_TEST_ID = 'less-filters-button';
 const MORE_FILTERS_BUTTON_TEST_ID = 'more-filters-button';
@@ -314,7 +313,7 @@ export const ColumnFilters = ({
                 <FilterButton
                   testId={MORE_FILTERS_BUTTON_TEST_ID}
                   onClick={() => setShowLessFilters(false)}
-                  startEnhancer={<AddLineIcon />}
+                  startEnhancer={<Plus />}
                   size={SIZE.compact}
                   title={allFilters}
                 />
@@ -322,7 +321,7 @@ export const ColumnFilters = ({
                 <FilterButton
                   testId={LESS_FILTERS_BUTTON_TEST_ID}
                   onClick={() => setShowLessFilters(true)}
-                  startEnhancer={<MinusIcon />}
+                  startEnhancer={<Minus />}
                   size={SIZE.compact}
                   title={lessFilters}
                 />
