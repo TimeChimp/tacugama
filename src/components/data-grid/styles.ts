@@ -248,3 +248,9 @@ export const StyledDateFilterColumn = themedStyled<'div', StyledDateFilterColumn
 export const StyledFilterColumn = themedStyled('div', ({ $theme }) => ({
   ...padding($theme.sizing.scale100, '0'),
 }));
+
+export const StyledRowActionsCell = themedStyled('div', () => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}));
