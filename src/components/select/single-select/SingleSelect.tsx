@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { SingleSelectProps, Option } from './types';
-import { CaretDownIcon, FlexItem, Skeleton } from '../..';
+import { FlexItem, Skeleton } from '../..';
 import SelectCreatable from 'react-select/creatable';
 import SelectAsync from 'react-select/async';
 import Select, { Props as SelectProps, components } from 'react-select';
@@ -16,6 +16,7 @@ import {
 } from '../../../utils';
 import { ParagraphXSmall } from '../../typography';
 import { HIGH_Z_INDEX } from '../../../models';
+import { CaretDown } from '@phosphor-icons/react';
 
 export const DEFAULT_VALUE_KEY = 'id';
 export const DEFAULT_LABEL_KEY = 'name';
@@ -253,7 +254,7 @@ export const SingleSelect = <
       components: {
         DropdownIndicator: () => (
           <FlexItem marg1="0" marg2={scale600} marg3="0" marg4={scale100} width="auto">
-            <CaretDownIcon />
+            <CaretDown />
           </FlexItem>
         ),
         Input: (props) => {

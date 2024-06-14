@@ -11,9 +11,9 @@ import {
 import { SideNavItemWithSubItemsProps } from './types';
 import { LabelMedium } from '../typography';
 import { Dropdown } from '../dropdown';
-import { CaretDownIcon, ErrorIcon, MoreIcon } from '../icons';
 import { Block } from '../block';
 import { useTheme } from '../../providers';
+import { CaretDown, DotsThree, XCircle } from '@phosphor-icons/react';
 
 export const SideNavGroupLink = ({
   icon: Icon,
@@ -67,17 +67,17 @@ export const SideNavGroupLink = ({
             >
               <Dropdown items={menuItems}>
                 <TripleDotsMenu>
-                  <MoreIcon size={scale550} color={dark3} iconStyle={{ transform: 'rotate(90deg)' }} />
+                  <DotsThree weight="bold" size={scale550} color={dark3} />
                 </TripleDotsMenu>
               </Dropdown>
             </div>
           ) : null}
 
-          {hasError ? <ErrorIcon color={red0} /> : null}
+          {hasError ? <XCircle color={red0} /> : null}
 
           <BottomArrowWrapper $isExpanded={isExpanded} onClick={handleToggleExpand}>
             <Block height={scale700} display="flex">
-              <CaretDownIcon color={dark3} />
+              <CaretDown color={dark3} />
             </Block>
           </BottomArrowWrapper>
         </StyledSideNavItemTitleBox>

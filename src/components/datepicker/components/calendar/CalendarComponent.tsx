@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Calendar, DatepickerOverrides } from 'baseui/datepicker';
 import { borderRadius, padding } from '../../../../utils';
 import { Block } from '../../../block';
-import { CaretDownIcon, CaretLeftIcon, CaretRightIcon } from '../../../icons';
 import { useTheme } from '../../../../providers';
 import { CalendarComponentProps } from './types';
 import { getDateLocale } from '@timechimp/timechimp-typescript-helpers';
 import { HIGH_Z_INDEX } from '../../../../models';
+import { CaretDown, CaretLeft, CaretRight } from '@phosphor-icons/react';
 
 export const CalendarOverride = (): DatepickerOverrides => {
   const {
@@ -92,15 +92,15 @@ export const CalendarOverride = (): DatepickerOverrides => {
     MonthYearSelectIconContainer: {
       component: (props) => (
         <Block marginLeft={scale100}>
-          <CaretDownIcon {...props} color={primaryA} size={25} />
+          <CaretDown {...props} color={primaryA} size={25} />
         </Block>
       ),
     },
     PrevButtonIcon: {
-      component: (props) => <CaretLeftIcon {...props} color={primaryA} size={25} />,
+      component: (props) => <CaretLeft {...props} color={primaryA} size={25} />,
     },
     NextButtonIcon: {
-      component: (props) => <CaretRightIcon {...props} color={primaryA} size={25} />,
+      component: (props) => <CaretRight {...props} color={primaryA} size={25} />,
     },
     Week: {
       style: {

@@ -2,8 +2,8 @@ import React from 'react';
 import { StyledSideNavItem, StyledSideNavItemIcon, StyledSideNavItemTitle } from './styles';
 import { SideNavItemProps } from './types';
 import { LabelMedium } from '../typography';
-import { ErrorIcon } from '../icons';
 import { useTheme } from '../../providers';
+import { XCircle } from '@phosphor-icons/react';
 
 export const SideNavItem = ({ id, icon: Icon, title, isRightAlign, onClick, hasError }: SideNavItemProps) => {
   const {
@@ -27,7 +27,7 @@ export const SideNavItem = ({ id, icon: Icon, title, isRightAlign, onClick, hasE
         <LabelMedium color={primary}>{title}</LabelMedium>
       </StyledSideNavItemTitle>
 
-      {hasError ? <ErrorIcon color={red0} /> : null}
+      {hasError ? <XCircle color={red0} /> : null}
     </StyledSideNavItem>
   );
 };

@@ -7,8 +7,8 @@ import { Block } from '../block';
 import { margin } from '../../utils';
 import { useTheme } from '../../providers';
 import { StatefulTooltip } from '../tooltip';
-import { HelpIcon } from '../icons';
 import { HIGH_Z_INDEX } from '../../models';
+import { Info } from '@phosphor-icons/react';
 
 export const FormRow = <T extends FieldValues, K extends string>({
   label,
@@ -63,9 +63,7 @@ export const FormRow = <T extends FieldValues, K extends string>({
                 }}
                 content={toolTip}
               >
-                <div>
-                  <HelpIcon title={''} />
-                </div>
+                <Info />
               </StatefulTooltip>
             )}
           </LabelSmall>

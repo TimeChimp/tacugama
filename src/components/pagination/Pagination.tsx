@@ -3,9 +3,8 @@ import { Pagination as BasePagination, SIZE, PaginationProps as BasePaginationPr
 import { ButtonKind, CustomThemeType } from '../../models';
 import { border, borderRadius, margin, padding } from '../../utils';
 import { Button } from '../button';
-import { CaretLeftIcon } from '../icons/caret-left';
-import { CaretRightIcon } from '../icons/caret-right';
 import { useTheme } from '../../providers';
+import { CaretLeft, CaretRight } from '@phosphor-icons/react';
 
 export type PaginationProps = BasePaginationProps;
 
@@ -41,14 +40,14 @@ export const Pagination = ({ ...rest }: PaginationProps) => {
         NextButton: {
           component: ({ onClick }: any) => (
             <Button kind={ButtonKind.tertiary} shape="square" onClick={onClick}>
-              <CaretRightIcon color={dark2} />
+              <CaretRight color={dark2} />
             </Button>
           ),
         },
         PrevButton: {
           component: ({ onClick }: any) => (
             <Button kind={ButtonKind.tertiary} shape="square" onClick={onClick}>
-              <CaretLeftIcon color={dark2} />
+              <CaretLeft color={dark2} />
             </Button>
           ),
         },

@@ -3,14 +3,12 @@ import { ParagraphSmall, ParagraphXSmall } from 'baseui/typography';
 import { Box } from '../box';
 import { Button } from '../button';
 import { FlexGrid, FlexGridItem } from '../flex-grid';
-import { AttachmentIcon } from '../icons/attachment';
-import { DownloadIcon } from '../icons/download';
-import { DeleteIcon } from '../icons/delete';
 import { Separator } from '../separator';
 import { useTheme } from '../../providers';
 import bytes from 'bytes';
 import { TcDate } from '@timechimp/timechimp-typescript-helpers';
 import { ButtonKind } from '../../models';
+import { Download, Paperclip, Trash } from '@phosphor-icons/react';
 
 interface Attachment {
   id?: string;
@@ -64,7 +62,7 @@ export const AttachmentsList = ({ attachments, onDownload, onDelete }: Attacheme
               }}
             >
               <FlexGrid alignItems="center">
-                <AttachmentIcon />
+                <Paperclip />
                 <ParagraphSmall alignSelf="center" marginLeft={scale600} marginRight={scale300}>
                   {attachment.customFileName}
                 </ParagraphSmall>
@@ -81,10 +79,10 @@ export const AttachmentsList = ({ attachments, onDownload, onDelete }: Attacheme
                 kind={ButtonKind.minimal}
                 onClick={() => onDownload(attachment.id as string, attachment.customFileName as string)}
               >
-                <DownloadIcon />
+                <Download />
               </Button>
               <Button kind={ButtonKind.minimal} onClick={() => onDelete(attachment.id as string)}>
-                <DeleteIcon color={dark0} />
+                <Trash color={dark0} />
               </Button>
             </FlexGridItem>
           </FlexGrid>

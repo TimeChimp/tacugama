@@ -1,8 +1,8 @@
 import React from 'react';
 import { Input } from '../Input';
-import { SearchIcon } from '../../icons/search';
 import { useTheme } from '../../../providers';
 import { SearchInputProps } from './types';
+import { MagnifyingGlass } from '@phosphor-icons/react';
 
 export const SearchInput = ({ disabled, value, ...rest }: SearchInputProps) => {
   const {
@@ -26,7 +26,7 @@ export const SearchInput = ({ disabled, value, ...rest }: SearchInputProps) => {
 
   return (
     <Input
-      startEnhancer={<SearchIcon color={getIconColor()} size={scale650} />}
+      startEnhancer={<MagnifyingGlass color={getIconColor()} size={scale650} />}
       value={value}
       disabled={disabled}
       {...rest}

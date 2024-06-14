@@ -7,8 +7,8 @@ import { FlexItem } from '../flex-item';
 import { HeadingSmall } from '../typography';
 import { Button } from '../button';
 import { ButtonKind } from '../../models';
-import { CaretLeftIcon } from '../icons';
 import { EditPageContent } from './EditPageContent';
+import { CaretLeft } from '@phosphor-icons/react';
 
 export const EditPage = ({
   sideNavItems,
@@ -58,7 +58,7 @@ export const EditPage = ({
               </Button>
             </>
           ) : (
-            <Button kind={ButtonKind.secondary} onClick={onCancelClick} startEnhancer={<CaretLeftIcon />}>
+            <Button kind={ButtonKind.secondary} onClick={onCancelClick} startEnhancer={<CaretLeft />}>
               {backText}
             </Button>
           )}

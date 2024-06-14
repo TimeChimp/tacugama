@@ -1,11 +1,9 @@
-import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-
+import React from 'react';
 import { Button } from './Button';
 import { ButtonProps } from './types';
 import { ButtonType, ButtonKind, ButtonShape } from '../../models';
-import { SearchIcon } from '../icons/search';
-import { AddLineIcon } from '../icons/add-line';
+import { MagnifyingGlass, Plus } from '@phosphor-icons/react';
 
 export default {
   title: 'Components/Button',
@@ -16,7 +14,7 @@ const ButtonTemplate: Story<ButtonProps> = (args) => <Button {...args} />;
 
 const SquareButtonTemplate: Story<ButtonProps> = (args) => (
   <Button kind={ButtonKind.tertiary} {...args}>
-    <SearchIcon />
+    <MagnifyingGlass />
   </Button>
 );
 
@@ -26,7 +24,7 @@ PrimaryStartEnhancer.args = {
   buttonType: ButtonType.default,
   kind: ButtonKind.primary,
   disabled: false,
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <MagnifyingGlass />,
 };
 PrimaryStartEnhancer.parameters = {
   design: {
@@ -40,7 +38,7 @@ SecondaryStartEnhancer.args = {
   children: 'Button',
   buttonType: ButtonType.default,
   kind: ButtonKind.secondary,
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <MagnifyingGlass />,
   disabled: false,
 };
 SecondaryStartEnhancer.parameters = {
@@ -55,7 +53,7 @@ TertiaryStartEnhancer.args = {
   children: 'New',
   buttonType: ButtonType.default,
   kind: ButtonKind.tertiary,
-  startEnhancer: <AddLineIcon />,
+  startEnhancer: <Plus />,
   disabled: false,
 };
 TertiaryStartEnhancer.parameters = {
@@ -70,7 +68,7 @@ QuaternaryStartEnhancer.args = {
   children: 'Button',
   buttonType: ButtonType.default,
   kind: ButtonKind.quarternary,
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <MagnifyingGlass />,
   disabled: false,
 };
 QuaternaryStartEnhancer.parameters = {
@@ -85,7 +83,7 @@ MinimalStartEnhancer.args = {
   children: 'Button',
   buttonType: ButtonType.default,
   kind: ButtonKind.minimal,
-  startEnhancer: <SearchIcon />,
+  startEnhancer: <MagnifyingGlass />,
   disabled: false,
 };
 MinimalStartEnhancer.parameters = {
