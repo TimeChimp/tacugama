@@ -18,11 +18,11 @@ import {
 import { DurationFormat, NumberFormat, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 import { DropdownItem } from '../dropdown';
 import { SVGProps as IconProps } from '..';
-import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
 import { AgGridColumnProps } from '@ag-grid-community/react';
 import { DatepickerRangeTranslations } from '../datepicker';
 import { AgGridReact } from '@ag-grid-community/react/lib/agGridReact';
 import { QuickSelectDateOption } from '../../models';
+import { SetFilterModel } from '@ag-grid-enterprise/set-filter';
 
 export enum RowModelType {
   clientSide = 'clientSide',
@@ -526,8 +526,8 @@ export interface ProcessCellForExportParams {
   value: any;
   node?: RowNode | null;
   column: any;
-  api: GridApi | null | undefined;
-  columnApi: ColumnApi | null | undefined;
+  api: GridApi;
+  columnApi: ColumnApi;
   context: any;
   type: string;
 }

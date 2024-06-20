@@ -25,7 +25,6 @@ import {
   ValueFormatterParams,
   IServerSideDatasource,
   IServerSideGetRowsParams,
-  ServerSideStoreType,
   GridReadyEvent,
   DateFilterModel,
   SelectionChangedEvent,
@@ -275,7 +274,7 @@ export const DataGrid = ({
         }
 
         if (filter.filterType === 'ids') {
-          const idsFilter = filter as IdsFilterModel;
+          const idsFilter = filter as unknown as IdsFilterModel;
           if (idsFilter.ids) {
             filterIds[filterName] = idsFilter.ids;
           }
@@ -944,13 +943,13 @@ export const DataGrid = ({
           </StyledDataGridHeader>
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
-        <StyledAgGridReact
+        <AgGridReact
           ref={datagridRef}
           rowData={rowData}
           rowSelection="multiple"
           rowModelType={rowModelType}
           immutableData={rowModelType === RowModelType.clientSide}
-          serverSideStoreType={ServerSideStoreType.Partial}
+          serverSideStoreType="partial"
           defaultColDef={defaultColDef}
           rowDragManaged={isRowDragManaged}
           treeData={treeData}
@@ -1134,7 +1133,7 @@ export const DataGrid = ({
             pinned={'right'}
             lockPosition
           />
-        </StyledAgGridReact>
+        </AgGridReact>
       </StyledDataGrid>
     </>
   );

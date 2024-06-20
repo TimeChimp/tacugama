@@ -179,7 +179,7 @@ export const getDocDefinition = (
 
     // Sort the selected rows by the order they appear in the grid
     selectedRows.sort((a, b) => {
-      if (a.rowIndex === undefined || b.rowIndex === undefined) {
+      if (a.rowIndex === null || b.rowIndex === null) {
         return 0;
       }
       return a.rowIndex - b.rowIndex;
@@ -203,7 +203,7 @@ export const getDocDefinition = (
             api: gridApi,
             columnApi,
             column: column as unknown as Column,
-            node: gridApi.getRowNode(node.id!),
+            node: gridApi.getRowNode(node.id!)!,
             data: node,
             colDef: column.colDef,
             value: cellValue,

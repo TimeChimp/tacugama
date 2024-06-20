@@ -249,7 +249,7 @@ const getTimeEntries = () => {
       currency: '€15.00',
     },
   ];
-  for (let i = 0; i < 999; i++) {
+  for (let i = 0; i < 29; i++) {
     timeEntries.push({
       id: `ACC-BBB-CCC-DDD-EEE-${i}`,
       name: 'Analysis',
