@@ -90,17 +90,17 @@ export const CalendarOverride = (): DatepickerOverrides => {
       },
     },
     MonthYearSelectIconContainer: {
-      component: (props) => (
-        <Block marginLeft={scale100}>
-          <CaretDown {...props} color={primaryA} size={25} />
+      component: () => (
+        <Block marginLeft={scale200} marginTop={scale200}>
+          <CaretDown color={primaryA} size={18} />
         </Block>
       ),
     },
     PrevButtonIcon: {
-      component: (props) => <CaretLeft {...props} color={primaryA} size={25} />,
+      component: (props) => <CaretLeft {...props} color={primaryA} size={22} />,
     },
     NextButtonIcon: {
-      component: (props) => <CaretRight {...props} color={primaryA} size={25} />,
+      component: (props) => <CaretRight {...props} color={primaryA} size={22} />,
     },
     Week: {
       style: {
