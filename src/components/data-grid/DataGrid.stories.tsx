@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import '@ag-grid-community/core/dist/styles/ag-grid.css';
-import '@ag-grid-community/core/dist/styles/ag-theme-alpine.css';
-import '@ag-grid-community/core/dist/styles/ag-theme-alpine-dark.css';
+import '@ag-grid-community/styles/ag-grid.css';
+import '@ag-grid-community/styles/ag-theme-alpine.css';
 
 import { DataGrid, DataGridProps } from '.';
 import { DataGridView, CreateViewInput, RowModelType } from './types';

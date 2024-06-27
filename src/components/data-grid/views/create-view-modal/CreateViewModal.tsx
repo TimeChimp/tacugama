@@ -18,7 +18,7 @@ export const CreateViewModal = ({
   onClose,
   handleCreateView,
   translations,
-  gridColumnApi,
+  gridApi,
   filterModel,
 }: CreateViewModalProps) => {
   const {
@@ -36,12 +36,12 @@ export const CreateViewModal = ({
     if (isOpen) {
       reset({ name: '' });
     }
-  }, [setValue, isOpen, reset, gridColumnApi]);
+  }, [setValue, isOpen, reset, gridApi]);
 
   const getState = () => {
     const state: DataGridState = {
-      columnState: gridColumnApi?.getColumnState(),
-      columnGroupState: gridColumnApi?.getColumnGroupState(),
+      columnState: gridApi?.getColumnState(),
+      columnGroupState: gridApi?.getColumnGroupState(),
       filterModel,
     };
     return JSON.stringify(state);

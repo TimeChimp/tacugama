@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import fetch from 'isomorphic-unfetch';
 import { StyledDataGrid, getGridThemeOverrides, StyledDataGridHeader, StyledAgGridReact } from './styles';
 import { RowActionsCell } from './row-actions-cell';
@@ -11,35 +11,26 @@ import { HeaderColumnToggle } from './header-column-toggle';
 import { LoadingCellTemplate } from './loading-cell-template';
 import { Filters } from './filters';
 import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
-import { AgGridReact } from '@ag-grid-community/react/lib/agGridReact';
 import { StatusBarModule } from '@ag-grid-enterprise/status-bar';
 import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
-import { SetFilterModel, SetFilterModule } from '@ag-grid-enterprise/set-filter';
-import { AgGridColumn } from '@ag-grid-community/react';
+import { SetFilterModule } from '@ag-grid-enterprise/set-filter';
 import { CsvExportModule } from '@ag-grid-community/csv-export';
 import { LicenseManager } from '@ag-grid-enterprise/core';
 import { ExcelExportModule } from '@ag-grid-enterprise/excel-export';
 import {
   GridApi,
-  ColumnApi,
-  ValueFormatterParams,
   IServerSideDatasource,
   IServerSideGetRowsParams,
-  ServerSideStoreType,
   GridReadyEvent,
   DateFilterModel,
   SelectionChangedEvent,
   TextFilterModel,
+  ColDef,
+  IGroupCellRendererParams,
+  SetFilterModel,
+  StatusPanelDef,
 } from '@ag-grid-community/core';
-import {
-  formatCurrency,
-  formatNumber,
-  formatDuration,
-  TcDate,
-  sortBy,
-  nameOf,
-  SupportedLocale,
-} from '@timechimp/timechimp-typescript-helpers';
+import { TcDate, sortBy, nameOf, SupportedLocale } from '@timechimp/timechimp-typescript-helpers';
 
 import {
   DataGridApi,
@@ -50,12 +41,10 @@ import {
   DataGridResponse,
   DataGridView,
   CreateViewInput,
-  IFilterType,
   SelectedFilterIds,
   FilterValue,
   FilterType,
   RowModelType,
-  DataGridColumnValueType,
   CustomFilterTypes,
   Filter,
   IdsFilterModel,
@@ -100,7 +89,6 @@ export const DataGrid = ({
   columnToggling,
   accessToken,
   customHeaders,
-  sortableColumns,
   views,
   settings,
   dates,
@@ -122,9 +110,6 @@ export const DataGrid = ({
   height = DEFAULT_HEIGHT,
   hideDownload = false,
   hideDelete = false,
-  treeData = false,
-  groupIncludeFooter = false,
-  groupIncludeTotalFooter = false,
   enableExport = false,
   suppressRowHoverHighlight = false,
   suppressRowClickSelection = false,
@@ -133,7 +118,6 @@ export const DataGrid = ({
   getDataPath,
   onSelectionChangedHandler,
   onRowDataUpdated,
-  onRowDataChanged,
   onModalClose,
   onModalOpen,
   onFilterModelChange,
@@ -151,13 +135,45 @@ export const DataGrid = ({
   onShowLessFiltersChange,
   setFiltersHeight,
   hasStoredFilters,
-  onCellClicked,
   defaultDateQuickSelect = QuickSelectDateOption.THIS_YEAR,
 }: DataGridProps) => {
-  const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
-  const [gridColumnApi, setGridColumnApi] = useState<ColumnApi>(new ColumnApi());
-  const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
+
+  const checkboxColumn: DataGridColumn = {
+    field: '',
+    headerName: '',
+    minWidth: PINNED_COLUMN_WIDTH,
+    maxWidth: PINNED_COLUMN_WIDTH,
+    sortable: false,
+    resizable: false,
+    pinned: 'left',
+    editable: false,
+    lockPosition: true,
+    checkboxSelection: true,
+    headerComponent: 'headerCheckbox',
+  };
+
+  const rowActionColumn: DataGridColumn = useMemo(() => {
+    return {
+      field: '',
+      headerName: '',
+      minWidth: PINNED_COLUMN_WIDTH,
+      maxWidth: PINNED_COLUMN_WIDTH,
+      sortable: false,
+      resizable: false,
+      pinned: 'right',
+      editable: false,
+      lockPosition: true,
+      headerComponentParams: { translations },
+      cellRenderer: 'moreActionsCell',
+      cellRendererParams: {
+        data: { items: rowActionItems, api: gridApi },
+      },
+    };
+  }, [rowActionItems]);
+
+  const [gridColumns, setGridColumns] = useState<DataGridColumn[]>([checkboxColumn, ...columns, rowActionColumn]);
+
   const [allViews, setAllViews] = useState<DataGridView[]>(views ?? []);
   const [selectedFilterIds, setSelectedFilterIds] = useState<SelectedFilterIds>({});
   const [rowsSelected, setRowsSelected] = useState<number>(0);
@@ -206,15 +222,6 @@ export const DataGrid = ({
     setAllViews(allViews);
   }, [views, translations]);
 
-  const defaultColDef = useMemo(() => {
-    return {
-      resizable: true,
-      minWidth: 150,
-      flex: 1,
-      suppressMenu: true,
-    };
-  }, []);
-
   const getGridThemeClassName = () => {
     return theme.current === theme.dark ? 'ag-theme-alpine-dark' : 'ag-theme-alpine';
   };
@@ -255,7 +262,7 @@ export const DataGrid = ({
     const rowCount = api?.getDisplayedRowCount();
     // Deselect all rows when refreshing
     api?.deselectAll();
-    return api?.refreshServerSideStore({ purge: rowCount === 0 });
+    return api?.refreshServerSide({ purge: rowCount === 0 });
   };
 
   const refreshCells = (api: GridApi) => api.refreshCells();
@@ -309,9 +316,9 @@ export const DataGrid = ({
   };
 
   const resetGrid = useCallback(
-    (api: GridApi, columnApi: ColumnApi) => {
-      columnApi.resetColumnState();
-      columnApi.resetColumnGroupState();
+    (api: GridApi) => {
+      api.resetColumnState();
+      api.resetColumnGroupState();
       Object.keys(filterModel).forEach((filter) => {
         api.destroyFilter(filter);
       });
@@ -325,16 +332,16 @@ export const DataGrid = ({
   );
 
   const setViewState = useCallback(
-    (api: GridApi, columnApi: ColumnApi, state: string | null) => {
-      if (!api || !columnApi) {
+    (api: GridApi, state: string | null) => {
+      if (!api) {
         return;
       }
       if (state) {
         const gridState: DataGridState = JSON.parse(state);
 
         try {
-          columnApi.setColumnState(gridState.columnState);
-          columnApi.setColumnGroupState(gridState.columnGroupState);
+          api.applyColumnState({ state: gridState.columnState });
+          api.setColumnGroupState(gridState.columnGroupState);
           setFilterModel(gridState.filterModel);
           api?.setFilterModel(gridState.filterModel);
           setViewFilterIds(gridState.filterModel);
@@ -342,7 +349,7 @@ export const DataGrid = ({
           console.error('Error while setting grid state', e);
         }
       } else {
-        resetGrid(api, columnApi);
+        resetGrid(api);
       }
 
       api?.onFilterChanged();
@@ -367,7 +374,7 @@ export const DataGrid = ({
         await onActivateView(view.id);
       }
       //setViewFilterIds
-      setViewState(gridApi, gridColumnApi, view.viewState);
+      setViewState(gridApi, view.viewState);
     }
   };
 
@@ -401,7 +408,7 @@ export const DataGrid = ({
             ?.map((column) => {
               return {
                 id: column?.field,
-                displayName: column?.label || '',
+                displayName: column?.headerName || '',
                 field: column?.field,
               };
             });
@@ -464,8 +471,10 @@ export const DataGrid = ({
     };
   };
 
+  const myDatasource = useMemo(() => createServerSideDatasource(), [filterModel]);
+
   const createDataGridApi = useCallback(
-    (api: GridApi, columnApi: ColumnApi) => {
+    (api: GridApi) => {
       if (onReady) {
         const dataGridApi: DataGridApi = {
           getSelectedRows: () => getSelectedRows(api),
@@ -476,8 +485,8 @@ export const DataGrid = ({
           exportAsExcel: () => exportAsExcel(api),
           refreshStore: () => refreshStore(api),
           refreshCells: () => refreshCells(api),
-          setViewState: (state: string | null) => setViewState(api, columnApi, state),
-          datagridRef,
+          setViewState: (state: string | null) => setViewState(api, state),
+          api,
         };
         onReady(dataGridApi);
       }
@@ -485,27 +494,14 @@ export const DataGrid = ({
     [onReady, setViewState],
   );
 
-  const onGridReady = async ({ api, columnApi }: GridReadyEvent) => {
-    createDataGridApi(api, columnApi);
-
+  const onGridReady = async ({ api }: GridReadyEvent) => {
+    createDataGridApi(api);
     setGridApi(api);
-    setGridColumnApi(columnApi);
     setIsGridColumnApiLoaded(true);
-
-    if (rowModelType === RowModelType.serverSide) {
-      const datasource = createServerSideDatasource();
-      api?.setServerSideDatasource(datasource);
-    }
   };
 
-  useEffect(() => {
-    if (gridApi) {
-      gridApi.setServerSideDatasource(createServerSideDatasource());
-    }
-  }, [filterModel, dataUrl]);
-
-  const getRowNodeId = (data: any) => {
-    return data.hierarchy ?? data.id;
+  const getRowId = (params: any) => {
+    return params.data.id;
   };
 
   const onGrouping = (rowGroups: string[]) => {
@@ -513,8 +509,14 @@ export const DataGrid = ({
     columns.forEach((c) => {
       c.rowGroup = rowGroups.includes(c.field);
     });
+
+    if (rowGroups?.length && selection) {
+      columns[0].hide = true;
+    } else {
+      columns[0].hide = false;
+    }
     setGridColumns(columns);
-    setRowsSelected(0);
+    gridApi.deselectAll();
   };
 
   const clearFilterModel = (columnFilter: string) => {
@@ -530,77 +532,6 @@ export const DataGrid = ({
       }
     }
     gridApi?.onFilterChanged();
-  };
-
-  const getValueFormatter = (
-    params: ValueFormatterParams,
-    type?: DataGridColumnValueType,
-    customMap?: (value: any) => any,
-  ) => {
-    const { currency, numberFormat, dateFormat, language, timeFormat, durationFormat } = formatSettings;
-    const defaultDateFormat = defaultFormatSettings.dateFormat as string;
-    const defaultTimeFormat = defaultFormatSettings.timeFormat as string;
-    const defaultLanguage = defaultFormatSettings.language as SupportedLocale;
-
-    if (customMap) {
-      params.value = customMap(params);
-    }
-
-    if (params.value == null) {
-      return '';
-    }
-
-    switch (type) {
-      case 'currency':
-        return formatCurrency(params.value, currency, numberFormat);
-      case 'integer':
-        return formatNumber(params.value, 0, numberFormat);
-      case 'number':
-        return formatNumber(params.value, 2, numberFormat);
-      case 'date':
-        return new TcDate(params.value).format(dateFormat ?? defaultDateFormat, language ?? defaultLanguage);
-      case 'time':
-        return new TcDate(params.value).format(timeFormat ?? defaultTimeFormat, language ?? defaultLanguage);
-      case 'datetime': {
-        const date = new TcDate(params.value).format(dateFormat ?? defaultDateFormat, language ?? defaultLanguage);
-        const time = new TcDate(params.value).format(timeFormat ?? defaultTimeFormat, language ?? defaultLanguage);
-        return `${date} ${time}`;
-      }
-      case 'duration':
-        return formatDuration(params.value, durationFormat, numberFormat);
-    }
-    return params.value;
-  };
-
-  const getFilterParams = (params: any, columnField: string) => {
-    if (!params) {
-      return;
-    }
-    let values: FilterValue['value'][] = [];
-    const columnFilter = filters?.find((filter) => filter.columnField === columnField);
-
-    if (columnFilter?.values) {
-      const columnValues: (FilterValue | string)[] = columnFilter.values;
-      values = columnValues.map((value: FilterValue | string) =>
-        value && typeof value === 'object' ? value.value : value,
-      );
-    }
-    params.success([...values, '']);
-  };
-
-  const checkIfSearchColumn = (columnField: string) => searchColumns.includes(columnField);
-
-  const getFilterType = (columnField: string, type?: DataGridColumnValueType): IFilterType | undefined => {
-    if (type === 'date' || type === 'time') {
-      return 'agDateColumnFilter';
-    }
-
-    const isSearchColumn = checkIfSearchColumn(columnField);
-    if (isSearchColumn) {
-      return 'agMultiColumnFilter';
-    }
-
-    return 'agSetColumnFilter';
   };
 
   const onSelectionChanged = (event: SelectionChangedEvent) => {
@@ -780,7 +711,7 @@ export const DataGrid = ({
     const activeView = allViews?.find((view) => view.active);
 
     if (activeView && activeView.viewState && !hasStoredFilters) {
-      return setViewState(gridApi, gridColumnApi, activeView.viewState);
+      return setViewState(gridApi, activeView.viewState);
     }
 
     return setFilterDefaultValues();
@@ -826,20 +757,11 @@ export const DataGrid = ({
     return !!dataItem.children?.length;
   };
 
-  const columnCellRenderer = useMemo(() => {
-    if (rowActionItems?.length) {
-      return 'moreActionsCell';
-    }
-    return '';
-  }, [rowActionItems]);
-
   const selectedGroupOption = gridColumns.filter((x) => x.groupable).find((column) => column.rowGroup);
 
-  const generalSelection = selectedGroupOption ? false : selection;
-
   const showDataGridHeader = useMemo(
-    () => viewing || settings?.length || (generalSelection && !(hideDelete && hideDownload)),
-    [viewing, generalSelection, hideDelete, hideDownload, settings],
+    () => viewing || settings?.length || (selection && !(hideDelete && hideDownload)),
+    [viewing, selection, hideDelete, hideDownload, settings],
   );
 
   const options: DropdownItem[] = gridColumns
@@ -847,7 +769,7 @@ export const DataGrid = ({
     ?.map((column) => {
       return {
         id: column?.field,
-        label: column?.label || '',
+        label: column?.headerName || '',
         isBold: column?.rowGroup,
         action: () => onGrouping([column?.field]),
       };
@@ -859,6 +781,71 @@ export const DataGrid = ({
     isBold: !selectedGroupOption,
     action: () => onGrouping([]),
   };
+
+  const defaultColDef = useMemo(() => {
+    return {
+      resizable: true,
+      minWidth: 150,
+      flex: 1,
+      suppressHeaderMenuButton: true,
+      lockPinned: true,
+    };
+  }, []);
+
+  const defaultAutoGroupColumnDef = useMemo<ColDef>(() => {
+    return {
+      headerName: selectedGroupOption?.headerName,
+      field: selectedGroupOption?.field,
+      minWidth: 200,
+      cellRenderer: 'agGroupCellRenderer',
+      headerCheckboxSelection: true,
+      cellRendererParams: {
+        checkbox: true,
+      } as IGroupCellRendererParams,
+    };
+  }, [selectedGroupOption]);
+
+  const statusBar = useMemo<{
+    statusPanels: StatusPanelDef[];
+  }>(() => {
+    return {
+      statusPanels: [
+        ...(hasFooterRowCount
+          ? [
+              {
+                statusPanel: FooterRowCount,
+                statusPanelParams: {
+                  translations,
+                },
+                align: 'left',
+              },
+            ]
+          : []),
+        ...(showPagination
+          ? [
+              {
+                statusPanel: FooterPagination,
+                statusPanelParams: {
+                  translations,
+                },
+                align: 'center',
+              },
+            ]
+          : []),
+        ...(paginationPageSize
+          ? [
+              {
+                statusPanel: FooterPageSize,
+                statusPanelParams: {
+                  translations,
+                },
+                align: 'right',
+              },
+            ]
+          : []),
+      ],
+    };
+  }, [hasFooterRowCount, showPagination, paginationPageSize]);
 
   return (
     <>
@@ -888,11 +875,10 @@ export const DataGrid = ({
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {showDataGridHeader && (
-          <StyledDataGridHeader $justifyContent={!generalSelection && !enableExport ? 'flex-end' : 'space-between'}>
-            {(generalSelection || enableExport) && (
+          <StyledDataGridHeader $justifyContent={!selection ? 'flex-end' : 'space-between'}>
+            {(selection || enableExport) && (
               <DataGridActions
                 gridApi={gridApi}
-                gridColumnApi={gridColumnApi}
                 columns={gridColumns}
                 rowsSelected={rowsSelected}
                 translations={translations}
@@ -915,7 +901,6 @@ export const DataGrid = ({
                   onActivateView={handleActivateView}
                   translations={translations}
                   gridApi={gridApi}
-                  gridColumnApi={gridColumnApi}
                   onModalClose={onModalClose}
                   onModalOpen={onModalOpen}
                   filterModel={filterModel}
@@ -927,7 +912,7 @@ export const DataGrid = ({
                     <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
                     <Dropdown items={[noneOption, ...options]}>
                       <Button kind={ButtonKind.tertiary}>
-                        {selectedGroupOption?.label ?? noneOption.label}
+                        {selectedGroupOption?.headerName ?? noneOption.label}
                         <FlexItem marg4={scale500}>
                           <CaretDown color={dark1} />
                         </FlexItem>
@@ -936,42 +921,29 @@ export const DataGrid = ({
                   </FlexItem>
                 </>
               )}
-              {isGridColumnApiLoaded && columnToggling && (
-                <HeaderColumnToggle api={gridApi} columnApi={gridColumnApi} />
-              )}
+              {isGridColumnApiLoaded && columnToggling && <HeaderColumnToggle api={gridApi} />}
               {!!settings?.length && <HeaderColumnSettings settings={settings} />}
             </FlexItem>
           </StyledDataGridHeader>
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
         <StyledAgGridReact
-          ref={datagridRef}
+          columnDefs={gridColumns as ColDef[]}
+          serverSideDatasource={myDatasource}
           rowData={rowData}
           rowSelection="multiple"
           rowModelType={rowModelType}
-          immutableData={rowModelType === RowModelType.clientSide}
-          serverSideStoreType={ServerSideStoreType.Partial}
           defaultColDef={defaultColDef}
           rowDragManaged={isRowDragManaged}
-          treeData={treeData}
           isServerSideGroup={isServerSideGroup}
           getServerSideGroupKey={getServerSideGroupKey}
           getDataPath={getDataPath}
           noRowsOverlayComponent="noRowsTemplate"
-          loadingCellRenderer="loadingCellTemplate"
+          loadingCellRenderer={LoadingCellTemplate}
           animateRows
           suppressAggFuncInHeader
-          autoGroupColumnDef={
-            autoGroupColumnDef ?? {
-              cellRendererParams: {
-                suppressCount: false,
-                checkbox: false,
-              },
-            }
-          }
-          groupIncludeFooter={groupIncludeFooter}
-          groupIncludeTotalFooter={groupIncludeTotalFooter}
-          groupSelectsChildren={!treeData && true}
+          autoGroupColumnDef={autoGroupColumnDef ?? defaultAutoGroupColumnDef}
+          groupSelectsChildren={!!selectedGroupOption}
           pagination={showPagination}
           paginationPageSize={paginationPageSize}
           suppressPaginationPanel={hasPaginationPanel}
@@ -980,8 +952,7 @@ export const DataGrid = ({
           enableCellTextSelection
           onGridReady={onGridReady}
           onRowDataUpdated={onRowDataUpdated}
-          onRowDataChanged={onRowDataChanged}
-          getRowNodeId={getRowNodeId}
+          getRowId={getRowId}
           onFirstDataRendered={onFirstDataRendered}
           onSelectionChanged={onSelectionChanged}
           suppressDragLeaveHidesColumns
@@ -991,16 +962,13 @@ export const DataGrid = ({
           headerHeight={40}
           rowHeight={rowHeight}
           getRowHeight={getRowHeight}
-          frameworkComponents={{
+          components={{
             moreActionsCell: (props: any) =>
               !customActionsCellRender ? (
                 <RowActionsCell {...props} hideWithNoItems={hideActionWithNoItems} />
               ) : (
                 customActionsCellRender(props)
               ),
-            footerRowCount: hasFooterRowCount ? FooterRowCount : null,
-            footerPagination: showPagination ? FooterPagination : null,
-            footerPageSize: paginationPageSize ? FooterPageSize : null,
             noRowsTemplate: () => <NoRowsTemplate translations={translations} />,
             headerCheckbox: HeaderCheckbox,
             loadingCellTemplate: LoadingCellTemplate,
@@ -1023,118 +991,10 @@ export const DataGrid = ({
             StatusBarModule,
             SetFilterModule,
           ]}
-          statusBar={{
-            statusPanels: [
-              ...(hasFooterRowCount
-                ? [
-                    {
-                      statusPanel: 'footerRowCount',
-                      statusPanelParams: {
-                        translations,
-                      },
-                      align: 'left',
-                    },
-                  ]
-                : []),
-              ...(showPagination
-                ? [
-                    {
-                      statusPanel: 'footerPagination',
-                      statusPanelParams: {
-                        translations,
-                      },
-                      align: 'center',
-                    },
-                  ]
-                : []),
-              ...(paginationPageSize
-                ? [
-                    {
-                      statusPanel: 'footerPageSize',
-                      statusPanelParams: {
-                        translations,
-                      },
-                      align: 'right',
-                    },
-                  ]
-                : []),
-            ],
-          }}
+          statusBar={statusBar}
           tooltipShowDelay={0}
           colResizeDefault="shift"
-        >
-          <AgGridColumn
-            hide={!generalSelection}
-            headerName={''}
-            field={''}
-            checkboxSelection={generalSelection}
-            headerComponent={generalSelection ? 'headerCheckbox' : ''}
-            minWidth={PINNED_COLUMN_WIDTH}
-            maxWidth={PINNED_COLUMN_WIDTH}
-            sortable={false}
-            resizable={false}
-            lockPosition
-            pinned={'left'}
-          />
-          {gridColumns.map(
-            ({
-              field,
-              label,
-              width,
-              rowGroup,
-              hide,
-              sort,
-              sortable,
-              valueType,
-              aggFunc,
-              customMap,
-              customComponent,
-              ...rest
-            }) => (
-              <AgGridColumn
-                cellRendererFramework={customComponent}
-                key={field}
-                headerName={label}
-                field={field}
-                width={width}
-                rowGroup={rowGroup}
-                hide={hide || rowGroup}
-                sort={sort}
-                filter={getFilterType(field, valueType)}
-                filterParams={{ values: (params: any) => getFilterParams(params, field) }}
-                valueFormatter={(params: ValueFormatterParams) => getValueFormatter(params, valueType, customMap)}
-                aggFunc={aggFunc}
-                sortable={sortable ?? sortableColumns}
-                cellClass={valueType === 'currency' ? 'ag-right-aligned-cell' : ''}
-                headerClass={valueType === 'currency' ? 'ag-right-aligned-header' : ''}
-                resizable
-                lockPinned
-                onCellClicked={onCellClicked}
-                {...rest}
-              />
-            ),
-          )}
-          <AgGridColumn
-            hide={!rowActionItems}
-            headerName={''}
-            field={''}
-            headerComponent={''}
-            headerComponentParams={{
-              translations,
-            }}
-            cellRenderer={columnCellRenderer}
-            cellRendererParams={{
-              data: { items: rowActionItems, api: gridApi },
-            }}
-            type="rightAligned"
-            minWidth={PINNED_COLUMN_WIDTH}
-            maxWidth={rowActionItems?.length || columnToggling ? PINNED_COLUMN_WIDTH : 0}
-            sortable={false}
-            resizable={false}
-            pinned={'right'}
-            lockPosition
-          />
-        </StyledAgGridReact>
+        ></StyledAgGridReact>
       </StyledDataGrid>
     </>
   );

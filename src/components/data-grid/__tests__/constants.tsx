@@ -2,7 +2,7 @@ import React from 'react';
 import { DataGridColumn, Filter, FilterType } from '../types';
 
 import { Dot } from '../../dot';
-import { TcDate } from '@timechimp/timechimp-typescript-helpers';
+import { NumberFormat, TcDate, formatCurrency } from '@timechimp/timechimp-typescript-helpers';
 import { Avatar } from '../../avatar';
 import { ParagraphSmall } from 'baseui/typography';
 import { useTheme } from '../../../providers';
@@ -20,7 +20,7 @@ const CustomCellComponent = ({ data }: any) => {
   } = useTheme();
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
       <Avatar
         name={data?.userName}
         overrides={{
@@ -57,44 +57,44 @@ export const DATA_URL = '/timeentries';
 export const COLUMNS: DataGridColumn[] = [
   {
     field: 'start',
-    label: 'Date',
-    valueType: 'datetime',
+    headerName: 'Date',
+    valueFormatter: ({ data }) => new TcDate(data.start).format('dd/MM/yyyy', 'en'),
   },
   {
     field: 'state',
-    label: 'State',
+    headerName: 'State',
     hide: true,
   },
   {
     field: 'userName',
-    label: 'Employee',
-    customComponent: CustomCellComponent,
+    headerName: 'Employee',
+    cellRenderer: CustomCellComponent,
     sortable: true,
     sort: 'asc',
   },
   {
     field: 'description',
-    label: 'Description',
+    headerName: 'Description',
   },
   {
     field: 'client',
-    label: 'Client',
+    headerName: 'Client',
     groupable: true,
   },
   {
     field: 'project',
-    label: 'Project',
+    headerName: 'Project',
     hide: true,
   },
   {
     field: 'task',
-    label: 'Task',
+    headerName: 'Task',
     groupable: true,
   },
   {
     field: 'currency',
-    label: 'Currency',
-    valueType: 'currency',
+    headerName: 'Currency',
+    valueFormatter: ({ data }) => formatCurrency(data.currency, 'EUR', NumberFormat.Comma),
   },
 ];
 
@@ -232,7 +232,7 @@ const getTimeEntries = () => {
       userName: 'Henkie',
       userId: 1,
       state: 'active',
-      currency: '€75.00',
+      currency: '75',
     },
     {
       id: 'BCC-BBB-CCC-DDD-EEE-2',
@@ -246,7 +246,7 @@ const getTimeEntries = () => {
       userName: 'Baltus',
       userId: 2,
       state: 'active',
-      currency: '€15.00',
+      currency: '15',
     },
   ];
   for (let i = 0; i < 999; i++) {
