@@ -10,7 +10,7 @@ export const SaveViewModal = ({
   onClose,
   handleSaveView,
   translations,
-  gridColumnApi,
+  gridApi,
   view,
   filterModel,
 }: SaveViewModalProps) => {
@@ -18,8 +18,8 @@ export const SaveViewModal = ({
 
   const getState = () => {
     const state: DataGridState = {
-      columnState: gridColumnApi?.getColumnState(),
-      columnGroupState: gridColumnApi?.getColumnGroupState(),
+      columnState: gridApi?.getColumnState(),
+      columnGroupState: gridApi?.getColumnGroupState(),
       filterModel,
     };
     return JSON.stringify(state);
