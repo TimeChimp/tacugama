@@ -44,7 +44,7 @@ export const Banner = ({ type = BannerType.info, text }: BannerProps) => {
   return (
     <StyledBanner $backgroundColor={getBannerBackgroundColor()}>
       <StyledContainer>
-        <Block paddingTop={scale0}>{getBannerIcon()}</Block>
+        {getBannerIcon()}
         <ParagraphSmall>{text}</ParagraphSmall>
       </StyledContainer>
     </StyledBanner>
