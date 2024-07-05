@@ -13,7 +13,7 @@ import { LabelMedium } from '../typography';
 import { Dropdown } from '../dropdown';
 import { Block } from '../block';
 import { useTheme } from '../../providers';
-import { CaretDown, DotsThree, XCircle } from '@phosphor-icons/react';
+import { CaretDown, DotsThreeVertical, XCircle } from '@phosphor-icons/react';
 
 export const SideNavGroupLink = ({
   icon: Icon,
@@ -33,7 +33,7 @@ export const SideNavGroupLink = ({
     theme: {
       current: {
         sizing: { scale500, scale550, scale700 },
-        customColors: { red0, dark3 },
+        customColors: { red0, dark3, dark1 },
       },
     },
   } = useTheme();
@@ -67,7 +67,7 @@ export const SideNavGroupLink = ({
             >
               <Dropdown items={menuItems}>
                 <TripleDotsMenu>
-                  <DotsThree weight="bold" size={scale550} color={dark3} />
+                  <DotsThreeVertical weight="bold" size={scale700} color={dark1} />
                 </TripleDotsMenu>
               </Dropdown>
             </div>

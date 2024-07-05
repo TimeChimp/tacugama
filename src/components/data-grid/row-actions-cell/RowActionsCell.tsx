@@ -4,7 +4,7 @@ import { RowActionsCellProps } from '../types';
 import { Dropdown } from '../../dropdown';
 import { Button } from '../../button';
 import { ButtonKind } from '../../../models';
-import { DotsThreeOutlineVertical } from '@phosphor-icons/react';
+import { DotsThreeVertical } from '@phosphor-icons/react';
 import { StyledRowActionsCell } from '../styles';
 
 export const RowActionsCell = ({ data, hideWithNoItems, ...props }: RowActionsCellProps) => {
@@ -13,7 +13,7 @@ export const RowActionsCell = ({ data, hideWithNoItems, ...props }: RowActionsCe
   const {
     theme: {
       current: {
-        sizing: { scale650 },
+        sizing: { scale700 },
         customColors: { dark1, dark2 },
       },
     },
@@ -57,7 +57,7 @@ export const RowActionsCell = ({ data, hideWithNoItems, ...props }: RowActionsCe
           {...props}
         >
           <Button kind={ButtonKind.minimal}>
-            <DotsThreeOutlineVertical weight="fill" color={active ? dark1 : dark2} size={scale650} />
+            <DotsThreeVertical weight="bold" color={active ? dark1 : dark2} size={scale700} />
           </Button>
         </Dropdown>
       ) : null}

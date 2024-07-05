@@ -13,7 +13,7 @@ import { StyledDropdownSearch } from '../../../dropdown/styles';
 import { useTheme } from '../../../../providers';
 import { borderRadius, padding } from '../../../../utils';
 import { ButtonKind } from '../../../../models';
-import { CaretDown, DotsThreeOutlineVertical, Layout, PencilSimple, Plus, PushPin, Trash } from '@phosphor-icons/react';
+import { CaretDown, DotsThreeVertical, Layout, PencilSimple, Plus, PushPin, Trash } from '@phosphor-icons/react';
 
 export const DataGridViewOptions = ({
   translations,
@@ -150,7 +150,7 @@ export const DataGridViewOptions = ({
                     {id !== 'default' && (
                       <Dropdown placement={PLACEMENT.bottom} items={id ? getViewMenuItems(id) : []}>
                         <Button kind={ButtonKind.minimal}>
-                          <DotsThreeOutlineVertical weight="fill" color={primary} />
+                          <DotsThreeVertical weight="bold" color={primary} />
                         </Button>
                       </Dropdown>
                     )}
