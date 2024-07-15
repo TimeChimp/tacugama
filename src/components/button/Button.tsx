@@ -38,7 +38,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       testId,
       rootOverrides,
       color,
-      isLink,
       backgroundColor,
       cursorType,
       ...rest
@@ -294,23 +293,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 ...(width && { width }),
                 ...padding('0px'),
                 ...borderRadius('0'),
-                ...borderBottom({
-                  ...border100,
-                  borderStyle: 'solid',
-                  borderColor: 'transparent',
-                }),
+                ...borderBottom(),
                 backgroundColor: 'transparent',
                 color: color ?? primary,
                 height: height,
                 ':hover': {
                   backgroundColor: 'transparent',
-                  ...(isLink && {
-                    ...borderBottom({
-                      ...border100,
-                      borderStyle: 'solid',
-                      borderColor: primary,
-                    }),
-                  }),
                 },
 
                 ':active': {
@@ -327,7 +315,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             },
             StartEnhancer: {
               style: {
-                ...margin('0', scale400, '0', '0'),
+                ...margin('0', scale100, '0', '0'),
+                ':disabled': {
+                  color: dark4,
+                },
+              },
+            },
+            EndEnhancer: {
+              style: {
+                ...margin('0', scale100, '0', '0'),
                 ':disabled': {
                   color: dark4,
                 },

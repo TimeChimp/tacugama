@@ -8,6 +8,9 @@ export interface ButtonProps extends Omit<BaseButtonProps, 'kind'> {
   height?: string;
   width?: string;
   color?: string;
+  /**
+   * @deprecated The prop should not be used and will be removed in the future.
+   */
   isLink?: boolean;
   rootOverrides?: { [key: string]: number | string };
   backgroundColor?: string;
