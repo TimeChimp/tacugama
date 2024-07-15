@@ -323,7 +323,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             },
             EndEnhancer: {
               style: {
-                ...margin('0', scale100, '0', '0'),
+                ...margin('0', '0', '0', scale100),
                 ':disabled': {
                   color: dark4,
                 },
