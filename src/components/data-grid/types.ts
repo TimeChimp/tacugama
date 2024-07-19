@@ -275,6 +275,7 @@ export interface DataGridProps {
   hasStoredFilters?: boolean;
   onCellClicked?: (event: CellClickedEvent) => void;
   defaultDateQuickSelect?: QuickSelectDateOption;
+  exportFileName?: string;
 }
 
 export interface DataGridView {
@@ -483,6 +484,7 @@ export interface DataGridActionsProps {
   hideDownload?: boolean;
   hideDelete?: boolean;
   hasGrouping?: boolean;
+  exportFileName?: string;
 }
 
 export type PageOrientation = 'portrait' | 'landscape';

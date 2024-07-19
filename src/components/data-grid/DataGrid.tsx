@@ -153,6 +153,7 @@ export const DataGrid = ({
   hasStoredFilters,
   onCellClicked,
   defaultDateQuickSelect = QuickSelectDateOption.THIS_YEAR,
+  exportFileName,
 }: DataGridProps) => {
   const datagridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
@@ -900,6 +901,7 @@ export const DataGrid = ({
                 hideDownload={hideDownload}
                 hideDelete={hideDelete}
                 hasGrouping={!!selectedGroupOption}
+                exportFileName={exportFileName}
               />
             )}
             <FlexItem width="auto" gap={scale300}>

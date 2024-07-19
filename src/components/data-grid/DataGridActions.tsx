@@ -25,6 +25,7 @@ export const DataGridActions = ({
   hideDownload,
   hideDelete,
   hasGrouping,
+  exportFileName,
 }: DataGridActionsProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
 
@@ -44,15 +45,15 @@ export const DataGridActions = ({
       const dropdownItems: DropdownItem[] = [
         {
           label: 'Excel',
-          action: () => exportExcel(gridApi, columns),
+          action: () => exportExcel(gridApi, columns, exportFileName),
         },
         {
           label: 'CSV',
-          action: () => exportCSV(gridApi, columns),
+          action: () => exportCSV(gridApi, columns, exportFileName),
         },
         {
           label: 'Pdf',
-          action: () => exportPdf(gridApi, gridColumnApi, translations),
+          action: () => exportPdf(gridApi, gridColumnApi, translations, exportFileName),
         },
       ];
       setDropdownItems(dropdownItems);
