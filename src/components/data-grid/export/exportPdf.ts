@@ -6,7 +6,12 @@ import { Translations } from '../types';
 import { getDocDefinition } from './docDefinition';
 import { generateFilename } from '../../../utils';
 
-export const exportPdf = async (gridApi: GridApi, columnApi: ColumnApi, translations: Translations) => {
+export const exportPdf = async (
+  gridApi: GridApi,
+  columnApi: ColumnApi,
+  translations: Translations,
+  fileName?: string,
+) => {
   const pdfMake = await import('pdfmake/build/pdfmake.min');
   const pdfFonts = await import('pdfmake/build/vfs_fonts');
 
@@ -33,5 +38,5 @@ export const exportPdf = async (gridApi: GridApi, columnApi: ColumnApi, translat
     translations,
   );
 
-  pdfMake.createPdf(docDefinition, undefined, undefined, fonts).download(generateFilename(gridApi));
+  pdfMake.createPdf(docDefinition, undefined, undefined, fonts).download(fileName ?? generateFilename(gridApi));
 };
