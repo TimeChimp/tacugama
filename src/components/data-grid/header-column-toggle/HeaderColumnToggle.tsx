@@ -5,10 +5,9 @@ import { useTheme } from '../../../providers';
 import { HeaderColumnToggleProps, MODEL_UPDATED_EVENT } from '..';
 import { Column } from '@ag-grid-community/core';
 import { DATA_TEST_ID, ButtonKind } from '../../../models';
-import { FlexItem } from '../../flex-item';
 import { CaretDown, Table } from '@phosphor-icons/react';
 
-export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnToggleProps) => {
+export const HeaderColumnToggle = ({ api: gridApi }: HeaderColumnToggleProps) => {
   const [active, setActive] = useState(false);
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
   const [visibleColumnIds, setVisibleColumnIds] = useState<string[]>([]);
@@ -16,7 +15,6 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
   const {
     theme: {
       current: {
-        sizing: { scale500 },
         colors: { primary },
         customColors: { dark1 },
       },
@@ -24,12 +22,12 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
   } = useTheme();
 
   const setVisibleColumns = useCallback(() => {
-    const visibleColumnIds = columnApi
-      .getAllColumns()
+    const visibleColumnIds = gridApi
+      .getAllGridColumns()
       ?.filter((column) => column.isVisible())
       .map((column) => column.getColId());
     setVisibleColumnIds(visibleColumnIds || []);
-  }, [columnApi]);
+  }, [gridApi]);
 
   useEffect(() => {
     const onModelUpdated = () => setVisibleColumns();
@@ -46,18 +44,18 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
       const colId = column.getColId();
       const isVisible = !column?.isVisible() || false;
 
-      columnApi.setColumnVisible(colId, isVisible);
+      gridApi?.setColumnsVisible([colId], isVisible);
 
       setVisibleColumns();
     },
-    [columnApi, gridApi, setVisibleColumns],
+    [gridApi, setVisibleColumns],
   );
 
   useEffect(() => {
-    const items = columnApi
-      .getAllColumns()
-      // skip the first two columns (checkbox and first column, which is always visible)
-      ?.filter((column, index) => index > 1 && column.getColDef().headerName)
+    const items = gridApi
+      .getAllGridColumns()
+      // skip the first three columns (checkbox, rowActionItems and first column, which is always visible)
+      ?.filter((column, index) => index > 2 && column.getColDef().headerName)
       .map(
         (column) =>
           ({
@@ -69,7 +67,7 @@ export const HeaderColumnToggle = ({ api: gridApi, columnApi }: HeaderColumnTogg
 
     setVisibleColumns();
     setDropdownItems(items || []);
-  }, [gridApi, columnApi, setVisibleColumns, toggleColumn]);
+  }, [gridApi, setVisibleColumns, toggleColumn]);
 
   return (
     <Dropdown

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { HeaderCheckboxProps, MODEL_UPDATED_EVENT, PAGINATION_CHANGED_EVENT, SELECTION_CHANGED_EVENT } from '..';
 import { StyledHeaderCheckbox, StyledHeaderCheckboxValue } from '../styles';
 import { Checkbox } from '../../checkbox';
-import { RowNode } from '@ag-grid-community/core';
+import { IRowNode, RowNode } from '@ag-grid-community/core';
 
 const CHECKBOX_TEST_ID = 'data-grid-select-all';
 
@@ -22,7 +22,7 @@ export const HeaderCheckbox = ({ api: gridApi, displayName }: HeaderCheckboxProp
 
   const allAreSelected = useCallback(() => {
     const { startIndex, endIndex } = getPageIndices();
-    const pageRows: RowNode[] = [];
+    const pageRows: IRowNode[] = [];
     for (let i = startIndex; i < endIndex; i++) {
       const row = gridApi.getDisplayedRowAtIndex(i);
       if (row) {
@@ -56,8 +56,7 @@ export const HeaderCheckbox = ({ api: gridApi, displayName }: HeaderCheckboxProp
   }, [gridApi, checked, allAreSelected]);
 
   const deselectAll = useCallback(() => {
-    const selectedRows: RowNode[] = gridApi.getSelectedNodes();
-    selectedRows.forEach((row) => row.selectThisNode(false));
+    gridApi?.deselectAll();
   }, [gridApi]);
 
   const onPaginationChanged = useCallback(() => {
