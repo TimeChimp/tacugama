@@ -1,4 +1,4 @@
-import { AgGridReact } from '@ag-grid-community/react/lib/agGridReact';
+import { AgGridReact } from '@ag-grid-community/react';
 import { CustomThemeType } from '../../models';
 import { themedStyled } from '../../theme';
 import { margin, padding, borderTop, borderRight, borderLeft, borderBottom } from '../../utils';
@@ -16,7 +16,12 @@ export const PAGINATION_SELECTED_ROWS_WIDTH = 285;
 
 export const getGridThemeOverrides = (theme: CustomThemeType) => {
   return `
-    :root {
+    .ag-cell-wrapper {
+      height: 100%;
+    }
+  
+    .ag-theme-alpine, .ag-theme-alpine-dark, .ag-theme-alpine-auto-dark {
+      font-family: ${theme.typography.ParagraphSmall.fontFamily};
       --ag-alpine-active-color: ${theme.colors.primary};
       --ag-foreground-color: ${theme.colors.primaryA};
       --ag-secondary-foreground-color: ${theme.customColors.dark4};
@@ -27,13 +32,10 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       --ag-header-background-color: ${theme.customColors.light7};
       --ag-odd-row-background-color: ${theme.colors.primaryB};
       --ag-border-color: ${theme.borders.border300.borderColor};
+      --ag-border-radius: 0;
       --ag-secondary-border-color: ${theme.borders.border300.borderColor};
       --ag-range-selection-border-color: transparent;
       --ag-checkbox-unchecked-color: ${theme.customColors.dark4};
-    }
-  
-    .ag-theme-alpine {
-      font-family: ${theme.typography.ParagraphSmall.fontFamily};
     }
 
     .ag-theme-alpine .ag-checkbox-input-wrapper {
@@ -251,4 +253,10 @@ export const StyledDateFilterColumn = themedStyled<'div', StyledDateFilterColumn
 
 export const StyledFilterColumn = themedStyled('div', ({ $theme }) => ({
   ...padding($theme.sizing.scale100, '0'),
+}));
+
+export const StyledRowActionsCell = themedStyled('div', () => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 }));

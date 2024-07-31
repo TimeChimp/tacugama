@@ -1,11 +1,11 @@
 import React from 'react';
 import { addDecorator } from '@storybook/react';
-import { initializeWorker, mswDecorator } from 'msw-storybook-addon';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
 import { ThemeProvider } from '../src/providers';
 
 import './global.css';
 
-initializeWorker();
+initialize();
 addDecorator(mswDecorator);
 
 export const parameters = {

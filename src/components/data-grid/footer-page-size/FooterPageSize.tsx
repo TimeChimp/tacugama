@@ -35,7 +35,7 @@ export const FooterPageSize = ({ api: gridApi, translations }: FooterRowCountPro
   }, [gridApi]);
 
   const handlePageSizeChange = (pageSize: number) => {
-    gridApi.paginationSetPageSize(pageSize);
+    gridApi.setGridOption('paginationPageSize', pageSize);
     setPageSize(pageSize);
   };
 

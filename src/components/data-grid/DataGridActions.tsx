@@ -17,14 +17,13 @@ const EXPORT_OPTION_TEST_ID = 'data-grid-export-option';
 
 export const DataGridActions = ({
   gridApi,
-  gridColumnApi,
   columns,
   rowsSelected,
   onBulkDelete,
   translations,
   hideDownload,
   hideDelete,
-  hasGrouping,
+  exportFileName,
 }: DataGridActionsProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
 
@@ -44,29 +43,26 @@ export const DataGridActions = ({
       const dropdownItems: DropdownItem[] = [
         {
           label: 'Excel',
-          action: () => exportExcel(gridApi, columns),
+          action: () => exportExcel(gridApi, columns, exportFileName),
         },
         {
           label: 'CSV',
-          action: () => exportCSV(gridApi, columns),
+          action: () => exportCSV(gridApi, columns, exportFileName),
         },
         {
           label: 'Pdf',
-          action: () => exportPdf(gridApi, gridColumnApi, translations),
+          action: () => exportPdf(gridApi, translations, exportFileName),
         },
       ];
       setDropdownItems(dropdownItems);
     }
-  }, [gridApi, gridColumnApi, columns, translations]);
+  }, [gridApi, columns, translations]);
 
   if (hideDownload && hideDelete) {
     return null;
   }
 
   const getTooltipText = () => {
-    if (hasGrouping) {
-      return translations.exportTooltipGrouping;
-    }
     if (!rowsSelected) {
       return translations.exportTooltipNoSelection;
     }

@@ -5,6 +5,7 @@ import { Dropdown } from '../../dropdown';
 import { Button } from '../../button';
 import { ButtonKind } from '../../../models';
 import { DotsThreeVertical } from '@phosphor-icons/react';
+import { StyledRowActionsCell } from '../styles';
 
 export const RowActionsCell = ({ data, hideWithNoItems, ...props }: RowActionsCellProps) => {
   const { items, id, api } = data;
@@ -12,9 +13,8 @@ export const RowActionsCell = ({ data, hideWithNoItems, ...props }: RowActionsCe
   const {
     theme: {
       current: {
-        sizing: { scale650 },
-        customColors: { dark1 },
-        colors: { contentTertiary },
+        sizing: { scale700 },
+        customColors: { dark1, dark2 },
       },
     },
   } = useTheme();
@@ -46,7 +46,7 @@ export const RowActionsCell = ({ data, hideWithNoItems, ...props }: RowActionsCe
   const hide = useMemo(() => !filteredItems?.length && hideWithNoItems, [hideWithNoItems, filteredItems?.length]);
 
   return (
-    <div ref={containerRef}>
+    <StyledRowActionsCell ref={containerRef}>
       {!hide ? (
         <Dropdown
           onOpen={onOpen}
@@ -57,11 +57,11 @@ export const RowActionsCell = ({ data, hideWithNoItems, ...props }: RowActionsCe
           {...props}
         >
           <Button kind={ButtonKind.minimal}>
-            <DotsThreeVertical weight="bold" color={active ? dark1 : contentTertiary} size={scale650} />
+            <DotsThreeVertical weight="bold" color={active ? dark1 : dark2} size={scale700} />
           </Button>
         </Dropdown>
       ) : null}
-    </div>
+    </StyledRowActionsCell>
   );
 };
 
