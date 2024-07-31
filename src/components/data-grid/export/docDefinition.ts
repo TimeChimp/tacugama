@@ -2,12 +2,7 @@ import { Column, ColumnApi, GridApi, ValueFormatterParams } from '@ag-grid-commu
 import { DEFAULT_PDF_HEADER_HEIGHT, DEFAULT_PDF_ROW_HEIGHT } from '../../../models';
 import { Alignment, Margins, PdfHeaderCell, PdfTableCell, PrintParams, Translations } from '../types';
 
-export const getDocDefinition = (
-  gridApi: GridApi,
-  columnApi: ColumnApi,
-  printParams: PrintParams,
-  translations: Translations,
-) => {
+export const getDocDefinition = (gridApi: GridApi, printParams: PrintParams, translations: Translations) => {
   const {
     PDF_HEADER_COLOR,
     PDF_INNER_BORDER_COLOR,
@@ -119,7 +114,7 @@ export const getDocDefinition = (
   })();
 
   function getColumnGroupsToExport() {
-    const displayedColumnGroups = columnApi.getAllDisplayedColumnGroups();
+    const displayedColumnGroups = gridApi?.getAllDisplayedColumnGroups();
 
     // eslint-disable-next-line no-prototype-builtins
     const isColumnGrouping = displayedColumnGroups?.some((col) => col.hasOwnProperty('children'));
@@ -157,7 +152,7 @@ export const getDocDefinition = (
   function getColumnsToExport() {
     const columnsToExport: PdfHeaderCell[] = [];
 
-    columnApi.getAllDisplayedColumns().forEach((col) => {
+    gridApi?.getAllDisplayedColumns().forEach((col) => {
       const colDef = col.getColDef();
 
       if (!colDef.field) {
@@ -175,11 +170,11 @@ export const getDocDefinition = (
   function getRowsToExport(columnsToExport: PdfHeaderCell[]) {
     const rowsToExport: PdfTableCell[][] = [];
 
-    const selectedRows = gridApi.getSelectedNodes();
+    const selectedRows = gridApi?.getSelectedNodes();
 
     // Sort the selected rows by the order they appear in the grid
     selectedRows.sort((a, b) => {
-      if (a.rowIndex === undefined || b.rowIndex === undefined) {
+      if (a.rowIndex === undefined || a.rowIndex === null || b.rowIndex === undefined || b.rowIndex === null) {
         return 0;
       }
       return a.rowIndex - b.rowIndex;
@@ -201,9 +196,9 @@ export const getDocDefinition = (
           }
           const valueFormatterParams: ValueFormatterParams = {
             api: gridApi,
-            columnApi,
+            columnApi: gridApi as unknown as ColumnApi,
             column: column as unknown as Column,
-            node: gridApi.getRowNode(node.id!),
+            node: gridApi?.getRowNode(node.id as string) ?? null,
             data: node,
             colDef: column.colDef,
             value: cellValue,
@@ -260,9 +255,9 @@ export const getDocDefinition = (
 
     // try to reuse valueFormatter from the colDef
     const colDef = col.getColDef();
+    headerCell.colDef = colDef;
     if (colDef.valueFormatter && typeof colDef.valueFormatter === 'function') {
       headerCell.valueFormatter = colDef.valueFormatter;
-      headerCell.colDef = colDef;
     }
 
     return headerCell;

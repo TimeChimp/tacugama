@@ -228,6 +228,7 @@ export const ColumnFilters = ({
                   <StyledDateFilterColumn
                     $showLeftDivider={showDateDivider(DividerType.LEFT, index)}
                     $showRightDivider={showDateDivider(DividerType.RIGHT, index)}
+                    key={index}
                   >
                     <DateFilter
                       locale={locale ?? 'en'}
@@ -243,7 +244,7 @@ export const ColumnFilters = ({
 
               if (type === FilterType.single) {
                 return (
-                  <StyledFilterColumn>
+                  <StyledFilterColumn key={index}>
                     <Dropdown
                       items={getAllColumnValues(columnField, FilterType.single, values)}
                       selectedIds={getSelectedFilterIds(columnField)}
@@ -265,7 +266,7 @@ export const ColumnFilters = ({
 
               if (type === FilterType.multi) {
                 return (
-                  <StyledFilterColumn>
+                  <StyledFilterColumn key={index}>
                     <MultiFilter
                       values={getAllColumnValues(columnField, FilterType.multi, values)}
                       initialSelectedFilterIds={getSelectedFilterIds(columnField)}
@@ -284,7 +285,7 @@ export const ColumnFilters = ({
 
               if (type === FilterType.multiVirtual) {
                 return (
-                  <StyledFilterColumn>
+                  <StyledFilterColumn key={index}>
                     <FixedSizeSelect
                       showSearch
                       selection
