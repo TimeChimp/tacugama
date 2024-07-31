@@ -60,6 +60,5 @@ export const defaultTranslations: Translations = {
   emptyGroup: {
     teamName: 'No team',
   },
-  exportTooltipGrouping: 'Change the “Group by” dropdown to “None” to be able to export.',
   exportTooltipNoSelection: 'Select at least one row to make an export.',
 };

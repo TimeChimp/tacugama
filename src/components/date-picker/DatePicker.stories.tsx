@@ -43,8 +43,6 @@ const Template: Story<DatePickerProps> = () => {
     setDate(updatedDate);
   };
 
-  console.log(days);
-
   return (
     <DatePicker
       date={date}
