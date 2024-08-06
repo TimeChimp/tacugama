@@ -142,7 +142,10 @@ export const DataGrid = ({
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
-  const selectedGroupOption = gridColumns.filter((x) => x.groupable).find((column) => column.rowGroup);
+  const selectedGroupOption = useMemo(
+    () => gridColumns.filter((x) => x.groupable).find((column) => column.rowGroup),
+    [gridColumns],
+  );
 
   const defaultColDef = useMemo(() => {
     return {
@@ -204,10 +207,16 @@ export const DataGrid = ({
     };
   }, [rowActionItems]);
 
+  const columnDefs: ColDef[] = useMemo(
+    () => [checkboxColumn, ...columns, rowActionColumn],
+    [checkboxColumn, rowActionColumn],
+  );
+
   const [allViews, setAllViews] = useState<DataGridView[]>(views ?? []);
   const [selectedFilterIds, setSelectedFilterIds] = useState<SelectedFilterIds>({});
   const [rowsSelected, setRowsSelected] = useState<number>(0);
   const [isGridColumnApiLoaded, setIsGridColumnApiLoaded] = useState<boolean>(false);
+  const [isDataRendered, setIsDataRendered] = useState<boolean>(false);
   const [filterModel, setFilterModel] = useState<Record<string, any>>({});
 
   const { theme } = useTheme();
@@ -524,13 +533,16 @@ export const DataGrid = ({
   useEffect(() => {
     if (isGridColumnApiLoaded) {
       onFirstDataRendered();
-
-      if (rowModelType === RowModelType.serverSide) {
-        const datasource = createServerSideDatasource();
-        gridApi?.setGridOption('serverSideDatasource', datasource);
-      }
+      setIsDataRendered(true);
     }
   }, [isGridColumnApiLoaded]);
+
+  useEffect(() => {
+    if (isDataRendered && rowModelType === RowModelType.serverSide) {
+      const datasource = createServerSideDatasource();
+      gridApi?.setGridOption('serverSideDatasource', datasource);
+    }
+  }, [isDataRendered, filterModel]);
 
   const getRowId = (params: GetRowIdParams) => {
     return params.data.id;
@@ -540,6 +552,7 @@ export const DataGrid = ({
     const columns = [...gridColumns];
     columns.forEach((c) => {
       c.rowGroup = rowGroups.includes(c.field);
+      c.sort = null;
     });
     setGridColumns(columns);
     gridApi?.deselectAll();
@@ -929,7 +942,7 @@ export const DataGrid = ({
         )}
         <style>{getGridThemeOverrides(theme.current)}</style>
         <StyledAgGridReact
-          columnDefs={[checkboxColumn, ...gridColumns, rowActionColumn] as ColDef[]}
+          columnDefs={columnDefs}
           rowData={rowData}
           rowSelection="multiple"
           rowModelType={rowModelType}
