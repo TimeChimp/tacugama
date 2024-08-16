@@ -356,6 +356,7 @@ export interface HeaderCheckboxProps {
 
 export interface HeaderColumnToggleProps {
   api: GridApi;
+  selectedGroupOption?: DataGridColumn;
 }
 export interface HeaderColumnSettingsProps {
   settings: DataGridSetting[];

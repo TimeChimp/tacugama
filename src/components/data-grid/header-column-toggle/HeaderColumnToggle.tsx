@@ -7,7 +7,7 @@ import { Column } from '@ag-grid-community/core';
 import { DATA_TEST_ID, ButtonKind } from '../../../models';
 import { CaretDown, Table } from '@phosphor-icons/react';
 
-export const HeaderColumnToggle = ({ api: gridApi }: HeaderColumnToggleProps) => {
+export const HeaderColumnToggle = ({ api: gridApi, selectedGroupOption }: HeaderColumnToggleProps) => {
   const [active, setActive] = useState(false);
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
   const [visibleColumnIds, setVisibleColumnIds] = useState<string[]>([]);
@@ -57,7 +57,7 @@ export const HeaderColumnToggle = ({ api: gridApi }: HeaderColumnToggleProps) =>
     const items = gridApi
       .getAllGridColumns()
       // skip the first three columns (checkbox, rowActionItems and first column, which is always visible)
-      ?.filter((column, index) => index > 2 && column.getColDef().headerName)
+      ?.filter((column, index) => index > 2 && column?.getColDef()?.field !== selectedGroupOption?.field)
       .map(
         (column) =>
           ({
@@ -69,7 +69,7 @@ export const HeaderColumnToggle = ({ api: gridApi }: HeaderColumnToggleProps) =>
 
     setVisibleColumns();
     setDropdownItems(items || []);
-  }, [gridApi, setVisibleColumns, toggleColumn]);
+  }, [gridApi, setVisibleColumns, toggleColumn, selectedGroupOption]);
 
   return (
     <Dropdown

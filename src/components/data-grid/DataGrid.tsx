@@ -557,6 +557,7 @@ export const DataGrid = ({
     const groupColumns = [...gridColumns];
     groupColumns?.forEach((c) => {
       c.rowGroup = rowGroups?.includes(c?.field);
+      c.hide = rowGroups?.includes(c?.field);
       c.sort = null;
     });
     setGridColumns(groupColumns);
@@ -930,17 +931,18 @@ export const DataGrid = ({
                   <FlexItem width="auto">
                     <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
                     <Dropdown items={[noneOption, ...options]}>
-                      <Button kind={ButtonKind.tertiary}>
-                        {selectedGroupOption?.headerName ?? noneOption.label}
-                        <FlexItem marg4={scale500}>
-                          <CaretDown color={dark1} />
-                        </FlexItem>
+                      <Button kind={ButtonKind.tertiary} endEnhancer={() => <CaretDown color={dark1} />}>
+                        <ParagraphSmall color={dark1}>
+                          {selectedGroupOption?.headerName ?? noneOption.label}
+                        </ParagraphSmall>
                       </Button>
                     </Dropdown>
                   </FlexItem>
                 </>
               )}
-              {isGridColumnApiLoaded && columnToggling && <HeaderColumnToggle api={gridApi} />}
+              {isGridColumnApiLoaded && columnToggling && (
+                <HeaderColumnToggle api={gridApi} selectedGroupOption={selectedGroupOption} />
+              )}
               {!!settings?.length && <HeaderColumnSettings settings={settings} />}
             </FlexItem>
           </StyledDataGridHeader>
