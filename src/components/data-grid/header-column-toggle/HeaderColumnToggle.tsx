@@ -35,7 +35,9 @@ export const HeaderColumnToggle = ({ api: gridApi }: HeaderColumnToggleProps) =>
     gridApi?.addEventListener(MODEL_UPDATED_EVENT, onModelUpdated);
 
     return () => {
-      gridApi?.removeEventListener(MODEL_UPDATED_EVENT, onModelUpdated);
+      if (!gridApi?.isDestroyed()) {
+        gridApi?.removeEventListener(MODEL_UPDATED_EVENT, onModelUpdated);
+      }
     };
   }, [gridApi]);
 

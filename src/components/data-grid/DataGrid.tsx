@@ -141,9 +141,9 @@ export const DataGrid = ({
   exportFileName,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
-  const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
+  const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns || []);
   const selectedGroupOption = useMemo(
-    () => gridColumns.filter((x) => x.groupable).find((column) => column.rowGroup),
+    () => gridColumns?.filter((x) => x?.groupable)?.find((column) => column?.rowGroup),
     [gridColumns],
   );
 
@@ -207,10 +207,15 @@ export const DataGrid = ({
     };
   }, [rowActionItems]);
 
-  const columnDefs: ColDef[] = useMemo(
-    () => [checkboxColumn, ...columns, rowActionColumn],
-    [checkboxColumn, rowActionColumn],
-  );
+  const columnDefs: ColDef[] = useMemo(() => {
+    const updatedColumns = gridColumns?.map((column) => {
+      const newColumn = { ...column };
+      delete newColumn?.groupable;
+      return newColumn;
+    });
+
+    return [checkboxColumn, ...updatedColumns, rowActionColumn];
+  }, [checkboxColumn, rowActionColumn, gridColumns]);
 
   const [allViews, setAllViews] = useState<DataGridView[]>(views ?? []);
   const [selectedFilterIds, setSelectedFilterIds] = useState<SelectedFilterIds>({});
@@ -549,12 +554,12 @@ export const DataGrid = ({
   };
 
   const onGrouping = (rowGroups: string[]) => {
-    const columns = [...gridColumns];
-    columns.forEach((c) => {
-      c.rowGroup = rowGroups.includes(c.field);
+    const groupColumns = [...gridColumns];
+    groupColumns?.forEach((c) => {
+      c.rowGroup = rowGroups?.includes(c?.field);
       c.sort = null;
     });
-    setGridColumns(columns);
+    setGridColumns(groupColumns);
     gridApi?.deselectAll();
   };
 
@@ -1007,6 +1012,7 @@ export const DataGrid = ({
           statusBar={statusBar}
           tooltipShowDelay={0}
           colResizeDefault="shift"
+          reactiveCustomComponents
         ></StyledAgGridReact>
       </StyledDataGrid>
     </>

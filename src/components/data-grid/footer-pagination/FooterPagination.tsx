@@ -21,7 +21,9 @@ export const FooterPagination = ({ api: gridApi, translations }: FooterRowCountP
     gridApi?.addEventListener(EVENT_LISTENER, onPaginationChanged);
 
     return () => {
-      gridApi?.removeEventListener(EVENT_LISTENER, onPaginationChanged);
+      if (!gridApi?.isDestroyed()) {
+        gridApi?.removeEventListener(EVENT_LISTENER, onPaginationChanged);
+      }
     };
   }, [gridApi, currentPage]);
 

@@ -22,9 +22,11 @@ export const GroupRowInnerRenderer = ({ node, value, api, totalCounts }: any) =>
     api.addEventListener(MODEL_UPDATED_EVENT, dataChangedListener);
 
     return () => {
-      api.removeEventListener(CELL_VALUE_CHANGED_EVENT, dataChangedListener);
-      api.removeEventListener(FILTER_CHANGED_EVENT, dataChangedListener);
-      api.removeEventListener(MODEL_UPDATED_EVENT, dataChangedListener);
+      if (!api?.isDestroyed()) {
+        api.removeEventListener(CELL_VALUE_CHANGED_EVENT, dataChangedListener);
+        api.removeEventListener(FILTER_CHANGED_EVENT, dataChangedListener);
+        api.removeEventListener(MODEL_UPDATED_EVENT, dataChangedListener);
+      }
     };
   }, [api, dataChangedListener]);
 
