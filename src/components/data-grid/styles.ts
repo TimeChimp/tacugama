@@ -38,6 +38,11 @@ export const getGridThemeOverrides = (theme: CustomThemeType) => {
       --ag-checkbox-unchecked-color: ${theme.customColors.dark4};
     }
 
+    .ag-theme-alpine .ag-row, .ag-theme-alpine-dark .ag-row, .ag-theme-alpine-auto-dark .ag-row {
+      font-size: ${theme.typography.ParagraphSmall.fontSize};
+    }
+      
+    
     .ag-theme-alpine .ag-checkbox-input-wrapper {
       width: ${theme.sizing.scale650};
       height: ${theme.sizing.scale650};
