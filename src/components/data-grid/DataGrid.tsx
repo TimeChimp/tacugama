@@ -164,6 +164,7 @@ export const DataGrid = ({
       minWidth: 200,
       cellRenderer: 'agGroupCellRenderer',
       headerCheckboxSelection: true,
+      pinned: true,
       cellRendererParams: {
         checkbox: true,
       } as IGroupCellRendererParams,
