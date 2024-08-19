@@ -165,6 +165,7 @@ export const DataGrid = ({
       cellRenderer: 'agGroupCellRenderer',
       headerCheckboxSelection: true,
       pinned: true,
+      resizable: false,
       cellRendererParams: {
         checkbox: true,
       } as IGroupCellRendererParams,
