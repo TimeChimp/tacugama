@@ -300,10 +300,9 @@ export const DataGrid = ({
   };
 
   const refreshStore = (api: GridApi) => {
-    const rowCount = api?.getDisplayedRowCount();
     // Deselect all rows when refreshing
     api?.deselectAll();
-    return api?.refreshServerSide({ purge: rowCount === 0 });
+    return api?.refreshServerSide({ purge: true });
   };
 
   const refreshCells = (api: GridApi) => api.refreshCells();
@@ -546,7 +545,7 @@ export const DataGrid = ({
       const datasource = createServerSideDatasource();
       gridApi?.setGridOption('serverSideDatasource', datasource);
     }
-  }, [isDataRendered, filterModel]);
+  }, [isDataRendered, filterModel, dataUrl]);
 
   const getRowId = (params: GetRowIdParams) => {
     return params.data.id;
