@@ -213,6 +213,7 @@ export const DataGrid = ({
     const updatedColumns = gridColumns?.map((column) => {
       const newColumn = { ...column };
       delete newColumn?.groupable;
+      delete newColumn?.rowGroupField;
       return newColumn;
     });
 
@@ -446,22 +447,18 @@ export const DataGrid = ({
             ?.filter((x) => x?.rowGroup)
             ?.map((column) => {
               return {
-                id: column?.field,
+                id: column?.rowGroupField || column?.field,
                 displayName: column?.headerName || '',
-                field: column?.field,
+                field: column?.rowGroupField || column?.field,
               };
             });
           const groupKeys = params?.parentNode?.data ? [params?.parentNode?.data[rowGroupCols[0]?.field]] : [];
-          const groupKeysCopy =
-            selectedGroupOption && groupKeys?.includes(translations?.emptyGroup[selectedGroupOption?.field])
-              ? [EMPTY_GROUP]
-              : groupKeys;
           try {
             const body = {
               ...params.request,
               filterModel,
               rowGroupCols,
-              groupKeys: groupKeysCopy,
+              groupKeys,
             };
             let headers: HeadersInit = {
               'Content-Type': 'application/json',

@@ -49,6 +49,7 @@ export type DataGridAggFunc = 'sum';
 
 export interface DataGridColumn extends ColDef {
   field: string;
+  rowGroupField?: string;
   groupable?: boolean;
 }
 
