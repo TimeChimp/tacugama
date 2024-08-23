@@ -141,9 +141,9 @@ export const DataGrid = ({
   exportFileName,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
-  const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns);
+  const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns || []);
   const selectedGroupOption = useMemo(
-    () => gridColumns.filter((x) => x.groupable).find((column) => column.rowGroup),
+    () => gridColumns?.filter((x) => x?.groupable)?.find((column) => column?.rowGroup),
     [gridColumns],
   );
 
@@ -164,6 +164,8 @@ export const DataGrid = ({
       minWidth: 200,
       cellRenderer: 'agGroupCellRenderer',
       headerCheckboxSelection: true,
+      pinned: true,
+      resizable: false,
       cellRendererParams: {
         checkbox: true,
       } as IGroupCellRendererParams,
@@ -207,10 +209,16 @@ export const DataGrid = ({
     };
   }, [rowActionItems]);
 
-  const columnDefs: ColDef[] = useMemo(
-    () => [checkboxColumn, ...columns, rowActionColumn],
-    [checkboxColumn, rowActionColumn],
-  );
+  const columnDefs: ColDef[] = useMemo(() => {
+    const updatedColumns = gridColumns?.map((column) => {
+      const newColumn = { ...column };
+      delete newColumn?.groupable;
+      delete newColumn?.rowGroupField;
+      return newColumn;
+    });
+
+    return [checkboxColumn, ...updatedColumns, rowActionColumn];
+  }, [checkboxColumn, rowActionColumn, gridColumns]);
 
   const [allViews, setAllViews] = useState<DataGridView[]>(views ?? []);
   const [selectedFilterIds, setSelectedFilterIds] = useState<SelectedFilterIds>({});
@@ -292,10 +300,9 @@ export const DataGrid = ({
   };
 
   const refreshStore = (api: GridApi) => {
-    const rowCount = api?.getDisplayedRowCount();
     // Deselect all rows when refreshing
     api?.deselectAll();
-    return api?.refreshServerSide({ purge: rowCount === 0 });
+    return api?.refreshServerSide({ purge: true });
   };
 
   const refreshCells = (api: GridApi) => api.refreshCells();
@@ -439,22 +446,18 @@ export const DataGrid = ({
             ?.filter((x) => x?.rowGroup)
             ?.map((column) => {
               return {
-                id: column?.field,
+                id: column?.rowGroupField || column?.field,
                 displayName: column?.headerName || '',
-                field: column?.field,
+                field: column?.rowGroupField || column?.field,
               };
             });
           const groupKeys = params?.parentNode?.data ? [params?.parentNode?.data[rowGroupCols[0]?.field]] : [];
-          const groupKeysCopy =
-            selectedGroupOption && groupKeys?.includes(translations?.emptyGroup[selectedGroupOption?.field])
-              ? [EMPTY_GROUP]
-              : groupKeys;
           try {
             const body = {
               ...params.request,
               filterModel,
               rowGroupCols,
-              groupKeys: groupKeysCopy,
+              groupKeys,
             };
             let headers: HeadersInit = {
               'Content-Type': 'application/json',
@@ -542,19 +545,20 @@ export const DataGrid = ({
       const datasource = createServerSideDatasource();
       gridApi?.setGridOption('serverSideDatasource', datasource);
     }
-  }, [isDataRendered, filterModel]);
+  }, [isDataRendered, filterModel, dataUrl]);
 
   const getRowId = (params: GetRowIdParams) => {
     return params.data.id;
   };
 
   const onGrouping = (rowGroups: string[]) => {
-    const columns = [...gridColumns];
-    columns.forEach((c) => {
-      c.rowGroup = rowGroups.includes(c.field);
+    const groupColumns = [...gridColumns];
+    groupColumns?.forEach((c) => {
+      c.rowGroup = rowGroups?.includes(c?.field);
+      c.hide = rowGroups?.includes(c?.field);
       c.sort = null;
     });
-    setGridColumns(columns);
+    setGridColumns(groupColumns);
     gridApi?.deselectAll();
   };
 
@@ -925,17 +929,18 @@ export const DataGrid = ({
                   <FlexItem width="auto">
                     <ParagraphSmall marginRight={scale500}>{translations.groupBy}</ParagraphSmall>
                     <Dropdown items={[noneOption, ...options]}>
-                      <Button kind={ButtonKind.tertiary}>
-                        {selectedGroupOption?.headerName ?? noneOption.label}
-                        <FlexItem marg4={scale500}>
-                          <CaretDown color={dark1} />
-                        </FlexItem>
+                      <Button kind={ButtonKind.tertiary} endEnhancer={() => <CaretDown color={dark1} />}>
+                        <ParagraphSmall color={dark1}>
+                          {selectedGroupOption?.headerName ?? noneOption.label}
+                        </ParagraphSmall>
                       </Button>
                     </Dropdown>
                   </FlexItem>
                 </>
               )}
-              {isGridColumnApiLoaded && columnToggling && <HeaderColumnToggle api={gridApi} />}
+              {isGridColumnApiLoaded && columnToggling && (
+                <HeaderColumnToggle api={gridApi} selectedGroupOption={selectedGroupOption} />
+              )}
               {!!settings?.length && <HeaderColumnSettings settings={settings} />}
             </FlexItem>
           </StyledDataGridHeader>
@@ -1007,6 +1012,7 @@ export const DataGrid = ({
           statusBar={statusBar}
           tooltipShowDelay={0}
           colResizeDefault="shift"
+          reactiveCustomComponents
         ></StyledAgGridReact>
       </StyledDataGrid>
     </>

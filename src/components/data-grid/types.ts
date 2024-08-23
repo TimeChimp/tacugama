@@ -49,6 +49,7 @@ export type DataGridAggFunc = 'sum';
 
 export interface DataGridColumn extends ColDef {
   field: string;
+  rowGroupField?: string;
   groupable?: boolean;
 }
 
@@ -356,6 +357,7 @@ export interface HeaderCheckboxProps {
 
 export interface HeaderColumnToggleProps {
   api: GridApi;
+  selectedGroupOption?: DataGridColumn;
 }
 export interface HeaderColumnSettingsProps {
   settings: DataGridSetting[];

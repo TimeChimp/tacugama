@@ -40,9 +40,11 @@ export const FooterRowCount = ({
     gridApi?.addEventListener(ROW_SELECTED_EVENT, onRowSelection);
 
     return () => {
-      gridApi?.removeEventListener(MODEL_UPDATED_EVENT, onModelUpdated);
-      gridApi?.removeEventListener(PAGINATION_CHANGED_EVENT, onModelUpdated);
-      gridApi?.removeEventListener(ROW_SELECTED_EVENT, onModelUpdated);
+      if (!gridApi?.isDestroyed()) {
+        gridApi?.removeEventListener(MODEL_UPDATED_EVENT, onModelUpdated);
+        gridApi?.removeEventListener(PAGINATION_CHANGED_EVENT, onModelUpdated);
+        gridApi?.removeEventListener(ROW_SELECTED_EVENT, onModelUpdated);
+      }
     };
   }, [gridApi]);
 

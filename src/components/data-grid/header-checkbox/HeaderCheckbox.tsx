@@ -70,9 +70,11 @@ export const HeaderCheckbox = ({ api: gridApi, displayName }: HeaderCheckboxProp
     gridApi.addEventListener(PAGINATION_CHANGED_EVENT, onPaginationChanged);
 
     return () => {
-      gridApi.removeEventListener(MODEL_UPDATED_EVENT, handleChangeEvent);
-      gridApi.removeEventListener(SELECTION_CHANGED_EVENT, handleChangeEvent);
-      gridApi.removeEventListener(PAGINATION_CHANGED_EVENT, onPaginationChanged);
+      if (!gridApi?.isDestroyed()) {
+        gridApi.removeEventListener(MODEL_UPDATED_EVENT, handleChangeEvent);
+        gridApi.removeEventListener(SELECTION_CHANGED_EVENT, handleChangeEvent);
+        gridApi.removeEventListener(PAGINATION_CHANGED_EVENT, onPaginationChanged);
+      }
     };
   }, [gridApi, checked, getPageIndices, allAreSelected]);
 

@@ -30,12 +30,15 @@ export const FooterPageSize = ({ api: gridApi, translations }: FooterRowCountPro
     gridApi?.addEventListener(EVENT_LISTENER, onPaginationChanged);
 
     return () => {
-      gridApi?.removeEventListener(EVENT_LISTENER, onPaginationChanged);
+      if (!gridApi?.isDestroyed()) {
+        gridApi?.removeEventListener(EVENT_LISTENER, onPaginationChanged);
+      }
     };
   }, [gridApi]);
 
   const handlePageSizeChange = (pageSize: number) => {
     gridApi.setGridOption('paginationPageSize', pageSize);
+    gridApi.setGridOption('cacheBlockSize', pageSize);
     setPageSize(pageSize);
   };
 
