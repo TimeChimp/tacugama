@@ -142,7 +142,6 @@ export const ColumnFilters = ({
   };
 
   const onDateSelect = ({ dates, columnField }: { dates: [Date, Date]; columnField: string }) => {
-    console.log('testttt 1212 ', dates);
     if (setDates) {
       setDates(dates);
     }
