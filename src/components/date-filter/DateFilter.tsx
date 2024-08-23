@@ -76,10 +76,30 @@ export const quickDateSelectOptions = (translations?: DatepickerRangeTranslation
       endDate: new TcDate().subtract(1, 'year').endOf('year').toDate(),
     },
     {
+      id: QuickSelectDateOption.ALL_PERIODS,
+      label: translations?.allPeriods ?? 'All periods',
+      beginDate: new Date('1900-01-01'),
+      endDate: new Date('9999-01-01'),
+    },
+    {
       id: QuickSelectDateOption.CUSTOM,
       label: translations?.custom ?? 'Custom',
     },
   ];
+};
+
+const isAllPeriodsRangeActive = (dates: Date[]): boolean => {
+  const allPeriods = quickDateSelectOptions().find((option) => option.id === QuickSelectDateOption.ALL_PERIODS);
+  if (allPeriods?.id === QuickSelectDateOption.ALL_PERIODS) {
+    const allPeriodsStart = allPeriods?.beginDate?.getFullYear();
+    const allPeriodsEnd = allPeriods?.endDate?.getFullYear();
+
+    const datesStart = new Date(dates[0])?.getFullYear();
+    const datesEnd = new Date(dates[1])?.getFullYear();
+
+    return allPeriodsStart === datesStart && allPeriodsEnd === datesEnd;
+  }
+  return false;
 };
 
 export const DateFilter = ({
@@ -114,6 +134,13 @@ export const DateFilter = ({
       activeQuickSelect?.endDate
     ) {
       setInternalDate([activeQuickSelect.beginDate, activeQuickSelect.endDate]);
+    } else if (
+      activeQuickSelect?.id === QuickSelectDateOption.CUSTOM &&
+      dates?.length === 2 &&
+      isAllPeriodsRangeActive(dates)
+    ) {
+      // If user switches from All Periods to Custom, set the date range to the current year so the calendar doesn't open with a huge range
+      setInternalDate([new TcDate().startOf('year').toDate(), new TcDate().endOf('year').toDate()]);
     }
   }, [activeQuickSelect]);
 
