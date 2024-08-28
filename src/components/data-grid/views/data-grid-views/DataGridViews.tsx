@@ -27,7 +27,6 @@ export const DataGridViews = ({
   onModalClose,
   onModalOpen,
   gridApi,
-  filterModel,
 }: DataGridViewsProps) => {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState<boolean>(false);
   const [createModalIsOpen, setCreateModalIsOpen] = useState<boolean>(false);
@@ -193,7 +192,6 @@ export const DataGridViews = ({
         handleCreateView={handleCreateView}
         translations={translations}
         gridApi={gridApi}
-        filterModel={filterModel}
       />
       {editView && (
         <SaveViewModal
@@ -203,7 +201,6 @@ export const DataGridViews = ({
           handleSaveView={handleSaveViewState}
           translations={translations}
           gridApi={gridApi}
-          filterModel={filterModel}
         />
       )}
       {editView && (

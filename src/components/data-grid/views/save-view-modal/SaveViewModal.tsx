@@ -5,22 +5,14 @@ import { HeadingSmall, ParagraphSmall } from '../../../typography';
 import { SaveViewModalProps, DataGridState } from '../../types';
 import { ButtonKind } from '../../../../models';
 
-export const SaveViewModal = ({
-  isOpen,
-  onClose,
-  handleSaveView,
-  translations,
-  gridApi,
-  view,
-  filterModel,
-}: SaveViewModalProps) => {
+export const SaveViewModal = ({ isOpen, onClose, handleSaveView, translations, gridApi, view }: SaveViewModalProps) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const getState = () => {
     const state: DataGridState = {
       columnState: gridApi?.getColumnState(),
       columnGroupState: gridApi?.getColumnGroupState(),
-      filterModel,
+      pageSize: gridApi?.paginationGetPageSize(),
     };
     return JSON.stringify(state);
   };
@@ -28,7 +20,7 @@ export const SaveViewModal = ({
   const onSubmit = async () => {
     setLoading(true);
     const viewState = getState();
-    await handleSaveView(view.id, viewState);
+    await handleSaveView(view.id, JSON.stringify(viewState));
     setLoading(false);
     onClose();
   };

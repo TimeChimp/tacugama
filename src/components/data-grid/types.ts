@@ -120,7 +120,7 @@ export interface DataGridState {
     groupId: string;
     open: boolean;
   }[];
-  filterModel: FilterModel;
+  pageSize: number;
 }
 
 export interface FormatSettings {
@@ -408,7 +408,6 @@ export interface DataGridViewsProps {
   onModalOpen?: () => void;
   onModalClose?: () => void;
   gridApi: GridApi;
-  filterModel: Record<string, any>;
 }
 
 export interface CreateViewModalProps {
@@ -417,7 +416,6 @@ export interface CreateViewModalProps {
   handleCreateView: (input: CreateViewInput) => Promise<void>;
   translations: Translations;
   gridApi: GridApi;
-  filterModel: Record<string, any>;
 }
 
 export interface SaveViewModalProps {
@@ -427,7 +425,6 @@ export interface SaveViewModalProps {
   translations: Translations;
   gridApi: GridApi;
   view: DataGridView;
-  filterModel: Record<string, any>;
 }
 
 export interface RenameViewModalProps {

@@ -250,7 +250,12 @@ export const DataGrid = ({
   }, [filterModel, Object.keys(filterModel), Object.values(filterModel)]);
 
   useEffect(() => {
+    if (!isGridColumnApiLoaded) {
+      return;
+    }
+
     const allViews = views ? sortBy<DataGridView>(views, [nameOf<DataGridView>('name')]) : [];
+
     const hasActiveView = allViews.some((view) => view.active);
 
     allViews.unshift({
@@ -261,7 +266,12 @@ export const DataGrid = ({
     } as DataGridView);
 
     setAllViews(allViews);
-  }, [views, translations]);
+
+    const activeView = allViews?.find((view) => view.active);
+    if (activeView && activeView.viewState) {
+      return setViewState(gridApi, activeView.viewState);
+    }
+  }, [views, translations, isGridColumnApiLoaded]);
 
   const getGridThemeClassName = () => {
     return theme.current === theme.dark ? 'ag-theme-alpine-dark' : 'ag-theme-alpine';
@@ -307,45 +317,45 @@ export const DataGrid = ({
 
   const refreshCells = (api: GridApi) => api.refreshCells();
 
-  const setViewFilterIds = useCallback(
-    (filterModel: FilterModel) => {
-      setSelectedFilterIds({});
+  // const setViewFilterIds = useCallback(
+  //   (filterModel: FilterModel) => {
+  //     setSelectedFilterIds({});
 
-      const filterIds: SelectedFilterIds = {};
-      Object.keys(filterModel).forEach((filterName) => {
-        const filter = filterModel[filterName];
-        if (filter.filterType === 'set') {
-          const setFilter = filter as SetFilterModel;
-          if (setFilter.values) {
-            filterIds[filterName] = setFilter.values;
-          }
-        }
+  //     const filterIds: SelectedFilterIds = {};
+  //     Object.keys(filterModel).forEach((filterName) => {
+  //       const filter = filterModel[filterName];
+  //       if (filter.filterType === 'set') {
+  //         const setFilter = filter as SetFilterModel;
+  //         if (setFilter.values) {
+  //           filterIds[filterName] = setFilter.values;
+  //         }
+  //       }
 
-        if (filter.filterType === 'ids') {
-          const idsFilter = filter as IdsFilterModel;
-          if (idsFilter.ids) {
-            filterIds[filterName] = idsFilter.ids;
-          }
-        }
+  //       if (filter.filterType === 'ids') {
+  //         const idsFilter = filter as IdsFilterModel;
+  //         if (idsFilter.ids) {
+  //           filterIds[filterName] = idsFilter.ids;
+  //         }
+  //       }
 
-        if (filter.filterType === 'text') {
-          const textFilter = filter as TextFilterModel;
-          if (textFilter?.filter) {
-            filterIds[filterName] = [textFilter.filter];
-          }
-        }
+  //       if (filter.filterType === 'text') {
+  //         const textFilter = filter as TextFilterModel;
+  //         if (textFilter?.filter) {
+  //           filterIds[filterName] = [textFilter.filter];
+  //         }
+  //       }
 
-        if (filter.filterType === 'date') {
-          const { dateFrom, dateTo } = filter as DateFilterModel;
-          if (setDates && dateFrom && dateTo) {
-            setDates([new TcDate(dateFrom).toDate(), new TcDate(dateTo).toDate()]);
-          }
-        }
-      });
-      setSelectedFilterIds(filterIds);
-    },
-    [setDates],
-  );
+  //       if (filter.filterType === 'date') {
+  //         const { dateFrom, dateTo } = filter as DateFilterModel;
+  //         if (setDates && dateFrom && dateTo) {
+  //           setDates([new TcDate(dateFrom).toDate(), new TcDate(dateTo).toDate()]);
+  //         }
+  //       }
+  //     });
+  //     setSelectedFilterIds(filterIds);
+  //   },
+  //   [setDates],
+  // );
 
   const getInitialDateRange = () => {
     const tcDate = new TcDate();
@@ -357,17 +367,10 @@ export const DataGrid = ({
 
   const resetGrid = useCallback(
     (api: GridApi) => {
-      api?.resetColumnState();
-      api?.resetColumnGroupState();
-      Object.keys(filterModel).forEach((filter) => {
-        api?.destroyFilter(filter);
-      });
-
-      if (setDates) {
-        setDates(getInitialDateRange());
-      }
+      gridApi?.resetColumnState();
+      gridApi?.resetColumnGroupState();
     },
-    [setDates, setViewFilterIds, filterModel],
+    [gridApi],
   );
 
   const setViewState = useCallback(
@@ -376,14 +379,15 @@ export const DataGrid = ({
         return;
       }
       if (state) {
-        const gridState: DataGridState = JSON.parse(state);
+        const parseGridState: DataGridState = JSON.parse(state);
+        const gridState = typeof parseGridState === 'string' ? JSON.parse(parseGridState) : parseGridState;
 
         try {
           api?.applyColumnState({ state: gridState.columnState });
           api?.setColumnGroupState(gridState.columnGroupState);
-          setFilterModel(gridState.filterModel);
-          api?.setFilterModel(gridState.filterModel);
-          setViewFilterIds(gridState.filterModel);
+          if (gridState?.pageSize) {
+            api?.setGridOption('paginationPageSize', gridState?.pageSize);
+          }
         } catch (e) {
           console.error('Error while setting grid state', e);
         }
@@ -393,29 +397,38 @@ export const DataGrid = ({
 
       api?.onFilterChanged();
     },
-    [setViewFilterIds, resetGrid],
+    [resetGrid],
   );
 
-  const handleActivateView = async (id: string) => {
-    const view = allViews?.find((view) => view.id === id);
+  const handleActivateView = useCallback(
+    async (id: string) => {
+      const view = allViews?.find((view) => view.id === id);
 
-    if (view) {
-      if (view.id === 'default' && onDeactivateView) {
-        // Deactivate current view when selecting the default view
-        const activeView = allViews.find((view) => view.active);
-        if (activeView) {
-          await onDeactivateView(activeView.id);
+      if (view) {
+        if (view.id === 'default' && onDeactivateView) {
+          const activeView = allViews.find((view) => view.active);
+          if (activeView) {
+            await onDeactivateView(activeView.id);
+          }
+
+          view.active = true;
+          setAllViews((initialViews) =>
+            initialViews.map((view) => {
+              if (view.id === 'default') {
+                return { ...view, active: true };
+              }
+              return { ...view, active: false };
+            }),
+          );
+          //setAllViews([...allViews.filter((x) => x.id !== id), view]);
+        } else if (onActivateView) {
+          await onActivateView(view.id);
         }
-
-        view.active = true;
-        setAllViews([...allViews.filter((x) => x.id !== id), view]);
-      } else if (onActivateView) {
-        await onActivateView(view.id);
+        setViewState(gridApi, view.viewState);
       }
-
-      setViewState(gridApi, view.viewState);
-    }
-  };
+    },
+    [setViewState, allViews, onActivateView, onDeactivateView],
+  );
 
   const handleCreateView = async (input: CreateViewInput) => {
     if (onCreateView) {
@@ -751,12 +764,6 @@ export const DataGrid = ({
   }, [filterOnValue, filterOnDate, filters, dates]);
 
   const onFirstDataRendered = () => {
-    const activeView = allViews?.find((view) => view.active);
-
-    if (activeView && activeView.viewState && !hasStoredFilters) {
-      return setViewState(gridApi, activeView.viewState);
-    }
-
     return setFilterDefaultValues();
   };
 
@@ -865,8 +872,48 @@ export const DataGrid = ({
     };
   }, [hasFooterRowCount, showPagination, paginationPageSize]);
 
+  // const [testen, setTesten] = useState([
+  //   {
+  //     id: 1,
+  //     name: 'test1',
+  //     active: false,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'test1333',
+  //     active: false,
+  //   },
+  // ]);
+
+  const testReset = () => {
+    gridApi?.resetColumnState();
+    gridApi?.resetColumnGroupState();
+  };
+
+  // const test1 = () => {
+  //   setTesten((prev) => {
+  //     return prev.map((item) => {
+  //       return { ...item, active: !item.active };
+  //     });
+  //   });
+  // };
+
+  // const test2 = () => {
+  //   setTesten([
+  //     ...testen.map((item) => {
+  //       return { ...item, active: !item.active };
+  //     }),
+  //   ]);
+  // };
+
+  // useEffect(() => {
+  //   alert('tttt');
+  // }, [testen]);
+
   return (
     <>
+      <div onClick={testReset}>testt 12333:: </div>
+      {/* <div onClick={test2}>test2 </div> */}
       <Filters
         api={gridApi}
         filtering={filtering}
@@ -921,7 +968,6 @@ export const DataGrid = ({
                   gridApi={gridApi}
                   onModalClose={onModalClose}
                   onModalOpen={onModalOpen}
-                  filterModel={filterModel}
                 />
               )}
               {grouping && (
