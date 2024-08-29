@@ -269,7 +269,6 @@ export const DataGrid = ({
 
     const activeView = allViews?.find((view) => view.active);
     if (activeView && activeView?.viewState) {
-      console.log('viewState1');
       return setViewState(gridApi, activeView.viewState);
     }
   }, [views, translations, isGridColumnApiLoaded]);
@@ -320,16 +319,14 @@ export const DataGrid = ({
 
   const resetGrid = useCallback(
     (api: GridApi) => {
-      console.log('resetting grid state');
-      gridApi?.resetColumnState();
-      gridApi?.resetColumnGroupState();
+      api?.resetColumnState();
+      api?.resetColumnGroupState();
     },
     [gridApi],
   );
 
   const setViewState = useCallback(
     (api: GridApi, state: string | null) => {
-      console.log('viewState function', state);
       if (!api) {
         return;
       }
@@ -379,7 +376,6 @@ export const DataGrid = ({
         } else if (onActivateView) {
           await onActivateView(view.id);
         }
-        console.log('viewState2');
         setViewState(gridApi, view.viewState);
       }
     },
