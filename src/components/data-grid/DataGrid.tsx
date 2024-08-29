@@ -63,6 +63,7 @@ import { Dropdown, DropdownItem } from '../dropdown';
 import { ButtonKind, QuickSelectDateOption } from '../../models';
 import { HeaderColumnSettings } from './header-column-settings';
 import { CaretDown, CaretUp, DotsSix } from '@phosphor-icons/react';
+import { parse } from 'date-fns';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
@@ -317,8 +318,7 @@ export const DataGrid = ({
         return;
       }
       if (state) {
-        const parsedGridState: DataGridState = JSON.parse(state);
-        const gridState = typeof parsedGridState === 'string' ? JSON.parse(parsedGridState) : parsedGridState;
+        const gridState: DataGridState = JSON.parse(state);
 
         try {
           api?.applyColumnState({ state: gridState.columnState });
