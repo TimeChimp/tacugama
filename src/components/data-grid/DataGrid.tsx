@@ -24,10 +24,8 @@ import {
   GridReadyEvent,
   DateFilterModel,
   SelectionChangedEvent,
-  TextFilterModel,
   ColDef,
   IGroupCellRendererParams,
-  SetFilterModel,
   StatusPanelDef,
   GetRowIdParams,
 } from '@ag-grid-community/core';
@@ -331,14 +329,14 @@ export const DataGrid = ({
         return;
       }
       if (state) {
-        const parseGridState: DataGridState = JSON.parse(state);
-        const gridState = typeof parseGridState === 'string' ? JSON.parse(parseGridState) : parseGridState;
+        const parsedGridState: DataGridState = JSON.parse(state);
+        const gridState = typeof parsedGridState === 'string' ? JSON.parse(parsedGridState) : parsedGridState;
 
         try {
           api?.applyColumnState({ state: gridState.columnState });
           api?.setColumnGroupState(gridState.columnGroupState);
           if (gridState?.pageSize) {
-            api?.setGridOption('paginationPageSize', gridState?.pageSize);
+            api?.setGridOption('paginationPageSize', gridState.pageSize);
           }
         } catch (e) {
           console.error('Error while setting grid state', e);
@@ -364,15 +362,7 @@ export const DataGrid = ({
           }
 
           view.active = true;
-          setAllViews((initialViews) =>
-            initialViews.map((view) => {
-              if (view.id === 'default') {
-                return { ...view, active: true };
-              }
-              return { ...view, active: false };
-            }),
-          );
-          //setAllViews([...allViews.filter((x) => x.id !== id), view]);
+          setAllViews([...allViews.filter((x) => x.id !== id), view]);
         } else if (onActivateView) {
           await onActivateView(view.id);
         }
