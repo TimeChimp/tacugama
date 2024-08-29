@@ -255,6 +255,9 @@ export interface DataGridProps {
   initialShowLessFilters?: boolean;
   onShowLessFiltersChange?: (showLessFilters: boolean) => void;
   setFiltersHeight?: (filtersHeight: number) => void;
+  /**
+   * @deprecated The prop should not be used and will be removed in the future.
+   */
   hasStoredFilters?: boolean;
   defaultDateQuickSelect?: QuickSelectDateOption;
   exportFileName?: string;

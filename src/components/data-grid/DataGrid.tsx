@@ -46,7 +46,6 @@ import {
   RowModelType,
   CustomFilterTypes,
   Filter,
-  IdsFilterModel,
 } from './types';
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
@@ -134,7 +133,6 @@ export const DataGrid = ({
   initialShowLessFilters,
   onShowLessFiltersChange,
   setFiltersHeight,
-  hasStoredFilters,
   defaultDateQuickSelect = QuickSelectDateOption.THIS_YEAR,
   exportFileName,
 }: DataGridProps) => {
@@ -248,12 +246,7 @@ export const DataGrid = ({
   }, [filterModel, Object.keys(filterModel), Object.values(filterModel)]);
 
   useEffect(() => {
-    if (!isGridColumnApiLoaded) {
-      return;
-    }
-
     const allViews = views ? sortBy<DataGridView>(views, [nameOf<DataGridView>('name')]) : [];
-
     const hasActiveView = allViews.some((view) => view.active);
 
     allViews.unshift({
@@ -264,12 +257,7 @@ export const DataGrid = ({
     } as DataGridView);
 
     setAllViews(allViews);
-
-    const activeView = allViews?.find((view) => view.active);
-    if (activeView && activeView?.viewState) {
-      return setViewState(gridApi, activeView.viewState);
-    }
-  }, [views, translations, isGridColumnApiLoaded]);
+  }, [views, translations]);
 
   const getGridThemeClassName = () => {
     return theme.current === theme.dark ? 'ag-theme-alpine-dark' : 'ag-theme-alpine';
@@ -320,7 +308,7 @@ export const DataGrid = ({
       api?.resetColumnState();
       api?.resetColumnGroupState();
     },
-    [gridApi],
+    [setDates, filterModel],
   );
 
   const setViewState = useCallback(
@@ -350,27 +338,26 @@ export const DataGrid = ({
     [resetGrid],
   );
 
-  const handleActivateView = useCallback(
-    async (id: string) => {
-      const view = allViews?.find((view) => view.id === id);
+  const handleActivateView = async (id: string) => {
+    const view = allViews?.find((view) => view.id === id);
 
-      if (view) {
-        if (view.id === 'default' && onDeactivateView) {
-          const activeView = allViews.find((view) => view.active);
-          if (activeView) {
-            await onDeactivateView(activeView.id);
-          }
-
-          view.active = true;
-          setAllViews([...allViews.filter((x) => x.id !== id), view]);
-        } else if (onActivateView) {
-          await onActivateView(view.id);
+    if (view) {
+      if (view.id === 'default' && onDeactivateView) {
+        // Deactivate current view when selecting the default view
+        const activeView = allViews.find((view) => view.active);
+        if (activeView) {
+          await onDeactivateView(activeView.id);
         }
-        setViewState(gridApi, view.viewState);
+
+        view.active = true;
+        setAllViews([...allViews.filter((x) => x.id !== id), view]);
+      } else if (onActivateView) {
+        await onActivateView(view.id);
       }
-    },
-    [setViewState, allViews, onActivateView, onDeactivateView],
-  );
+
+      setViewState(gridApi, view.viewState);
+    }
+  };
 
   const handleCreateView = async (input: CreateViewInput) => {
     if (onCreateView) {
@@ -706,6 +693,11 @@ export const DataGrid = ({
   }, [filterOnValue, filterOnDate, filters, dates]);
 
   const onFirstDataRendered = () => {
+    const activeView = allViews?.find((view) => view.active);
+    if (activeView && activeView.viewState) {
+      return setViewState(gridApi, activeView.viewState);
+    }
+
     return setFilterDefaultValues();
   };
 
