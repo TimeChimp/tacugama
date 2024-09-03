@@ -130,7 +130,7 @@
     "styletron-engine-atomic": "1.4.7",
     "styletron-react": "^6.1.0",
     "victory": "^36.0.1",
-    "write-excel-file": "^1.4.27"
+    "write-excel-file": "^2.0.9"
   },
   "msw": {
     "workerDirectory": "public"
