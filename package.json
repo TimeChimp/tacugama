@@ -104,7 +104,7 @@
     "@ag-grid-enterprise/core": "31.3.2",
     "@ag-grid-enterprise/excel-export": "31.3.2",
     "@ag-grid-enterprise/row-grouping": "31.3.2",
-    "@ag-grid-enterprise/server-side-row-model": "31.3.2",
+    "@ag-grid-enterprise/server-side-row-model": "32.1.0",
     "@ag-grid-enterprise/set-filter": "31.3.2",
     "@ag-grid-enterprise/status-bar": "31.3.2",
     "@phosphor-icons/react": "^2.1.5",
