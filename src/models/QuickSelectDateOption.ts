@@ -10,4 +10,5 @@ export enum QuickSelectDateOption {
   PREVIOUS_QUARTER = 'previousQuarter',
   PREVIOUS_YEAR = 'previousYear',
   CUSTOM = 'custom',
+  ALL_PERIODS = 'allPeriods',
 }
