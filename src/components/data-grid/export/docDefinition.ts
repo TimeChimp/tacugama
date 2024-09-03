@@ -152,7 +152,7 @@ export const getDocDefinition = (gridApi: GridApi, printParams: PrintParams, tra
   function getColumnsToExport() {
     const columnsToExport: PdfHeaderCell[] = [];
 
-    gridApi?.getAllGridColumns().forEach((col) => {
+    gridApi?.getAllDisplayedColumns().forEach((col) => {
       const colDef = col.getColDef();
 
       if (!colDef.field) {

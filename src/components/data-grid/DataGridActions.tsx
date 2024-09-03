@@ -43,11 +43,11 @@ export const DataGridActions = ({
       const dropdownItems: DropdownItem[] = [
         {
           label: 'Excel',
-          action: () => exportExcel(gridApi, columns, exportFileName),
+          action: () => exportExcel(gridApi, exportFileName),
         },
         {
           label: 'CSV',
-          action: () => exportCSV(gridApi, columns, exportFileName),
+          action: () => exportCSV(gridApi, exportFileName),
         },
         {
           label: 'Pdf',
