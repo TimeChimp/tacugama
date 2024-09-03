@@ -127,7 +127,7 @@
     "react-number-format": "^4.7.3",
     "react-select": "^5.7.3",
     "react-window": "^1.8.9",
-    "styletron-engine-atomic": "1.4.7",
+    "styletron-engine-atomic": "1.6.2",
     "styletron-react": "^6.1.0",
     "victory": "^36.0.1",
     "write-excel-file": "^1.4.27"
