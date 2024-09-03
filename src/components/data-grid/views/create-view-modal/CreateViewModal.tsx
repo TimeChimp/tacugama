@@ -13,14 +13,7 @@ interface FormInput {
   name: string;
 }
 
-export const CreateViewModal = ({
-  isOpen,
-  onClose,
-  handleCreateView,
-  translations,
-  gridApi,
-  filterModel,
-}: CreateViewModalProps) => {
+export const CreateViewModal = ({ isOpen, onClose, handleCreateView, translations, gridApi }: CreateViewModalProps) => {
   const {
     handleSubmit,
     setValue,
@@ -42,7 +35,7 @@ export const CreateViewModal = ({
     const state: DataGridState = {
       columnState: gridApi?.getColumnState(),
       columnGroupState: gridApi?.getColumnGroupState(),
-      filterModel,
+      pageSize: gridApi?.paginationGetPageSize(),
     };
     return JSON.stringify(state);
   };

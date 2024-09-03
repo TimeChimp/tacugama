@@ -24,10 +24,8 @@ import {
   GridReadyEvent,
   DateFilterModel,
   SelectionChangedEvent,
-  TextFilterModel,
   ColDef,
   IGroupCellRendererParams,
-  SetFilterModel,
   StatusPanelDef,
   GetRowIdParams,
 } from '@ag-grid-community/core';
@@ -48,7 +46,6 @@ import {
   RowModelType,
   CustomFilterTypes,
   Filter,
-  IdsFilterModel,
 } from './types';
 import { useTheme } from '../../providers';
 import { defaultFormatSettings } from './defaultFormatSettings';
@@ -136,7 +133,6 @@ export const DataGrid = ({
   initialShowLessFilters,
   onShowLessFiltersChange,
   setFiltersHeight,
-  hasStoredFilters,
   defaultDateQuickSelect = QuickSelectDateOption.THIS_YEAR,
   exportFileName,
 }: DataGridProps) => {
@@ -307,67 +303,12 @@ export const DataGrid = ({
 
   const refreshCells = (api: GridApi) => api.refreshCells();
 
-  const setViewFilterIds = useCallback(
-    (filterModel: FilterModel) => {
-      setSelectedFilterIds({});
-
-      const filterIds: SelectedFilterIds = {};
-      Object.keys(filterModel).forEach((filterName) => {
-        const filter = filterModel[filterName];
-        if (filter.filterType === 'set') {
-          const setFilter = filter as SetFilterModel;
-          if (setFilter.values) {
-            filterIds[filterName] = setFilter.values;
-          }
-        }
-
-        if (filter.filterType === 'ids') {
-          const idsFilter = filter as IdsFilterModel;
-          if (idsFilter.ids) {
-            filterIds[filterName] = idsFilter.ids;
-          }
-        }
-
-        if (filter.filterType === 'text') {
-          const textFilter = filter as TextFilterModel;
-          if (textFilter?.filter) {
-            filterIds[filterName] = [textFilter.filter];
-          }
-        }
-
-        if (filter.filterType === 'date') {
-          const { dateFrom, dateTo } = filter as DateFilterModel;
-          if (setDates && dateFrom && dateTo) {
-            setDates([new TcDate(dateFrom).toDate(), new TcDate(dateTo).toDate()]);
-          }
-        }
-      });
-      setSelectedFilterIds(filterIds);
-    },
-    [setDates],
-  );
-
-  const getInitialDateRange = () => {
-    const tcDate = new TcDate();
-    const startOfMonth = tcDate.startOf('month').toDate();
-    const endOfMonth = tcDate.endOf('month').toDate();
-
-    return [startOfMonth, endOfMonth];
-  };
-
   const resetGrid = useCallback(
     (api: GridApi) => {
       api?.resetColumnState();
       api?.resetColumnGroupState();
-      Object.keys(filterModel).forEach((filter) => {
-        api?.destroyFilter(filter);
-      });
-
-      if (setDates) {
-        setDates(getInitialDateRange());
-      }
     },
-    [setDates, setViewFilterIds, filterModel],
+    [setDates, filterModel],
   );
 
   const setViewState = useCallback(
@@ -381,9 +322,9 @@ export const DataGrid = ({
         try {
           api?.applyColumnState({ state: gridState.columnState });
           api?.setColumnGroupState(gridState.columnGroupState);
-          setFilterModel(gridState.filterModel);
-          api?.setFilterModel(gridState.filterModel);
-          setViewFilterIds(gridState.filterModel);
+          if (gridState?.pageSize) {
+            api?.setGridOption('paginationPageSize', gridState.pageSize);
+          }
         } catch (e) {
           console.error('Error while setting grid state', e);
         }
@@ -393,7 +334,7 @@ export const DataGrid = ({
 
       api?.onFilterChanged();
     },
-    [setViewFilterIds, resetGrid],
+    [resetGrid],
   );
 
   const handleActivateView = async (id: string) => {
@@ -752,8 +693,7 @@ export const DataGrid = ({
 
   const onFirstDataRendered = () => {
     const activeView = allViews?.find((view) => view.active);
-
-    if (activeView && activeView.viewState && !hasStoredFilters) {
+    if (activeView && activeView.viewState) {
       return setViewState(gridApi, activeView.viewState);
     }
 
@@ -921,7 +861,6 @@ export const DataGrid = ({
                   gridApi={gridApi}
                   onModalClose={onModalClose}
                   onModalOpen={onModalOpen}
-                  filterModel={filterModel}
                 />
               )}
               {grouping && (
