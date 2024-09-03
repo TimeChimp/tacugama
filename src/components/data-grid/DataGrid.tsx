@@ -63,7 +63,6 @@ import { Dropdown, DropdownItem } from '../dropdown';
 import { ButtonKind, QuickSelectDateOption } from '../../models';
 import { HeaderColumnSettings } from './header-column-settings';
 import { CaretDown, CaretUp, DotsSix } from '@phosphor-icons/react';
-import { parse } from 'date-fns';
 
 const DEFAULT_SEARCH_COLUMNS = ['name'];
 const DEFAULT_ROW_MODEL_TYPE = RowModelType.serverSide;
