@@ -694,7 +694,7 @@ export const DataGrid = ({
   const onFirstDataRendered = () => {
     const activeView = allViews?.find((view) => view.active);
     if (activeView && activeView.viewState) {
-      return setViewState(gridApi, activeView.viewState);
+      setViewState(gridApi, activeView.viewState);
     }
 
     return setFilterDefaultValues();
