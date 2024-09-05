@@ -261,6 +261,7 @@ export interface DataGridProps {
   hasStoredFilters?: boolean;
   defaultDateQuickSelect?: QuickSelectDateOption;
   exportFileName?: string;
+  setIsGrouping?: (isGrouping: boolean) => void;
 }
 
 export interface DataGridView {

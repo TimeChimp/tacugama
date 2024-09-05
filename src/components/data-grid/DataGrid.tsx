@@ -135,6 +135,7 @@ export const DataGrid = ({
   setFiltersHeight,
   defaultDateQuickSelect = QuickSelectDateOption.THIS_YEAR,
   exportFileName,
+  setIsGrouping,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns || []);
@@ -804,6 +805,12 @@ export const DataGrid = ({
       ],
     };
   }, [hasFooterRowCount, showPagination, paginationPageSize]);
+
+  useEffect(() => {
+    if (setIsGrouping) {
+      setIsGrouping(!!selectedGroupOption);
+    }
+  }, [setIsGrouping, selectedGroupOption]);
 
   return (
     <>
