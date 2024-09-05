@@ -20,7 +20,7 @@ export const SaveViewModal = ({ isOpen, onClose, handleSaveView, translations, g
   const onSubmit = async () => {
     setLoading(true);
     const viewState = getState();
-    await handleSaveView(view.id, JSON.stringify(viewState));
+    await handleSaveView(view.id, viewState);
     setLoading(false);
     onClose();
   };
