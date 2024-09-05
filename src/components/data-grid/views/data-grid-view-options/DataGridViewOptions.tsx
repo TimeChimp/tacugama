@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { PLACEMENT } from 'baseui/popover';
 import { SIZE } from 'baseui/button';
 import { Button } from '../../../button';
@@ -28,7 +28,6 @@ export const DataGridViewOptions = ({
   handleActivateView,
 }: DataGridViewOptionsProps) => {
   const [viewSearchTerm, setViewSearchTerm] = useState<string>();
-  const availableViews = useMemo(() => views?.filter((view) => view.id !== 'default'), [views]);
 
   const {
     theme: {
@@ -40,7 +39,7 @@ export const DataGridViewOptions = ({
     },
   } = useTheme();
 
-  const getViewById = (id: string) => availableViews?.find((view) => view.id === id);
+  const getViewById = (id: string) => views?.find((view) => view.id === id);
 
   const isActiveView = (id: string) => getViewById(id)?.active;
 
@@ -114,8 +113,8 @@ export const DataGridViewOptions = ({
           </StyledDropdownSearch>
           <StatefulMenu
             items={
-              availableViews
-                ? availableViews
+              views
+                ? views
                     .map(({ id, name }) => ({ id, label: name }))
                     .filter((x) => !viewSearchTerm || x.label.toLowerCase().includes(viewSearchTerm.toLowerCase()))
                 : []
