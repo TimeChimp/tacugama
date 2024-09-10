@@ -17,6 +17,8 @@ export const Filters = ({
   setFiltersHeight,
   onShowLessFiltersChange,
   defaultDateQuickSelect,
+  defaultSearch,
+  isGridColumnApiLoaded,
   ...rest
 }: FiltersProps) => {
   const { searchBar } = translations;
@@ -49,6 +51,13 @@ export const Filters = ({
     setSearchValue(searchTerm);
     debouncedSearch ? debouncedHandler(searchTerm) : handleSearch(searchTerm);
   };
+
+  useEffect(() => {
+    if (isGridColumnApiLoaded && filtering && defaultSearch) {
+      setSearchValue(defaultSearch);
+      handleSearch(defaultSearch);
+    }
+  }, [defaultSearch, isGridColumnApiLoaded]);
 
   return (
     <StyledDataGridFilters ref={ref}>

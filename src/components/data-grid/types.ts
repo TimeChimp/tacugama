@@ -75,6 +75,7 @@ export enum FilterType {
   multiVirtual = 'multiVirtual',
   single = 'single',
   settings = 'settings',
+  contains = 'contains',
 }
 
 export interface FilterValue {
@@ -262,6 +263,7 @@ export interface DataGridProps {
   defaultDateQuickSelect?: QuickSelectDateOption;
   exportFileName?: string;
   setIsGrouping?: (isGrouping: boolean) => void;
+  defaultSearch?: string;
 }
 
 export interface DataGridView {
@@ -305,6 +307,8 @@ export interface FiltersProps {
   onShowLessFiltersChange?: (showLessFilters: boolean) => void;
   setFiltersHeight?: (filtersHeight: number) => void;
   defaultDateQuickSelect: QuickSelectDateOption;
+  defaultSearch?: string;
+  isGridColumnApiLoaded?: boolean;
 }
 
 export interface ColumnFiltersProps {
