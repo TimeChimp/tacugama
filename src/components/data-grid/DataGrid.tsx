@@ -136,6 +136,7 @@ export const DataGrid = ({
   defaultDateQuickSelect = QuickSelectDateOption.THIS_YEAR,
   exportFileName,
   setIsGrouping,
+  defaultSearch,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns || []);
@@ -592,7 +593,6 @@ export const DataGrid = ({
         return gridApi?.onFilterChanged();
       }
       const filterObject = filters?.find((filter) => filter.columnField === columnField);
-
       filterModel[columnField] = getSetFilterObject(values, filterObject);
 
       onFiltering(filterModel);
@@ -626,6 +626,7 @@ export const DataGrid = ({
   const filterOnMultiValues = useCallback(
     (columnField: string, values: FilterValue['value'][]) => {
       if (!values.length) {
+        console.log('setFilterModel4', filterModel, columnField);
         setFilterModel((model) => ({ ...model, [columnField]: undefined }));
         return gridApi?.onFilterChanged();
       }
@@ -721,7 +722,9 @@ export const DataGrid = ({
     });
 
     filterModelKeys.map((key) => {
-      if (!filters?.find((filter) => filter.columnField === key)) {
+      // Set filter to undefined if filter is present in the filter model but not in the filters array
+      // Ignore search columns if search is enabled
+      if (!filters?.find((filter) => filter.columnField === key) && (!searchColumns?.includes(key) || !filtering)) {
         setFilterModel((model) => ({ ...model, [key]: undefined }));
         needFilterUpdate = true;
       }
@@ -837,6 +840,8 @@ export const DataGrid = ({
         onShowLessFiltersChange={onShowLessFiltersChange}
         setFiltersHeight={setFiltersHeight}
         defaultDateQuickSelect={defaultDateQuickSelect}
+        defaultSearch={defaultSearch}
+        isGridColumnApiLoaded={isGridColumnApiLoaded}
       />
       <StyledDataGrid $height={height} className={getGridThemeClassName()}>
         {showDataGridHeader && (
