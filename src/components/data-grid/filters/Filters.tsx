@@ -57,7 +57,7 @@ export const Filters = ({
       setSearchValue(defaultSearch);
       handleSearch(defaultSearch);
     }
-  }, [defaultSearch, isGridColumnApiLoaded]);
+  }, [defaultSearch, isGridColumnApiLoaded, filtering]);
 
   return (
     <StyledDataGridFilters ref={ref}>

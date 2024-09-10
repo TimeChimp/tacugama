@@ -75,7 +75,6 @@ export enum FilterType {
   multiVirtual = 'multiVirtual',
   single = 'single',
   settings = 'settings',
-  contains = 'contains',
 }
 
 export interface FilterValue {

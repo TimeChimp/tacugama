@@ -657,18 +657,14 @@ export const DataGrid = ({
   // Date format that is send as part of the query request
   const getDateFormat = useCallback((date: Date) => new TcDate(date).getDateWithoutTimeAsUTC().toISOString(), []);
 
-  const getDateFilterModel = (columnField: string, selectedDates: Date[]): DateFilterModel => {
-    return {
-      filterType: FilterType.date,
-      type: 'inRange',
-      dateFrom: getDateFormat(selectedDates[0]),
-      dateTo: getDateFormat(selectedDates[1]),
-    };
-  };
-
   const filterOnDate = useCallback(
     (columnField: string, selectedDates: Date[]) => {
-      const dateFilter = getDateFilterModel(columnField, selectedDates);
+      const dateFilter: DateFilterModel = {
+        filterType: 'date',
+        type: 'inRange',
+        dateFrom: getDateFormat(selectedDates[0]),
+        dateTo: getDateFormat(selectedDates[1]),
+      };
 
       filterModel[columnField] = dateFilter;
       onFiltering(filterModel);
