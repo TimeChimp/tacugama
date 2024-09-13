@@ -45,6 +45,7 @@ export const SingleSelect = <
   createText = (inputValue: string) => `Create ${inputValue}`,
   noOptionsMessage = () => 'No options',
   onCreateOption,
+  filterOption,
   loadOptions,
   cacheOptions,
   inputId,
@@ -319,6 +320,7 @@ export const SingleSelect = <
           loadOptions={loadOptions}
           cacheOptions={cacheOptions}
           defaultOptions={options}
+          filterOption={filterOption}
         />
       );
     }

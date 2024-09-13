@@ -1,3 +1,5 @@
+import { FilterOptionOption } from 'react-select/dist/declarations/src/filters';
+
 export type Option<T, ValueKey extends string, LabelKey extends string> = {
   [key in ValueKey]: T;
 } & {
@@ -27,6 +29,10 @@ interface BaseSingleSelectProps<ValueType, ValueKey extends string, LabelKey ext
   onCreateOption?: (inputValue: string) => void;
   multi?: boolean;
   loadOptions?: (inputValue: string) => Promise<Option<ValueType, ValueKey, LabelKey>[]>;
+  filterOption?:
+    | ((option: FilterOptionOption<Option<ValueType, ValueKey, LabelKey>>, inputValue: string) => boolean)
+    | null
+    | undefined;
   cacheOptions?: boolean;
   /** @deprecated Don't use this prop, it will be removed in the future */
   inputId?: string;
