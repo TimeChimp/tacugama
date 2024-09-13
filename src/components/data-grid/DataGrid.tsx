@@ -322,7 +322,7 @@ export const DataGrid = ({
         const gridState: DataGridState = JSON.parse(state);
 
         try {
-          api?.applyColumnState({ state: gridState.columnState });
+          api?.applyColumnState({ state: gridState.columnState, applyOrder: true });
           api?.setColumnGroupState(gridState.columnGroupState);
           if (gridState?.pageSize) {
             api?.setGridOption('paginationPageSize', gridState.pageSize);
