@@ -116,6 +116,7 @@ export const SingleSelect = <
       value,
       defaultValue,
       options: alphabetizedOptions,
+      filterOption,
       placeholder,
       isClearable: clearable,
       isSearchable: searchable,
@@ -320,7 +321,6 @@ export const SingleSelect = <
           loadOptions={loadOptions}
           cacheOptions={cacheOptions}
           defaultOptions={options}
-          filterOption={filterOption}
         />
       );
     }
