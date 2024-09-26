@@ -138,6 +138,7 @@ export const DataGrid = ({
   setIsGrouping,
   defaultSearch,
 }: DataGridProps) => {
+  // @ts-expect-error - AgGridReact is not a valid type
   const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns || []);
   const selectedGroupOption = useMemo(
