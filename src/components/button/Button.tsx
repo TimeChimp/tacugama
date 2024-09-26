@@ -120,11 +120,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   }),
                 },
                 ':disabled': {
-                  borderColor: borderColor ?? light2,
+                  borderColor: light2,
                   backgroundColor: backgroundColor ?? light7,
                   color: color ?? dark4,
                   ':hover': {
-                    borderColor: borderColor ?? light2,
+                    borderColor: light2,
                     backgroundColor: backgroundColor ?? light7,
                     color: color ?? dark4,
                   },
@@ -147,22 +147,22 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 ...borderBottom({
                   borderWidth: scale0,
                   borderStyle: 'solid',
-                  borderColor: borderColor ?? primaryB,
+                  borderColor: primaryB,
                 }),
                 ...borderLeft({
                   borderWidth: scale0,
                   borderStyle: 'solid',
-                  borderColor: borderColor ?? primaryB,
+                  borderColor: primaryB,
                 }),
                 ...borderRight({
                   borderWidth: scale0,
                   borderStyle: 'solid',
-                  borderColor: borderColor ?? primaryB,
+                  borderColor: primaryB,
                 }),
                 ...borderTop({
                   borderWidth: scale0,
                   borderStyle: 'solid',
-                  borderColor: borderColor ?? borderTransparent,
+                  borderColor: borderTransparent,
                 }),
                 cursor: cursorType ?? 'pointer',
               },
@@ -180,25 +180,25 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 ...(width && { width }),
                 ...border({
                   ...border300,
-                  borderColor: borderColor ?? light2,
+                  borderColor: light2,
                 }),
                 color: color ?? dark1,
                 ':hover': {
-                  borderColor: borderColor ?? dark3,
+                  borderColor: dark3,
                   backgroundColor: backgroundColor ?? light4,
                 },
                 ':disabled': {
-                  borderColor: borderColor ?? light2,
+                  borderColor: light2,
                   backgroundColor: backgroundColor ?? light7,
                   color: color ?? dark4,
                   ':hover': {
-                    borderColor: borderColor ?? light2,
+                    borderColor: light2,
                     backgroundColor: backgroundColor ?? light7,
                     color: color ?? dark4,
                   },
                 },
                 ':active': {
-                  borderColor: borderColor ?? dark3,
+                  borderColor: dark3,
                   backgroundColor: backgroundColor ?? light4,
                 },
                 cursor: cursorType ?? 'pointer',
@@ -220,22 +220,22 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 ...borderBottom({
                   borderWidth: scale0,
                   borderStyle: 'solid',
-                  borderColor: borderColor ?? primaryB,
+                  borderColor: primaryB,
                 }),
                 ...borderLeft({
                   borderWidth: scale0,
                   borderStyle: 'solid',
-                  borderColor: borderColor ?? primaryB,
+                  borderColor: primaryB,
                 }),
                 ...borderRight({
                   borderWidth: scale0,
                   borderStyle: 'solid',
-                  borderColor: borderColor ?? primaryB,
+                  borderColor: primaryB,
                 }),
                 ...borderTop({
                   borderWidth: scale0,
                   borderStyle: 'solid',
-                  borderColor: borderColor ?? borderTransparent,
+                  borderColor: borderTransparent,
                 }),
               },
             },
@@ -266,11 +266,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   borderColor: borderColor ?? dark4,
                 },
                 ':disabled': {
-                  borderColor: borderColor ?? light2,
+                  borderColor: light2,
                   backgroundColor: backgroundColor ?? light7,
                   color: color ?? dark4,
                   ':hover': {
-                    borderColor: borderColor ?? light2,
+                    borderColor: light2,
                     backgroundColor: backgroundColor ?? light7,
                     color: color ?? dark4,
                   },
@@ -308,7 +308,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
                 ':disabled': {
                   backgroundColor: 'transparent',
-                  borderColor: borderColor ?? 'transparent',
+                  borderColor: 'transparent',
                   color: color ?? dark4,
                 },
                 cursor: cursorType ?? 'pointer',
@@ -341,7 +341,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 ...getPadding(),
                 ...border({
                   ...border100,
-                  borderColor: borderColor ?? getButtonBackgroundColor(buttonType, customColors, colors),
+                  borderColor: getButtonBackgroundColor(buttonType, customColors, colors),
                 }),
                 fontWeight: 'normal',
                 backgroundColor: backgroundColor ?? getButtonBackgroundColor(buttonType, customColors, colors),
@@ -350,22 +350,22 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, colors),
                   ...border({
                     ...border100,
-                    borderColor: borderColor ?? getButtonBackgroundHoverColor(buttonType, colors),
+                    borderColor: getButtonBackgroundHoverColor(buttonType, colors),
                   }),
                 },
                 ':active': {
                   backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, colors),
                   ...border({
                     ...border100,
-                    borderColor: borderColor ?? getButtonBackgroundHoverColor(buttonType, colors),
+                    borderColor: getButtonBackgroundHoverColor(buttonType, colors),
                   }),
                 },
                 ':disabled': {
-                  borderColor: borderColor ?? light2,
+                  borderColor: light2,
                   backgroundColor: backgroundColor ?? light7,
                   color: color ?? dark4,
                   ':hover': {
-                    borderColor: borderColor ?? light2,
+                    borderColor: light2,
                     backgroundColor: backgroundColor ?? light7,
                     color: color ?? dark4,
                   },
