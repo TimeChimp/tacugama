@@ -1,4 +1,4 @@
-import { Column, ColumnApi, GridApi, ValueFormatterParams } from '@ag-grid-community/core';
+import { Column, GridApi, ValueFormatterParams } from '@ag-grid-community/core';
 import { DEFAULT_PDF_HEADER_HEIGHT, DEFAULT_PDF_ROW_HEIGHT } from '../../../models';
 import { Alignment, Margins, PdfHeaderCell, PdfTableCell, PrintParams, Translations } from '../types';
 
@@ -196,7 +196,6 @@ export const getDocDefinition = (gridApi: GridApi, printParams: PrintParams, tra
           }
           const valueFormatterParams: ValueFormatterParams = {
             api: gridApi,
-            columnApi: gridApi as unknown as ColumnApi,
             column: column as unknown as Column,
             node: gridApi?.getRowNode(node.id as string) ?? null,
             data: node,

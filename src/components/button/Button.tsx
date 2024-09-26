@@ -39,6 +39,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       rootOverrides,
       color,
       backgroundColor,
+      borderColor,
       cursorType,
       ...rest
     }: ButtonProps,
@@ -97,7 +98,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 ...getPadding(),
                 ...border({
                   ...border100,
-                  borderColor: getButtonBackgroundColor(buttonType, customColors, colors),
+                  borderColor: borderColor ?? getButtonBackgroundColor(buttonType, customColors, colors),
                 }),
                 fontWeight: 'normal',
                 height: getButtonHeight(),
@@ -108,14 +109,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                   backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, colors),
                   ...border({
                     ...border100,
-                    borderColor: getButtonBackgroundHoverColor(buttonType, colors),
+                    borderColor: borderColor ?? getButtonBackgroundHoverColor(buttonType, colors),
                   }),
                 },
                 ':active': {
                   backgroundColor: backgroundColor ?? getButtonBackgroundHoverColor(buttonType, colors),
                   ...border({
                     ...border100,
-                    borderColor: getButtonBackgroundHoverColor(buttonType, colors),
+                    borderColor: borderColor ?? getButtonBackgroundHoverColor(buttonType, colors),
                   }),
                 },
                 ':disabled': {
@@ -250,19 +251,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 color: color ?? dark1,
                 ...border({
                   ...border300,
-                  borderColor: light2,
+                  borderColor: borderColor ?? light2,
                 }),
                 ...borderRadius(radius200),
                 ...getPadding(),
                 ...transitionProperties,
                 ':hover': {
                   backgroundColor: backgroundColor ?? primaryB,
-                  borderColor: dark4,
+                  borderColor: borderColor ?? dark4,
                   ...transitionProperties,
                 },
                 ':active': {
                   backgroundColor: backgroundColor ?? primaryB,
-                  borderColor: dark4,
+                  borderColor: borderColor ?? dark4,
                 },
                 ':disabled': {
                   borderColor: light2,
