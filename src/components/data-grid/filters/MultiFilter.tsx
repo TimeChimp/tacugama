@@ -17,7 +17,6 @@ export const MultiFilter = ({
   title,
   initialSelectedFilterIds,
   isFilterActive,
-  applyFiltersLabel,
   onSetFilterClear,
   onApplyFilter,
 }: MultiFilterProps) => {
@@ -26,9 +25,7 @@ export const MultiFilter = ({
   const {
     theme: {
       current: {
-        sizing: { scale300, scale600 },
         customSizing: { scale8750 },
-        customColors: { light4 },
       },
     },
   } = useTheme();
@@ -37,18 +34,14 @@ export const MultiFilter = ({
     setSelectedItems(values.filter((value) => !!initialSelectedFilterIds?.includes(value.id as string)));
   }, [initialSelectedFilterIds]);
 
-  const handleApplyFilter = () => {
-    onApplyFilter(selectedItems.map((item) => item.id as string));
-    setIsOpen(false);
-  };
-
   const handleSelectItem = (item: DropdownItem) => {
-    const filteredSelectedItems = selectedItems.filter(({ id }) => id !== item.id);
-    if (filteredSelectedItems.length < selectedItems.length) {
-      setSelectedItems(filteredSelectedItems);
-      return;
-    }
-    setSelectedItems([...selectedItems, item]);
+    const isSelected = selectedItems.some(({ id }) => id === item.id);
+    const updatedSelectedItems = isSelected
+      ? selectedItems.filter(({ id }) => id !== item.id)
+      : [...selectedItems, item];
+
+    setSelectedItems(updatedSelectedItems);
+    onApplyFilter(updatedSelectedItems.map(({ id }) => id as string));
   };
 
   const preparedValues = values.map((value) => ({
@@ -73,13 +66,6 @@ export const MultiFilter = ({
       isLoading={valuesLoading}
       customList={VirtualScrollList}
       propOverrides={{ bodyProps: () => ({ width: scale8750 }) }}
-      footer={
-        <Block {...padding(scale300, scale600)} backgroundColor={light4}>
-          <Button onClick={handleApplyFilter} width="100%">
-            {applyFiltersLabel}
-          </Button>
-        </Block>
-      }
     >
       <FilterButton
         title={title}

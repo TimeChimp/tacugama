@@ -138,8 +138,7 @@ export const DataGrid = ({
   setIsGrouping,
   defaultSearch,
 }: DataGridProps) => {
-  // @ts-expect-error - AgGridReact is not a valid type
-  const [gridApi, setGridApi] = useState<GridApi>(new GridApi());
+  const [gridApi, setGridApi] = useState<GridApi>();
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns || []);
   const selectedGroupOption = useMemo(
     () => gridColumns?.filter((x) => x?.groupable)?.find((column) => column?.rowGroup),
@@ -341,6 +340,9 @@ export const DataGrid = ({
   );
 
   const handleActivateView = async (id: string) => {
+    if (!gridApi) {
+      return null;
+    }
     const view = allViews?.find((view) => view.id === id);
 
     if (view) {
@@ -695,6 +697,9 @@ export const DataGrid = ({
   }, [filterOnValue, filterOnDate, filters, dates]);
 
   const onFirstDataRendered = () => {
+    if (!gridApi) {
+      return;
+    }
     const activeView = allViews?.find((view) => view.active);
     if (activeView && activeView.viewState) {
       setViewState(gridApi, activeView.viewState);
@@ -819,7 +824,7 @@ export const DataGrid = ({
   return (
     <>
       <Filters
-        api={gridApi}
+        api={gridApi!}
         filtering={filtering}
         filters={filters}
         dates={dates}
@@ -849,7 +854,7 @@ export const DataGrid = ({
           <StyledDataGridHeader $justifyContent={!selection ? 'flex-end' : 'space-between'}>
             {(selection || enableExport) && (
               <DataGridActions
-                gridApi={gridApi}
+                gridApi={gridApi!}
                 columns={gridColumns}
                 rowsSelected={rowsSelected}
                 translations={translations}
@@ -871,7 +876,7 @@ export const DataGrid = ({
                   onSaveViewState={onSaveViewState}
                   onActivateView={handleActivateView}
                   translations={translations}
-                  gridApi={gridApi}
+                  gridApi={gridApi!}
                   onModalClose={onModalClose}
                   onModalOpen={onModalOpen}
                 />
@@ -891,7 +896,7 @@ export const DataGrid = ({
                 </>
               )}
               {isGridColumnApiLoaded && columnToggling && (
-                <HeaderColumnToggle api={gridApi} selectedGroupOption={selectedGroupOption} />
+                <HeaderColumnToggle api={gridApi!} selectedGroupOption={selectedGroupOption} />
               )}
               {!!settings?.length && <HeaderColumnSettings settings={settings} />}
             </FlexItem>

@@ -10,7 +10,6 @@ export interface MultiFilterProps {
   isFilterActive: boolean;
   title: string;
   initialSelectedFilterIds: string[];
-  applyFiltersLabel: string;
   onSetFilterClear: () => void;
   onApplyFilter: (selectedItems: FilterValue['value'][]) => void;
 }

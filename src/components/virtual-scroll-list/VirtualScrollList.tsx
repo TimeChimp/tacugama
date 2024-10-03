@@ -6,7 +6,7 @@ import { borderRadius, padding } from '../../utils';
 
 const LIST_ITEM_HEIGHT = 42;
 const EMPTY_LIST_HEIGHT = 72;
-const MAX_LIST_HEIGHT = 200;
+const MAX_LIST_HEIGHT = 300;
 
 export const VirtualScrollList = React.forwardRef<HTMLUListElement, any>((props: any, ref) => {
   const children = React.Children.toArray(props.children);
