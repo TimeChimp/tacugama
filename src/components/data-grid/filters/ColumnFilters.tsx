@@ -30,7 +30,7 @@ export const ColumnFilters = ({
   setDates,
   setSelectedFilterIds,
   selectedFilterIds,
-  translations: { search, lessFilters, allFilters, clearFilters, applyFilters },
+  translations: { search, lessFilters, allFilters, clearFilters },
   datepickerTranslations,
   filterOnValue,
   filterOnMultiValues,
@@ -277,7 +277,6 @@ export const ColumnFilters = ({
                       isFilterActive={isSetFilterActive(columnField)}
                       onSetFilterClear={() => onSetFilterClear(columnField)}
                       onApplyFilter={handleFilterMultiValues(columnField)}
-                      applyFiltersLabel={applyFilters}
                     />
                   </StyledFilterColumn>
                 );

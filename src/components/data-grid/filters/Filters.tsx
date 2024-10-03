@@ -5,7 +5,6 @@ import { SearchInput } from '../../input';
 import { ColumnFilters } from './ColumnFilters';
 import { debounce } from '../../../utils';
 
-const SEARCH_INPUT_TEST_ID = 'data-grid-search';
 const RESIZE_EVENT = 'resize';
 
 export const Filters = ({
@@ -63,13 +62,7 @@ export const Filters = ({
     <StyledDataGridFilters ref={ref}>
       {filtering && (
         <StyledDataGridSearch>
-          <SearchInput
-            testId={SEARCH_INPUT_TEST_ID}
-            size="mini"
-            placeholder={searchBar}
-            onChange={onSearchChange}
-            value={searchValue}
-          />
+          <SearchInput placeholder={searchBar} onChange={onSearchChange} value={searchValue} />
         </StyledDataGridSearch>
       )}
       <ColumnFilters
