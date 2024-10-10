@@ -118,7 +118,7 @@
     "file-saver": "^2.0.5",
     "framer-motion": "^11.0.14",
     "isomorphic-unfetch": "^3.1.0",
-    "pdfmake": "^0.1.71",
+    "pdfmake": "^0.2.14",
     "react": "^18",
     "react-color": "^2.19.3",
     "react-dom": "^18",
