@@ -137,6 +137,8 @@ export const DataGrid = ({
   exportFileName,
   setIsGrouping,
   defaultSearch,
+  exportTypes,
+  exportColumnKeys,
 }: DataGridProps) => {
   const [gridApi, setGridApi] = useState<GridApi>();
   const [gridColumns, setGridColumns] = useState<DataGridColumn[]>(columns || []);
@@ -862,6 +864,8 @@ export const DataGrid = ({
                 hideDownload={hideDownload}
                 hideDelete={hideDelete}
                 exportFileName={exportFileName}
+                exportTypes={exportTypes}
+                exportColumnKeys={exportColumnKeys}
               />
             )}
             <FlexItem width="auto" gap={scale300}>

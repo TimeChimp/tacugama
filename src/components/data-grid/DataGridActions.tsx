@@ -24,6 +24,8 @@ export const DataGridActions = ({
   hideDownload,
   hideDelete,
   exportFileName,
+  exportTypes,
+  exportColumnKeys,
 }: DataGridActionsProps) => {
   const [dropdownItems, setDropdownItems] = useState<DropdownItem[]>([]);
 
@@ -40,20 +42,29 @@ export const DataGridActions = ({
 
   useEffect(() => {
     if (gridApi && columns) {
-      const dropdownItems: DropdownItem[] = [
-        {
+      const dropdownItems: DropdownItem[] = [];
+
+      if (!exportTypes || exportTypes.includes('excel')) {
+        dropdownItems.push({
           label: 'Excel',
-          action: () => exportExcel(gridApi, exportFileName),
-        },
-        {
+          action: () => exportExcel(gridApi, exportFileName, exportColumnKeys),
+        });
+      }
+
+      if (!exportTypes || exportTypes.includes('csv')) {
+        dropdownItems.push({
           label: 'CSV',
-          action: () => exportCSV(gridApi, exportFileName),
-        },
-        {
+          action: () => exportCSV(gridApi, exportFileName, exportColumnKeys),
+        });
+      }
+
+      if (!exportTypes || exportTypes.includes('pdf')) {
+        dropdownItems.push({
           label: 'Pdf',
           action: () => exportPdf(gridApi, translations, exportFileName),
-        },
-      ];
+        });
+      }
+
       setDropdownItems(dropdownItems);
     }
   }, [gridApi, columns, translations]);

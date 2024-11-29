@@ -263,6 +263,8 @@ export interface DataGridProps {
   exportFileName?: string;
   setIsGrouping?: (isGrouping: boolean) => void;
   defaultSearch?: string;
+  exportTypes?: ExportType[];
+  exportColumnKeys?: string[];
 }
 
 export interface DataGridView {
@@ -459,6 +461,8 @@ export interface DataGridIconProps {
   color: string;
 }
 
+export type ExportType = 'csv' | 'excel' | 'pdf';
+
 export interface DataGridActionsProps {
   gridApi: GridApi;
   columns: DataGridColumn[];
@@ -468,6 +472,8 @@ export interface DataGridActionsProps {
   hideDownload?: boolean;
   hideDelete?: boolean;
   exportFileName?: string;
+  exportTypes?: ExportType[];
+  exportColumnKeys?: string[];
 }
 
 export type PageOrientation = 'portrait' | 'landscape';
