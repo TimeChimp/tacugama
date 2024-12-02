@@ -67,7 +67,7 @@ export const DataGridActions = ({
 
       setDropdownItems(dropdownItems);
     }
-  }, [gridApi, columns, translations]);
+  }, [gridApi, columns, translations, exportTypes, exportColumnKeys, exportFileName]);
 
   if (hideDownload && hideDelete) {
     return null;
