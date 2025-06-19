@@ -5,7 +5,7 @@ import { DeepPartial } from '../utils';
 export const customColors: CustomColors = {
   // Primary
   primaryDarker: '#473E93',
-  primaryMain: '#6559D2',
+  primaryMain: '#4F46E5',
   primaryLighter: '#BAB4EA',
   primarySubtle: '#F7F7FD',
 

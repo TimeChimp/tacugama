@@ -127,7 +127,7 @@ Default.args = {
   flyOutHeight: 200,
   legendData: [
     { name: 'Forecast', symbol: { fill: '#9E97E2', type: 'minus' } },
-    { name: 'Budget', symbol: { fill: '#6559D2', type: 'minus' } },
+    { name: 'Budget', symbol: { fill: '#4F46E5', type: 'minus' } },
     { name: 'Logged', symbol: { fill: '#87878F', type: 'minus' } },
   ],
 };
