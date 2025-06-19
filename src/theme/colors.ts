@@ -67,7 +67,7 @@ export const customColors: CustomColors = {
   // Purple
   purple0: '#3D357E',
   purple1: '#5147A8',
-  purple2: '#4F46E5',
+  purple2: '#6559D2',
   purple3: '#9E97E2',
   purple4: '#F0EEFA',
   purple5: '#E0DEF6',
