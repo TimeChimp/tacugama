@@ -29,7 +29,7 @@ export interface Theme {
 }
 
 const defaultTheme: ThemeOptionsProps = {
-  primary: '#6559D2',
+  primary: '#4F46E5',
   isDarkMode: false,
 };
 

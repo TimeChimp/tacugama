@@ -5,7 +5,7 @@ export default create({
   base: 'light',
 
   colorPrimary: '#10c7a2',
-  colorSecondary: '#6559d2',
+  colorSecondary: '#4F46E5',
 
   brandTitle: 'TimeChimp',
   brandUrl: 'https://timechimp.com',
