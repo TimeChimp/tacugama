@@ -110,7 +110,7 @@
     "@phosphor-icons/react": "^2.1.5",
     "@timechimp/timechimp-typescript-helpers": "^3.0.4",
     "@types/bytes": "^3.1.1",
-    "baseui": "^12.2.0",
+    "baseui": "^16.1.1",
     "bytes": "^3.1.0",
     "core-js": "^3.27.1",
     "date-fns": "^2.17.0",
@@ -119,10 +119,10 @@
     "framer-motion": "^11.0.14",
     "isomorphic-unfetch": "^3.1.0",
     "pdfmake": "^0.1.71",
-    "react": "^18",
+    "react": ">=18",
     "react-color": "^2.19.3",
-    "react-dom": "^18",
-    "react-hook-form": "^7.41.0",
+    "react-dom": ">=18",
+    "react-hook-form": "^7.71.2",
     "react-movable": "2.5.4",
     "react-number-format": "^4.7.3",
     "react-select": "^5.7.3",
@@ -143,5 +143,9 @@
   "lint-staged": {
     "*.{ts,tsx}": "eslint --cache --fix",
     "*.{ts,tsx,js,css,md}": "prettier --write"
+  },
+  "overrides": {
+    "minimatch@<=10.2.1": "10.2.1",
+    "brace-expansion@<=2.0.2": "2.0.2"
   }
 }
